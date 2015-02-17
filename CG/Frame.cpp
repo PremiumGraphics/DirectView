@@ -44,34 +44,9 @@ enum {
 
 	ID_TEXTURE,
 
-	ID_TRIANGLE,
-	ID_QUAD,
-	ID_CIRCLE,
-	ID_BOX,
-	ID_SPHERE,
-	ID_CYLINDER,
-	ID_CONE,
-
-	ID_TEXTURE_FILE_NEW,
-	ID_TEXTURE_FILE_OPEN,
-	ID_TEXTURE_FILE_SAVE,
-	ID_TEXTURE_FILE_SAVE_AS,
-	ID_TEXTURE_FILE_CLOSE,
-
-	ID_SHADER_FILE_OPEN,
-	ID_SHADER_FILE_SAVE,
-	ID_SHADER_FILE_SAVE_AS,
-	ID_SHADER_FILE_CLOSE,
-
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
 	ID_RENDERING_PHONG,
-
-	ID_VTK_FILE_NEW,
-	ID_VTK_FILE_OPEN,
-	ID_VTK_FILE_SAVE,
-	ID_VTK_FILE_SAVE_AS,
-	ID_VTK_FILE_CLOSE,
 
 	ID_CAMERA_FIT,
 
@@ -122,27 +97,6 @@ Frame::Frame(Model* model)
 	Connect( ID_IMPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnImport ) );
 	Connect( ID_EXPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnExport ) );
 
-	wxRibbonPanel *shape2dPanel = new wxRibbonPanel( page, wxID_ANY, wxT("2D") );
-	wxRibbonToolBar *shape2d = new wxRibbonToolBar( shape2dPanel );
-	shape2d->AddTool( ID_CIRCLE, wxImage( "../Resource/shape-circle.png"), wxT("Circle") );
-	shape2d->AddTool( ID_QUAD, wxImage( "../Resource/3D-plane.png" ), wxT("Quad") );
-	shape2d->AddTool( ID_TRIANGLE, wxImage( "../Resource/shape-triangle-equilateral.png"), wxT("Triangle") );
-
-	wxRibbonPanel *shape3dPanel = new wxRibbonPanel( page, wxID_ANY, wxT("3D") );
-	wxRibbonToolBar* shape3d = new wxRibbonToolBar( shape3dPanel );
-	shape3d->AddTool( ID_SPHERE, wxImage( "../Resource/3D-Sphere.png"), "Sphere" );
-	shape3d->AddTool( ID_BOX, wxImage( "../Resource/3D-Cube.png"), "Box" );
-	shape3d->AddTool( ID_CYLINDER, wxImage( "../Resource/3D-cylinder.png"), "Cylinder" );
-	shape3d->AddTool( ID_CONE,	wxImage( "../Resource/3D-pyramid.png"), "Cone" );
-
-	Connect( ID_TRIANGLE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnTriangle ) );
-	Connect( ID_QUAD,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnQuad ) );
-	Connect( ID_CIRCLE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCircle ) );
-	Connect( ID_BOX,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnBox ) );
-	Connect( ID_SPHERE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnSphere ) );
-	Connect( ID_CYLINDER,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCylinder ) );
-	Connect( ID_CONE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCone ) );
-		
 	//wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	//wxRibbonToolBar* operation = new wxRibbonToolBar( operationPanel );
 
@@ -210,11 +164,10 @@ Frame::Frame(Model* model)
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxDefaultPosition, wxSize( 300, 100 ), polygonProperty, model->getPolygons() );
-	materialTree = new MaterialTree( this, wxDefaultPosition, wxSize( 300, 100), materialProperty );
-	lightTree= new LightTree( this, wxDefaultPosition, wxSize( 300, 100 ), lightProperty, model->getLights() );
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, model->getPolygons() );
+	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty );
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, model->getLights() );
 
-	hSizer->Add( view, 0, wxEXPAND );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );
@@ -226,6 +179,8 @@ Frame::Frame(Model* model)
 	rSizer->Add( lightProperty, 0, wxEXPAND );
 
 	hSizer->Add( rSizer, 0, wxEXPAND );
+	hSizer->Add(view, 0, wxEXPAND);
+
 
 	vSizer->Add( bar, 0, wxEXPAND );
 	vSizer->Add( hSizer, 0, wxEXPAND );
@@ -504,133 +459,6 @@ void Frame::OnPolygonTranslate( wxRibbonToolBarEvent& )
 void Frame::OnPolygonScale( wxRibbonToolBarEvent& )
 {
 	view->setMode( View::PolygonScale );
-}
-
-#include "../Math/Box.h"
-
-void Frame::OnTriangle( wxRibbonToolBarEvent& )
-{
-	/*
-	model->getPolygonModel()->createTriangle();
-	view->Refresh();
-	polygonTree->build();
-	*/
-}
-
-void Frame::OnQuad( wxRibbonToolBarEvent& )
-{
-	/*
-	model->getPolygonModel()->createQuad();
-	view->Refresh();
-	polygonTree->build();
-	*/
-}
-
-void Frame::OnCircle( wxRibbonToolBarEvent& )
-{
-	/*
-	const int divideNumber = wxGetNumberFromUser
-		(
-		wxT("Divide Number"),
-		wxEmptyString,
-		wxEmptyString,
-		90,
-		3,
-		360,
-		this
-		);
-
-	assert( divideNumber >= 3 && divideNumber <= 360 );
-
-	model->getPolygonModel()->createCircle( 360.0f / divideNumber );
-	view->Refresh();
-	polygonTree->build();
-	*/
-}
-
-void Frame::OnBox( wxRibbonToolBarEvent& )
-{
-	/*
-	Box b( Vector3d( -0.5, -0.5, -0.5 ), Vector3d( 0.5, 0.5, 0.5 ) );
-	Graphics::Polygon* p = PolygonConverter::toPolygon( b );
-	model->getPolygonModel()->push_back( p );
-	view->Refresh();
-	polygonTree->build();
-	*/
-}
-
-void Frame::OnSphere( wxRibbonToolBarEvent& )
-{
-	const int divideNumber1 = wxGetNumberFromUser
-		(
-		wxT("U Divide Number"),
-		wxEmptyString,
-		wxEmptyString,
-		90,
-		3,
-		360,
-		this
-		);
-
-	assert( divideNumber1 >= 3 && divideNumber1 <= 360 );
-
-	const int divideNumber2 = wxGetNumberFromUser
-		(
-		wxT("V Divide Number"),
-		wxEmptyString,
-		wxEmptyString,
-		90,
-		3,
-		360,
-		this
-		);
-
-	assert( divideNumber2 >= 3 && divideNumber2 <= 360 );
-
-
-	//model->getPolygonModel()->createSphere( 360.0 / divideNumber1, 360.0 / divideNumber2 );
-	view->Refresh();
-	polygonTree->build();
-}
-
-void Frame::OnCylinder( wxRibbonToolBarEvent& )
-{
-	const int divideNumber = wxGetNumberFromUser
-		(
-		wxT("Divide Number"),
-		wxEmptyString,
-		wxEmptyString,
-		90,
-		3,
-		360,
-		this
-		);
-
-	assert( divideNumber >= 3 && divideNumber <= 360 );
-
-	//model->getPolygonModel()->createCylinder( 360.0 / divideNumber );
-	view->Refresh();
-	polygonTree->build();
-}
-
-void Frame::OnCone( wxRibbonToolBarEvent& )
-{
-	const int divideNumber = wxGetNumberFromUser
-		(
-		wxT("Divide Number"),
-		wxEmptyString,
-		wxEmptyString,
-		90,
-		3,
-		360,
-		this
-		);
-
-	assert( divideNumber >= 3 && divideNumber <= 360 );
-
-	//model->getPolygonModel()->createCone( 360.0 / divideNumber );
-	view->Refresh();
-	polygonTree->build();
 }
 
 void Frame::OnWireFrame( wxRibbonToolBarEvent& )

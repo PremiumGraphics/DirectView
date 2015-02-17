@@ -25,7 +25,8 @@ TEST( AVSCellTest, TestPoint )
 	EXPECT_EQ( AVSCell::Type::Point, cell->getType() );
 	EXPECT_EQ( 1, cell->getConnections().size() );
 
-	EXPECT_EQ( 100, cell->getConnections().front().front() );
+	const ConnectionVector expected{ { 100 } };
+	EXPECT_EQ( expected, cell->getConnections() );
 }
 
 TEST( AVSCellTest, TestLine )
@@ -46,19 +47,19 @@ TEST( AVSCellTest, TestTri )
 	std::unique_ptr< AVSCell > cell( AVSCell::create( AVSCell::Type::Tri, indices ) );
 	EXPECT_EQ( AVSCell::Type::Tri, cell->getType() );
 
-	const ConnectionVector expected{
-		Connection{ 100, 200, 300, 100 }
-	};
+	const ConnectionVector expected{ Connection{ 100, 200, 300, 100 } };
 	EXPECT_EQ( expected, cell->getConnections() );
 }
 
-TEST( AVSCellTest, TestQuad )
+TEST(AVSCellTest, TestQuad)
 {
 	const VertexIndices indices = { 100, 200, 300, 400 };
-	std::unique_ptr< AVSCell > cell( AVSCell::create( AVSCell::Type::Quad, indices ) );
-	EXPECT_EQ( AVSCell::Type::Quad, cell->getType() );
-	const Connection expected{100, 200, 300, 400, 100 };
-	EXPECT_EQ( expected, cell->getConnections().front());
+	std::unique_ptr< AVSCell > cell(AVSCell::create(AVSCell::Type::Quad, indices));
+	EXPECT_EQ(AVSCell::Type::Quad, cell->getType());
+
+	const ConnectionVector& actual = cell->getConnections();
+	const ConnectionVector expected{ { 100, 200, 300, 400, 100 } };
+	EXPECT_EQ( expected, actual );
 }
 
 TEST( AVSCellTest, TestTet )

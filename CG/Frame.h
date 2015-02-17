@@ -59,20 +59,6 @@ private:
 
 	void OnPolygonScale( wxRibbonToolBarEvent& );
 
-	void OnTriangle( wxRibbonToolBarEvent& );
-
-	void OnQuad( wxRibbonToolBarEvent& );
-
-	void OnCircle( wxRibbonToolBarEvent& );
-
-	void OnBox( wxRibbonToolBarEvent& );
-
-	void OnSphere( wxRibbonToolBarEvent& );
-
-	void OnCylinder( wxRibbonToolBarEvent& );
-
-	void OnCone( wxRibbonToolBarEvent& );
-
 	void OnWireFrame( wxRibbonToolBarEvent& );
 
 	void OnPhong( wxRibbonToolBarEvent& );
