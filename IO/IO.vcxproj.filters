@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MTLFile.cpp" />
+    <ClCompile Include="OBJFile.cpp" />
+    <ClCompile Include="STLFile.cpp" />
+    <ClCompile Include="VTKObjectFactory.cpp" />
+    <ClCompile Include="VTKFile.cpp" />
+    <ClCompile Include="AVSUCDFile.cpp" />
+    <ClCompile Include="ColorRGBAMapIO.cpp" />
+    <ClCompile Include="VTKObject.cpp" />
+    <ClCompile Include="VTKCell.cpp" />
+    <ClCompile Include="VTKGeometryPart.cpp" />
+    <ClCompile Include="Volume.cpp" />
+    <ClCompile Include="AVSCell.cpp" />
+    <ClCompile Include="AVSFLDFile.cpp" />
+    <ClCompile Include="VTKAttributePart.cpp" />
+    <ClCompile Include="VTKPoints.cpp" />
+    <ClCompile Include="VTKType.cpp" />
+    <ClCompile Include="CGSFile.cpp" />
+    <ClCompile Include="XMLIOHelper.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="PolygonFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="MTLFile.h" />
+    <ClInclude Include="OBJFile.h" />
+    <ClInclude Include="STLFile.h" />
+    <ClInclude Include="VTKObject.h" />
+    <ClInclude Include="VTKObjectFactory.h" />
+    <ClInclude Include="VTKFile.h" />
+    <ClInclude Include="VTKType.h" />
+    <ClInclude Include="VTKAttribute.h" />
+    <ClInclude Include="VTKConnection.h" />
+    <ClInclude Include="AVSUCDFile.h" />
+    <ClInclude Include="ColorRGBAMapIO.h" />
+    <ClInclude Include="VTKCell.h" />
+    <ClInclude Include="VTKGeometryPart.h" />
+    <ClInclude Include="Volume.h" />
+    <ClInclude Include="AVSCell.h" />
+    <ClInclude Include="AVSFLDFile.h" />
+    <ClInclude Include="VTKAttributePart.h" />
+    <ClInclude Include="VTKPoints.h" />
+    <ClInclude Include="CGSFile.h" />
+    <ClInclude Include="XMLIOHelper.h" />
+    <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="PolygonFactory.h" />
+  </ItemGroup>
+</Project>

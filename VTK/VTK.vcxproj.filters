@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="ColorMapPanel.cpp" />
+    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="VTKTree.cpp" />
+    <ClCompile Include="VTKPropertyGrid.cpp" />
+    <ClCompile Include="ColorMapCanvas.cpp" />
+    <ClCompile Include="WireFrameRenderer.cpp" />
+    <ClCompile Include="VectorRenderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="ColorMapPanel.h" />
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="VTKTree.h" />
+    <ClInclude Include="VTKPropertyGrid.h" />
+    <ClInclude Include="ColorMapCanvas.h" />
+    <ClInclude Include="WireFrameRenderer.h" />
+    <ClInclude Include="VectorRenderer.h" />
+  </ItemGroup>
+</Project>
