@@ -6,8 +6,6 @@
 
 #include "../Graphics/ShaderObject.h"
 
-#include "../Model.h"
-
 
 namespace Crystal {
 	namespace Math {
@@ -24,7 +22,7 @@ public:
 
 	void build();
 
-	void render( const int width, const int height, Model* model );
+	void render( const int width, const int height );
 
 private:
 	Graphics::ShaderObject shader;

@@ -53,13 +53,17 @@ public:
 
 	float getShininess() const { return shininess; }
 
-	Texture texture;
+	Texture getTexture() const { return texture; }
+
+	void setTexture(const Texture& texture) { this->texture = texture; }
 
 private:
 	float shininess;
 	Graphics::ColorRGBA<float> ambient;
 	Graphics::ColorRGBA<float> diffuse;
 	Graphics::ColorRGBA<float> specular;
+
+	Texture texture;
 
 };
 

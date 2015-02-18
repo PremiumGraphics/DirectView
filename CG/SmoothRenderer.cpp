@@ -89,10 +89,10 @@ void SmoothRenderer::build()
 	shader.link( vShader, fShader );
 }
 
-#include "../Converter.h"
 
-void SmoothRenderer::render(const int width, const int height, Model* model )
+void SmoothRenderer::render(const int width, const int height )
 {	
+	/*
 	Camera<float>* camera = model->getCamera();
 	PolygonCollection* polygon = model->getPolygonModel();
 
@@ -166,4 +166,5 @@ void SmoothRenderer::render(const int width, const int height, Model* model )
 	shader.release();
 	
 	assert( GL_NO_ERROR == glGetError() );
+	*/
 }

@@ -36,10 +36,11 @@ void MaterialProperty::setValue( Material* m )
 	Append( new wxColourProperty( wxT("Specular"), wxPG_LABEL, Converter::toWxColor(m->getSpecular() ) ) );
 	Append( new wxFloatProperty( wxT("Shininess"), wxPG_LABEL, m->getShininess() ) );
 
-	Append( new wxStringProperty( wxT("AmbientTexture"), wxPG_LABEL, m->texture.ambient ) );
-	Append( new wxStringProperty( wxT("DiffuseTexture"), wxPG_LABEL, m->texture.diffuse) );
-	Append( new wxStringProperty( wxT("SpecularTexture"), wxPG_LABEL, m->texture.shininess) );
-	Append( new wxStringProperty(wxT("BumpMap"), wxPG_LABEL, m->texture.bump) );
+	const Texture& texture = m->getTexture();
+	Append( new wxStringProperty( wxT("AmbientTexture"), wxPG_LABEL, texture.ambient ) );
+	Append( new wxStringProperty( wxT("DiffuseTexture"), wxPG_LABEL, texture.diffuse) );
+	Append( new wxStringProperty( wxT("SpecularTexture"), wxPG_LABEL, texture.shininess) );
+	Append( new wxStringProperty(wxT("BumpMap"), wxPG_LABEL, texture.bump) );
 	/*
     wxBitmap myTestBitmap(60, 15, 32);
     wxMemoryDC mdc;
@@ -132,33 +133,35 @@ void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
         return;
 	}
 
+	Texture texture = m->getTexture();
 	if( name == "AmbientTexture") {
 		const wxString& filename = getImageFile();
 		if (filename.IsEmpty()) {
 			return;
 		}
-		m->texture.ambient = filename.ToStdString();
+		texture.ambient = filename.ToStdString();
 	}
 	else if( name == "DiffuseTexture") {
 		const wxString& filename = getImageFile();
 		if (filename.IsEmpty()) {
 			return;
 		}
-		m->texture.diffuse = filename.ToStdString();
+		texture.diffuse = filename.ToStdString();
 	}
 	else if (name == "SpecularTexture") {
 		const wxString& filename = getImageFile();
 		if (filename.IsEmpty()) {
 			return;
 		}
-		m->texture.shininess = filename.ToStdString();
+		texture.shininess = filename.ToStdString();
 	}
 	else if (name == "BumpMap") {
 		const wxString& filename = getImageFile();
 		if (filename.IsEmpty()) {
 			return;
 		}
-		m->texture.bump = filename.ToStdString();
+		texture.bump = filename.ToStdString();
 	}
+	m->setTexture(texture);
 	setValue(m);
 }
