@@ -21,7 +21,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		LightProperty* property,
-		std::list<Graphics::Light> lights
+		std::list<Graphics::Light*>* lights
 		);
 
 	~LightTree();
@@ -53,7 +53,7 @@ private:
 
 	LightProperty* property;
 
-	std::list<Graphics::Light> lights_;
+	std::list<Graphics::Light*>* lights_;
 
 	typedef std::map<wxTreeItemId, Graphics::Light*> ItemLightMap;
 	ItemLightMap map;

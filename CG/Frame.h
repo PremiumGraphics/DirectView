@@ -32,7 +32,7 @@ public:
 
 	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
 
-	std::list<Graphics::Light>* getLights() const { return lights.get(); }
+	std::list<Graphics::Light*>* getLights() { return &lights; }
 
 private:
 	void OnNew( wxRibbonToolBarEvent& );
@@ -94,8 +94,8 @@ private:
 
 	Graphics::Camera<float> camera;
 	std::list<Graphics::Polygon*> polygons;
-	std::unique_ptr< std::list<Graphics::Material*> > materials;
-	std::unique_ptr< std::list<Graphics::Light> > lights;
+	std::list<Graphics::Material*> materials;
+	std::list<Graphics::Light*> lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

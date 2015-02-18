@@ -21,12 +21,13 @@ public:
 		wxWindow *parent,
 		const wxPoint& pos,
 		const wxSize& size,
-		MaterialProperty* property
+		MaterialProperty* property,
+		std::list<Graphics::Material*>* materials
 		);
 
 	~MaterialTree();
 
-	void build( std::unique_ptr< std::list<Graphics::Material*> >& materials);
+	void build();
 
 private:
 	void OnMenu(wxTreeEvent& event);
@@ -37,7 +38,7 @@ private:
 
 	void OnItemActivated(wxTreeEvent& event);
 
-	std::unique_ptr< std::list< Graphics::Material* > > materials;
+	std::list< Graphics::Material* >* materials;
 
 	MaterialProperty* property;
 

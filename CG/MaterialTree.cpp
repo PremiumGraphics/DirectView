@@ -14,7 +14,8 @@ MaterialTree::MaterialTree
 	wxWindow *parent,
 	const wxPoint& pos,
 	const wxSize& size,
-	MaterialProperty* property
+	MaterialProperty* property,
+	std::list<Material*>* materials
 	)
 	: 
 	wxTreeCtrl(
@@ -23,7 +24,8 @@ MaterialTree::MaterialTree
 	pos,
 	size
 	),
-	property( property )
+	property( property ),
+	materials( materials )
 {
 	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( MaterialTree::OnMenu ) );
 	Connect( this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler( MaterialTree::OnItemActivated ) );
@@ -31,14 +33,16 @@ MaterialTree::MaterialTree
 	const wxTreeItemId root = AddRoot("Material");
 }
 
-void MaterialTree::build( std::unique_ptr< std::list<Material*> >& materials)
+void MaterialTree::build()
 {
+	map.clear();
 	//this->materials = materials;
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Material" );
 
 	for( Material* m : *materials ) {
 		const wxTreeItemId id = AppendItem( root, m->name );
+		map[id] = m;
 	}
 }
 
@@ -63,29 +67,20 @@ MaterialTree::~MaterialTree()
 void MaterialTree::OnItemActivated( wxTreeEvent& e )
 {
 	const wxTreeItemId id = e.GetItem();
-	const std::string& name = GetItemText( id ).ToStdString();
 
-	/*
-	for( Material* m : model->getMaterials() ) {
-		if( m->name == name ) {
-			property->setValue( m );
-		}
+	if (map.find(id) == map.end()) {
+		return;
 	}
-	*/
+	Material* m = map[id];
+	property->setValue(m);
 }
 
 void MaterialTree::OnAdd( wxMenuEvent& )
 {
-	const wxTreeItemId root = GetRootItem();
-	//const wxTreeItemId id = AppendItem( root, "Item" );
-	std::string name = "MaterialX";
-	AppendItem( root, name );
-
-	//Material* m = new Material();
-	materials->push_back(new Material());
-	//m->name = name;
-	//model->push_back( m );
-	//model->push_back( m );
+	Material* m = new Material();
+	m->name == "test";
+	materials->push_back(m);
+	build();
 }
 
 void MaterialTree::OnDelete( wxMenuEvent& )

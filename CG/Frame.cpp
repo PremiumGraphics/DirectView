@@ -54,9 +54,7 @@ enum {
 #include "PolygonTree.h"
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
-	materials(new std::list<Material*>()),
-	lights(new std::list<Light>())
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10"))
 {
     wxRibbonBar* bar = new wxRibbonBar
 		(
@@ -164,8 +162,8 @@ Frame::Frame()
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
 	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons );
-	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, *lights );
+	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty, &materials);
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, &lights );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );
@@ -218,7 +216,7 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 	view->Refresh();
 
 	polygonTree->build( polygons );
-	materialTree->build( materials );
+	materialTree->build();
 }
 
 void Frame::OnClose( wxRibbonToolBarEvent& )
@@ -348,7 +346,7 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		view->Refresh();
 
 		polygonTree->build( polygons );
-		materialTree->build( materials );
+		materialTree->build();
 
 		OnCameraFit( e );
 	}
@@ -368,7 +366,7 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		view->Refresh();
 
 		polygonTree->build( polygons );
-		materialTree->build( materials );
+		materialTree->build();
 
 		OnCameraFit( e );
 	}

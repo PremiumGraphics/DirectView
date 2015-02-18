@@ -57,6 +57,7 @@ PolygonTree::PolygonTree
 
 void PolygonTree::build(const std::list<Crystal::Graphics::Polygon*>& polygons)
 {
+	map.clear();
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Polygon" );
 
