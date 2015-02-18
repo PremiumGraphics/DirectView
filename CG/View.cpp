@@ -183,26 +183,26 @@ void View::draw(const wxSize& size)
 		//smoothRenderer.render( width, height, frame->getModel() );
 	}
 	else if( renderingMode == RenderingMode::WireFrame ) {
+		VectorVector positions;
+		std::vector< std::vector<unsigned int> > indices;
+		for (Graphics::Polygon* p : frame->getPolygons()) {
+			const VectorVector& ps = p->positions;
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			for (const Graphics::Face& f : p->faces) {
+				const std::vector<unsigned int>& ids = f.vertexIds;
+				indices.push_back(ids);
+			}
+		}
 		WireFrameRenderer::Param param;
-		param.positions = {
+		param.positions = toArray(positions);/* {
 			0.0, 0.0, 0.0,
 			1.0, 0.0, 0.0,
 			1.0, 1.0, 0.0
-		}; 
+		}; */
 		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
 		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
 
-		std::vector< std::vector<unsigned int> > indices{ { 0, 1, 2 } };
 		wireFrameRenderer.render(width, height, param, indices);
-		/*
-		if (isCell) {
-			meshRenderer.renderCells(width, height, param, indices, texColors, false);
-		}
-		else {
-			param.values = vertexValues;
-			meshRenderer.render(width, height, param, indices, texColors, false);
-		}
-		*/
 	}
 	else if( renderingMode == RenderingMode::Flat ) {
 		//flatRenderer.render( width, height, frame->getModel() );

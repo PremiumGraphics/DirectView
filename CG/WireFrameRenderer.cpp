@@ -77,6 +77,10 @@ void WireFrameRenderer::render(const int width, const int height, const Param& p
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
+	if ( param.positions.empty() || indices.empty() ) {
+		return;
+	}
+
 	assert(GL_NO_ERROR == glGetError());
 
 	glViewport(0, 0, width, height);

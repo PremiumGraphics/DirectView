@@ -32,6 +32,8 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
+	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
+
 private:
 	void OnNew( wxRibbonToolBarEvent& );
 
@@ -91,6 +93,7 @@ private:
 	wxLocale locale;
 
 	Graphics::Camera<float> camera;
+	std::list<Graphics::Polygon*> polygons;
 
 
 	wxDECLARE_NO_COPY_CLASS( Frame );

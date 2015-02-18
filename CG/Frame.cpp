@@ -164,7 +164,7 @@ Frame::Frame(Model* model)
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, model->getPolygons() );
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons );
 	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty );
 	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, model->getLights() );
 
@@ -187,7 +187,7 @@ Frame::Frame(Model* model)
 
 	//sizer->Add( tree, 0, wxEXPAND );
 
-	polygonTree->build(model->getPolygons());
+	polygonTree->build( polygons );
 	lightTree->build();
 
 	SetSizer( vSizer );
@@ -197,7 +197,9 @@ Frame::Frame(Model* model)
 
 Frame::~Frame()
 {
-
+	for (Graphics::Polygon* p : polygons) {
+		delete p;
+	}
 }
 
 void Frame::OnNew( wxRibbonToolBarEvent& e )
@@ -212,7 +214,7 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 	
 	view->Refresh();
 
-	polygonTree->build(model->getPolygons());
+	polygonTree->build( polygons );
 	materialTree->build();
 }
 
@@ -342,7 +344,7 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		polygonTree->build(model->getPolygons());
+		polygonTree->build( polygons );
 		materialTree->build();
 
 		OnCameraFit( e );
@@ -351,10 +353,10 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		STLFile file;
 		const bool isOK = file.read( filename.ToStdString() );
 		PolygonFactory factory;
-		model->polygons.push_back( factory.create(file) );
+		polygons.push_back( factory.create(file) );
 		view->Refresh();
 
-		polygonTree->build(model->getPolygons());
+		polygonTree->build( polygons );
 		materialTree->build();
 
 		OnCameraFit( e );

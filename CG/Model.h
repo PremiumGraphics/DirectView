@@ -37,10 +37,6 @@ public:
 
 	std::list<Graphics::Material> getMaterials() const { return materials; }
 
-	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
-	
-	std::list<Graphics::Polygon*> polygons;
-
 
 private:
 	const std::unique_ptr< Graphics::Camera<float> > camera;
