@@ -22,19 +22,20 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 		Vector3d(1.0, 1.0, 1.0)
 	};
 	OBJFace face;
-	face.setVertexIndices({ 0, 1, 2 } );
+	face.setVertexIndices({ 0, 1, 2 });
 	OBJGroup group;
-	group.setPositions( positions );
+	group.setPositions(positions);
 	group.setFaces(std::vector < OBJFace > {face});
 	file.setGroups({ group });
 	PolygonFactory factory;
-	const Polygon& polygon = factory.create(file);
+	Polygon* polygon = factory.create(file);
 	Polygon expected;
 	expected.positions = positions;
 	Face f;
 	f.vertexIds = { 0, 1, 2 };
 	expected.faces = std::vector < Face > { f };
-	EXPECT_EQ( expected, polygon );
+	EXPECT_EQ( expected, *polygon );
+	delete polygon;
 }
 
 TEST(PolygonFactoryTest, TestCreateFromSTL)
@@ -48,11 +49,11 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 		Vector3d(1.0, 0.0, 0.0),
 		Vector3d(1.0, 1.0, 1.0)
 	};
-	cell.setPositions( positions );
+	cell.setPositions(positions);
 	file.setCells(STLCellVector{ cell });
-	
+
 	PolygonFactory factory;
-	const Polygon& polygon = factory.create(file);
+	Polygon* polygon = factory.create(file);
 	Face face;
 	face.normalIds = { 0 };
 	face.vertexIds = { 0, 1, 2 };
@@ -60,5 +61,5 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	expected.faces = std::vector < Face > { face };
 	expected.positions = positions;
 	expected.normals = { normal };
-	EXPECT_EQ( expected, polygon );
+	EXPECT_EQ( expected, *polygon );
 }

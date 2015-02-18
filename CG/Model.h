@@ -39,9 +39,9 @@ public:
 
 	std::list<Graphics::Material> getMaterials() const { return materials; }
 
-	std::list<Graphics::Polygon> getPolygons() const { return polygons; }
+	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
 	
-	std::list<Graphics::Polygon> polygons;
+	std::list<Graphics::Polygon*> polygons;
 
 
 private:

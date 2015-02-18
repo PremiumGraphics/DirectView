@@ -10,14 +10,9 @@ namespace Crystal {
 	namespace IO {
 class PolygonFactory {
 public:
-	Graphics::Polygon create(const OBJFile& file);
+	Graphics::Polygon* create(const OBJFile& file);
 
-	Graphics::Polygon create(const STLFile& file);
-
-	std::list< Graphics::Polygon > getPolygons() const { return polygons; }
-
-private:
-	std::list< Graphics::Polygon > polygons;
+	Graphics::Polygon* create(const STLFile& file);
 };
 	}
 }

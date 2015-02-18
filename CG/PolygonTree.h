@@ -20,12 +20,12 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		std::list<Graphics::Polygon> polygons
+		std::list<Graphics::Polygon*> polygons
 		);
 
 	~PolygonTree();
 
-	void build(const std::list<Crystal::Graphics::Polygon>& polygons);
+	void build(const std::list<Crystal::Graphics::Polygon*>& polygons);
 
 	void OnItemActivated(wxTreeEvent& event);
 
@@ -40,7 +40,9 @@ private:
 
 	PolygonProperty* property;
 
-	std::list<Graphics::Polygon> polygons;
+	std::list<Graphics::Polygon*> polygons;
+
+	std::map< wxTreeItemId, Graphics::Polygon* > map;
 };
 
 	}
