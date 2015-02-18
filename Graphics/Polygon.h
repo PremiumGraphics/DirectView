@@ -27,9 +27,11 @@ public:
 	std::vector < Math::Vector3d > positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;
+	std::string name;
 
 	bool operator==(const Polygon& rhs) const {
 		return
+			name == rhs.name &&
 			faces == rhs.faces &&
 			positions == rhs.positions &&
 			normals == rhs.normals &&

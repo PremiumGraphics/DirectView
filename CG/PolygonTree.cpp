@@ -25,7 +25,7 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	std::list<Crystal::CG::Polygon> polygons
+	std::list<Crystal::Graphics::Polygon> polygons
 	)
 	: 
 	wxTreeCtrl(
@@ -55,16 +55,16 @@ PolygonTree::PolygonTree
     AssignStateImageList(states);
 }
 
-void PolygonTree::build()
+void PolygonTree::build(const std::list<Crystal::Graphics::Polygon>& polygons)
 {
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Polygon" );
 
-	for( Polygon& polygon : polygons ) {
-		/*
-		const wxTreeItemId id = AppendItem( root, polygon. );
-		SetItemState( id, polygon->isSelected );
-		*/
+	this->polygons = polygons;
+
+	for( const Graphics::Polygon& polygon : polygons ) {
+		const wxTreeItemId id = AppendItem( root, polygon.name );
+		//SetItemState( id, polygon->isSelected );
 	}
 }
 

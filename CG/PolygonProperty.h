@@ -1,6 +1,7 @@
 #ifndef __CRYSTAL_APP_POLYGON_PROPERTY_H__
 #define __CRYSTAL_APP_POLYGON_PROPERTY_H__
 
+#include "../Graphics/Polygon.h"
 #include "../Graphics/Material.h"
 #include "Model.h"
 
@@ -18,7 +19,7 @@ public:
 	void OnChanged( wxPropertyGridEvent& event );
 
 private:
-	Polygon polygon;
+	Graphics::Polygon polygon;
 };
 
 	}

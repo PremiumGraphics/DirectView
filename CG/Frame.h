@@ -3,6 +3,8 @@
 
 #include "Model.h"
 
+#include "../IO/PolygonFactory.h"
+
 #include <memory>
 
 namespace Crystal {

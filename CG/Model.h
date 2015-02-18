@@ -5,6 +5,8 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 
+#include "../IO/PolygonFactory.h"
+
 #include <memory>
 
 #include <map>
@@ -23,9 +25,6 @@ struct Position {
 };
 */
 
-class Polygon {
-};
-
 class Model {
 public:
 	Model();
@@ -40,13 +39,18 @@ public:
 
 	std::list<Graphics::Material> getMaterials() const { return materials; }
 
-	std::list<Polygon> getPolygons() const { return polygons; }
+	std::list<Graphics::Polygon> getPolygons() const { return polygons; }
+	
+	std::list<Graphics::Polygon> polygons;
+
 
 private:
 	const std::unique_ptr< Graphics::Camera<float> > camera;
 	std::list<Graphics::Light> lights;
 	std::list<Graphics::Material> materials;
-	std::list<Polygon> polygons;
+	//std::list<Polygon> polygons;
+
+	//IO::PolygonFactory factory;
 
 	wxDECLARE_NO_COPY_CLASS( Model );
 };

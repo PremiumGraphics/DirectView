@@ -187,7 +187,7 @@ Frame::Frame(Model* model)
 
 	//sizer->Add( tree, 0, wxEXPAND );
 
-	polygonTree->build();
+	polygonTree->build(model->getPolygons());
 	lightTree->build();
 
 	SetSizer( vSizer );
@@ -212,7 +212,7 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 	
 	view->Refresh();
 
-	polygonTree->build();
+	polygonTree->build(model->getPolygons());
 	materialTree->build();
 }
 
@@ -303,6 +303,7 @@ void Frame::OnLightTranslate( wxRibbonToolBarEvent& )
 	view->setMode( View::LightTranslate );
 }
 
+#include "../IO/PolygonFactory.h"
 
 void Frame::OnImport( wxRibbonToolBarEvent& e )
 {
@@ -341,17 +342,19 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		polygonTree->build();
+		polygonTree->build(model->getPolygons());
 		materialTree->build();
 
 		OnCameraFit( e );
 	}
 	else if( ext == "stl" || ext == "STL" ) {
-		STLFile stl;
-		const bool isOK = stl.read( filename.ToStdString() );
+		STLFile file;
+		const bool isOK = file.read( filename.ToStdString() );
+		PolygonFactory factory;
+		model->polygons.push_back( factory.create(file) );
 		view->Refresh();
 
-		polygonTree->build();
+		polygonTree->build(model->getPolygons());
 		materialTree->build();
 
 		OnCameraFit( e );
