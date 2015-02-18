@@ -72,6 +72,18 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 
 void WireFrameRenderer::render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices )
 {
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	assert(GL_NO_ERROR == glGetError());
+
+	glViewport(0, 0, width, height);
+
+	glUseProgram(shader.getId());
+
+
 	const Location& location = getLocations();
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(param.projectionMatrix.front()));
@@ -90,51 +102,4 @@ void WireFrameRenderer::render(const int width, const int height, const Param& p
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	glUseProgram(0);
-
-	//Camera<float>* camera = model->getCamera();
-	//PolygonCollection* polygon = model->getPolygonModel();
-
-	//const Matrix4d<float>& perspectiveMatrix = camera->getPerspectiveMatrix();
-
-	//assert( GL_NO_ERROR == glGetError() );
-
-	//glViewport( 0, 0, width, height );
-
-	//glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
-	//glClear( GL_COLOR_BUFFER_BIT );	
-	//glClear( GL_DEPTH_BUFFER_BIT );
-	//glEnable( GL_DEPTH_TEST );
-
-	//shader.apply();
-	//shader.setUniformMatrix( "projectionMatrix", perspectiveMatrix );
-	//shader.setUniformMatrix( "modelviewMatrix", camera->getModelviewMatrix() );
-	//
-	//for( Crystal::Graphics::Polygon* model : polygon->getPolygons() ) {
-	//	/*if( model->isSelected ) {
-	//		shader.setUniformVector( "color", &( rColor.front() ) );
-	//	}
-	//	else {
-	//		shader.setUniformVector( "color", &( bColor.front() ) );
-	//	}
-	//	*/
-	//	const FaceVector& faces = model->getFaces();
-	//	for( Face* f : faces ) {
-	//		std::vector< float > positions;
-	//		VertexVector vertices = f->getVertices();
-	//		for( Vertex* v : vertices ) {
-	//			const std::vector< float >& ps = v->position.toArray();
-	//			positions.insert( positions.end(), ps.begin(), ps.end() );		
-	//		}
-	//		shader.setVertex( "position", positions );
-	//		shader.drawLines( positions.size() / 3 );
-	//	}
-	//}
-
-	//shader.bindFrag( "fragColor" );
-
-	//shader.release();
-	//
-
-	//assert( GL_NO_ERROR == glGetError() );
-
 }

@@ -30,6 +30,8 @@ public:
 
 	Model* getModel() const { return model; }
 
+	Graphics::Camera<float>* getCamera() { return &camera; }
+
 private:
 	void OnNew( wxRibbonToolBarEvent& );
 
@@ -71,6 +73,7 @@ private:
 
 	void OnCapture( wxRibbonToolBarEvent& e );
 
+
 private:
 	Model* model;
 
@@ -86,6 +89,9 @@ private:
 	View* view;
 
 	wxLocale locale;
+
+	Graphics::Camera<float> camera;
+
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

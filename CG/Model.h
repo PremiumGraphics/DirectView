@@ -35,8 +35,6 @@ public:
 
 	std::list<Graphics::Light> getLights() const { return lights; }
 
-	Graphics::Camera<float>* getCamera() const { return camera.get(); }
-
 	std::list<Graphics::Material> getMaterials() const { return materials; }
 
 	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }

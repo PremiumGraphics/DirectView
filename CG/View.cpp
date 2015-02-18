@@ -34,17 +34,6 @@ renderingMode( WireFrame )
 
 	build();
 
-	std::vector< float > pixels;
-	pixels.push_back( 1.0f );
-	pixels.push_back( 0.0f );
-	pixels.push_back( 0.0f );
-	pixels.push_back( 1.0f );
-
-	pixels.push_back( 0.0f );
-	pixels.push_back( 0.0f );
-	pixels.push_back( 1.0f );
-	pixels.push_back( 1.0f );
-
 	//texture = new TextureObject( pixels, 2, 1 );
 }
 
@@ -77,7 +66,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	Camera<float>* camera = frame->getModel()->getCamera();
+	Camera<float>* camera = frame->getCamera();
 	Vector3d pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -129,8 +118,8 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CameraTranslate ) {
-			frame->getModel()->getCamera()->move( pos );
-			frame->getModel()->getCamera()->addAngle( angle );
+			frame->getCamera()->move( pos );
+			frame->getCamera()->addAngle( angle );
 		}
 		else if( mode == LightTranslate ) {
 			/*
@@ -194,8 +183,26 @@ void View::draw(const wxSize& size)
 		//smoothRenderer.render( width, height, frame->getModel() );
 	}
 	else if( renderingMode == RenderingMode::WireFrame ) {
-		//wireFrameRenderer.render( width, height, frame->getModel() );
-		//onScreenRenderer.render( width, height, wireFrameRenderer.getTexture() );//polygonRenderer.getTexture() ); //polygonRenderer.getDepthTexture() );
+		WireFrameRenderer::Param param;
+		param.positions = {
+			0.0, 0.0, 0.0,
+			1.0, 0.0, 0.0,
+			1.0, 1.0, 0.0
+		}; 
+		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
+		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
+
+		std::vector< std::vector<unsigned int> > indices{ { 0, 1, 2 } };
+		wireFrameRenderer.render(width, height, param, indices);
+		/*
+		if (isCell) {
+			meshRenderer.renderCells(width, height, param, indices, texColors, false);
+		}
+		else {
+			param.values = vertexValues;
+			meshRenderer.render(width, height, param, indices, texColors, false);
+		}
+		*/
 	}
 	else if( renderingMode == RenderingMode::Flat ) {
 		//flatRenderer.render( width, height, frame->getModel() );
