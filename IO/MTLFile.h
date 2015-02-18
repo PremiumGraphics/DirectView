@@ -14,9 +14,6 @@
 #include <string>
 
 namespace Crystal {
-	namespace Graphics {
-		class Texture;
-	}
 	namespace IO {
 
 struct MTLTextureOption {

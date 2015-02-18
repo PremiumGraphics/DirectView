@@ -9,6 +9,14 @@
 namespace Crystal {
 	namespace Graphics {
 
+struct Texture
+{
+	std::string ambient;
+	std::string diffuse;
+	std::string bump;
+	std::string shininess;
+};
+
 class Material
 {
 public:
@@ -45,11 +53,14 @@ public:
 
 	float getShininess() const { return shininess; }
 
+	Texture texture;
+
 private:
 	float shininess;
 	Graphics::ColorRGBA<float> ambient;
 	Graphics::ColorRGBA<float> diffuse;
 	Graphics::ColorRGBA<float> specular;
+
 };
 
 	}

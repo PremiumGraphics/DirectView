@@ -32,11 +32,12 @@ void MaterialProperty::setValue( Material* m )
 	Append( new wxStringProperty("Name", wxPG_LABEL, m->name) );
 	//Append( new wxIntProperty( "ID", wxPG_LABEL, m->getId() ) );
 	Append( new wxColourProperty( wxT("Diffuse"), wxPG_LABEL, Converter::toWxColor(m->getDiffuse() ) ) );
-	Append( new wxColourProperty(wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(m->getAmbient() ) ) );
-	Append( new wxColourProperty(wxT("Specular"), wxPG_LABEL, Converter::toWxColor(m->getSpecular() ) ) );
-	Append( new wxFloatProperty(wxT("Shininess"), wxPG_LABEL, m->getShininess() ) );
+	Append( new wxColourProperty( wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(m->getAmbient() ) ) );
+	Append( new wxColourProperty( wxT("Specular"), wxPG_LABEL, Converter::toWxColor(m->getSpecular() ) ) );
+	Append( new wxFloatProperty( wxT("Shininess"), wxPG_LABEL, m->getShininess() ) );
 
-	//Append(new wxStringProperty( "AmbientTexture", wxPG_LABEL, m->texture.getAmbientFileName() ) );
+	Append( new wxStringProperty( wxT("AmbientTexture"), wxPG_LABEL, m->texture.ambient ) );
+	Append( new wxStringProperty( wxT("DiffuseTexture"), wxPG_LABEL, m->texture.diffuse) );
 	/*
     wxBitmap myTestBitmap(60, 15, 32);
     wxMemoryDC mdc;
@@ -46,7 +47,7 @@ void MaterialProperty::setValue( Material* m )
     mdc.DrawLine(0, 0, 60, 15);
     mdc.SelectObject(wxNullBitmap);
 	SetPropertyImage( wxT("AmbientTexture"), myTestBitmap );
-	*/
+	
 	SetPropertyImage( "AmbientTexture", wxBitmap( 24, 24 ) ); //m->texture.getAmbientBitmap() );
 
 	//Append(new wxStringProperty( wxT("DiffuseTexture"), wxPG_LABEL, m->texture.getDiffuseFileName() ) );
@@ -57,6 +58,7 @@ void MaterialProperty::setValue( Material* m )
 
 	//Append(new wxStringProperty( "BumpMap", wxPG_LABEL, wxEmptyString ) );
 	//SetPropertyImage( "BumpMap", m->texture.bump );
+	*/
 }
 
 void MaterialProperty::OnChange( wxPropertyGridEvent& event )
@@ -117,7 +119,6 @@ void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
 			return;
 		}
 
-		/*
 		wxImage image;
 		image.LoadFile( filename );
 
@@ -125,11 +126,12 @@ void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
 			wxMessageBox( wxT("Invalid Image") );
 		}
 
+		/*
 		PreviewPanel panel( this );
 		panel.setImage( image );
 		panel.ShowModal();
 		*/
-		
+		m->texture.ambient = filename.ToStdString();
 		//m->texture.setAmbientFileName( filename.ToStdString() );// = wxBitmap( image );
 		setValue( m );
 	}
@@ -151,13 +153,14 @@ void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
 			return;
 		}
 
-		/*
 		wxImage image;
 		image.LoadFile( filename );
 
 		if( !image.IsOk() ) {
 			wxMessageBox( wxT("Invalid Image") );
 		}
+
+		/*
 
 		PreviewPanel panel( this );
 		panel.setImage( image );
