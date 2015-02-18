@@ -510,17 +510,18 @@ void Frame::OnCameraFit( wxRibbonToolBarEvent& e )
 
 void Frame::OnCapture( wxRibbonToolBarEvent& e )
 {
-	const int width = 1024;//GetClientSize().GetWidth();
-	const int height = 512;//GetClientSize().GetHeight();
-	std::vector< GLubyte > pixels( width * height * 4 );
-	glReadPixels( 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()) );
-	wxImage image( width, height );
+	const int width = view->GetClientSize().GetWidth();
+	const int height = view->GetClientSize().GetHeight();
+	std::vector< GLubyte > pixels(width * height * 4);
+	glReadBuffer(GL_FRONT);
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
+	wxImage image(width, height);
 
 	int index = 0;
 
-	for( int y = 0; y < height; ++y ) {
-		for( int x = 0; x < width; ++x ) {
-			image.SetRGB( x, y, pixels[ index ], pixels[ index + 1 ], pixels[ index + 2] );
+	for (int y = height - 1; y >= 0; --y) {
+		for (int x = 0; x < width; ++x) {
+			image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
 			index += 4;
 		}
 	}
@@ -531,13 +532,14 @@ void Frame::OnCapture( wxRibbonToolBarEvent& e )
 		wxEmptyString,
 		wxEmptyString,
 		wxEmptyString,
-		"BMP files (*.bmp)|*.bmp",
-		//"PNG files (*.png)|*.png",
+		"BMP files (*.bmp)|*.bmp|"
+		"PNG files (*.png)|*.png",
 		wxFD_SAVE
 		);
 
-	if( filename.empty() ) {
+	if (filename.empty()) {
 		return;
 	}
-	image.SaveFile( filename, wxBITMAP_TYPE_BMP );
+	image.SaveFile(filename, wxBITMAP_TYPE_BMP);
+
 }
