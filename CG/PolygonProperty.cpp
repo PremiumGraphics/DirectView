@@ -21,19 +21,17 @@ PolygonProperty::PolygonProperty( wxWindow* parent, const wxSize& size ) :
 	Connect( wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler( PolygonProperty::OnDoubleClick ) );
 }
 
-/*
-void PolygonProperty::build( Crystal::Graphics::Polygon* polygon, Crystal::Graphics::MaterialCollection* materials)
+void PolygonProperty::build( Crystal::Graphics::Polygon* polygon )
 {
 	this->polygon = polygon;
-	this->materials = materials;
 
 	Clear();
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->name ) );
-	Append( new wxIntProperty("ID", wxPG_LABEL, polygon->getId() ) );
-	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size() ) );
-	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->getVertices().size() ) );
+	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->faces.size() ) );
+	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->positions.size() ) );
 //	Append( new wxMultiChoiceProperty( "Materials",
 
+	/*
 	wxArrayString materialNames;
 	materialNames.Add( wxEmptyString );
 	const MaterialList& ms = materials->getMaterials();
@@ -59,8 +57,8 @@ void PolygonProperty::build( Crystal::Graphics::Polygon* polygon, Crystal::Graph
 	Append( new wxFloatProperty("AngleX", wxPG_LABEL, angle.getX() ) );
 	Append( new wxFloatProperty("AngleY", wxPG_LABEL, angle.getY() ) );
 	Append( new wxFloatProperty("AngleZ", wxPG_LABEL, angle.getZ() ) );
+	*/
 }
-*/
 
 void PolygonProperty::OnDoubleClick( wxPropertyGridEvent& event )
 {

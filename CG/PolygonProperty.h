@@ -12,14 +12,14 @@ class PolygonProperty : public wxPropertyGrid {
 public:
 	PolygonProperty( wxWindow* parent, const wxSize& size );
 
-//	void build( Graphics::Polygon* polygon, Crystal::Graphics::MaterialCollection* materials );
+	void build( Graphics::Polygon* polygon );
 
 	void OnDoubleClick( wxPropertyGridEvent& event );
 
 	void OnChanged( wxPropertyGridEvent& event );
 
 private:
-	Graphics::Polygon polygon;
+	Graphics::Polygon* polygon;
 };
 
 	}

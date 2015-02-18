@@ -64,6 +64,7 @@ void PolygonTree::build(const std::list<Crystal::Graphics::Polygon*>& polygons)
 
 	for( Graphics::Polygon* polygon : polygons ) {
 		const wxTreeItemId id = AppendItem( root, polygon->name );
+		map[id] = polygon;
 		//SetItemState( id, polygon->isSelected );
 	}
 }
@@ -119,18 +120,14 @@ void PolygonTree::OnDelete( wxMenuEvent& )
 	Delete(item);
 }
 
-#include "MaterialTree.h"
-
 void PolygonTree::OnItemActivated(wxTreeEvent& event)
 {
 	const wxTreeItemId id = event.GetItem();
-	const std::string& name = GetItemText( id ).ToStdString();
-	/*
-	for( Graphics::Polygon* polygon : model->getPolygons() ) {
-		if( polygon->name == name ) {
-			property->build( polygon, model->materialModel.get() );
-		}
+	
+	if (map.find(id) == map.end()) {
+		return;
 	}
-	*/
+	Graphics::Polygon* p = map[id];
+	property->build(p);
 }
 
