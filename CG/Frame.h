@@ -1,8 +1,8 @@
 #ifndef __CRYSTAL_CG_FRAME_H__
 #define __CRYSTAL_CG_FRAME_H__
 
-#include "Model.h"
-
+#include "../Graphics/Camera.h"
+#include "../Graphics/Light.h"
 #include "../IO/PolygonFactory.h"
 
 #include <memory>

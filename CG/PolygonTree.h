@@ -4,8 +4,9 @@
 #include <vector>
 #include <string>
 #include <list>
+#include <map>
 
-#include "Model.h"
+#include "../Graphics/Polygon.h"
 
 namespace Crystal {
 	namespace CG {

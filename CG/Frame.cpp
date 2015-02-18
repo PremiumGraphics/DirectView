@@ -10,8 +10,6 @@
 #include "LightTree.h"
 #include "PolygonProperty.h"
 
-#include "Model.h"
-
 
 #include "wx/filename.h"
 

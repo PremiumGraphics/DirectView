@@ -3,7 +3,6 @@
 
 #include "../Graphics/Polygon.h"
 #include "../Graphics/Material.h"
-#include "Model.h"
 
 namespace Crystal {
 	namespace CG {
