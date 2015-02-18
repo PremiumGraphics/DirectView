@@ -25,24 +25,24 @@ MaterialTree::MaterialTree
 	),
 	property( property )
 {
-	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( MaterialTree::onMenu ) );
+	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( MaterialTree::OnMenu ) );
 	Connect( this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler( MaterialTree::OnItemActivated ) );
 
-	build();
+	const wxTreeItemId root = AddRoot("Material");
 }
 
-void MaterialTree::build()
+void MaterialTree::build( std::unique_ptr< std::list<Material*> >& materials)
 {
+	//this->materials = materials;
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Material" );
-	/*
-	for( Material* m : model->getMaterials() ) {
+
+	for( Material* m : *materials ) {
 		const wxTreeItemId id = AppendItem( root, m->name );
 	}
-	*/
 }
 
-void MaterialTree::onMenu(wxTreeEvent& event)
+void MaterialTree::OnMenu(wxTreeEvent& event)
 {
 	wxMenu menu;
 	
@@ -81,12 +81,11 @@ void MaterialTree::OnAdd( wxMenuEvent& )
 	std::string name = "MaterialX";
 	AppendItem( root, name );
 
-	/*
-	Material* m = model->create();
-	m->name = name;
-	model->push_back( m );
+	//Material* m = new Material();
+	materials->push_back(new Material());
+	//m->name = name;
 	//model->push_back( m );
-	*/
+	//model->push_back( m );
 }
 
 void MaterialTree::OnDelete( wxMenuEvent& )

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <map>
+#include <memory>
 
 #include "../Graphics/Material.h"
 
@@ -24,10 +26,10 @@ public:
 
 	~MaterialTree();
 
-	void build();
+	void build( std::unique_ptr< std::list<Graphics::Material*> >& materials);
 
 private:
-	void onMenu(wxTreeEvent& event);
+	void OnMenu(wxTreeEvent& event);
 
 	void OnAdd( wxMenuEvent& );
 
@@ -35,8 +37,11 @@ private:
 
 	void OnItemActivated(wxTreeEvent& event);
 
+	std::unique_ptr< std::list< Graphics::Material* > > materials;
 
 	MaterialProperty* property;
+
+	std::map< wxTreeItemId, Graphics::Material* > map;
 };
 
 	}

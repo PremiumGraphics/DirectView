@@ -54,7 +54,9 @@ enum {
 #include "PolygonTree.h"
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10"))
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
+	materials(new std::list<Material*>()),
+	lights(new std::list<Light>())
 {
     wxRibbonBar* bar = new wxRibbonBar
 		(
@@ -163,7 +165,7 @@ Frame::Frame()
 
 	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons );
 	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lights );
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, *lights );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );
@@ -193,6 +195,11 @@ Frame::Frame()
 
 Frame::~Frame()
 {
+	clear();
+}
+
+void Frame::clear()
+{
 	for (Graphics::Polygon* p : polygons) {
 		delete p;
 	}
@@ -207,14 +214,11 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 		return;
 	}
 
-	for (Graphics::Polygon* p : polygons) {
-		delete p;
-	}
-
+	clear();
 	view->Refresh();
 
 	polygonTree->build( polygons );
-	materialTree->build();
+	materialTree->build( materials );
 }
 
 void Frame::OnClose( wxRibbonToolBarEvent& )
@@ -344,19 +348,27 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		view->Refresh();
 
 		polygonTree->build( polygons );
-		materialTree->build();
+		materialTree->build( materials );
 
 		OnCameraFit( e );
 	}
 	else if( ext == "stl" || ext == "STL" ) {
 		STLFile file;
 		const bool isOK = file.read( filename.ToStdString() );
+		if (isOK) {
+			wxMessageBox(wxT("インポートに成功しました。"));
+		}
+		else {
+			wxMessageBox(wxT("インポートに失敗しました。"), wxEmptyString, wxICON_WARNING);
+			return;
+		}
+
 		PolygonFactory factory;
 		polygons.push_back( factory.create(file) );
 		view->Refresh();
 
 		polygonTree->build( polygons );
-		materialTree->build();
+		materialTree->build( materials );
 
 		OnCameraFit( e );
 	}

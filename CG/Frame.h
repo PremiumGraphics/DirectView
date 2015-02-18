@@ -32,8 +32,7 @@ public:
 
 	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
 
-	std::list<Graphics::Light> getLights() const { return lights; }
-
+	std::list<Graphics::Light>* getLights() const { return lights.get(); }
 
 private:
 	void OnNew( wxRibbonToolBarEvent& );
@@ -76,6 +75,7 @@ private:
 
 	void OnCapture( wxRibbonToolBarEvent& e );
 
+	void clear();
 
 private:
 
@@ -94,7 +94,8 @@ private:
 
 	Graphics::Camera<float> camera;
 	std::list<Graphics::Polygon*> polygons;
-	std::list<Graphics::Light> lights;
+	std::unique_ptr< std::list<Graphics::Material*> > materials;
+	std::unique_ptr< std::list<Graphics::Light> > lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
