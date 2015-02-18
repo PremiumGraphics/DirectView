@@ -55,9 +55,8 @@ enum {
 
 #include "PolygonTree.h"
 
-Frame::Frame(Model* model)
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
- model( model )
+Frame::Frame()
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10"))
 {
     wxRibbonBar* bar = new wxRibbonBar
 		(
@@ -166,8 +165,7 @@ Frame::Frame(Model* model)
 
 	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons );
 	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, model->getLights() );
-
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lights );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );
@@ -210,8 +208,11 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 		OnFileSaveAs( e );
 		return;
 	}
-	model->clear();
-	
+
+	for (Graphics::Polygon* p : polygons) {
+		delete p;
+	}
+
 	view->Refresh();
 
 	polygonTree->build( polygons );

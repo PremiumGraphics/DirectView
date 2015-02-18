@@ -19,7 +19,7 @@ bool App::OnInit()
 	}
 
 	SetVendorName( wxT("VendorName") );
-	new Frame( &doc );
+	new Frame();
 	
 	return true;
 }

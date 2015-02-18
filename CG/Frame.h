@@ -24,15 +24,16 @@ namespace Crystal {
 class Frame : public wxFrame//wxMDIParentFrame
 {
 public:
-	Frame(Model* model);
+	Frame();
 
 	~Frame();
-
-	Model* getModel() const { return model; }
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
 	std::list<Graphics::Polygon*> getPolygons() const { return polygons; }
+
+	std::list<Graphics::Light> getLights() const { return lights; }
+
 
 private:
 	void OnNew( wxRibbonToolBarEvent& );
@@ -77,7 +78,6 @@ private:
 
 
 private:
-	Model* model;
 
 	//wxTreeCtrl* tree;
 	PolygonTree* polygonTree;
@@ -94,7 +94,7 @@ private:
 
 	Graphics::Camera<float> camera;
 	std::list<Graphics::Polygon*> polygons;
-
+	std::list<Graphics::Light> lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
