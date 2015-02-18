@@ -38,6 +38,8 @@ void MaterialProperty::setValue( Material* m )
 
 	Append( new wxStringProperty( wxT("AmbientTexture"), wxPG_LABEL, m->texture.ambient ) );
 	Append( new wxStringProperty( wxT("DiffuseTexture"), wxPG_LABEL, m->texture.diffuse) );
+	Append( new wxStringProperty( wxT("SpecularTexture"), wxPG_LABEL, m->texture.shininess) );
+	Append( new wxStringProperty(wxT("BumpMap"), wxPG_LABEL, m->texture.bump) );
 	/*
     wxBitmap myTestBitmap(60, 15, 32);
     wxMemoryDC mdc;
@@ -91,6 +93,35 @@ void MaterialProperty::OnChange( wxPropertyGridEvent& event )
 	}
 }
 
+wxString MaterialProperty::getImageFile()
+{
+	const wxString filename = wxFileSelector
+		(
+		wxT("Open Image"),
+		wxEmptyString,
+		wxEmptyString,
+		wxEmptyString,
+		wxT("BMP files (*.bmp)|*.bmp|")
+		wxT("PNG files (*.png)|*.png|")
+		wxT("JPEG files (*.jpg)|*.jpg"),
+		wxFD_OPEN,
+		this
+		);
+
+	if (filename.IsEmpty()) {
+		return wxEmptyString;
+	}
+
+	wxImage image;
+	image.LoadFile(filename);
+
+	if (!image.IsOk()) {
+		wxMessageBox(wxT("Invalid Image"));
+		return wxEmptyString;
+	}
+	return filename;
+}
+
 void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
 {
     wxPGProperty* property = event.GetProperty();
@@ -102,106 +133,32 @@ void MaterialProperty::OnDoubleClick( wxPropertyGridEvent& event )
 	}
 
 	if( name == "AmbientTexture") {
-		const wxString filename = wxFileSelector
-			(
-			wxT("Open Image"),
-			wxEmptyString,
-			wxEmptyString,
-			wxEmptyString,
-			wxT("BMP files (*.bmp)|*.bmp|")
-			wxT("PNG files (*.png)|*.png|")
-			wxT("JPEG files (*.jpg)|*.jpg"),
-			wxFD_OPEN,
-			this
-			);
-
-		if( filename.IsEmpty() ) {
+		const wxString& filename = getImageFile();
+		if (filename.IsEmpty()) {
 			return;
 		}
-
-		wxImage image;
-		image.LoadFile( filename );
-
-		if( !image.IsOk() ) {
-			wxMessageBox( wxT("Invalid Image") );
-		}
-
-		/*
-		PreviewPanel panel( this );
-		panel.setImage( image );
-		panel.ShowModal();
-		*/
 		m->texture.ambient = filename.ToStdString();
-		//m->texture.setAmbientFileName( filename.ToStdString() );// = wxBitmap( image );
-		setValue( m );
 	}
 	else if( name == "DiffuseTexture") {
-		const wxString filename = wxFileSelector
-			(
-			wxT("Open Image"),
-			wxEmptyString,
-			wxEmptyString,
-			wxEmptyString,
-			wxT("BMP files (*.bmp)|*.bmp|")
-			wxT("PNG files (*.png)|*.png|")
-			wxT("JPEG files (*.jpg)|*.jpg"),
-			wxFD_OPEN,
-			this
-			);
-
-		if( filename.IsEmpty() ) {
+		const wxString& filename = getImageFile();
+		if (filename.IsEmpty()) {
 			return;
 		}
-
-		wxImage image;
-		image.LoadFile( filename );
-
-		if( !image.IsOk() ) {
-			wxMessageBox( wxT("Invalid Image") );
-		}
-
-		/*
-
-		PreviewPanel panel( this );
-		panel.setImage( image );
-		panel.ShowModal();
-		*/
-		
-		//m->texture.setDiffuseFileName( filename.ToStdString() );// image );
-		setValue( m );
+		m->texture.diffuse = filename.ToStdString();
 	}
-	/*
-	else if( name == "BumpMap") {
-		const wxString filename = wxFileSelector
-			(
-			wxT("Open Image"),
-			wxEmptyString,
-			wxEmptyString,
-			wxEmptyString,
-			wxT("BMP files (*.bmp)|*.bmp|")
-			wxT("PNG files (*.png)|*.png|")
-			wxT("JPEG files (*.jpg)|*.jpg"),
-			wxFD_OPEN,
-			this
-			);
-
-		if( filename.IsEmpty() ) {
+	else if (name == "SpecularTexture") {
+		const wxString& filename = getImageFile();
+		if (filename.IsEmpty()) {
 			return;
 		}
-
-		wxImage image;
-		image.LoadFile( filename );
-
-		if( !image.IsOk() ) {
-			wxMessageBox( wxT("Invalid Image") );
-		}
-
-		PreviewPanel panel( this );
-		panel.setImage( image );
-		panel.ShowModal();
-		
-		m->texture.bump = wxBitmap( image );
-		setValue( m );
+		m->texture.shininess = filename.ToStdString();
 	}
-	*/
+	else if (name == "BumpMap") {
+		const wxString& filename = getImageFile();
+		if (filename.IsEmpty()) {
+			return;
+		}
+		m->texture.bump = filename.ToStdString();
+	}
+	setValue(m);
 }

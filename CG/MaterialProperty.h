@@ -20,6 +20,9 @@ public:
 private:
 	Graphics::Material* m;
 	//wxColourProperty* diffuse;
+
+	wxString getImageFile();
+
 };
 
 	}
