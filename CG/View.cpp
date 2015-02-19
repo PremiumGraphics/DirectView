@@ -4,6 +4,8 @@
 #include "../Math/Matrix3d.h"
 #include "../Math/Quaternion.h"
 
+#include "../Graphics/Polygon.h"
+
 #include "Converter.h"
 
 using namespace Crystal::Graphics;
@@ -182,7 +184,7 @@ void View::draw(const wxSize& size)
 	if( renderingMode == RenderingMode::WireFrame ) {
 		VectorVector positions;
 		std::vector< std::vector<unsigned int> > indices;
-		for (const IO::PolygonGroup& g : frame->getPolygons()) {
+		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;
 			positions.insert(positions.end(), ps.begin(), ps.end());
@@ -207,7 +209,7 @@ void View::draw(const wxSize& size)
 		VectorVector positions;
 		VectorVector normals;
 		std::vector< std::vector<unsigned int> > indices;
-		for (const IO::PolygonGroup& g : frame->getPolygons()) {
+		for (const PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;
 			const VectorVector& ns = p->normals;

@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include "../Graphics/Polygon.h"
+
 #include "PolygonFactory.h"
 
 using namespace Crystal::Graphics;

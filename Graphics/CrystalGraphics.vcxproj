@@ -105,6 +105,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Polygon.h" />
+    <ClInclude Include="PolygonGroup.h" />
     <ClInclude Include="ShaderObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

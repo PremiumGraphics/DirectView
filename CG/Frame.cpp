@@ -117,7 +117,7 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonToolBar* rendering = new wxRibbonToolBar( renderingPanel );
-	rendering->AddTool( ID_RENDERING_WIREFRAME, wxImage("../Resource/8-direction.png"), "WireFrame");
+	rendering->AddTool( ID_RENDERING_WIREFRAME, wxImage("../Resource/wireframe.png"), "WireFrame");
 	rendering->AddTool( ID_RENDERING_PHONG, wxImage("../Resource/4-direction.png"),	"Phong");
 	rendering->AddTool( ID_RENDERING_FLAT, wxImage("../Resource/4-direction.png"),	"Flat");
 
@@ -198,7 +198,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	for (IO::PolygonGroup& g : polygons ) {
+	for ( PolygonGroup& g : polygons ) {
 		Graphics::Polygon* p = g.getPolygon();
 		delete p;
 	}

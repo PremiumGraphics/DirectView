@@ -1,5 +1,7 @@
 #include "PolygonFactory.h"
 
+#include "../Graphics/Polygon.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;

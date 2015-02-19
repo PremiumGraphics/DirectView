@@ -30,7 +30,7 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	IO::PolygonGroupList getPolygons() const { return polygons; }
+	Graphics::PolygonGroupList getPolygons() const { return polygons; }
 
 	std::list<Graphics::Light*>* getLights() { return &lights; }
 
@@ -95,7 +95,7 @@ private:
 	wxLocale locale;
 
 	Graphics::Camera<float> camera;
-	IO::PolygonGroupList polygons;
+	Graphics::PolygonGroupList polygons;
 	std::list<Graphics::Material*> materials;
 	std::list<Graphics::Light*> lights;
 

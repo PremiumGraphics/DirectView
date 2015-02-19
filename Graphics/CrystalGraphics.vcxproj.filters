@@ -22,5 +22,6 @@
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="Polygon.h" />
+    <ClInclude Include="PolygonGroup.h" />
   </ItemGroup>
 </Project>
