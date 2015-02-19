@@ -167,31 +167,15 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
 	glUniform3fv(location.eyePos, 1, &(param.eyePos.front()) );
 
-	{
-		const GLenum error = glGetError();
-		assert(GL_NO_ERROR == error);
-	}
-
-
 	glUniform3fv(location.matAmbient, 1, &(param.matAmbient.front()));
 	glUniform3fv(location.matDiffuse, 1, &(param.matDiffuse.front()));
 	glUniform3fv(location.matSpecular, 1, &(param.matSpecular.front()) );
 	glUniform1f(location.shininess, param.shininess);
 	//glUniform3fv( location.matAmbient, 1, m)
 
-	{
-		const GLenum error = glGetError();
-		assert(GL_NO_ERROR == error);
-	}
-
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
 	glVertexAttribPointer(location.normal, 3, GL_FLOAT, GL_FALSE, 0, &(param.normals.front()));
-
-	{
-		const GLenum error = glGetError();
-		assert(GL_NO_ERROR == error);
-	}
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

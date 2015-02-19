@@ -191,13 +191,10 @@ void View::draw(const wxSize& size)
 			}
 		}
 		WireFrameRenderer::Param param;
-		param.positions = toArray(positions);/* {
-			0.0, 0.0, 0.0,
-			1.0, 0.0, 0.0,
-			1.0, 1.0, 0.0
-		}; */
-		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
-		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
+		param.positions = toArray(positions);
+		Camera<float>* c = frame->getCamera();
+		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
+		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
 
 		wireFrameRenderer.render(width, height, param, indices);
 	}
@@ -236,6 +233,21 @@ void View::draw(const wxSize& size)
 			param.matSpecular = m->getSpecular().toArray3();
 			param.shininess = m->getShininess();
 		}
+
+		/*
+		std::list< Material* > materials = frame->getMaterials();
+		for (Graphics::Polygon* p : frame->getPolygons()) {
+			if (p->materialName.empty()) {
+				continue;
+			}
+			Material* mat = nullptr;
+			for (Graphics::Material* m : materials) {
+				if (p->materialName == m->name) {
+					mat = m;
+				}
+			}
+		}
+		*/
 		smoothRenderer.render(width, height, param, indices);
 	}
 	else {

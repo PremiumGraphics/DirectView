@@ -78,7 +78,7 @@ void MaterialTree::OnItemActivated( wxTreeEvent& e )
 void MaterialTree::OnAdd( wxMenuEvent& )
 {
 	Material* m = new Material();
-	m->name == "test";
+	m->name = "test";
 	materials->push_back(m);
 	build();
 }

@@ -20,7 +20,11 @@ struct Texture
 class Material
 {
 public:
-	Material()
+	Material():
+		diffuse(Graphics::ColorRGBA<float>::Black()),
+		specular(Graphics::ColorRGBA<float>::Black()),
+		ambient(Graphics::ColorRGBA<float>::Black()),
+		shininess(1.0f)
 	{}
 
 	Material(const int id) :
