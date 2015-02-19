@@ -179,10 +179,7 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 	
-	if( renderingMode == RenderingMode::Phong ) {
-		//smoothRenderer.render( width, height, frame->getModel() );
-	}
-	else if( renderingMode == RenderingMode::WireFrame ) {
+	if( renderingMode == RenderingMode::WireFrame ) {
 		VectorVector positions;
 		std::vector< std::vector<unsigned int> > indices;
 		for (Graphics::Polygon* p : frame->getPolygons()) {
@@ -208,6 +205,37 @@ void View::draw(const wxSize& size)
 		//flatRenderer.render( width, height, frame->getModel() );
 		//onScreenRenderer.render( width, height, flatRenderer.getTexture() );
 	}
+	else if (renderingMode == RenderingMode::Phong) {
+		VectorVector positions;
+		VectorVector normals;
+		std::vector< std::vector<unsigned int> > indices;
+		for (Graphics::Polygon* p : frame->getPolygons()) {
+			const VectorVector& ps = p->positions;
+			const VectorVector& ns = p->normals;
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			normals.insert(normals.end(), ns.begin(), ns.end());
+			for (const Graphics::Face& f : p->faces) {
+				const std::vector<unsigned int>& ids = f.vertexIds;
+				indices.push_back(ids);
+			}
+		}
+		SmoothRenderer::Param param;
+		param.positions = toArray(positions);
+		param.normals = toArray(normals);
+
+		Camera<float>* c = frame->getCamera();
+		param.eyePos = c->getPos().toArray();
+		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
+		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
+
+		param.lights = *( frame->getLights() );
+
+		param.matAmbient = std::vector<float>{ 0.0f, 0.0f, 0.0f };
+		param.matDiffuse = std::vector<float>{ 0.0f, 0.0f, 0.0f };
+		param.shininess = 1.0f;
+
+		smoothRenderer.render(width, height, param, indices);
+	}
 	else {
 		assert( false );
 	}
@@ -216,8 +244,8 @@ void View::draw(const wxSize& size)
 void View::build()
 {
 	wireFrameRenderer.build();
-	/*
 	smoothRenderer.build();
+	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();
 	*/

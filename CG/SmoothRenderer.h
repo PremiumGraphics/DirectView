@@ -30,7 +30,11 @@ public:
 		std::vector<float> projectionMatrix;
 		std::vector<float> modelviewMatrix;
 		std::vector<float> eyePos;
-		std::vector<Graphics::Light*> lights;
+		std::list<Graphics::Light*> lights;
+		std::vector<float> matAmbient;
+		std::vector<float> matSpecular;
+		std::vector<float> matDiffuse;
+		float shininess;
 	};
 
 	void render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices );
@@ -43,8 +47,6 @@ private:
 		GLuint modelviewMatrix;
 		GLuint position;
 		GLuint normal;
-		GLuint diffuse;
-		GLuint specular;
 		GLuint eyePos;
 		GLuint matAmbient;
 		GLuint matSpecular;

@@ -6,6 +6,7 @@
 #include "Frame.h"
 
 #include "WireFrameRenderer.h"
+#include "SmoothRenderer.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -65,6 +66,7 @@ private:
 	void build();
 
 	WireFrameRenderer wireFrameRenderer;
+	SmoothRenderer smoothRenderer;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

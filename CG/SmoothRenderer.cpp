@@ -95,13 +95,11 @@ SmoothRenderer::Location SmoothRenderer::getLocations()
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
-	location.diffuse = glGetUniformLocation(shader.getId(), "diffuse");
-	location.specular = glGetUniformLocation(shader.getId(), "specular");
 	location.eyePos = glGetUniformLocation(shader.getId(), "eyePosition");
 
 	location.matAmbient = glGetUniformLocation(shader.getId(), "material.ambient");
 	location.matSpecular = glGetUniformLocation(shader.getId(), "material.specular");
-	location.matDiffuse = glGetUniformLocation(shader.getId(), "material.duffse");
+	location.matDiffuse = glGetUniformLocation(shader.getId(), "material.diffse");
 	location.shininess = glGetUniformLocation(shader.getId(), "material.shininess");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
@@ -168,6 +166,10 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
 	glUniform4fv(location.eyePos, 1, &(param.eyePos.front()) );
 
+	glUniform3fv(location.matAmbient, 1, &(param.matAmbient.front()));
+	glUniform3fv(location.matDiffuse, 1, &(param.matDiffuse.front()));
+	glUniform3fv(location.matSpecular, 1, &(param.matSpecular.front()) );
+	glUniform1f(location.shininess, param.shininess);
 	//glUniform3fv( location.matAmbient, 1, m)
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
