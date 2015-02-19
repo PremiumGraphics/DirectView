@@ -183,7 +183,7 @@ Frame::Frame()
 
 	//sizer->Add( tree, 0, wxEXPAND );
 
-	polygonTree->build( polygons );
+	polygonTree->build();
 	lightTree->build();
 
 	SetSizer( vSizer );
@@ -198,9 +198,11 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	for (Graphics::Polygon* p : polygons) {
+	for (IO::PolygonGroup& g : polygons ) {
+		Graphics::Polygon* p = g.getPolygon();
 		delete p;
 	}
+	polygons.clear();
 }
 
 void Frame::OnNew( wxRibbonToolBarEvent& e )
@@ -215,7 +217,7 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 	clear();
 	view->Refresh();
 
-	polygonTree->build( polygons );
+	polygonTree->build();
 	materialTree->build();
 }
 
@@ -345,7 +347,7 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		polygonTree->build( polygons );
+		polygonTree->build();
 		materialTree->build();
 
 		OnCameraFit( e );
@@ -362,10 +364,11 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 		}
 
 		PolygonFactory factory;
-		polygons.push_back( factory.create(file) );
+		PolygonGroupList g = factory.create(file);
+		polygons.insert(polygons.end(), g.begin(), g.end());
 		view->Refresh();
 
-		polygonTree->build( polygons );
+		polygonTree->build();
 		materialTree->build();
 
 		OnCameraFit( e );

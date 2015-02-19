@@ -18,7 +18,8 @@ public:
 	{}
 
 	PolygonGroup(Graphics::Polygon* polygon) :
-		polygon(polygon)
+		polygon(polygon),
+		material(nullptr)
 	{}
 
 	void setPolygon(Graphics::Polygon* polygon) { this->polygon = polygon; }
@@ -40,7 +41,7 @@ class PolygonFactory {
 public:
 	PolygonGroupList create(const OBJFile& file);
 
-	Graphics::Polygon* create(const STLFile& file);
+	PolygonGroupList create(const STLFile& file);
 };
 	}
 }

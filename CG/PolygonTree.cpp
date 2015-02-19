@@ -16,6 +16,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
+using namespace Crystal::IO;
 
 #include <algorithm>
 
@@ -25,7 +26,7 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	std::list<Crystal::Graphics::Polygon*> polygons
+	PolygonGroupList& polygons
 	)
 	: 
 	wxTreeCtrl(
@@ -55,7 +56,7 @@ PolygonTree::PolygonTree
     AssignStateImageList(states);
 }
 
-void PolygonTree::build(const std::list<Crystal::Graphics::Polygon*>& polygons)
+void PolygonTree::build()
 {
 	map.clear();
 	DeleteAllItems();
@@ -63,9 +64,9 @@ void PolygonTree::build(const std::list<Crystal::Graphics::Polygon*>& polygons)
 
 	this->polygons = polygons;
 
-	for( Graphics::Polygon* polygon : polygons ) {
-		const wxTreeItemId id = AppendItem( root, polygon->name );
-		map[id] = polygon;
+	for (const PolygonGroup& g:  polygons) {
+		const wxTreeItemId id = AppendItem( root, g.getPolygon()->name );
+		map[id] = g.getPolygon();
 		//SetItemState( id, polygon->isSelected );
 	}
 }

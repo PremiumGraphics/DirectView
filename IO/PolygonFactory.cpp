@@ -25,7 +25,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 	return polygons;
 }
 
-Polygon* PolygonFactory::create(const STLFile& file)
+PolygonGroupList PolygonFactory::create(const STLFile& file)
 {
 	Polygon* polygon = new Polygon();
 	//polygon.positions = file.
@@ -49,5 +49,5 @@ Polygon* PolygonFactory::create(const STLFile& file)
 
 	polygon->normals = normals;
 	polygon->positions = positions;
-	return polygon;
+	return PolygonGroupList({ polygon } );
 }

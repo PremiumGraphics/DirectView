@@ -182,7 +182,8 @@ void View::draw(const wxSize& size)
 	if( renderingMode == RenderingMode::WireFrame ) {
 		VectorVector positions;
 		std::vector< std::vector<unsigned int> > indices;
-		for (Graphics::Polygon* p : frame->getPolygons()) {
+		for (const IO::PolygonGroup& g : frame->getPolygons()) {
+			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			for (const Graphics::Face& f : p->faces) {
@@ -206,7 +207,8 @@ void View::draw(const wxSize& size)
 		VectorVector positions;
 		VectorVector normals;
 		std::vector< std::vector<unsigned int> > indices;
-		for (Graphics::Polygon* p : frame->getPolygons()) {
+		for (const IO::PolygonGroup& g : frame->getPolygons()) {
+			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;
 			const VectorVector& ns = p->normals;
 			positions.insert(positions.end(), ps.begin(), ps.end());

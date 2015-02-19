@@ -7,6 +7,7 @@
 #include <map>
 
 #include "../Graphics/Polygon.h"
+#include "../IO/PolygonFactory.h"
 
 namespace Crystal {
 	namespace CG {
@@ -21,12 +22,12 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		std::list<Graphics::Polygon*> polygons
+		IO::PolygonGroupList& polygons
 		);
 
 	~PolygonTree();
 
-	void build(const std::list<Crystal::Graphics::Polygon*>& polygons);
+	void build();
 
 	void OnItemActivated(wxTreeEvent& event);
 
@@ -41,7 +42,7 @@ private:
 
 	PolygonProperty* property;
 
-	std::list<Graphics::Polygon*> polygons;
+	IO::PolygonGroupList& polygons;
 
 	std::map< wxTreeItemId, Graphics::Polygon* > map;
 };

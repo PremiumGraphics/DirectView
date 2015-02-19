@@ -41,7 +41,9 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	f.vertexIds = { 0, 1, 2 };
 	expected.faces = std::vector < Face > { f };
 	const Polygon* p = polygons.front().getPolygon();
+	const Material* m = polygons.front().getMaterial();
 	EXPECT_EQ( expected, *p );
+	EXPECT_EQ( nullptr, m );
 	delete p;
 }
 
@@ -60,13 +62,15 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	file.setCells(STLCellVector{ cell });
 
 	PolygonFactory factory;
-	Polygon* polygon = factory.create(file);
+	const PolygonGroupList& polygons = factory.create(file);
 	Face face;
 	face.normalIds = { 0 };
 	face.vertexIds = { 0, 1, 2 };
+	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
 	expected.faces = std::vector < Face > { face };
 	expected.positions = positions;
 	expected.normals = { normal };
-	EXPECT_EQ( expected, *polygon );
+	EXPECT_EQ( expected, *actual );
+	delete actual;
 }
