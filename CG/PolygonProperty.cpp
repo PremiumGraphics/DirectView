@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PolygonProperty.h"
+#include "Converter.h"
 
 #include "../Math/Box.h"
 
@@ -21,14 +22,34 @@ PolygonProperty::PolygonProperty( wxWindow* parent, const wxSize& size ) :
 	Connect( wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler( PolygonProperty::OnDoubleClick ) );
 }
 
-void PolygonProperty::build( Crystal::Graphics::Polygon* polygon )
+void PolygonProperty::build( const PolygonGroup& group )
 {
-	this->polygon = polygon;
+	this->group = group;
+
+	Graphics::Polygon* polygon = group.getPolygon();
 
 	Clear();
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->name ) );
 	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->faces.size() ) );
 	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->positions.size() ) );
+
+	Graphics::Material* m = group.getMaterial();
+	if (m == nullptr) {
+		return;
+	}
+
+	Append(new wxStringProperty("MaterialName", wxPG_LABEL, m->getName()));
+	Append(new wxColourProperty(wxT("Diffuse"), wxPG_LABEL, Converter::toWxColor(m->getDiffuse())));
+	Append(new wxColourProperty(wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(m->getAmbient())));
+	Append(new wxColourProperty(wxT("Specular"), wxPG_LABEL, Converter::toWxColor(m->getSpecular())));
+	Append(new wxFloatProperty(wxT("Shininess"), wxPG_LABEL, m->getShininess()));
+
+	const Texture& texture = m->getTexture();
+	Append(new wxStringProperty(wxT("AmbientTexture"), wxPG_LABEL, texture.ambient));
+	Append(new wxStringProperty(wxT("DiffuseTexture"), wxPG_LABEL, texture.diffuse));
+	Append(new wxStringProperty(wxT("SpecularTexture"), wxPG_LABEL, texture.shininess));
+	Append(new wxStringProperty(wxT("BumpMap"), wxPG_LABEL, texture.bump));
+
 //	Append( new wxMultiChoiceProperty( "Materials",
 
 	/*

@@ -39,7 +39,10 @@ public:
 	{}
 
 public:
-	std::string name;
+
+	std::string getName() const { return name;  }
+
+	void setName(const std::string& name) { this->name = name; }
 
 	void setAmbient( const Graphics::ColorRGBA<float>& a ) { this->ambient = a; }
 
@@ -62,6 +65,8 @@ public:
 	void setTexture(const Texture& texture) { this->texture = texture; }
 
 private:
+	std::string name;
+
 	float shininess;
 	Graphics::ColorRGBA<float> ambient;
 	Graphics::ColorRGBA<float> diffuse;

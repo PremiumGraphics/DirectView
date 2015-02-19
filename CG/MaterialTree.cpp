@@ -41,7 +41,7 @@ void MaterialTree::build()
 	const wxTreeItemId root = AddRoot( "Material" );
 
 	for( Material* m : *materials ) {
-		const wxTreeItemId id = AppendItem( root, m->name );
+		const wxTreeItemId id = AppendItem( root, m->getName() );
 		map[id] = m;
 	}
 }
@@ -78,7 +78,7 @@ void MaterialTree::OnItemActivated( wxTreeEvent& e )
 void MaterialTree::OnAdd( wxMenuEvent& )
 {
 	Material* m = new Material();
-	m->name = "test";
+	m->setName( "test" );
 	materials->push_back(m);
 	build();
 }

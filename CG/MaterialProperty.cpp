@@ -29,7 +29,7 @@ void MaterialProperty::setValue( Material* m )
 {
 	this->m = m;
 	Clear();
-	Append( new wxStringProperty("Name", wxPG_LABEL, m->name) );
+	Append( new wxStringProperty("Name", wxPG_LABEL, m->getName()) );
 	//Append( new wxIntProperty( "ID", wxPG_LABEL, m->getId() ) );
 	Append( new wxColourProperty( wxT("Diffuse"), wxPG_LABEL, Converter::toWxColor(m->getDiffuse() ) ) );
 	Append( new wxColourProperty( wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(m->getAmbient() ) ) );

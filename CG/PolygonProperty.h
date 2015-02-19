@@ -3,6 +3,7 @@
 
 #include "../Graphics/Polygon.h"
 #include "../Graphics/Material.h"
+#include "../Graphics/PolygonGroup.h"
 
 namespace Crystal {
 	namespace CG {
@@ -11,14 +12,14 @@ class PolygonProperty : public wxPropertyGrid {
 public:
 	PolygonProperty( wxWindow* parent, const wxSize& size );
 
-	void build( Graphics::Polygon* polygon );
+	void build( const Graphics::PolygonGroup& group );
 
 	void OnDoubleClick( wxPropertyGridEvent& event );
 
 	void OnChanged( wxPropertyGridEvent& event );
 
 private:
-	Graphics::Polygon* polygon;
+	Graphics::PolygonGroup group;
 };
 
 	}

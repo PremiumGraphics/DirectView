@@ -118,8 +118,8 @@ Frame::Frame()
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonToolBar* rendering = new wxRibbonToolBar( renderingPanel );
 	rendering->AddTool( ID_RENDERING_WIREFRAME, wxImage("../Resource/wireframe.png"), "WireFrame");
-	rendering->AddTool( ID_RENDERING_PHONG, wxImage("../Resource/4-direction.png"),	"Phong");
-	rendering->AddTool( ID_RENDERING_FLAT, wxImage("../Resource/4-direction.png"),	"Flat");
+	rendering->AddTool( ID_RENDERING_PHONG, wxImage("../Resource/surface.png"),	"Phong");
+	rendering->AddTool( ID_RENDERING_FLAT, wxImage("../Resource/surface.png"),	"Flat");
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_PHONG,	wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnPhong ) );
