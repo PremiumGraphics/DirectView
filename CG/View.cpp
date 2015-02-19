@@ -230,10 +230,12 @@ void View::draw(const wxSize& size)
 
 		param.lights = *( frame->getLights() );
 
-		param.matAmbient = std::vector<float>{ 0.0f, 0.0f, 0.0f };
-		param.matDiffuse = std::vector<float>{ 0.0f, 0.0f, 0.0f };
-		param.shininess = 1.0f;
-
+		for (Graphics::Material* m : frame->getMaterials() ) {
+			param.matAmbient = m->getAmbient().toArray3();
+			param.matDiffuse = m->getDiffuse().toArray3();
+			param.matSpecular = m->getSpecular().toArray3();
+			param.shininess = m->getShininess();
+		}
 		smoothRenderer.render(width, height, param, indices);
 	}
 	else {

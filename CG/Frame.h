@@ -34,6 +34,8 @@ public:
 
 	std::list<Graphics::Light*>* getLights() { return &lights; }
 
+	std::list<Graphics::Material*> getMaterials() { return materials; }
+
 private:
 	void OnNew( wxRibbonToolBarEvent& );
 

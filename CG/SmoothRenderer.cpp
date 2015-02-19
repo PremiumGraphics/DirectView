@@ -141,22 +141,23 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 
 		char str[256];
 		sprintf(str, "lights[%d].position", i);
-		const GLint lightLoc = glGetAttribLocation(shader.getId(), str);
+		const GLint lightLoc = glGetUniformLocation(shader.getId(), str);
 		glUniform3fv( lightLoc, 1, &(lightPos.front() ) );
 
 		sprintf(str, "lights[%d].Kd", i);
-		const GLuint kdLoc = glGetAttribLocation(shader.getId(), str);
+		const GLuint kdLoc = glGetUniformLocation(shader.getId(), str);
 		glUniform3fv(kdLoc, 1, &(kd.front()));
 
 		sprintf(str, "lights[%d].Ka", i);
-		const GLuint kaLoc = glGetAttribLocation(shader.getId(), str);
+		const GLuint kaLoc = glGetUniformLocation(shader.getId(), str);
 		glUniform3fv(kaLoc, 1, &(ka.front()));
 
 		sprintf(str, "lights[%d].Ks", i);
-		const GLuint ksLoc = glGetAttribLocation(shader.getId(), str);
+		const GLuint ksLoc = glGetUniformLocation(shader.getId(), str);
 		glUniform3fv(ksLoc, 1, &(ks.front()));
 		++i;
 	}
+
 
 	//shader.setUniformVector("lightIntensity", ColorRGBA<float>::White().toArray3());
 
@@ -164,7 +165,13 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(param.projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
-	glUniform4fv(location.eyePos, 1, &(param.eyePos.front()) );
+	glUniform3fv(location.eyePos, 1, &(param.eyePos.front()) );
+
+	{
+		const GLenum error = glGetError();
+		assert(GL_NO_ERROR == error);
+	}
+
 
 	glUniform3fv(location.matAmbient, 1, &(param.matAmbient.front()));
 	glUniform3fv(location.matDiffuse, 1, &(param.matDiffuse.front()));
@@ -172,8 +179,19 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 	glUniform1f(location.shininess, param.shininess);
 	//glUniform3fv( location.matAmbient, 1, m)
 
+	{
+		const GLenum error = glGetError();
+		assert(GL_NO_ERROR == error);
+	}
+
+
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
 	glVertexAttribPointer(location.normal, 3, GL_FLOAT, GL_FALSE, 0, &(param.normals.front()));
+
+	{
+		const GLenum error = glGetError();
+		assert(GL_NO_ERROR == error);
+	}
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -189,7 +207,8 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 
 	glUseProgram(0);
 
-	assert(GL_NO_ERROR == glGetError());
+	const GLenum error = glGetError();
+	assert(GL_NO_ERROR == error);
 
 	/*	
 	for( Graphics::Polygon* model : polygon->getPolygons() ) {
