@@ -6,12 +6,18 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
+TEST(PolygoGroupTest, Test)
+{
+	PolygonGroup group;
+	EXPECT_EQ( nullptr, group.getPolygon() );
+	EXPECT_EQ( nullptr, group.getMaterial() );
+}
+
 ::std::ostream& operator<<(::std::ostream& os, const Polygon& polygon) {
 	return os
 		<< "faces = " << polygon.faces.size() << " "
 		<< "normals = " << polygon.normals.size();
 }
-
 
 TEST(PolygonFactoryTest, TestCreateFromObj)
 {
@@ -28,14 +34,15 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	group.setFaces(std::vector < OBJFace > {face});
 	file.setGroups({ group });
 	PolygonFactory factory;
-	Polygon* polygon = factory.create(file);
+	const PolygonGroupList& polygons = factory.create(file);
 	Polygon expected;
 	expected.positions = positions;
 	Face f;
 	f.vertexIds = { 0, 1, 2 };
 	expected.faces = std::vector < Face > { f };
-	EXPECT_EQ( expected, *polygon );
-	delete polygon;
+	const Polygon* p = polygons.front().getPolygon();
+	EXPECT_EQ( expected, *p );
+	delete p;
 }
 
 TEST(PolygonFactoryTest, TestCreateFromSTL)

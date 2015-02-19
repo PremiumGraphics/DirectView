@@ -4,9 +4,9 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-Polygon* PolygonFactory::create(const OBJFile& file)
+PolygonGroupList PolygonFactory::create(const OBJFile& file)
 {
-	std::list<Polygon*> polygons;
+	PolygonGroupList polygons;
 	for (const OBJGroup& g : file.getGroups()) {
 		Polygon* polygon = new Polygon();
 		polygon->positions = g.getPositions();
@@ -22,7 +22,7 @@ Polygon* PolygonFactory::create(const OBJFile& file)
 		}
 		polygons.push_back(polygon);
 	}
-	return polygons.front();
+	return polygons;
 }
 
 Polygon* PolygonFactory::create(const STLFile& file)
