@@ -89,17 +89,29 @@ void SmoothRenderer::build()
 	shader.link( vShader, fShader );
 }
 
+SmoothRenderer::Location SmoothRenderer::getLocations()
+{
+	Location location;
 
-void SmoothRenderer::render(const int width, const int height )
+	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
+	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
+	location.diffuse = glGetUniformLocation(shader.getId(), "diffuse");
+	location.specular = glGetUniformLocation(shader.getId(), "specular");
+	location.eyePos = glGetUniformLocation(shader.getId(), "eyePosition");
+
+	location.matAmbient = glGetUniformLocation(shader.getId(), "material.ambient");
+	location.matSpecular = glGetUniformLocation(shader.getId(), "material.specular");
+	location.matDiffuse = glGetUniformLocation(shader.getId(), "material.duffse");
+	location.shininess = glGetUniformLocation(shader.getId(), "material.shininess");
+
+	location.position = glGetAttribLocation(shader.getId(), "position");
+	location.normal = glGetAttribLocation(shader.getId(), "normal");
+
+	return location;
+}
+
+void SmoothRenderer::render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices )
 {	
-	/*
-	Camera<float>* camera = model->getCamera();
-	PolygonCollection* polygon = model->getPolygonModel();
-
-	const Matrix4d<float>& perspectiveMatrix = camera->getPerspectiveMatrix();
-
-	assert( GL_NO_ERROR == glGetError() );
-
 	glViewport( 0, 0, width, height );
 
 	glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
@@ -107,64 +119,85 @@ void SmoothRenderer::render(const int width, const int height )
 	glClear( GL_DEPTH_BUFFER_BIT );
 	glEnable( GL_DEPTH_TEST );
 
-	const std::vector< float >& eyePos = camera->getPos().toArray();
+	const Location& location = getLocations();
 
-	shader.apply();
-	shader.setUniformMatrix( "projectionMatrix", perspectiveMatrix );
-	shader.setUniformMatrix( "modelviewMatrix", camera->getModelviewMatrix() );
-	shader.setUniformVector( "eyePosition", eyePos );
 
-	const LightList& lights = model->getLightModel()->getSelectedLights();
-	shader.setUniform( "lightSize", (int)lights.size() );
+	if ( param.positions.empty() || indices.empty()) {
+		return;
+	}
+
+	assert(GL_NO_ERROR == glGetError());
+
+	glViewport(0, 0, width, height);
+
+	glUseProgram(shader.getId());
+
+
 
 	int i = 0;
-	for( Light* l : lights ) {
+	for (Light* l : param.lights) {
 		const std::vector< float >& lightPos = l->pos.toArray();
 		const std::vector< float >& kd = l->getDiffuse().toArray3();
 		const std::vector< float >& ka = l->getAmbient().toArray3();
 		const std::vector< float >& ks = l->getSpecular().toArray3();
 
 		char str[256];
-		sprintf( str, "lights[%d].position", i );
-		shader.setUniformVector( str, lightPos );
-		sprintf( str, "lights[%d].Kd", i );
-		shader.setUniformVector( str, kd );
-		sprintf( str, "lights[%d].Ka", i );
-		shader.setUniformVector( str, ka );
-		sprintf( str, "lights[%d].Ks", i );
-		shader.setUniformVector( str, ks );
+		sprintf(str, "lights[%d].position", i);
+		const GLint lightLoc = glGetAttribLocation(shader.getId(), str);
+		glUniform3fv( lightLoc, 1, &(lightPos.front() ) );
+
+		sprintf(str, "lights[%d].Kd", i);
+		const GLuint kdLoc = glGetAttribLocation(shader.getId(), str);
+		glUniform3fv(kdLoc, 1, &(kd.front()));
+
+		sprintf(str, "lights[%d].Ka", i);
+		const GLuint kaLoc = glGetAttribLocation(shader.getId(), str);
+		glUniform3fv(kaLoc, 1, &(ka.front()));
+
+		sprintf(str, "lights[%d].Ks", i);
+		const GLuint ksLoc = glGetAttribLocation(shader.getId(), str);
+		glUniform3fv(ksLoc, 1, &(ks.front()));
 		++i;
 	}
 
-	shader.setUniformVector( "lightIntensity", ColorRGBA<float>::White().toArray3() );
-	
+	//shader.setUniformVector("lightIntensity", ColorRGBA<float>::White().toArray3());
+
+	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(param.projectionMatrix.front()));
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
+	glUniform4fv(location.eyePos, 1, &(param.eyePos.front()) );
+
+	//glUniform3fv( location.matAmbient, 1, m)
+
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
+	glVertexAttribPointer(location.normal, 3, GL_FLOAT, GL_FALSE, 0, &(param.normals.front()));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	for (size_t i = 0; i < indices.size(); ++i) {
+		const std::vector<unsigned int>& is = indices[i];
+		glDrawElements(GL_POLYGON, is.size(), GL_UNSIGNED_INT, &(is.front()));
+	}
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+
+	glUseProgram(0);
+
+	assert(GL_NO_ERROR == glGetError());
+
+	/*	
 	for( Graphics::Polygon* model : polygon->getPolygons() ) {
-		const FaceVector& faces = model->getFaces();
-		for( Face* f : faces ) {
-			std::vector< float > positions;
-			VertexVector vertices = f->getVertices();
-			std::vector< float > normals;
-			for( Vertex* v : vertices ) {
-				const std::vector< float >& ps = v->position.toArray();
-				positions.insert( positions.end(), ps.begin(), ps.end() );
-				const std::vector< float >& n = v->normal.toArray();
-				normals.insert( normals.end(), n.begin(), n.end() );
-			}
 			shader.setUniformVector( "material.ambient", model->material->getAmbient().toArray3() );
 			shader.setUniformVector( "material.diffuse", model->material->getDiffuse().toArray3() );
 			shader.setUniformVector( "material.specular", model->material->getSpecular().toArray3() );
 			shader.setUniform( "material.shininess", model->material->getShininess() );
 	
-			shader.setVertexAttrib( "normal", normals, 3 );
-			shader.setVertex( "position", positions );
-			shader.drawPolygon( positions.size() / 3 );
 		}
 	}
-
-	shader.bindFrag( "fragColor" );
-
-	shader.release();
 	
-	assert( GL_NO_ERROR == glGetError() );
 	*/
 }
