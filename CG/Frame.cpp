@@ -71,82 +71,75 @@ Frame::Frame()
 
 	bar->SetArtProvider( new wxRibbonAUIArtProvider );
 
-	Connect( ID_CAMERA_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCameraTranslate ) );
+	Connect( ID_CAMERA_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 
 	wxRibbonPage* page = new wxRibbonPage( bar, wxNewId(), wxT("Polygon") );
 	//wxRibbonPanel* panel = new wxRibbonPanel( page, wxID_ANY, wxT("Polygon") );
 
 	wxRibbonPanel *filePanel = new wxRibbonPanel( page, wxID_ANY, wxT("File") );
-	wxRibbonToolBar *toolbar = new wxRibbonToolBar( filePanel );
+	wxRibbonButtonBar *toolbar = new wxRibbonButtonBar( filePanel );
 
-	toolbar->AddToggleTool( wxID_NEW, wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ), "New");
-	toolbar->AddToggleTool( wxID_OPEN, wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ), "Open");
-	toolbar->AddToggleTool( wxID_SAVE, wxImage("../Resource/save.png"), "Save");
-	toolbar->AddToggleTool( wxID_ANY, wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ), "Save as");
-	toolbar->AddToggleTool( wxID_CLOSE, wxImage("../Resource/cancel.png"), "Close" );
-	toolbar->AddSeparator();
+	toolbar->AddButton( wxID_NEW, "New", wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( wxID_OPEN, "Open", wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ));
+	toolbar->AddButton( wxID_SAVE, "Save", wxImage("../Resource/save.png") );
+	toolbar->AddButton( wxID_ANY, "Save As", wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( wxID_CLOSE, "Close", wxImage("../Resource/cancel.png"));
 
-	Connect( wxID_NEW,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnNew ) );
-	Connect( wxID_OPEN,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnFileOpen ) );
-	Connect( wxID_SAVE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnFileSave ) );
-	Connect( wxID_SAVEAS,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnFileSaveAs ) );
-	Connect( wxID_CLOSE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnClose ) );
-	Connect( wxID_ABOUT,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnAbout ) );
+	Connect( wxID_NEW,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNew ) );
+	Connect( wxID_OPEN,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileOpen ) );
+	Connect( wxID_SAVE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileSave ) );
+	Connect( wxID_SAVEAS,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileSaveAs ) );
+	Connect( wxID_CLOSE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnClose ) );
+	Connect( wxID_ABOUT,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnAbout ) );
 
-	toolbar->AddToggleTool( ID_IMPORT, wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ), "Import" );
-	toolbar->AddToggleTool( ID_EXPORT, wxImage( "../Resource/export.png"), "Export" );
+	toolbar->AddButton( ID_IMPORT, "Import", wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( ID_EXPORT, "Export", wxImage( "../Resource/export.png"), "Export" );
 
-	Connect( ID_IMPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnImport ) );
-	Connect( ID_EXPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnExport ) );
+	Connect( ID_IMPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
+	Connect( ID_EXPORT,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
 
 	//wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
-	//wxRibbonToolBar* operation = new wxRibbonToolBar( operationPanel );
+	//wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
-	wxRibbonToolBar* operation = new wxRibbonToolBar( operationPanel );
-	operation->AddSeparator();
-	operation->AddTool( ID_CAMERA_TRANSLATE, wxImage("../Resource/view.png"),  "Camera" );
-	operation->AddTool( ID_LIGHT_TRANSLATE, wxImage("../Resource/star.png"), "Light" );
-	operation->AddTool( ID_CAMERA_FIT, wxImage("../Resource/zoom.png"), "Zoom" );
-	operation->AddTool( ID_POLYGON_TRANSLATE, wxImage("../Resource/8-direction.png"), "Move");
-	operation->AddTool( ID_POLYGON_ROTATE, wxImage("../Resource/3D-X-Axis-Rotation.png"), "Rotate" );
-	operation->AddTool( ID_POLYGON_SCALE, wxImage("../Resource/8-direction.png"), "Scale");
-	operation->AddTool( ID_CAPTURE, wxImage( "../Resource/screenshot.png"), "Capture" );
+	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
+	operation->AddButton( ID_CAMERA_TRANSLATE, "Camera", wxImage("../Resource/view.png") );
+	operation->AddButton( ID_LIGHT_TRANSLATE, "Light", wxImage("../Resource/star.png") );
+	operation->AddButton( ID_CAMERA_FIT, "Zoom", wxImage("../Resource/zoom.png") );
+	operation->AddButton( ID_POLYGON_TRANSLATE,  "Move", wxImage("../Resource/8-direction.png") );
+	operation->AddButton( ID_POLYGON_ROTATE, "Rotate", wxImage("../Resource/3D-X-Axis-Rotation.png") );
+	operation->AddButton( ID_POLYGON_SCALE, "Scale", wxImage("../Resource/8-direction.png") );
+	operation->AddButton( ID_CAPTURE,"Capture", wxImage( "../Resource/screenshot.png") );
 
-	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_CAPTURE,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCapture ) );
-	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnLightTranslate ) );
-	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnPolygonTranslate ) );
-	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnPolygonScale ) );
-	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnPolygonRotate ) );
+	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
+	Connect( ID_CAPTURE,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCapture ) );
+	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
+	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonTranslate ) );
+	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonScale ) );
+	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotate ) );
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
-	wxRibbonToolBar* rendering = new wxRibbonToolBar( renderingPanel );
-	rendering->AddTool( ID_RENDERING_WIREFRAME, wxImage("../Resource/wireframe.png"), "WireFrame");
-	rendering->AddTool( ID_RENDERING_PHONG, wxImage("../Resource/surface.png"),	"Phong");
-	rendering->AddTool( ID_RENDERING_FLAT, wxImage("../Resource/surface.png"),	"Flat");
+	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
+	rendering->AddButton( ID_RENDERING_WIREFRAME, "WireFrame", wxImage("../Resource/wireframe.png") );
+	rendering->AddButton( ID_RENDERING_PHONG,  "Phong", wxImage("../Resource/surface.png"));
+	rendering->AddButton( ID_RENDERING_FLAT,"Flat", wxImage("../Resource/surface.png") );
 
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnWireFrame ) );
-	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnPhong ) );
-	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnFlat ) );
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
+	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
+	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
-	wxRibbonToolBar* modelingBar = new wxRibbonToolBar( modelingPanel );
-	modelingBar->AddTool(ID_CREATE_TRIANGLE, wxImage("../Resource/triangle.png"), "Triangle");
-	modelingBar->AddTool(ID_CREATE_QUAD, wxImage("../Resource/surface.png"), "Quad");
+	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
+	modelingBar->AddButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png") );
+	modelingBar->AddButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/surface.png") );
 	
-	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateTriangle) );
-	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateQuad) );
-
-	rendering->AddSeparator();
+	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
+	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad) );
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
-	wxRibbonToolBar *toolbar2 = new wxRibbonToolBar( animationPanel );
-	toolbar2->AddTool( wxID_ANY, wxImage("../Resource/MD-play.png"), "Play");
-	toolbar2->AddTool( wxID_ANY, wxImage("../Resource/MD-stop.png"), "Stop");
-	toolbar2->AddSeparator();
-
-	//toolbar2->AddTool( wxID_ANY, bitmap("MD-camera-video.png"), "SaveMovie");
+	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
+	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
+	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
 
 
 	bar->Realize();
@@ -218,7 +211,7 @@ void Frame::clear()
 	polygons.clear();
 }
 
-void Frame::OnNew( wxRibbonToolBarEvent& e )
+void Frame::OnNew( wxRibbonButtonBarEvent& e )
 {
 	const int ret = wxMessageBox(wxT("ƒ‚ƒfƒ‹‚ð•Û‘¶‚µ‚Ü‚·‚©H"), wxEmptyString, wxYES_NO, this );
 
@@ -234,7 +227,7 @@ void Frame::OnNew( wxRibbonToolBarEvent& e )
 	materialTree->build();
 }
 
-void Frame::OnClose( wxRibbonToolBarEvent& )
+void Frame::OnClose( wxRibbonButtonBarEvent& )
 {
 	bool isChanged = true;
 	if( isChanged ) {
@@ -243,14 +236,14 @@ void Frame::OnClose( wxRibbonToolBarEvent& )
 	Close(true);
 }
 
-void Frame::OnAbout( wxRibbonToolBarEvent& )
+void Frame::OnAbout( wxRibbonButtonBarEvent& )
 {
 	wxMessageBox( wxT( "CG Studio 0.10" ) );
 }
 
 #include "../IO/CGSFile.h"
 
-void Frame::OnFileSave( wxRibbonToolBarEvent& )
+void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 {
 	const wxString& filename = wxFileSelector
 		(
@@ -276,12 +269,12 @@ void Frame::OnFileSave( wxRibbonToolBarEvent& )
 	}
 }
 
-void Frame::OnFileSaveAs( wxRibbonToolBarEvent& e )
+void Frame::OnFileSaveAs( wxRibbonButtonBarEvent& e )
 {
 	wxMessageBox("TODO");
 }
 
-void Frame::OnFileOpen( wxRibbonToolBarEvent& e )
+void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 {
 	const wxString& filename = wxFileSelector
 		(
@@ -305,17 +298,17 @@ void Frame::OnFileOpen( wxRibbonToolBarEvent& e )
 	*/
 }
 
-void Frame::OnCameraTranslate( wxRibbonToolBarEvent& )
+void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::CameraTranslate );
 }
 
-void Frame::OnPolygonRotate( wxRibbonToolBarEvent& )
+void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::PolygonRotate );
 }
 
-void Frame::OnLightTranslate( wxRibbonToolBarEvent& )
+void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
 //	model->getLightModel()->setSelectedLight( &( model->getLightModel()->getLights().front() ) );
 	view->setMode( View::LightTranslate );
@@ -323,7 +316,7 @@ void Frame::OnLightTranslate( wxRibbonToolBarEvent& )
 
 #include "../IO/PolygonFactory.h"
 
-void Frame::OnImport( wxRibbonToolBarEvent& e )
+void Frame::OnImport( wxRibbonButtonBarEvent& e )
 {
 	const wxString& filename = wxFileSelector
 		(
@@ -389,7 +382,7 @@ void Frame::OnImport( wxRibbonToolBarEvent& e )
 }
 
 
-void Frame::OnExport( wxRibbonToolBarEvent& e )
+void Frame::OnExport( wxRibbonButtonBarEvent& e )
 {
 	const wxString filename = wxFileSelector
 		(
@@ -430,7 +423,7 @@ void Frame::OnExport( wxRibbonToolBarEvent& e )
 	*/
 }
 
-void Frame::OnGLConfig( wxRibbonToolBarEvent& e )
+void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 {
 	const GLubyte* str = glGetString( GL_RENDERER );
 	const GLubyte* vendor = glGetString( GL_VENDOR );
@@ -481,35 +474,35 @@ void Frame::OnLocale( wxCommandEvent& )
 
 #include "wx/numdlg.h"
 
-void Frame::OnPolygonTranslate( wxRibbonToolBarEvent& )
+void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::PolygonTranslate );
 }
 
-void Frame::OnPolygonScale( wxRibbonToolBarEvent& )
+void Frame::OnPolygonScale( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::PolygonScale );
 }
 
-void Frame::OnWireFrame( wxRibbonToolBarEvent& )
+void Frame::OnWireFrame( wxRibbonButtonBarEvent& )
 {
 	view->setRenderingMode( View::RenderingMode::WireFrame );
 	view->Refresh();
 }
 
-void Frame::OnPhong( wxRibbonToolBarEvent& )
+void Frame::OnPhong( wxRibbonButtonBarEvent& )
 {
 	view->setRenderingMode( View::RenderingMode::Phong );
 	view->Refresh();
 }
 
-void Frame::OnFlat( wxRibbonToolBarEvent& )
+void Frame::OnFlat( wxRibbonButtonBarEvent& )
 {
 	view->setRenderingMode( View::RenderingMode::Flat );
 	view->Refresh();
 }
 
-void Frame::OnCameraFit( wxRibbonToolBarEvent& e )
+void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
 	/*
 	const Math::Vector3d& center = getModel()->getPolygonModel()->getCenter();
@@ -522,7 +515,7 @@ void Frame::OnCameraFit( wxRibbonToolBarEvent& e )
 	*/
 }
 
-void Frame::OnCapture( wxRibbonToolBarEvent& e )
+void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 {
 	const int width = view->GetClientSize().GetWidth();
 	const int height = view->GetClientSize().GetHeight();
@@ -558,7 +551,7 @@ void Frame::OnCapture( wxRibbonToolBarEvent& e )
 
 }
 
-void Frame::OnCreateQuad(wxRibbonToolBarEvent& e)
+void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "quad";
@@ -579,7 +572,7 @@ void Frame::OnCreateQuad(wxRibbonToolBarEvent& e)
 	polygonTree->build();
 }
 
-void Frame::OnCreateTriangle(wxRibbonToolBarEvent& e)
+void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "triangle";

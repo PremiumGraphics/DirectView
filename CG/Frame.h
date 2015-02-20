@@ -35,49 +35,49 @@ public:
 	std::list<Graphics::Material*> getMaterials() { return materials; }
 
 private:
-	void OnNew( wxRibbonToolBarEvent& );
+	void OnNew( wxRibbonButtonBarEvent& );
 
-	void OnClose( wxRibbonToolBarEvent& );
+	void OnClose( wxRibbonButtonBarEvent& );
 
-	void OnFileOpen( wxRibbonToolBarEvent& e );
+	void OnFileOpen( wxRibbonButtonBarEvent& e );
 
-	void OnFileSave( wxRibbonToolBarEvent& );
+	void OnFileSave( wxRibbonButtonBarEvent& );
 
-	void OnFileSaveAs( wxRibbonToolBarEvent& e );
+	void OnFileSaveAs( wxRibbonButtonBarEvent& e );
 
-	void OnImport( wxRibbonToolBarEvent& e );
+	void OnImport( wxRibbonButtonBarEvent& e );
 
-	void OnExport( wxRibbonToolBarEvent& e);
+	void OnExport( wxRibbonButtonBarEvent& e);
 
-	void OnCameraTranslate( wxRibbonToolBarEvent& );
+	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
-	void OnLightTranslate( wxRibbonToolBarEvent& );
+	void OnLightTranslate( wxRibbonButtonBarEvent& );
 
-	void OnPolygonTranslate( wxRibbonToolBarEvent& );
+	void OnPolygonTranslate( wxRibbonButtonBarEvent& );
 
-	void OnPolygonRotate( wxRibbonToolBarEvent& );
+	void OnPolygonRotate( wxRibbonButtonBarEvent& );
 
-	void OnAbout( wxRibbonToolBarEvent& );
+	void OnAbout( wxRibbonButtonBarEvent& );
 
-	void OnGLConfig( wxRibbonToolBarEvent& e );
+	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
 	void OnLocale( wxCommandEvent& );
 
-	void OnPolygonScale( wxRibbonToolBarEvent& );
+	void OnPolygonScale( wxRibbonButtonBarEvent& );
 
-	void OnWireFrame( wxRibbonToolBarEvent& );
+	void OnWireFrame( wxRibbonButtonBarEvent& );
 
-	void OnPhong( wxRibbonToolBarEvent& );
+	void OnPhong( wxRibbonButtonBarEvent& );
 
-	void OnFlat( wxRibbonToolBarEvent& );
+	void OnFlat( wxRibbonButtonBarEvent& );
 
-	void OnCameraFit( wxRibbonToolBarEvent& e );
+	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
-	void OnCapture( wxRibbonToolBarEvent& e );
+	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnCreateQuad(wxRibbonToolBarEvent& e);
+	void OnCreateQuad(wxRibbonButtonBarEvent& e);
 
-	void OnCreateTriangle(wxRibbonToolBarEvent& e);
+	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
 
 	void clear();
 
