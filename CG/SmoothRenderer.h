@@ -52,6 +52,7 @@ private:
 		GLuint matSpecular;
 		GLuint matDiffuse;
 		GLuint shininess;
+		GLuint lightSize;
 	};
 
 	Location getLocations();

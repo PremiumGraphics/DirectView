@@ -11,14 +11,13 @@
 
 #include "Resource/unchecked.xpm"
 #include "Resource/checked.xpm"
+#include <algorithm>
 
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
-using namespace Crystal::IO;
 
-#include <algorithm>
 
 PolygonTree::PolygonTree
 (
@@ -26,7 +25,8 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	PolygonGroupList& polygons
+	PolygonGroupList& polygons,
+	MaterialList& materials
 	)
 	: 
 	wxTreeCtrl(
@@ -37,7 +37,8 @@ PolygonTree::PolygonTree
 	//wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 	),
 	property( property ),
-	polygons( polygons )
+	polygons( polygons ),
+	materials( materials )
 {
 	SetSize( 100, 500 );
 	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( PolygonTree::onMenu ) );

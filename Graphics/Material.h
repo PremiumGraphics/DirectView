@@ -76,6 +76,8 @@ private:
 
 };
 
+typedef std::list<Material*> MaterialList;
+
 	}
 }
 

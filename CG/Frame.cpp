@@ -56,6 +56,8 @@ enum {
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10"))
 {
+	camera.setNear(1.0f);
+
     wxRibbonBar* bar = new wxRibbonBar
 		(
 		this,
@@ -154,14 +156,14 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	polygonProperty = new PolygonProperty( this, wxSize( 300, 100) );
+	polygonProperty = new PolygonProperty( this, wxSize( 300, 100), materials );
 	materialProperty = new MaterialProperty( this, wxSize( 300, 100) );
 	lightProperty = new LightProperty( this, wxSize( 300, 100  ) );
 
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons );
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons, materials );
 	materialTree = new MaterialTree( this, wxPoint( 0, 300 ), wxSize( 300, 100), materialProperty, &materials);
 	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, &lights );
 

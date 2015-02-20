@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 
+#include "../Graphics/Material.h"
 #include "../Graphics/PolygonGroup.h"
 #include "../IO/PolygonFactory.h"
 
@@ -22,7 +23,8 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		Graphics::PolygonGroupList& polygons
+		Graphics::PolygonGroupList& polygons,
+		Graphics::MaterialList& materials
 		);
 
 	~PolygonTree();
@@ -43,6 +45,8 @@ private:
 	PolygonProperty* property;
 
 	Graphics::PolygonGroupList& polygons;
+
+	Graphics::MaterialList& materials;
 
 	std::map< wxTreeItemId, Graphics::Polygon* > map;
 };

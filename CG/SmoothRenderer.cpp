@@ -40,7 +40,7 @@ void SmoothRenderer::build()
 
 	const std::string fStr =
 		"#version 150						\n"
-		"uniform vec3 lightIntensity;		\n"
+//		"uniform vec3 lightIntensity;		\n"
 		"in vec3 vPosition;					\n"
 		"in vec3 vNormal;					\n"
 		"out vec4 fragColor;				\n"
@@ -67,7 +67,7 @@ void SmoothRenderer::build()
 		"	vec3 v = normalize( vec3( -eyePosition) );				\n;"
 		"	vec3 r = reflect( -s, n );			\n"
 		"	return													\n"
-		"		lightIntensity *									\n"
+		//"		lightIntensity *									\n"
 		"			(lights[i].Ka * material.ambient +											\n"
 		"			 lights[i].Kd * max( dot( s, n ), 0.0 ) * material.diffuse +				\n"
 		"			 lights[i].Ks * pow ( max ( dot( r, v ), 0.0 ), material.shininess ) * material.specular	\n"
@@ -102,8 +102,11 @@ SmoothRenderer::Location SmoothRenderer::getLocations()
 	location.matDiffuse = glGetUniformLocation(shader.getId(), "material.diffse");
 	location.shininess = glGetUniformLocation(shader.getId(), "material.shininess");
 
+	location.lightSize = glGetUniformLocation(shader.getId(), "lightSize");
+
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.normal = glGetAttribLocation(shader.getId(), "normal");
+
 
 	return location;
 }
@@ -131,7 +134,7 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 	glUseProgram(shader.getId());
 
 
-
+	glUniform1i(location.lightSize, param.lights.size() );
 	int i = 0;
 	for (Light* l : param.lights) {
 		const std::vector< float >& lightPos = l->pos.toArray();
