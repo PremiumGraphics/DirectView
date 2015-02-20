@@ -30,6 +30,7 @@
     <ClInclude Include="WireFrameRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ModelingDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

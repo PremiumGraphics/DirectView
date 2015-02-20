@@ -45,6 +45,7 @@ enum {
 	ID_CREATE_TRIANGLE,
 	ID_CREATE_QUAD,
 	ID_CREATE_CIRCLE,
+	ID_CREATE_SPHERE,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -58,8 +59,11 @@ enum {
 #include "PolygonTree.h"
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10"))
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
+	circleDivideNumber( 3 )
 {
+	sphereConfigDialog = new SphereConfigDialog(this);
+
 	camera.setNear(1.0f);
 
     wxRibbonBar* bar = new wxRibbonBar
@@ -133,11 +137,15 @@ Frame::Frame()
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
 	modelingBar->AddButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png") );
 	modelingBar->AddButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png") );
-	modelingBar->AddButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage("../Resource/quad.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad) );
 	Connect( ID_CREATE_CIRCLE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle) );
+	Connect( ID_CREATE_CIRCLE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
+	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere) );
+	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -565,11 +573,9 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 		Vector3d(0.0, 1.0, 0.0)
 	};
 	//	p->normals = {};
-	Face f0;
-	f0.vertexIds = { 0, 1, 2 };
-	Face f1;
-	f1.vertexIds = { 0, 2, 3 };
-	p->faces = std::vector < Face > {f0,f1};
+	Face f;
+	f.vertexIds = { 0, 1, 2, 3 };
+	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);
 
 	polygonTree->build();
@@ -612,4 +618,37 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 	polygons.push_back(p);
 
 	polygonTree->build();
+}
+
+void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
+{
+	const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
+}
+
+
+void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
+{
+	Graphics::Polygon* p = new Graphics::Polygon();
+	p->name = "sphere";
+	VectorVector positions;
+	Face f;
+	int i = 0;
+	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
+		const float rad = angle * Tolerances::getPI() / 180.0f;
+		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+		f.vertexIds.push_back(i++);
+	}
+	p->positions = positions;
+
+	p->faces = std::vector < Face > {f};
+	polygons.push_back(p);
+
+	polygonTree->build();
+
+}
+
+void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
+{
+	//const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
+	sphereConfigDialog->ShowModal();
 }

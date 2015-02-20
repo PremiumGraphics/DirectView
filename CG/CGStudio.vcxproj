@@ -168,6 +168,7 @@
     <ClInclude Include="LightTree.h" />
     <ClInclude Include="MaterialProperty.h" />
     <ClInclude Include="MaterialTree.h" />
+    <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="PolygonTree.h" />
     <ClInclude Include="resource.h" />

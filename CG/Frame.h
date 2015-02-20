@@ -5,6 +5,8 @@
 #include "../Graphics/Light.h"
 #include "../IO/PolygonFactory.h"
 
+#include "ModelingDialog.h"
+
 #include <memory>
 
 namespace Crystal {
@@ -81,6 +83,11 @@ private:
 
 	void OnCreateCircle(wxRibbonButtonBarEvent& e);
 
+	void OnCreateCircleConfig(wxRibbonButtonBarEvent& e);
+
+	void OnCreateSphere(wxRibbonButtonBarEvent& e);
+
+	void OnCreateSphereConfig(wxRibbonButtonBarEvent& e);
 
 	void clear();
 
@@ -95,6 +102,9 @@ private:
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 
+	SphereConfigDialog* sphereConfigDialog;
+
+
 	View* view;
 
 	wxLocale locale;
@@ -103,6 +113,8 @@ private:
 	Graphics::PolygonGroupList polygons;
 	std::list<Graphics::Material*> materials;
 	std::list<Graphics::Light*> lights;
+
+	int circleDivideNumber;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
