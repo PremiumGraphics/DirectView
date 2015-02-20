@@ -51,5 +51,8 @@
     <Image Include="..\Resource\triangle.png">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\Resource\quad.png">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

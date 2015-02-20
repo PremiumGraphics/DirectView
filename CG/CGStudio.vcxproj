@@ -184,6 +184,7 @@
     <ResourceCompile Include="CGStudio.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resource\quad.png" />
     <Image Include="..\Resource\triangle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

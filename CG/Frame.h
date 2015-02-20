@@ -79,6 +79,9 @@ private:
 
 	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
 
+	void OnCreateCircle(wxRibbonButtonBarEvent& e);
+
+
 	void clear();
 
 private:
