@@ -113,8 +113,8 @@ Frame::Frame()
 	operation->AddTool( ID_POLYGON_SCALE, wxImage("../Resource/8-direction.png"), "Scale");
 	operation->AddTool( ID_CAPTURE, wxImage( "../Resource/screenshot.png"), "Capture" );
 
-	Connect( ID_CAMERA_FIT,	wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_CAPTURE,	wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnCapture ) );
+	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCameraFit ) );
+	Connect( ID_CAPTURE,				wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnCapture ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnLightTranslate ) );
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnPolygonTranslate ) );
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnPolygonScale ) );
@@ -127,16 +127,16 @@ Frame::Frame()
 	rendering->AddTool( ID_RENDERING_FLAT, wxImage("../Resource/surface.png"),	"Flat");
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnWireFrame ) );
-	Connect( ID_RENDERING_PHONG,	wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnPhong ) );
-	Connect( ID_RENDERING_FLAT,		wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnFlat ) );
+	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnPhong ) );
+	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnFlat ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonToolBar* modelingBar = new wxRibbonToolBar( modelingPanel );
 	modelingBar->AddTool(ID_CREATE_TRIANGLE, wxImage("../Resource/triangle.png"), "Triangle");
 	modelingBar->AddTool(ID_CREATE_QUAD, wxImage("../Resource/surface.png"), "Quad");
 	
-	Connect( wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateTriangle) );
-	Connect( wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateQuad) );
+	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateTriangle) );
+	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateQuad) );
 
 	rendering->AddSeparator();
 
@@ -558,19 +558,41 @@ void Frame::OnCapture( wxRibbonToolBarEvent& e )
 
 }
 
-#include "../Math/Quad.h"
-
 void Frame::OnCreateQuad(wxRibbonToolBarEvent& e)
 {
-	/*
-	Quad quad;
-	quad.
-	quad.
-	view->Refresh();
-	*/
+	Graphics::Polygon* p = new Graphics::Polygon();
+	p->name = "quad";
+	p->positions = {
+		Vector3d(0.0, 0.0, 0.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(1.0, 1.0, 0.0),
+		Vector3d(0.0, 1.0, 0.0)
+	};
+	//	p->normals = {};
+	Face f0;
+	f0.vertexIds = { 0, 1, 2 };
+	Face f1;
+	f1.vertexIds = { 0, 2, 3 };
+	p->faces = std::vector < Face > {f0,f1};
+	polygons.push_back(p);
+
+	polygonTree->build();
 }
 
 void Frame::OnCreateTriangle(wxRibbonToolBarEvent& e)
 {
+	Graphics::Polygon* p = new Graphics::Polygon();
+	p->name = "triangle";
+	p->positions = {
+		Vector3d(0.0, 0.0, 0.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(1.0, 1.0, 0.0)
+	};
+//	p->normals = {};
+	Face f;
+	f.vertexIds = { 0, 1, 2 };
+	p->faces = std::vector < Face > {f};
+	polygons.push_back(p);
 
+	polygonTree->build();
 }
