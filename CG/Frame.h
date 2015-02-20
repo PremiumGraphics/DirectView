@@ -18,8 +18,6 @@ namespace Crystal {
 		class PolygonProperty;
 		class MaterialProperty;
 		class LightProperty;
-		class ParticleProperty;
-		class TextureProperty;
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -32,7 +30,7 @@ public:
 
 	Graphics::PolygonGroupList getPolygons() const { return polygons; }
 
-	std::list<Graphics::Light*>* getLights() { return &lights; }
+	std::list<Graphics::Light*> getLights() { return lights; }
 
 	std::list<Graphics::Material*> getMaterials() { return materials; }
 

@@ -124,12 +124,10 @@ void View::OnMouse( wxMouseEvent& event )
 			frame->getCamera()->addAngle( angle );
 		}
 		else if( mode == LightTranslate ) {
-			/*
-			LightList& lights = frame->getModel()->getLightModel()->getSelectedLights();
-			for( Light* l : lights ) {
+			const std::list<Graphics::Light*> lights = frame->getLights();
+			for (Light* l : lights) {
 				l->pos += pos;
 			}
-			*/
 		}
 		else if( mode == PolygonScale ) {
 			/*
@@ -229,7 +227,7 @@ void View::draw(const wxSize& size)
 		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
 		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
 
-		param.lights = *( frame->getLights() );
+		param.lights = frame->getLights();
 
 		for (Graphics::Material* m : frame->getMaterials() ) {
 			param.matAmbient = m->getAmbient().toArray3();
