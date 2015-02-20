@@ -170,6 +170,7 @@
     <ClInclude Include="MaterialTree.h" />
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="PolygonTree.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />
@@ -178,6 +179,12 @@
   <ItemGroup>
     <None Include="Resource\checked.xpm" />
     <None Include="Resource\unchecked.xpm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CGStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resource\triangle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

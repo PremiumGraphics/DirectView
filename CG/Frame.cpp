@@ -42,6 +42,9 @@ enum {
 
 	ID_TEXTURE,
 
+	ID_CREATE_TRIANGLE,
+	ID_CREATE_QUAD,
+
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
 	ID_RENDERING_PHONG,
@@ -126,6 +129,14 @@ Frame::Frame()
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_PHONG,	wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnPhong ) );
 	Connect( ID_RENDERING_FLAT,		wxEVT_RIBBONTOOLBAR_CLICKED,	wxRibbonToolBarEventHandler( Frame::OnFlat ) );
+
+	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
+	wxRibbonToolBar* modelingBar = new wxRibbonToolBar( modelingPanel );
+	modelingBar->AddTool(ID_CREATE_TRIANGLE, wxImage("../Resource/triangle.png"), "Triangle");
+	modelingBar->AddTool(ID_CREATE_QUAD, wxImage("../Resource/surface.png"), "Quad");
+	
+	Connect( wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateTriangle) );
+	Connect( wxEVT_RIBBONTOOLBAR_CLICKED, wxRibbonToolBarEventHandler(Frame::OnCreateQuad) );
 
 	rendering->AddSeparator();
 
@@ -544,5 +555,22 @@ void Frame::OnCapture( wxRibbonToolBarEvent& e )
 		return;
 	}
 	image.SaveFile(filename, wxBITMAP_TYPE_BMP);
+
+}
+
+#include "../Math/Quad.h"
+
+void Frame::OnCreateQuad(wxRibbonToolBarEvent& e)
+{
+	/*
+	Quad quad;
+	quad.
+	quad.
+	view->Refresh();
+	*/
+}
+
+void Frame::OnCreateTriangle(wxRibbonToolBarEvent& e)
+{
 
 }

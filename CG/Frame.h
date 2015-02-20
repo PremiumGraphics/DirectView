@@ -75,6 +75,10 @@ private:
 
 	void OnCapture( wxRibbonToolBarEvent& e );
 
+	void OnCreateQuad(wxRibbonToolBarEvent& e);
+
+	void OnCreateTriangle(wxRibbonToolBarEvent& e);
+
 	void clear();
 
 private:

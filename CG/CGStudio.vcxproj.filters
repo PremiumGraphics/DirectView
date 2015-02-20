@@ -29,6 +29,7 @@
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="WireFrameRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -42,5 +43,13 @@
     <None Include="Resource\checked.xpm">
       <Filter>resource</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CGStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resource\triangle.png">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>
