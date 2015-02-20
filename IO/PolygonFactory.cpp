@@ -42,7 +42,7 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 		const std::vector< Vector3d >& pos = c.getPositions();
 		positions.insert(positions.end(), pos.begin(), pos.end());
 		Face face;
-		face.normalIds.push_back( normalId );
+		face.normalIds = std::vector < unsigned int > { normalId, normalId, normalId };
 		face.vertexIds = std::vector < unsigned int > { vertexId, vertexId+1, vertexId+2 };
 		normalId += 1;
 		vertexId += 3;
