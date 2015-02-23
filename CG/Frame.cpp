@@ -626,7 +626,12 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 		Vector3d(1.0, 1.0, 0.0),
 		Vector3d(0.0, 1.0, 0.0)
 	};
-	//	p->normals = {};
+	p->normals = {
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0)
+	};
 	Face f;
 	f.vertexIds = { 0, 1, 2, 3 };
 	p->faces = std::vector < Face > {f};
@@ -664,14 +669,17 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "circle";
 	VectorVector positions;
+	VectorVector normals;
 	Face f;
 	int i = 0;
 	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
 		const float rad = angle * Tolerances::getPI() / 180.0f;
 		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+		normals.push_back( Vector3d(0.0, 0.0, 1.0) );
 		f.vertexIds.push_back(i++);
 	}
 	p->positions = positions;
+	p->normals = normals;
 
 	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);

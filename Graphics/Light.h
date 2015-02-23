@@ -37,11 +37,16 @@ public:
 
 	void setSpecular( const Graphics::ColorRGB<float> s ) { this->specular = s; }
 
+	Math::Vector3d getPos() const { return pos; }
+
+	void setPos(const Math::Vector3d& pos) { this->pos = pos; }
+
 	std::string name;
-	Math::Vector3d pos;
 	bool isSelected;
 
 private:
+	Math::Vector3d pos;
+
 	Graphics::ColorRGB<float> ambient;
 	Graphics::ColorRGB<float> diffuse;
 	Graphics::ColorRGB<float> specular;

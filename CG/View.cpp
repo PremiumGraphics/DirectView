@@ -126,7 +126,9 @@ void View::OnMouse( wxMouseEvent& event )
 		else if( mode == LightTranslate ) {
 			const std::list<Graphics::Light*> lights = frame->getLights();
 			for (Light* l : lights) {
-				l->pos += pos;
+				Vector3d lpos = l->getPos();
+				lpos += pos;
+				l->setPos(lpos);
 			}
 		}
 		else if( mode == PolygonScale ) {
@@ -269,6 +271,9 @@ void View::draw(const wxSize& size)
 	else if (renderingMode == RenderingMode::Point) {
 		VectorVector positions;
 		std::vector< std::vector<unsigned int> > indices;
+		for ( Light* l : frame->getLights()) {
+			positions.push_back(l->getPos());
+		}
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;

@@ -137,7 +137,7 @@ void SmoothRenderer::render(const int width, const int height, const Param& para
 	glUniform1i(location.lightSize, param.lights.size() );
 	int i = 0;
 	for (Light* l : param.lights) {
-		const std::vector< float >& lightPos = l->pos.toArray();
+		const std::vector< float >& lightPos = l->getPos().toArray();
 		const std::vector< float >& kd = l->getDiffuse().toArray3();
 		const std::vector< float >& ka = l->getAmbient().toArray3();
 		const std::vector< float >& ks = l->getSpecular().toArray3();
