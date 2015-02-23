@@ -46,6 +46,7 @@ enum {
 	ID_CREATE_QUAD,
 	ID_CREATE_CIRCLE,
 	ID_CREATE_SPHERE,
+	ID_CREATE_CYLINDER,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -173,6 +174,7 @@ Frame::Frame()
 	modelingBar->AddButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
 	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage("../Resource/quad.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateQuad) );
@@ -180,6 +182,7 @@ Frame::Frame()
 	Connect( ID_CREATE_CIRCLE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSphere) );
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
+	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder) );
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -626,14 +629,14 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 		Vector3d(1.0, 1.0, 0.0),
 		Vector3d(0.0, 1.0, 0.0)
 	} );
-	p->normals = {
+	p->setNormals( {
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
-	};
+	} );
 	Face f;
-	f.vertexIds = { 0, 1, 2, 3 };
+	f.setVertexIds( { 0, 1, 2, 3 } );
 	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);
 
@@ -649,14 +652,14 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 		Vector3d(1.0, 0.0, 0.0),
 		Vector3d(1.0, 1.0, 0.0)
 	} );
-	p->normals = {
+	p->setNormals( {
 		Vector3d( 0.0, 0.0, 1.0 ),
 		Vector3d( 0.0, 0.0, 1.0 ),
 		Vector3d( 0.0, 0.0, 1.0 )
-	};
+	} );
 //	p->normals = {};
 	Face f;
-	f.vertexIds = { 0, 1, 2 };
+	f.setVertexIds( { 0, 1, 2 } );
 	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);
 
@@ -672,14 +675,16 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 	VectorVector normals;
 	Face f;
 	int i = 0;
+	std::vector<unsigned int> vertexIds;
 	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
 		const float rad = angle * Tolerances::getPI() / 180.0f;
 		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 		normals.push_back( Vector3d(0.0, 0.0, 1.0) );
-		f.vertexIds.push_back(i++);
+		vertexIds.push_back(i++);
 	}
+	f.setVertexIds(vertexIds);
 	p->setPositions( positions );
-	p->normals = normals;
+	p->setNormals( normals );
 
 	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);
@@ -699,12 +704,18 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 	p->name = "sphere";
 	VectorVector positions;
 	Face f;
+	std::vector<unsigned int> vertexIds;
 	int i = 0;
-	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
-		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
-		f.vertexIds.push_back(i++);
+	for (float vAngle = 0.0; vAngle < 180.0; vAngle += 30.0) {
+		for (float angle = 0.0; angle < 360.0; angle += 60.0) {
+			const float rad = angle * Tolerances::getPI() / 180.0f;
+			const float radius = ::sin(vAngle * Tolerances::getPI() / 180.0);
+			const float z = ::sin(vAngle * Tolerances::getPI() / 180.0f);
+			positions.push_back(Vector3d(std::sin(rad) * radius, std::cos(rad) * radius, z ));
+			vertexIds.push_back(i++);
+		}
 	}
+	f.setVertexIds(vertexIds);
 	p->setPositions( positions );
 
 	p->faces = std::vector < Face > {f};
@@ -718,4 +729,43 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 {
 	//const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
 	sphereConfigDialog->ShowModal();
+}
+
+void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
+{
+	Graphics::Polygon* p = new Graphics::Polygon();
+	p->name = "cylinder";
+	VectorVector positions;
+	VectorVector normals;
+	Face f;
+	std::vector<unsigned int > vertexIds;
+	int i = 0;
+	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
+		const float rad = angle * Tolerances::getPI() / 180.0f;
+		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+		normals.push_back(Vector3d(0.0, 0.0, 1.0));
+		vertexIds.push_back(i++);
+	}
+	f.setVertexIds(vertexIds);
+
+	vertexIds.clear();
+	Face f1;
+	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
+		const float rad = angle * Tolerances::getPI() / 180.0f;
+		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 1.0f));
+		normals.push_back(Vector3d(0.0, 0.0, 1.0));
+		vertexIds.push_back(i++);
+	}
+	f.setVertexIds(vertexIds);
+
+	assert(f.getVertexIds().size() == f1.getVertexIds().size());
+	
+	p->setPositions(positions);
+	p->setNormals(normals);
+
+	p->faces = std::vector < Face > {f, f1};
+	polygons.push_back(p);
+
+	polygonTree->build();
+
 }

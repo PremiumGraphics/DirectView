@@ -93,6 +93,8 @@ private:
 
 	void OnCreateSphereConfig(wxRibbonButtonBarEvent& e);
 
+	void OnCreateCylinder(wxRibbonButtonBarEvent& e);
+
 
 	void clear();
 

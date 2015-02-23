@@ -12,12 +12,12 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 	for (const OBJGroup& g : file.getGroups()) {
 		Polygon* polygon = new Polygon();
 		polygon->setPositions( g.getPositions() );
-		polygon->normals = g.getNormals();
-		polygon->texCoords = g.getTexCoords();
+		polygon->setNormals( g.getNormals() );
+		polygon->setTexCoords( g.getTexCoords() );
 
 		for (const OBJFace& f : g.getFaces()) {
 			Face face;
-			face.vertexIds = f.getVertexIndices();
+			face.setVertexIds( f.getVertexIndices() );
 			face.normalIds = f.getNormalIndices();
 			face.texIds = f.getTexIndices();
 			polygon->faces.push_back(face);
@@ -43,13 +43,13 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 		positions.insert(positions.end(), pos.begin(), pos.end());
 		Face face;
 		face.normalIds = std::vector < unsigned int > { normalId, normalId, normalId };
-		face.vertexIds = std::vector < unsigned int > { vertexId, vertexId+1, vertexId+2 };
+		face.setVertexIds( std::vector < unsigned int > { vertexId, vertexId+1, vertexId+2 } );
 		normalId += 1;
 		vertexId += 3;
 		polygon->faces.push_back(face);
 	}
 
-	polygon->normals = normals;
+	polygon->setNormals( normals );
 	polygon->setPositions( positions );
 	return PolygonGroupList({ polygon } );
 }

@@ -186,7 +186,7 @@ void View::draw(const wxSize& size)
 			const VectorVector& ps = p->getPositions();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			for (const Graphics::Face& f : p->faces) {
-				const std::vector<unsigned int>& ids = f.vertexIds;
+				const std::vector<unsigned int>& ids = f.getVertexIds();
 				indices.push_back(ids);
 			}
 		}
@@ -209,11 +209,11 @@ void View::draw(const wxSize& size)
 		for (const PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->getPositions();
-			const VectorVector& ns = p->normals;
+			const VectorVector& ns = p->getNormals();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			normals.insert(normals.end(), ns.begin(), ns.end());
 			for (const Graphics::Face& f : p->faces) {
-				const std::vector<unsigned int>& ids = f.vertexIds;
+				const std::vector<unsigned int>& ids = f.getVertexIds();
 				indices.push_back(ids);
 			}
 		}
@@ -258,7 +258,7 @@ void View::draw(const wxSize& size)
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->getPositions();
-			const VectorVector& ns = p->normals;
+			const VectorVector& ns = p->getNormals();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			normals.insert(normals.end(), ns.begin(), ns.end());
 		}

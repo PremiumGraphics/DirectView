@@ -18,7 +18,7 @@ TEST(PolygoGroupTest, Test)
 ::std::ostream& operator<<(::std::ostream& os, const Polygon& polygon) {
 	return os
 		<< "faces = " << polygon.faces.size() << " "
-		<< "normals = " << polygon.normals.size();
+		<< "normals = " << polygon.getNormals().size();
 }
 
 TEST(PolygonFactoryTest, TestCreateFromObj)
@@ -40,7 +40,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	Polygon expected;
 	expected.setPositions( positions );
 	Face f;
-	f.vertexIds = { 0, 1, 2 };
+	f.setVertexIds({ 0, 1, 2 });
 	expected.faces = std::vector < Face > { f };
 	const Polygon* p = polygons.front().getPolygon();
 	const Material* m = polygons.front().getMaterial();
@@ -67,12 +67,12 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	const PolygonGroupList& polygons = factory.create(file);
 	Face face;
 	face.normalIds = { 0 };
-	face.vertexIds = { 0, 1, 2 };
+	face.setVertexIds( { 0, 1, 2 } );
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
 	expected.faces = std::vector < Face > { face };
 	expected.setPositions( positions );
-	expected.normals = { normal };
+	expected.setNormals( { normal } );
 	EXPECT_EQ( expected, *actual );
 	delete actual;
 }

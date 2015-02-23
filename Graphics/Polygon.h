@@ -9,9 +9,12 @@ namespace Crystal {
 
 class Face {
 public:
-	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > normalIds;
 	std::vector< unsigned int > texIds;
+
+	void setVertexIds(const std::vector<unsigned int >& vertexIds) { this->vertexIds = vertexIds;  }
+
+	std::vector< unsigned int > getVertexIds() const { return vertexIds;  }
 
 	bool operator==(const Face& rhs) const {
 		return
@@ -19,18 +22,27 @@ public:
 			normalIds == rhs.normalIds &&
 			texIds == rhs.texIds;
 	}
+
+private:
+	std::vector< unsigned int > vertexIds;
 };
 
 class Polygon {
 public:
 	std::vector< Face > faces;
-	std::vector < Math::Vector3d > normals;
-	std::vector < Math::Vector3d > texCoords;
 	std::string name;
 
 	void setPositions(const std::vector< Math::Vector3d>& pos) { this->positions = pos;  }
 
 	std::vector< Math::Vector3d > getPositions() const { return positions; }
+
+	void setNormals(const std::vector < Math::Vector3d>& normals) { this->normals = normals; }
+
+	std::vector< Math::Vector3d > getNormals() const { return normals; }
+
+	void setTexCoords(const std::vector<Math::Vector3d>& tex) { this->texCoords = tex; }
+	
+	std::vector<Math::Vector3d> getTexCoords() const { return texCoords; }
 
 	void scale(const Math::Vector3d& scale) {
 		for (Math::Vector3d& p : positions) {
@@ -49,6 +61,8 @@ public:
 
 private:
 	std::vector < Math::Vector3d > positions;
+	std::vector < Math::Vector3d > normals;
+	std::vector < Math::Vector3d > texCoords;
 
 };
 
