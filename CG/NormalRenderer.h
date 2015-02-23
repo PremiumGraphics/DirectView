@@ -6,10 +6,13 @@
 
 #include "../Graphics/ShaderObject.h"
 
+#include "../Graphics/ShaderObject.h"
+#include "../Graphics/Camera.h"
+#include "../Graphics/ColorRGBA.h"
+
+#include <memory>
+
 namespace Crystal {
-	namespace Math {
-		class Vector3d;
-	}
 	namespace CG {
 
 class NormalRenderer {
@@ -19,28 +22,13 @@ public:
 
 	~NormalRenderer();
 
-	struct Param {
-		std::vector<float> positions;
-		std::vector<float> projectionMatrix;
-		std::vector<float> modelviewMatrix;
-	};
-
-
-	void render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices);
-
 	void build();
 
+	void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const std::vector<float>& vectors );
+
 private:
-	struct Location {
-		GLuint projectionMatrix;
-		GLuint modelviewMatrix;
-		GLuint position;
-	};
-
-	Location getLocations();
-
-
 	Graphics::ShaderObject shader;
+
 };
 
 	}

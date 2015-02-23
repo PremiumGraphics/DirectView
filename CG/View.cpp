@@ -254,23 +254,17 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RenderingMode::Normal) {
 		VectorVector positions;
+		VectorVector normals;
 		std::vector< std::vector<unsigned int> > indices;
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
 			const VectorVector& ps = p->positions;
+			const VectorVector& ns = p->normals;
 			positions.insert(positions.end(), ps.begin(), ps.end());
-			for (const Graphics::Face& f : p->faces) {
-				const std::vector<unsigned int>& ids = f.vertexIds;
-				indices.push_back(ids);
-			}
+			normals.insert(normals.end(), ns.begin(), ns.end());
 		}
-		NormalRenderer::Param param;
-		param.positions = toArray(positions);
-		Camera<float>* c = frame->getCamera();
-		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
-		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
-
-		normalRenderer.render(width, height, param, indices);
+		
+		normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
 	}
 	else if (renderingMode == RenderingMode::Point) {
 		VectorVector positions;

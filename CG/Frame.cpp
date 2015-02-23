@@ -164,7 +164,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
-	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPoint));
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
 
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
@@ -643,6 +643,11 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
 		Vector3d(1.0, 1.0, 0.0)
+	};
+	p->normals = {
+		Vector3d( 0.0, 0.0, 1.0 ),
+		Vector3d( 0.0, 0.0, 1.0 ),
+		Vector3d( 0.0, 0.0, 1.0 )
 	};
 //	p->normals = {};
 	Face f;
