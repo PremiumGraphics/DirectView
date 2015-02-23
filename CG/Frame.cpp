@@ -59,10 +59,37 @@ enum {
 
 #include "PolygonTree.h"
 
+
+class AppInfo {
+public:
+	static std::string getProductName() { return "CGStudio"; }
+
+#define CG_STUDIO_MAJOR_VERSION 0
+#define CG_STUDIO_MINOR_VERSION 2
+#define CG_STUDIO_PATCH_VERSION 0
+
+
+	static std::string getVersionStr()
+	{
+		return std::to_string(CG_STUDIO_MAJOR_VERSION) + "." + std::to_string(CG_STUDIO_MINOR_VERSION) + "." + std::to_string(CG_STUDIO_PATCH_VERSION);
+	}
+
+	static std::string getReleaseDateStr()
+	{
+		const int year = 2015;
+		const int month = 2;
+		const int day = 27;
+		return std::to_string(year) + std::to_string(month) + std::to_string(day);
+	}
+
+};
+
+
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
 	circleDivideNumber( 3 )
 {
+	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 	sphereConfigDialog = new SphereConfigDialog(this);
 
 	camera.setNear(1.0f);
@@ -154,6 +181,14 @@ Frame::Frame()
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
 	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
 	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
+
+	{
+		wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ヘルプ"));
+		wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
+		helpToolBar->AddButton(wxID_ABOUT, "About", wxArtProvider::GetBitmap(wxART_INFORMATION, wxART_OTHER, wxSize(32, 32)), "このソフトについて");
+
+		Connect(wxID_ABOUT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnAbout));
+	}
 
 
 	bar->Realize();
@@ -252,7 +287,9 @@ void Frame::OnClose( wxRibbonButtonBarEvent& )
 
 void Frame::OnAbout( wxRibbonButtonBarEvent& )
 {
-	wxMessageBox( wxT( "CG Studio 0.10" ) );
+	//wxMessageBox( wxT( "CG Studio 0.10" ) );
+
+	wxMessageBox(AppInfo::getProductName() + " " + AppInfo::getVersionStr() + "\n" + "Release" + AppInfo::getReleaseDateStr());
 }
 
 #include "../IO/CGSFile.h"

@@ -91,6 +91,7 @@ private:
 
 	void OnCreateSphereConfig(wxRibbonButtonBarEvent& e);
 
+
 	void clear();
 
 private:
