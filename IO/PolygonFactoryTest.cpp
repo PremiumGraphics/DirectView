@@ -33,7 +33,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	face.setVertexIndices({ 0, 1, 2 });
 	OBJGroup group;
 	group.setPositions(positions);
-	group.setFaces(std::vector < OBJFace > {face});
+	group.setFaces( {face} );
 	file.setGroups({ group });
 	PolygonFactory factory;
 	const PolygonGroupList& polygons = factory.create(file);
@@ -66,13 +66,16 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	PolygonFactory factory;
 	const PolygonGroupList& polygons = factory.create(file);
 	Face face;
-	face.normalIds = { 0 };
-	face.setVertexIds( { 0, 1, 2 } );
+	face.setNormalIds( { 0, 0, 0 } );
+	face.setVertexIds({ 0, 1, 2 });
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
 	expected.faces = std::vector < Face > { face };
-	expected.setPositions( positions );
-	expected.setNormals( { normal } );
+	expected.setPositions(positions);
+	expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
+	);
+
+	//EXPECT_EQ( expected.getNormals() ,actual->getNormals() );
 	EXPECT_EQ( expected, *actual );
 	delete actual;
 }

@@ -121,7 +121,7 @@ private:
 	std::list<Graphics::Material*> materials;
 	std::list<Graphics::Light*> lights;
 
-	int circleDivideNumber;
+	float circleDivideAngle;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

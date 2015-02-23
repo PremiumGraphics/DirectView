@@ -9,7 +9,9 @@ namespace Crystal {
 
 class Face {
 public:
-	std::vector< unsigned int > normalIds;
+	void setNormalIds(const std::vector<unsigned int>& normalIds) { this->normalIds = normalIds; }
+
+	std::vector<unsigned int> getNormalIds() const { return normalIds; }
 
 	void setVertexIds(const std::vector<unsigned int >& vertexIds) { this->vertexIds = vertexIds;  }
 
@@ -29,12 +31,16 @@ public:
 private:
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > texIds;
+	std::vector< unsigned int > normalIds;
 };
 
 class Polygon {
 public:
 	std::vector< Face > faces;
-	std::string name;
+
+	void setName(const std::string& name) { this->name = name; }
+
+	std::string getName() const { return name; }
 
 	void setPositions(const std::vector< Math::Vector3d>& pos) { this->positions = pos;  }
 
@@ -67,9 +73,12 @@ public:
 
 	static Polygon* createQuad();
 
-	static Polygon* createCircle();
+	static Polygon* createCircle( const float radius, const float divideAngle);
+
+	static Polygon* createCylinder();
 
 private:
+	std::string name;
 	std::vector < Math::Vector3d > positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;

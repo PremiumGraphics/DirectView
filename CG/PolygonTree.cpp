@@ -66,7 +66,7 @@ void PolygonTree::build()
 	this->polygons = polygons;
 
 	for (const PolygonGroup& g:  polygons) {
-		const wxTreeItemId id = AppendItem( root, g.getPolygon()->name );
+		const wxTreeItemId id = AppendItem( root, g.getPolygon()->getName() );
 		map[id] = g.getPolygon();
 		//SetItemState( id, polygon->isSelected );
 	}

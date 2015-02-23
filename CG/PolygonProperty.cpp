@@ -30,7 +30,7 @@ void PolygonProperty::build( const PolygonGroup& group )
 	Graphics::Polygon* polygon = group.getPolygon();
 
 	Clear();
-	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->name ) );
+	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );
 	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->faces.size() ) );
 	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->getPositions().size() ) );
 

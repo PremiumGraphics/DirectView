@@ -89,9 +89,10 @@ public:
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
-	circleDivideNumber( 3 )
+	circleDivideAngle( 60.0f )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
+
 	sphereConfigDialog = new SphereConfigDialog(this);
 
 	camera.setNear(1.0f);
@@ -635,20 +636,24 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(Polygon::createCircle());
+	polygons.push_back(Polygon::createCircle(1.0f, circleDivideAngle));
 	polygonTree->build();
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 {
-	const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
+	CircleConfigDialog dialog(this);
+	int ret = dialog.ShowModal();
+	if (ret == wxID_OK) {
+		circleDivideAngle = dialog.getDivideAngle();
+	}
 }
 
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "sphere";
+	p->setName( "sphere" );
 	VectorVector positions;
 	Face f;
 	std::vector<unsigned int> vertexIds;
@@ -680,46 +685,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "cylinder";
-	VectorVector positions;
-	VectorVector normals;
-	Face f;
-	std::vector<unsigned int > vertexIds;
-	int i = 0;
-	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
-		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
-		normals.push_back(Vector3d(0.0, 0.0, 1.0));
-		vertexIds.push_back(i++);
-	}
-	f.setVertexIds(vertexIds);
-
-	vertexIds.clear();
-	Face f1;
-	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
-		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 1.0f));
-		normals.push_back(Vector3d(0.0, 0.0, 1.0));
-		vertexIds.push_back(i++);
-	}
-	f1.setVertexIds(vertexIds);
-
-	assert(f.getVertexIds().size() == f1.getVertexIds().size());
-	vertexIds.clear();
-
-	Face f3;
-	for (size_t i = 0; i < f.getVertexIds().size() - 1; ++i) {
-		std::vector<unsigned int> vids = { f.getVertexIds()[i], f.getVertexIds()[i + 1], f1.getVertexIds()[i] };
-		f3.setVertexIds(vids);
-	}
-	
-	p->setPositions(positions);
-	p->setNormals(normals);
-
-	p->faces = std::vector < Face > {f, f1, f3};
-	polygons.push_back(p);
-
+	polygons.push_back( Polygon::createCylinder());
 	polygonTree->build();
 
 }

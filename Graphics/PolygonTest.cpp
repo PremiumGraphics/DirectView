@@ -11,6 +11,7 @@ TEST(PolygonTest, TestCreateTriangle)
 {
 	std::unique_ptr< Polygon > p( Polygon::createTriangle() );
 	EXPECT_EQ(3, p->getPositions().size());
+	EXPECT_EQ(3, p->getNormals().size());
 }
 
 TEST(PolygonTest, TestCreateQuad)
@@ -21,7 +22,7 @@ TEST(PolygonTest, TestCreateQuad)
 
 TEST(PolygonTest, TestCreateCircle)
 {
-	std::unique_ptr< Polygon > p(Polygon::createCircle());
+	std::unique_ptr< Polygon > p(Polygon::createCircle(1.0f, 60.0f));
 	EXPECT_EQ(6, p->getPositions().size());
 }
 
