@@ -29,6 +29,12 @@ public:
 	std::vector < Math::Vector3d > texCoords;
 	std::string name;
 
+	void scale(const Math::Vector3d& scale) {
+		for (Math::Vector3d& p : positions) {
+			p.scale(scale.getX(), scale.getY(), scale.getZ());
+		}
+	}
+
 	bool operator==(const Polygon& rhs) const {
 		return
 			name == rhs.name &&

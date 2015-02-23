@@ -132,14 +132,11 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if( mode == PolygonScale ) {
-			/*
-			const PolygonList& polygons = frame->getModel()->getPolygonModel()->getSelectedPolygons();
-			pos.scale( 0.1f, 0.1f, 0.1f );
-			pos += Vector3d( 1.0f, 1.0f, 1.0f );
-			for( Graphics::Polygon* p : polygons ) {
-				p->scale( pos.getX(), pos.getY(), pos.getZ() );
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
+			for( Graphics::PolygonGroup& p : polygons ) {
+				p.getPolygon()->scale(scale);
 			}
-			*/
 		}
 		else if( mode == PolygonTranslate ) {
 			/*
