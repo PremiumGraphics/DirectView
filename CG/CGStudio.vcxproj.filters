@@ -14,6 +14,7 @@
     <ClCompile Include="PolygonProperty.cpp" />
     <ClCompile Include="WireFrameRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
+    <ClCompile Include="NormalRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ModelingDialog.h" />
+    <ClInclude Include="NormalRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
