@@ -252,6 +252,26 @@ void View::draw(const wxSize& size)
 		*/
 		smoothRenderer.render(width, height, param, indices);
 	}
+	else if (renderingMode == RenderingMode::Normal) {
+		VectorVector positions;
+		std::vector< std::vector<unsigned int> > indices;
+		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
+			Graphics::Polygon* p = g.getPolygon();
+			const VectorVector& ps = p->positions;
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			for (const Graphics::Face& f : p->faces) {
+				const std::vector<unsigned int>& ids = f.vertexIds;
+				indices.push_back(ids);
+			}
+		}
+		NormalRenderer::Param param;
+		param.positions = toArray(positions);
+		Camera<float>* c = frame->getCamera();
+		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
+		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
+
+		normalRenderer.render(width, height, param, indices);
+	}
 	else {
 		assert( false );
 	}
@@ -261,6 +281,7 @@ void View::build()
 {
 	wireFrameRenderer.build();
 	smoothRenderer.build();
+	normalRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

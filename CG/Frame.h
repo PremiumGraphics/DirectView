@@ -73,6 +73,8 @@ private:
 
 	void OnFlat( wxRibbonButtonBarEvent& );
 
+	void OnNormal(wxRibbonButtonBarEvent&);
+
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );

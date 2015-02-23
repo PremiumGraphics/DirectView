@@ -50,6 +50,7 @@ enum {
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
 	ID_RENDERING_PHONG,
+	ID_RENDERING_NORMAL,
 
 	ID_CAMERA_FIT,
 
@@ -128,10 +129,12 @@ Frame::Frame()
 	rendering->AddButton( ID_RENDERING_WIREFRAME, "WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddButton( ID_RENDERING_PHONG,  "Phong", wxImage("../Resource/surface.png"));
 	rendering->AddButton( ID_RENDERING_FLAT,"Flat", wxImage("../Resource/surface.png") );
+	rendering->AddButton( ID_RENDERING_NORMAL, "Normal", wxImage("../Resource/arrow-1-down-right.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED,	wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED,	wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
+	Connect( ID_RENDERING_NORMAL, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnNormal) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
@@ -510,6 +513,12 @@ void Frame::OnPhong( wxRibbonButtonBarEvent& )
 void Frame::OnFlat( wxRibbonButtonBarEvent& )
 {
 	view->setRenderingMode( View::RenderingMode::Flat );
+	view->Refresh();
+}
+
+void Frame::OnNormal(wxRibbonButtonBarEvent&)
+{
+	view->setRenderingMode( View::RenderingMode::Normal );
 	view->Refresh();
 }
 
