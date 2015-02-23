@@ -15,6 +15,7 @@
     <ClCompile Include="WireFrameRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="NormalRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

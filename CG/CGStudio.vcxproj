@@ -151,6 +151,7 @@
     <ClCompile Include="MaterialProperty.cpp" />
     <ClCompile Include="MaterialTree.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="PolygonProperty.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="MaterialTree.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="NormalRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="PolygonTree.h" />
     <ClInclude Include="resource.h" />
