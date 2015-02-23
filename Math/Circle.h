@@ -30,8 +30,8 @@ public:
 
 	Vector3d getCenter() const { return center; }
 
-	VectorVector toPoints( const float divideAngle ) const {
-		VectorVector points;
+	Vector3dVector toPoints( const float divideAngle ) const {
+		Vector3dVector points;
 
 		for( float angle = 0.0f; angle <= 360.0f; angle += divideAngle ) {
 			const float angle1 = angle / 180.0f * Tolerances::getPI();

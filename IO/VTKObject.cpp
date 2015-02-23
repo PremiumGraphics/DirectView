@@ -69,9 +69,9 @@ ColorRGBAMap<float>* VTKObject::createDefaultColorMap()
 	//colorMaps.push_back( map );
 }
 
-VectorVector VTKObject::getCellCenters() const
+Vector3dVector VTKObject::getCellCenters() const
 {
-	VectorVector centers;
+	Vector3dVector centers;
 	for( VTKCell* cell : cells ) {
 		Vector3d center;
 		const ConnectionVector& connections = cell->getConnections();

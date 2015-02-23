@@ -226,7 +226,7 @@ std::vector< Vector3d > AVSFLDFile::toPositions() const
 	assert( dimensions.size() == geoFiles.size() );
 
 	if( dimensions.empty() ) {
-		return Math::VectorVector();
+		return Math::Vector3dVector();
 	}
 
 	//const int dims = std::accumulate( dimensions.begin(), dimensions.end(), 0 );
@@ -282,7 +282,7 @@ std::vector< float > AVSFLDFile::toScalarValues() const
 std::vector< Vector3d > AVSFLDFile::toVector3dValues() const
 {
 	if( vecLength < 1 ) {
-		return VectorVector();
+		return Vector3dVector();
 	}
 
 	//const int dims = std::multi( dimensions.begin(), dimensions.end(), 0 );
@@ -291,7 +291,7 @@ std::vector< Vector3d > AVSFLDFile::toVector3dValues() const
 		dims *= dimensions[i];
 	}
 
-	VectorVector vectors( dims );
+	Vector3dVector vectors( dims );
 	if( vecLength >= 1 ) {
 		const std::vector< float >& xValues = datFiles[0].getValues();
 		for( size_t i = 0; i < dims; ++i ) {

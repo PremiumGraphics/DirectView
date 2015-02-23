@@ -313,6 +313,6 @@ TEST( AVSFLDFileTest, TestToVectors )
 	const std::vector< int > dimensions{ 1, 2 };
 	file.setDimensions( dimensions );
 	file.setVecLength( 2 );
-	const VectorVector& actual = file.toVector3dValues();
+	const Vector3dVector& actual = file.toVector3dValues();
 	EXPECT_EQ( 2, actual.size() );
 }

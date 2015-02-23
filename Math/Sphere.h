@@ -45,8 +45,8 @@ public:
 
 	virtual Type getType() const { return Primitive::Sphere; }
 
-	virtual VectorVector toPoints(const float divideLength ) const {
-		VectorVector points;
+	virtual Vector3dVector toPoints(const float divideLength ) const {
+		Vector3dVector points;
 
 		Math::Box box( center, center );
 		box.outerOffset( radius );

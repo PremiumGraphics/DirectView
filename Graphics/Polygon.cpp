@@ -22,6 +22,7 @@ Polygon* Polygon::createTriangle()
 	//	p->normals = {};
 	Face f;
 	f.setVertexIds({ 0, 1, 2 });
+	f.setNormalIds({ 0, 1, 2 });
 	p->faces = std::vector < Face > {f};
 	return p;
 }
@@ -31,10 +32,10 @@ Polygon* Polygon::createQuad()
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "quad";
 	p->setPositions({
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0),
-		Vector3d(0.0, 1.0, 0.0)
+		Vector3d(-0.5, 0.5, 0.0),
+		Vector3d(-0.5, -0.5, 0.0),
+		Vector3d(0.5, -0.5, 0.0),
+		Vector3d(0.5, 0.5, 0.0)
 	});
 	p->setNormals({
 		Vector3d(0.0, 0.0, 1.0),
@@ -52,8 +53,8 @@ Polygon* Polygon::createCircle( const float radius, const float divideAngle)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "circle";
-	VectorVector positions;
-	VectorVector normals;
+	Vector3dVector positions;
+	Vector3dVector normals;
 	Face f;
 	int i = 0;
 	std::vector<unsigned int> vertexIds;
@@ -75,8 +76,8 @@ Polygon* Polygon::createCylinder()
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "cylinder";
-	VectorVector positions;
-	VectorVector normals;
+	Vector3dVector positions;
+	Vector3dVector normals;
 	Face f;
 	std::vector<unsigned int > vertexIds;
 	int i = 0;

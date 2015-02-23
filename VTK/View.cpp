@@ -158,7 +158,7 @@ void View::setRenderingBlocks()
 		if( object == nullptr ) {
 			continue;
 		}
-		const VectorVector& vertices = object->getVertices();
+		const Vector3dVector& vertices = object->getVertices();
 		this->positions = toArray( vertices );
 		vertexValues.resize( vertices.size(), 0.5  );
 		cellValues.resize( object->getCells().size(), 0.5 );
@@ -181,7 +181,7 @@ void View::setRenderingBlocks()
 				ColorRGBAMap<float>* map = object->getColorMap( attr->getLookupTableName() );
 				texColors = map->getColors();
 				//this->vectors = attr->getValues();
-				const VectorVector& vectors = attr->toVector3ds();
+				const Vector3dVector& vectors = attr->toVector3ds();
 				min = FLT_MAX;
 				max = -FLT_MAX;
 				for( const Vector3d& v : vectors ) {
@@ -192,7 +192,7 @@ void View::setRenderingBlocks()
 			}
 		}
 
-		const VectorVector& centers = object->getCellCenters();
+		const Vector3dVector& centers = object->getCellCenters();
 
 		for( VTKAttributes* attr : object->getCellAttributes() ) {
 			if( !attr->isSelected() ) {
@@ -210,7 +210,7 @@ void View::setRenderingBlocks()
 				cellCenters = toArray( centers );
 				ColorRGBAMap<float>* map = object->getColorMap( attr->getLookupTableName() );
 				texColors = map->getColors();
-				const VectorVector& vectors = attr->toVector3ds();
+				const Vector3dVector& vectors = attr->toVector3ds();
 				min = FLT_MAX;
 				max = -FLT_MAX;
 				for( const Vector3d& v : vectors ) {

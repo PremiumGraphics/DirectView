@@ -15,12 +15,6 @@ TEST(PolygoGroupTest, Test)
 	EXPECT_EQ( nullptr, group.getMaterial() );
 }
 
-::std::ostream& operator<<(::std::ostream& os, const Polygon& polygon) {
-	return os
-		<< "faces = " << polygon.faces.size() << " "
-		<< "normals = " << polygon.getNormals().size();
-}
-
 TEST(PolygonFactoryTest, TestCreateFromObj)
 {
 	OBJFile file;
@@ -41,7 +35,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	expected.setPositions( positions );
 	Face f;
 	f.setVertexIds({ 0, 1, 2 });
-	expected.faces = std::vector < Face > { f };
+	expected.setFaces( { f } );
 	const Polygon* p = polygons.front().getPolygon();
 	const Material* m = polygons.front().getMaterial();
 	EXPECT_EQ( expected, *p );
@@ -70,7 +64,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	face.setVertexIds({ 0, 1, 2 });
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
-	expected.faces = std::vector < Face > { face };
+	expected.setFaces( { face } );
 	expected.setPositions(positions);
 	expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
 	);

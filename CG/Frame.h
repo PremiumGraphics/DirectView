@@ -65,7 +65,7 @@ private:
 
 	void OnLocale( wxCommandEvent& );
 
-	void OnPolygonScale( wxRibbonButtonBarEvent& );
+	void OnPolygonScale( wxRibbonButtonBarEvent& e);
 
 	void OnWireFrame( wxRibbonButtonBarEvent& e);
 

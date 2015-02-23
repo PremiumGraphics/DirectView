@@ -43,9 +43,9 @@ public:
 
 	virtual Type getType() const { return Primitive::Cylinder; }
 
-	virtual VectorVector toPoints(const float divideLength ) const {
+	virtual Vector3dVector toPoints(const float divideLength ) const {
 		assert( false );
-		return VectorVector();
+		return Vector3dVector();
 	}
 
 	virtual Vector3d getCenter() const { return center; }

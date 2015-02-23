@@ -193,10 +193,10 @@ TEST( AVSFLDConverterTest, TestCreate )
 	file.setGeoFiles( geoms );
 	file.read(stream);
 	VTKObject* object = AVSFLDConverter::toVTKObject( 0, file );
-	const VectorVector& positions = object->getVertices();
+	const Vector3dVector& positions = object->getVertices();
  	EXPECT_EQ( 4, positions.size() );
 
-	const VectorVector expected = {
+	const Vector3dVector expected = {
 		Vector3d(0.0f, 10.0f, 0.0f),
 		Vector3d(1.0f, 11.0f, 0.0f),
 		Vector3d(2.0f, 12.0f, 0.0f),

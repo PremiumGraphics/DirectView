@@ -31,7 +31,7 @@ void PolygonProperty::build( const PolygonGroup& group )
 
 	Clear();
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );
-	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->faces.size() ) );
+	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size() ) );
 	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->getPositions().size() ) );
 
 	Graphics::Material* m = group.getMaterial();

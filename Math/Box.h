@@ -50,7 +50,7 @@ public:
 
 	Box getInnerOffset(const float offsetLength) const;
 
-	VectorVector toPoints( const float divideLength ) const;
+	Vector3dVector toPoints( const float divideLength ) const;
 
 	float getMaxX() const { return maxX; }
 

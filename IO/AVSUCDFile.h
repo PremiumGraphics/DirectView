@@ -244,9 +244,9 @@ public:
 		return lhs.first < rhs.first; 
 	}
 
-	Math::VectorVector getPositions() {
+	Math::Vector3dVector getPositions() {
 		std::sort( pairs.begin(), pairs.end(), compare );
-		Math::VectorVector positions;
+		Math::Vector3dVector positions;
 		for( const AVSUCDNodePair& pair : pairs ) {
 			positions.push_back( pair.second );
 		}

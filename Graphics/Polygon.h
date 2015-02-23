@@ -34,9 +34,13 @@ private:
 	std::vector< unsigned int > normalIds;
 };
 
+typedef std::vector<Face> FaceVector;
+
 class Polygon {
 public:
-	std::vector< Face > faces;
+	void setFaces(const std::vector< Face >& faces) { this->faces = faces; }
+
+	std::vector< Face > getFaces() const { return faces; }
 
 	void setName(const std::string& name) { this->name = name; }
 
@@ -79,6 +83,7 @@ public:
 
 private:
 	std::string name;
+	std::vector< Face > faces;
 	std::vector < Math::Vector3d > positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;

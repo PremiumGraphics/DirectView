@@ -25,7 +25,7 @@ public:
 
 	virtual Type getType() const = 0;
 
-	virtual VectorVector toPoints( const float divideLength ) const = 0;
+	virtual Vector3dVector toPoints( const float divideLength ) const = 0;
 
 	virtual Vector3d getCenter() const = 0;
 

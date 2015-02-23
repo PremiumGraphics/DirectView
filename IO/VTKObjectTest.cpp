@@ -24,7 +24,7 @@ TEST( VTKObjectTest, TestColorMap )
 TEST( VTKObjectTest, TestBoundingBox )
 {
 	VTKObject object(0);
-	VectorVector vertices;
+	Vector3dVector vertices;
 	vertices.push_back( Vector3d( -1.0, -10.0, -100.0 ) );
 	vertices.push_back( Vector3d(  1.0,  10.0,  100.0 ) );
 	object.setVertices( vertices );

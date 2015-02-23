@@ -62,11 +62,11 @@ public:
 
 	std::vector< VTKCell* > getCells() const { return cells; }
 
-	void setVertices( const Math::VectorVector& vs ) { this->vertices = vs; }
+	void setVertices( const Math::Vector3dVector& vs ) { this->vertices = vs; }
 
-	Math::VectorVector getVertices() const { return vertices; }
+	Math::Vector3dVector getVertices() const { return vertices; }
 
-	Math::VectorVector getCellCenters() const;
+	Math::Vector3dVector getCellCenters() const;
 
 	Math::Box getBoundingBox() const;
 
@@ -86,7 +86,7 @@ private:
 	std::string name;
 	Graphics::ColorRGBAMap<float> map;
 	std::vector< VTKCell* > cells;
-	Math::VectorVector vertices;
+	Math::Vector3dVector vertices;
 	VTKAttributeVector nodeAttributes;
 	VTKAttributeVector cellAttributes;
 	std::list< Graphics::ColorRGBAMap<float>* > colorMaps;

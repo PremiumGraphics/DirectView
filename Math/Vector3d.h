@@ -162,7 +162,7 @@ private:
 	float z;
 };
 
-typedef std::vector< Vector3d > VectorVector;
+typedef std::vector< Vector3d > Vector3dVector;
 
 static Vector3d operator*( float factor, const Vector3d& rhs ) { return rhs.getScaled( factor ); }
 

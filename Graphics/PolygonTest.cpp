@@ -12,12 +12,27 @@ TEST(PolygonTest, TestCreateTriangle)
 	std::unique_ptr< Polygon > p( Polygon::createTriangle() );
 	EXPECT_EQ(3, p->getPositions().size());
 	EXPECT_EQ(3, p->getNormals().size());
+
+	const FaceVector& faces = p->getFaces();
+	Face f;
+	f.setNormalIds({ 0, 1, 2 });
+	f.setVertexIds({ 0, 1, 2 });
+
+	EXPECT_EQ(f, p->getFaces().front());
 }
 
 TEST(PolygonTest, TestCreateQuad)
 {
 	std::unique_ptr< Polygon > p( Polygon::createQuad() );
-	EXPECT_EQ(4, p->getPositions().size());
+
+	Vector3dVector positions{
+		Vector3d(-0.5, 0.5, 0.0),
+		Vector3d(-0.5, -0.5, 0.0),
+		Vector3d(0.5, -0.5, 0.0),
+		Vector3d(0.5, 0.5, 0.0)
+	};
+
+	EXPECT_EQ( positions, p->getPositions() );
 }
 
 TEST(PolygonTest, TestCreateCircle)
@@ -32,7 +47,7 @@ TEST(PolygonTest, TestScale)
 	p.setPositions( { Vector3d(1.0, 1.0, 1.0) } );
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VectorVector expected = { Vector3d(0.1f, 0.01f, 10.0f) };
-	const VectorVector& actual = p.getPositions();
+	const Vector3dVector expected = { Vector3d(0.1f, 0.01f, 10.0f) };
+	const Vector3dVector& actual = p.getPositions();
 	EXPECT_EQ( expected, actual );
 }

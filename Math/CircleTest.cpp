@@ -16,7 +16,7 @@ TEST( CircleTest, TestConstruct )
 TEST( CircleTest, toPointsTest )
 {
 	Circle c;
-	const VectorVector& points = c.toPoints( 60.0f );
+	const Vector3dVector& points = c.toPoints( 60.0f );
 	EXPECT_EQ( 7, points.size() );
 }
 

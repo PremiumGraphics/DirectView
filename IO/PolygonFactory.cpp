@@ -15,13 +15,15 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 		polygon->setNormals( g.getNormals() );
 		polygon->setTexCoords( g.getTexCoords() );
 
+		std::vector< Face > faces;
 		for (const OBJFace& f : g.getFaces()) {
 			Face face;
 			face.setVertexIds( f.getVertexIndices() );
 			face.setNormalIds( f.getNormalIndices() );
 			face.setTexIds( f.getTexIndices() );
-			polygon->faces.push_back(face);
+			faces.push_back(face);
 		}
+		polygon->setFaces(faces);
 		polygons.push_back(polygon);
 	}
 	return polygons;
@@ -34,6 +36,7 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	const STLCellVector& cells = file.getCells();
 	std::vector< Vector3d > normals;
 	std::vector< Vector3d > positions;
+	std::vector< Face > faces;
 
 	unsigned int normalId = 0;
 	unsigned int vertexId = 0;
@@ -46,9 +49,10 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 		face.setVertexIds( { vertexId, vertexId+1, vertexId+2 } );
 		normalId += 1;
 		vertexId += 3;
-		polygon->faces.push_back(face);
+		faces.push_back(face);
 	}
 
+	polygon->setFaces(faces);
 	polygon->setNormals( normals );
 	polygon->setPositions( positions );
 	return PolygonGroupList({ polygon } );

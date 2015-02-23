@@ -115,9 +115,9 @@ Box Box::getInnerOffset(const float offsetLength) const
 	return getOuterOffset( -offsetLength );
 }
 
-VectorVector Box::toPoints( const float divideLength ) const
+Vector3dVector Box::toPoints( const float divideLength ) const
 {
-	VectorVector points;
+	Vector3dVector points;
 	for( float x = minX; x <= maxX; x+= divideLength ) {
 		for( float y = minY; y <= maxY; y += divideLength ) {
 			for( float z = minZ; z <= maxZ; z += divideLength ) {

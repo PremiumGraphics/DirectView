@@ -376,7 +376,7 @@ TEST( VTKPolygonalDataTest, TestRead )
 	VTKPolygonalData data;
 	data.read( getPolygonalDataSample() );
 
-	const VectorVector expected = {
+	const Vector3dVector expected = {
 		Vector3d(0.0f, 0.0f, 0.0f),
 		Vector3d(1.0f, 0.0f, 0.0f),
 		Vector3d(1.0f, 1.0f, 0.0f),

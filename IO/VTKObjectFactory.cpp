@@ -13,7 +13,7 @@ using namespace Crystal::IO;
 VTKObject* VTKConverter::toVTKObject( const VTKFile& file, int id )
 {
 	const std::vector< Vector3d >& points = file.getGeometryPart().getPoints().getPoints();
-	VectorVector vertices = points;
+	Vector3dVector vertices = points;
 
 	std::vector< VTKCell* > cs;
 	for( const VTKCell_& c : file.getGeometryPart().getCells() ) {
@@ -112,7 +112,7 @@ VTKObject* AVSUCDConverter::toVTKObject(const int id, const AVSUCDFile& file)
 {
 	VTKObject* object = new VTKObject( id );
 
-	VectorVector vertices = file.getGeom().getNode().getPositions();
+	Vector3dVector vertices = file.getGeom().getNode().getPositions();
 
 	object->setVertices( vertices );
 

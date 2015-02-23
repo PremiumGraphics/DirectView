@@ -179,13 +179,13 @@ void View::draw(const wxSize& size)
 	const int height = size.GetHeight();
 	
 	if( renderingMode == RenderingMode::WireFrame ) {
-		VectorVector positions;
+		Vector3dVector positions;
 		std::vector< std::vector<unsigned int> > indices;
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
-			const VectorVector& ps = p->getPositions();
+			const Vector3dVector& ps = p->getPositions();
 			positions.insert(positions.end(), ps.begin(), ps.end());
-			for (const Graphics::Face& f : p->faces) {
+			for (const Graphics::Face& f : p->getFaces() ) {
 				const std::vector<unsigned int>& ids = f.getVertexIds();
 				indices.push_back(ids);
 			}
@@ -203,16 +203,16 @@ void View::draw(const wxSize& size)
 		//onScreenRenderer.render( width, height, flatRenderer.getTexture() );
 	}
 	else if (renderingMode == RenderingMode::Phong) {
-		VectorVector positions;
-		VectorVector normals;
+		Vector3dVector positions;
+		Vector3dVector normals;
 		std::vector< std::vector<unsigned int> > indices;
 		for (const PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
-			const VectorVector& ps = p->getPositions();
-			const VectorVector& ns = p->getNormals();
+			const Vector3dVector& ps = p->getPositions();
+			const Vector3dVector& ns = p->getNormals();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			normals.insert(normals.end(), ns.begin(), ns.end());
-			for (const Graphics::Face& f : p->faces) {
+			for (const Graphics::Face& f : p->getFaces()) {
 				const std::vector<unsigned int>& ids = f.getVertexIds();
 				indices.push_back(ids);
 			}
@@ -252,13 +252,13 @@ void View::draw(const wxSize& size)
 		smoothRenderer.render(width, height, param, indices);
 	}
 	else if (renderingMode == RenderingMode::Normal) {
-		VectorVector positions;
-		VectorVector normals;
+		Vector3dVector positions;
+		Vector3dVector normals;
 		std::vector< std::vector<unsigned int> > indices;
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
-			const VectorVector& ps = p->getPositions();
-			const VectorVector& ns = p->getNormals();
+			const Vector3dVector& ps = p->getPositions();
+			const Vector3dVector& ns = p->getNormals();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			normals.insert(normals.end(), ns.begin(), ns.end());
 		}
@@ -266,14 +266,14 @@ void View::draw(const wxSize& size)
 		normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
 	}
 	else if (renderingMode == RenderingMode::Point) {
-		VectorVector positions;
+		Vector3dVector positions;
 		std::vector< std::vector<unsigned int> > indices;
 		for ( Light* l : frame->getLights()) {
 			positions.push_back(l->getPos());
 		}
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
 			Graphics::Polygon* p = g.getPolygon();
-			const VectorVector& ps = p->getPositions();
+			const Vector3dVector& ps = p->getPositions();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 		}
 		pointRenderer.render(width, height, frame->getCamera(), toArray(positions), 10.0f);

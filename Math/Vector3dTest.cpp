@@ -48,7 +48,7 @@ TEST( Vector3dTest, TestDistance )
 
 TEST( Vector3dTest, TestToArray )
 {
-	VectorVector vectors;
+	Vector3dVector vectors;
 	vectors.push_back( Vector3d( 1.0f, 2.0f, 3.0f ) );
 	vectors.push_back( Vector3d( 4.0f, 5.0f, 6.0f ) );
 	const std::vector<float>& actual = toArray( vectors );
