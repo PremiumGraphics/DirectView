@@ -11,7 +11,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 	PolygonGroupList polygons;
 	for (const OBJGroup& g : file.getGroups()) {
 		Polygon* polygon = new Polygon();
-		polygon->positions = g.getPositions();
+		polygon->setPositions( g.getPositions() );
 		polygon->normals = g.getNormals();
 		polygon->texCoords = g.getTexCoords();
 
@@ -50,6 +50,6 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	}
 
 	polygon->normals = normals;
-	polygon->positions = positions;
+	polygon->setPositions( positions );
 	return PolygonGroupList({ polygon } );
 }

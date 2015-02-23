@@ -8,7 +8,10 @@ using namespace Crystal::Graphics;
 TEST(PolygonTest, TestScale)
 {
 	Polygon p;
-	p.positions = { Vector3d(1.0, 1.0, 1.0) };
+	p.setPositions( { Vector3d(1.0, 1.0, 1.0) } );
 	p.scale(Vector3d(0.1, 0.01, 10.0));
-	EXPECT_EQ(Vector3d(0.1, 0.01, 10.0), p.positions.front());
+
+	const VectorVector expected = { Vector3d(0.1, 0.01, 10.0) };
+	const VectorVector& actual = p.getPositions();
+	EXPECT_EQ( expected, actual );
 }

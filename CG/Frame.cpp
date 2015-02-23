@@ -620,12 +620,12 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "quad";
-	p->positions = {
+	p->setPositions( {
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
 		Vector3d(1.0, 1.0, 0.0),
 		Vector3d(0.0, 1.0, 0.0)
-	};
+	} );
 	p->normals = {
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
@@ -644,11 +644,11 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "triangle";
-	p->positions = {
+	p->setPositions ( {
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
 		Vector3d(1.0, 1.0, 0.0)
-	};
+	} );
 	p->normals = {
 		Vector3d( 0.0, 0.0, 1.0 ),
 		Vector3d( 0.0, 0.0, 1.0 ),
@@ -678,7 +678,7 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 		normals.push_back( Vector3d(0.0, 0.0, 1.0) );
 		f.vertexIds.push_back(i++);
 	}
-	p->positions = positions;
+	p->setPositions( positions );
 	p->normals = normals;
 
 	p->faces = std::vector < Face > {f};
@@ -705,7 +705,7 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 		f.vertexIds.push_back(i++);
 	}
-	p->positions = positions;
+	p->setPositions( positions );
 
 	p->faces = std::vector < Face > {f};
 	polygons.push_back(p);

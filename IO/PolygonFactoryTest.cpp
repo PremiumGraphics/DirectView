@@ -38,7 +38,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	PolygonFactory factory;
 	const PolygonGroupList& polygons = factory.create(file);
 	Polygon expected;
-	expected.positions = positions;
+	expected.setPositions( positions );
 	Face f;
 	f.vertexIds = { 0, 1, 2 };
 	expected.faces = std::vector < Face > { f };
@@ -71,7 +71,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
 	expected.faces = std::vector < Face > { face };
-	expected.positions = positions;
+	expected.setPositions( positions );
 	expected.normals = { normal };
 	EXPECT_EQ( expected, *actual );
 	delete actual;

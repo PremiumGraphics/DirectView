@@ -24,10 +24,13 @@ public:
 class Polygon {
 public:
 	std::vector< Face > faces;
-	std::vector < Math::Vector3d > positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;
 	std::string name;
+
+	void setPositions(const std::vector< Math::Vector3d>& pos) { this->positions = pos;  }
+
+	std::vector< Math::Vector3d > getPositions() const { return positions; }
 
 	void scale(const Math::Vector3d& scale) {
 		for (Math::Vector3d& p : positions) {
@@ -43,6 +46,10 @@ public:
 			normals == rhs.normals &&
 			texCoords == rhs.texCoords;
 	}
+
+private:
+	std::vector < Math::Vector3d > positions;
+
 };
 
 	}
