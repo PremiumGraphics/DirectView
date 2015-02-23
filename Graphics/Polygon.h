@@ -10,11 +10,14 @@ namespace Crystal {
 class Face {
 public:
 	std::vector< unsigned int > normalIds;
-	std::vector< unsigned int > texIds;
 
 	void setVertexIds(const std::vector<unsigned int >& vertexIds) { this->vertexIds = vertexIds;  }
 
-	std::vector< unsigned int > getVertexIds() const { return vertexIds;  }
+	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
+
+	void setTexIds(const std::vector<unsigned int>& texIds) { this->texIds = texIds; }
+
+	std::vector< unsigned int > getTexIds() const { return texIds; }
 
 	bool operator==(const Face& rhs) const {
 		return
@@ -25,6 +28,7 @@ public:
 
 private:
 	std::vector< unsigned int > vertexIds;
+	std::vector< unsigned int > texIds;
 };
 
 class Polygon {
@@ -58,6 +62,12 @@ public:
 			normals == rhs.normals &&
 			texCoords == rhs.texCoords;
 	}
+
+	static Polygon* createTriangle();
+
+	static Polygon* createQuad();
+
+	static Polygon* createCircle();
 
 private:
 	std::vector < Math::Vector3d > positions;

@@ -89,6 +89,7 @@
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
   </ItemGroup>
   <ItemGroup>
