@@ -272,6 +272,17 @@ void View::draw(const wxSize& size)
 
 		normalRenderer.render(width, height, param, indices);
 	}
+	else if (renderingMode == RenderingMode::Point) {
+		VectorVector positions;
+		std::vector< std::vector<unsigned int> > indices;
+		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
+			Graphics::Polygon* p = g.getPolygon();
+			const VectorVector& ps = p->positions;
+			positions.insert(positions.end(), ps.begin(), ps.end());
+		}
+		pointRenderer.render(width, height, frame->getCamera(), toArray(positions), 10.0f);
+
+	}
 	else {
 		assert( false );
 	}
@@ -282,6 +293,7 @@ void View::build()
 	wireFrameRenderer.build();
 	smoothRenderer.build();
 	normalRenderer.build();
+	pointRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

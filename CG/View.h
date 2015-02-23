@@ -8,6 +8,7 @@
 #include "WireFrameRenderer.h"
 #include "SmoothRenderer.h"
 #include "NormalRenderer.h"
+#include "PointRenderer.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -35,6 +36,7 @@ public:
 		Phong,
 		Flat,
 		Normal,
+		Point,
 	};
 
 	void setMode( const Mode& m ) { this->mode = m; }
@@ -70,6 +72,7 @@ private:
 	WireFrameRenderer wireFrameRenderer;
 	SmoothRenderer smoothRenderer;
 	NormalRenderer normalRenderer;
+	PointRenderer pointRenderer;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };
