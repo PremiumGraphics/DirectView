@@ -95,7 +95,7 @@ void RigidCoordinator::coordinate(const ParticleVector& particles, const float p
 	}
 
 	Math::Quaternion quaternion( angleVelosity.getNormalized(), rotateAngle );
-	const Math::Matrix3d& rotateMatrix = quaternion.toMatrix();
+	const Math::Matrix3d<float>& rotateMatrix = quaternion.toMatrix();
 /*	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		(*iter)->variable.center.rotate( rotateMatrix );
 	}

@@ -61,12 +61,9 @@ TEST( Vector3dTest, TestToArray )
 
 TEST(Vector3dTest, TestRotate)
 {
-	const Matrix3d m = Matrix3d::RotateZ(180.0 * Tolerances::getPI() / 180.0f);
+	const Matrix3d<double> m = Matrix3d<double>::RotateZ(180.0 * Tolerances::getPrecisePI() / 180.0);
 	Vector3d v = Vector3d(1.0f, 0.0, 0.0);
 	v.rotate(m);
-	//Vector3d expected(-1.0f, 0.0, 0.0);
-	EXPECT_FLOAT_EQ(-1.0f, v.getX());
-	// TODO.
-	//EXPECT_TRUE( Tolerances::isEqualLoosely( 0.0f, v.getY()) );
-	EXPECT_FLOAT_EQ( 0.0f, v.getZ());
+	Vector3d expected(-1.0f, 0.0, 0.0);
+	EXPECT_EQ(expected, v);
 };

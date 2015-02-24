@@ -4,12 +4,12 @@
 #include <cmath>
 #include <vector>
 #include "Tolerances.h"
+#include "Matrix3d.h"
 
 namespace Crystal{
 	namespace Math{
 
 class Box;
-class Matrix3d;
 
 class Vector3d
 {
@@ -127,13 +127,13 @@ public:
 
 	Vector3d operator/=( const float factor ) { return scale( 1.0f / factor ); }
 
-	void rotate(const Matrix3d& matrix);
+	void rotate(const Matrix3d<double>& matrix);
 
-	Vector3d getRotated(const Matrix3d& matrix) const;
+	Vector3d getRotated(const Matrix3d<double>& matrix) const;
 
-	Vector3d getMult(const Matrix3d& matrix) const;
+	Vector3d getMult(const Matrix3d<float>& matrix) const;
 	
-	const Vector3d Vector3d::operator*( const Matrix3d& rhs ) const;
+	const Vector3d Vector3d::operator*( const Matrix3d<float>& rhs ) const;
 
 public:
 	float getX() const { return x; }

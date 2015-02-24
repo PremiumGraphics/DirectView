@@ -139,15 +139,17 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if( mode == PolygonTranslate ) {
-			/*
-			const PolygonList& polygons = frame->getModel()->getPolygonModel()->getSelectedPolygons();
-			for( Graphics::Polygon* p : polygons ) {
-				p->translate( pos );
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			for( Graphics::PolygonGroup& p : polygons ) {
+				p.getPolygon()->move( pos );
 				//p->rotate( matrix );
 			}
-			*/
 		}
 		else if( mode == PolygonRotate ) {
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			for (Graphics::PolygonGroup& p : polygons) {
+				p.getPolygon()->rotateZ( pos.getX() );
+			}
 			/*
 			Matrix3d matrix = Matrix3d::RotateX( angle.getX() ) * Matrix3d::RotateY( angle.getY() ) * Matrix3d::RotateZ( angle.getZ() );
 			const PolygonList& polygons = frame->getModel()->getPolygonModel()->getSelectedPolygons();

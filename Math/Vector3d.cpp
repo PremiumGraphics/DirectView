@@ -36,12 +36,12 @@ Vector3d Vector3d::getNormalized() const
 }
 
 
-void Vector3d::rotate(const Matrix3d& matrix)
+void Vector3d::rotate(const Matrix3d<double>& matrix)
 {
 	*(this) = getRotated( matrix );
 }
 
-Vector3d Vector3d::getRotated( const Matrix3d& matrix ) const
+Vector3d Vector3d::getRotated( const Matrix3d<double>& matrix ) const
 {
 	const float x = matrix.getX00() * this->x + matrix.getX01() * this->y + matrix.getX02() * this->z;
 	const float y = matrix.getX10() * this->x + matrix.getX11() * this->y + matrix.getX12() * this->z;
@@ -50,7 +50,7 @@ Vector3d Vector3d::getRotated( const Matrix3d& matrix ) const
 	return Vector3d( x, y, z );
 }
 
-Vector3d Vector3d::getMult( const Matrix3d& matrix ) const
+Vector3d Vector3d::getMult( const Matrix3d<float>& matrix ) const
 {
 	return Vector3d
 		( 
@@ -60,7 +60,7 @@ Vector3d Vector3d::getMult( const Matrix3d& matrix ) const
 		);
 }
 	
-const Vector3d Vector3d::operator*( const Matrix3d& rhs ) const 
+const Vector3d Vector3d::operator*( const Matrix3d<float>& rhs ) const 
 {
 	return getMult( rhs );
 }

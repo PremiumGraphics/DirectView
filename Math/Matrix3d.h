@@ -37,21 +37,9 @@ public:
 
 	void setRotateX( const T angle ) { *this = RotateX( angle ); }
 
-	void setRotateY(const T angle) { *this = RotateZ( angle ); }
+	void setRotateY(const T angle) { *this = RotateY( angle ); }
 
-	void setRotateZ(const T angle) {
-		x00 = ::cos(angle);
-		x01 = -::sin(angle);
-		x02 = 0.0f;
-
-		x10 = ::sin(angle);
-		x11 = ::cos(angle);
-		x12 = 0.0f;
-
-		x20 = 0.0f;
-		x21 = 0.0f;
-		x22 = 1.0f;
-	}
+	void setRotateZ(const T angle) { *this = RotateZ(angle); }
 
 	static Matrix3d Identity() {
 		return Matrix3d(
@@ -84,9 +72,12 @@ public:
 	}
 
 	static Matrix3d RotateZ( const T angle ) {
-		Matrix3d matrix;
-		matrix.setRotateZ( angle );
-		return matrix;
+		return Matrix3d
+			(
+			::cos(angle), -::sin(angle), 0.0f,
+			::sin(angle), ::cos(angle), 0.0f,
+			0.0f, 0.0f, 1.0f
+			);
 	}
 
 	bool isZero() const { return this->equals(Matrix3d::Zero()); }

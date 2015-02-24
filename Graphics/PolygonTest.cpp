@@ -86,13 +86,11 @@ TEST(PolygonTest, TestMove)
 	EXPECT_EQ(expected, actual);
 }
 
-TEST(PolygonTest, TestRotateX)
+TEST(PolygonTest, TestRotateZ)
 {
-	/*
 	Polygon p;
 	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
-	p.rotateX(180.0f);
+	p.rotateZ(180.0f);
 
 	const Vector3dVector& actual = p.getPositions();
-	*/
 }

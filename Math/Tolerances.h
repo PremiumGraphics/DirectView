@@ -23,6 +23,8 @@ public:
 	static bool isEqualStrictly(double x, double y) { 	return ::fabs( x - y ) < getStrictTolerance(); }
 
 	static float getPI() { return 3.14159265359f; }
+
+	static double getPrecisePI() { return 3.141592653589793238462643383279; }
 };
 
 	}
