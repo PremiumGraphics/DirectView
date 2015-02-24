@@ -72,3 +72,27 @@ TEST(PolygonTest, TestScale)
 	const Vector3dVector& actual = p.getPositions();
 	EXPECT_EQ( expected, actual );
 }
+
+TEST(PolygonTest, TestMove)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 2.0, 3.0) });
+
+	p.move(Vector3d(1.0, 10.0, 100.0));
+
+	const Vector3dVector expected = { Vector3d(2.0, 12.0, 103.0) };
+	const Vector3dVector& actual = p.getPositions();
+
+	EXPECT_EQ(expected, actual);
+}
+
+TEST(PolygonTest, TestRotateX)
+{
+	/*
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
+	p.rotateX(180.0f);
+
+	const Vector3dVector& actual = p.getPositions();
+	*/
+}

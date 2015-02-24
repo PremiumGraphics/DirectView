@@ -174,13 +174,14 @@ Frame::Frame()
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
 	modelingBar->AddButton( ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png") );
-	modelingBar->AddButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
+	modelingBar->AddHybridButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
 	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage("../Resource/quad.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateQuad) );
+	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
 	Connect( ID_CREATE_CIRCLE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCircle) );
 	Connect( ID_CREATE_CIRCLE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSphere) );
@@ -627,6 +628,12 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 	polygons.push_back( Polygon::createQuad(1.0, 1.0) );
 
 	polygonTree->build();
+}
+
+void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
+{
+	QuadConfigDialog dialog(this);
+	dialog.ShowModal();
 }
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)

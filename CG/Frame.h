@@ -83,6 +83,8 @@ private:
 
 	void OnCreateQuad(wxRibbonButtonBarEvent& e);
 
+	void OnCreateQuadConfig(wxRibbonButtonBarEvent& e);
+
 	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
 
 	void OnCreateCircle(wxRibbonButtonBarEvent& e);

@@ -58,6 +58,8 @@ public:
 	
 	std::vector<Math::Vector3d> getTexCoords() const { return texCoords; }
 
+	void rotateX(const float xAngle);
+
 	void move(const Math::Vector3d& vector) { 
 		for (Math::Vector3d& p : positions) {
 			p += vector;

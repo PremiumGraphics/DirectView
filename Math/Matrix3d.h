@@ -32,28 +32,23 @@ public:
 	~Matrix3d()
 	{};
 
-	void setIdentity() {
-		x00 = 1.0; x01 = 0.0; x02 = 0.0;
-		x10 = 0.0; x11 = 1.0; x12 = 0.0;
-		x20 = 0.0; x21 = 0.0; x22 = 1.0;
-		assert( isIdentity() );
-	}
+	void setIdentity() { *this = Identity();  }
 
-	void setRotateX( const float angle ) {
-		x00 = 1.0f;
+	void setRotateX( const float angle ) { *this = RotateX( angle ); }
+
+	void setRotateY(const float angle) {
+		x00 = ::cos(angle);
 		x01 = 0.0f;
-		x02 = 0.0f;
+		x02 = ::sin(angle);
 
 		x10 = 0.0f;
-		x11 = ::cos( angle );
-		x12 = -::sin( angle );
+		x11 = 1.0f;
+		x12 = 0.0f;
 
-		x20 = 0.0f;
-		x21 = ::sin( angle );
-		x22 = ::cos( angle );
+		x20 = -::sin(angle);
+		x21 = 0.0f;
+		x22 = ::cos(angle);
 	}
-
-	void setRotateY( const float angle );
 
 	void setRotateZ( const float angle );
 
@@ -67,9 +62,10 @@ public:
 	static Matrix3d Zero();
 
 	static Matrix3d RotateX( const float angle ) {
-		Matrix3d matrix;
-		matrix.setRotateX( angle );
-		return matrix;
+		return Matrix3d(
+			1.0f, 0.0f, 0.0f,
+			0.0f, ::cos(angle), -::sin(angle),
+			0.0f, ::sin(angle), ::cos(angle));
 	}
 
 	static Matrix3d RotateY( const float angle ) {
@@ -142,9 +138,9 @@ public:
 
 	Matrix3d getAdd( const Matrix3d& rhs ) const;
 
-	bool operator==( const Matrix3d& rhs ) const;
+	bool operator==(const Matrix3d& rhs) const { return this->equals(rhs); }
 
-	Matrix3d operator+( const Matrix3d& rhs ) const;
+	Matrix3d operator+(const Matrix3d& rhs) const { return getAdd(rhs); }
 
 	const Matrix3d operator+=(const Matrix3d& rhs);
 
@@ -175,12 +171,12 @@ public:
 	float getX22() const { return x22; }
 
 	std::vector< float > toArray4x4() const {
-		std::vector< float > val(16);
-		val[0] = x00; val[1] = x01; val[2] = x02; val[3] = 0.0f;
-		val[4] = x10; val[5] = x11; val[6] = x12; val[7] = 0.0f;
-		val[8] = x20; val[9] = x21; val[10] = x22; val[11] = 0.0f;
-		val[12] = 0.0f; val[13] = 0.0f; val[14] = 0.0f; val[15] = 1.0f;
-		return val;
+		return {
+			x00, x01, x02, 0.0f,
+			x10, x11, x12, 0.0f,
+			x20, x21, x22, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		};
 	}
 
 private:

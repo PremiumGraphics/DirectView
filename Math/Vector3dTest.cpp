@@ -52,13 +52,21 @@ TEST( Vector3dTest, TestToArray )
 	vectors.push_back( Vector3d( 1.0f, 2.0f, 3.0f ) );
 	vectors.push_back( Vector3d( 4.0f, 5.0f, 6.0f ) );
 	const std::vector<float>& actual = toArray( vectors );
-	std::vector<float> expected;
-	expected.push_back( 1.0f );
-	expected.push_back( 2.0f );
-	expected.push_back( 3.0f );
-	expected.push_back( 4.0f );
-	expected.push_back( 5.0f );
-	expected.push_back( 6.0f );
+	const std::vector<float> expected{ 1.0f, 2.0, 3.0f, 4.0, 5.0f, 6.0f };
 
 	EXPECT_EQ( expected, actual );
 }
+
+#include "Matrix3d.h"
+
+TEST(Vector3dTest, TestRotate)
+{
+	const Matrix3d m = Matrix3d::RotateZ(180.0 * Tolerances::getPI() / 180.0f);
+	Vector3d v = Vector3d(1.0f, 0.0, 0.0);
+	v.rotate(m);
+	//Vector3d expected(-1.0f, 0.0, 0.0);
+	EXPECT_FLOAT_EQ(-1.0f, v.getX());
+	// TODO.
+	//EXPECT_TRUE( Tolerances::isEqualLoosely( 0.0f, v.getY()) );
+	EXPECT_FLOAT_EQ( 0.0f, v.getZ());
+};

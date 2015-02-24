@@ -6,21 +6,6 @@ using namespace Crystal::Math;
 
 
 
-void Matrix3d::setRotateY( const float angle )
-{
-	x00 = ::cos( angle );
-	x01 = 0.0f;
-	x02 = ::sin( angle );
-
-	x10 = 0.0f;
-	x11 = 1.0f;
-	x12 = 0.0f;
-
-	x20 = -::sin( angle );
-	x21 = 0.0f;
-	x22 = ::cos( angle );
-}
-
 void Matrix3d::setRotateZ( const float angle )
 {
 	x00 = ::cos( angle );
@@ -125,15 +110,6 @@ Matrix3d Matrix3d::getAdd(const Matrix3d& rhs) const
 	return matrix.add( rhs);
 }
 
-bool Matrix3d::operator==(const Matrix3d& rhs) const
-{
-	return this->equals(rhs);
-}
-
-Matrix3d Matrix3d::operator+(const Matrix3d& rhs) const
-{
-	return getAdd( rhs);
-}
 
 const Matrix3d Matrix3d::operator+=(const Matrix3d& rhs)
 {
