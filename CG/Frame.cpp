@@ -624,7 +624,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( Polygon::createQuad() );
+	polygons.push_back( Polygon::createQuad(1.0, 1.0) );
 
 	polygonTree->build();
 }
@@ -687,7 +687,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( Polygon::createCylinder());
+	polygons.push_back( Polygon::createCylinder( 1.0f, 1.0f));
 	polygonTree->build();
 
 }

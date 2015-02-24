@@ -58,6 +58,13 @@ public:
 	
 	std::vector<Math::Vector3d> getTexCoords() const { return texCoords; }
 
+	void move(const Math::Vector3d& vector) { 
+		for (Math::Vector3d& p : positions) {
+			p += vector;
+		}
+
+	}
+
 	void scale(const Math::Vector3d& scale) {
 		for (Math::Vector3d& p : positions) {
 			p.scale(scale.getX(), scale.getY(), scale.getZ());
@@ -75,11 +82,11 @@ public:
 
 	static Polygon* createTriangle();
 
-	static Polygon* createQuad();
+	static Polygon* createQuad( const float xLength, const float yLength );
 
 	static Polygon* createCircle( const float radius, const float divideAngle);
 
-	static Polygon* createCylinder();
+	static Polygon* createCylinder( const float radius, const float height );
 
 private:
 	std::string name;

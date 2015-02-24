@@ -18,27 +18,48 @@ TEST(PolygonTest, TestCreateTriangle)
 	f.setNormalIds({ 0, 1, 2 });
 	f.setVertexIds({ 0, 1, 2 });
 
+
 	EXPECT_EQ(f, p->getFaces().front());
 }
 
 TEST(PolygonTest, TestCreateQuad)
 {
-	std::unique_ptr< Polygon > p( Polygon::createQuad() );
+	std::unique_ptr< Polygon > p( Polygon::createQuad(1.0, 1.0) );
 
-	Vector3dVector positions{
+	const Vector3dVector positions{
 		Vector3d(-0.5, 0.5, 0.0),
 		Vector3d(-0.5, -0.5, 0.0),
 		Vector3d(0.5, -0.5, 0.0),
 		Vector3d(0.5, 0.5, 0.0)
 	};
+	const Vector3dVector normals{
+		Vector3d( 0.0, 0.0, 1.0),
+		Vector3d( 0.0, 0.0, 1.0),
+		Vector3d( 0.0, 0.0, 1.0),
+		Vector3d( 0.0, 0.0, 1.0)
+	};
 
-	EXPECT_EQ( positions, p->getPositions() );
+	Face f;
+	f.setVertexIds({ 0, 1, 2, 3 });
+	f.setNormalIds({ 0, 1, 2, 3 });
+	Polygon expected;
+	expected.setFaces({ f });
+	expected.setPositions(positions);
+	expected.setNormals(normals);
+
+	EXPECT_EQ( expected, *p );
 }
 
 TEST(PolygonTest, TestCreateCircle)
 {
 	std::unique_ptr< Polygon > p(Polygon::createCircle(1.0f, 60.0f));
 	EXPECT_EQ(6, p->getPositions().size());
+}
+
+TEST(PolygonTest, TestCreateCylinder)
+{
+	std::unique_ptr< Polygon > p(Polygon::createCylinder(1.0f, 1.0f));
+
 }
 
 TEST(PolygonTest, TestScale)

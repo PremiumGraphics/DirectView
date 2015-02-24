@@ -8,7 +8,6 @@ using namespace Crystal::Graphics;
 Polygon* Polygon::createTriangle()
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "triangle";
 	p->setPositions({
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
@@ -27,15 +26,14 @@ Polygon* Polygon::createTriangle()
 	return p;
 }
 
-Polygon* Polygon::createQuad()
+Polygon* Polygon::createQuad( const float xLength, const float yLength )
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "quad";
 	p->setPositions({
-		Vector3d(-0.5, 0.5, 0.0),
-		Vector3d(-0.5, -0.5, 0.0),
-		Vector3d(0.5, -0.5, 0.0),
-		Vector3d(0.5, 0.5, 0.0)
+		Vector3d( 0.0, 1.0, 0.0),
+		Vector3d( 0.0, 0.0, 0.0),
+		Vector3d( 1.0, 0.0, 0.0),
+		Vector3d( 1.0, 1.0, 0.0)
 	});
 	p->setNormals({
 		Vector3d(0.0, 0.0, 1.0),
@@ -45,14 +43,16 @@ Polygon* Polygon::createQuad()
 	});
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
+	f.setNormalIds({ 0, 1, 2, 3 });
 	p->faces = std::vector < Face > {f};
+	p->scale(Vector3d(xLength, yLength, 0.0));
+	p->move(Vector3d( -xLength * 0.5f, -yLength * 0.5f, 0.0));
 	return p;
 }
 
 Polygon* Polygon::createCircle( const float radius, const float divideAngle)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "circle";
 	Vector3dVector positions;
 	Vector3dVector normals;
 	Face f;
@@ -72,7 +72,7 @@ Polygon* Polygon::createCircle( const float radius, const float divideAngle)
 	return p;
 }
 
-Polygon* Polygon::createCylinder()
+Polygon* Polygon::createCylinder(const float radius, const float height)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
 	p->name = "cylinder";
@@ -83,8 +83,8 @@ Polygon* Polygon::createCylinder()
 	int i = 0;
 	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
 		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
-		normals.push_back(Vector3d(0.0, 0.0, 1.0));
+		positions.push_back(Vector3d(std::sin(rad) * radius, std::cos(rad) * radius, 0.0f));
+		normals.push_back(Vector3d(0.0, -1.0, 0.0));
 		vertexIds.push_back(i++);
 	}
 	f.setVertexIds(vertexIds);
@@ -93,8 +93,8 @@ Polygon* Polygon::createCylinder()
 	Face f1;
 	for (float angle = 0.0; angle < 360.0; angle += 60.0) {
 		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back(Vector3d(std::sin(rad), std::cos(rad), 1.0f));
-		normals.push_back(Vector3d(0.0, 0.0, 1.0));
+		positions.push_back(Vector3d(std::sin(rad) * radius, std::cos(rad) * radius, height));
+		normals.push_back(Vector3d(0.0, 1.0, 0.0));
 		vertexIds.push_back(i++);
 	}
 	f1.setVertexIds(vertexIds);

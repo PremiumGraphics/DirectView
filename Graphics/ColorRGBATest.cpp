@@ -59,20 +59,15 @@ TYPED_TEST( ColorRGBATest, TestAddedOperator )
 TYPED_TEST( ColorRGBATest, TestToArray3 )
 {
 	const ColorRGBA<TypeParam> c = ColorRGBA<TypeParam>::Red();
-	const std::vector<TypeParam>& values = c.toArray3();
-	EXPECT_EQ( 3, values.size() );
-	EXPECT_EQ( 1.0, values[0] );
-	EXPECT_EQ( 0.0, values[1] );
-	EXPECT_EQ( 0.0, values[2] );
+	const std::vector<TypeParam>& actual = c.toArray3();
+	const std::vector<TypeParam> expected{ 1.0, 0.0, 0.0 };
+	EXPECT_EQ( expected, actual );
 }
 
 TYPED_TEST( ColorRGBATest, TestToArray4 )
 {
 	const ColorRGBA<TypeParam>& c = ColorRGBA<TypeParam>::Red();
-	const std::vector<TypeParam>& values = c.toArray4();
-	EXPECT_EQ( 4, values.size() );
-	EXPECT_EQ( 1.0, values[0] );
-	EXPECT_EQ( 0.0, values[1] );
-	EXPECT_EQ( 0.0, values[2] );
-	EXPECT_EQ( 0.0, values[3] );
+	const std::vector<TypeParam>& actual = c.toArray4();
+	const std::vector<TypeParam> expected{ 1.0, 0.0, 0.0, 0.0 };
+	EXPECT_EQ( expected, actual );
 }
