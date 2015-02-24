@@ -42,7 +42,6 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
-    <ClCompile Include="Matrix3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

@@ -90,7 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
-    <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />
