@@ -9,7 +9,7 @@ using namespace Crystal::Graphics;
 
 void Polygon::rotateX(const float xAngle)
 {
-	Matrix3d m = Matrix3d::RotateX(xAngle * Tolerances::getPI()/ 180.0f);
+	Matrix3d<float> m = Matrix3d<float>::RotateX(xAngle * Tolerances::getPI()/ 180.0f);
 	for (Vector3d& p : positions) {
 		p.rotate(m);
 	}

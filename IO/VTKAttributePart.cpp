@@ -323,7 +323,7 @@ void VTKTensors::read( std::istream& stream, const int howMany )
 		const Math::Vector3d& v0 = Helper::readVector(stream);
 		const Math::Vector3d& v1 = Helper::readVector(stream);
 		const Math::Vector3d& v2 = Helper::readVector(stream);
-		Math::Matrix3d m(
+		Math::Matrix3d<float> m(
 			v0.getX(), v0.getY(), v0.getZ(),
 			v1.getX(), v1.getY(), v1.getZ(),
 			v2.getX(), v2.getY(), v2.getZ()

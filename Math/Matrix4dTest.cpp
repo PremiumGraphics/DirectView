@@ -4,6 +4,8 @@
 
 using namespace Crystal::Math;
 
+
+
 TEST( Matrix4dTest, ContructTest )
 {
 	Matrix4d<float> m;

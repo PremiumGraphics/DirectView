@@ -2,12 +2,11 @@
 #define __CRYSTAL_MATH_QUATERNION_H__
 
 #include "Vector3d.h"
+#include "Matrix3d.h"
 
 namespace Crystal{
 	namespace Math{
 
-
-class Matrix3d;
 
 class Quaternion
 {
@@ -19,7 +18,7 @@ public:
 	
 	Quaternion(const Vector3d& axis, const float angle);
 
-	Matrix3d toMatrix() const;
+	Matrix3d<float> toMatrix() const;
 	
 	Quaternion& operator+=( const Quaternion& rhs );
 

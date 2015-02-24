@@ -4,16 +4,25 @@
 
 using namespace Crystal::Math;
 
+
+template<class T>
+class Matrix3dTest : public testing::Test {
+};
+
+typedef ::testing::Types<float, double> TestTypes;
+
+TYPED_TEST_CASE(Matrix3dTest, TestTypes);
+
  
-TEST( Matrix3dTest, TestConstruct )
+TYPED_TEST( Matrix3dTest, TestConstruct )
 {
-	Matrix3d m;
+	Matrix3d<TypeParam> m;
 	EXPECT_TRUE( m.isIdentity() );
 }
 
-TEST( Matrix3dTest, RotateXTest )
+TYPED_TEST( Matrix3dTest, RotateXTest )
 {
-	EXPECT_EQ( Matrix3d::Identity(), Matrix3d::RotateX( 0.0f ) );
+	EXPECT_EQ( Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateX( 0.0f ) );
 
 	// TODOÅ@åÎç∑
 	/*
@@ -27,27 +36,27 @@ TEST( Matrix3dTest, RotateXTest )
 		*/
 }
 
-TEST( Matrix3dTest, RotateYTest )
+TYPED_TEST( Matrix3dTest, RotateYTest )
 {
-	EXPECT_EQ( Matrix3d::Identity(), Matrix3d::RotateY( 0.0f ) );
+	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateY(0.0f));
 }
 
-TEST( Matrix3dTest, RotateZTest )
+TYPED_TEST( Matrix3dTest, RotateZTest )
 {
-	EXPECT_EQ( Matrix3d::Identity(), Matrix3d::RotateZ( 0.0f ) );
+	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateZ(0.0f));
 }
 
-TEST( Matrix3dTest, ScaleTest )
+TYPED_TEST( Matrix3dTest, ScaleTest )
 {
-	Matrix3d m;
+	Matrix3d<TypeParam> m;
 	m.setIdentity();
 
-	const Matrix3d& scaled = m.getScaled( 2.0f );
+	const Matrix3d<TypeParam>& scaled = m.getScaled(2.0f);
 
 	EXPECT_TRUE( m.isIdentity() );
 
 	EXPECT_EQ(
-		Matrix3d( 2.0f, 0.0f, 0.0f,
+		Matrix3d<TypeParam>(2.0f, 0.0f, 0.0f,
 		0.0f, 2.0f, 0.0f,
 		0.0f, 0.0f, 2.0f),
 		scaled );
@@ -55,7 +64,7 @@ TEST( Matrix3dTest, ScaleTest )
 	m.scale( 2.0f );
 
 	EXPECT_EQ(
-		Matrix3d( 2.0f, 0.0f, 0.0f,
+		Matrix3d<TypeParam>(2.0f, 0.0f, 0.0f,
 		0.0f, 2.0f, 0.0f,
 		0.0f, 0.0f, 2.0f),
 		m );

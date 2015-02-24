@@ -231,10 +231,10 @@ TEST( VTKTensorsTest, TestRead )
 	tensors.read( stream, 2 );
 
 	EXPECT_EQ( "tensors", tensors.getName() );
-	const std::vector<Matrix3d>& actual = tensors.getTensors();
+	const std::vector<Matrix3d<float> >& actual = tensors.getTensors();
 	EXPECT_EQ( 2, actual.size() );
 
-	const Matrix3d expected1
+	const Matrix3d<float> expected1
 		(
 		1.0, 0.0, 0.0,
 		1.0, 1.0, 0.0,
@@ -243,7 +243,7 @@ TEST( VTKTensorsTest, TestRead )
 
 	EXPECT_EQ( expected1, actual.front() );
 
-	const Matrix3d expected2
+	const Matrix3d<float> expected2
 		(
 		1.0, 0.0, 0.0,
 		1.0, 1.0, 0.0,

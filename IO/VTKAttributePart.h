@@ -227,10 +227,10 @@ public:
 
 	std::string getName() const { return name; }
 
-	std::vector< Math::Matrix3d > getTensors() const { return tensors; }
+	std::vector< Math::Matrix3d<float> > getTensors() const { return tensors; }
 
 private:
-	std::vector< Math::Matrix3d > tensors;
+	std::vector< Math::Matrix3d<float> > tensors;
 
 	std::string name;
 };

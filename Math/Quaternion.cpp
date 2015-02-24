@@ -26,7 +26,7 @@ Quaternion::Quaternion( const Vector3d& axis, const float angle ) :
 	assert( axis.isNormalized() );
 }
 
-Matrix3d Quaternion::toMatrix() const
+Matrix3d<float> Quaternion::toMatrix() const
 {
 	const float x00 = ( 1.0f - 2.0f * y * y - 2.0f * z * z );
 	const float x01 = ( 2.0f * x * y - 2.0f * z * w );
@@ -40,7 +40,7 @@ Matrix3d Quaternion::toMatrix() const
 	const float x21 = ( 2.0f * y * z + 2.0f * x * w );
 	const float x22 = ( 1.0f - 2.0f * x * x - 2.0f * y * y);
 
-	return Matrix3d(
+	return Matrix3d<float>(
 		x00, x01, x02,
 		x10, x11, x12,
 		x20, x21, x22
