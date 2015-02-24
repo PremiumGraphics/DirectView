@@ -59,7 +59,26 @@ TEST( Vector3dTest, TestToArray )
 
 #include "Matrix3d.h"
 
-TEST(Vector3dTest, TestRotate)
+TEST(Vector3dTest, TestRotateX)
+{
+	const Matrix3d<double> m = Matrix3d<double>::RotateX(180.0 * Tolerances::getPrecisePI() / 180.0);
+	Vector3d v = Vector3d(0.0f, 0.0, 1.0);
+	v.rotate(m);
+	Vector3d expected(0.0f, 0.0, -1.0);
+	EXPECT_EQ(expected, v);
+}
+
+TEST(Vector3dTest, TestRotateY)
+{
+	const Matrix3d<double> m = Matrix3d<double>::RotateY(180.0 * Tolerances::getPrecisePI() / 180.0);
+	Vector3d v = Vector3d(1.0f, 0.0, 0.0);
+	v.rotate(m);
+	Vector3d expected(-1.0f, 0.0, 0.0);
+	EXPECT_EQ(expected, v);
+}
+
+
+TEST(Vector3dTest, TestRotateZ)
 {
 	const Matrix3d<double> m = Matrix3d<double>::RotateZ(180.0 * Tolerances::getPrecisePI() / 180.0);
 	Vector3d v = Vector3d(1.0f, 0.0, 0.0);

@@ -58,7 +58,11 @@ public:
 	
 	std::vector<Math::Vector3d> getTexCoords() const { return texCoords; }
 
-	void rotateZ(const float xAngle);
+	void rotateX(const float angle);
+
+	void rotateY(const float angle);
+
+	void rotateZ(const float angle);
 
 	void move(const Math::Vector3d& vector) { 
 		for (Math::Vector3d& p : positions) {
@@ -90,12 +94,18 @@ public:
 
 	static Polygon* createCylinder( const float radius, const float height );
 
+	void setCenter(const Math::Vector3d& center) { this->center = center; }
+
+	Math::Vector3d getCenter() const { return center; }
+
+
 private:
 	std::string name;
 	std::vector< Face > faces;
 	std::vector < Math::Vector3d > positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;
+	Math::Vector3d center;
 
 };
 

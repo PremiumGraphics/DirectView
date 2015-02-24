@@ -25,10 +25,6 @@ public:
 
 	void setMaterial(Material* material) { this->material = material; }
 
-	void setCenter(const Math::Vector3d& center) { this->center = center; }
-
-	Math::Vector3d getCenter() const { return center; }
-
 	Polygon* getPolygon() const { return polygon; }
 
 	Material* getMaterial() const { return material; }
@@ -36,7 +32,6 @@ public:
 private:
 	Polygon* polygon;
 	Material* material;
-	Math::Vector3d center;
 };
 
 typedef std::list<PolygonGroup> PolygonGroupList;

@@ -92,15 +92,15 @@ public:
 
 	bool equals( const Matrix3d& rhs ) const {
 		return
-			Tolerances::isEqualStrictly( x00, rhs.x00 ) &&
-			Tolerances::isEqualStrictly( x01, rhs.x01 ) &&
-			Tolerances::isEqualStrictly( x02, rhs.x02 ) &&
-			Tolerances::isEqualStrictly( x10, rhs.x10 ) &&
-			Tolerances::isEqualStrictly( x11, rhs.x11 ) &&
-			Tolerances::isEqualStrictly( x12, rhs.x12 ) &&
-			Tolerances::isEqualStrictly( x20, rhs.x20 ) &&
-			Tolerances::isEqualStrictly( x21, rhs.x21 ) &&
-			Tolerances::isEqualStrictly( x22, rhs.x22 );
+			Tolerances::isEqualLoosely( x00, rhs.x00 ) &&
+			Tolerances::isEqualLoosely( x01, rhs.x01 ) &&
+			Tolerances::isEqualLoosely( x02, rhs.x02 ) &&
+			Tolerances::isEqualLoosely( x10, rhs.x10 ) &&
+			Tolerances::isEqualLoosely( x11, rhs.x11 ) &&
+			Tolerances::isEqualLoosely( x12, rhs.x12 ) &&
+			Tolerances::isEqualLoosely( x20, rhs.x20 ) &&
+			Tolerances::isEqualLoosely( x21, rhs.x21 ) &&
+			Tolerances::isEqualLoosely( x22, rhs.x22 );
 	}
 
 	T getDeterminant() const {
@@ -197,6 +197,24 @@ public:
 	Matrix3d operator*(const Matrix3d& rhs) const { return getProduct(rhs); }
 	
 	const Matrix3d operator*=(const Matrix3d& rhs) { return product(rhs); }
+
+	void setX00(const T x) { this->x00 = x; }
+
+	void setX01(const T x) { this->x01 = x; }
+
+	void setX02(const T x) { this->x02 = x; }
+
+	void setX10(const T x) { this->x10 = x; }
+
+	void setX11(const T x) { this->x11 = x; }
+
+	void setX12(const T x) { this->x12 = x; }
+
+	void setX20(const T x) { this->x20 = x; }
+
+	void setX21(const T x) { this->x21 = x; }
+
+	void setX22(const T x) { this->x22 = x; }
 
 	T getX00() const { return x00; }
 

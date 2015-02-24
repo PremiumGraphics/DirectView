@@ -19,6 +19,7 @@
     <ClCompile Include="ColorRGBTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
+    <ClCompile Include="PolygonGroupTest.cpp" />
     <ClCompile Include="PolygonTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

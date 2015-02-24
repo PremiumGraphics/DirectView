@@ -7,9 +7,25 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-void Polygon::rotateZ(const float xAngle)
+void Polygon::rotateX(const float angle)
 {
-	Matrix3d<double> m = Matrix3d<double>::RotateZ(xAngle * Tolerances::getPrecisePI()/ 180.0);
+	const Matrix3d<double>& m = Matrix3d<double>::RotateX(angle * Tolerances::getPrecisePI() / 180.0);
+	for (Vector3d& p : positions) {
+		p.rotate(m);
+	}
+}
+
+void Polygon::rotateY(const float angle)
+{
+	const Matrix3d<double>& m = Matrix3d<double>::RotateY(angle * Tolerances::getPrecisePI() / 180.0);
+	for (Vector3d& p : positions) {
+		p.rotate(m);
+	}
+}
+
+void Polygon::rotateZ(const float angle)
+{
+	const Matrix3d<double>& m = Matrix3d<double>::RotateZ(angle * Tolerances::getPrecisePI()/ 180.0);
 	for (Vector3d& p : positions) {
 		p.rotate(m);
 	}

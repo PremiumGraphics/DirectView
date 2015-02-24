@@ -93,4 +93,7 @@ TEST(PolygonTest, TestRotateZ)
 	p.rotateZ(180.0f);
 
 	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(-1.0, 0.0, 0.0) };
+	EXPECT_EQ(expected, actual);
 }
