@@ -98,11 +98,61 @@ TEST(PolygonTest, TestMove)
 	EXPECT_EQ(expected, actual);
 }
 
+TEST(PolygonTest, TestRotateX)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(0.0, 0.0, 1.0) });
+	p.rotateX(180.0);
+
+	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(0.0, 0.0, -1.0) };
+	EXPECT_EQ(expected, actual);
+}
+
+TEST(PolygonTest, TestRotateXWithCenter)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(0.0, 0.0, 1.0) });
+	p.setCenter(Vector3d(0.0, 0.0, 1.0));
+	p.rotateX(180.0);
+
+	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(0.0, 0.0, 1.0) };
+	EXPECT_EQ(expected, actual);
+}
+
+TEST(PolygonTest, TestRotateY)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
+	p.rotateY(180.0);
+
+	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(-1.0, 0.0, 0.0) };
+	EXPECT_EQ(expected, actual);
+}
+
+TEST(PolygonTest, TestRotateYWithCenter)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
+	p.setCenter(Vector3d(1.0, 0.0, 0.0));
+	p.rotateY(180.0);
+
+	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(1.0, 0.0, 0.0) };
+	EXPECT_EQ(expected, actual);
+}
+
 TEST(PolygonTest, TestRotateZ)
 {
 	Polygon p;
 	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
-	p.rotateZ(180.0f);
+	p.rotateZ(180.0);
 
 	const Vector3dVector& actual = p.getPositions();
 
@@ -115,7 +165,7 @@ TEST(PolygonTest, TestRotateZWithCenter)
 	Polygon p;
 	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
 	p.setCenter(Vector3d(1.0, 0.0, 0.0));
-	p.rotateZ(180.0f);
+	p.rotateZ(180.0);
 
 	const Vector3dVector& actual = p.getPositions();
 

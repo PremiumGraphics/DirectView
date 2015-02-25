@@ -78,7 +78,7 @@ public:
 	}
 
 	bool equals( const Vector3d &rhs ) const {
-		return Tolerances::isEqualLoosely( getDistance( rhs ) );
+		return Tolerances::isEqualLoosely( getDistanceSquared( rhs ) );
 	}
 
 	bool isZero() const;
