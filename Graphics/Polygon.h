@@ -71,11 +71,7 @@ public:
 
 	}
 
-	void scale(const Math::Vector3d& scale) {
-		for (Math::Vector3d& p : positions) {
-			p.scale(scale.getX(), scale.getY(), scale.getZ());
-		}
-	}
+	void scale(const Math::Vector3d& scale);
 
 	bool operator==(const Polygon& rhs) const {
 		return

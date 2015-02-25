@@ -31,6 +31,15 @@ void Polygon::rotateZ(const float angle)
 	}
 }
 
+void Polygon::scale(const Vector3d& scale)
+{
+	move(-1.0 *center);
+	for (Math::Vector3d& p : positions) {
+		p.scale(scale.getX(), scale.getY(), scale.getZ());
+	}
+	move(1.0 * center);
+}
+
 Polygon* Polygon::createTriangle()
 {
 	Graphics::Polygon* p = new Graphics::Polygon();

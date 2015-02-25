@@ -370,7 +370,6 @@ void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
-//	model->getLightModel()->setSelectedLight( &( model->getLightModel()->getLights().front() ) );
 	view->setMode( View::LightTranslate );
 }
 

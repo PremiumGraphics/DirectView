@@ -73,6 +73,18 @@ TEST(PolygonTest, TestScale)
 	EXPECT_EQ( expected, actual );
 }
 
+TEST(PolygonTest, TestScaleWithCenter)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 1.0, 1.0) });
+	p.setCenter(Vector3d(1.0, 1.0, 1.0));
+	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
+
+	const Vector3dVector expected = { Vector3d(1.0f, 1.0f, 1.0f) };
+	const Vector3dVector& actual = p.getPositions();
+	EXPECT_EQ(expected, actual);
+}
+
 TEST(PolygonTest, TestMove)
 {
 	Polygon p;

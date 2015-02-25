@@ -33,6 +33,9 @@ void PolygonProperty::build( const PolygonGroup& group )
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );
 	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size() ) );
 	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->getPositions().size() ) );
+	Append( new wxFloatProperty("CenterX", wxPG_LABEL, polygon->getCenter().getX()) );
+	Append( new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()) );
+	Append( new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()) );
 
 	Graphics::Material* m = group.getMaterial();
 
@@ -75,6 +78,7 @@ void PolygonProperty::OnChanged( wxPropertyGridEvent& event )
     wxPGProperty* property = event.GetProperty();
 	const wxString& name = property->GetName();
 
+	Vector3d center = group.getPolygon()->getCenter();
 	if( name == "Material" ) {
 		const std::string &str = property->GetValueAsString().ToStdString();
 		for (Material* m : materials) {
@@ -83,4 +87,17 @@ void PolygonProperty::OnChanged( wxPropertyGridEvent& event )
 			}
 		}
 	}
+	else if (name == "CenterX") {
+		const float x = property->GetValue().GetDouble();
+		center.setX(x);
+	}
+	else if (name == "CenterY") {
+		const float y = property->GetValue().GetDouble();
+		center.setY(y);
+	}
+	else if (name == "CenterZ") {
+		const float z = property->GetValue().GetDouble();
+		center.setZ(z);
+	}
+	group.getPolygon()->setCenter(center);
 }
