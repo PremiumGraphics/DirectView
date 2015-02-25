@@ -112,6 +112,34 @@ TYPED_TEST( Matrix3dTest, RotateYTest )
 TYPED_TEST( Matrix3dTest, RotateZTest )
 {
 	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateZ(0.0f));
+
+	{
+		const Matrix3d<double> expected(
+			0.0f, -1.0f, 0.0f,
+			1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f
+			);
+		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(90.0 / 180.0 * Tolerances::getPrecisePI());
+
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		const Matrix3d<double> expected(
+			-1.0, 0.0, 0.0,
+			0.0, -1.0, 0.0,
+			0.0, 0.0, 1.0
+			);
+		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(180.0 / 180.0 * Tolerances::getPrecisePI());
+
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		const Matrix3d<double> expected = Matrix3d<double>::Identity();
+		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(360.0 / 180.0 * Tolerances::getPrecisePI());
+		EXPECT_EQ(expected, actual);
+	}
 }
 
 TYPED_TEST( Matrix3dTest, ScaleTest )
@@ -132,10 +160,5 @@ TYPED_TEST( Matrix3dTest, ScaleTest )
 
 	m.scale( 2.0f );
 
-	EXPECT_EQ(
-		Matrix3d<TypeParam>(2.0f, 0.0f, 0.0f,
-		0.0f, 2.0f, 0.0f,
-		0.0f, 0.0f, 2.0f),
-		m );
-
+	EXPECT_EQ( expected, m );
 }
