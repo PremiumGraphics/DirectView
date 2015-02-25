@@ -41,6 +41,10 @@ enum {
 	ID_LOCALE,
 
 	ID_POLYGON_SCALE,
+	ID_POLYGON_SCALE_X,
+	ID_POLYGON_SCALE_Y,
+	ID_POLYGON_SCALE_Z,
+
 	ID_OFF_SCREEN_CONFIG,
 
 	ID_TEXTURE,
@@ -156,25 +160,25 @@ Frame::Frame()
 	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ", wxImage("../Resource/3D-Z-Axis-Rotation.png"));
 
 
-	operation->AddToggleButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
+	operation->AddButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonTranslate ) );
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonScale ) );
 	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotate ) );
-	Connect(ID_POLYGON_ROTATE_X, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateX));
-	Connect(ID_POLYGON_ROTATE_Y, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateY));
-	Connect(ID_POLYGON_ROTATE_Z, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateZ));
+	Connect( ID_POLYGON_ROTATE_X,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateX) );
+	Connect( ID_POLYGON_ROTATE_Y,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateY) );
+	Connect( ID_POLYGON_ROTATE_Z,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateZ) );
 
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_WIREFRAME, "WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_PHONG,	"Phong", wxImage("../Resource/surface.png"));
-	rendering->AddButton( ID_RENDERING_FLAT,	"Flat", wxImage("../Resource/surface.png") );
-	rendering->AddButton( ID_RENDERING_NORMAL,	"Normal", wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddButton( ID_RENDERING_POINT,	"Point", wxImage("../Resource/point.png"));
+	rendering->AddButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
+	rendering->AddButton( ID_RENDERING_PHONG,		"Phong", wxImage("../Resource/surface.png"));
+	rendering->AddButton( ID_RENDERING_FLAT,		"Flat", wxImage("../Resource/surface.png") );
+	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal", wxImage("../Resource/arrow-1-down-right.png"));
+	rendering->AddButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/point.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
@@ -372,12 +376,12 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::CameraTranslate );
+	view->setMode( View::CAMERA_TRANSLATE );
 }
 
 void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::PolygonRotate );
+	view->setMode( View::POLYGON_ROTATE );
 }
 
 void Frame::OnPolygonRotateX(wxRibbonButtonBarEvent&)
@@ -398,7 +402,7 @@ void Frame::OnPolygonRotateZ(wxRibbonButtonBarEvent&)
 
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::LightTranslate );
+	view->setMode( View::LIGHT_TRANSLATE );
 }
 
 #include "../IO/PolygonFactory.h"
@@ -563,41 +567,41 @@ void Frame::OnLocale( wxCommandEvent& )
 
 void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::PolygonTranslate );
+	view->setMode( View::POLYGON_TRANSLATE );
 }
 
 void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
 {
-	view->setMode( View::PolygonScale );
+	view->setMode( View::POLYGON_SCALE );
 }
 
 void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
 {
-	view->setRenderingMode(View::RenderingMode::WireFrame);
+	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
 	view->Refresh();
 }
 
 void Frame::OnPhong( wxRibbonButtonBarEvent& )
 {
-	view->setRenderingMode( View::RenderingMode::Phong );
+	view->setRenderingMode( View::RENDERING_MODE::PHONG );
 	view->Refresh();
 }
 
 void Frame::OnFlat( wxRibbonButtonBarEvent& )
 {
-	view->setRenderingMode( View::RenderingMode::Flat );
+	view->setRenderingMode( View::RENDERING_MODE::FLAT );
 	view->Refresh();
 }
 
 void Frame::OnNormal(wxRibbonButtonBarEvent&)
 {
-	view->setRenderingMode( View::RenderingMode::Normal );
+	view->setRenderingMode( View::RENDERING_MODE::NORMAL );
 	view->Refresh();
 }
 
 void Frame::OnPoint(wxRibbonButtonBarEvent&)
 {
-	view->setRenderingMode(View::RenderingMode::Point);
+	view->setRenderingMode(View::RENDERING_MODE::POINT);
 	view->Refresh();
 }
 

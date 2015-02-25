@@ -21,8 +21,8 @@ View::View( Frame* parent, const int width, const int height  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 frame( parent ),
-mode( CameraTranslate ),
-renderingMode( WireFrame )
+mode( CAMERA_TRANSLATE ),
+renderingMode( WIRE_FRAME )
 {
 	glContext.SetCurrent( *this );
 
@@ -119,11 +119,11 @@ void View::OnMouse( wxMouseEvent& event )
 			pos += Vector3d( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
 		}
 		
-		if( mode == CameraTranslate ) {
+		if( mode == CAMERA_TRANSLATE ) {
 			frame->getCamera()->move( pos );
 			frame->getCamera()->addAngle( angle );
 		}
-		else if( mode == LightTranslate ) {
+		else if( mode == LIGHT_TRANSLATE ) {
 			const std::list<Graphics::Light*> lights = frame->getLights();
 			for (Light* l : lights) {
 				Vector3d lpos = l->getPos();
@@ -131,21 +131,21 @@ void View::OnMouse( wxMouseEvent& event )
 				l->setPos(lpos);
 			}
 		}
-		else if( mode == PolygonScale ) {
+		else if( mode == POLYGON_SCALE ) {
 			Graphics::PolygonGroupList& polygons = frame->getPolygons();
 			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
 			for( Graphics::PolygonGroup& p : polygons ) {
 				p.getPolygon()->scale(scale);
 			}
 		}
-		else if( mode == PolygonTranslate ) {
+		else if( mode == POLYGON_TRANSLATE ) {
 			Graphics::PolygonGroupList& polygons = frame->getPolygons();
 			for( Graphics::PolygonGroup& p : polygons ) {
 				p.getPolygon()->move( pos );
 				//p->rotate( matrix );
 			}
 		}
-		else if( mode == PolygonRotate ) {
+		else if( mode == POLYGON_ROTATE ) {
 			Graphics::PolygonGroupList& polygons = frame->getPolygons();
 			for (Graphics::PolygonGroup& p : polygons) {
 				p.getPolygon()->rotateZ( pos.getX() );
@@ -198,7 +198,7 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 	
-	if( renderingMode == RenderingMode::WireFrame ) {
+	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		Vector3dVector positions;
 		std::vector< std::vector<unsigned int> > indices;
 		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
@@ -218,11 +218,11 @@ void View::draw(const wxSize& size)
 
 		wireFrameRenderer.render(width, height, param, indices);
 	}
-	else if( renderingMode == RenderingMode::Flat ) {
+	else if( renderingMode == RENDERING_MODE::FLAT ) {
 		//flatRenderer.render( width, height, frame->getModel() );
 		//onScreenRenderer.render( width, height, flatRenderer.getTexture() );
 	}
-	else if (renderingMode == RenderingMode::Phong) {
+	else if (renderingMode == RENDERING_MODE::PHONG) {
 		Vector3dVector positions;
 		Vector3dVector normals;
 		std::vector< std::vector<unsigned int> > indices;
@@ -271,7 +271,7 @@ void View::draw(const wxSize& size)
 		*/
 		smoothRenderer.render(width, height, param, indices);
 	}
-	else if (renderingMode == RenderingMode::Normal) {
+	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		Vector3dVector positions;
 		Vector3dVector normals;
 		std::vector< std::vector<unsigned int> > indices;
@@ -285,7 +285,7 @@ void View::draw(const wxSize& size)
 		
 		normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
 	}
-	else if (renderingMode == RenderingMode::Point) {
+	else if (renderingMode == RENDERING_MODE::POINT) {
 		Vector3dVector positions;
 		std::vector< std::vector<unsigned int> > indices;
 		for ( Light* l : frame->getLights()) {

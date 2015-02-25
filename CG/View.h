@@ -23,34 +23,34 @@ public:
 
 	~View();
 
-	enum Mode{
-		PolygonTranslate,
-		PolygonScale,
-		PolygonRotate,
+	enum MODE{
+		POLYGON_TRANSLATE,
+		POLYGON_SCALE,
+		POLYGON_ROTATE,
 		POLYGON_ROTATE_X,
 		POLYGON_ROTATE_Y,
 		POLYGON_ROTATE_Z,
 
-		CameraTranslate,
-		LightTranslate,
+		CAMERA_TRANSLATE,
+		LIGHT_TRANSLATE,
 	};
 
-	enum RenderingMode {
-		WireFrame,
-		Phong,
-		Flat,
-		Normal,
-		Point,
+	enum RENDERING_MODE {
+		WIRE_FRAME,
+		PHONG,
+		FLAT,
+		NORMAL,
+		POINT,
 	};
 
-	void setMode( const Mode& m ) { this->mode = m; }
+	void setMode( const MODE& m ) { this->mode = m; }
 
-	void setRenderingMode( const RenderingMode& m ) { this->renderingMode = m; }
+	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
 private:
-	Mode mode;
+	MODE mode;
 
-	RenderingMode renderingMode;
+	RENDERING_MODE renderingMode;
 
 	void OnPaint( wxPaintEvent& );
 

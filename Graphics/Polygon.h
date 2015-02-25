@@ -64,7 +64,8 @@ public:
 
 	void rotateZ(const float angle);
 
-	void move(const Math::Vector3d& vector) { 
+	void move(const Math::Vector3d& vector) {
+		center += vector;
 		for (Math::Vector3d& p : positions) {
 			p += vector;
 		}
