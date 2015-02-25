@@ -189,6 +189,9 @@
     <ResourceCompile Include="CGStudio.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resource\3D-X-Axis-Rotation.png" />
+    <Image Include="..\Resource\3D-Y-Axis-Rotation.png" />
+    <Image Include="..\Resource\3D-Z-Axis-Rotation.png" />
     <Image Include="..\Resource\quad.png" />
     <Image Include="..\Resource\triangle.png" />
   </ItemGroup>

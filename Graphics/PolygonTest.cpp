@@ -109,3 +109,16 @@ TEST(PolygonTest, TestRotateZ)
 	const std::vector< Vector3d > expected{ Vector3d(-1.0, 0.0, 0.0) };
 	EXPECT_EQ(expected, actual);
 }
+
+TEST(PolygonTest, TestRotateZWithCenter)
+{
+	Polygon p;
+	p.setPositions({ Vector3d(1.0, 0.0, 0.0) });
+	p.setCenter(Vector3d(1.0, 0.0, 0.0));
+	p.rotateZ(180.0f);
+
+	const Vector3dVector& actual = p.getPositions();
+
+	const std::vector< Vector3d > expected{ Vector3d(1.0, 0.0, 0.0) };
+	EXPECT_EQ(expected, actual);
+}

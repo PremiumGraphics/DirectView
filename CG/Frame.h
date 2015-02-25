@@ -59,6 +59,12 @@ private:
 
 	void OnPolygonRotate( wxRibbonButtonBarEvent& );
 
+	void OnPolygonRotateX(wxRibbonButtonBarEvent&);
+
+	void OnPolygonRotateY(wxRibbonButtonBarEvent&);
+
+	void OnPolygonRotateZ(wxRibbonButtonBarEvent&);
+
 	void OnAbout( wxRibbonButtonBarEvent& );
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );

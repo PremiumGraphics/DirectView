@@ -158,6 +158,24 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 			*/
 		}
+		else if (mode == POLYGON_ROTATE_X) {
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			for (Graphics::PolygonGroup& p : polygons) {
+				p.getPolygon()->rotateX(pos.getX());
+			}
+		}
+		else if (mode == POLYGON_ROTATE_Y) {
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			for (Graphics::PolygonGroup& p : polygons) {
+				p.getPolygon()->rotateY(pos.getX());
+			}
+		}
+		else if (mode == POLYGON_ROTATE_Z) {
+			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			for (Graphics::PolygonGroup& p : polygons) {
+				p.getPolygon()->rotateZ(pos.getX());
+			}
+		}
 		else {
 			assert( false );
 		}

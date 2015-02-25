@@ -27,6 +27,10 @@ public:
 		PolygonTranslate,
 		PolygonScale,
 		PolygonRotate,
+		POLYGON_ROTATE_X,
+		POLYGON_ROTATE_Y,
+		POLYGON_ROTATE_Z,
+
 		CameraTranslate,
 		LightTranslate,
 	};

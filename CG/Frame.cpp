@@ -30,6 +30,9 @@ enum {
 	ID_CAMERA_TRANSLATE,
 	ID_POLYGON_TRANSLATE,
 	ID_POLYGON_ROTATE,
+	ID_POLYGON_ROTATE_X,
+	ID_POLYGON_ROTATE_Y,
+	ID_POLYGON_ROTATE_Z,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -143,11 +146,16 @@ Frame::Frame()
 
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddToggleButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddToggleButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
-	operation->AddToggleButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
-	operation->AddToggleButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
-	operation->AddToggleButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
+	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
+	operation->AddButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
+	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
+	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
+	operation->AddButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
+	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX", wxImage("../Resource/3D-X-Axis-Rotation.png"));
+	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY", wxImage("../Resource/3D-Y-Axis-Rotation.png"));
+	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ", wxImage("../Resource/3D-Z-Axis-Rotation.png"));
+
+
 	operation->AddToggleButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
@@ -155,6 +163,10 @@ Frame::Frame()
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonTranslate ) );
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonScale ) );
 	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotate ) );
+	Connect(ID_POLYGON_ROTATE_X, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateX));
+	Connect(ID_POLYGON_ROTATE_Y, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateY));
+	Connect(ID_POLYGON_ROTATE_Z, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotateZ));
+
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -367,6 +379,22 @@ void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::PolygonRotate );
 }
+
+void Frame::OnPolygonRotateX(wxRibbonButtonBarEvent&)
+{
+	view->setMode(View::POLYGON_ROTATE_X);
+}
+
+void Frame::OnPolygonRotateY(wxRibbonButtonBarEvent&)
+{
+	view->setMode(View::POLYGON_ROTATE_Y);
+}
+
+void Frame::OnPolygonRotateZ(wxRibbonButtonBarEvent&)
+{
+	view->setMode(View::POLYGON_ROTATE_Z);
+}
+
 
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
