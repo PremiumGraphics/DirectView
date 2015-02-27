@@ -676,7 +676,7 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(Polygon::createCircle(1.0f, circleDivideAngle));
+	polygons.push_back(Polygon::createCircleByAngle(1.0f, circleDivideAngle));
 	polygonTree->build();
 }
 

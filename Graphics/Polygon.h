@@ -38,6 +38,7 @@ typedef std::vector<Face> FaceVector;
 
 class Polygon {
 public:
+
 	void setFaces(const std::vector< Face >& faces) { this->faces = faces; }
 
 	std::vector< Face > getFaces() const { return faces; }

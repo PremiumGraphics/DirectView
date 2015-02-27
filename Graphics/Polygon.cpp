@@ -48,23 +48,7 @@ void Polygon::scale(const Vector3d& scale)
 
 Polygon* Polygon::createTriangle()
 {
-	Graphics::Polygon* p = new Graphics::Polygon();
-	p->setPositions({
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
-	});
-	p->setNormals({
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0)
-	});
-	//	p->normals = {};
-	Face f;
-	f.setVertexIds({ 0, 1, 2 });
-	f.setNormalIds({ 0, 1, 2 });
-	p->faces = std::vector < Face > {f};
-	return p;
+	return createCricleByNumber(1.0f,3);
 }
 
 Polygon* Polygon::createQuad( const float xLength, const float yLength )
@@ -106,6 +90,7 @@ Polygon* Polygon::createCricleByNumber(const float radius, const unsigned int di
 		vertexIds.push_back(i);
 	}
 	f.setVertexIds(vertexIds);
+	f.setNormalIds(vertexIds);
 	p->setPositions(positions);
 	p->setNormals(normals);
 	p->faces = { f };
@@ -121,7 +106,6 @@ Polygon* Polygon::createCircleByAngle( const float radius, const float divideAng
 Polygon* Polygon::createCylinder(const float radius, const float height)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
-	p->name = "cylinder";
 	Vector3dVector positions;
 	Vector3dVector normals;
 	Face f;
