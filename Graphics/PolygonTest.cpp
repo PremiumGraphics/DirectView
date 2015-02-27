@@ -40,34 +40,6 @@ TEST(PolygonTest, TestCreateTriangle)
 	EXPECT_EQ(  expected, *p );
 }
 
-TEST(PolygonTest, TestCreateQuad)
-{
-	std::unique_ptr< Polygon > p( Polygon::createQuad(1.0, 1.0) );
-
-	const Vector3dVector positions{
-		Vector3d(-0.5, 0.5, 0.0),
-		Vector3d(-0.5, -0.5, 0.0),
-		Vector3d(0.5, -0.5, 0.0),
-		Vector3d(0.5, 0.5, 0.0)
-	};
-	const Vector3dVector normals{
-		Vector3d( 0.0, 0.0, 1.0),
-		Vector3d( 0.0, 0.0, 1.0),
-		Vector3d( 0.0, 0.0, 1.0),
-		Vector3d( 0.0, 0.0, 1.0)
-	};
-
-	Face f;
-	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 1, 2, 3 });
-	Polygon expected;
-	expected.setFaces({ f });
-	expected.setPositions(positions);
-	expected.setNormals(normals);
-
-	EXPECT_EQ( expected, *p );
-}
-
 
 TEST(PolygonTest, TestCreateCircleByNumber)
 {

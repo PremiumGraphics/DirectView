@@ -51,29 +51,6 @@ Polygon* Polygon::createTriangle()
 	return createCricleByNumber(1.0f,3);
 }
 
-Polygon* Polygon::createQuad( const float xLength, const float yLength )
-{
-	Graphics::Polygon* p = new Graphics::Polygon();
-	p->setPositions({
-		Vector3d( 0.0, 1.0, 0.0),
-		Vector3d( 0.0, 0.0, 0.0),
-		Vector3d( 1.0, 0.0, 0.0),
-		Vector3d( 1.0, 1.0, 0.0)
-	});
-	p->setNormals({
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0)
-	});
-	Face f;
-	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 1, 2, 3 });
-	p->faces = std::vector < Face > {f};
-	p->scale(Vector3d(xLength, yLength, 0.0));
-	p->move(Vector3d( -xLength * 0.5f, -yLength * 0.5f, 0.0));
-	return p;
-}
 
 Polygon* Polygon::createCricleByNumber(const float radius, const unsigned int divideNumber)
 {
@@ -106,6 +83,7 @@ Polygon* Polygon::createCircleByAngle( const float radius, const float divideAng
 Polygon* Polygon::createCylinder(const float radius, const float height)
 {
 	Graphics::Polygon* p = new Graphics::Polygon();
+
 	Vector3dVector positions;
 	Vector3dVector normals;
 	Face f;

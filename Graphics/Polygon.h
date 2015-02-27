@@ -86,8 +86,6 @@ public:
 
 	static Polygon* createTriangle();
 
-	static Polygon* createQuad( const float xLength, const float yLength );
-
 	static Polygon* createCricleByNumber(const float radius, const unsigned int divideNumber );
 
 	static Polygon* createCircleByAngle( const float radius, const float divideAngle);

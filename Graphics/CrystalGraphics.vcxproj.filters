@@ -7,6 +7,7 @@
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="Polygon.cpp" />
+    <ClCompile Include="PolygonBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -24,5 +25,6 @@
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonGroup.h" />
+    <ClInclude Include="PolygonBuilder.h" />
   </ItemGroup>
 </Project>
