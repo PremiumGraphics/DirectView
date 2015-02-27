@@ -84,12 +84,6 @@ public:
 			texCoords == rhs.texCoords;
 	}
 
-	static Polygon* createTriangle();
-
-	static Polygon* createCricleByNumber(const float radius, const unsigned int divideNumber );
-
-	static Polygon* createCircleByAngle( const float radius, const float divideAngle);
-
 	static Polygon* createCylinder( const float radius, const float height );
 
 	void setCenter(const Math::Vector3d& center) { this->center = center; }

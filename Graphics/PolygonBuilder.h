@@ -14,10 +14,32 @@ public:
 
 	void buildQuad();
 
-	Polygon* getPolygon() { return polygon; }
+	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
+
+	void buildCircleByAngle(const float radius, const float divideAngle);
+
+	void buildTriangle() { buildCircleByNumber(1.0f, 3); }
+
+	void buildCylinder(const float radius, const float height);
+
+	void create() {
+		Polygon* polygon = new Polygon();
+		polygon->setPositions(positions);
+		polygon->setNormals(normals);
+		polygon->setFaces(faces);
+		this->polygon = polygon;
+	};
+
+	Polygon* getPolygon() {
+		create();
+		return polygon;
+	}
 
 private:
 	Polygon* polygon;
+	Math::Vector3dVector positions;
+	Math::Vector3dVector normals;
+	FaceVector faces;
 };
 	}
 }

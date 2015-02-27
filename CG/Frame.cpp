@@ -9,7 +9,7 @@
 #include "LightProperty.h"
 #include "LightTree.h"
 #include "PolygonProperty.h"
-
+#include "../Graphics/PolygonBuilder.h"
 
 #include "wx/filename.h"
 
@@ -656,7 +656,9 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( Polygon::createQuad(1.0, 1.0) );
+	PolygonBuilder builder;
+	builder.buildQuad();
+	polygons.push_back( builder.getPolygon() );
 
 	polygonTree->build();
 }
@@ -669,14 +671,18 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( Polygon::createTriangle() );
+	PolygonBuilder builder;
+	builder.buildTriangle();
+	polygons.push_back( builder.getPolygon() );
 	polygonTree->build();
 }
 
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(Polygon::createCircleByAngle(1.0f, circleDivideAngle));
+	PolygonBuilder builder;
+	builder.buildCircleByAngle(1.0f, circleDivideAngle);
+	polygons.push_back( builder.getPolygon() );
 	polygonTree->build();
 }
 
