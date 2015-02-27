@@ -87,7 +87,9 @@ public:
 
 	static Polygon* createQuad( const float xLength, const float yLength );
 
-	static Polygon* createCircle( const float radius, const float divideAngle);
+	static Polygon* createCricleByNumber(const float radius, const unsigned int divideNumber );
+
+	static Polygon* createCircleByAngle( const float radius, const float divideAngle);
 
 	static Polygon* createCylinder( const float radius, const float height );
 

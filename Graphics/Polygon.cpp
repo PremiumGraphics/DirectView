@@ -91,26 +91,31 @@ Polygon* Polygon::createQuad( const float xLength, const float yLength )
 	return p;
 }
 
-Polygon* Polygon::createCircle( const float radius, const float divideAngle)
+Polygon* Polygon::createCricleByNumber(const float radius, const unsigned int divideNumber)
 {
-	Graphics::Polygon* p = new Graphics::Polygon();
+	Polygon* p = new Polygon();
 	Vector3dVector positions;
 	Vector3dVector normals;
-	Face f;
-	int i = 0;
 	std::vector<unsigned int> vertexIds;
-	for (float angle = 0.0; angle < 360.0; angle += divideAngle) {
-		const float rad = angle * Tolerances::getPI() / 180.0f;
-		positions.push_back( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+	Face f;
+	for (unsigned int i = 0; i < divideNumber; ++i) {
+		const float angle = 360.0 / divideNumber * i;
+		const float rad = angle *Tolerances::getPI() / 180.0f;
+		positions.push_back(radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 		normals.push_back(Vector3d(0.0, 0.0, 1.0));
-		vertexIds.push_back(i++);
+		vertexIds.push_back(i);
 	}
 	f.setVertexIds(vertexIds);
 	p->setPositions(positions);
 	p->setNormals(normals);
-
-	p->faces = std::vector < Face > {f};
+	p->faces = { f };
 	return p;
+}
+
+Polygon* Polygon::createCircleByAngle( const float radius, const float divideAngle)
+{
+	const unsigned int number = 360.0 / divideAngle;
+	return createCricleByNumber( radius, number);
 }
 
 Polygon* Polygon::createCylinder(const float radius, const float height)
