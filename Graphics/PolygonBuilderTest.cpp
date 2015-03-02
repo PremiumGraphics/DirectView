@@ -40,7 +40,19 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	builder.buildBox();
 	std::unique_ptr< Polygon > p( builder.getPolygon());
 
-	EXPECT_EQ(8, p->getPositions().size());
+	const Vector3dVector positions{
+		Vector3d(0.0, 1.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(1.0, 0.0, 1.0),
+		Vector3d(1.0, 1.0, 1.0),
+		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 0.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(1.0, 1.0, 0.0)
+	};
+
+	EXPECT_EQ(positions, p->getPositions());
+	EXPECT_EQ(6, p->getNormals().size());
 	EXPECT_EQ(6, p->getFaces().size());
 }
 

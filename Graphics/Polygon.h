@@ -9,6 +9,17 @@ namespace Crystal {
 
 class Face {
 public:
+	Face(){};
+
+	Face(const std::vector<unsigned int >& vertexIds) :
+		vertexIds( vertexIds)
+	{}
+
+	Face(const std::vector<unsigned int >& vertexIds, const std::vector<unsigned int>& normalIds) :
+		vertexIds(vertexIds),
+		normalIds(normalIds)
+	{}
+
 	void setNormalIds(const std::vector<unsigned int>& normalIds) { this->normalIds = normalIds; }
 
 	std::vector<unsigned int> getNormalIds() const { return normalIds; }
