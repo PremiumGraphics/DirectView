@@ -28,6 +28,19 @@ public:
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 	}
+
+	void setConfig(const Config& config) {
+		xSize->SetValue(config.xSize);
+		ySize->SetValue(config.ySize);
+	}
+
+	Config getConfig() const {
+		Config config;
+		config.xSize = xSize->GetValue();
+		config.ySize = ySize->GetValue();
+		return config;
+	}
+
 private:
 	wxSpinCtrlDouble* xSize;
 	wxSpinCtrlDouble* ySize;
@@ -76,8 +89,7 @@ class CircleConfigDialog : public wxDialog
 {
 public:
 	struct Config{
-		float xSize;
-		float ySize;
+		unsigned int divideNumber;
 	};
 
 
@@ -94,13 +106,14 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 	}
 
-	void set(const float u) {
-		divideAngle->SetValue(u);
+	void setConfig(const Config& config) {
+		divideAngle->SetValue(360.0 / config.divideNumber);
 	}
 
-	float getDivideAngle() const { return divideAngle->GetValue(); }
-
-	int getDivideNumber() const { return divideNumber->GetValue(); }
+	Config getConfig() const {
+		Config config;
+		config.divideNumber = divideNumber->GetValue();
+	}
 
 private:
 	wxSpinCtrlDouble* divideAngle;
@@ -111,25 +124,36 @@ private:
 class SphereConfigDialog : public wxDialog
 {
 public:
+	struct Config {
+		float getUDivideNumber() const { return uDivideNumber; }
+
+		void setUDivideNumber(const int uDivideNumber) { this->uDivideNumber = uDivideNumber; }
+
+		float getVDivideNumber() const { return vDivideNumber; }
+
+		void setVDivideNumber(const int vDivideNumber) { this->vDivideNumber = vDivideNumber; }
+
+	private:
+		unsigned int uDivideNumber;
+		unsigned int vDivideNumber;
+	};
+
 	SphereConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 	{
-		new wxStaticText(this, wxID_ANY, " U Divide", wxPoint(0, 100));
+		new wxStaticText(this, wxID_ANY, "U Divide", wxPoint(0, 100));
 		uDivideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+		new wxStaticText(this, wxID_ANY, "V Divide", wxPoint(0, 200));
 		vDivideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 	}
 
-	void set(const float u, const float v) {
-		uDivideAngle->SetValue(u);
-		vDivideAngle->SetValue(v);
+	void setConfig(const Config& config) {
+		uDivideAngle->SetValue( config.getUDivideNumber() );
+		vDivideAngle->SetValue( config.getVDivideNumber() );
 	}
-
-	float getUDivideAngle() const { return uDivideAngle->GetValue(); }
-
-	float getVDivideAngle() const { return vDivideAngle->GetValue(); }
 
 private:
 	wxSpinCtrlDouble* uDivideAngle;
@@ -157,11 +181,15 @@ public:
 	ConeCreateConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "ConeConfig", wxDefaultPosition, wxSize( 500, 500))
 	{
-		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 200));
-		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
+		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
+		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
 
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+	}
+
+	void setConfig(const Config& config) {
+		divideNumber->SetValue(config.divideNumber);
 	}
 
 private:
@@ -179,14 +207,24 @@ public:
 	CylinderConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500,500))
 	{
-		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 200));
-		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
+		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
+		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+
+		new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 200));
 
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 	}
 
-	int getDivideNumber() const { return divideNumber->GetValue(); }
+	void setConfig(const Config& config) {
+		this->divideNumber->SetValue( config.divideNumber );
+	}
+
+	Config getConfig() const {
+		Config config;
+		config.divideNumber = divideNumber->GetValue();
+		return config;
+	}
 
 private:
 	wxSpinCtrl* divideNumber;

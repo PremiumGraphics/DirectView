@@ -111,6 +111,10 @@ private:
 
 	void OnCreateBoxConfig(wxRibbonButtonBarEvent& e);
 
+	void OnCreateCone(wxRibbonButtonBarEvent& e);
+
+	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
+
 	void clear();
 
 private:

@@ -55,6 +55,7 @@ enum {
 	ID_CREATE_SPHERE,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
+	ID_CREATE_CONE,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -187,12 +188,13 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
-	modelingBar->AddHybridButton( ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png") );
+	modelingBar->AddHybridButton( ID_CREATE_TRIANGLE,	"Triangle", wxImage("../Resource/triangle.png") );
 	modelingBar->AddHybridButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
-	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage("../Resource/cylinder.png"));
-	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage("../Resource/cylinder.png"));
+	modelingBar->AddHybridButton( ID_CREATE_CIRCLE,		"Circle", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton( ID_CREATE_SPHERE,		"Sphere", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton( ID_CREATE_CYLINDER,	"Cylinder", wxImage("../Resource/cylinder.png"));
+	modelingBar->AddHybridButton( ID_CREATE_BOX,		"Box", wxImage("../Resource/cylinder.png"));
+	modelingBar->AddHybridButton( ID_CREATE_CONE,		"Cone", wxImage("../Resource/cylinder.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED,	wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
@@ -206,6 +208,8 @@ Frame::Frame()
 	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinderConfig));
 	Connect( ID_CREATE_BOX,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect( ID_CREATE_BOX,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBoxConfig));
+	Connect( ID_CREATE_CONE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
+	Connect( ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig) );
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -773,4 +777,15 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 	if (ret == wxID_OK) {
 		boxConfig = dialog.getConfig();
 	}
+}
+
+
+void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
+{
+
+}
+
+void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
+{
+
 }
