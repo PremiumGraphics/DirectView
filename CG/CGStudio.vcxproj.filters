@@ -68,5 +68,8 @@
     <Image Include="..\Resource\3D-X-Axis-Rotation.png">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\Resource\cylinder.png">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

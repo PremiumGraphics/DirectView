@@ -9,6 +9,11 @@ namespace Crystal{
 class QuadConfigDialog : public wxDialog
 {
 public:
+	struct Config{
+		float xLength;
+		float yLength;
+	};
+
 	QuadConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 	{
@@ -21,14 +26,16 @@ public:
 		*/
 	}
 
-	void set(const float xLength, const float yLength) {
-		this->xLength->SetValue(xLength);
-		this->yLength->SetValue(yLength);
+	void setConfig(const Config& config) {
+		this->xLength->SetValue(config.xLength);
+		this->yLength->SetValue(config.yLength);
 	}
 
-	float getXLength() const { return xLength->GetValue(); }
-
-	float getYLength() const { return yLength->GetValue(); }
+	Config getConfig() {
+		Config config;
+		config.xLength = xLength->GetValue();
+		config.yLength = yLength->GetValue();
+	}
 
 private:
 	wxSpinCtrlDouble* xLength;

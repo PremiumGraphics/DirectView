@@ -54,6 +54,7 @@ enum {
 	ID_CREATE_CIRCLE,
 	ID_CREATE_SPHERE,
 	ID_CREATE_CYLINDER,
+	ID_CREATE_BOX,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -99,8 +100,6 @@ Frame::Frame()
 	circleDivideAngle( 60.0f )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
-
-	sphereConfigDialog = new SphereConfigDialog(this);
 
 	camera.setNear(1.0f);
 
@@ -193,7 +192,8 @@ Frame::Frame()
 	modelingBar->AddHybridButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
 	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage("../Resource/cylinder.png"));
+	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage("../Resource/cylinder.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_QUAD,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateQuad) );
@@ -204,6 +204,7 @@ Frame::Frame()
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder) );
 	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinderConfig));
+	Connect( ID_CREATE_BOX,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -727,7 +728,8 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 {
 	//const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
-	sphereConfigDialog->ShowModal();
+	SphereConfigDialog dialog(this);
+	dialog.ShowModal();
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
@@ -743,3 +745,14 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 	CylinderConfigDialog dialog(this);
 	dialog.ShowModal();
 }
+
+void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
+{
+	PolygonBuilder builder;
+	builder.buildBox();
+	polygons.push_back(builder.getPolygon());
+	polygonTree->build();
+}
+
+void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
+{}

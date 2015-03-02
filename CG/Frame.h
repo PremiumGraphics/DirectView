@@ -105,6 +105,10 @@ private:
 
 	void OnCreateCylinderConfig(wxRibbonButtonBarEvent& e);
 
+	void OnCreateBox(wxRibbonButtonBarEvent& e);
+
+	void OnCreateBoxConfig(wxRibbonButtonBarEvent& e);
+
 	void clear();
 
 private:
@@ -117,9 +121,6 @@ private:
 	PolygonProperty* polygonProperty;
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
-
-	SphereConfigDialog* sphereConfigDialog;
-
 
 	View* view;
 
