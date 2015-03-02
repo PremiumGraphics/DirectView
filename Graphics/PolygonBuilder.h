@@ -22,7 +22,7 @@ public:
 
 	void buildTriangle() { buildCircleByNumber(1.0f, 3); }
 
-	void buildCylinder(const float radius, const float height);
+	void buildCylinder(const unsigned int divideNuber);
 
 	void buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 

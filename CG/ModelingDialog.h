@@ -97,6 +97,22 @@ public:
 private:
 };
 
+class CylinderConfigDialog : public wxDialog
+{
+public:
+	CylinderConfigDialog(wxWindow* parent) :
+		wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500,500))
+	{
+		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 200));
+		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
+	}
+
+	int getDivideNumber() const { return divideNumber->GetValue(); }
+
+private:
+	wxSpinCtrl* divideNumber;
+};
+
 	}
 }
 

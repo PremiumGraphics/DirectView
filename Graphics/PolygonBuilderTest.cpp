@@ -56,7 +56,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	EXPECT_EQ(6, p->getFaces().size());
 }
 
-TEST(PolygonTest, TestCreateCircleByAngle)
+TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
 	PolygonBuilder builder;
 	builder.buildCircleByAngle(1.0, 90.0);
@@ -81,7 +81,7 @@ TEST(PolygonTest, TestCreateCircleByAngle)
 	EXPECT_EQ(expected, *p);
 }
 
-TEST(PolygonTest, TestCreateTriangle)
+TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	PolygonBuilder builder;
 	builder.buildTriangle();
@@ -112,7 +112,7 @@ TEST(PolygonTest, TestCreateTriangle)
 }
 
 
-TEST(PolygonTest, TestCreateCircleByNumber)
+TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
 	PolygonBuilder builder;
 	builder.buildCircleByNumber(1.0, 4);
@@ -136,4 +136,15 @@ TEST(PolygonTest, TestCreateCircleByNumber)
 	f.setNormalIds({ 0, 0, 0, 0 });
 	expected.setFaces({ f });
 	EXPECT_EQ(expected, *p);
+}
+
+TEST(PolygonBuilderTest, TestBuildCylinder)
+{
+	PolygonBuilder builder;
+	builder.buildCylinder(3);
+	std::unique_ptr< Polygon > p(builder.getPolygon());
+
+	EXPECT_EQ(6, p->getPositions().size());
+	EXPECT_EQ(5, p->getNormals().size());
+	EXPECT_EQ(5, p->getFaces().size());
 }

@@ -203,6 +203,7 @@ Frame::Frame()
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSphere) );
 	Connect( ID_CREATE_SPHERE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder) );
+	Connect( ID_CREATE_CYLINDER,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinderConfig));
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -731,7 +732,14 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( Polygon::createCylinder( 1.0f, 1.0f));
+	PolygonBuilder builder;
+	builder.buildCylinder(3);
+	polygons.push_back( builder.getPolygon() );
 	polygonTree->build();
+}
 
+void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
+{
+	CylinderConfigDialog dialog(this);
+	dialog.ShowModal();
 }

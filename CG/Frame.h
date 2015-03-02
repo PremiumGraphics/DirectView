@@ -103,6 +103,7 @@ private:
 
 	void OnCreateCylinder(wxRibbonButtonBarEvent& e);
 
+	void OnCreateCylinderConfig(wxRibbonButtonBarEvent& e);
 
 	void clear();
 
