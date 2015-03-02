@@ -93,6 +93,8 @@ private:
 
 	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
 
+	void OnCreateTriangleConfig(wxRibbonButtonBarEvent& e);
+
 	void OnCreateCircle(wxRibbonButtonBarEvent& e);
 
 	void OnCreateCircleConfig(wxRibbonButtonBarEvent& e);
@@ -121,6 +123,8 @@ private:
 	PolygonProperty* polygonProperty;
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
+
+	BoxConfigDialog::Config boxConfig;
 
 	View* view;
 
