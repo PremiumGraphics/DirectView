@@ -11,13 +11,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-
-TEST(PolygonTest, TestCreateCylinder)
-{
-	std::unique_ptr< Polygon > p(Polygon::createCylinder(1.0f, 1.0f));
-	EXPECT_EQ(3, p->getFaces().size());
-}
-
 TEST(PolygonTest, TestScale)
 {
 	Polygon p;

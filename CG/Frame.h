@@ -124,6 +124,7 @@ private:
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 
+	CircleConfigDialog::Config circleConfig;
 	BoxConfigDialog::Config boxConfig;
 
 	View* view;
@@ -134,8 +135,6 @@ private:
 	Graphics::PolygonGroupList polygons;
 	std::list<Graphics::Material*> materials;
 	std::list<Graphics::Light*> lights;
-
-	float circleDivideAngle;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

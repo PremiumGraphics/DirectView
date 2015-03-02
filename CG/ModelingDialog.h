@@ -75,6 +75,12 @@ private:
 class CircleConfigDialog : public wxDialog
 {
 public:
+	struct Config{
+		float xSize;
+		float ySize;
+	};
+
+
 	CircleConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
 	{

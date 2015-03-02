@@ -148,3 +148,12 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	EXPECT_EQ(5, p->getNormals().size());
 	EXPECT_EQ(5, p->getFaces().size());
 }
+
+TEST(PolygonBuilderTest, TestBuildCone)
+{
+	PolygonBuilder builder;
+	builder.buildCone(3);
+	std::unique_ptr< Polygon > p(builder.getPolygon());
+	EXPECT_EQ(4, p->getPositions().size());
+	EXPECT_EQ(4, p->getFaces().size());
+}

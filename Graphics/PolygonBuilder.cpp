@@ -51,6 +51,8 @@ void PolygonBuilder::buildBox()
 
 void PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
+	assert(divideNumber >= 3);
+
 	std::vector<unsigned int> vertexIds;
 	std::vector<unsigned int> normalIds;
 
@@ -73,6 +75,8 @@ void PolygonBuilder::buildCircleByAngle(const float radius, const float divideAn
 
 void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
+	assert(divideNumber >= 3);
+
 	normals = {
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, -1.0),
@@ -139,4 +143,43 @@ void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigne
 	}
 	//f.setVertexIds(vertexIds);
 	//f.setNormalIds(normalIds);
+}
+
+void PolygonBuilder::buildCone(const unsigned int divideNumber)
+{
+	assert(divideNumber >= 3);
+	std::vector<unsigned int> vertexIds;
+	std::vector<unsigned int> normalIds;
+
+	for (unsigned int i = 0; i < divideNumber; ++i) {
+		const float angle = 360.0f / divideNumber * i;
+		const float rad = angle *Tolerances::getPI() / 180.0f;
+		positions.push_back( Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+		vertexIds.push_back(i);
+		normalIds.push_back(0);
+	}
+
+	normals.push_back(Vector3d(0.0, 0.0, 1.0));
+	Face f(vertexIds, normalIds);
+	faces.push_back(f);
+
+	positions.push_back(Vector3d(0.0, 0.0, 1.0f));
+
+	for (unsigned int i = 0; i < divideNumber-1; ++i) {
+		const unsigned int v0 = i;
+		const unsigned int v1 = i + 1;
+		const unsigned int v2 = divideNumber;
+		Face f;
+		f.setVertexIds({ v0, v1, v2 });
+		faces.push_back(f);
+	}
+
+	{
+		const unsigned int v0 = divideNumber-1;
+		const unsigned int v1 = 0;
+		const unsigned int v2 = divideNumber;
+		Face f;
+		f.setVertexIds({ v0, v1, v2 });
+		faces.push_back(f);
+	}
 }

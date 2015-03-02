@@ -95,8 +95,6 @@ public:
 			texCoords == rhs.texCoords;
 	}
 
-	static Polygon* createCylinder( const float radius, const float height );
-
 	void setCenter(const Math::Vector3d& center) { this->center = center; }
 
 	Math::Vector3d getCenter() const { return center; }

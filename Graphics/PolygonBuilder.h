@@ -26,6 +26,8 @@ public:
 
 	void buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
+	void buildCone(const unsigned int divideNumber);
+
 	void create() {
 		Polygon* polygon = new Polygon();
 		polygon->setPositions(positions);

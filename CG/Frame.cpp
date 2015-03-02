@@ -96,8 +96,7 @@ public:
 
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxT("CG Studio 0.10")),
-	circleDivideAngle( 60.0f )
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -692,7 +691,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	PolygonBuilder builder;
-	builder.buildCircleByAngle(1.0f, circleDivideAngle);
+	builder.buildCircleByAngle(1.0f, 60.0f);
 	polygons.push_back( builder.getPolygon() );
 	polygonTree->build();
 }
@@ -702,7 +701,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 	CircleConfigDialog dialog(this);
 	int ret = dialog.ShowModal();
 	if (ret == wxID_OK) {
-		circleDivideAngle = dialog.getDivideAngle();
+		//circleDivideAngle = dialog.getDivideAngle();
 	}
 }
 
