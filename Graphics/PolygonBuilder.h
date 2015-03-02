@@ -14,6 +14,8 @@ public:
 
 	void buildQuad();
 
+	void buildBox();
+
 	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
 	void buildCircleByAngle(const float radius, const float divideAngle);

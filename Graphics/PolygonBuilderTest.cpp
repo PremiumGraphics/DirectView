@@ -20,15 +20,12 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 		Vector3d(1.0, 1.0, 0.0)
 	};
 	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
 
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 1, 2, 3 });
+	f.setNormalIds({ 0, 0, 0, 0 });
 	Polygon expected;
 	expected.setFaces({ f });
 	expected.setPositions(positions);
@@ -37,13 +34,21 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	EXPECT_EQ(expected, *p);
 }
 
+TEST(PolygonBuilderTest, TestBuildBox)
+{
+	PolygonBuilder builder;
+	builder.buildBox();
+	std::unique_ptr< Polygon > p( builder.getPolygon());
+
+	EXPECT_EQ(8, p->getPositions().size());
+	EXPECT_EQ(6, p->getFaces().size());
+}
 
 TEST(PolygonTest, TestCreateCircleByAngle)
 {
 	PolygonBuilder builder;
 	builder.buildCircleByAngle(1.0, 90.0);
 	std::unique_ptr< Polygon > p(builder.getPolygon());
-
 
 	Polygon expected;
 	const Vector3dVector positions{
@@ -53,16 +58,13 @@ TEST(PolygonTest, TestCreateCircleByAngle)
 		Vector3d(-1.0, 0.0, 0.0)
 	};
 	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
 	expected.setPositions(positions);
 	expected.setNormals(normals);
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 1, 2, 3 });
+	f.setNormalIds({ 0, 0, 0, 0 });
 	expected.setFaces({ f });
 	EXPECT_EQ(expected, *p);
 }
@@ -81,8 +83,6 @@ TEST(PolygonTest, TestCreateTriangle)
 	};
 
 	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
 	//const Vector3d expected(-0.5, 0.5, 0.0);
@@ -91,8 +91,9 @@ TEST(PolygonTest, TestCreateTriangle)
 	expected.setNormals(normals);
 	const FaceVector& faces = p->getFaces();
 	Face f;
-	f.setNormalIds({ 0, 1, 2 });
 	f.setVertexIds({ 0, 1, 2 });
+	f.setNormalIds({ 0, 0, 0 });
+
 	expected.setFaces({ f });
 
 	EXPECT_EQ(expected, *p);
@@ -114,16 +115,13 @@ TEST(PolygonTest, TestCreateCircleByNumber)
 		Vector3d(-1.0, 0.0, 0.0)
 	};
 	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
 	expected.setPositions(positions);
 	expected.setNormals(normals);
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 1, 2, 3 });
+	f.setNormalIds({ 0, 0, 0, 0 });
 	expected.setFaces({ f });
 	EXPECT_EQ(expected, *p);
 }
