@@ -695,7 +695,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	PolygonBuilder builder;
-	builder.buildCircleByAngle(1.0f, 60.0f);
+	builder.buildCircleByNumber(1.0f, circleConfig.getDivideNumber() );
 	polygons.push_back( builder.getPolygon() );
 	polygonTree->build();
 }
@@ -705,7 +705,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 	CircleConfigDialog dialog(this);
 	int ret = dialog.ShowModal();
 	if (ret == wxID_OK) {
-		//circleDivideAngle = dialog.getDivideAngle();
+		circleConfig = dialog.getConfig();
 	}
 }
 
@@ -741,7 +741,10 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 {
 	//const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
 	SphereConfigDialog dialog(this);
-	dialog.ShowModal();
+	dialog.setConfig(sphereConfig);
+	if (dialog.ShowModal() == wxID_OK) {
+		sphereConfig = dialog.getConfig();
+	}
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
@@ -782,10 +785,18 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-
+	PolygonBuilder builder;
+	builder.buildCone(coneConfig.divideNumber);
+	polygons.push_back(builder.getPolygon());
+	polygonTree->build();
 }
 
 void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
 {
-
+	ConeConfigDialog dialog(this);
+	dialog.setConfig(coneConfig);
+	const int ret = dialog.ShowModal();
+	if (ret == wxID_OK) {
+		coneConfig = dialog.getConfig();
+	}
 }

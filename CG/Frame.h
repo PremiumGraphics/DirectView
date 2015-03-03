@@ -129,7 +129,9 @@ private:
 	LightProperty* lightProperty;
 
 	CircleConfigDialog::Config circleConfig;
+	SphereConfigDialog::Config sphereConfig;
 	BoxConfigDialog::Config boxConfig;
+	ConeConfigDialog::Config coneConfig;
 
 	View* view;
 
