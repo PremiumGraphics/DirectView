@@ -9,6 +9,7 @@
 #include "SmoothRenderer.h"
 #include "NormalRenderer.h"
 #include "PointRenderer.h"
+#include "IDRenderer.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -41,6 +42,7 @@ public:
 		FLAT,
 		NORMAL,
 		POINT,
+		ID,
 	};
 
 	void setMode( const MODE& m ) { this->mode = m; }
@@ -77,6 +79,7 @@ private:
 	SmoothRenderer smoothRenderer;
 	NormalRenderer normalRenderer;
 	PointRenderer pointRenderer;
+	IDRenderer idRenderer;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

@@ -12,10 +12,13 @@ namespace Crystal {
 
 class Quad {
 public:
-	Quad() {};
+	Quad() :
+		lengthX( 1.0f ),
+		lengthY( 1.0f )
+	{};
 
-	Quad( const Vector3d& center, const float lengthX, const float lengthY ) :
-		center( center ), lengthX( lengthX ), lengthY( lengthY )
+	Quad( const float lengthX, const float lengthY ) :
+		lengthX( lengthX ), lengthY( lengthY )
 	{
 	}
 

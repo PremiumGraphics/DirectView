@@ -28,12 +28,16 @@ public:
 
 	float getRadius() const { return radius; }
 
+	float getArea() const { return radius * radius * Tolerances::getPI(); }
+
+	float getDiameter() const { return radius * 2.0f; }
+
 	Vector3d getCenter() const { return center; }
 
 	Vector3dVector toPoints( const float divideAngle ) const {
 		Vector3dVector points;
 
-		for( float angle = 0.0f; angle <= 360.0f; angle += divideAngle ) {
+		for( float angle = 0.0f; angle < 360.0f; angle += divideAngle ) {
 			const float angle1 = angle / 180.0f * Tolerances::getPI();
 			Vector3d pos = center;
 			pos += Vector3d( radius * ::sin( angle1 ), 0.0f, radius * ::cos( angle1 ) );

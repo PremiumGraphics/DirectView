@@ -299,6 +299,25 @@ void View::draw(const wxSize& size)
 		pointRenderer.render(width, height, frame->getCamera(), toArray(positions), 10.0f);
 
 	}
+	else if (renderingMode == RENDERING_MODE::ID) {
+		Vector3dVector positions;
+		IDRenderer::Param param;
+		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
+		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
+		FaceVector faces;
+		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
+			Graphics::Polygon* p = g.getPolygon();
+			const Vector3dVector& ps = p->getPositions();
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			const FaceVector& fs = p->getFaces();
+			faces.insert(faces.end(), fs.begin(), fs.end());
+		}
+		for (int i = 0; i < positions.size(); ++i) {
+			param.positionIds.push_back(i);
+		}
+		param.positions = toArray( positions );
+		idRenderer.render(width, height, param, faces );
+	}
 	else {
 		assert( false );
 	}
@@ -310,6 +329,7 @@ void View::build()
 	smoothRenderer.build();
 	normalRenderer.build();
 	pointRenderer.build();
+	idRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

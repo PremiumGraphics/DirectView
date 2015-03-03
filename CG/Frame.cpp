@@ -62,6 +62,7 @@ enum {
 	ID_RENDERING_PHONG,
 	ID_RENDERING_NORMAL,
 	ID_RENDERING_POINT,
+	ID_RENDERING_ID,
 
 	ID_CAMERA_FIT,
 
@@ -121,11 +122,11 @@ Frame::Frame()
 	wxRibbonPanel *filePanel = new wxRibbonPanel( page, wxID_ANY, wxT("File") );
 	wxRibbonButtonBar *toolbar = new wxRibbonButtonBar( filePanel );
 
-	toolbar->AddButton( wxID_NEW,	"New",	wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( wxID_OPEN,	"Open", wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ));
-	toolbar->AddButton( wxID_SAVE,	"Save", wxImage("../Resource/save.png") );
-	toolbar->AddButton( wxID_ANY,	"Save As", wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( wxID_CLOSE, "Close", wxImage("../Resource/cancel.png"));
+	toolbar->AddButton( wxID_NEW,	"New",		wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( wxID_OPEN,	"Open",		wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ));
+	toolbar->AddButton( wxID_SAVE,	"Save",		wxImage("../Resource/save.png") );
+	toolbar->AddButton( wxID_ANY,	"Save As",	wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( wxID_CLOSE, "Close",	wxImage("../Resource/cancel.png"));
 
 
 	Connect( wxID_NEW,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNew ) );
@@ -135,9 +136,9 @@ Frame::Frame()
 	Connect( wxID_CLOSE,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnClose ) );
 	Connect( wxID_ABOUT,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnAbout ) );
 
-	toolbar->AddButton( ID_IMPORT, "Import", wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( ID_EXPORT, "Export", wxImage( "../Resource/export.png"), "Export" );
-	toolbar->AddButton( ID_CAPTURE, "Capture", wxImage("../Resource/screenshot.png"));
+	toolbar->AddButton( ID_IMPORT,	"Import",	wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( ID_EXPORT,	"Export",	wxImage( "../Resource/export.png"), "Export" );
+	toolbar->AddButton( ID_CAPTURE, "Capture",	wxImage("../Resource/screenshot.png"));
 
 
 	Connect( ID_IMPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
@@ -154,9 +155,9 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
 	operation->AddButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
-	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX", wxImage("../Resource/3D-X-Axis-Rotation.png"));
-	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY", wxImage("../Resource/3D-Y-Axis-Rotation.png"));
-	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ", wxImage("../Resource/3D-Z-Axis-Rotation.png"));
+	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX",	wxImage("../Resource/3D-X-Axis-Rotation.png"));
+	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY",	wxImage("../Resource/3D-Y-Axis-Rotation.png"));
+	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ",	wxImage("../Resource/3D-Z-Axis-Rotation.png"));
 
 
 	operation->AddButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
@@ -174,27 +175,28 @@ Frame::Frame()
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
 	rendering->AddButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_PHONG,		"Phong", wxImage("../Resource/surface.png"));
-	rendering->AddButton( ID_RENDERING_FLAT,		"Flat", wxImage("../Resource/surface.png") );
-	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal", wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/point.png"));
+	rendering->AddButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
+	rendering->AddButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
+	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
+	rendering->AddButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
+	rendering->AddButton( ID_RENDERING_ID,			"ID",		wxImage("../Resource/point.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
-
+	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
-	modelingBar->AddHybridButton( ID_CREATE_TRIANGLE,	"Triangle", wxImage("../Resource/triangle.png") );
-	modelingBar->AddHybridButton( ID_CREATE_QUAD,		"Quad", wxImage("../Resource/quad.png") );
-	modelingBar->AddHybridButton( ID_CREATE_CIRCLE,		"Circle", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton( ID_CREATE_SPHERE,		"Sphere", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton( ID_CREATE_TRIANGLE,	"Triangle",	wxImage("../Resource/triangle.png") );
+	modelingBar->AddHybridButton( ID_CREATE_QUAD,		"Quad",		wxImage("../Resource/quad.png") );
+	modelingBar->AddHybridButton( ID_CREATE_CIRCLE,		"Circle",	wxImage("../Resource/circle.png"));
+	modelingBar->AddHybridButton( ID_CREATE_SPHERE,		"Sphere",	wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton( ID_CREATE_CYLINDER,	"Cylinder", wxImage("../Resource/cylinder.png"));
-	modelingBar->AddHybridButton( ID_CREATE_BOX,		"Box", wxImage("../Resource/cylinder.png"));
-	modelingBar->AddHybridButton( ID_CREATE_CONE,		"Cone", wxImage("../Resource/cylinder.png"));
+	modelingBar->AddHybridButton( ID_CREATE_BOX,		"Box",		wxImage("../Resource/box.png"));
+	modelingBar->AddHybridButton( ID_CREATE_CONE,		"Cone",		wxImage("../Resource/cylinder.png"));
 	
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle) );
 	Connect( ID_CREATE_TRIANGLE,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED,	wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
@@ -209,7 +211,7 @@ Frame::Frame()
 	Connect( ID_CREATE_BOX,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect( ID_CREATE_BOX,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBoxConfig));
 	Connect( ID_CREATE_CONE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
-	Connect( ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig) );
+	Connect( ID_CREATE_CONE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig) );
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
@@ -405,7 +407,6 @@ void Frame::OnPolygonRotateZ(wxRibbonButtonBarEvent&)
 {
 	view->setMode(View::POLYGON_ROTATE_Z);
 }
-
 
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
@@ -612,6 +613,12 @@ void Frame::OnPoint(wxRibbonButtonBarEvent&)
 	view->Refresh();
 }
 
+void Frame::OnID(wxRibbonButtonBarEvent&)
+{
+	view->setRenderingMode(View::RENDERING_MODE::ID);
+	view->Refresh();
+}
+
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
 	/*
@@ -661,7 +668,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
 	PolygonBuilder builder;
@@ -673,7 +679,10 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 {
 	TriangleConfigDialog dialog(this);
-	dialog.ShowModal();
+	dialog.setConfig(triangleConfig);
+	if (dialog.ShowModal() == wxID_OK) {
+		triangleConfig = dialog.getConfig();
+	}
 }
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
@@ -681,16 +690,17 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 	PolygonBuilder builder;
 	builder.buildQuad();
 	polygons.push_back( builder.getPolygon() );
-
 	polygonTree->build();
 }
 
 void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 {
 	QuadConfigDialog dialog(this);
-	dialog.ShowModal();
+	dialog.setConfig(quadConfig);
+	if (dialog.ShowModal() == wxID_OK) {
+		quadConfig = dialog.getConfig();
+	}
 }
-
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
@@ -703,38 +713,18 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 {
 	CircleConfigDialog dialog(this);
-	int ret = dialog.ShowModal();
-	if (ret == wxID_OK) {
+	dialog.setConfig(circleConfig);
+	if (dialog.ShowModal() == wxID_OK) {
 		circleConfig = dialog.getConfig();
 	}
 }
 
-
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	Graphics::Polygon* p = new Graphics::Polygon();
-	p->setName( "sphere" );
-	Vector3dVector positions;
-	Face f;
-	std::vector<unsigned int> vertexIds;
-	int i = 0;
-	for (float vAngle = 0.0; vAngle < 180.0; vAngle += 30.0) {
-		for (float angle = 0.0; angle < 360.0; angle += 60.0) {
-			const float rad = angle * Tolerances::getPI() / 180.0f;
-			const float radius = ::sin(vAngle * Tolerances::getPI() / 180.0);
-			const float z = ::sin(vAngle * Tolerances::getPI() / 180.0f);
-			positions.push_back(Vector3d(std::sin(rad) * radius, std::cos(rad) * radius, z ));
-			vertexIds.push_back(i++);
-		}
-	}
-	f.setVertexIds(vertexIds);
-	p->setPositions( positions );
-
-	p->setFaces( {f} );
-	polygons.push_back(p);
-
+	PolygonBuilder builder;
+	builder.buildSphere( sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber() );
+	polygons.push_back(builder.getPolygon());
 	polygonTree->build();
-
 }
 
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
@@ -758,9 +748,9 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 {
 	CylinderConfigDialog dialog(this);
-	const int ret = dialog.ShowModal();
-	if (ret == wxID_OK) {
-
+	dialog.setConfig(cylinderConfig);
+	if (dialog.ShowModal() == wxID_OK) {
+		cylinderConfig = dialog.getConfig();
 	}
 }
 
@@ -776,8 +766,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 {
 	BoxConfigDialog dialog(this);
 	dialog.setConfig(boxConfig);
-	const int ret = dialog.ShowModal();
-	if (ret == wxID_OK) {
+	if (dialog.ShowModal() == wxID_OK) {
 		boxConfig = dialog.getConfig();
 	}
 }
@@ -795,8 +784,7 @@ void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
 {
 	ConeConfigDialog dialog(this);
 	dialog.setConfig(coneConfig);
-	const int ret = dialog.ShowModal();
-	if (ret == wxID_OK) {
+	if (dialog.ShowModal() == wxID_OK) {
 		coneConfig = dialog.getConfig();
 	}
 }

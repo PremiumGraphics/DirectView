@@ -83,6 +83,8 @@ private:
 
 	void OnPoint(wxRibbonButtonBarEvent&);
 
+	void OnID(wxRibbonButtonBarEvent&);
+
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
@@ -128,10 +130,13 @@ private:
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 
+	TriangleConfigDialog::Config triangleConfig;
+	QuadConfigDialog::Config quadConfig;
 	CircleConfigDialog::Config circleConfig;
 	SphereConfigDialog::Config sphereConfig;
 	BoxConfigDialog::Config boxConfig;
 	ConeConfigDialog::Config coneConfig;
+	CylinderConfigDialog::Config cylinderConfig;
 
 	View* view;
 

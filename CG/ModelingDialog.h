@@ -136,6 +136,12 @@ public:
 		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 		divideNumber->SetRange(3, 360);
 
+		new wxStaticText(this, wxID_ANY, "Width", wxPoint(0, 300));
+		width = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
+
+		new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 400));
+		height = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
+
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 	}
@@ -143,17 +149,23 @@ public:
 	void setConfig(const Config& config) {
 		divideNumber->SetValue(config.getDivideNumber());
 		divideAngle->SetValue(360.0f / config.getDivideNumber() );
+		width->SetValue(config.getWidth());
+		height->SetValue(config.getHeight());
 	}
 
 	Config getConfig() const {
 		Config config;
 		config.setDivideNumber( divideNumber->GetValue() );
+		config.setWidth(width->GetValue());
+		config.setHeight(height->GetValue());
 		return config;
 	}
 
 private:
 	wxSpinCtrlDouble* divideAngle;
 	wxSpinCtrl* divideNumber;
+	wxSpinCtrlDouble* width;
+	wxSpinCtrlDouble* height;
 };
 
 

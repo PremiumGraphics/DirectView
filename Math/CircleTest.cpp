@@ -3,7 +3,6 @@
 #include "../Math/Circle.h"
 
 using namespace Crystal::Math;
-
  
 TEST( CircleTest, TestConstruct )
 {
@@ -13,14 +12,14 @@ TEST( CircleTest, TestConstruct )
 	EXPECT_FALSE( c.isShrinked() );
 }
 
-TEST( CircleTest, toPointsTest )
+TEST( CircleTest, TestToPoints )
 {
 	Circle c;
-	const Vector3dVector& points = c.toPoints( 60.0f );
-	EXPECT_EQ( 7, points.size() );
+	const Vector3dVector& points = c.toPoints( 120.0f );
+	EXPECT_EQ( 3, points.size() );
 }
 
-TEST( CircleTest, offsetTest )
+TEST( CircleTest, TestOffset )
 {
 	Circle c( 5.0f );
 	c.innerOffset( 1.0f );
@@ -28,4 +27,26 @@ TEST( CircleTest, offsetTest )
 
 	c.outerOffset( 2.0f );
 	EXPECT_EQ( 6.0f, c.getRadius() );
+}
+
+TEST(CircleTest, TestArea)
+{
+	{
+		Circle c;
+		const float actual = c.getArea();
+		EXPECT_FLOAT_EQ(Tolerances::getPI(), actual);
+	}
+
+	{
+		Circle c(2.0);
+		const float actual = c.getArea();
+		const float expected = Tolerances::getPI() * 4.0f;
+		EXPECT_FLOAT_EQ( expected, actual);
+	}
+}
+
+TEST(CircleTest, TestDiameter)
+{
+	Circle c;
+	EXPECT_FLOAT_EQ(2.0f, c.getDiameter());
 }

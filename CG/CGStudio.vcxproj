@@ -146,6 +146,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="LightProperty.cpp" />
     <ClCompile Include="LightTree.cpp" />
     <ClCompile Include="MaterialProperty.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="LightProperty.h" />
     <ClInclude Include="LightTree.h" />
     <ClInclude Include="MaterialProperty.h" />
@@ -192,6 +194,8 @@
     <Image Include="..\Resource\3D-X-Axis-Rotation.png" />
     <Image Include="..\Resource\3D-Y-Axis-Rotation.png" />
     <Image Include="..\Resource\3D-Z-Axis-Rotation.png" />
+    <Image Include="..\Resource\box.png" />
+    <Image Include="..\Resource\circle.png" />
     <Image Include="..\Resource\cylinder.png" />
     <Image Include="..\Resource\quad.png" />
     <Image Include="..\Resource\triangle.png" />
