@@ -30,7 +30,7 @@ public:
 
 	void create() {
 		Polygon* polygon = new Polygon();
-		polygon->setPositions(positions);
+		polygon->setVertices(positions);
 		polygon->setNormals(normals);
 		polygon->setFaces(faces);
 		this->polygon = polygon;

@@ -28,7 +28,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	f.setNormalIds({ 0, 0, 0, 0 });
 	Polygon expected;
 	expected.setFaces({ f });
-	expected.setPositions(positions);
+	expected.setVertices(positions);
 	expected.setNormals(normals);
 
 	EXPECT_EQ(expected, *p);
@@ -72,7 +72,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0)
 	};
-	expected.setPositions(positions);
+	expected.setVertices(positions);
 	expected.setNormals(normals);
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
@@ -100,7 +100,7 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	};
 	//const Vector3d expected(-0.5, 0.5, 0.0);
 
-	expected.setPositions(positions);
+	expected.setVertices(positions);
 	expected.setNormals(normals);
 	const FaceVector& faces = p->getFaces();
 	Face f;
@@ -129,7 +129,7 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0)
 	};
-	expected.setPositions(positions);
+	expected.setVertices(positions);
 	expected.setNormals(normals);
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });

@@ -97,7 +97,7 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setPositions(const VertexVector& pos) { this->positions = pos;  }
+	void setVertices(const VertexVector& pos) { this->positions = pos;  }
 
 	void setPositions(const Math::Vector3dVector& poss) {
 		int i = 0;

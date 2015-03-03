@@ -14,7 +14,7 @@ using namespace Crystal::Graphics;
 TEST(PolygonTest, TestScale)
 {
 	Polygon p;
-	p.setPositions( { Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) } );
+	p.setVertices( { Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) } );
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
 	const VertexVector expected = { Vertex(Vector3d(0.1f, 0.01f, 10.0f), 0) };
@@ -25,7 +25,7 @@ TEST(PolygonTest, TestScale)
 TEST(PolygonTest, TestScaleWithCenter)
 {
 	Polygon p;
-	p.setPositions({ Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) });
+	p.setVertices({ Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) });
 	p.setCenter(Vector3d(1.0, 1.0, 1.0));
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
@@ -37,7 +37,7 @@ TEST(PolygonTest, TestScaleWithCenter)
 TEST(PolygonTest, TestMove)
 {
 	Polygon p;
-	p.setPositions({ Vertex(Vector3d(1.0, 2.0, 3.0), 0) });
+	p.setVertices({ Vertex(Vector3d(1.0, 2.0, 3.0), 0) });
 
 	p.move(Vector3d(1.0, 10.0, 100.0));
 
@@ -50,7 +50,7 @@ TEST(PolygonTest, TestMove)
 TEST(PolygonTest, TestRotateX)
 {
 	Polygon p;
-	p.setPositions({ Vertex(Vector3d(0.0, 0.0, 1.0), 0) });
+	p.setVertices({ Vertex(Vector3d(0.0, 0.0, 1.0), 0) });
 	p.rotateX(180.0);
 
 	const VertexVector& actual = p.getVertices();
