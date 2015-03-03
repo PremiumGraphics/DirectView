@@ -43,7 +43,7 @@ public:
 
 private:
 	Polygon* polygon;
-	Math::Vector3dVector positions;
+	VertexVector positions;
 	Math::Vector3dVector normals;
 	FaceVector faces;
 };

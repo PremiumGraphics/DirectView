@@ -13,11 +13,11 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	builder.buildQuad();
 	std::unique_ptr< Polygon > p( builder.getPolygon() );
 
-	const Vector3dVector positions{
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
+	const VertexVector positions{
+		Vertex( Vector3d(0.0, 1.0, 0.0),0),
+		Vertex( Vector3d(0.0, 0.0, 0.0),1),
+		Vertex( Vector3d(1.0, 0.0, 0.0),2),
+		Vertex( Vector3d(1.0, 1.0, 0.0),3 )
 	};
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0)
@@ -40,18 +40,18 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	builder.buildBox();
 	std::unique_ptr< Polygon > p( builder.getPolygon());
 
-	const Vector3dVector positions{
-		Vector3d(0.0, 1.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0),
-		Vector3d(1.0, 1.0, 1.0),
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
+	const VertexVector positions{
+		Vertex(Vector3d(0.0, 1.0, 1.0),0),
+		Vertex(Vector3d(0.0, 0.0, 1.0),1),
+		Vertex(Vector3d(1.0, 0.0, 1.0),2),
+		Vertex(Vector3d(1.0, 1.0, 1.0),3),
+		Vertex(Vector3d(0.0, 1.0, 0.0),4),
+		Vertex(Vector3d(0.0, 0.0, 0.0),5),
+		Vertex(Vector3d(1.0, 0.0, 0.0),6),
+		Vertex(Vector3d(1.0, 1.0, 0.0),7),
 	};
 
-	EXPECT_EQ(positions, p->getPositions());
+	EXPECT_EQ(positions, p->getVertices());
 	EXPECT_EQ(6, p->getNormals().size());
 	EXPECT_EQ(6, p->getFaces().size());
 }
@@ -63,11 +63,11 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	std::unique_ptr< Polygon > p(builder.getPolygon());
 
 	Polygon expected;
-	const Vector3dVector positions{
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0)
+	const VertexVector positions{
+		Vertex(Vector3d(0.0, 1.0, 0.0), 0 ),
+		Vertex(Vector3d(1.0, 0.0, 0.0), 1 ),
+		Vertex(Vector3d(0.0, -1.0, 0.0),2 ),
+		Vertex(Vector3d(-1.0, 0.0, 0.0),3 )
 	};
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0)
@@ -81,6 +81,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	EXPECT_EQ(expected, *p);
 }
 
+
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	PolygonBuilder builder;
@@ -88,10 +89,10 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	std::unique_ptr< Polygon > p(builder.getPolygon());
 
 	Polygon expected;
-	const Vector3dVector positions{
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(std::sin(120.0f * Tolerances::getPI() / 180.0f), std::cos(120.0f * Tolerances::getPI() / 180.0f), 0.0),
-		Vector3d(std::sin(240.0f * Tolerances::getPI() / 180.0f), std::cos(240.0f * Tolerances::getPI() / 180.0f), 0.0)
+	const VertexVector positions{
+		Vertex(Vector3d(0.0, 1.0, 0.0),0),
+		Vertex(Vector3d(std::sin(120.0f * Tolerances::getPI() / 180.0f), std::cos(120.0f * Tolerances::getPI() / 180.0f), 0.0), 1),
+		Vertex(Vector3d(std::sin(240.0f * Tolerances::getPI() / 180.0f), std::cos(240.0f * Tolerances::getPI() / 180.0f), 0.0), 2)
 	};
 
 	const Vector3dVector normals{
@@ -111,20 +112,19 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	EXPECT_EQ(expected, *p);
 }
 
-
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
 	PolygonBuilder builder;
 	builder.buildCircleByNumber(1.0, 4);
 	std::unique_ptr< Polygon > p(builder.getPolygon());
-	const Vector3dVector& actual = p->getPositions();
+	const VertexVector& actual = p->getVertices();
 
 	Polygon expected;
-	const Vector3dVector positions{
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0)
+	const VertexVector positions{
+		Vertex( Vector3d(0.0, 1.0, 0.0), 0 ),
+		Vertex( Vector3d(1.0, 0.0, 0.0), 1 ),
+		Vertex( Vector3d(0.0, -1.0, 0.0), 2 ),
+		Vertex( Vector3d(-1.0, 0.0, 0.0), 3 )
 	};
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0)
@@ -138,13 +138,14 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	EXPECT_EQ(expected, *p);
 }
 
+
 TEST(PolygonBuilderTest, TestBuildCylinder)
 {
 	PolygonBuilder builder;
 	builder.buildCylinder(3);
 	std::unique_ptr< Polygon > p(builder.getPolygon());
 
-	EXPECT_EQ(6, p->getPositions().size());
+	EXPECT_EQ(6, p->getVertices().size());
 	EXPECT_EQ(5, p->getNormals().size());
 	EXPECT_EQ(5, p->getFaces().size());
 }
@@ -154,6 +155,6 @@ TEST(PolygonBuilderTest, TestBuildCone)
 	PolygonBuilder builder;
 	builder.buildCone(3);
 	std::unique_ptr< Polygon > p(builder.getPolygon());
-	EXPECT_EQ(4, p->getPositions().size());
+	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());
 }

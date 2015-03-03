@@ -7,6 +7,45 @@
 namespace Crystal {
 	namespace Graphics {
 
+class Vertex{
+public:
+
+
+	Vertex(const Math::Vector3d& position, const unsigned int id) :
+		position(position),
+		id(id)
+	{}
+
+	void setPosition(const Math::Vector3d& position) { this->position = position; }
+
+	Math::Vector3d getPosition() const { return position;  }
+
+	void move(const Math::Vector3d& vec){
+		position += vec;
+	}
+
+	unsigned int getId() const { return id; }
+
+	bool operator==(const Vertex& rhs) const {
+		return position == rhs.position &&
+			id == rhs.id;
+	}
+
+	void rotate(const Math::Matrix3d<double>& matrix) {
+		position.rotate(matrix);
+	}
+
+	void scale(const Math::Vector3d& scale) {
+		position.scale(scale.getX(), scale.getY(), scale.getZ());
+	}
+
+private:
+	Math::Vector3d position;
+	unsigned int id;
+};
+
+typedef std::vector<Vertex> VertexVector;
+
 class Face {
 public:
 	Face(){};
@@ -58,9 +97,24 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setPositions(const std::vector< Math::Vector3d>& pos) { this->positions = pos;  }
+	void setPositions(const VertexVector& pos) { this->positions = pos;  }
 
-	std::vector< Math::Vector3d > getPositions() const { return positions; }
+	void setPositions(const Math::Vector3dVector& poss) {
+		int i = 0;
+		for (const Math::Vector3d& pos : poss) {
+			this->positions.push_back(Vertex(pos, i++));
+		}
+	}
+
+	VertexVector getVertices() const { return positions; }
+
+	Math::Vector3dVector getPositions() {
+		Math::Vector3dVector vv;
+		for (const Vertex& v : positions) {
+			vv.push_back(v.getPosition());
+		}
+		return vv;
+	}
 
 	void setNormals(const std::vector < Math::Vector3d>& normals) { this->normals = normals; }
 
@@ -78,8 +132,8 @@ public:
 
 	void move(const Math::Vector3d& vector) {
 		//center += vector;
-		for (Math::Vector3d& p : positions) {
-			p += vector;
+		for (Vertex& v : positions) {
+			v.move(vector);
 		}
 
 	}
@@ -103,7 +157,7 @@ public:
 private:
 	std::string name;
 	std::vector< Face > faces;
-	std::vector < Math::Vector3d > positions;
+	VertexVector positions;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;
 	Math::Vector3d center;
