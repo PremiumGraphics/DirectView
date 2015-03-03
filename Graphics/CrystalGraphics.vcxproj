@@ -110,6 +110,7 @@
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="PolygonGroup.h" />
     <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
