@@ -45,7 +45,7 @@ public:
 
 	Math::Vector3d getEndPosition() const { return end->getPosition(); }
 
-	static std::list<HalfEdge*> createFromVertices(const VertexVector& vertices);
+	static std::list<HalfEdge*> createOpenFromVertices(const VertexVector& vertices);
 
 	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
 

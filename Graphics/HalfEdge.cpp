@@ -2,7 +2,7 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdge::createFromVertices(const VertexVector& vertices)
+HalfEdgeList HalfEdge::createOpenFromVertices(const VertexVector& vertices)
 {
 	assert(vertices.size() >= 1);
 	HalfEdgeVector edges;

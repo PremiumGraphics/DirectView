@@ -6,10 +6,10 @@ using namespace Crystal::Graphics;
 void PolygonBuilder::buildQuad()
 {
 	positions = {
-		new Vertex( Vector3d(0.0, 1.0, 0.0), 0 ),
-		new Vertex( Vector3d(0.0, 0.0, 0.0), 1 ),
-		new Vertex( Vector3d(1.0, 0.0, 0.0), 2 ),
-		new Vertex( Vector3d(1.0, 1.0, 0.0), 3 )
+		new Vertex( Vector3d(0.0, 1.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 0 ),
+		new Vertex( Vector3d(0.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 1 ),
+		new Vertex( Vector3d(1.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 2 ),
+		new Vertex( Vector3d(1.0, 1.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 3 )
 	};
 
 	normals = {

@@ -13,19 +13,22 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	builder.buildQuad();
 	std::unique_ptr< Polygon > p( builder.getPolygon() );
 
-	const VertexVector& positions = Vertex::createVerticesFromPositions(
-	{
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
-	});
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
+
+	const VertexVector& positions = Vertex::createVerticesFromPositionsAndNormals(
+	{
+		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 0.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(1.0, 1.0, 0.0)
+	},
+	normals);
+	
 
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });

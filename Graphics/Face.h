@@ -27,6 +27,8 @@ public:
 
 	bool isClosed() const { return edges.back()->getEndPosition() == edges.front()->getStartPosition(); }
 
+	bool isOpen() const { return !isClosed(); }
+
 	void setNormalIds(const std::vector<unsigned int>& normalIds) { this->normalIds = normalIds; }
 
 	std::vector<unsigned int> getNormalIds() const { return normalIds; }
@@ -35,15 +37,10 @@ public:
 
 	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
 
-	void setTexIds(const std::vector<unsigned int>& texIds) { this->texIds = texIds; }
-
-	std::vector< unsigned int > getTexIds() const { return texIds; }
-
 	bool operator==(const Face& rhs) const {
 		return
 			vertexIds == rhs.vertexIds &&
-			normalIds == rhs.normalIds &&
-			texIds == rhs.texIds;
+			normalIds == rhs.normalIds;
 	}
 
 	void setEdges(const HalfEdgeList& edges) { this->edges = edges; }
@@ -54,7 +51,6 @@ private:
 	//VertexVector vertices;
 	HalfEdgeList edges;
 	std::vector< unsigned int > vertexIds;
-	std::vector< unsigned int > texIds;
 	std::vector< unsigned int > normalIds;
 };
 

@@ -5,6 +5,17 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+
+/*
+TEST(FaceTest, TestConstruct)
+{
+	const VertexVector vertices{
+		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
+		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
+	};
+}
+*/
+
 TEST(FaceTest, TestIsClosed)
 {
 	{
@@ -12,8 +23,9 @@ TEST(FaceTest, TestIsClosed)
 			new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
 			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 		};
-		const HalfEdgeList& edges = HalfEdge::createFromVertices(vertices);
+		const HalfEdgeList& edges = HalfEdge::createOpenFromVertices(vertices);
 		Face f(edges);
+		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
 	}
 
@@ -24,18 +36,8 @@ TEST(FaceTest, TestIsClosed)
 		};
 		const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
 		Face f(edges);
+		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());
 	}
 	//Face f;
 }
-
-/*
-TEST(FaceTest, TestIsClosed)
-{
-	const VertexVector vertices{
-		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
-	};
-
-}
-*/
