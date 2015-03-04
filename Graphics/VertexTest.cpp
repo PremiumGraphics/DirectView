@@ -8,8 +8,9 @@ using namespace Crystal::Graphics;
 TEST(VertexTest, TestConstruct)
 {
 	Vertex v( Vector3d( 0.0, 0.0, 0.0 ), 0 );
-	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getPosition());
+	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getPosition() );
 	EXPECT_EQ(0, v.getId());
+	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getTexCoord() );
 }
 
 TEST(VertexTest, TestCreateVerticesFromPositions)
@@ -25,6 +26,7 @@ TEST(VertexTest, TestCreateVerticesFromPositions)
 		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
 		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 	};
+
 
 	EXPECT_EQ(*expected.front(),*actual.front());
 	EXPECT_EQ(*expected.back(), *actual.back());

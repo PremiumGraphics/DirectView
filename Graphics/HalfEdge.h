@@ -47,6 +47,8 @@ public:
 
 	static std::list<HalfEdge*> createFromVertices(const VertexVector& vertices);
 
+	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
+
 private:
 	Vertex* start;
 	Vertex* end;

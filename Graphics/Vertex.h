@@ -1,5 +1,5 @@
 #ifndef __CRYSTAL_GRAPHICS_VERTEX_H__
-#define __CRYSTAL_GRAPHCIS_VERTEX_H__
+#define __CRYSTAL_GRAPHICS_VERTEX_H__
 
 #include "../Math/Vector3d.h"
 #include <vector>
@@ -22,6 +22,10 @@ public:
 
 	Math::Vector3d getNormal() const { return normal; }
 
+	void setTexCoord(const Math::Vector3d& texCoord) { this->texCoord = texCoord; }
+
+	Math::Vector3d getTexCoord() const { return texCoord; }
+
 	void move(const Math::Vector3d& vec){
 		position += vec;
 	}
@@ -42,7 +46,6 @@ public:
 	bool operator!=(const Vertex& rhs) const {
 		return !equals(rhs);
 	}
-
 
 	void rotate(const Math::Matrix3d<double>& matrix) {
 		position.rotate(matrix);
@@ -65,6 +68,7 @@ public:
 private:
 	Math::Vector3d position;
 	Math::Vector3d normal;
+	Math::Vector3d texCoord;
 	unsigned int id;
 };
 

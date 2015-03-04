@@ -20,3 +20,22 @@ HalfEdgeList HalfEdge::createFromVertices(const VertexVector& vertices)
 	edges.back()->setNext(nullptr);
 	return HalfEdgeList(edges.begin(), edges.end());
 }
+
+HalfEdgeList HalfEdge::createClosedFromVertices(const VertexVector& vertices)
+{
+	assert(vertices.size() >= 1);
+	
+	HalfEdgeVector edges;
+	for (size_t i = 0; i < vertices.size() - 1; ++i) {
+		Vertex* start = vertices[i];
+		Vertex* end = vertices[i + 1];
+		HalfEdge* edge = new HalfEdge(start, end);
+		edges.push_back(edge);
+	}
+
+	{
+		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front());
+		edges.push_back(edge);
+	}
+	return HalfEdgeList( edges.begin(), edges.end() );
+}

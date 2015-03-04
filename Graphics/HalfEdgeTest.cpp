@@ -26,3 +26,16 @@ TEST(HalfEdgeTest, TestCreateFromVertices)
 	EXPECT_NE(nullptr, actual.front()->getNext());
 	EXPECT_NE(nullptr, actual.back()->getPrev());
 }
+
+TEST(HalfEdgeTest, TestCreateClosedFromVertices)
+{
+	VertexVector vertices{
+		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
+		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
+	};
+
+	const HalfEdgeList& actual = HalfEdge::createClosedFromVertices(vertices);
+	EXPECT_EQ(2, actual.size());
+	EXPECT_NE(nullptr, actual.front()->getPrev());
+	EXPECT_NE(nullptr, actual.back()->getNext());
+}

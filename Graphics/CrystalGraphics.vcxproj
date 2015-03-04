@@ -101,6 +101,7 @@
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="ColorRGBAMap.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="HalfEdge.h" />

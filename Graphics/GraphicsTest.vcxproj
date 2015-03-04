@@ -17,6 +17,7 @@
     <ClCompile Include="ColorRGBAMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ColorRGBTest.cpp" />
+    <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
