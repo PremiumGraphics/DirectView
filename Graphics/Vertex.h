@@ -20,6 +20,14 @@ public:
 		id(id)
 	{}
 
+	Vertex(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord, const unsigned int id) :
+		position(position),
+		normal(normal),
+		texCoord( texCoord ),
+		id(id)
+	{}
+
+
 	void setPosition(const Math::Vector3d& position) { this->position = position; }
 
 	Math::Vector3d getPosition() const { return position; }
@@ -42,6 +50,7 @@ public:
 		return
 			position == rhs.position &&
 			normal == rhs.normal &&
+			texCoord == rhs.texCoord &&
 			id == rhs.id;
 	}
 
@@ -74,9 +83,19 @@ public:
 	static std::vector< Vertex* > createVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
 		assert(positions.size() == normals.size());
 		std::vector< Vertex* > vertices;
-		unsigned int id = 0;
 		for (size_t i = 0; i < positions.size(); ++i) {
-			Vertex* v = new Vertex(positions[i], normals[i], id++);
+			Vertex* v = new Vertex(positions[i], normals[i], i);
+			vertices.push_back(v);
+		}
+		return vertices;
+	}
+
+	static std::vector< Vertex* > createVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords) {
+		assert(positions.size() == normals.size());
+		assert(normals.size() == texCoords.size());
+		std::vector< Vertex* > vertices;
+		for (size_t i = 0; i < positions.size(); ++i) {
+			Vertex* v = new Vertex(positions[i], normals[i], texCoords[i], i);
 			vertices.push_back(v);
 		}
 		return vertices;
