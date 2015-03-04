@@ -12,9 +12,14 @@ void PolygonBuilder::buildQuad()
 		Vertex( Vector3d(1.0, 1.0, 0.0), 3 )
 	};
 
-	normals = { Vector3d(0.0, 0.0, 1.0) };
+	normals = {
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0)
+	};
 
-	faces = { Face({ 0, 1, 2, 3 }, { 0, 0, 0, 0 }) };
+	faces = { Face({ 0, 1, 2, 3 }, { 0, 1, 2, 3 }) };
 }
 
 void PolygonBuilder::buildBox()

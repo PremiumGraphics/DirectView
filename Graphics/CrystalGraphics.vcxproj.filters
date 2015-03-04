@@ -27,5 +27,6 @@
     <ClInclude Include="PolygonGroup.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="HalfEdge.h" />
   </ItemGroup>
 </Project>

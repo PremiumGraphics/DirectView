@@ -20,12 +20,15 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 		Vertex( Vector3d(1.0, 1.0, 0.0),3 )
 	};
 	const Vector3dVector normals{
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0)
 	};
 
 	Face f;
 	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 0, 0, 0 });
+	f.setNormalIds({ 0, 1, 2, 3 });
 	Polygon expected;
 	expected.setFaces({ f });
 	expected.setVertices(positions);
