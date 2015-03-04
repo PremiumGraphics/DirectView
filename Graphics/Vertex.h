@@ -28,12 +28,21 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	bool operator==(const Vertex& rhs) const {
+	bool equals(const Vertex& rhs) const {
 		return
 			position == rhs.position &&
 			normal == rhs.normal &&
 			id == rhs.id;
 	}
+
+	bool operator==(const Vertex& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Vertex& rhs) const {
+		return !equals(rhs);
+	}
+
 
 	void rotate(const Math::Matrix3d<double>& matrix) {
 		position.rotate(matrix);
@@ -43,11 +52,11 @@ public:
 		position.scale(scale.getX(), scale.getY(), scale.getZ());
 	}
 
-	static std::vector< Vertex > createVerticesFromPositions( const Math::Vector3dVector& positions ) {
-		std::vector< Vertex > vertices;
+	static std::vector< Vertex* > createVerticesFromPositions( const Math::Vector3dVector& positions ) {
+		std::vector< Vertex* > vertices;
 		unsigned int id = 0;
 		for (const Math::Vector3d& position : positions) {
-			Vertex v(position, id++);
+			Vertex* v = new Vertex(position, id++);
 			vertices.push_back(v);
 		}
 		return vertices;
@@ -59,7 +68,20 @@ private:
 	unsigned int id;
 };
 
-typedef std::vector<Vertex> VertexVector;
+typedef std::vector<Vertex*> VertexVector;
+
+static bool VerticesAreSame(const VertexVector& lhs, const VertexVector& rhs)
+{
+	if (lhs.size() != rhs.size()) {
+		return false;
+	}
+	for (size_t i = 0; i < rhs.size(); ++i) {
+		if (*lhs[i] != *rhs[i]) {
+			return false;
+		}
+	}
+	return true;
+}
 
 	}
 }

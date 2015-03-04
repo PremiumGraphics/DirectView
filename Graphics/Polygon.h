@@ -50,6 +50,16 @@ typedef std::vector<Face> FaceVector;
 
 class Polygon {
 public:
+	Polygon()
+	{}
+
+	~Polygon()
+	{
+		for (Vertex* v : positions) {
+			delete v;
+		}
+	}
+
 
 	void setFaces(const std::vector< Face >& faces) { this->faces = faces; }
 
@@ -64,7 +74,8 @@ public:
 	void setPositions(const Math::Vector3dVector& poss) {
 		int i = 0;
 		for (const Math::Vector3d& pos : poss) {
-			this->positions.push_back(Vertex(pos, i++));
+			
+			this->positions.push_back( new Vertex(pos, i++));
 		}
 	}
 
@@ -72,8 +83,8 @@ public:
 
 	Math::Vector3dVector getPositions() {
 		Math::Vector3dVector vv;
-		for (const Vertex& v : positions) {
-			vv.push_back(v.getPosition());
+		for (Vertex* v: positions) {
+			vv.push_back(v->getPosition());
 		}
 		return vv;
 	}
@@ -94,8 +105,8 @@ public:
 
 	void move(const Math::Vector3d& vector) {
 		//center += vector;
-		for (Vertex& v : positions) {
-			v.move(vector);
+		for (Vertex* v : positions) {
+			v->move(vector);
 		}
 
 	}
@@ -106,7 +117,7 @@ public:
 		return
 			name == rhs.name &&
 			faces == rhs.faces &&
-			positions == rhs.positions &&
+			VerticesAreSame(positions, rhs.positions) &&
 			normals == rhs.normals &&
 			texCoords == rhs.texCoords;
 	}

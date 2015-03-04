@@ -8,6 +8,7 @@
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
+    <ClCompile Include="HalfEdge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />

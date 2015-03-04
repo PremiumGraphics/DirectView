@@ -14,49 +14,49 @@ using namespace Crystal::Graphics;
 TEST(PolygonTest, TestScale)
 {
 	Polygon p;
-	p.setVertices( { Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) } );
+	p.setVertices( { new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) } );
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { Vertex(Vector3d(0.1f, 0.01f, 10.0f), 0) };
+	const VertexVector expected = { new Vertex(Vector3d(0.1f, 0.01f, 10.0f), 0) };
 	const VertexVector& actual = p.getVertices();
-	EXPECT_EQ( expected, actual );
+	EXPECT_TRUE( VerticesAreSame( expected, actual ) );
 }
 
 TEST(PolygonTest, TestScaleWithCenter)
 {
 	Polygon p;
-	p.setVertices({ Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) });
+	p.setVertices({ new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) });
 	p.setCenter(Vector3d(1.0, 1.0, 1.0));
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) };
+	const VertexVector expected = { new Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) };
 	const VertexVector& actual = p.getVertices();
-	EXPECT_EQ(expected, actual);
+	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
 TEST(PolygonTest, TestMove)
 {
 	Polygon p;
-	p.setVertices({ Vertex(Vector3d(1.0, 2.0, 3.0), 0) });
+	p.setVertices({ new Vertex(Vector3d(1.0, 2.0, 3.0), 0) });
 
 	p.move(Vector3d(1.0, 10.0, 100.0));
 
-	const VertexVector expected = { Vertex( Vector3d(2.0, 12.0, 103.0), 0 ) };
+	const VertexVector expected = { new Vertex( Vector3d(2.0, 12.0, 103.0), 0 ) };
 	const VertexVector& actual = p.getVertices();
 
-	EXPECT_EQ(expected, actual);
+	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
 TEST(PolygonTest, TestRotateX)
 {
 	Polygon p;
-	p.setVertices({ Vertex(Vector3d(0.0, 0.0, 1.0), 0) });
+	p.setVertices({ new Vertex(Vector3d(0.0, 0.0, 1.0), 0) });
 	p.rotateX(180.0);
 
 	const VertexVector& actual = p.getVertices();
 
-	const VertexVector expected{ Vertex( Vector3d(0.0, 0.0, -1.0), 0 ) };
-	EXPECT_EQ(expected, actual);
+	const VertexVector expected{ new Vertex( Vector3d(0.0, 0.0, -1.0), 0 ) };
+	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
 /*

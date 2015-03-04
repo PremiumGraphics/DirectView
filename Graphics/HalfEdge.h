@@ -33,6 +33,10 @@ public:
 
 	HalfEdge* getNext() { return next; }
 
+	void setStart(Vertex* start) { this->start = start; }
+
+	void setEnd(Vertex* end) { this->end = end; }
+
 	Vertex* getStart() { return start; }
 
 	Vertex* getEnd() { return end; }

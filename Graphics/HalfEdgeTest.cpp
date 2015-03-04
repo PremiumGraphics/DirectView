@@ -11,3 +11,8 @@ TEST(HalfEdgeTest, TestConstruct)
 	EXPECT_EQ(nullptr, edge.getPrev());
 	EXPECT_EQ(nullptr, edge.getNext());
 }
+
+TEST(HalfEdgeTest, TestCreate)
+{
+	;
+}

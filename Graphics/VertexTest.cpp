@@ -14,11 +14,18 @@ TEST(VertexTest, TestConstruct)
 
 TEST(VertexTest, TestCreateVerticesFromPositions)
 {
-	Vector3dVector positions{
+	const Vector3dVector positions{
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
 	};
 
 	const VertexVector& actual = Vertex::createVerticesFromPositions(positions);
-	EXPECT_EQ(2, actual.size());
+
+	VertexVector expected{
+		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
+		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
+	};
+
+	EXPECT_EQ(*expected.front(),*actual.front());
+	EXPECT_EQ(*expected.back(), *actual.back());
 }

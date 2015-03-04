@@ -6,10 +6,10 @@ using namespace Crystal::Graphics;
 void PolygonBuilder::buildQuad()
 {
 	positions = {
-		Vertex( Vector3d(0.0, 1.0, 0.0), 0 ),
-		Vertex( Vector3d(0.0, 0.0, 0.0), 1 ),
-		Vertex( Vector3d(1.0, 0.0, 0.0), 2 ),
-		Vertex( Vector3d(1.0, 1.0, 0.0), 3 )
+		new Vertex( Vector3d(0.0, 1.0, 0.0), 0 ),
+		new Vertex( Vector3d(0.0, 0.0, 0.0), 1 ),
+		new Vertex( Vector3d(1.0, 0.0, 0.0), 2 ),
+		new Vertex( Vector3d(1.0, 1.0, 0.0), 3 )
 	};
 
 	normals = {
@@ -25,14 +25,14 @@ void PolygonBuilder::buildQuad()
 void PolygonBuilder::buildBox()
 {
 	positions = {
-		Vertex( Vector3d(0.0, 1.0, 1.0), 0 ),
-		Vertex( Vector3d(0.0, 0.0, 1.0), 1 ),
-  		Vertex( Vector3d(1.0, 0.0, 1.0), 2 ),
-		Vertex( Vector3d(1.0, 1.0, 1.0), 3 ),
-		Vertex( Vector3d(0.0, 1.0, 0.0), 4 ),
-		Vertex( Vector3d(0.0, 0.0, 0.0), 5 ),
-		Vertex( Vector3d(1.0, 0.0, 0.0), 6 ),
-		Vertex( Vector3d(1.0, 1.0, 0.0), 7 )
+		new Vertex( Vector3d(0.0, 1.0, 1.0), 0 ),
+		new Vertex( Vector3d(0.0, 0.0, 1.0), 1 ),
+  		new Vertex( Vector3d(1.0, 0.0, 1.0), 2 ),
+		new Vertex( Vector3d(1.0, 1.0, 1.0), 3 ),
+		new Vertex( Vector3d(0.0, 1.0, 0.0), 4 ),
+		new Vertex( Vector3d(0.0, 0.0, 0.0), 5 ),
+		new Vertex( Vector3d(1.0, 0.0, 0.0), 6 ),
+		new Vertex( Vector3d(1.0, 1.0, 0.0), 7 )
 	};
 
 	normals = {
@@ -64,7 +64,7 @@ void PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int 
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		positions.push_back( Vertex( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ) );
+		positions.push_back( new Vertex( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ) );
 		vertexIds.push_back(i);
 		normalIds.push_back(0);
 	}
@@ -92,7 +92,7 @@ void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		positions.push_back( Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
+		positions.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
 		vertexIds0.push_back(i);
 		normalIds0.push_back(0);
 	}
@@ -103,7 +103,7 @@ void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		positions.push_back( Vertex( Vector3d(std::sin(rad), std::cos(rad), 1.0f), divideNumber + i ));
+		positions.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 1.0f), divideNumber + i ));
 		vertexIds1.push_back( divideNumber + i);
 		normalIds1.push_back(1);
 	}
@@ -140,7 +140,7 @@ void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigne
 
 			const float uAngle = 360.0f / uDivideNumber * i;
 			const float rad = uAngle *Tolerances::getPI() / 180.0f;
-			positions.push_back( Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i ) );
+			positions.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i ) );
 			normals.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 			vertexIds.push_back(i);
 			normalIds.push_back(i);
@@ -159,7 +159,7 @@ void PolygonBuilder::buildCone(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		positions.push_back( Vertex(  Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
+		positions.push_back( new Vertex(  Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
 		vertexIds.push_back(i);
 		normalIds.push_back(0);
 	}
@@ -168,7 +168,7 @@ void PolygonBuilder::buildCone(const unsigned int divideNumber)
 	Face f(vertexIds, normalIds);
 	faces.push_back(f);
 
-	positions.push_back( Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
+	positions.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 		const unsigned int v0 = i;
