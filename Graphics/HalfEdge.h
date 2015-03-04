@@ -53,6 +53,10 @@ private:
 	HalfEdge* prev;
 	HalfEdge* next;
 };
+
+typedef std::vector<HalfEdge*> HalfEdgeVector;
+typedef std::list<HalfEdge*> HalfEdgeList;
+
 	}
 }
 
