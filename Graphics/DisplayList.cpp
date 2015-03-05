@@ -9,5 +9,4 @@ DisplayList::DisplayList(Polygon* polygon)
 {
 	this->vertices = toArray( polygon->getPositions() );
 	this->normals = toArray(polygon->getNormals());
-	this->texCoords = toArray(polygon->getTexCoords());
 }

@@ -12,40 +12,36 @@ void PolygonBuilder::buildQuad()
 		new Vertex( Vector3d(1.0, 1.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 3 )
 	};
 
-	normals = {
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0)
-	};
-
-	//faces = { Face({ 0, 1, 2, 3 }, { 0, 1, 2, 3 }) };
-
-	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
+	edges = HalfEdge::createClosedFromVertices(vertices);
 	faces = { Face(edges) };
 }
 
 void PolygonBuilder::buildBox()
 {
-	vertices = {
-		new Vertex( Vector3d(0.0, 1.0, 1.0), 0 ),
-		new Vertex( Vector3d(0.0, 0.0, 1.0), 1 ),
-  		new Vertex( Vector3d(1.0, 0.0, 1.0), 2 ),
-		new Vertex( Vector3d(1.0, 1.0, 1.0), 3 ),
-		new Vertex( Vector3d(0.0, 1.0, 0.0), 4 ),
-		new Vertex( Vector3d(0.0, 0.0, 0.0), 5 ),
-		new Vertex( Vector3d(1.0, 0.0, 0.0), 6 ),
-		new Vertex( Vector3d(1.0, 1.0, 0.0), 7 )
+	normals = {
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, -1.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(-1.0, 0.0, 0.0),
+		Vector3d(0.0, -1.0, 0.0),
+		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, -1.0, 0.0),
+		Vector3d(0.0, 1.0, 0.0)
 	};
 
-	normals = {
-		Vector3d( 0.0, 0.0, 1.0),
-		Vector3d( 0.0, 0.0,-1.0),
-		Vector3d( 1.0, 0.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0),
-		Vector3d( 0.0,-1.0, 0.0),
-		Vector3d( 0.0, 1.0, 0.0)
+	Vector3dVector positions = {
+		Vector3d(0.0, 1.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(1.0, 0.0, 1.0),
+		Vector3d(1.0, 1.0, 1.0),
+		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 0.0),
+		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(1.0, 1.0, 0.0)
 	};
+
+	vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
+
 
 	faces = {
 		Face({ 0, 1, 2, 3 }, { 0, 0, 0, 0 }),

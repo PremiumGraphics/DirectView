@@ -13,7 +13,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 		Polygon* polygon = new Polygon();
 		polygon->setPositions( g.getPositions() );
 		polygon->setNormals( g.getNormals() );
-		polygon->setTexCoords( g.getTexCoords() );
+		//polygon->setTexCoords( g.getTexCoords() );
 
 		std::vector< Face > faces;
 		for (const OBJFace& f : g.getFaces()) {

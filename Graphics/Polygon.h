@@ -20,6 +20,9 @@ public:
 		for (Vertex* v : vertices) {
 			delete v;
 		}
+		for (HalfEdge* e : edges) {
+			delete e;
+		}
 	}
 
 
@@ -31,7 +34,11 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setVertices(const VertexVector& pos) { this->vertices = pos;  }
+	void setVertices(const VertexVector& pos) { this->vertices = pos; }
+
+	void setEdges(const HalfEdgeList& edges) { this->edges = edges; }
+
+	HalfEdgeList getEdges() const { return edges; }
 
 	void setPositions(const Math::Vector3dVector& poss) {
 		int i = 0;
@@ -55,10 +62,6 @@ public:
 
 	std::vector< Math::Vector3d > getNormals() const { return normals; }
 
-	void setTexCoords(const std::vector<Math::Vector3d>& tex) { this->texCoords = tex; }
-	
-	std::vector<Math::Vector3d> getTexCoords() const { return texCoords; }
-
 	void rotateX(const double angle);
 
 	void rotateY(const double angle);
@@ -80,8 +83,7 @@ public:
 			name == rhs.name &&
 			faces == rhs.faces &&
 			VerticesAreSame(vertices, rhs.vertices) &&
-			normals == rhs.normals &&
-			texCoords == rhs.texCoords;
+			normals == rhs.normals;
 	}
 
 	void setCenter(const Math::Vector3d& center) { this->center = center; }
@@ -93,8 +95,8 @@ private:
 	std::string name;
 	std::vector< Face > faces;
 	VertexVector vertices;
+	HalfEdgeList edges;
 	std::vector < Math::Vector3d > normals;
-	std::vector < Math::Vector3d > texCoords;
 	Math::Vector3d center;
 
 };
