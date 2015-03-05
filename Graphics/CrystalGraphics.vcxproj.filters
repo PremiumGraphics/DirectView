@@ -10,6 +10,7 @@
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
+    <ClCompile Include="Face.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />

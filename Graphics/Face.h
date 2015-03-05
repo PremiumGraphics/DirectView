@@ -43,24 +43,11 @@ public:
 
 	HalfEdgeList getEdges() const { return edges; }
 
-	Math::Vector3dVector getPositions() const {
-		Math::Vector3dVector positions;
-		for (HalfEdge* e : edges) {
-			positions.push_back( e->getStartPosition() );
-			if (e == edges.back() && isOpen() ) {
-				positions.push_back( e->getEndPosition() );
-			}
-		}
-		return positions;
-	}
+	Math::Vector3dVector getPositions() const;
 
-	Math::Vector3dVector getNormals() const {
-		Math::Vector3dVector normals;
-		for (HalfEdge* e : edges) {
-			normals.push_back(e->getStart()->getNormal() );
-		}
-		return normals;
-	}
+	Math::Vector3dVector getNormals() const;
+
+	Math::Vector3dVector getTexCoords() const;
 
 private:
 	//VertexVector vertices;

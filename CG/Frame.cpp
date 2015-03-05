@@ -670,9 +670,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildTriangle();
-	polygons.push_back(builder.getPolygon());
+	polygons.push_back( PolygonBuilder::buildTriangle() );
 	polygonTree->build();
 }
 
@@ -687,9 +685,7 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildQuad();
-	polygons.push_back( builder.getPolygon() );
+	polygons.push_back( PolygonBuilder::buildQuad() );
 	polygonTree->build();
 }
 
@@ -704,9 +700,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildCircleByNumber(1.0f, circleConfig.getDivideNumber() );
-	polygons.push_back( builder.getPolygon() );
+	polygons.push_back(  PolygonBuilder::buildCircleByNumber( 1.0f, circleConfig.getDivideNumber() ) );
 	polygonTree->build();
 }
 
@@ -721,9 +715,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildSphere( sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber() );
-	polygons.push_back(builder.getPolygon());
+	polygons.push_back(PolygonBuilder::buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
 	polygonTree->build();
 }
 
@@ -739,9 +731,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildCylinder(3);
-	polygons.push_back( builder.getPolygon() );
+	polygons.push_back( PolygonBuilder::buildCylinder(3) );
 	polygonTree->build();
 }
 
@@ -756,9 +746,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildBox();
-	polygons.push_back(builder.getPolygon());
+	polygons.push_back( PolygonBuilder::buildBox() );
 	polygonTree->build();
 }
 
@@ -774,9 +762,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	PolygonBuilder builder;
-	builder.buildCone(coneConfig.divideNumber);
-	polygons.push_back(builder.getPolygon());
+	polygons.push_back(PolygonBuilder::buildCone(coneConfig.divideNumber));
 	polygonTree->build();
 }
 

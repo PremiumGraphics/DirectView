@@ -54,6 +54,14 @@ public:
 		return vv;
 	}
 
+	Math::Vector3dVector getNormals() {
+		Math::Vector3dVector vv;
+		for (Vertex* v : vertices) {
+			vv.push_back(v->getNormal());
+		}
+		return vv;
+	}
+
 	void rotateX(const double angle);
 
 	void rotateY(const double angle);
@@ -84,7 +92,7 @@ public:
 
 private:
 	std::string name;
-	std::vector< Face* > faces;
+	FaceVector faces;
 	VertexVector vertices;
 	Math::Vector3d center;
 

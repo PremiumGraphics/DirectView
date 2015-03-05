@@ -3,9 +3,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-void PolygonBuilder::buildQuad()
+Polygon* PolygonBuilder::buildQuad()
 {
-	vertices = {
+	const VertexVector vertices = {
 		new Vertex( Vector3d(0.0, 1.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 0 ),
 		new Vertex( Vector3d(0.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 1 ),
 		new Vertex( Vector3d(1.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 1.0 ), 2 ),
@@ -13,12 +13,17 @@ void PolygonBuilder::buildQuad()
 	};
 
 	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
-	faces = { new Face(edges) };
+	const FaceVector& faces = { new Face(edges) };
+
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 }
 
-void PolygonBuilder::buildBox()
+Polygon* PolygonBuilder::buildBox()
 {
-	normals = {
+	const Vector3dVector normals = {
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(0.0, 0.0, -1.0),
 		Vector3d(1.0, 0.0, 0.0),
@@ -29,7 +34,7 @@ void PolygonBuilder::buildBox()
 		Vector3d(0.0, 1.0, 0.0)
 	};
 
-	Vector3dVector positions = {
+	const Vector3dVector positions = {
 		Vector3d(0.0, 1.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
 		Vector3d(1.0, 0.0, 1.0),
@@ -40,24 +45,30 @@ void PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
+	const VertexVector& vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
 
-	faces = {
+	const FaceVector& faces = {
 		new Face(vertices, { 0, 1, 2, 3 }),
 		new Face(vertices, { 4, 5, 6, 7 }),
 		new Face(vertices, { 0, 1, 5, 4 }),
-		new Face(HalfEdge::createByIndex(vertices, { 2, 3, 7, 6 })),
-		new Face(HalfEdge::createByIndex(vertices, { 3, 0, 4, 7 })),
-		new Face(HalfEdge::createByIndex(vertices, { 5, 1, 2, 6 }))
+		new Face(vertices, { 2, 3, 7, 6 }),
+		new Face(vertices, { 3, 0, 4, 7 }),
+		new Face(vertices, { 5, 1, 2, 6 })
 	};
+
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 }
 
-void PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
 	std::vector<unsigned int> vertexIds;
 
+	VertexVector vertices;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
@@ -65,23 +76,25 @@ void PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int 
 			new Vertex( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d( 0.0, 0.0, 1.0), i ) );
 		vertexIds.push_back(i);
 	}
-	faces = { new Face(HalfEdge::createByIndex(vertices, vertexIds)) };
+	const FaceVector faces = { new Face(HalfEdge::createByIndex(vertices, vertexIds)) };
+
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 }
 
-void PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
+Polygon* PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
 {
-	buildCircleByNumber(radius, 360.0f / divideAngle);
+	return buildCircleByNumber(radius, 360.0f / divideAngle);
 }
 
-void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	normals = {
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, -1.0),
-	};
-
+	VertexVector vertices;
+	FaceVector faces;
 	std::vector<unsigned int> vertexIds0;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
@@ -107,7 +120,6 @@ void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1[i+1];
 		const unsigned int v3 = vertexIds1[i];
 		std::vector<unsigned int> vertexIds2 = { v0, v1, v2, v3 };
-		normals.push_back(Vector3d(0.0, 0.0, 0.0));
 		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds2) ) );
 	}
 
@@ -117,14 +129,19 @@ void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1.front();
 		const unsigned int v3 = vertexIds1.back();
 		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
-		normals.push_back(Vector3d(0.0, 0.0, 0.0));
 		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds3)) );
 	}
 
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 }
 
-void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
+Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
 {
+	VertexVector vertices;
+	FaceVector faces;
 	for (unsigned int i = 0; i < uDivideNumber; ++i) {
 		std::vector<unsigned int> vertexIds;
 		for (unsigned int k = 0; k < vDivideNumber; ++k) {
@@ -134,29 +151,32 @@ void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigne
 			const float uAngle = 360.0f / uDivideNumber * i;
 			const float rad = uAngle *Tolerances::getPI() / 180.0f;
 			vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i ) );
-			normals.push_back(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 			vertexIds.push_back(i);
 		}
 	}
+
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 	//f.setVertexIds(vertexIds);
 	//f.setNormalIds(normalIds);
 }
 
-void PolygonBuilder::buildCone(const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
+	VertexVector vertices;
+	FaceVector faces;
 	std::vector<unsigned int> vertexIds;
-	std::vector<unsigned int> normalIds;
 
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vertices.push_back(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
 		vertexIds.push_back(i);
-		normalIds.push_back(0);
 	}
 
-	normals.push_back(Vector3d(0.0, 0.0, 1.0));
 	Face* f = new Face( vertices, vertexIds);
 	faces.push_back(f);
 
@@ -177,4 +197,9 @@ void PolygonBuilder::buildCone(const unsigned int divideNumber)
 		Face* f = new Face(vertices, { v0, v1, v2 });
 		faces.push_back(f);
 	}
+
+	Polygon* polygon = new Polygon();
+	polygon->setVertices(vertices);
+	polygon->setFaces(faces);
+	return polygon;
 }

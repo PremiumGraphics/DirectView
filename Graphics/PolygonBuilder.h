@@ -8,43 +8,23 @@ namespace Crystal{
 
 class PolygonBuilder{
 public:
-	PolygonBuilder() :
-		polygon(nullptr)
-	{}
 
-	void buildQuad();
+	static Polygon* buildQuad();
 
-	void buildBox();
+	static Polygon* buildBox();
 
-	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	static Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	void buildCircleByAngle(const float radius, const float divideAngle);
+	static Polygon* buildCircleByAngle(const float radius, const float divideAngle);
 
-	void buildTriangle() { buildCircleByNumber(1.0f, 3); }
+	static Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	void buildCylinder(const unsigned int divideNuber);
+	static Polygon* buildCylinder(const unsigned int divideNuber);
 
-	void buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	static Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	void buildCone(const unsigned int divideNumber);
+	static Polygon* buildCone(const unsigned int divideNumber);
 
-	void create() {
-		Polygon* polygon = new Polygon();
-		polygon->setVertices(vertices);
-		polygon->setFaces(faces);
-		this->polygon = polygon;
-	};
-
-	Polygon* getPolygon() {
-		create();
-		return polygon;
-	}
-
-private:
-	Polygon* polygon;
-	VertexVector vertices;
-	Math::Vector3dVector normals;
-	FaceVector faces;
 };
 	}
 }

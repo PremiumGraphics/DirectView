@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="DisplayList.cpp" />
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
