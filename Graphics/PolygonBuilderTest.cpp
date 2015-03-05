@@ -163,7 +163,6 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	std::unique_ptr< Polygon > p(builder.getPolygon());
 
 	EXPECT_EQ(6, p->getVertices().size());
-	EXPECT_EQ(5, p->getNormals().size());
 	EXPECT_EQ(5, p->getFaces().size());
 }
 

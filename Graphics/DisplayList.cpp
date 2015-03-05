@@ -5,8 +5,14 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+DisplayList::DisplayList(Face* f)
+{
+	const Vector3dVector& positions = f->getPositions();
+	this->vertices = toArray(positions);
+}
+
+
 DisplayList::DisplayList(Polygon* polygon)
 {
 	this->vertices = toArray( polygon->getPositions() );
-	this->normals = toArray(polygon->getNormals());
 }

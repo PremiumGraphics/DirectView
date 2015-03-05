@@ -54,10 +54,6 @@ public:
 		return vv;
 	}
 
-	void setNormals(const std::vector < Math::Vector3d>& normals) { this->normals = normals; }
-
-	std::vector< Math::Vector3d > getNormals() const { return normals; }
-
 	void rotateX(const double angle);
 
 	void rotateY(const double angle);
@@ -78,8 +74,7 @@ public:
 		return
 			name == rhs.name &&
 			//faces == rhs.faces &&
-			VerticesAreSame(vertices, rhs.vertices) &&
-			normals == rhs.normals;
+			VerticesAreSame(vertices, rhs.vertices);
 	}
 
 	void setCenter(const Math::Vector3d& center) { this->center = center; }
@@ -91,7 +86,6 @@ private:
 	std::string name;
 	std::vector< Face* > faces;
 	VertexVector vertices;
-	std::vector < Math::Vector3d > normals;
 	Math::Vector3d center;
 
 };

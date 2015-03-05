@@ -31,7 +31,6 @@ public:
 	void create() {
 		Polygon* polygon = new Polygon();
 		polygon->setVertices(vertices);
-		polygon->setNormals(normals);
 		polygon->setFaces(faces);
 		this->polygon = polygon;
 	};

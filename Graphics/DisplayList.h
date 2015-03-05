@@ -7,6 +7,7 @@
 
 namespace Crystal {
 	namespace Graphics{
+		class Face;
 		class Polygon;
 
 class DisplayList
@@ -14,6 +15,8 @@ class DisplayList
 public:
 	DisplayList()
 	{}
+
+	DisplayList(Face* f);
 
 	DisplayList(Polygon* polygon);
 

@@ -12,7 +12,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 	for (const OBJGroup& g : file.getGroups()) {
 		Polygon* polygon = new Polygon();
 		polygon->setPositions( g.getPositions() );
-		polygon->setNormals( g.getNormals() );
+		//polygon->setNormals( g.getNormals() );
 		//polygon->setTexCoords( g.getTexCoords() );
 
 		FaceVector faces;
@@ -53,7 +53,7 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	}
 
 	polygon->setFaces(faces);
-	polygon->setNormals( normals );
+	//polygon->setNormals( normals );
 	polygon->setPositions( positions );
 	return PolygonGroupList({ polygon } );
 }

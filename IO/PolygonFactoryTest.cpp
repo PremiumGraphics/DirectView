@@ -65,8 +65,8 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	Polygon expected;
 	//expected.setFaces( { face } );
 	expected.setPositions(positions);
-	expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
-	);
+	//expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
+	//);
 
 	//EXPECT_EQ( expected.getNormals() ,actual->getNormals() );
 	EXPECT_EQ( expected, *actual );

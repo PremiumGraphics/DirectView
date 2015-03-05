@@ -223,67 +223,70 @@ void View::draw(const wxSize& size)
 		//onScreenRenderer.render( width, height, flatRenderer.getTexture() );
 	}
 	else if (renderingMode == RENDERING_MODE::PHONG) {
-		Vector3dVector positions;
-		Vector3dVector normals;
-		std::vector< std::vector<unsigned int> > indices;
-		for (const PolygonGroup& g : frame->getPolygons()) {
-			Graphics::Polygon* p = g.getPolygon();
-			const Vector3dVector& ps = p->getPositions();
-			const Vector3dVector& ns = p->getNormals();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			normals.insert(normals.end(), ns.begin(), ns.end());
-			for (Graphics::Face* f : p->getFaces()) {
-				const std::vector<unsigned int>& ids = f->getVertexIds();
-				indices.push_back(ids);
-			}
-		}
-		SmoothRenderer::Param param;
-		param.positions = toArray(positions);
-		param.normals = toArray(normals);
+		//Vector3dVector positions;
+		//Vector3dVector normals;
+		//std::vector< std::vector<unsigned int> > indices;
+		//for (const PolygonGroup& g : frame->getPolygons()) {
+		//	Graphics::Polygon* p = g.getPolygon();
+		//	for (Graphics::Face* f : p->getFaces()) {
+		//		const std::vector<unsigned int>& ids = f->getVertexIds();
+		//		indices.push_back(ids);
+		//		const Half
+		//		const Vector3dVector& ps = f->getEdges(); ->getPositions();
+		//		const Vector3dVector& ns = p->getNormals();
 
-		Camera<float>* c = frame->getCamera();
-		param.eyePos = c->getPos().toArray();
-		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
-		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
+		//		positions.insert(positions.end(), ps.begin(), ps.end());
+		//		normals.insert(normals.end(), ns.begin(), ns.end());
 
-		param.lights = frame->getLights();
+		//	}
+		//}
+		//SmoothRenderer::Param param;
+		//param.positions = toArray(positions);
+		//param.normals = toArray(normals);
 
-		for (Graphics::Material* m : frame->getMaterials() ) {
-			param.matAmbient = m->getAmbient().toArray3();
-			param.matDiffuse = m->getDiffuse().toArray3();
-			param.matSpecular = m->getSpecular().toArray3();
-			param.shininess = m->getShininess();
-		}
+		//Camera<float>* c = frame->getCamera();
+		//param.eyePos = c->getPos().toArray();
+		//param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
+		//param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
 
-		/*
-		std::list< Material* > materials = frame->getMaterials();
-		for (Graphics::Polygon* p : frame->getPolygons()) {
-			if (p->materialName.empty()) {
-				continue;
-			}
-			Material* mat = nullptr;
-			for (Graphics::Material* m : materials) {
-				if (p->materialName == m->name) {
-					mat = m;
-				}
-			}
-		}
-		*/
-		smoothRenderer.render(width, height, param, indices);
+		//param.lights = frame->getLights();
+
+		//for (Graphics::Material* m : frame->getMaterials() ) {
+		//	param.matAmbient = m->getAmbient().toArray3();
+		//	param.matDiffuse = m->getDiffuse().toArray3();
+		//	param.matSpecular = m->getSpecular().toArray3();
+		//	param.shininess = m->getShininess();
+		//}
+
+		///*
+		//std::list< Material* > materials = frame->getMaterials();
+		//for (Graphics::Polygon* p : frame->getPolygons()) {
+		//	if (p->materialName.empty()) {
+		//		continue;
+		//	}
+		//	Material* mat = nullptr;
+		//	for (Graphics::Material* m : materials) {
+		//		if (p->materialName == m->name) {
+		//			mat = m;
+		//		}
+		//	}
+		//}
+		//*/
+		//smoothRenderer.render(width, height, param, indices);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		Vector3dVector positions;
-		Vector3dVector normals;
-		std::vector< std::vector<unsigned int> > indices;
-		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
-			Graphics::Polygon* p = g.getPolygon();
-			const Vector3dVector& ps = p->getPositions();
-			const Vector3dVector& ns = p->getNormals();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			normals.insert(normals.end(), ns.begin(), ns.end());
-		}
-		
-		normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
+		//Vector3dVector positions;
+		//Vector3dVector normals;
+		//std::vector< std::vector<unsigned int> > indices;
+		//for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
+		//	Graphics::Polygon* p = g.getPolygon();
+		//	const Vector3dVector& ps = p->getPositions();
+		//	const Vector3dVector& ns = p->getNormals();
+		//	positions.insert(positions.end(), ps.begin(), ps.end());
+		//	normals.insert(normals.end(), ns.begin(), ns.end());
+		//}
+		//
+		//normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		Vector3dVector positions;
