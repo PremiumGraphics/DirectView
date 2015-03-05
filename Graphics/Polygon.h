@@ -17,7 +17,7 @@ public:
 
 	~Polygon()
 	{
-		for (Vertex* v : positions) {
+		for (Vertex* v : vertices) {
 			delete v;
 		}
 	}
@@ -31,21 +31,21 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setVertices(const VertexVector& pos) { this->positions = pos;  }
+	void setVertices(const VertexVector& pos) { this->vertices = pos;  }
 
 	void setPositions(const Math::Vector3dVector& poss) {
 		int i = 0;
 		for (const Math::Vector3d& pos : poss) {
 			
-			this->positions.push_back( new Vertex(pos, i++));
+			this->vertices.push_back( new Vertex(pos, i++));
 		}
 	}
 
-	VertexVector getVertices() const { return positions; }
+	VertexVector getVertices() const { return vertices; }
 
 	Math::Vector3dVector getPositions() {
 		Math::Vector3dVector vv;
-		for (Vertex* v: positions) {
+		for (Vertex* v: vertices) {
 			vv.push_back(v->getPosition());
 		}
 		return vv;
@@ -67,7 +67,7 @@ public:
 
 	void move(const Math::Vector3d& vector) {
 		//center += vector;
-		for (Vertex* v : positions) {
+		for (Vertex* v : vertices) {
 			v->move(vector);
 		}
 
@@ -79,7 +79,7 @@ public:
 		return
 			name == rhs.name &&
 			faces == rhs.faces &&
-			VerticesAreSame(positions, rhs.positions) &&
+			VerticesAreSame(vertices, rhs.vertices) &&
 			normals == rhs.normals &&
 			texCoords == rhs.texCoords;
 	}
@@ -92,7 +92,7 @@ public:
 private:
 	std::string name;
 	std::vector< Face > faces;
-	VertexVector positions;
+	VertexVector vertices;
 	std::vector < Math::Vector3d > normals;
 	std::vector < Math::Vector3d > texCoords;
 	Math::Vector3d center;

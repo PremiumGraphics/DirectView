@@ -7,7 +7,7 @@ using namespace Crystal::Graphics;
 
 DisplayList::DisplayList(Polygon* polygon)
 {
-	this->positions = toArray( polygon->getPositions() );
+	this->vertices = toArray( polygon->getPositions() );
 	this->normals = toArray(polygon->getNormals());
 	this->texCoords = toArray(polygon->getTexCoords());
 }

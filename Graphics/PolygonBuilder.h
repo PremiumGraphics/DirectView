@@ -30,7 +30,7 @@ public:
 
 	void create() {
 		Polygon* polygon = new Polygon();
-		polygon->setVertices(positions);
+		polygon->setVertices(vertices);
 		polygon->setNormals(normals);
 		polygon->setFaces(faces);
 		this->polygon = polygon;
@@ -43,7 +43,7 @@ public:
 
 private:
 	Polygon* polygon;
-	VertexVector positions;
+	VertexVector vertices;
 	Math::Vector3dVector normals;
 	FaceVector faces;
 };
