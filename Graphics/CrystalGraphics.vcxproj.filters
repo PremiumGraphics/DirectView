@@ -9,6 +9,7 @@
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
+    <ClCompile Include="DisplayList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -30,5 +31,6 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
+    <ClInclude Include="DisplayList.h" />
   </ItemGroup>
 </Project>

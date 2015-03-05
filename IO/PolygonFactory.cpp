@@ -20,7 +20,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 			Face face;
 			face.setVertexIds( f.getVertexIndices() );
 			face.setNormalIds( f.getNormalIndices() );
-			face.setTexIds( f.getTexIndices() );
+			//face.setTexIds( f.getTexIndices() );
 			faces.push_back(face);
 		}
 		polygon->setFaces(faces);

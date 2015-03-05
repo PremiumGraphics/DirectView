@@ -52,6 +52,7 @@ private:
 	HalfEdgeList edges;
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > normalIds;
+
 };
 
 typedef std::vector<Face> FaceVector;

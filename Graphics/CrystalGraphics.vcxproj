@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ColorConverter.cpp" />
+    <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="ColorRGBAMap.h" />
+    <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="GLee.h" />
