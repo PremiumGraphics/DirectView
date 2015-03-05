@@ -11,9 +11,9 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
-PointRenderer::PointRenderer()
-{
-}
+PointRenderer::PointRenderer() :
+	pointSize(10)
+{}
 
 PointRenderer::~PointRenderer()
 {
@@ -69,13 +69,16 @@ void PointRenderer::build()
 	glBindAttribLocation(shader.getId(), positionLocation, "position");
 }
 
-void PointRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions, const float pointSize)
+void PointRenderer::render(const int width, const int height, const Camera<float>* camera, const DisplayList& list)
 {
+	const std::vector<float>& positions = list.getPositions();
+
 	if (positions.empty()) {
 		return;
 	}
 
 	const Matrix4d<float>& perspectiveMatrix = camera->getPerspectiveMatrix();
+	const Matrix4d<float>& modelviewMatrix = camera->getModelviewMatrix();
 
 	assert(GL_NO_ERROR == glGetError());
 
@@ -95,7 +98,7 @@ void PointRenderer::render(const int width, const int height, const Camera<float
 
 
 	ShaderUtil::setUniformMatrix(shader.getId(), "projectionMatrix", perspectiveMatrix);
-	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", camera->getModelviewMatrix());
+	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 

@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "../Graphics/ShaderObject.h"
+#include "../Graphics/DisplayList.h"
+#include "../Graphics/Camera.h"
 
 namespace Crystal {
 	namespace Math {
@@ -19,14 +21,7 @@ public:
 
 	~WireFrameRenderer();
 
-	struct Param {
-		std::vector<float> positions;
-		std::vector<float> projectionMatrix;
-		std::vector<float> modelviewMatrix;
-	};
-
-
-	void render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices );
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list);
 
 	void build();
 

@@ -74,16 +74,22 @@ IDRenderer::Location IDRenderer::getLocations()
 }
 
 
-void IDRenderer::render(const int width, const int height, const Param& param, const FaceVector& faces)
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	if (param.positions.empty() || faces.empty()) {
+	if (list.getPositions().empty() ) {
 		return;
 	}
+
+	const std::vector<float>& positions = list.getPositions();
+	const std::vector< std::vector<unsigned int> >& ids = list.getIds();
+
+	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
+	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
 	assert(GL_NO_ERROR == glGetError());
 
@@ -93,18 +99,17 @@ void IDRenderer::render(const int width, const int height, const Param& param, c
 
 	const Location& location = getLocations();
 
-	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(param.projectionMatrix.front()));
-	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
-	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
-	glVertexAttribPointer(location.id, 1, GL_FLOAT, GL_FALSE, 0, &(param.positionIds.front()) );
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	//glVertexAttribPointer(location.id, 1, GL_FLOAT, GL_FALSE, 0, &(param.positionIds.front()) );
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	for (Face* f : faces) {
-		const std::vector<unsigned int>& ids = f->getVertexIds();
-		glDrawElements(GL_POLYGON, ids.size(), GL_UNSIGNED_INT, &(ids.front()));
+	for (const std::vector<unsigned int>& ids_ : ids ) {
+		glDrawElements(GL_POLYGON, ids.size(), GL_UNSIGNED_INT, &(ids_.front()));
 	}
 
 	glDisableVertexAttribArray(0);

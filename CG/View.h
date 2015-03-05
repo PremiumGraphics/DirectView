@@ -53,6 +53,8 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
+	float getPointSize() const { pointRenderer.getPointSize(); }
+
 private:
 	MODE mode;
 

@@ -70,14 +70,16 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 }
 
 
-void WireFrameRenderer::render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices )
+void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	if ( param.positions.empty() || indices.empty() ) {
+	const std::vector<float> positions = list.getPositions();
+	const std::vector< std::vector<unsigned int> > ids = list.getIds();
+	if ( positions.empty() ) {
 		return;
 	}
 
@@ -87,19 +89,20 @@ void WireFrameRenderer::render(const int width, const int height, const Param& p
 
 	glUseProgram(shader.getId());
 
+	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
+	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
 	const Location& location = getLocations();
 
-	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(param.projectionMatrix.front()));
-	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(param.modelviewMatrix.front()));
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
-	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(param.positions.front()));
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 
 	glEnableVertexAttribArray(0);
 
-	for (size_t i = 0; i < indices.size(); ++i) {
-		const std::vector<unsigned int>& is = indices[i];
-		glDrawElements(GL_LINE_LOOP, is.size(), GL_UNSIGNED_INT, &(is.front()));
+	for ( const std::vector<unsigned int>& ids_ : ids ) {
+		glDrawElements(GL_LINE_LOOP, ids_.size(), GL_UNSIGNED_INT, &(ids_.front()));
 	}
 	glDisableVertexAttribArray(0);
 

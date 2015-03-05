@@ -201,14 +201,7 @@ void View::draw(const wxSize& size)
 	buildDisplayList();
 	
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		const std::vector< std::vector<unsigned int> >& indices = dispList.getIds();
-		WireFrameRenderer::Param param;
-		param.positions = dispList.getPositions();
-		Camera<float>* c = frame->getCamera();
-		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
-		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
-
-		wireFrameRenderer.render(width, height, param, indices);
+		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispList);
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
 		//flatRenderer.render( width, height, frame->getModel() );
@@ -272,20 +265,10 @@ void View::draw(const wxSize& size)
 		normalRenderer.render(width, height, frame->getCamera(), positions, normals );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		const std::vector<float>& positions = dispList.getPositions();
-		pointRenderer.render(width, height, frame->getCamera(), positions, 10.0f);
-
+		pointRenderer.render(width, height, frame->getCamera(), dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		const std::vector<float>& positions = dispList.getPositions();
-		const std::vector<float>& normals = dispList.getNormals();
-		IDRenderer::Param param;
-		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
-		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
-		for (int i = 0; i < positions.size(); ++i) {
-			param.positionIds.push_back(i);
-		}
-		//idRenderer.render(width, height, param, faces );
+		idRenderer.render(width, height, *(frame->getCamera()), dispList );
 	}
 	else {
 		assert( false );

@@ -5,6 +5,7 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
+#include "../Graphics/DisplayList.h"
 
 namespace Crystal {
 	namespace CG {
@@ -18,11 +19,13 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const float pointSize);
+	void render(const int width, const int height, const Graphics::Camera<float>* camera, const Graphics::DisplayList& list);
+
+	float getPointSize() const { return pointSize; }
 
 private:
 	Graphics::ShaderObject shader;
-
+	float pointSize;
 };
 
 	}

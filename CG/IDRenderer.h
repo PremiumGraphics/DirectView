@@ -6,6 +6,8 @@
 
 #include "../Graphics/ShaderObject.h"
 #include "../Graphics/Polygon.h"
+#include "../Graphics/DisplayList.h"
+#include "../Graphics/Camera.h"
 
 namespace Crystal {
 	namespace Math {
@@ -20,14 +22,7 @@ public:
 
 	~IDRenderer();
 
-	struct Param {
-		std::vector<float> positions;
-		std::vector<float> positionIds;
-		std::vector<float> projectionMatrix;
-		std::vector<float> modelviewMatrix;
-	};
-
-	void render(const int width, const int height, const Param& param, const Graphics::FaceVector& faces);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list);
 
 	void build();
 
