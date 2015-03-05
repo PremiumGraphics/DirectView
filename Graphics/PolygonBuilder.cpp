@@ -74,9 +74,9 @@ Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned 
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vertices.push_back(
 			new Vertex( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d( 0.0, 0.0, 1.0), i ) );
-		vertexIds.push_back(i);
 	}
-	const FaceVector faces = { new Face(HalfEdge::createByIndex(vertices, vertexIds)) };
+	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
+	const FaceVector faces = { new Face(edges) };
 
 	Polygon* polygon = new Polygon();
 	polygon->setVertices(vertices);

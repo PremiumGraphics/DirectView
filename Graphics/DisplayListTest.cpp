@@ -37,8 +37,8 @@ TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 	EXPECT_EQ(expected, actual);
 }
 
-
-TEST(DisplayListTest, TestFromPolygon)
+/*
+TEST(DisplayListTest, TestAddFace)
 {
 	Polygon polygon;
 	polygon.setPositions({ Vector3d(0.0, 0.0, 0.0) });
@@ -49,3 +49,4 @@ TEST(DisplayListTest, TestFromPolygon)
 
 	EXPECT_EQ( expected, list.getPositions() );
 }
+*/

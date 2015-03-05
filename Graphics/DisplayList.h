@@ -35,11 +35,24 @@ public:
 		texCoords = Math::toArray(texs);
 	}
 
+	void clear() {
+		vertices.clear();
+		normals.clear();
+		texCoords.clear();
+		ids.clear();
+	}
+
+	void add(Face* f);
+
+	void add(Polygon* p);
+
 	std::vector< float > getPositions() const { return vertices; }
 
 	std::vector< float > getNormals() const { return normals; }
 
 	std::vector< float > getTexCoords() const { return texCoords; }
+
+	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
 
 	bool isValid() const {
 		return
@@ -52,6 +65,7 @@ private:
 	std::vector< float > vertices;
 	std::vector< float > normals;
 	std::vector< float > texCoords;
+	std::vector< std::vector< unsigned int > > ids;
 };
 	}
 }

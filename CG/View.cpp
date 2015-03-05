@@ -197,21 +197,13 @@ void View::draw(const wxSize& size)
 {
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
+
+	buildDisplayList();
 	
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		Vector3dVector positions;
-		std::vector< std::vector<unsigned int> > indices;
-		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
-			Graphics::Polygon* p = g.getPolygon();
-			const Vector3dVector& ps = p->getPositions();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			for (Graphics::Face* f : p->getFaces() ) {
-				const std::vector<unsigned int>& ids = f->getVertexIds();
-				indices.push_back(ids);
-			}
-		}
+		const std::vector< std::vector<unsigned int> >& indices = dispList.getIds();
 		WireFrameRenderer::Param param;
-		param.positions = toArray(positions);
+		param.positions = dispList.getPositions();
 		Camera<float>* c = frame->getCamera();
 		param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
 		param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
@@ -275,51 +267,25 @@ void View::draw(const wxSize& size)
 		//smoothRenderer.render(width, height, param, indices);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		//Vector3dVector positions;
-		//Vector3dVector normals;
-		//std::vector< std::vector<unsigned int> > indices;
-		//for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
-		//	Graphics::Polygon* p = g.getPolygon();
-		//	const Vector3dVector& ps = p->getPositions();
-		//	const Vector3dVector& ns = p->getNormals();
-		//	positions.insert(positions.end(), ps.begin(), ps.end());
-		//	normals.insert(normals.end(), ns.begin(), ns.end());
-		//}
-		//
-		//normalRenderer.render(width, height, frame->getCamera(), toArray(positions), toArray(normals) );
+		const std::vector<float>& positions = dispList.getPositions();
+		const std::vector<float>& normals = dispList.getNormals();
+		normalRenderer.render(width, height, frame->getCamera(), positions, normals );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		Vector3dVector positions;
-		std::vector< std::vector<unsigned int> > indices;
-		for ( Light* l : frame->getLights()) {
-			positions.push_back(l->getPos());
-		}
-		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
-			Graphics::Polygon* p = g.getPolygon();
-			const Vector3dVector& ps = p->getPositions();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-		}
-		pointRenderer.render(width, height, frame->getCamera(), toArray(positions), 10.0f);
+		const std::vector<float>& positions = dispList.getPositions();
+		pointRenderer.render(width, height, frame->getCamera(), positions, 10.0f);
 
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		Vector3dVector positions;
+		const std::vector<float>& positions = dispList.getPositions();
+		const std::vector<float>& normals = dispList.getNormals();
 		IDRenderer::Param param;
 		param.modelviewMatrix = frame->getCamera()->getModelviewMatrix().toArray4x4();
 		param.projectionMatrix = frame->getCamera()->getPerspectiveMatrix().toArray4x4();
-		FaceVector faces;
-		for (const Graphics::PolygonGroup& g : frame->getPolygons()) {
-			Graphics::Polygon* p = g.getPolygon();
-			const Vector3dVector& ps = p->getPositions();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			const FaceVector& fs = p->getFaces();
-			faces.insert(faces.end(), fs.begin(), fs.end());
-		}
 		for (int i = 0; i < positions.size(); ++i) {
 			param.positionIds.push_back(i);
 		}
-		param.positions = toArray( positions );
-		idRenderer.render(width, height, param, faces );
+		//idRenderer.render(width, height, param, faces );
 	}
 	else {
 		assert( false );
@@ -337,4 +303,13 @@ void View::build()
 	wireFrameRenderer.build();
 	flatRenderer.build();
 	*/
+}
+
+void View::buildDisplayList()
+{
+	dispList.clear();
+	const PolygonGroupList& groups = frame->getPolygons();
+	for (const PolygonGroup& g : groups) {
+		dispList.add(g.getPolygon());
+	}
 }

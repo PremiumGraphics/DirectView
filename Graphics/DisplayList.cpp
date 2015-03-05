@@ -7,17 +7,37 @@ using namespace Crystal::Graphics;
 
 DisplayList::DisplayList(Face* f)
 {
-	const Vector3dVector& positions = f->getPositions();
-	this->vertices = toArray(positions);
-	const Vector3dVector& normals = f->getNormals();
-	this->normals = toArray(normals);
-	const Vector3dVector& texCoords = f->getTexCoords();
-	this->texCoords = toArray(texCoords);
+	this->vertices = toArray( f->getPositions() );
+	this->normals = toArray( f->getNormals() );
+	this->texCoords = toArray( f->getTexCoords() );
+
+	this->ids.push_back( f->getVertexIds() );
 }
 
 
 DisplayList::DisplayList(Polygon* polygon)
 {
-	this->vertices = toArray( polygon->getPositions() );
-	this->normals = toArray(polygon->getNormals());
+	add(polygon);
+}
+
+void DisplayList::add(Face* f)
+{
+	const std::vector<float>& vs = toArray(f->getPositions());
+	vertices.insert(vertices.end(), vs.begin(), vs.end() );
+
+	const std::vector<float>& ns = toArray(f->getNormals());
+	normals.insert(normals.end(), ns.begin(), ns.end());
+
+	const std::vector<float> ts = toArray(f->getTexCoords());
+	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
+
+	const std::vector<unsigned int> ids_ = f->getVertexIds();
+	this->ids.push_back( ids_ );
+}
+
+void DisplayList::add(Polygon* p)
+{
+	for (Face* f : p->getFaces()) {
+		add(f);
+	}
 }

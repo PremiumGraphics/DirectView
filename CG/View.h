@@ -11,6 +11,8 @@
 #include "PointRenderer.h"
 #include "IDRenderer.h"
 
+#include "../Graphics/DisplayList.h"
+
 namespace Crystal {
 	namespace Graphics {
 		class Color;
@@ -44,6 +46,8 @@ public:
 		POINT,
 		ID,
 	};
+
+	void buildDisplayList();
 
 	void setMode( const MODE& m ) { this->mode = m; }
 
@@ -80,6 +84,8 @@ private:
 	NormalRenderer normalRenderer;
 	PointRenderer pointRenderer;
 	IDRenderer idRenderer;
+
+	Graphics::DisplayList dispList;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

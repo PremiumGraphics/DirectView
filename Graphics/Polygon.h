@@ -36,14 +36,6 @@ public:
 
 	void setVertices(const VertexVector& pos) { this->vertices = pos; }
 
-	void setPositions(const Math::Vector3dVector& poss) {
-		int i = 0;
-		for (const Math::Vector3d& pos : poss) {
-			
-			this->vertices.push_back( new Vertex(pos, i++));
-		}
-	}
-
 	VertexVector getVertices() const { return vertices; }
 
 	Math::Vector3dVector getPositions() {
