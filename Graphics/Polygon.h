@@ -20,25 +20,21 @@ public:
 		for (Vertex* v : vertices) {
 			delete v;
 		}
-		for (HalfEdge* e : edges) {
-			delete e;
+		for (Face* f : faces) {
+			delete f;
 		}
 	}
 
 
-	void setFaces(const std::vector< Face >& faces) { this->faces = faces; }
+	void setFaces(const std::vector< Face* >& faces) { this->faces = faces; }
 
-	std::vector< Face > getFaces() const { return faces; }
+	std::vector< Face* > getFaces() const { return faces; }
 
 	void setName(const std::string& name) { this->name = name; }
 
 	std::string getName() const { return name; }
 
 	void setVertices(const VertexVector& pos) { this->vertices = pos; }
-
-	void setEdges(const HalfEdgeList& edges) { this->edges = edges; }
-
-	HalfEdgeList getEdges() const { return edges; }
 
 	void setPositions(const Math::Vector3dVector& poss) {
 		int i = 0;
@@ -81,7 +77,7 @@ public:
 	bool operator==(const Polygon& rhs) const {
 		return
 			name == rhs.name &&
-			faces == rhs.faces &&
+			//faces == rhs.faces &&
 			VerticesAreSame(vertices, rhs.vertices) &&
 			normals == rhs.normals;
 	}
@@ -93,9 +89,8 @@ public:
 
 private:
 	std::string name;
-	std::vector< Face > faces;
+	std::vector< Face* > faces;
 	VertexVector vertices;
-	HalfEdgeList edges;
 	std::vector < Math::Vector3d > normals;
 	Math::Vector3d center;
 

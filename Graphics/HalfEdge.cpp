@@ -39,3 +39,12 @@ HalfEdgeList HalfEdge::createClosedFromVertices(const VertexVector& vertices)
 	}
 	return HalfEdgeList( edges.begin(), edges.end() );
 }
+
+HalfEdgeList HalfEdge::createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices)
+{
+	VertexVector vs;
+	for ( const unsigned int i : indices) {
+		vs.push_back(vertices[i]);
+	}
+	return createClosedFromVertices(vs);
+}

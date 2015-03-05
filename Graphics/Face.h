@@ -25,6 +25,12 @@ public:
 		edges( edges )
 	{}
 
+	~Face(){
+		for (HalfEdge* e : edges) {
+			delete e;
+		}
+	}
+
 	bool isClosed() const { return edges.back()->getEndPosition() == edges.front()->getStartPosition(); }
 
 	bool isOpen() const { return !isClosed(); }
@@ -55,7 +61,7 @@ private:
 
 };
 
-typedef std::vector<Face> FaceVector;
+typedef std::vector<Face*> FaceVector;
 
 
 	}

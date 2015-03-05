@@ -33,7 +33,6 @@ public:
 		polygon->setVertices(vertices);
 		polygon->setNormals(normals);
 		polygon->setFaces(faces);
-		polygon->setEdges(edges);
 		this->polygon = polygon;
 	};
 
@@ -46,7 +45,6 @@ private:
 	Polygon* polygon;
 	VertexVector vertices;
 	Math::Vector3dVector normals;
-	HalfEdgeList edges;
 	FaceVector faces;
 };
 	}

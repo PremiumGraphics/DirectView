@@ -49,6 +49,8 @@ public:
 
 	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
 
+	static std::list<HalfEdge*> createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+
 private:
 	Vertex* start;
 	Vertex* end;

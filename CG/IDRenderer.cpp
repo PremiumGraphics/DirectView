@@ -102,8 +102,8 @@ void IDRenderer::render(const int width, const int height, const Param& param, c
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	for (const Face& f : faces) {
-		const std::vector<unsigned int>& ids = f.getVertexIds();
+	for (Face* f : faces) {
+		const std::vector<unsigned int>& ids = f->getVertexIds();
 		glDrawElements(GL_POLYGON, ids.size(), GL_UNSIGNED_INT, &(ids.front()));
 	}
 

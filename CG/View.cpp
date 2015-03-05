@@ -205,8 +205,8 @@ void View::draw(const wxSize& size)
 			Graphics::Polygon* p = g.getPolygon();
 			const Vector3dVector& ps = p->getPositions();
 			positions.insert(positions.end(), ps.begin(), ps.end());
-			for (const Graphics::Face& f : p->getFaces() ) {
-				const std::vector<unsigned int>& ids = f.getVertexIds();
+			for (Graphics::Face* f : p->getFaces() ) {
+				const std::vector<unsigned int>& ids = f->getVertexIds();
 				indices.push_back(ids);
 			}
 		}
@@ -232,8 +232,8 @@ void View::draw(const wxSize& size)
 			const Vector3dVector& ns = p->getNormals();
 			positions.insert(positions.end(), ps.begin(), ps.end());
 			normals.insert(normals.end(), ns.begin(), ns.end());
-			for (const Graphics::Face& f : p->getFaces()) {
-				const std::vector<unsigned int>& ids = f.getVertexIds();
+			for (Graphics::Face* f : p->getFaces()) {
+				const std::vector<unsigned int>& ids = f->getVertexIds();
 				indices.push_back(ids);
 			}
 		}

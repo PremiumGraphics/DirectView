@@ -15,11 +15,11 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 		polygon->setNormals( g.getNormals() );
 		//polygon->setTexCoords( g.getTexCoords() );
 
-		std::vector< Face > faces;
+		FaceVector faces;
 		for (const OBJFace& f : g.getFaces()) {
-			Face face;
-			face.setVertexIds( f.getVertexIndices() );
-			face.setNormalIds( f.getNormalIndices() );
+			Face* face = new Face();
+			face->setVertexIds( f.getVertexIndices() );
+			face->setNormalIds( f.getNormalIndices() );
 			//face.setTexIds( f.getTexIndices() );
 			faces.push_back(face);
 		}
@@ -36,7 +36,7 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	const STLCellVector& cells = file.getCells();
 	std::vector< Vector3d > normals;
 	std::vector< Vector3d > positions;
-	std::vector< Face > faces;
+	FaceVector faces;
 
 	unsigned int normalId = 0;
 	unsigned int vertexId = 0;
@@ -44,9 +44,9 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 		normals.push_back( c.getNormal() );
 		const std::vector< Vector3d >& pos = c.getPositions();
 		positions.insert(positions.end(), pos.begin(), pos.end());
-		Face face;
-		face.setNormalIds( { normalId, normalId, normalId } );
-		face.setVertexIds( { vertexId, vertexId+1, vertexId+2 } );
+		Face* face = new Face();
+		face->setNormalIds( { normalId, normalId, normalId } );
+		face->setVertexIds( { vertexId, vertexId+1, vertexId+2 } );
 		normalId += 1;
 		vertexId += 3;
 		faces.push_back(face);

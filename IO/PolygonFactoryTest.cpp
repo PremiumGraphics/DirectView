@@ -33,9 +33,9 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	const PolygonGroupList& polygons = factory.create(file);
 	Polygon expected;
 	expected.setPositions( positions );
-	Face f;
-	f.setVertexIds({ 0, 1, 2 });
-	expected.setFaces( { f } );
+	//Face f;
+	//f.setVertexIds({ 0, 1, 2 });
+	//expected.setFaces( { f } );
 	const Polygon* p = polygons.front().getPolygon();
 	const Material* m = polygons.front().getMaterial();
 	EXPECT_EQ( expected, *p );
@@ -64,7 +64,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	face.setVertexIds({ 0, 1, 2 });
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;
-	expected.setFaces( { face } );
+	//expected.setFaces( { face } );
 	expected.setPositions(positions);
 	expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
 	);
