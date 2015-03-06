@@ -66,6 +66,8 @@ private:
 
 	void OnPolygonRotateZ(wxRibbonButtonBarEvent&);
 
+	void OnPick(wxRibbonButtonBarEvent&);
+
 	void OnAbout( wxRibbonButtonBarEvent& );
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );

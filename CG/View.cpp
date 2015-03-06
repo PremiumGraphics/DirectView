@@ -99,6 +99,30 @@ void View::OnKeyDown(wxKeyEvent& event)
 
 void View::OnMouse( wxMouseEvent& event )
 {
+	if (event.LeftDClick()) {
+		if (mode == PICK_VERTEX) {
+			const int width = GetClientSize().GetWidth();
+			const int height = GetClientSize().GetHeight();
+			std::vector< GLubyte > pixels(width * height * 4);
+			glReadBuffer(GL_FRONT);
+			glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
+			wxImage image(width, height);
+
+			int index = 0;
+
+			for (int y = height - 1; y >= 0; --y) {
+				for (int x = 0; x < width; ++x) {
+					image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
+					index += 4;
+				}
+			}
+
+			const wxPoint& position = event.GetPosition();
+			const unsigned char r = image.GetRed(position.x, position.y);
+			wxMessageBox(wxString::Format("%d", r));
+		}
+	}
+
 	if( event.Dragging() ) {
 		Vector3d pos;
 		Vector3d angle;

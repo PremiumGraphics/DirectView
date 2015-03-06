@@ -36,6 +36,7 @@ public:
 
 		CAMERA_TRANSLATE,
 		LIGHT_TRANSLATE,
+		PICK_VERTEX,
 	};
 
 	enum RENDERING_MODE {
