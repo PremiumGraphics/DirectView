@@ -120,6 +120,9 @@ private:
 
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
+	void OnDropDown(wxRibbonButtonBarEvent& e);
+
+
 	void clear();
 
 private:

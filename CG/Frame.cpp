@@ -152,7 +152,9 @@ Frame::Frame()
 	operation->AddButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
-	operation->AddButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
+	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
+
+	operation->AddDropdownButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
 	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX",	wxImage("../Resource/3D-X-Axis-Rotation.png"));
 	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY",	wxImage("../Resource/3D-Y-Axis-Rotation.png"));
 	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ",	wxImage("../Resource/3D-Z-Axis-Rotation.png"));
@@ -169,6 +171,7 @@ Frame::Frame()
 	Connect( ID_POLYGON_ROTATE_Y,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateY) );
 	Connect( ID_POLYGON_ROTATE_Z,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateZ) );
 	Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
+	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnDropDown));
 
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
@@ -797,4 +800,15 @@ void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
 	if (dialog.ShowModal() == wxID_OK) {
 		coneConfig = dialog.getConfig();
 	}
+}
+
+
+void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
+{
+	wxMenu menu;
+	menu.Append(wxID_ANY, wxT("X"));
+	menu.Append(wxID_ANY, wxT("Y"));
+	menu.Append(wxID_ANY, wxT("Z"));
+
+	e.PopupMenu(&menu);
 }

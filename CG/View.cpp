@@ -119,7 +119,9 @@ void View::OnMouse( wxMouseEvent& event )
 
 			const wxPoint& position = event.GetPosition();
 			const unsigned char r = image.GetRed(position.x, position.y);
-			wxMessageBox(wxString::Format("%d", r));
+			const unsigned char g = image.GetGreen(position.x, position.y);
+			const unsigned char b = image.GetBlue(position.x, position.y);
+			wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 		}
 	}
 
