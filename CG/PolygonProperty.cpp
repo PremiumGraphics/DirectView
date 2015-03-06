@@ -33,6 +33,7 @@ void PolygonProperty::build( const PolygonGroup& group )
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );
 	Append( new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size() ) );
 	Append( new wxIntProperty("Vertices", wxPG_LABEL, polygon->getPositions().size() ) );
+	Append( new wxIntProperty("ID", wxPG_LABEL, polygon->getId()));
 	Append( new wxFloatProperty("CenterX", wxPG_LABEL, polygon->getCenter().getX()) );
 	Append( new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()) );
 	Append( new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()) );

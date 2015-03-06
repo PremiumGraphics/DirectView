@@ -13,11 +13,6 @@ public:
 	Face(const unsigned int id) : id(id)
 	{};
 
-	Face(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds, const unsigned int id) :
-		id(id)
-	{
-		edges = HalfEdge::createByIndex(vertices, vertexIds);
-	}
 
 	Face(const HalfEdgeList& edges, const unsigned int id) :
 		edges( edges ),

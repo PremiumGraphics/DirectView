@@ -81,13 +81,14 @@ public:
 
 	Math::Vector3d getCenter() const { return center; }
 
+	unsigned int getId() const { return id; }
 
 private:
 	std::string name;
 	FaceVector faces;
 	VertexVector vertices;
 	Math::Vector3d center;
-
+	unsigned int id;
 };
 
 	}
