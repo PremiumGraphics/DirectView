@@ -11,7 +11,7 @@ Polygon* PolygonBuilder::buildQuad()
 	FaceBuilder builder;
 	builder.buildQuad();
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(builder.getVertices());
 	polygon->setFaces(builder.getFaces());
 	return polygon;
@@ -53,7 +53,7 @@ Polygon* PolygonBuilder::buildBox()
 
 	const FaceVector& faces = builder.getFaces();
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
 	polygon->setFaces(faces);
 	return polygon;
@@ -65,7 +65,7 @@ Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned 
 	FaceBuilder builder;
 	builder.buildCircleByNumber(radius, divideNumber);
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(builder.getVertices());
 	polygon->setFaces(builder.getFaces());
 	return polygon;
@@ -123,7 +123,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	}
 
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
 	polygon->setFaces(builder.getFaces());
 	return polygon;
@@ -146,7 +146,7 @@ Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const uns
 		}
 	}
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
 	polygon->setFaces(faces);
 	return polygon;
@@ -187,7 +187,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		builder.build(vertices, { v0, v1, v2 });
 	}
 
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
 	polygon->setFaces(builder.getFaces());
 	return polygon;

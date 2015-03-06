@@ -12,7 +12,9 @@ namespace Crystal {
 
 class Polygon {
 public:
-	Polygon()
+
+	Polygon(unsigned int id) :
+		id(id)
 	{}
 
 	~Polygon()

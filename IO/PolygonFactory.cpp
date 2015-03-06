@@ -10,7 +10,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 {
 	PolygonGroupList polygons;
 	for (const OBJGroup& g : file.getGroups()) {
-		Polygon* polygon = new Polygon();
+		Polygon* polygon = new Polygon(0);
 		//polygon->setPositions( g.getPositions() );
 		//polygon->setNormals( g.getNormals() );
 		//polygon->setTexCoords( g.getTexCoords() );
@@ -31,7 +31,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 
 PolygonGroupList PolygonFactory::create(const STLFile& file)
 {
-	Polygon* polygon = new Polygon();
+	Polygon* polygon = new Polygon(0);
 	//polygon.positions = file.
 	const STLCellVector& cells = file.getCells();
 	std::vector< Vector3d > normals;

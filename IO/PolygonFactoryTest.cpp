@@ -62,7 +62,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	Face face(0);
 	//face.setNormalIds( { 0, 0, 0 } );
 	Polygon* actual = polygons.front().getPolygon();
-	Polygon expected;
+	//Polygon expected;
 	//expected.setFaces( { face } );
 	//expected.setPositions(positions);
 	//expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }

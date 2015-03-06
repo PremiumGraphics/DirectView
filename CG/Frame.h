@@ -3,6 +3,7 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/Light.h"
+#include "../Graphics/PolygonBuilder.h"
 #include "../IO/PolygonFactory.h"
 
 #include "ModelingDialog.h"
@@ -137,6 +138,8 @@ private:
 	BoxConfigDialog::Config boxConfig;
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
+
+	Graphics::PolygonBuilder builder;
 
 	View* view;
 

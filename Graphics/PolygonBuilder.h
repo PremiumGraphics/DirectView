@@ -9,22 +9,29 @@ namespace Crystal{
 class PolygonBuilder{
 public:
 
-	static Polygon* buildQuad();
+	PolygonBuilder() :
+		nextId(0)
+	{}
 
-	static Polygon* buildBox();
+	Polygon* buildQuad();
 
-	static Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	Polygon* buildBox();
 
-	static Polygon* buildCircleByAngle(const float radius, const float divideAngle);
+	Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	static Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
+	Polygon* buildCircleByAngle(const float radius, const float divideAngle);
 
-	static Polygon* buildCylinder(const unsigned int divideNuber);
+	Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	static Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	Polygon* buildCylinder(const unsigned int divideNuber);
 
-	static Polygon* buildCone(const unsigned int divideNumber);
+	Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
+	Polygon* buildCone(const unsigned int divideNumber);
+
+
+private:
+	unsigned int nextId;
 };
 	}
 }

@@ -670,7 +670,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( PolygonBuilder::buildTriangle() );
+	polygons.push_back( builder.buildTriangle() );
 	polygonTree->build();
 }
 
@@ -685,7 +685,7 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( PolygonBuilder::buildQuad() );
+	polygons.push_back( builder.buildQuad() );
 	polygonTree->build();
 }
 
@@ -700,7 +700,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(  PolygonBuilder::buildCircleByNumber( 1.0f, circleConfig.getDivideNumber() ) );
+	polygons.push_back( builder.buildCircleByNumber( 1.0f, circleConfig.getDivideNumber() ) );
 	polygonTree->build();
 }
 
@@ -715,7 +715,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(PolygonBuilder::buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
+	polygons.push_back( builder.buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
 	polygonTree->build();
 }
 
@@ -731,7 +731,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( PolygonBuilder::buildCylinder(3) );
+	polygons.push_back( builder.buildCylinder(3) );
 	polygonTree->build();
 }
 
@@ -746,7 +746,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back( PolygonBuilder::buildBox() );
+	polygons.push_back( builder.buildBox() );
 	polygonTree->build();
 }
 
@@ -762,7 +762,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(PolygonBuilder::buildCone(coneConfig.divideNumber));
+	polygons.push_back(builder.buildCone(coneConfig.divideNumber));
 	polygonTree->build();
 }
 
