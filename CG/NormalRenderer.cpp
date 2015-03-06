@@ -110,16 +110,17 @@ void NormalRenderer::build()
 	//positionLocation = glGetUniformLocation( shader.getId(), "position" );
 }
 
-void NormalRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions, const std::vector<float>& vectors )
+void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list )
 {
-	if (positions.empty()) {
-		return;
-	}
-	if (vectors.empty())  {
+	const std::vector<float>& positions = list.getPositions();
+	const std::vector<float>& vectors = list.getNormals();
+
+	if (positions.empty() || vectors.empty()) {
 		return;
 	}
 
-	const Matrix4d<float>& perspectiveMatrix = camera->getPerspectiveMatrix();
+	const Matrix4d<float>& perspectiveMatrix = camera.getPerspectiveMatrix();
+	const Matrix4d<float>& modelviewMatrix = camera.getModelviewMatrix();
 
 	assert(GL_NO_ERROR == glGetError());
 
@@ -137,7 +138,7 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 	glUseProgram(shader.getId());
 
 	ShaderUtil::setUniformMatrix(shader.getId(), "projectionMatrix", perspectiveMatrix);
-	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", camera->getModelviewMatrix());
+	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	vectorLocation = glGetAttribLocation(shader.getId(), "vector");

@@ -40,6 +40,7 @@ public:
 		normals.clear();
 		texCoords.clear();
 		ids.clear();
+		vertexIds.clear();
 	}
 
 	void add(Face* f);
@@ -51,6 +52,8 @@ public:
 	std::vector< float > getNormals() const { return normals; }
 
 	std::vector< float > getTexCoords() const { return texCoords; }
+
+	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
 
 	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
 
@@ -65,6 +68,7 @@ private:
 	std::vector< float > vertices;
 	std::vector< float > normals;
 	std::vector< float > texCoords;
+	std::vector< unsigned int > vertexIds;
 	std::vector< std::vector< unsigned int > > ids;
 };
 	}

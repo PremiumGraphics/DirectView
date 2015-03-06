@@ -9,6 +9,7 @@
 #include "../Graphics/ShaderObject.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
+#include "../Graphics/DisplayList.h"
 
 #include <memory>
 
@@ -24,7 +25,7 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const std::vector<float>& vectors );
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list );
 
 private:
 	Graphics::ShaderObject shader;

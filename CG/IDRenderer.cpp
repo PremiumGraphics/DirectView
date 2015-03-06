@@ -23,7 +23,7 @@ void IDRenderer::build()
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
-		"in int vertexId;					\n"
+		"in int vertexId;			\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
@@ -31,6 +31,8 @@ void IDRenderer::build()
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
 		"	color.r = vertexId / 255.0;				\n"
+		"	color.g = 1.0;					\n"
+		"	color.b = 1.0;					\n"
 		"}\n"
 		;
 
@@ -87,6 +89,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 
 	const std::vector<float>& positions = list.getPositions();
 	const std::vector< std::vector<unsigned int> >& ids = list.getIds();
+	const std::vector<unsigned int>& vertexIds = list.getVertexIds();
 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
@@ -103,13 +106,13 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	//glVertexAttribPointer(location.id, 1, GL_FLOAT, GL_FALSE, 0, &(param.positionIds.front()) );
+	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(vertexIds.front()) );
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
 	for (const std::vector<unsigned int>& ids_ : ids ) {
-		glDrawElements(GL_POLYGON, ids.size(), GL_UNSIGNED_INT, &(ids_.front()));
+		glDrawElements(GL_POLYGON, ids_.size(), GL_UNSIGNED_INT, &(ids_.front()));
 	}
 
 	glDisableVertexAttribArray(0);

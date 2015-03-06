@@ -33,6 +33,8 @@ void DisplayList::add(Face* f)
 
 	const std::vector<unsigned int> ids_ = f->getVertexIds();
 	this->ids.push_back( ids_ );
+
+	vertexIds.insert(vertexIds.end(), ids_.begin(), ids_.end());
 }
 
 void DisplayList::add(Polygon* p)

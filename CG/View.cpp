@@ -260,9 +260,7 @@ void View::draw(const wxSize& size)
 		//smoothRenderer.render(width, height, param, indices);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		const std::vector<float>& positions = dispList.getPositions();
-		const std::vector<float>& normals = dispList.getNormals();
-		normalRenderer.render(width, height, frame->getCamera(), positions, normals );
+		normalRenderer.render(width, height, *(frame->getCamera()), dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		pointRenderer.render(width, height, frame->getCamera(), dispList );
