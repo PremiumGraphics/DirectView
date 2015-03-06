@@ -33,6 +33,7 @@ private:
 		GLuint position;
 		GLuint id;
 		GLuint faceId;
+		GLuint polygonId;
 	};
 
 	Location getLocations();

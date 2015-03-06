@@ -25,6 +25,7 @@ void IDRenderer::build()
 		"in vec3 position;					\n"
 		"in int vertexId;			\n"
 		"in int faceId;				\n"
+		"in int polygonId;			\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
@@ -33,7 +34,7 @@ void IDRenderer::build()
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
 		"	color.r = vertexId;				\n"
 		"	color.g = faceId;					\n"
-		"	color.b = 1.0;					\n"
+		"	color.b = polygonId;					\n"
 		"}\n"
 		;
 
@@ -73,6 +74,7 @@ IDRenderer::Location IDRenderer::getLocations()
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.id = glGetAttribLocation(shader.getId(), "vertexId");
 	location.faceId = glGetAttribLocation(shader.getId(), "faceId");
+	location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
 
 	return location;
 }
@@ -93,6 +95,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	const std::vector< std::vector<unsigned int> >& ids = list.getIds();
 	const std::vector<unsigned int>& vertexIds = list.getVertexIds();
 	const std::vector<unsigned int>& faceIds = list.getFaceIds();
+	const std::vector<unsigned int>& polygonIds = list.getPolygonIds();
 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
@@ -111,10 +114,12 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(vertexIds.front()) );
 	glVertexAttribIPointer(location.faceId, 1, GL_INT, 0, &(faceIds.front()));
+	glVertexAttribIPointer(location.polygonId, 1, GL_INT, 0, &(polygonIds.front()));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
 
 	for (const std::vector<unsigned int>& ids_ : ids ) {
 		glDrawElements(GL_POLYGON, ids_.size(), GL_UNSIGNED_INT, &(ids_.front()));
@@ -123,6 +128,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 

@@ -3,6 +3,7 @@
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Polygon.h"
 #include "../Graphics/FaceBuilder.h"
+#include "../Graphics/PolygonBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -48,4 +49,15 @@ TEST(DisplayListTest, TestAddFace)
 
 	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
 	EXPECT_EQ( expected, list.getFaceIds());
+}
+
+TEST(DisplayListTest, TestAddPolygon)
+{
+	PolygonBuilder builder;
+
+	DisplayList list;
+	list.add(builder.buildQuad());
+
+	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
+	EXPECT_EQ(expected, list.getPolygonIds());
 }

@@ -56,4 +56,7 @@ void DisplayList::add(Polygon* p)
 	for (Face* f : p->getFaces()) {
 		add(f);
 	}
+	for (int i = 0; i < p->getVertices().size(); ++i) {
+		polygonIds.push_back(p->getId());
+	}
 }

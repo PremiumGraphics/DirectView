@@ -51,6 +51,8 @@ public:
 
 	std::vector< unsigned int > getFaceIds() const { return faceIds; }
 
+	std::vector< unsigned int > getPolygonIds() const { return polygonIds; }
+
 	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
 
 	bool isValid() const {
@@ -66,6 +68,7 @@ private:
 	std::vector< float > texCoords;
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > faceIds;
+	std::vector< unsigned int > polygonIds;
 	std::vector< std::vector< unsigned int > > ids;
 };
 	}
