@@ -8,12 +8,11 @@ using namespace Crystal::Graphics;
 
 Polygon* PolygonBuilder::buildQuad()
 {
-	FaceBuilder builder;
-	builder.buildQuad();
+	faceBuilder.buildQuad();
 
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(builder.getVertices());
-	polygon->setFaces(builder.getFaces());
+	polygon->setVertices(faceBuilder.getVertices());
+	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }
 
@@ -43,15 +42,14 @@ Polygon* PolygonBuilder::buildBox()
 
 	const VertexVector& vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
 
-	FaceBuilder builder;
-	builder.build(vertices, { 0, 1, 2, 3 });
-	builder.build(vertices, { 4, 5, 6, 7 });
-	builder.build(vertices, { 0, 1, 5, 4 });
-	builder.build(vertices, { 2, 3, 7, 6 });
-	builder.build(vertices, { 3, 0, 4, 7 });
-	builder.build(vertices, { 5, 1, 2, 6 });
+	faceBuilder.build(vertices, { 0, 1, 2, 3 });
+	faceBuilder.build(vertices, { 4, 5, 6, 7 });
+	faceBuilder.build(vertices, { 0, 1, 5, 4 });
+	faceBuilder.build(vertices, { 2, 3, 7, 6 });
+	faceBuilder.build(vertices, { 3, 0, 4, 7 });
+	faceBuilder.build(vertices, { 5, 1, 2, 6 });
 
-	const FaceVector& faces = builder.getFaces();
+	const FaceVector& faces = faceBuilder.getFaces();
 
 	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
@@ -80,8 +78,6 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	FaceBuilder builder;
-
 	VertexVector vertices;
 	FaceVector faces;
 	std::vector<unsigned int> vertexIds0;
@@ -91,7 +87,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
 		vertexIds0.push_back(i);
 	}
-	builder.build(vertices, vertexIds0);
+	faceBuilder.build(vertices, vertexIds0);
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
 	std::vector<unsigned int> vertexIds1;
@@ -101,7 +97,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 1.0f), divideNumber + i ));
 		vertexIds1.push_back( divideNumber + i);
 	}
-	builder.build(vertices, vertexIds1);
+	faceBuilder.build(vertices, vertexIds1);
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 
@@ -110,7 +106,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1[i+1];
 		const unsigned int v3 = vertexIds1[i];
 		std::vector<unsigned int> vertexIds2 = { v0, v1, v2, v3 };
-		builder.build(vertices, vertexIds2);
+		faceBuilder.build(vertices, vertexIds2);
 	}
 
 	{
@@ -119,13 +115,13 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1.front();
 		const unsigned int v3 = vertexIds1.back();
 		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
-		builder.build(vertices, vertexIds3);
+		faceBuilder.build(vertices, vertexIds3);
 	}
 
 
 	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
-	polygon->setFaces(builder.getFaces());
+	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }
 
@@ -168,8 +164,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		vertexIds.push_back(i);
 	}
 
-	FaceBuilder builder;
-	builder.build( vertices, vertexIds );
+	faceBuilder.build( vertices, vertexIds );
 
 	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
 
@@ -177,18 +172,18 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		builder.build( vertices, { v0, v1, v2 });
+		faceBuilder.build( vertices, { v0, v1, v2 });
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		builder.build(vertices, { v0, v1, v2 });
+		faceBuilder.build(vertices, { v0, v1, v2 });
 	}
 
 	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
-	polygon->setFaces(builder.getFaces());
+	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }

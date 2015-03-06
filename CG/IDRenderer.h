@@ -32,6 +32,7 @@ private:
 		GLuint modelviewMatrix;
 		GLuint position;
 		GLuint id;
+		GLuint faceId;
 	};
 
 	Location getLocations();

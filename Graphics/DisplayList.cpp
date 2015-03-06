@@ -45,6 +45,10 @@ void DisplayList::add(Face* f)
 	this->ids.push_back( ids_ );
 
 	vertexIds.insert(vertexIds.end(), ids_.begin(), ids_.end());
+
+	for (size_t i = 0; i < f->getPositions().size(); ++i) {
+		faceIds.push_back(f->getId());
+	}
 }
 
 void DisplayList::add(Polygon* p)

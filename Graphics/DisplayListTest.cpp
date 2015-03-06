@@ -2,6 +2,7 @@
 
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Polygon.h"
+#include "../Graphics/FaceBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -37,16 +38,14 @@ TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 	EXPECT_EQ(expected, actual);
 }
 
-/*
 TEST(DisplayListTest, TestAddFace)
 {
-	Polygon polygon;
-	polygon.setPositions({ Vector3d(0.0, 0.0, 0.0) });
+	FaceBuilder builder;
+	builder.buildQuad();
 
-	DisplayList list( &polygon );
+	DisplayList list;
+	list.add(builder.getFaces().front());
 
-	const std::vector< float > expected{ 0.0, 0.0, 0.0 };
-
-	EXPECT_EQ( expected, list.getPositions() );
+	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
+	EXPECT_EQ( expected, list.getFaceIds());
 }
-*/

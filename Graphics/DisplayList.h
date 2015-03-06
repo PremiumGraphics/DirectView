@@ -49,6 +49,8 @@ public:
 
 	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
 
+	std::vector< unsigned int > getFaceIds() const { return faceIds; }
+
 	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
 
 	bool isValid() const {

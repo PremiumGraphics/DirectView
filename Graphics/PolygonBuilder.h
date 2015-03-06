@@ -1,7 +1,9 @@
 #ifndef __CRYSTAL_GRAPHICS_POLYGON_BUILDER_H__
 #define __CRYSTAL_GRAPHICS_POLYGON_BUILDER_H__
 
-#include "../Graphics/Polygon.h"
+#include "Polygon.h"
+
+#include "FaceBuilder.h"
 
 namespace Crystal{
 	namespace Graphics{
@@ -32,6 +34,8 @@ public:
 
 private:
 	unsigned int nextId;
+
+	FaceBuilder faceBuilder;
 };
 	}
 }

@@ -15,6 +15,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().front()->getEdges().size());
+	EXPECT_EQ(0, p->getId());
 
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0),
