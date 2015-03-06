@@ -59,7 +59,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 
 	PolygonFactory factory;
 	const PolygonGroupList& polygons = factory.create(file);
-	Face face;
+	Face face(0);
 	//face.setNormalIds( { 0, 0, 0 } );
 	Polygon* actual = polygons.front().getPolygon();
 	Polygon expected;

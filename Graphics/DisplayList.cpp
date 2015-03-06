@@ -20,6 +20,16 @@ DisplayList::DisplayList(Polygon* polygon)
 	add(polygon);
 }
 
+void DisplayList::clear()
+{
+	vertices.clear();
+	normals.clear();
+	texCoords.clear();
+	ids.clear();
+	vertexIds.clear();
+	faceIds.clear();
+}
+
 void DisplayList::add(Face* f)
 {
 	const std::vector<float>& vs = toArray(f->getPositions());

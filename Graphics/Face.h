@@ -10,15 +10,18 @@ namespace Crystal {
 
 class Face {
 public:
-	Face(){};
+	Face(const unsigned int id) : id(id)
+	{};
 
-	Face(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds)
+	Face(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds, const unsigned int id) :
+		id(id)
 	{
 		edges = HalfEdge::createByIndex(vertices, vertexIds);
 	}
 
-	Face(const HalfEdgeList& edges) :
-		edges( edges )
+	Face(const HalfEdgeList& edges, const unsigned int id) :
+		edges( edges ),
+		id( id )
 	{}
 
 	~Face(){
@@ -26,6 +29,8 @@ public:
 			delete e;
 		}
 	}
+
+	unsigned int getId() const { return id; }
 
 	std::vector<unsigned int> getVertexIds() {
 		std::vector<unsigned int> ids;
@@ -52,6 +57,7 @@ public:
 private:
 	//VertexVector vertices;
 	HalfEdgeList edges;
+	const unsigned int id;
 
 };
 

@@ -13,7 +13,7 @@ Polygon* PolygonBuilder::buildQuad()
 	};
 
 	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
-	const FaceVector& faces = { new Face(edges) };
+	const FaceVector& faces = { new Face(edges, 0) };
 
 	Polygon* polygon = new Polygon();
 	polygon->setVertices(vertices);
@@ -48,12 +48,12 @@ Polygon* PolygonBuilder::buildBox()
 	const VertexVector& vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
 
 	const FaceVector& faces = {
-		new Face(vertices, { 0, 1, 2, 3 }),
-		new Face(vertices, { 4, 5, 6, 7 }),
-		new Face(vertices, { 0, 1, 5, 4 }),
-		new Face(vertices, { 2, 3, 7, 6 }),
-		new Face(vertices, { 3, 0, 4, 7 }),
-		new Face(vertices, { 5, 1, 2, 6 })
+		new Face(vertices, { 0, 1, 2, 3 }, 0),
+		new Face(vertices, { 4, 5, 6, 7 }, 1),
+		new Face(vertices, { 0, 1, 5, 4 }, 2),
+		new Face(vertices, { 2, 3, 7, 6 }, 3),
+		new Face(vertices, { 3, 0, 4, 7 }, 4),
+		new Face(vertices, { 5, 1, 2, 6 }, 5)
 	};
 
 	Polygon* polygon = new Polygon();
@@ -76,7 +76,7 @@ Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned 
 			new Vertex( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d( 0.0, 0.0, 1.0), i ) );
 	}
 	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vertices);
-	const FaceVector faces = { new Face(edges) };
+	const FaceVector faces = { new Face(edges, 0) };
 
 	Polygon* polygon = new Polygon();
 	polygon->setVertices(vertices);
@@ -102,7 +102,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
 		vertexIds0.push_back(i);
 	}
-	faces.push_back( new Face( vertices, vertexIds0 ) );
+	faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
 	std::vector<unsigned int> vertexIds1;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
@@ -111,7 +111,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 1.0f), divideNumber + i ));
 		vertexIds1.push_back( divideNumber + i);
 	}
-	faces.push_back( new Face( vertices, vertexIds1 ) );
+	faces.push_back( new Face( vertices, vertexIds1, 1 ) );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 
@@ -120,7 +120,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1[i+1];
 		const unsigned int v3 = vertexIds1[i];
 		std::vector<unsigned int> vertexIds2 = { v0, v1, v2, v3 };
-		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds2) ) );
+		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds2), 2 ) );
 	}
 
 	{
@@ -129,7 +129,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1.front();
 		const unsigned int v3 = vertexIds1.back();
 		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
-		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds3)) );
+		faces.push_back( new Face( HalfEdge::createByIndex( vertices, vertexIds3), 3) );
 	}
 
 	Polygon* polygon = new Polygon();
@@ -177,7 +177,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		vertexIds.push_back(i);
 	}
 
-	Face* f = new Face( vertices, vertexIds);
+	Face* f = new Face( vertices, vertexIds, 0);
 	faces.push_back(f);
 
 	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
@@ -186,7 +186,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		Face* f = new Face( vertices, { v0, v1, v2 });
+		Face* f = new Face( vertices, { v0, v1, v2 }, i+1);
 		faces.push_back(f);
 	}
 
@@ -194,7 +194,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		Face* f = new Face(vertices, { v0, v1, v2 });
+		Face* f = new Face(vertices, { v0, v1, v2 }, divideNumber);
 		faces.push_back(f);
 	}
 

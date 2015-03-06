@@ -35,13 +35,7 @@ public:
 		texCoords = Math::toArray(texs);
 	}
 
-	void clear() {
-		vertices.clear();
-		normals.clear();
-		texCoords.clear();
-		ids.clear();
-		vertexIds.clear();
-	}
+	void clear();
 
 	void add(Face* f);
 
@@ -69,6 +63,7 @@ private:
 	std::vector< float > normals;
 	std::vector< float > texCoords;
 	std::vector< unsigned int > vertexIds;
+	std::vector< unsigned int > faceIds;
 	std::vector< std::vector< unsigned int > > ids;
 };
 	}
