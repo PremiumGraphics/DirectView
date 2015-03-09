@@ -155,6 +155,7 @@
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="PolygonProperty.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
+    <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
