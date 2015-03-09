@@ -24,7 +24,8 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 		Vector3d(0.0, 0.0, 1.0)
 	};
 
-	const VertexVector& positions = Vertex::createVerticesFromPositionsAndNormals(
+	VertexBuilder vBuilder;
+	const VertexVector& positions = vBuilder.buildVerticesFromPositionsAndNormals(
 	{
 		Vector3d(0.0, 1.0, 0.0),
 		Vector3d(0.0, 0.0, 0.0),
@@ -41,7 +42,8 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	PolygonBuilder builder;
 	std::unique_ptr< Polygon > p( builder.buildBox() );
 
-	const VertexVector positions = Vertex::createVerticesFromPositions(
+	VertexBuilder vBuilder;
+	const VertexVector positions = vBuilder.buildVerticesFromPositions(
 	{
 		Vector3d(0.0, 1.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),

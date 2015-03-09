@@ -7,7 +7,8 @@ using namespace Crystal::Graphics;
 
 TEST(FaceBuilderTest, TestBuildQuad)
 {
-	FaceBuilder builder;
+	VertexBuilder vBuilder;
+	FaceBuilder builder(vBuilder);
 	builder.buildQuad();
 	const FaceVector& faces = builder.getFaces();
 	EXPECT_EQ(1, faces.size());
@@ -16,7 +17,8 @@ TEST(FaceBuilderTest, TestBuildQuad)
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 {
-	FaceBuilder builder;
+	VertexBuilder vBuilder;
+	FaceBuilder builder(vBuilder);
 	builder.buildCircleByNumber( 3, 3);
 	const FaceVector& faces = builder.getFaces();
 	EXPECT_EQ(1, faces.size());

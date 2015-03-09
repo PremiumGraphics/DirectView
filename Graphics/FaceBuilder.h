@@ -11,7 +11,9 @@ class Face;
 
 class FaceBuilder {
 public:
-	FaceBuilder() : nextId(0)
+	FaceBuilder(VertexBuilder& vBuilder) :
+		vBuilder( vBuilder ),
+		nextId(0)
 	{}
 
 	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
@@ -23,12 +25,12 @@ public:
 		faces.push_back(f);
 	}
 
-	VertexVector getVertices() const { return vertices;  }
+	VertexVector getVertices() const { return vBuilder.getVertices();  }
 
 	FaceVector getFaces() const { return faces; }
 
 private:
-	VertexVector vertices;
+	VertexBuilder& vBuilder;
 	FaceVector faces;
 	unsigned int nextId;
 };

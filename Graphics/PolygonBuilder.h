@@ -4,6 +4,7 @@
 #include "Polygon.h"
 
 #include "FaceBuilder.h"
+#include "Vertex.h"
 
 namespace Crystal{
 	namespace Graphics{
@@ -12,7 +13,8 @@ class PolygonBuilder{
 public:
 
 	PolygonBuilder() :
-		nextId(0)
+		nextId(0),
+		faceBuilder( vertexBuilder )
 	{}
 
 	Polygon* buildQuad();
@@ -31,11 +33,15 @@ public:
 
 	Polygon* buildCone(const unsigned int divideNumber);
 
+	void clear(){
+		nextId = 0;
+	}
 
 private:
 	unsigned int nextId;
 
 	FaceBuilder faceBuilder;
+	VertexBuilder vertexBuilder;
 };
 	}
 }

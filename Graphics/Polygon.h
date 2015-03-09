@@ -19,9 +19,6 @@ public:
 
 	~Polygon()
 	{
-		for (Vertex* v : vertices) {
-			delete v;
-		}
 		for (Face* f : faces) {
 			delete f;
 		}

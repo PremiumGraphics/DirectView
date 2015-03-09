@@ -40,7 +40,7 @@ Polygon* PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	const VertexVector& vertices = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
+	const VertexVector& vertices = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
 	faceBuilder.build(vertices, { 0, 1, 2, 3 });
 	faceBuilder.build(vertices, { 4, 5, 6, 7 });
@@ -60,12 +60,11 @@ Polygon* PolygonBuilder::buildBox()
 
 Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
-	FaceBuilder builder;
-	builder.buildCircleByNumber(radius, divideNumber);
+	faceBuilder.buildCircleByNumber(radius, divideNumber);
 
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(builder.getVertices());
-	polygon->setFaces(builder.getFaces());
+	polygon->setVertices(faceBuilder.getVertices());
+	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }
 
@@ -78,26 +77,24 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	VertexVector vertices;
-	FaceVector faces;
 	std::vector<unsigned int> vertexIds0;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f), i ));
+		vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
 		vertexIds0.push_back(i);
 	}
-	faceBuilder.build(vertices, vertexIds0);
+	faceBuilder.build( vertexBuilder.getVertices(), vertexIds0);
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
 	std::vector<unsigned int> vertexIds1;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 1.0f), divideNumber + i ));
-		vertexIds1.push_back( divideNumber + i);
+		vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
+		vertexIds1.push_back(divideNumber + i);
 	}
-	faceBuilder.build(vertices, vertexIds1);
+	faceBuilder.build( vertexBuilder.getVertices(), vertexIds1);
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 
@@ -106,7 +103,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1[i+1];
 		const unsigned int v3 = vertexIds1[i];
 		std::vector<unsigned int> vertexIds2 = { v0, v1, v2, v3 };
-		faceBuilder.build(vertices, vertexIds2);
+		faceBuilder.build( vertexBuilder.getVertices(), vertexIds2);
 	}
 
 	{
@@ -115,12 +112,12 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const unsigned int v2 = vertexIds1.front();
 		const unsigned int v3 = vertexIds1.back();
 		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
-		faceBuilder.build(vertices, vertexIds3);
+		faceBuilder.build(vertexBuilder.getVertices(), vertexIds3);
 	}
 
 
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(vertices);
+	polygon->setVertices(vertexBuilder.getVertices());
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }

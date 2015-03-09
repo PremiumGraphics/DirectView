@@ -7,7 +7,7 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Vertex{
+class Vertex {
 public:
 	Vertex(const Math::Vector3d& position, const unsigned int id) :
 		position(position),
@@ -26,7 +26,6 @@ public:
 		texCoord( texCoord ),
 		id(id)
 	{}
-
 
 	void setPosition(const Math::Vector3d& position) { this->position = position; }
 
@@ -70,27 +69,64 @@ public:
 		position.scale(scale.getX(), scale.getY(), scale.getZ());
 	}
 
-	static std::vector< Vertex* > createVerticesFromPositions( const Math::Vector3dVector& positions ) {
+private:
+	Math::Vector3d position;
+	Math::Vector3d normal;
+	Math::Vector3d texCoord;
+	unsigned int id;
+};
+
+typedef std::vector<Vertex*> VertexVector;
+
+class VertexBuilder {
+public:
+	VertexBuilder() :
+		nextId( 0 )
+	{}
+
+	~VertexBuilder() {
+		clear();
+	}
+
+	void clear() {
+		for (Vertex* v : vertices) {
+			delete v;
+		}
+		vertices.clear();
+	}
+
+	void build(const Math::Vector3d& position) {
+		vertices.push_back(new Vertex(position, nextId++));
+	}
+
+	void build(const Math::Vector3d& position, const Math::Vector3d& normal) {
+		vertices.push_back(new Vertex(position, normal, nextId++));
+	}
+
+	void build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
+		vertices.push_back(new Vertex(position, normal, texCoord, nextId++));
+	}
+
+	std::vector< Vertex* > buildVerticesFromPositions(const Math::Vector3dVector& positions) {
 		std::vector< Vertex* > vertices;
-		unsigned int id = 0;
 		for (const Math::Vector3d& position : positions) {
-			Vertex* v = new Vertex(position, id++);
+			Vertex* v = new Vertex(position, nextId++);
 			vertices.push_back(v);
 		}
 		return vertices;
 	}
 
-	static std::vector< Vertex* > createVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
+	std::vector< Vertex* > buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
 		assert(positions.size() == normals.size());
 		std::vector< Vertex* > vertices;
 		for (size_t i = 0; i < positions.size(); ++i) {
-			Vertex* v = new Vertex(positions[i], normals[i], i);
+			Vertex* v = new Vertex(positions[i], normals[i], nextId++);
 			vertices.push_back(v);
 		}
 		return vertices;
 	}
 
-	static std::vector< Vertex* > createVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords) {
+	static std::vector< Vertex* > buildVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords) {
 		assert(positions.size() == normals.size());
 		assert(normals.size() == texCoords.size());
 		std::vector< Vertex* > vertices;
@@ -101,15 +137,13 @@ public:
 		return vertices;
 	}
 
+	VertexVector getVertices() const { return vertices; }
 
 private:
-	Math::Vector3d position;
-	Math::Vector3d normal;
-	Math::Vector3d texCoord;
-	unsigned int id;
+	VertexVector vertices;
+	unsigned int nextId;
 };
 
-typedef std::vector<Vertex*> VertexVector;
 
 static bool VerticesAreSame(const VertexVector& lhs, const VertexVector& rhs)
 {

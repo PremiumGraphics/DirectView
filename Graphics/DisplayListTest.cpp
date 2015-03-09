@@ -41,7 +41,8 @@ TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 
 TEST(DisplayListTest, TestAddFace)
 {
-	FaceBuilder builder;
+	VertexBuilder vBuilder;
+	FaceBuilder builder(vBuilder);
 	builder.buildQuad();
 
 	DisplayList list;
@@ -58,6 +59,23 @@ TEST(DisplayListTest, TestAddPolygon)
 	DisplayList list;
 	list.add(builder.buildQuad());
 
-	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
-	EXPECT_EQ(expected, list.getPolygonIds());
+	{
+		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
+		EXPECT_EQ(expected, list.getPolygonIds());
+	}
+
+	{
+		const std::vector<unsigned int> expected{ 0, 1, 2, 3 };
+		EXPECT_EQ( expected, list.getVertexIds() );
+	}
+
+	list.add(builder.buildTriangle());
+
+	/*
+	{
+		const std::vector<unsigned int> expected{ 0, 1, 2, 3, 4, 5, 6 };
+		EXPECT_EQ( expected, list.getVertexIds() );
+	}
+	*/
+
 }

@@ -13,14 +13,15 @@ TEST(VertexTest, TestConstruct)
 	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getTexCoord() );
 }
 
-TEST(VertexTest, TestCreateVerticesFromPositions)
+TEST(VertexBuilderTest, TestBuildVerticesFromPositions)
 {
 	const Vector3dVector positions{
 		Vector3d(0.0, 0.0, 0.0),
 		Vector3d(1.0, 0.0, 0.0),
 	};
 
-	const VertexVector& actual = Vertex::createVerticesFromPositions(positions);
+	VertexBuilder builder;
+	const VertexVector& actual = builder.buildVerticesFromPositions(positions);
 
 	const VertexVector expected{
 		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
@@ -42,7 +43,8 @@ TEST(VertexTest, TestCreateVerticesFromPositionsAndNormals)
 		Vector3d(1.0, 0.0, 0.0)
 	};
 
-	const VertexVector& actual = Vertex::createVerticesFromPositionsAndNormals(positions, normals);
+	VertexBuilder vBuilder;
+	const VertexVector& actual = vBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
 	const VertexVector expected{
 		new Vertex(Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 0),
@@ -50,4 +52,12 @@ TEST(VertexTest, TestCreateVerticesFromPositionsAndNormals)
 	};
 
 	EXPECT_TRUE( VerticesAreSame(expected, actual) );
+}
+
+TEST(VertexBuilderTest, TestBuild)
+{
+	VertexBuilder builder;
+	builder.build(Vector3d(0.0, 0.0, 0.0));
+
+	EXPECT_EQ(1, builder.getVertices().size());
 }
