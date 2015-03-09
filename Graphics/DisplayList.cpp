@@ -61,3 +61,15 @@ void DisplayList::add(Polygon* p)
 		polygonIds.push_back(p->getId());
 	}
 }
+
+/*
+void DisplayList::addHighlight(Vertex* v)
+{
+	;
+}
+
+void DisplayList::addHighlight(Face* f)
+{
+	;
+}
+*/

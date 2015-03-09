@@ -41,6 +41,12 @@ public:
 
 	void add(Polygon* p);
 
+	/*
+	void addHighlight(Vertex* v);
+
+	void addHighlight(Face* f);
+	*/
+
 	std::vector< float > getPositions() const { return vertices; }
 
 	std::vector< float > getNormals() const { return normals; }

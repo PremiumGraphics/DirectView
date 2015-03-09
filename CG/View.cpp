@@ -122,8 +122,8 @@ void View::OnMouse( wxMouseEvent& event )
 			const unsigned char g = image.GetGreen(position.x, position.y);
 			const unsigned char b = image.GetBlue(position.x, position.y);
 			wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-			const int vertexId = r;
-			frame->selectedVertex = frame->getVertexBuilder().getVertices()[vertexId];
+			frame->setSelectedVertex( r );
+			frame->setSelectedFace( g );
 			//frame->selectedFace = frame->get
 		}
 		return;

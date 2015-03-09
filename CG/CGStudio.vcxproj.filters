@@ -57,6 +57,7 @@
     <ClInclude Include="WireFrameRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="PropertyDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

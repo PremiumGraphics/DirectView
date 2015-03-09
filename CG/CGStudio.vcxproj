@@ -177,6 +177,7 @@
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="PolygonTree.h" />
+    <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="stdafx.h" />

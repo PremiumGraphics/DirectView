@@ -8,6 +8,8 @@
 
 #include "ModelingDialog.h"
 
+#include "PropertyDialog.h"
+
 #include <memory>
 
 namespace Crystal {
@@ -37,12 +39,23 @@ public:
 
 	std::list<Graphics::Material*> getMaterials() { return materials; }
 
-	Graphics::VertexBuilder getVertexBuilder() { return vBuilder; }
-	//Graphics::PolygonBuilder builder;
+	void setSelectedVertex(const unsigned int id)
+	{
+		if (id >= 0 && id < vBuilder.getVertices().size()) {
+			Graphics::Vertex* v = vBuilder.getVertices()[id];
+			selectedVertex = v;
+			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
+			dialog->Show();
+		}
+	}
 
-	Graphics::Vertex* selectedVertex;
-
-	Graphics::Face* selectedFace;
+	void setSelectedFace(const unsigned int id)
+	{
+		if (id >= 0 && id < vBuilder.getVertices().size()) {
+			Graphics::Face* f = fBuilder.getFaces()[id];
+			selectedFace = f;
+		}
+	}
 
 
 private:
@@ -154,6 +167,9 @@ private:
 	Graphics::VertexBuilder vBuilder;
 	Graphics::FaceBuilder fBuilder;
 	Graphics::PolygonBuilder builder;
+
+	Graphics::Vertex* selectedVertex;
+	Graphics::Face* selectedFace;
 
 	View* view;
 
