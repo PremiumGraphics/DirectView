@@ -12,9 +12,9 @@ namespace Crystal{
 class PolygonBuilder{
 public:
 
-	PolygonBuilder(VertexBuilder& vertexBuilder) :
+	PolygonBuilder(VertexBuilder& vertexBuilder, FaceBuilder& faceBuilder) :
 		nextId(0),
-		faceBuilder( vertexBuilder ),
+		faceBuilder( faceBuilder ),
 		vertexBuilder( vertexBuilder )
 	{}
 
@@ -41,7 +41,7 @@ public:
 private:
 	unsigned int nextId;
 
-	FaceBuilder faceBuilder;
+	FaceBuilder& faceBuilder;
 	VertexBuilder& vertexBuilder;
 };
 	}

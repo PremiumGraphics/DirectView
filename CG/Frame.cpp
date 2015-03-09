@@ -100,7 +100,8 @@ public:
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	builder(vBuilder)
+	fBuilder( vBuilder ),
+	builder(vBuilder, fBuilder)
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 

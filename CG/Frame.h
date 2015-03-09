@@ -37,6 +37,14 @@ public:
 
 	std::list<Graphics::Material*> getMaterials() { return materials; }
 
+	Graphics::VertexBuilder getVertexBuilder() { return vBuilder; }
+	//Graphics::PolygonBuilder builder;
+
+	Graphics::Vertex* selectedVertex;
+
+	Graphics::Face* selectedFace;
+
+
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
 
@@ -122,7 +130,6 @@ private:
 
 	void OnDropDown(wxRibbonButtonBarEvent& e);
 
-
 	void clear();
 
 private:
@@ -145,6 +152,7 @@ private:
 	CylinderConfigDialog::Config cylinderConfig;
 
 	Graphics::VertexBuilder vBuilder;
+	Graphics::FaceBuilder fBuilder;
 	Graphics::PolygonBuilder builder;
 
 	View* view;
