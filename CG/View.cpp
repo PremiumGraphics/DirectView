@@ -99,8 +99,8 @@ void View::OnKeyDown(wxKeyEvent& event)
 
 void View::OnMouse( wxMouseEvent& event )
 {
-	if (event.LeftDClick()) {
-		if (mode == PICK_VERTEX) {
+	if (mode == PICK_VERTEX) {
+		if (event.LeftDClick()) {
 			const int width = GetClientSize().GetWidth();
 			const int height = GetClientSize().GetHeight();
 			std::vector< GLubyte > pixels(width * height * 4);
@@ -121,8 +121,9 @@ void View::OnMouse( wxMouseEvent& event )
 			const unsigned char r = image.GetRed(position.x, position.y);
 			const unsigned char g = image.GetGreen(position.x, position.y);
 			const unsigned char b = image.GetBlue(position.x, position.y);
-			wxMessageBox(wxString::Format("%d %d %d", r, g, b));
+			wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 		}
+		return;
 	}
 
 	if( event.Dragging() ) {

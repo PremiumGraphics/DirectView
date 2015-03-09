@@ -32,9 +32,9 @@ void IDRenderer::build()
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
-		"	color.r = vertexId;				\n"
-		"	color.g = faceId;					\n"
-		"	color.b = polygonId;					\n"
+		"	color.r = vertexId / 255.0;				\n"
+		"	color.g = faceId / 255.0;					\n"
+		"	color.b = polygonId / 255.0;					\n"
 		"}\n"
 		;
 
