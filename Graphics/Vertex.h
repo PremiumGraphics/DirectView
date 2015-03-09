@@ -95,8 +95,9 @@ public:
 		vertices.clear();
 	}
 
-	void build(const Math::Vector3d& position) {
+	Vertex* build(const Math::Vector3d& position) {
 		vertices.push_back(new Vertex(position, nextId++));
+		return vertices.back();
 	}
 
 	Vertex* build(const Math::Vector3d& position, const Math::Vector3d& normal) {
@@ -104,11 +105,12 @@ public:
 		return vertices.back();
 	}
 
-	void build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
+	Vertex* build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
 		vertices.push_back(new Vertex(position, normal, texCoord, nextId++));
+		return vertices.back();
 	}
 
-	std::vector< Vertex* > buildVerticesFromPositions(const Math::Vector3dVector& positions) {
+	VertexVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
 		std::vector< Vertex* > vertices;
 		for (const Math::Vector3d& position : positions) {
 			Vertex* v = new Vertex(position, nextId++);
@@ -117,7 +119,7 @@ public:
 		return vertices;
 	}
 
-	std::vector< Vertex* > buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
+	VertexVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
 		assert(positions.size() == normals.size());
 		std::vector< Vertex* > vertices;
 		for (size_t i = 0; i < positions.size(); ++i) {

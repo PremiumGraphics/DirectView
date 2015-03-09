@@ -82,45 +82,36 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	std::vector<unsigned int> vertexIds0;
+	VertexVector vv0;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
-		vertexIds0.push_back(i);
+		vv0.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	faceBuilder.build( vertexBuilder.getVertices(), vertexIds0);
+	faceBuilder.build( vv0 );
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
-	std::vector<unsigned int> vertexIds1;
+	VertexVector vv1;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f));
-		vertexIds1.push_back(divideNumber + i);
+		vv1.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	faceBuilder.build( vertexBuilder.getVertices(), vertexIds1);
+	faceBuilder.build( vv1 );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
-
-		const unsigned int v0 = vertexIds0[i];
-		const unsigned int v1 = vertexIds0[i+1];
-		const unsigned int v2 = vertexIds1[i+1];
-		const unsigned int v3 = vertexIds1[i];
-		std::vector<unsigned int> vertexIds2 = { v0, v1, v2, v3 };
-		faceBuilder.build( vertexBuilder.getVertices(), vertexIds2);
+		const VertexVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
+		faceBuilder.build( vv );
 	}
 
 	{
-		const unsigned int v0 = vertexIds0.back();
-		const unsigned int v1 = vertexIds0.front();
-		const unsigned int v2 = vertexIds1.front();
-		const unsigned int v3 = vertexIds1.back();
-		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
-		faceBuilder.build(vertexBuilder.getVertices(), vertexIds3);
+		const VertexVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
+		faceBuilder.build( vv );
 	}
+
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(vertexBuilder.getVertices());
+	polygon->addVertices(vv0);
+	polygon->addVertices(vv1);
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 

@@ -33,7 +33,9 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setVertices(const VertexVector& pos) { this->vertices = pos; }
+	void setVertices(const VertexVector& vs) { this->vertices = vs; }
+
+	void addVertices(const VertexVector& vs) { this->vertices = vs; }
 
 	VertexVector getVertices() const { return vertices; }
 

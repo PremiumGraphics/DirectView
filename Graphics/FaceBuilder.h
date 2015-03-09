@@ -20,6 +20,11 @@ public:
 
 	Face* buildQuad();
 
+	void build(const VertexVector& vertices ) {
+		Face* f = new Face(eBuilder.createClosedFromVertices(vertices), nextId++);
+		faces.push_back(f);
+	}
+
 	void build(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds) {
 		Face* f = new Face( eBuilder.createByIndex( vertices, vertexIds), nextId++ );
 		faces.push_back(f);
