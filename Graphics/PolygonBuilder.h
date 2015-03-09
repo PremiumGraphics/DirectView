@@ -12,36 +12,45 @@ namespace Crystal{
 class PolygonBuilder{
 public:
 
-	PolygonBuilder() :
+	PolygonBuilder(VertexBuilder& vertexBuilder) :
 		nextId(0),
-		faceBuilder( vertexBuilder )
+		faceBuilder( vertexBuilder ),
+		vertexBuilder( vertexBuilder )
 	{}
 
-	Polygon* buildQuad();
+	void buildQuad();
 
-	Polygon* buildBox();
+	void buildBox();
 
-	Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	Polygon* buildCircleByAngle(const float radius, const float divideAngle);
+	void buildCircleByAngle(const float radius, const float divideAngle);
 
-	Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
+	void buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	Polygon* buildCylinder(const unsigned int divideNuber);
+	void buildCylinder(const unsigned int divideNuber);
 
-	Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	void buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	Polygon* buildCone(const unsigned int divideNumber);
+	void buildCone(const unsigned int divideNumber);
 
 	void clear(){
 		nextId = 0;
+	}
+
+
+	Polygon* createPolygon() {
+		Polygon* polygon = new Polygon(nextId++);
+		polygon->setVertices(faceBuilder.getVertices());
+		polygon->setFaces(faceBuilder.getFaces());
+		return polygon;
 	}
 
 private:
 	unsigned int nextId;
 
 	FaceBuilder faceBuilder;
-	VertexBuilder vertexBuilder;
+	VertexBuilder& vertexBuilder;
 };
 	}
 }

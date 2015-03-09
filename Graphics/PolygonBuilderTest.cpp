@@ -9,7 +9,8 @@ using namespace Crystal::Graphics;
 
 TEST(PolygonBuilderTest, TestBuildQuad)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildQuad() );
 
 	EXPECT_EQ(1, p->getFaces().size());
@@ -24,8 +25,8 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 		Vector3d(0.0, 0.0, 1.0)
 	};
 
-	VertexBuilder vBuilder;
-	const VertexVector& positions = vBuilder.buildVerticesFromPositionsAndNormals(
+	VertexBuilder vBuilder2;
+	const VertexVector& positions = vBuilder2.buildVerticesFromPositionsAndNormals(
 	{
 		Vector3d(0.0, 1.0, 0.0),
 		Vector3d(0.0, 0.0, 0.0),
@@ -39,11 +40,12 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 
 TEST(PolygonBuilderTest, TestBuildBox)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildBox() );
 
-	VertexBuilder vBuilder;
-	const VertexVector positions = vBuilder.buildVerticesFromPositions(
+	VertexBuilder vBuilder2;
+	const VertexVector positions = vBuilder2.buildVerticesFromPositions(
 	{
 		Vector3d(0.0, 1.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),
@@ -63,7 +65,8 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildCircleByAngle( 1.0f, 90.0f) );
 	EXPECT_EQ(4, p->getVertices().size());
 
@@ -94,7 +97,8 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildTriangle());
 
 	EXPECT_EQ( 3, p->getVertices().size());
@@ -125,7 +129,8 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
 
@@ -156,7 +161,8 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 
 TEST(PolygonBuilderTest, TestBuildCylinder)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildCylinder(3) );
 
 	EXPECT_EQ(6, p->getVertices().size());
@@ -165,7 +171,8 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 
 TEST(PolygonBuilderTest, TestBuildCone)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 	std::unique_ptr< Polygon > p( builder.buildCone(3) );
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());

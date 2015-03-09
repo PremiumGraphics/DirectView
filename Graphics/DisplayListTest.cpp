@@ -54,7 +54,8 @@ TEST(DisplayListTest, TestAddFace)
 
 TEST(DisplayListTest, TestAddPolygon)
 {
-	PolygonBuilder builder;
+	VertexBuilder vBuilder;
+	PolygonBuilder builder(vBuilder);
 
 	DisplayList list;
 	list.add(builder.buildQuad());

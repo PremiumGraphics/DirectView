@@ -144,6 +144,7 @@ private:
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 
+	Graphics::VertexBuilder vBuilder;
 	Graphics::PolygonBuilder builder;
 
 	View* view;
