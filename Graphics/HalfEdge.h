@@ -17,12 +17,14 @@ public:
 		prev( nullptr ),
 		next( nullptr ),
 		start( nullptr ),
-		end( nullptr )
+		end( nullptr ),
+		id( -1 )
 	{}
 
-	HalfEdge(Vertex* start, Vertex* end) :
-		start( start ),
-		end( end )
+	HalfEdge(Vertex* start, Vertex* end, const int id) :
+		start(start),
+		end(end),
+		id( id )
 	{}
 
 	void setPrev(HalfEdge* prev) { this->prev = prev; }
@@ -50,6 +52,7 @@ private:
 	Vertex* end;
 	HalfEdge* prev;
 	HalfEdge* next;
+	const unsigned int id;
 };
 
 typedef std::vector<HalfEdge*> HalfEdgeVector;
@@ -58,12 +61,23 @@ typedef std::list<HalfEdge*> HalfEdgeList;
 class HalfEdgeBuilder
 {
 public:
-	static std::list<HalfEdge*> createOpenFromVertices(const VertexVector& vertices);
+	HalfEdgeBuilder() : nextId(0)
+	{}
 
-	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
+	HalfEdge* build(Vertex* start, Vertex* end, const int id)
+	{
+		edges.push_back(new HalfEdge(start, end, nextId++));
+	}
 
-	static std::list<HalfEdge*> createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+	HalfEdgeList createOpenFromVertices(const VertexVector& vertices);
 
+	HalfEdgeList createClosedFromVertices(const VertexVector& vertices);
+
+	HalfEdgeList createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+
+private:
+	HalfEdgeList edges;
+	unsigned int nextId;
 };
 
 	}

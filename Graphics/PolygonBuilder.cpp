@@ -64,11 +64,11 @@ Polygon* PolygonBuilder::buildBox()
 
 Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
-	faceBuilder.buildCircleByNumber(radius, divideNumber);
+	Face* f = faceBuilder.buildCircleByNumber(radius, divideNumber);
 
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(faceBuilder.getVertices());
-	polygon->setFaces(faceBuilder.getFaces());
+	polygon->setVertices(f->getVertices());
+	polygon->setFaces({ f });
 	return polygon;
 }
 

@@ -70,15 +70,12 @@ TEST(DisplayListTest, TestAddPolygon)
 		EXPECT_EQ( expected, list.getVertexIds() );
 	}
 
-	builder.clear();
-
+	list.clear();
 	list.add(builder.buildTriangle());
 
-	/*
 	{
 		const std::vector<unsigned int> expected{ 0, 1, 2, 3, 4, 5, 6 };
 		EXPECT_EQ( expected, list.getVertexIds() );
 	}
-	*/
 
 }

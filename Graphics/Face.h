@@ -43,6 +43,14 @@ public:
 
 	HalfEdgeList getEdges() const { return edges; }
 
+	VertexVector getVertices() const {
+		VertexVector vertices;
+		for (HalfEdge* e : edges) {
+			vertices.push_back(e->getStart());
+		}
+		return vertices;
+	}
+
 	Math::Vector3dVector getPositions() const;
 
 	Math::Vector3dVector getNormals() const;

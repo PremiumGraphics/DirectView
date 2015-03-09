@@ -16,22 +16,24 @@ public:
 		nextId(0)
 	{}
 
-	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	Face* buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
 	Face* buildQuad();
 
 	void build(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds) {
-		Face* f = new Face( HalfEdgeBuilder::createByIndex(vertices, vertexIds), nextId++ );
+		Face* f = new Face( eBuilder.createByIndex( vertices, vertexIds), nextId++ );
 		faces.push_back(f);
 	}
 
-	VertexVector getVertices() const { return vBuilder.getVertices();  }
+	VertexVector getVertices() const { return vertices; }
 
 	FaceVector getFaces() const { return faces; }
 
 private:
 	VertexBuilder& vBuilder;
+	VertexVector vertices;
 	FaceVector faces;
+	HalfEdgeBuilder eBuilder;
 	unsigned int nextId;
 };
 

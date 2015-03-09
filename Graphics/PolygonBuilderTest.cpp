@@ -176,4 +176,5 @@ TEST(PolygonBuilderTest, TestBuildCone)
 	std::unique_ptr< Polygon > p(builder.buildCone(3));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());
+	EXPECT_EQ(0, p->getId());
 }

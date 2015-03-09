@@ -9,7 +9,7 @@ HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertice
 	for (size_t i = 0; i < vertices.size() - 1; ++i ) {
 		Vertex* start = vertices[i];
 		Vertex* end = vertices[i+1];
-		HalfEdge* edge = new HalfEdge( start, end );
+		HalfEdge* edge = new HalfEdge( start, end, nextId++ );
 		edges.push_back(edge);
 	}
 	for (size_t i = 0; i < edges.size() - 1; ++i ) {
@@ -29,12 +29,12 @@ HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& verti
 	for (size_t i = 0; i < vertices.size() - 1; ++i) {
 		Vertex* start = vertices[i];
 		Vertex* end = vertices[i + 1];
-		HalfEdge* edge = new HalfEdge(start, end);
+		HalfEdge* edge = new HalfEdge(start, end, nextId++);
 		edges.push_back(edge);
 	}
 
 	{
-		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front());
+		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front(), nextId++);
 		edges.push_back(edge);
 	}
 	return HalfEdgeList( edges.begin(), edges.end() );

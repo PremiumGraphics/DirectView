@@ -99,8 +99,9 @@ public:
 		vertices.push_back(new Vertex(position, nextId++));
 	}
 
-	void build(const Math::Vector3d& position, const Math::Vector3d& normal) {
+	Vertex* build(const Math::Vector3d& position, const Math::Vector3d& normal) {
 		vertices.push_back(new Vertex(position, normal, nextId++));
+		return vertices.back();
 	}
 
 	void build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
