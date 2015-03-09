@@ -58,7 +58,7 @@ TEST(DisplayListTest, TestAddPolygon)
 	PolygonBuilder builder(vBuilder);
 
 	DisplayList list;
-	list.add(builder.buildQuad());
+	list.add(builder.buildQuad() );
 
 	{
 		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
@@ -69,6 +69,8 @@ TEST(DisplayListTest, TestAddPolygon)
 		const std::vector<unsigned int> expected{ 0, 1, 2, 3 };
 		EXPECT_EQ( expected, list.getVertexIds() );
 	}
+
+	builder.clear();
 
 	list.add(builder.buildTriangle());
 

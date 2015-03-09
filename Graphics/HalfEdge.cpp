@@ -2,7 +2,7 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdge::createOpenFromVertices(const VertexVector& vertices)
+HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertices)
 {
 	assert(vertices.size() >= 1);
 	HalfEdgeVector edges;
@@ -21,7 +21,7 @@ HalfEdgeList HalfEdge::createOpenFromVertices(const VertexVector& vertices)
 	return HalfEdgeList(edges.begin(), edges.end());
 }
 
-HalfEdgeList HalfEdge::createClosedFromVertices(const VertexVector& vertices)
+HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& vertices)
 {
 	assert(vertices.size() >= 1);
 	
@@ -40,7 +40,7 @@ HalfEdgeList HalfEdge::createClosedFromVertices(const VertexVector& vertices)
 	return HalfEdgeList( edges.begin(), edges.end() );
 }
 
-HalfEdgeList HalfEdge::createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices)
+HalfEdgeList HalfEdgeBuilder::createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices)
 {
 	VertexVector vs;
 	for ( const unsigned int i : indices) {

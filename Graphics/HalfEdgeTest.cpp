@@ -19,7 +19,7 @@ TEST(HalfEdgeTest, TestCreateOpenFromVertices)
 		new Vertex(Vector3d(1.0, 0.0, 0.0), 1),
 		new Vertex(Vector3d(1.0, 1.0, 0.0), 2)
 	};
-	const HalfEdgeList& actual = HalfEdge::createOpenFromVertices( vertices );
+	const HalfEdgeList& actual = HalfEdgeBuilder::createOpenFromVertices( vertices );
 	EXPECT_EQ(2, actual.size());
 	EXPECT_EQ(nullptr, actual.front()->getPrev());
 	EXPECT_EQ(nullptr, actual.back()->getNext());
@@ -34,7 +34,7 @@ TEST(HalfEdgeTest, TestCreateClosedFromVertices)
 		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 	};
 
-	const HalfEdgeList& actual = HalfEdge::createClosedFromVertices(vertices);
+	const HalfEdgeList& actual = HalfEdgeBuilder::createClosedFromVertices(vertices);
 	EXPECT_EQ(2, actual.size());
 	EXPECT_NE(nullptr, actual.front()->getPrev());
 	EXPECT_NE(nullptr, actual.back()->getNext());

@@ -58,7 +58,6 @@ private:
 
 typedef std::vector<Face*> FaceVector;
 
-
 	}
 }
 

@@ -18,10 +18,10 @@ public:
 
 	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	void buildQuad();
+	Face* buildQuad();
 
 	void build(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds) {
-		Face* f = new Face( HalfEdge::createByIndex(vertices, vertexIds), nextId++ );
+		Face* f = new Face( HalfEdgeBuilder::createByIndex(vertices, vertexIds), nextId++ );
 		faces.push_back(f);
 	}
 

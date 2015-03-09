@@ -18,32 +18,24 @@ public:
 		vertexBuilder( vertexBuilder )
 	{}
 
-	void buildQuad();
+	Polygon* buildQuad();
 
-	void buildBox();
+	Polygon* buildBox();
 
-	void buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	void buildCircleByAngle(const float radius, const float divideAngle);
+	Polygon* buildCircleByAngle(const float radius, const float divideAngle);
 
-	void buildTriangle() { return buildCircleByNumber(1.0f, 3); }
+	Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	void buildCylinder(const unsigned int divideNuber);
+	Polygon* buildCylinder(const unsigned int divideNuber);
 
-	void buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	void buildCone(const unsigned int divideNumber);
+	Polygon* buildCone(const unsigned int divideNumber);
 
 	void clear(){
 		nextId = 0;
-	}
-
-
-	Polygon* createPolygon() {
-		Polygon* polygon = new Polygon(nextId++);
-		polygon->setVertices(faceBuilder.getVertices());
-		polygon->setFaces(faceBuilder.getFaces());
-		return polygon;
 	}
 
 private:

@@ -11,7 +11,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildQuad() );
+	std::unique_ptr< Polygon > p(builder.buildQuad() );
 
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
@@ -42,7 +42,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildBox() );
+	std::unique_ptr< Polygon > p(builder.buildBox());
 
 	VertexBuilder vBuilder2;
 	const VertexVector positions = vBuilder2.buildVerticesFromPositions(
@@ -67,7 +67,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildCircleByAngle( 1.0f, 90.0f) );
+	std::unique_ptr< Polygon > p(builder.buildCircleByAngle(1.0f, 90.0f));
 	EXPECT_EQ(4, p->getVertices().size());
 
 	/*
@@ -99,7 +99,7 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildTriangle());
+	std::unique_ptr< Polygon > p(builder.buildTriangle() );
 
 	EXPECT_EQ( 3, p->getVertices().size());
 	/*
@@ -163,7 +163,7 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildCylinder(3) );
+	std::unique_ptr< Polygon > p(builder.buildCylinder(3));
 
 	EXPECT_EQ(6, p->getVertices().size());
 	EXPECT_EQ(5, p->getFaces().size());
@@ -173,7 +173,7 @@ TEST(PolygonBuilderTest, TestBuildCone)
 {
 	VertexBuilder vBuilder;
 	PolygonBuilder builder(vBuilder);
-	std::unique_ptr< Polygon > p( builder.buildCone(3) );
+	std::unique_ptr< Polygon > p(builder.buildCone(3));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());
 }

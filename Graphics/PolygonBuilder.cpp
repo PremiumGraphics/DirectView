@@ -6,12 +6,22 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-void PolygonBuilder::buildQuad()
+Polygon* PolygonBuilder::buildQuad()
 {
+	FaceVector faces;
+
 	faceBuilder.buildQuad();
+
+	faces.push_back( faceBuilder.getFaces().back() );
+	//this->vertices = faceBuilder.getVertices();
+
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(faceBuilder.getVertices());
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 }
 
-void PolygonBuilder::buildBox()
+Polygon* PolygonBuilder::buildBox()
 {
 	const Vector3dVector normals = {
 		Vector3d(0.0, 0.0, 1.0),
@@ -35,7 +45,7 @@ void PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	const VertexVector& vertices = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
+	VertexVector vertices = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
 	faceBuilder.build(vertices, { 0, 1, 2, 3 });
 	faceBuilder.build(vertices, { 4, 5, 6, 7 });
@@ -44,21 +54,31 @@ void PolygonBuilder::buildBox()
 	faceBuilder.build(vertices, { 3, 0, 4, 7 });
 	faceBuilder.build(vertices, { 5, 1, 2, 6 });
 
-	const FaceVector& faces = faceBuilder.getFaces();
+	FaceVector faces = faceBuilder.getFaces();
+
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(vertices);
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 }
 
-void PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
 	faceBuilder.buildCircleByNumber(radius, divideNumber);
+
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(faceBuilder.getVertices());
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 }
 
-void PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
+Polygon* PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
 {
 	const int howMany = static_cast<int>(360.0f / divideAngle);
 	return buildCircleByNumber(radius, howMany);
 }
 
-void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
@@ -99,10 +119,14 @@ void PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		std::vector<unsigned int> vertexIds3 = { v0, v1, v2, v3 };
 		faceBuilder.build(vertexBuilder.getVertices(), vertexIds3);
 	}
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(vertexBuilder.getVertices());
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 
 }
 
-void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
+Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
 {
 	VertexVector vertices;
 	FaceVector faces;
@@ -118,10 +142,14 @@ void PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigne
 			vertexIds.push_back(i);
 		}
 	}
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(vertices);
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 
 }
 
-void PolygonBuilder::buildCone(const unsigned int divideNumber)
+Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 	VertexVector vertices;
@@ -152,5 +180,9 @@ void PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v2 = divideNumber;
 		faceBuilder.build(vertices, { v0, v1, v2 });
 	}
+	Polygon* polygon = new Polygon(nextId++);
+	polygon->setVertices(vertices);
+	polygon->setFaces(faceBuilder.getFaces());
+	return polygon;
 
 }

@@ -45,12 +45,6 @@ public:
 
 	Math::Vector3d getEndPosition() const { return end->getPosition(); }
 
-	static std::list<HalfEdge*> createOpenFromVertices(const VertexVector& vertices);
-
-	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
-
-	static std::list<HalfEdge*> createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
-
 private:
 	Vertex* start;
 	Vertex* end;
@@ -60,6 +54,17 @@ private:
 
 typedef std::vector<HalfEdge*> HalfEdgeVector;
 typedef std::list<HalfEdge*> HalfEdgeList;
+
+class HalfEdgeBuilder
+{
+public:
+	static std::list<HalfEdge*> createOpenFromVertices(const VertexVector& vertices);
+
+	static std::list<HalfEdge*> createClosedFromVertices(const VertexVector& vertices);
+
+	static std::list<HalfEdge*> createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+
+};
 
 	}
 }

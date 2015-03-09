@@ -19,17 +19,18 @@ void FaceBuilder::buildCircleByNumber(const float radius, const unsigned int div
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vBuilder.build( radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d(0.0, 0.0, 1.0) );
 	}
-	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vBuilder.getVertices());
+	const HalfEdgeList& edges = HalfEdgeBuilder::createClosedFromVertices(vBuilder.getVertices());
 	faces.push_back( new Face(edges, nextId++) );
 }
 
-void FaceBuilder::buildQuad()
+Face* FaceBuilder::buildQuad()
 {
 	vBuilder.build(Vector3d(0.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0));
 	vBuilder.build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0));
 	vBuilder.build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0));
 	vBuilder.build(Vector3d(1.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0));
 
-	const HalfEdgeList& edges = HalfEdge::createClosedFromVertices(vBuilder.getVertices());
+	const HalfEdgeList& edges = HalfEdgeBuilder::createClosedFromVertices(vBuilder.getVertices());
 	faces = { new Face(edges, nextId++) };
+	return faces.back();
 }
