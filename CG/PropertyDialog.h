@@ -5,29 +5,77 @@
 
 #include "../Graphics/Vertex.h"
 #include "../Graphics/Face.h"
+#include "../Graphics/Polygon.h"
 
 namespace Crystal{
 	namespace CG{
 
-		class VertexPropertyDialog : public wxDialog {
-		public:
-			VertexPropertyDialog(wxWindow* parent, const Graphics::Vertex& vertex);
-		private:
+class VertexPropertyDialog : public wxDialog {
+public:
+	VertexPropertyDialog(wxWindow* parent, Graphics::Vertex& vertex);
 
-		};
+	void OnOk(wxCommandEvent& e);
 
-		class FacePropertyDialog : public wxDialog {
-		public:
-			FacePropertyDialog(wxWindow* parent, const Graphics::Face& f) :
-				wxDialog(parent, wxID_ANY, "FaceProperty", wxDefaultPosition, wxSize(300, 300))
-			{
-				wxSize size(50, 25);
+	void OnNormalizeNormal(wxCommandEvent& e);
 
-				new wxStaticText(this, wxID_ANY, "ID", wxPoint(0, 0));
-				wxSpinCtrl* id = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 0));
-				id->SetValue(f.getId());
-			}
-		};
+private:
+	void setPosition(const Math::Vector3d& pos);
+
+	void setNormal(const Math::Vector3d& norm);
+
+	void setTexCoord(const Math::Vector3d& texCoord);
+
+	Math::Vector3d getPosition() const;
+
+	Math::Vector3d getNormal() const;
+
+	Math::Vector3d getTexCoord() const;
+
+	wxSpinCtrlDouble* positionX;
+	wxSpinCtrlDouble* positionY;
+	wxSpinCtrlDouble* positionZ;
+
+	wxSpinCtrlDouble* normalX;
+	wxSpinCtrlDouble* normalY;
+	wxSpinCtrlDouble* normalZ;
+
+	wxSpinCtrlDouble* texCoordX;
+	wxSpinCtrlDouble* texCoordY;
+	wxSpinCtrlDouble* texCoordZ;
+
+	Graphics::Vertex& vertex;
+};
+
+class FacePropertyDialog : public wxDialog {
+public:
+	FacePropertyDialog(wxWindow* parent, const Graphics::Face& f);
+};
+
+class EdgePropertyDialog : public wxDialog
+{
+public:
+	EdgePropertyDialog(wxWindow* parent, Graphics::HalfEdge& edge);
+
+private:
+	Graphics::HalfEdge& edge;
+
+	wxSpinCtrl* startId;
+
+	wxSpinCtrl* endId;
+};
+
+class PolygonPropertyDialog : public wxDialog
+{
+public:
+	PolygonPropertyDialog(wxWindow* parent, Graphics::Polygon& polygon);
+
+private:
+	Graphics::Polygon& polygon;
+
+	wxSpinCtrl* vertices;
+	wxSpinCtrl* edges;
+	wxSpinCtrl* faces;
+};
 
 	}
 }

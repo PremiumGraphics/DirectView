@@ -21,7 +21,7 @@ public:
 		id( -1 )
 	{}
 
-	HalfEdge(Vertex* start, Vertex* end, const int id) :
+	HalfEdge(Vertex* start, Vertex* end, const unsigned int id) :
 		start(start),
 		end(end),
 		id( id )
@@ -46,6 +46,8 @@ public:
 	Math::Vector3d getStartPosition() const { return start->getPosition(); }
 
 	Math::Vector3d getEndPosition() const { return end->getPosition(); }
+
+	unsigned int getId() const { return id; }
 
 private:
 	Vertex* start;

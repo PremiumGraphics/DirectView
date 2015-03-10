@@ -3,9 +3,11 @@
 
 #include "../Math/Vector3d.h"
 #include <vector>
+#include <list>
 
 namespace Crystal {
 	namespace Graphics {
+		class HalfEdge;
 
 class Vertex {
 public:
@@ -38,6 +40,10 @@ public:
 	void setTexCoord(const Math::Vector3d& texCoord) { this->texCoord = texCoord; }
 
 	Math::Vector3d getTexCoord() const { return texCoord; }
+
+	void addEdge(HalfEdge* e) { this->edges.push_back( e ); }
+
+	std::list<HalfEdge*> getEdges() const { return edges; }
 
 	void move(const Math::Vector3d& vec){
 		position += vec;
@@ -73,6 +79,7 @@ private:
 	Math::Vector3d position;
 	Math::Vector3d normal;
 	Math::Vector3d texCoord;
+	std::list< HalfEdge* > edges;
 	unsigned int id;
 };
 

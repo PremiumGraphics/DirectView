@@ -10,6 +10,8 @@ HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertice
 		Vertex* start = vertices[i];
 		Vertex* end = vertices[i+1];
 		HalfEdge* edge = new HalfEdge( start, end, nextId++ );
+		start->addEdge(edge);
+		end->addEdge(edge);
 		edges.push_back(edge);
 	}
 	for (size_t i = 0; i < edges.size() - 1; ++i ) {
