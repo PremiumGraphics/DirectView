@@ -17,6 +17,15 @@
     <ClCompile Include="NormalRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="IDRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PointRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoothRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -43,6 +52,18 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="NormalRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="IDRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererBase.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PointRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoothRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>

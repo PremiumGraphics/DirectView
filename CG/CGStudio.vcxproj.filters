@@ -12,15 +12,6 @@
     <ClCompile Include="LightTree.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
     <ClCompile Include="PolygonProperty.cpp" />
-    <ClCompile Include="PointRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="IDRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="SmoothRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="ModelingDialog.cpp" />
   </ItemGroup>
@@ -38,23 +29,11 @@
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ModelingDialog.h" />
-    <ClInclude Include="PointRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="IDRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="SmoothRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="PropertyDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
       <UniqueIdentifier>{3a66a511-0479-4b75-8f20-340c7e675bbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{c2d8099e-712b-487d-be1f-e1a7a55a8bcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

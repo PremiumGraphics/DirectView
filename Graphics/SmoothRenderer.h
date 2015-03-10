@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_APP_POLYGON_RENDERER_H__
-#define __CRYSTAL_APP_POLYGON_RENDERER_H__
+#ifndef __CRYSTAL_GRAPHICS_POLYGON_RENDERER_H__
+#define __CRYSTAL_GRAPHICS_POLYGON_RENDERER_H__
 
 #include <map>
 #include <vector>
@@ -13,7 +13,7 @@ namespace Crystal {
 	namespace Math {
 		class Vector3d;
 	}
-	namespace CG {
+	namespace Graphics {
 
 class SmoothRenderer {
 public:

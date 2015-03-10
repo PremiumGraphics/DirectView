@@ -5,12 +5,11 @@
 
 #include "Frame.h"
 
-#include "SmoothRenderer.h"
-#include "PointRenderer.h"
-#include "IDRenderer.h"
-
 #include "../Graphics/WireFrameRenderer.h"
 #include "../Graphics/NormalRenderer.h"
+#include "../Graphics/IDRenderer.h"
+#include "../Graphics/PointRenderer.h"
+#include "../Graphics/SmoothRenderer.h"
 
 
 #include "../Graphics/DisplayList.h"
@@ -85,10 +84,10 @@ private:
 	void build();
 
 	Graphics::WireFrameRenderer wireFrameRenderer;
-	SmoothRenderer smoothRenderer;
+	Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
-	PointRenderer pointRenderer;
-	IDRenderer idRenderer;
+	Graphics::PointRenderer pointRenderer;
+	Graphics::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;
 

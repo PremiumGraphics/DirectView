@@ -35,23 +35,9 @@ public:
 		float ySize;
 	};
 
-	QuadConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
-	{
-		new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
-		xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+	QuadConfigDialog(wxWindow* parent);
 
-		new wxStaticText(this, wxID_ANY, "Y Size", wxPoint(0, 200));
-		ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
-
-	void setConfig(const Config& config) {
-		this->xSize->SetValue(config.xSize);
-		this->ySize->SetValue(config.ySize);
-	}
+	void setConfig(const Config& config);
 
 	Config getConfig() {
 		Config config;
@@ -106,26 +92,7 @@ public:
 	};
 
 
-	CircleConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
-	{
-		new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 100));
-		divideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-		divideAngle->SetRange(0.1, 120.0);
-
-		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 200));
-		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-		divideNumber->SetRange(3, 360);
-
-		new wxStaticText(this, wxID_ANY, "Width", wxPoint(0, 300));
-		width = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-
-		new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 400));
-		height = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
-
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
+	CircleConfigDialog(wxWindow* parent);
 
 	void setConfig(const Config& config) {
 		divideNumber->SetValue(config.getDivideNumber());
@@ -192,21 +159,7 @@ public:
 		float vRadius;
 	};
 
-	SphereConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
-	{
-		new wxStaticText(this, wxID_ANY, "U Divide", wxPoint(0, 100));
-		uDivideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-		new wxStaticText(this, wxID_ANY, "V Divide", wxPoint(0, 200));
-		vDivideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-		new wxStaticText(this, wxID_ANY, "U Radius", wxPoint(0, 300));
-		uRadius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-		new wxStaticText(this, wxID_ANY, "V Radius", wxPoint(0, 400));
-		vRadius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
-	
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
+	SphereConfigDialog(wxWindow* parent);
 
 	void setConfig(const Config& config) {
 		uDivideAngle->SetValue( config.getUDivideNumber() );
@@ -320,24 +273,7 @@ public:
 		float zSize;
 	};
 
-	BoxConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "BoxConfig", wxDefaultPosition, wxSize(500, 500))
-	{
-		new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
-		xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-		xSize->SetRange(0.0, 10000.0);
-
-		new wxStaticText(this, wxID_ANY, "Y Size", wxPoint(0, 200));
-		ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-		ySize->SetRange(0.0, 10000.0);
-
-		new wxStaticText(this, wxID_ANY, "Z Size", wxPoint(0, 300));
-		zSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-		zSize->SetRange(0.0, 10000.0);
-
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
+	BoxConfigDialog(wxWindow* parent);
 
 	void setConfig(const Config& config) {
 		xSize->SetValue(config.xSize);

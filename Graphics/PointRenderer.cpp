@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "PointRenderer.h"
 
 #include <cassert>
@@ -9,7 +8,6 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
 
 PointRenderer::PointRenderer() :
 	pointSize(10)

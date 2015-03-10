@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_APP_POINT_RENDERER_H__
-#define __CRYSTAL_APP_POINT_RENDERER_H__
+#ifndef __CRYSTAL_GRAPHICS_POINT_RENDERER_H__
+#define __CRYSTAL_GRAPHICS_POINT_RENDERER_H__
 
 #include "../Graphics/ShaderObject.h"
 
@@ -8,7 +8,7 @@
 #include "../Graphics/DisplayList.h"
 
 namespace Crystal {
-	namespace CG {
+	namespace Graphics {
 
 class PointRenderer {
 public:

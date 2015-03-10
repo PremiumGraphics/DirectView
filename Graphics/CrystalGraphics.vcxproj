@@ -91,11 +91,14 @@
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
+    <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
+    <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="WireFrameRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,15 +113,19 @@
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="HalfEdge.h" />
+    <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="ImageRGB.h" />
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="NormalRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="PolygonGroup.h" />
+    <ClInclude Include="RendererBase.h" />
     <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WireFrameRenderer.h" />
   </ItemGroup>
