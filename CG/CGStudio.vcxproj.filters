@@ -22,6 +22,7 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="PropertyDialog.cpp" />
+    <ClCompile Include="ModelingDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

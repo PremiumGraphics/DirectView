@@ -24,7 +24,7 @@ TEST(FaceTest, TestIsClosed)
 			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 		};
 		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices);
+		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
@@ -36,7 +36,7 @@ TEST(FaceTest, TestIsClosed)
 			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 		};
 		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices);
+		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());
@@ -52,7 +52,7 @@ TEST(FaceTest, TestGetPositions)
 			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 		};
 		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices);
+		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
 	}
@@ -63,7 +63,7 @@ TEST(FaceTest, TestGetPositions)
 			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 		};
 		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices);
+		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
 	}
@@ -77,7 +77,7 @@ TEST(FaceTest, TestGetNormals)
 			new Vertex(Vector3d(1.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 0.0), 1)
 		};
 		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices);
+		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getNormals().size());
 	}

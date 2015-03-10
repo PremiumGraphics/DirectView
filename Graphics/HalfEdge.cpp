@@ -2,14 +2,14 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertices)
+HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertices, Face* face)
 {
 	assert(vertices.size() >= 1);
 	HalfEdgeVector edges;
 	for (size_t i = 0; i < vertices.size() - 1; ++i ) {
 		Vertex* start = vertices[i];
 		Vertex* end = vertices[i+1];
-		HalfEdge* edge = new HalfEdge( start, end, nextId++ );
+		HalfEdge* edge = new HalfEdge( start, end, nextId++, face );
 		start->addEdge(edge);
 		end->addEdge(edge);
 		edges.push_back(edge);
@@ -23,7 +23,7 @@ HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertice
 	return HalfEdgeList(edges.begin(), edges.end());
 }
 
-HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& vertices)
+HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& vertices, Face* face)
 {
 	assert(vertices.size() >= 1);
 	
@@ -31,7 +31,7 @@ HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& verti
 	for (size_t i = 0; i < vertices.size() - 1; ++i) {
 		Vertex* start = vertices[i];
 		Vertex* end = vertices[i + 1];
-		HalfEdge* edge = new HalfEdge(start, end, nextId++);
+		HalfEdge* edge = new HalfEdge(start, end, nextId++, face);
 		start->addEdge(edge);
 		end->addEdge(edge);
 		edges.push_back(edge);
@@ -42,7 +42,7 @@ HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& verti
 		edges[i + 1]->setPrev(edges[i]);
 	}
 	{
-		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front(), nextId++);
+		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front(), nextId++, face);
 		vertices.back()->addEdge(edge);
 		vertices.front()->addEdge(edge);
 		edges.push_back(edge);
@@ -53,14 +53,3 @@ HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& verti
 
 	return HalfEdgeList( edges.begin(), edges.end() );
 }
-
-/*
-HalfEdgeList HalfEdgeBuilder::createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices)
-{
-	VertexVector vs;
-	for ( const unsigned int i : indices) {
-		vs.push_back(vertices[i]);
-	}
-	return createClosedFromVertices(vs);
-}
-*/

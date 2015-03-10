@@ -10,6 +10,7 @@ namespace Crystal {
 	namespace Graphics {
 
 class Vertex;
+class Face;
 
 class HalfEdge {
 public:
@@ -18,14 +19,20 @@ public:
 		next( nullptr ),
 		start( nullptr ),
 		end( nullptr ),
+		face(nullptr),
 		id( -1 )
 	{}
 
-	HalfEdge(Vertex* start, Vertex* end, const unsigned int id) :
+	HalfEdge(Vertex* start, Vertex* end, const unsigned int id, Face* face) :
 		start(start),
 		end(end),
+		face(face),
 		id( id )
 	{}
+
+	Face* getFace() const { return face; }
+
+	void setFace(Face* f){ this->face = f; }
 
 	void setPrev(HalfEdge* prev) { this->prev = prev; }
 
@@ -54,6 +61,7 @@ private:
 	Vertex* end;
 	HalfEdge* prev;
 	HalfEdge* next;
+	Face* face;
 	const unsigned int id;
 };
 
@@ -66,16 +74,14 @@ public:
 	HalfEdgeBuilder() : nextId(0)
 	{}
 
-	HalfEdge* build(Vertex* start, Vertex* end, const int id)
+	HalfEdge* build(Vertex* start, Vertex* end, const int id, Face* face)
 	{
-		edges.push_back(new HalfEdge(start, end, nextId++));
+		edges.push_back(new HalfEdge(start, end, nextId++, face));
 	}
 
-	HalfEdgeList createOpenFromVertices(const VertexVector& vertices);
+	HalfEdgeList createOpenFromVertices(const VertexVector& vertices, Face* face);
 
-	HalfEdgeList createClosedFromVertices(const VertexVector& vertices);
-
-	//HalfEdgeList createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+	HalfEdgeList createClosedFromVertices(const VertexVector& vertices, Face* face);
 
 private:
 	HalfEdgeList edges;

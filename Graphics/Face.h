@@ -80,7 +80,8 @@ public:
 	Face* buildQuad();
 
 	void build(const VertexVector& vertices) {
-		Face* f = new Face(eBuilder.createClosedFromVertices(vertices), nextId++);
+		const HalfEdgeList& edges = eBuilder.createClosedFromVertices( vertices, nullptr);
+		Face* f = new Face(edges, nextId++);
 		faces.push_back(f);
 	}
 
