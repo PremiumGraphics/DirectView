@@ -75,7 +75,7 @@ public:
 
 	HalfEdgeList createClosedFromVertices(const VertexVector& vertices);
 
-	HalfEdgeList createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
+	//HalfEdgeList createByIndex(const VertexVector& vertices, const std::vector<unsigned int>& indices);
 
 private:
 	HalfEdgeList edges;

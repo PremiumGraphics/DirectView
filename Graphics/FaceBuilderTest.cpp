@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "FaceBuilder.h"
+#include "Face.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;

@@ -3,7 +3,7 @@
 
 #include "Polygon.h"
 
-#include "FaceBuilder.h"
+#include "Face.h"
 #include "Vertex.h"
 
 namespace Crystal{

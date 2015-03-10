@@ -42,4 +42,6 @@ TEST(HalfEdgeTest, TestCreateClosedFromVertices)
 	EXPECT_EQ(2, actual.size());
 	EXPECT_NE(nullptr, actual.front()->getPrev());
 	EXPECT_NE(nullptr, actual.back()->getNext());
+	EXPECT_EQ(2, actual.front()->getStart()->getEdges().size());
+	EXPECT_EQ(actual.front()->getPrev(), actual.back());
 }

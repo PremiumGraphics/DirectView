@@ -1,6 +1,6 @@
 #include "PolygonBuilder.h"
 
-#include "FaceBuilder.h"
+#include "Face.h"
 
 
 using namespace Crystal::Math;
@@ -45,19 +45,19 @@ Polygon* PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	VertexVector vertices = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
+	VertexVector vs = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
-	faceBuilder.build(vertices, { 0, 1, 2, 3 });
-	faceBuilder.build(vertices, { 4, 5, 6, 7 });
-	faceBuilder.build(vertices, { 0, 1, 5, 4 });
-	faceBuilder.build(vertices, { 2, 3, 7, 6 });
-	faceBuilder.build(vertices, { 3, 0, 4, 7 });
-	faceBuilder.build(vertices, { 5, 1, 2, 6 });
+	faceBuilder.build({ vs[0], vs[1], vs[2], vs[3] });
+	faceBuilder.build({ vs[4], vs[5], vs[6], vs[7] });
+	faceBuilder.build({ vs[0], vs[1], vs[5], vs[4] });
+	faceBuilder.build({ vs[2], vs[3], vs[7], vs[6] });
+	faceBuilder.build({ vs[3], vs[0], vs[4], vs[7] });
+	faceBuilder.build({ vs[5], vs[1], vs[2], vs[6] });
 
 	FaceVector faces = faceBuilder.getFaces();
 
 	Polygon* polygon = new Polygon(nextId++);
-	polygon->setVertices(vertices);
+	polygon->setVertices(vs);
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 }
@@ -145,16 +145,14 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 	assert(divideNumber >= 3);
 	VertexVector vertices;
 	FaceVector faces;
-	std::vector<unsigned int> vertexIds;
 
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vertices.push_back(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
-		vertexIds.push_back(i);
 	}
 
-	faceBuilder.build( vertices, vertexIds );
+	faceBuilder.build( vertices );
 
 	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
 
@@ -162,14 +160,14 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build( vertices, { v0, v1, v2 });
+		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] });
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build(vertices, { v0, v1, v2 });
+		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] });
 	}
 	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
