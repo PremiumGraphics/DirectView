@@ -141,6 +141,7 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
 	/*
 	const VertexVector& actual = p->getVertices();
@@ -173,6 +174,7 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	FaceBuilder fBuilder(vBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCylinder(3));
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
 	//EXPECT_EQ(6, p->getVertices().size());
 	//EXPECT_EQ(5, p->getFaces().size());
@@ -184,6 +186,7 @@ TEST(PolygonBuilderTest, TestBuildCone)
 	FaceBuilder fBuilder(vBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCone(3));
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());
 	EXPECT_EQ(0, p->getId());

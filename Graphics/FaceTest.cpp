@@ -28,6 +28,7 @@ TEST(FaceTest, TestIsClosed)
 		Face f(edges, 0);
 		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
+		EXPECT_EQ(nullptr, f.getPolygon());
 	}
 
 	{
@@ -40,6 +41,8 @@ TEST(FaceTest, TestIsClosed)
 		Face f(edges, 0);
 		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());
+		EXPECT_EQ(nullptr, f.getPolygon());
+
 	}
 	//Face f;
 }
@@ -55,6 +58,7 @@ TEST(FaceTest, TestGetPositions)
 		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
+		EXPECT_EQ(nullptr, f.getPolygon());
 	}
 
 	{
@@ -66,6 +70,7 @@ TEST(FaceTest, TestGetPositions)
 		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices, nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
+		EXPECT_EQ(nullptr, f.getPolygon());
 	}
 }
 
@@ -92,6 +97,7 @@ TEST(FaceBuilderTest, TestBuildQuad)
 	const FaceVector& faces = builder.getFaces();
 	EXPECT_EQ(1, faces.size());
 	EXPECT_EQ(0, faces.front()->getId());
+	EXPECT_EQ(nullptr, faces.front()->getPolygon());
 }
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
@@ -102,6 +108,7 @@ TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 	const FaceVector& faces = builder.getFaces();
 	EXPECT_EQ(1, faces.size());
 	EXPECT_EQ(0, faces.front()->getId());
+	EXPECT_EQ(nullptr, faces.front()->getPolygon());
 }
 
 TEST(FaceBuilderTest, TestBuildCirleByAngle)
