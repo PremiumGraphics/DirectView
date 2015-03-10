@@ -1,13 +1,9 @@
-#include "stdafx.h"
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "WireFrameRenderer.h"
 
 #include <cassert>
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
 
 WireFrameRenderer::WireFrameRenderer()
 {

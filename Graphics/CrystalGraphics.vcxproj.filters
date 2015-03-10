@@ -11,6 +11,12 @@
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="WireFrameRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -33,5 +39,16 @@
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
+    <ClInclude Include="WireFrameRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{dc1ed882-cd31-4e9b-97b1-af762f81252c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

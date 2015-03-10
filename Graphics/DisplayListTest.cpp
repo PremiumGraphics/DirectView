@@ -2,7 +2,6 @@
 
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Polygon.h"
-#include "../Graphics/FaceBuilder.h"
 #include "../Graphics/PolygonBuilder.h"
 
 using namespace Crystal::Math;
