@@ -105,3 +105,19 @@ wxDialog(parent, wxID_ANY, "BoxConfig", wxDefaultPosition, wxSize(500, 500))
 	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 }
+
+void BoxConfigDialog::setConfig(const Config& config)
+{
+	xSize->SetValue(config.xSize);
+	ySize->SetValue(config.ySize);
+	zSize->SetValue(config.zSize);
+}
+
+BoxConfigDialog::Config BoxConfigDialog::getConfig() const
+{
+	Config config;
+	config.xSize = xSize->GetValue();
+	config.ySize = ySize->GetValue();
+	config.zSize = zSize->GetValue();
+	return config;
+}

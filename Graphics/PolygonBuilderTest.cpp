@@ -18,6 +18,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().front()->getEdges().size());
 	EXPECT_EQ(0, p->getId());
+	EXPECT_EQ( p.get(), p->getFaces().front()->getPolygon());
 
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0),
@@ -60,6 +61,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	});
 
 	EXPECT_EQ(8, p->getVertices().size());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
 	//EXPECT_TRUE( VerticesAreSame( positions, p->getVertices()) );
 	EXPECT_EQ(6, p->getFaces().size());
@@ -72,6 +74,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCircleByAngle(1.0f, 90.0f));
 	EXPECT_EQ(4, p->getVertices().size());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
 	/*
 

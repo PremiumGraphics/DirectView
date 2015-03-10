@@ -69,5 +69,6 @@ Face* FaceBuilder::buildQuad()
 
 	const HalfEdgeList& edges = eBuilder.createClosedFromVertices(vertices, nullptr);
 	faces = { new Face(edges, nextId++) };
+	faces.back()->setPolygon(polygon);
 	return faces.back();
 }

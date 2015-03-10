@@ -8,15 +8,20 @@
 namespace Crystal {
 	namespace Graphics {
 
+class Polygon;
+
 class Face {
 public:
-	Face(const unsigned int id) : id(id)
+	Face(const unsigned int id)
+		: id(id),
+		polygon( nullptr )
 	{};
 
 
 	Face(const HalfEdgeList& edges, const unsigned int id) :
 		edges( edges ),
-		id( id )
+		id( id ),
+		polygon(nullptr)
 	{}
 
 	~Face(){
@@ -57,11 +62,15 @@ public:
 
 	Math::Vector3dVector getTexCoords() const;
 
+	Polygon* getPolygon() const { return polygon; }
+
+	void setPolygon(Polygon* polygon) { this->polygon = polygon; }
+
 private:
 	//VertexVector vertices;
 	HalfEdgeList edges;
 	const unsigned int id;
-
+	Polygon* polygon;
 };
 
 typedef std::vector<Face*> FaceVector;
@@ -72,8 +81,11 @@ class FaceBuilder {
 public:
 	FaceBuilder(VertexBuilder& vBuilder) :
 		vBuilder(vBuilder),
-		nextId(0)
+		nextId(0),
+		polygon( nullptr )
 	{}
+
+	void setPolygon(Polygon* polygon){ this->polygon = polygon; }
 
 	Face* buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
@@ -82,15 +94,9 @@ public:
 	void build(const VertexVector& vertices) {
 		const HalfEdgeList& edges = eBuilder.createClosedFromVertices( vertices, nullptr);
 		Face* f = new Face(edges, nextId++);
+		f->setPolygon(polygon);
 		faces.push_back(f);
 	}
-
-	/*
-	void build(const VertexVector& vertices, const std::vector<unsigned int >& vertexIds) {
-	Face* f = new Face( eBuilder.createByIndex( vertices, vertexIds), nextId++ );
-	faces.push_back(f);
-	}
-	*/
 
 	VertexVector getVertices() const { return vertices; }
 
@@ -101,6 +107,7 @@ private:
 	VertexVector vertices;
 	FaceVector faces;
 	HalfEdgeBuilder eBuilder;
+	Polygon* polygon;
 	unsigned int nextId;
 };
 

@@ -275,19 +275,9 @@ public:
 
 	BoxConfigDialog(wxWindow* parent);
 
-	void setConfig(const Config& config) {
-		xSize->SetValue(config.xSize);
-		ySize->SetValue(config.ySize);
-		zSize->SetValue(config.zSize);
-	}
+	void setConfig(const Config& config);
 
-	Config getConfig() const {
-		Config config;
-		config.xSize = xSize->GetValue();
-		config.ySize = ySize->GetValue();
-		config.zSize = zSize->GetValue();
-		return config;
-	}
+	Config getConfig() const;
 
 private:
 	wxSpinCtrlDouble* xSize;

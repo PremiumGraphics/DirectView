@@ -10,12 +10,14 @@ Polygon* PolygonBuilder::buildQuad()
 {
 	FaceVector faces;
 
+	Polygon* polygon = new Polygon(nextId++);
+	faceBuilder.setPolygon(polygon);
+
 	faceBuilder.buildQuad();
 
 	faces.push_back( faceBuilder.getFaces().back() );
 	//this->vertices = faceBuilder.getVertices();
 
-	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(faceBuilder.getVertices());
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
@@ -47,6 +49,9 @@ Polygon* PolygonBuilder::buildBox()
 
 	VertexVector vs = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
+	Polygon* polygon = new Polygon(nextId++);
+	faceBuilder.setPolygon(polygon);
+
 	faceBuilder.build({ vs[0], vs[1], vs[2], vs[3] });
 	faceBuilder.build({ vs[4], vs[5], vs[6], vs[7] });
 	faceBuilder.build({ vs[0], vs[1], vs[5], vs[4] });
@@ -56,7 +61,6 @@ Polygon* PolygonBuilder::buildBox()
 
 	FaceVector faces = faceBuilder.getFaces();
 
-	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vs);
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
@@ -67,6 +71,7 @@ Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned 
 	Face* f = faceBuilder.buildCircleByNumber(radius, divideNumber);
 
 	Polygon* polygon = new Polygon(nextId++);
+	f->setPolygon(polygon);
 	polygon->setVertices(f->getVertices());
 	polygon->setFaces({ f });
 	return polygon;
@@ -81,6 +86,9 @@ Polygon* PolygonBuilder::buildCircleByAngle(const float radius, const float divi
 Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
+
+	Polygon* polygon = new Polygon(nextId++);
+	faceBuilder.setPolygon(polygon);
 
 	VertexVector vv0;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
@@ -109,7 +117,6 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		faceBuilder.build( vv );
 	}
 
-	Polygon* polygon = new Polygon(nextId++);
 	polygon->addVertices(vv0);
 	polygon->addVertices(vv1);
 	polygon->setFaces(faceBuilder.getFaces());
@@ -146,6 +153,10 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 	VertexVector vertices;
 	FaceVector faces;
 
+	Polygon* polygon = new Polygon(nextId++);
+
+	faceBuilder.setPolygon(polygon);
+
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
@@ -160,16 +171,15 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] });
+		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] } );
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] });
+		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] } );
 	}
-	Polygon* polygon = new Polygon(nextId++);
 	polygon->setVertices(vertices);
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
