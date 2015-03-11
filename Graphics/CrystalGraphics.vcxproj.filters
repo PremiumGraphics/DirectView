@@ -43,7 +43,6 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="Polygon.h" />
-    <ClInclude Include="PolygonGroup.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="HalfEdge.h" />

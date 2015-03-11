@@ -6,9 +6,9 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-PolygonGroupList PolygonFactory::create(const OBJFile& file)
+PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 {
-	PolygonGroupList polygons;
+	PolygonSPtrList polygons;
 	for (const OBJGroup& g : file.getGroups()) {
 		PolygonSPtr polygon( new Polygon(0) );
 		//polygon->setPositions( g.getPositions() );
@@ -29,7 +29,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 	return polygons;
 }
 
-PolygonGroupList PolygonFactory::create(const STLFile& file)
+PolygonSPtrList PolygonFactory::create(const STLFile& file)
 {
 	PolygonSPtr polygon( new Polygon(0) );
 	//polygon.positions = file.
@@ -55,5 +55,5 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	polygon->setFaces(faces);
 	//polygon->setNormals( normals );
 	//polygon->setPositions( positions );
-	return PolygonGroupList({ polygon } );
+	return PolygonSPtrList({ polygon } );
 }

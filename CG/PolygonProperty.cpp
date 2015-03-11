@@ -23,11 +23,9 @@ PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const Mat
 	Connect( wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler( PolygonProperty::OnDoubleClick ) );
 }
 
-void PolygonProperty::build( const PolygonGroup& group )
+void PolygonProperty::build( const PolygonSPtr& group )
 {
-	this->group = group;
-
-	const Graphics::PolygonSPtr& polygon = group.getPolygon();
+	this->polygon = group;
 
 	Clear();
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );
@@ -38,7 +36,7 @@ void PolygonProperty::build( const PolygonGroup& group )
 	Append( new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()) );
 	Append( new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()) );
 
-	Graphics::Material* m = group.getMaterial();
+	Graphics::Material* m = group->getMaterial();
 
 	wxArrayString materialNames;
 	materialNames.Add( wxEmptyString );
@@ -79,12 +77,12 @@ void PolygonProperty::OnChanged( wxPropertyGridEvent& event )
     wxPGProperty* property = event.GetProperty();
 	const wxString& name = property->GetName();
 
-	Vector3d center = group.getPolygon()->getCenter();
+	Vector3d center = polygon->getCenter();
 	if( name == "Material" ) {
 		const std::string &str = property->GetValueAsString().ToStdString();
 		for (Material* m : materials) {
 			if (m->getName() == str) {
-				group.setMaterial(m);
+				polygon->setMaterial(m);
 			}
 		}
 	}
@@ -100,5 +98,5 @@ void PolygonProperty::OnChanged( wxPropertyGridEvent& event )
 		const float z = property->GetValue().GetDouble();
 		center.setZ(z);
 	}
-	group.getPolygon()->setCenter(center);
+	polygon->setCenter(center);
 }

@@ -7,7 +7,6 @@
 #include <map>
 
 #include "../Graphics/Material.h"
-#include "../Graphics/PolygonGroup.h"
 #include "../IO/PolygonFactory.h"
 
 namespace Crystal {
@@ -23,7 +22,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		Graphics::PolygonGroupList& polygons,
+		Graphics::PolygonSPtrList& polygons,
 		Graphics::MaterialList& materials
 		);
 
@@ -44,7 +43,7 @@ private:
 
 	PolygonProperty* property;
 
-	Graphics::PolygonGroupList& polygons;
+	Graphics::PolygonSPtrList& polygons;
 
 	Graphics::MaterialList& materials;
 

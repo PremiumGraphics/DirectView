@@ -162,23 +162,23 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if( mode == POLYGON_SCALE ) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
+			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
 			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
-			for( Graphics::PolygonGroup& p : polygons ) {
-				p.getPolygon()->scale(scale);
+			for( const PolygonSPtr& p : polygons ) {
+				p->scale(scale);
 			}
 		}
 		else if( mode == POLYGON_TRANSLATE ) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
-			for( Graphics::PolygonGroup& p : polygons ) {
-				p.getPolygon()->move( pos );
+			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
+			for( const PolygonSPtr& p : polygons ) {
+				p->move( pos );
 				//p->rotate( matrix );
 			}
 		}
 		else if( mode == POLYGON_ROTATE ) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
-			for (Graphics::PolygonGroup& p : polygons) {
-				p.getPolygon()->rotateZ( pos.getX() );
+			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
+			for( const PolygonSPtr& p : polygons) {
+				p->rotateZ( pos.getX() );
 			}
 			/*
 			Matrix3d matrix = Matrix3d::RotateX( angle.getX() ) * Matrix3d::RotateY( angle.getY() ) * Matrix3d::RotateZ( angle.getZ() );
@@ -189,21 +189,21 @@ void View::OnMouse( wxMouseEvent& event )
 			*/
 		}
 		else if (mode == POLYGON_ROTATE_X) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
-			for (Graphics::PolygonGroup& p : polygons) {
-				p.getPolygon()->rotateX(pos.getX());
+			PolygonSPtrList& polygons = frame->getPolygons();
+			for ( const PolygonSPtr& p : polygons) {
+				p->rotateX(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Y) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
-			for (Graphics::PolygonGroup& p : polygons) {
-				p.getPolygon()->rotateY(pos.getX());
+			PolygonSPtrList& polygons = frame->getPolygons();
+			for (const PolygonSPtr& p : polygons) {
+				p->rotateY(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Z) {
-			Graphics::PolygonGroupList& polygons = frame->getPolygons();
-			for (Graphics::PolygonGroup& p : polygons) {
-				p.getPolygon()->rotateZ(pos.getX());
+			PolygonSPtrList& polygons = frame->getPolygons();
+			for (const PolygonSPtr& p : polygons) {
+				p->rotateZ(pos.getX());
 			}
 		}
 		else {
@@ -319,8 +319,8 @@ void View::build()
 void View::buildDisplayList()
 {
 	dispList.clear();
-	const PolygonGroupList& groups = frame->getPolygons();
-	for (const PolygonGroup& g : groups) {
-		dispList.add(g.getPolygon());
+	const PolygonSPtrList& groups = frame->getPolygons();
+	for (const PolygonSPtr& p : groups) {
+		dispList.add( p );
 	}
 }

@@ -25,7 +25,7 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	PolygonGroupList& polygons,
+	PolygonSPtrList& polygons,
 	MaterialList& materials
 	)
 	: 
@@ -65,9 +65,9 @@ void PolygonTree::build()
 
 	this->polygons = polygons;
 
-	for (const PolygonGroup& g:  polygons) {
-		const wxTreeItemId id = AppendItem( root, g.getPolygon()->getName() );
-		map[id] = g.getPolygon();
+	for (const PolygonSPtr& g:  polygons) {
+		const wxTreeItemId id = AppendItem( root, g->getName() );
+		map[id] = g;
 		//SetItemState( id, polygon->isSelected );
 	}
 }

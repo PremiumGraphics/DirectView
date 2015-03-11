@@ -10,7 +10,7 @@
 
 namespace Crystal {
 	namespace Graphics {
-
+		class Material;
 
 class Polygon {
 public:
@@ -83,6 +83,10 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	Material* getMaterial() const { return nullptr; }
+
+	void setMaterial(Material* m) { ; }
+
 private:
 	std::string name;
 	FaceVector faces;
@@ -92,7 +96,8 @@ private:
 };
 
 typedef std::shared_ptr< Polygon > PolygonSPtr;
-typedef std::vector< Polygon > PolygonVector;
+typedef std::vector< PolygonSPtr > PolygonSPtrVector;
+typedef std::list< PolygonSPtr > PolygonSPtrList;
 
 	}
 }

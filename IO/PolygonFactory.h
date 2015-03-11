@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_IO_POLYGON_FACTORY_H__
 #define __CRYSTAL_IO_POLYGON_FACTORY_H__
 
-#include "../Graphics/PolygonGroup.h"
+#include "../Graphics/Polygon.h"
 #include "OBJFile.h"
 #include "STLFile.h"
 #include <list>
@@ -13,9 +13,9 @@ namespace Crystal {
 
 class PolygonFactory {
 public:
-	Graphics::PolygonGroupList create(const OBJFile& file);
+	Graphics::PolygonSPtrList create(const OBJFile& file);
 
-	Graphics::PolygonGroupList create(const STLFile& file);
+	Graphics::PolygonSPtrList create(const STLFile& file);
 };
 	}
 }
