@@ -35,7 +35,7 @@ public:
 
 	void setVertices(const VertexVector& vs) { this->vertices = vs; }
 
-	void addVertices(const VertexVector& vs) { this->vertices = vs; }
+	void addVertices(const VertexVector& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
 
 	VertexVector getVertices() const { return vertices; }
 

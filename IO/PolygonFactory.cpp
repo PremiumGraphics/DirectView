@@ -17,11 +17,10 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 
 		FaceVector faces;
 		for (const OBJFace& f : g.getFaces()) {
-			std::shared_ptr<Face> face(  new Face(0) );
 			//face->setVertexIds( f.getVertexIndices() );
 			//face->setNormalIds( f.getNormalIndices() );
 			//face.setTexIds( f.getTexIndices() );
-			faces.push_back(face);
+			//faces.push_back(face);
 		}
 		polygon->setFaces(faces);
 		polygons.push_back(polygon);
@@ -36,12 +35,11 @@ PolygonSPtrList PolygonFactory::create(const STLFile& file)
 	FaceVector faces;
 
 	for (const STLCell& c : cells) {
-		std::shared_ptr<Face> face(new Face(0));
 		const Vector3dVector& pos = c.getPositions();
 		const Vector3dVector normals(3, c.getNormal());
 		const VertexVector& vv = vBuilder.buildVerticesFromPositionsAndNormals(pos, normals);
 		const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vv);
-		const FaceSPtr& f = fBuilder.build(edges);
+		const FaceSPtr& face = fBuilder.build(edges);
 		faces.push_back(face);
 		polygon->addVertices(vv);
 	}
