@@ -12,10 +12,9 @@ namespace Crystal{
 class PolygonBuilder{
 public:
 
-	PolygonBuilder(VertexBuilder& vertexBuilder, FaceBuilder& faceBuilder) :
+	PolygonBuilder(FaceBuilder& faceBuilder) :
 		nextId(0),
-		faceBuilder( faceBuilder ),
-		vertexBuilder( vertexBuilder )
+		faceBuilder( faceBuilder )
 	{}
 
 	Polygon* buildQuad();
@@ -34,6 +33,8 @@ public:
 
 	Polygon* buildCone(const unsigned int divideNumber);
 
+	VertexBuilder& getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
+
 	HalfEdgeBuilder& getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }
 
 	void clear(){
@@ -44,7 +45,6 @@ private:
 	unsigned int nextId;
 
 	FaceBuilder& faceBuilder;
-	VertexBuilder& vertexBuilder;
 };
 	}
 }

@@ -101,7 +101,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vv0.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
+		vv0.push_back( getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
 	const HalfEdgeList& edges0 = eBuilder.buildClosedFromVertices(nullptr, vv0);
 	faceBuilder.build( edges0 );
@@ -111,7 +111,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vv1.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
+		vv1.push_back(getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)));
 	}
 	const HalfEdgeList& edges1 = eBuilder.buildClosedFromVertices(nullptr, vv1);
 	faceBuilder.build( edges1 );
