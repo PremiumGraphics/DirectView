@@ -12,6 +12,7 @@ namespace Crystal {
 
 class Vertex;
 class Face;
+typedef std::shared_ptr< Face > FaceSPtr;
 
 class HalfEdge;
 typedef std::shared_ptr< HalfEdge > HalfEdgeSPtr;
@@ -28,16 +29,16 @@ public:
 		id( -1 )
 	{}
 
-	HalfEdge(const VertexSPtr start, const VertexSPtr end, const unsigned int id, Face* face) :
+	HalfEdge(const VertexSPtr start, const VertexSPtr end, const unsigned int id, FaceSPtr face) :
 		start(start),
 		end(end),
 		face(face),
 		id( id )
 	{}
 
-	Face* getFace() const { return face; }
+	FaceSPtr getFace() const { return face; }
 
-	void setFace(Face* f){ this->face = f; }
+	void setFace(const FaceSPtr& f) { this->face = f; }
 
 	void setPrev(const HalfEdgeSPtr& prev) { this->prev = prev; }
 
@@ -66,7 +67,7 @@ private:
 	VertexSPtr end;
 	HalfEdgeSPtr prev;
 	HalfEdgeSPtr next;
-	Face* face;
+	FaceSPtr face;
 	const unsigned int id;
 };
 
@@ -83,9 +84,9 @@ public:
 		face( nullptr )
 	{}
 
-	Face* getFace() const { return face; }
+	FaceSPtr getFace() const { return face; }
 
-	void setFace(Face* f) { this->face = f; }
+	void setFace(const FaceSPtr& f) { this->face = f; }
 
 	HalfEdgeSPtr build(const VertexSPtr& start, const VertexSPtr& end )
 	{
@@ -101,7 +102,7 @@ public:
 private:
 	VertexBuilder& vBuilder;
 	unsigned int nextId;
-	Face* face;
+	FaceSPtr face;
 };
 
 	}

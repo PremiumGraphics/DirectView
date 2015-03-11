@@ -10,10 +10,10 @@ class LightProperty : public wxPropertyGrid {
 public:
 	LightProperty(wxWindow* parent, const wxSize& size);
 
-	void setValue( Graphics::Light* light );
+	void setValue( Graphics::LightSPtr light );
 
 private:
-	Graphics::Light* light;
+	Graphics::LightSPtr light;
 
 	void OnChange( wxPropertyGridEvent& event );
 };

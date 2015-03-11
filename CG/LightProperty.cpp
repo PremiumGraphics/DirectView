@@ -25,7 +25,7 @@ LightProperty::LightProperty( wxWindow* parent, const wxSize& size ) :
 
 #include "Converter.h"
 
-void LightProperty::setValue( Light* light )
+void LightProperty::setValue( LightSPtr light )
 {
 	this->light = light;
 	Clear();

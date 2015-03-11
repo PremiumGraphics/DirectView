@@ -6,6 +6,7 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 namespace Crystal {
 	namespace Graphics {
@@ -51,6 +52,9 @@ private:
 	Graphics::ColorRGB<float> diffuse;
 	Graphics::ColorRGB<float> specular;
 };
+
+typedef std::shared_ptr< Light > LightSPtr;
+typedef std::list < LightSPtr > LightSPtrList;
 
 	}
 }

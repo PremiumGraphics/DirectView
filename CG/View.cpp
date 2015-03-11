@@ -154,8 +154,8 @@ void View::OnMouse( wxMouseEvent& event )
 			frame->getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
-			const std::list<Graphics::Light*> lights = frame->getLights();
-			for (Light* l : lights) {
+			const LightSPtrList& lights = frame->getLights();
+			for (const LightSPtr& l : lights) {
 				Vector3d lpos = l->getPos();
 				lpos += pos;
 				l->setPos(lpos);

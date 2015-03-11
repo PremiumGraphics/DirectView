@@ -35,7 +35,7 @@ public:
 
 	Graphics::PolygonSPtrList getPolygons() const { return polygons; }
 
-	std::list<Graphics::Light*> getLights() { return lights; }
+	Graphics::LightSPtrList getLights() { return lights; }
 
 	Graphics::MaterialSPtrList getMaterials() { return materials; }
 
@@ -182,7 +182,7 @@ private:
 	Graphics::Camera<float> camera;
 	Graphics::PolygonSPtrList polygons;
 	Graphics::MaterialSPtrList materials;
-	std::list<Graphics::Light*> lights;
+	Graphics::LightSPtrList lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

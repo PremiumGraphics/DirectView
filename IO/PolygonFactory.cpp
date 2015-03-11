@@ -32,29 +32,20 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 PolygonSPtrList PolygonFactory::create(const STLFile& file)
 {
 	PolygonSPtr polygon( new Polygon(0) );
-	//polygon.positions = file.
 	const STLCellVector& cells = file.getCells();
-	std::vector< Vector3d > normals;
 	FaceVector faces;
 
-	unsigned int normalId = 0;
-	unsigned int vertexId = 0;
 	for (const STLCell& c : cells) {
 		std::shared_ptr<Face> face(new Face(0));
-		normals.push_back( c.getNormal() );
-		const std::vector< Vector3d >& pos = c.getPositions();
-		const VertexVector& vv = vBuilder.buildVerticesFromPositions(pos);
+		const Vector3dVector& pos = c.getPositions();
+		const Vector3dVector normals(3, c.getNormal());
+		const VertexVector& vv = vBuilder.buildVerticesFromPositionsAndNormals(pos, normals);
 		const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vv);
 		const FaceSPtr& f = fBuilder.build(edges);
-		//face->setNormalIds( { normalId, normalId, normalId } );
-		//face->setVertexIds( { vertexId, vertexId+1, vertexId+2 } );
-		normalId += 1;
-		vertexId += 3;
 		faces.push_back(face);
+		polygon->addVertices(vv);
 	}
 
 	polygon->setFaces(faces);
-	//polygon->setNormals( normals );
-	//polygon->setPositions( positions );
 	return PolygonSPtrList({ polygon } );
 }

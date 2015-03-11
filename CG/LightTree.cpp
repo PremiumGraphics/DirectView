@@ -19,7 +19,7 @@ LightTree::LightTree
 	const wxPoint& pos,
 	const wxSize& size,
 	LightProperty* property,
-	std::list<Light*>* lights
+	LightSPtrList& lights
 	)
 	: 
 	wxTreeCtrl(
@@ -58,7 +58,7 @@ void LightTree::build()
 
 	const wxTreeItemId root = AddRoot( "Light" );
 
-	for( Light* l : *lights_ ) {
+	for( const LightSPtr& l : lights_ ) {
 		const wxTreeItemId id = AppendItem( root, l->name );
 		//SetItemState( id, l.isSelected );
 		map[id] = l;
@@ -81,8 +81,8 @@ void LightTree::OnMenu(wxTreeEvent& event)
 
 void LightTree::OnAdd(wxMenuEvent&)
 {
-	Light* light = new Light();
-	lights_->push_back( light );
+	LightSPtr light( new Light() );
+	lights_.push_back( light );
 	build();
 }
 

@@ -64,8 +64,6 @@ private:
 typedef std::shared_ptr<Face> FaceSPtr;
 typedef std::vector< std::shared_ptr<Face> > FaceVector;
 
-class Face;
-
 class FaceBuilder {
 public:
 	FaceBuilder(HalfEdgeBuilder& eBuilder) :

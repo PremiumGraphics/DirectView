@@ -53,6 +53,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 		Vector3d(1.0, 1.0, 1.0)
 	};
 	cell.setPositions(positions);
+	cell.setNormal(Vector3d(1.0, 0.0, 0.0));
 	file.setCells(STLCellVector{ cell });
 
 	VertexBuilder vBuilder;
@@ -62,18 +63,10 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
 
-	EXPECT_EQ(1, polygons.size());
-	EXPECT_EQ(nullptr, polygons.front()->getMaterial());
+	EXPECT_EQ( 1, polygons.size());
+	EXPECT_EQ( nullptr, polygons.front()->getMaterial());
 	EXPECT_EQ(1, polygons.front()->getFaces().size());
-	//EXPECT_EQ( 3, polygons.front()->getVertices().size() );
-	//Face face(0);
-	//face.setNormalIds( { 0, 0, 0 } );
-	//Polygon* actual = polygons.front().getPolygon();
-	//Polygon expected;
-	//expected.setFaces( { face } );
-	//expected.setPositions(positions);
-	//expected.setNormals({ Vector3d(0.0, 0.0, 0.0) }
-	//);
+	EXPECT_EQ( 3, polygons.front()->getVertices().size() );
 
 	//EXPECT_EQ( expected.getNormals() ,actual->getNormals() );
 	//EXPECT_EQ( expected, *actual );
