@@ -9,7 +9,7 @@ namespace Crystal {
 
 class PolygonProperty : public wxPropertyGrid {
 public:
-	PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialList& materials);
+	PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialSPtrList& materials);
 
 	void build( const Graphics::PolygonSPtr& group );
 
@@ -19,7 +19,7 @@ public:
 
 private:
 	Graphics::PolygonSPtr polygon;
-	const Graphics::MaterialList& materials;
+	const Graphics::MaterialSPtrList& materials;
 };
 
 	}

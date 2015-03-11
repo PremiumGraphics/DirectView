@@ -3,6 +3,7 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 #include "ColorRGBA.h"
 
@@ -76,7 +77,8 @@ private:
 
 };
 
-typedef std::list<Material*> MaterialList;
+typedef std::shared_ptr< Material > MaterialSPtr;
+typedef std::list< MaterialSPtr > MaterialSPtrList;
 
 	}
 }

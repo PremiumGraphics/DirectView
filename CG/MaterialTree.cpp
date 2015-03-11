@@ -15,7 +15,7 @@ MaterialTree::MaterialTree
 	const wxPoint& pos,
 	const wxSize& size,
 	MaterialProperty* property,
-	std::list<Material*>* materials
+	MaterialSPtrList& materials
 	)
 	: 
 	wxTreeCtrl(
@@ -40,7 +40,7 @@ void MaterialTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Material" );
 
-	for( Material* m : *materials ) {
+	for( const MaterialSPtr& m : materials ) {
 		const wxTreeItemId id = AppendItem( root, m->getName() );
 		map[id] = m;
 	}
@@ -71,15 +71,15 @@ void MaterialTree::OnItemActivated( wxTreeEvent& e )
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	Material* m = map[id];
+	const MaterialSPtr& m = map[id];
 	property->setValue(m);
 }
 
 void MaterialTree::OnAdd( wxMenuEvent& )
 {
-	Material* m = new Material();
+	MaterialSPtr m(new Material());
 	m->setName( "test" );
-	materials->push_back(m);
+	materials.push_back(m);
 	build();
 }
 

@@ -25,7 +25,7 @@ MaterialProperty::MaterialProperty( wxWindow* parent, const wxSize& size ) :
 
 #include "Converter.h"
 
-void MaterialProperty::setValue( Material* m )
+void MaterialProperty::setValue( const MaterialSPtr& m )
 {
 	this->m = m;
 	Clear();

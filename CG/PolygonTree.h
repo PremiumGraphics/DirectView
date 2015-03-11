@@ -23,7 +23,7 @@ public:
 		const wxSize& size,
 		PolygonProperty* property,
 		Graphics::PolygonSPtrList& polygons,
-		Graphics::MaterialList& materials
+		Graphics::MaterialSPtrList& materials
 		);
 
 	~PolygonTree();
@@ -45,7 +45,7 @@ private:
 
 	Graphics::PolygonSPtrList& polygons;
 
-	Graphics::MaterialList& materials;
+	Graphics::MaterialSPtrList& materials;
 
 	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
 };

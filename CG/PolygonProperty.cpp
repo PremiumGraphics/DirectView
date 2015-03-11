@@ -8,7 +8,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
-PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const MaterialList& materials) :
+PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const MaterialSPtrList& materials) :
 	wxPropertyGrid
 		(
 		parent,
@@ -36,11 +36,11 @@ void PolygonProperty::build( const PolygonSPtr& group )
 	Append( new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()) );
 	Append( new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()) );
 
-	Graphics::Material* m = group->getMaterial();
+	const MaterialSPtr& m = group->getMaterial();
 
 	wxArrayString materialNames;
 	materialNames.Add( wxEmptyString );
-	for( Material* m : materials ) {
+	for( const MaterialSPtr& m : materials ) {
 		materialNames.Add( m->getName() );
 	}
 
@@ -80,7 +80,7 @@ void PolygonProperty::OnChanged( wxPropertyGridEvent& event )
 	Vector3d center = polygon->getCenter();
 	if( name == "Material" ) {
 		const std::string &str = property->GetValueAsString().ToStdString();
-		for (Material* m : materials) {
+		for (const MaterialSPtr& m : materials) {
 			if (m->getName() == str) {
 				polygon->setMaterial(m);
 			}

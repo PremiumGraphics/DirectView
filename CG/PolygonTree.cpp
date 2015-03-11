@@ -26,7 +26,7 @@ PolygonTree::PolygonTree
 	const wxSize& size,
 	PolygonProperty* property,
 	PolygonSPtrList& polygons,
-	MaterialList& materials
+	MaterialSPtrList& materials
 	)
 	: 
 	wxTreeCtrl(
