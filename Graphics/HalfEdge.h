@@ -73,17 +73,22 @@ class HalfEdgeBuilder
 public:
 	HalfEdgeBuilder(VertexBuilder& vBuilder) :
 		nextId(0),
-		vBuilder( vBuilder )
+		vBuilder( vBuilder ),
+		face( nullptr )
 	{}
 
-	HalfEdge* build(Vertex* start, Vertex* end, Face* face)
+	Face* getFace() const { return face; }
+
+	void setFace(Face* f) { this->face = f; }
+
+	HalfEdge* build(Vertex* start, Vertex* end )
 	{
-		edges.push_back(new HalfEdge(start, end, nextId++, face));
+		edges.push_back(new HalfEdge(start, end, nextId++, face ));
 	}
 
-	HalfEdgeList buildOpenFromVertices(Face* face);
+	HalfEdgeList buildOpenFromVertices();
 
-	HalfEdgeList buildClosedFromVertices(Face* face, const VertexVector& vv);
+	HalfEdgeList buildClosedFromVertices(const VertexVector& vv);
 
 	VertexBuilder& getVertexBuilder() const { return vBuilder; }
 
@@ -91,6 +96,7 @@ private:
 	HalfEdgeList edges;
 	VertexBuilder& vBuilder;
 	unsigned int nextId;
+	Face* face;
 };
 
 	}

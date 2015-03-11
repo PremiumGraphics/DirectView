@@ -54,12 +54,12 @@ Polygon* PolygonBuilder::buildBox()
 
 	HalfEdgeBuilder& eBuilder = faceBuilder.getHalfEdgeBuilder();
 	const std::vector<HalfEdgeList> edges = {
-		eBuilder.buildClosedFromVertices(nullptr, { vs[0], vs[1], vs[2], vs[3] }),
-		eBuilder.buildClosedFromVertices(nullptr, { vs[0], vs[1], vs[2], vs[3] }),
-		eBuilder.buildClosedFromVertices(nullptr, { vs[4], vs[5], vs[6], vs[7] }),
-		eBuilder.buildClosedFromVertices(nullptr, { vs[2], vs[3], vs[7], vs[6] }),
-		eBuilder.buildClosedFromVertices(nullptr, { vs[3], vs[0], vs[4], vs[7] }),
-		eBuilder.buildClosedFromVertices(nullptr, { vs[5], vs[1], vs[2], vs[6] }),
+		eBuilder.buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
+		eBuilder.buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
+		eBuilder.buildClosedFromVertices({ vs[4], vs[5], vs[6], vs[7] }),
+		eBuilder.buildClosedFromVertices({ vs[2], vs[3], vs[7], vs[6] }),
+		eBuilder.buildClosedFromVertices({ vs[3], vs[0], vs[4], vs[7] }),
+		eBuilder.buildClosedFromVertices({ vs[5], vs[1], vs[2], vs[6] }),
 	};
 	for (const HalfEdgeList& e : edges) {
 		faceBuilder.build(e);
@@ -103,7 +103,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv0.push_back( getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	const HalfEdgeList& edges0 = eBuilder.buildClosedFromVertices(nullptr, vv0);
+	const HalfEdgeList& edges0 = eBuilder.buildClosedFromVertices( vv0);
 	faceBuilder.build( edges0 );
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
@@ -113,18 +113,18 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv1.push_back(getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)));
 	}
-	const HalfEdgeList& edges1 = eBuilder.buildClosedFromVertices(nullptr, vv1);
+	const HalfEdgeList& edges1 = eBuilder.buildClosedFromVertices(vv1);
 	faceBuilder.build( edges1 );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 		const VertexVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
-		const HalfEdgeList& edges2 = eBuilder.buildClosedFromVertices(nullptr, vv);
+		const HalfEdgeList& edges2 = eBuilder.buildClosedFromVertices(vv);
 		faceBuilder.build( edges2 );
 	}
 
 	{
 		const VertexVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
-		const HalfEdgeList& edges3 = eBuilder.buildClosedFromVertices(nullptr, vv);
+		const HalfEdgeList& edges3 = eBuilder.buildClosedFromVertices(vv);
 		faceBuilder.build( edges3 );
 	}
 
@@ -174,7 +174,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		vertices.push_back(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
 	}
 
-	faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, vertices ) );
+	faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( vertices ) );
 
 	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
 
@@ -182,14 +182,14 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, { vertices[v0], vertices[v1], vertices[v2] } ) );
+		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) );
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, { vertices[v0], vertices[v1], vertices[v2] } ) );
+		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) );
 	}
 	polygon->setVertices(vertices);
 	polygon->setFaces(faceBuilder.getFaces());

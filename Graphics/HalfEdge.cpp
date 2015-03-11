@@ -2,7 +2,7 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices(Face* face)
+HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices()
 {
 	const VertexVector& vv = vBuilder.getVertices();
 	assert(vv.size() >= 1);
@@ -24,7 +24,7 @@ HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices(Face* face)
 	return HalfEdgeList(edges.begin(), edges.end());
 }
 
-HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices(Face* face, const VertexVector& vv)
+HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices( const VertexVector& vv)
 {
 	assert(vv.size() >= 1);
 	

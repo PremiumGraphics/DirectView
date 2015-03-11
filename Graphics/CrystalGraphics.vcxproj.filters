@@ -5,7 +5,6 @@
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="ColorConverter.cpp" />
-    <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
@@ -26,6 +25,9 @@
     <ClCompile Include="SmoothRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="FastPointRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -40,7 +42,6 @@
     <ClInclude Include="ColorRGBAMap.h" />
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorConverter.h" />
-    <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonGroup.h" />
     <ClInclude Include="PolygonBuilder.h" />
@@ -64,6 +65,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="SmoothRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="FastPointRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
