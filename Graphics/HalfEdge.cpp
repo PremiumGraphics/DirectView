@@ -10,7 +10,7 @@ HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices()
 	for (size_t i = 0; i < vv.size() - 1; ++i ) {
 		Vertex* start = vv[i];
 		Vertex* end = vv[i+1];
-		HalfEdge* edge = new HalfEdge( start, end, nextId++, face );
+		HalfEdgeSPtr edge( new HalfEdge( start, end, nextId++, face ) );
 		start->addEdge(edge);
 		end->addEdge(edge);
 		edges.push_back(edge);
@@ -32,7 +32,7 @@ HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices( const VertexVector& vv)
 	for (size_t i = 0; i < vv.size() - 1; ++i) {
 		Vertex* start = vv[i];
 		Vertex* end = vv[i + 1];
-		HalfEdge* edge = new HalfEdge(start, end, nextId++, face);
+		HalfEdgeSPtr edge( new HalfEdge(start, end, nextId++, face) );
 		start->addEdge(edge);
 		end->addEdge(edge);
 		edges.push_back(edge);
@@ -43,7 +43,7 @@ HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices( const VertexVector& vv)
 		edges[i + 1]->setPrev(edges[i]);
 	}
 	{
-		HalfEdge* edge = new HalfEdge(vv.back(), vv.front(), nextId++, face);
+		HalfEdgeSPtr edge( new HalfEdge(vv.back(), vv.front(), nextId++, face) );
 		vv.back()->addEdge(edge);
 		vv.front()->addEdge(edge);
 		edges.push_back(edge);

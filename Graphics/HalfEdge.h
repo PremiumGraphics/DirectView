@@ -5,12 +5,17 @@
 #include "Vertex.h"
 
 #include <list>
+#include <memory>
 
 namespace Crystal {
 	namespace Graphics {
 
 class Vertex;
 class Face;
+
+class HalfEdge;
+typedef std::shared_ptr< HalfEdge > HalfEdgeSPtr;
+
 
 class HalfEdge {
 public:
@@ -34,13 +39,13 @@ public:
 
 	void setFace(Face* f){ this->face = f; }
 
-	void setPrev(HalfEdge* prev) { this->prev = prev; }
+	void setPrev(const HalfEdgeSPtr& prev) { this->prev = prev; }
 
-	void setNext(HalfEdge* next) { this->next = next; }
+	void setNext(const HalfEdgeSPtr& next) { this->next = next; }
 
-	HalfEdge* getPrev() { return prev; }
+	HalfEdgeSPtr getPrev() { return prev; }
 
-	HalfEdge* getNext() { return next; }
+	HalfEdgeSPtr getNext() { return next; }
 
 	void setStart(Vertex* start) { this->start = start; }
 
@@ -59,14 +64,15 @@ public:
 private:
 	Vertex* start;
 	Vertex* end;
-	HalfEdge* prev;
-	HalfEdge* next;
+	HalfEdgeSPtr prev;
+	HalfEdgeSPtr next;
 	Face* face;
 	const unsigned int id;
 };
 
-typedef std::vector<HalfEdge*> HalfEdgeVector;
-typedef std::list<HalfEdge*> HalfEdgeList;
+
+typedef std::vector< HalfEdgeSPtr > HalfEdgeVector;
+typedef std::list< HalfEdgeSPtr > HalfEdgeList;
 
 class HalfEdgeBuilder
 {
@@ -83,7 +89,7 @@ public:
 
 	HalfEdge* build(Vertex* start, Vertex* end )
 	{
-		edges.push_back(new HalfEdge(start, end, nextId++, face ));
+		edges.push_back( HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face )) );
 	}
 
 	HalfEdgeList buildOpenFromVertices();

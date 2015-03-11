@@ -25,11 +25,7 @@ public:
 		polygon(nullptr)
 	{}
 
-	~Face(){
-		for (HalfEdge* e : edges) {
-			delete e;
-		}
-	}
+	~Face(){}
 
 	unsigned int getId() const { return id; }
 
@@ -43,7 +39,7 @@ public:
 
 	VertexVector getVertices() const {
 		VertexVector vertices;
-		for (HalfEdge* e : edges) {
+		for (const HalfEdgeSPtr& e : edges) {
 			vertices.push_back(e->getStart());
 		}
 		return vertices;

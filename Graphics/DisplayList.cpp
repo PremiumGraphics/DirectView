@@ -77,7 +77,7 @@ void DisplayList::addHighlight(Face* f)
 
 std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
 	std::vector<unsigned int> ids;
-	for (HalfEdge* edge : f.getEdges() ) {
+	for (const HalfEdgeSPtr& edge : f.getEdges() ) {
 		ids.push_back(edge->getStart()->getId());
 	}
 	return ids;
@@ -87,7 +87,7 @@ Vector3dVector DisplayList::getPositions(const Face& f) const
 {
 	Vector3dVector positions;
 	const HalfEdgeList& edges = f.getEdges();
-	for (HalfEdge* e : edges) {
+	for (const HalfEdgeSPtr& e : edges) {
 		positions.push_back(e->getStartPosition());
 		if (e == edges.back() && f.isOpen()) {
 			positions.push_back(e->getEndPosition());

@@ -7,7 +7,7 @@ using namespace Crystal::Graphics;
 Vector3dVector Face::getNormals() const
 {
 	Vector3dVector normals;
-	for (HalfEdge* e : edges) {
+	for (const HalfEdgeSPtr& e : edges) {
 		normals.push_back(e->getStart()->getNormal());
 		if (e == edges.back() && isOpen()) {
 			normals.push_back(e->getEnd()->getNormal());
@@ -19,7 +19,7 @@ Vector3dVector Face::getNormals() const
 Vector3dVector Face::getTexCoords() const
 {
 	Vector3dVector texCoords;
-	for (HalfEdge* e : edges) {
+	for (const HalfEdgeSPtr& e : edges) {
 		texCoords.push_back(e->getStart()->getNormal());
 		if (e == edges.back() && isOpen()) {
 			texCoords.push_back(e->getEnd()->getNormal());

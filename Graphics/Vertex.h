@@ -4,10 +4,13 @@
 #include "../Math/Vector3d.h"
 #include <vector>
 #include <list>
+#include <memory>
 
 namespace Crystal {
 	namespace Graphics {
 		class HalfEdge;
+		typedef std::shared_ptr<HalfEdge> HalfEdgeSPtr;
+		typedef std::list< HalfEdgeSPtr > HalfEdgeList;
 
 class Vertex {
 public:
@@ -41,9 +44,9 @@ public:
 
 	Math::Vector3d getTexCoord() const { return texCoord; }
 
-	void addEdge(HalfEdge* e) { this->edges.push_back( e ); }
+	void addEdge(const HalfEdgeSPtr& e) { this->edges.push_back( e ); }
 
-	std::list<HalfEdge*> getEdges() const { return edges; }
+	HalfEdgeList getEdges() const { return edges; }
 
 	void move(const Math::Vector3d& vec){
 		position += vec;
@@ -79,7 +82,7 @@ private:
 	Math::Vector3d position;
 	Math::Vector3d normal;
 	Math::Vector3d texCoord;
-	std::list< HalfEdge* > edges;
+	HalfEdgeList edges;
 	unsigned int id;
 };
 
