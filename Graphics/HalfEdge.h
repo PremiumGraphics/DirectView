@@ -71,20 +71,23 @@ typedef std::list<HalfEdge*> HalfEdgeList;
 class HalfEdgeBuilder
 {
 public:
-	HalfEdgeBuilder() : nextId(0)
+	HalfEdgeBuilder(VertexBuilder& vBuilder) :
+		nextId(0),
+		vBuilder( vBuilder )
 	{}
 
-	HalfEdge* build(Vertex* start, Vertex* end, const int id, Face* face)
+	HalfEdge* build(Vertex* start, Vertex* end, Face* face)
 	{
 		edges.push_back(new HalfEdge(start, end, nextId++, face));
 	}
 
-	HalfEdgeList createOpenFromVertices(const VertexVector& vertices, Face* face);
+	HalfEdgeList buildOpenFromVertices(Face* face);
 
-	HalfEdgeList createClosedFromVertices(const VertexVector& vertices, Face* face);
+	HalfEdgeList buildClosedFromVertices(Face* face, const VertexVector& vv);
 
 private:
 	HalfEdgeList edges;
+	VertexBuilder& vBuilder;
 	unsigned int nextId;
 };
 

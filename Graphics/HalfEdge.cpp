@@ -2,13 +2,14 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertices, Face* face)
+HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices(Face* face)
 {
-	assert(vertices.size() >= 1);
+	const VertexVector& vv = vBuilder.getVertices();
+	assert(vv.size() >= 1);
 	HalfEdgeVector edges;
-	for (size_t i = 0; i < vertices.size() - 1; ++i ) {
-		Vertex* start = vertices[i];
-		Vertex* end = vertices[i+1];
+	for (size_t i = 0; i < vv.size() - 1; ++i ) {
+		Vertex* start = vv[i];
+		Vertex* end = vv[i+1];
 		HalfEdge* edge = new HalfEdge( start, end, nextId++, face );
 		start->addEdge(edge);
 		end->addEdge(edge);
@@ -23,14 +24,14 @@ HalfEdgeList HalfEdgeBuilder::createOpenFromVertices(const VertexVector& vertice
 	return HalfEdgeList(edges.begin(), edges.end());
 }
 
-HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& vertices, Face* face)
+HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices(Face* face, const VertexVector& vv)
 {
-	assert(vertices.size() >= 1);
+	assert(vv.size() >= 1);
 	
 	HalfEdgeVector edges;
-	for (size_t i = 0; i < vertices.size() - 1; ++i) {
-		Vertex* start = vertices[i];
-		Vertex* end = vertices[i + 1];
+	for (size_t i = 0; i < vv.size() - 1; ++i) {
+		Vertex* start = vv[i];
+		Vertex* end = vv[i + 1];
 		HalfEdge* edge = new HalfEdge(start, end, nextId++, face);
 		start->addEdge(edge);
 		end->addEdge(edge);
@@ -42,9 +43,9 @@ HalfEdgeList HalfEdgeBuilder::createClosedFromVertices(const VertexVector& verti
 		edges[i + 1]->setPrev(edges[i]);
 	}
 	{
-		HalfEdge* edge = new HalfEdge(vertices.back(), vertices.front(), nextId++, face);
-		vertices.back()->addEdge(edge);
-		vertices.front()->addEdge(edge);
+		HalfEdge* edge = new HalfEdge(vv.back(), vv.front(), nextId++, face);
+		vv.back()->addEdge(edge);
+		vv.front()->addEdge(edge);
 		edges.push_back(edge);
 	}
 

@@ -53,7 +53,7 @@ Face* FaceBuilder::buildCircleByNumber(const float radius, const unsigned int di
 		Vertex* v = vBuilder.build(radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d(0.0, 0.0, 1.0));
 		vertices.push_back(v);
 	}
-	const HalfEdgeList& edges = eBuilder.createClosedFromVertices(vertices, nullptr);
+	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices(nullptr, vertices);
 	faces.push_back(new Face(edges, nextId++));
 	return faces.back();
 }
@@ -67,7 +67,7 @@ Face* FaceBuilder::buildQuad()
 		vBuilder.build(Vector3d(1.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0))
 	};
 
-	const HalfEdgeList& edges = eBuilder.createClosedFromVertices(vertices, nullptr);
+	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices(nullptr, vertices);
 	faces = { new Face(edges, nextId++) };
 	faces.back()->setPolygon(polygon);
 	return faces.back();

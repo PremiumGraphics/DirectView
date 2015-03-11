@@ -41,7 +41,8 @@ TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 TEST(DisplayListTest, TestAddFace)
 {
 	VertexBuilder vBuilder;
-	FaceBuilder builder(vBuilder);
+	HalfEdgeBuilder eBuilder(vBuilder);
+	FaceBuilder builder(vBuilder, eBuilder);
 	builder.buildQuad();
 
 	DisplayList list;
@@ -54,7 +55,8 @@ TEST(DisplayListTest, TestAddFace)
 TEST(DisplayListTest, TestAddPolygon)
 {
 	VertexBuilder vBuilder;
-	FaceBuilder fBuilder(vBuilder);
+	HalfEdgeBuilder eBuilder(vBuilder);
+	FaceBuilder fBuilder(vBuilder, eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 
 	DisplayList list;

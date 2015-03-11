@@ -166,6 +166,7 @@ private:
 
 	Graphics::VertexBuilder vBuilder;
 	Graphics::FaceBuilder fBuilder;
+	Graphics::HalfEdgeBuilder eBuilder;
 	Graphics::PolygonBuilder builder;
 
 	Graphics::Vertex* selectedVertex;

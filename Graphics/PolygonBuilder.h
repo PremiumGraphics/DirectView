@@ -34,6 +34,8 @@ public:
 
 	Polygon* buildCone(const unsigned int divideNumber);
 
+	HalfEdgeBuilder& getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }
+
 	void clear(){
 		nextId = 0;
 	}

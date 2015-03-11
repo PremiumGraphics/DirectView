@@ -79,8 +79,9 @@ class Face;
 
 class FaceBuilder {
 public:
-	FaceBuilder(VertexBuilder& vBuilder) :
+	FaceBuilder(VertexBuilder& vBuilder, HalfEdgeBuilder& eBuilder) :
 		vBuilder(vBuilder),
+		eBuilder(eBuilder),
 		nextId(0),
 		polygon( nullptr )
 	{}
@@ -91,8 +92,7 @@ public:
 
 	Face* buildQuad();
 
-	void build(const VertexVector& vertices) {
-		const HalfEdgeList& edges = eBuilder.createClosedFromVertices( vertices, nullptr);
+	void build(const HalfEdgeList& edges ) {
 		Face* f = new Face(edges, nextId++);
 		f->setPolygon(polygon);
 		faces.push_back(f);
@@ -102,11 +102,15 @@ public:
 
 	FaceVector getFaces() const { return faces; }
 
+	VertexBuilder& getVertexBuilder() const { return vBuilder; }
+
+	HalfEdgeBuilder& getHalfEdgeBuilder() const { return eBuilder; }
+
 private:
 	VertexBuilder& vBuilder;
 	VertexVector vertices;
 	FaceVector faces;
-	HalfEdgeBuilder eBuilder;
+	HalfEdgeBuilder& eBuilder;
 	Polygon* polygon;
 	unsigned int nextId;
 };

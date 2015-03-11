@@ -47,17 +47,23 @@ Polygon* PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	VertexVector vs = vertexBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
+	const VertexVector& vs = faceBuilder.getVertexBuilder().buildVerticesFromPositionsAndNormals(positions, normals);
 
 	Polygon* polygon = new Polygon(nextId++);
 	faceBuilder.setPolygon(polygon);
 
-	faceBuilder.build({ vs[0], vs[1], vs[2], vs[3] });
-	faceBuilder.build({ vs[4], vs[5], vs[6], vs[7] });
-	faceBuilder.build({ vs[0], vs[1], vs[5], vs[4] });
-	faceBuilder.build({ vs[2], vs[3], vs[7], vs[6] });
-	faceBuilder.build({ vs[3], vs[0], vs[4], vs[7] });
-	faceBuilder.build({ vs[5], vs[1], vs[2], vs[6] });
+	HalfEdgeBuilder& eBuilder = faceBuilder.getHalfEdgeBuilder();
+	const std::vector<HalfEdgeList> edges = {
+		eBuilder.buildClosedFromVertices(nullptr, { vs[0], vs[1], vs[2], vs[3] }),
+		eBuilder.buildClosedFromVertices(nullptr, { vs[0], vs[1], vs[2], vs[3] }),
+		eBuilder.buildClosedFromVertices(nullptr, { vs[4], vs[5], vs[6], vs[7] }),
+		eBuilder.buildClosedFromVertices(nullptr, { vs[2], vs[3], vs[7], vs[6] }),
+		eBuilder.buildClosedFromVertices(nullptr, { vs[3], vs[0], vs[4], vs[7] }),
+		eBuilder.buildClosedFromVertices(nullptr, { vs[5], vs[1], vs[2], vs[6] }),
+	};
+	for (const HalfEdgeList& e : edges) {
+		faceBuilder.build(e);
+	}
 
 	FaceVector faces = faceBuilder.getFaces();
 
@@ -91,12 +97,14 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	faceBuilder.setPolygon(polygon);
 
 	VertexVector vv0;
+	HalfEdgeBuilder& eBuilder = getHalfEdgeBuilder();
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv0.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	faceBuilder.build( vv0 );
+	const HalfEdgeList& edges0 = eBuilder.buildClosedFromVertices(nullptr, vv0);
+	faceBuilder.build( edges0 );
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
 	VertexVector vv1;
@@ -105,16 +113,19 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv1.push_back( vertexBuilder.build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	faceBuilder.build( vv1 );
+	const HalfEdgeList& edges1 = eBuilder.buildClosedFromVertices(nullptr, vv1);
+	faceBuilder.build( edges1 );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 		const VertexVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
-		faceBuilder.build( vv );
+		const HalfEdgeList& edges2 = eBuilder.buildClosedFromVertices(nullptr, vv);
+		faceBuilder.build( edges2 );
 	}
 
 	{
 		const VertexVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
-		faceBuilder.build( vv );
+		const HalfEdgeList& edges3 = eBuilder.buildClosedFromVertices(nullptr, vv);
+		faceBuilder.build( edges3 );
 	}
 
 	polygon->addVertices(vv0);
@@ -163,7 +174,7 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		vertices.push_back(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
 	}
 
-	faceBuilder.build( vertices );
+	faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, vertices ) );
 
 	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
 
@@ -171,14 +182,14 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] } );
+		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, { vertices[v0], vertices[v1], vertices[v2] } ) );
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		faceBuilder.build({ vertices[v0], vertices[v1], vertices[v2] } );
+		faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( nullptr, { vertices[v0], vertices[v1], vertices[v2] } ) );
 	}
 	polygon->setVertices(vertices);
 	polygon->setFaces(faceBuilder.getFaces());

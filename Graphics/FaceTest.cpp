@@ -2,6 +2,8 @@
 
 #include "Face.h"
 
+#include <memory>
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
@@ -19,12 +21,11 @@ TEST(FaceTest, TestConstruct)
 TEST(FaceTest, TestIsClosed)
 {
 	{
-		const VertexVector vertices{
-			new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
-		};
-		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildOpenFromVertices(nullptr);
 		Face f(edges, 0);
 		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
@@ -32,12 +33,11 @@ TEST(FaceTest, TestIsClosed)
 	}
 
 	{
-		const VertexVector vertices{
-			new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
-		};
-		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices, nullptr);
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildClosedFromVertices(nullptr, vBuilder.getVertices());
 		Face f(edges, 0);
 		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());
@@ -50,24 +50,22 @@ TEST(FaceTest, TestIsClosed)
 TEST(FaceTest, TestGetPositions)
 {
 	{
-		const VertexVector vertices{
-			new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
-		};
-		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildOpenFromVertices(nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
 		EXPECT_EQ(nullptr, f.getPolygon());
 	}
 
 	{
-		const VertexVector vertices{
-			new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-			new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
-		};
-		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createClosedFromVertices(vertices, nullptr);
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildClosedFromVertices(nullptr, vBuilder.getVertices());
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getPositions().size());
 		EXPECT_EQ(nullptr, f.getPolygon());
@@ -77,14 +75,14 @@ TEST(FaceTest, TestGetPositions)
 TEST(FaceTest, TestGetNormals)
 {
 	{
-		const VertexVector vertices{
-			new Vertex(Vector3d(0.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 0.0), 0),
-			new Vertex(Vector3d(1.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 0.0), 1)
-		};
-		HalfEdgeBuilder builder;
-		const HalfEdgeList& edges = builder.createOpenFromVertices(vertices, nullptr);
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 0.0) );
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0), Vector3d( 0.0, 0.0, 0.0) );
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildOpenFromVertices(nullptr);
 		Face f(edges, 0);
 		EXPECT_EQ(2, f.getNormals().size());
+		EXPECT_EQ(nullptr, f.getPolygon());
 	}
 
 }
@@ -92,23 +90,21 @@ TEST(FaceTest, TestGetNormals)
 TEST(FaceBuilderTest, TestBuildQuad)
 {
 	VertexBuilder vBuilder;
-	FaceBuilder builder(vBuilder);
-	builder.buildQuad();
-	const FaceVector& faces = builder.getFaces();
-	EXPECT_EQ(1, faces.size());
-	EXPECT_EQ(0, faces.front()->getId());
-	EXPECT_EQ(nullptr, faces.front()->getPolygon());
+	HalfEdgeBuilder eBuilder(vBuilder);
+	FaceBuilder builder(vBuilder, eBuilder);
+	std::unique_ptr< Face > f( builder.buildQuad() );
+	EXPECT_EQ(0, f->getId());
+	EXPECT_EQ(nullptr, f->getPolygon());
 }
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 {
 	VertexBuilder vBuilder;
-	FaceBuilder builder(vBuilder);
-	builder.buildCircleByNumber(3, 3);
-	const FaceVector& faces = builder.getFaces();
-	EXPECT_EQ(1, faces.size());
-	EXPECT_EQ(0, faces.front()->getId());
-	EXPECT_EQ(nullptr, faces.front()->getPolygon());
+	HalfEdgeBuilder eBuilder(vBuilder);
+	FaceBuilder builder(vBuilder, eBuilder);
+	std::unique_ptr< Face > f( builder.buildCircleByNumber(3, 3) );
+	EXPECT_EQ(0, f->getId());
+	EXPECT_EQ(nullptr, f->getPolygon());
 }
 
 TEST(FaceBuilderTest, TestBuildCirleByAngle)
