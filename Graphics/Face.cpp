@@ -41,8 +41,7 @@ std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, con
 		vertices.push_back(v);
 	}
 	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
-	faces.push_back( std::shared_ptr<Face>(new Face(edges, nextId++)) );
-	return faces.back();
+	return std::shared_ptr<Face>(new Face(edges, nextId++));
 }
 
 std::shared_ptr< Face > FaceBuilder::buildQuad()
@@ -55,7 +54,7 @@ std::shared_ptr< Face > FaceBuilder::buildQuad()
 	};
 
 	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
-	faces = { std::shared_ptr<Face>(new Face(edges, nextId++)) };
-	faces.back()->setPolygon(polygon);
-	return faces.back();
+	FaceSPtr f(std::shared_ptr<Face>(new Face(edges, nextId++)));
+	f->setPolygon(polygon);
+	return f;
 }

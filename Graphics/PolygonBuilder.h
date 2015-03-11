@@ -33,6 +33,8 @@ public:
 
 	PolygonSPtr buildCone(const unsigned int divideNumber);
 
+	FaceBuilder& getFaceBuilder() const { return faceBuilder; }
+
 	VertexBuilder& getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
 
 	HalfEdgeBuilder& getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }

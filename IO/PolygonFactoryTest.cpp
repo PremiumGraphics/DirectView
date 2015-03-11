@@ -22,7 +22,12 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	group.setPositions(positions);
 	group.setFaces( {face} );
 	file.setGroups({ group });
-	PolygonFactory factory;
+
+	VertexBuilder vBuilder;
+	HalfEdgeBuilder hBuilder(vBuilder);
+	FaceBuilder fBuilder(hBuilder);
+	PolygonBuilder builder(fBuilder);
+	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
 	//Polygon expected;
 	//expected.setPositions( positions );
@@ -50,8 +55,17 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	cell.setPositions(positions);
 	file.setCells(STLCellVector{ cell });
 
-	PolygonFactory factory;
+	VertexBuilder vBuilder;
+	HalfEdgeBuilder hBuilder(vBuilder);
+	FaceBuilder fBuilder(hBuilder);
+	PolygonBuilder builder(fBuilder);
+	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
+
+	EXPECT_EQ(1, polygons.size());
+	EXPECT_EQ(nullptr, polygons.front()->getMaterial());
+	EXPECT_EQ(1, polygons.front()->getFaces().size());
+	//EXPECT_EQ( 3, polygons.front()->getVertices().size() );
 	//Face face(0);
 	//face.setNormalIds( { 0, 0, 0 } );
 	//Polygon* actual = polygons.front().getPolygon();

@@ -61,6 +61,7 @@ private:
 	PolygonSPtr polygon;
 };
 
+typedef std::shared_ptr<Face> FaceSPtr;
 typedef std::vector< std::shared_ptr<Face> > FaceVector;
 
 class Face;
@@ -79,15 +80,13 @@ public:
 
 	std::shared_ptr<Face> buildQuad();
 
-	void build(const HalfEdgeList& edges ) {
+	std::shared_ptr<Face> build(const HalfEdgeList& edges ) {
 		std::shared_ptr<Face> f( new Face(edges, nextId++) );
 		f->setPolygon(polygon);
-		faces.push_back(f);
+		return f;
 	}
 
 	VertexVector getVertices() const { return vertices; }
-
-	FaceVector getFaces() const { return faces; }
 
 	VertexBuilder& getVertexBuilder() const { return eBuilder.getVertexBuilder(); }
 
@@ -95,7 +94,6 @@ public:
 
 private:
 	VertexVector vertices;
-	FaceVector faces;
 	HalfEdgeBuilder& eBuilder;
 	PolygonSPtr polygon;
 	unsigned int nextId;

@@ -494,7 +494,7 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 			return;
 		}
 
-		PolygonFactory factory;
+		PolygonFactory factory( builder );
 		PolygonSPtrList g = factory.create(file);
 		polygons.insert(polygons.end(), g.begin(), g.end());
 		view->Refresh();

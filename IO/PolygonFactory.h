@@ -2,6 +2,7 @@
 #define __CRYSTAL_IO_POLYGON_FACTORY_H__
 
 #include "../Graphics/Polygon.h"
+#include "../Graphics/PolygonBuilder.h"
 #include "OBJFile.h"
 #include "STLFile.h"
 #include <list>
@@ -13,9 +14,22 @@ namespace Crystal {
 
 class PolygonFactory {
 public:
+	PolygonFactory( Graphics::PolygonBuilder& pBuilder ) :
+		pBuilder( pBuilder ),
+		vBuilder(pBuilder.getVertexBuilder() ),
+		fBuilder(pBuilder.getFaceBuilder() ),
+		eBuilder(pBuilder.getHalfEdgeBuilder() )
+	{}
+
 	Graphics::PolygonSPtrList create(const OBJFile& file);
 
 	Graphics::PolygonSPtrList create(const STLFile& file);
+
+private:
+	Graphics::PolygonBuilder& pBuilder;
+	Graphics::VertexBuilder& vBuilder;
+	Graphics::HalfEdgeBuilder& eBuilder;
+	Graphics::FaceBuilder& fBuilder;
 };
 	}
 }
