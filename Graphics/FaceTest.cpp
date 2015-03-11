@@ -11,8 +11,8 @@ using namespace Crystal::Graphics;
 TEST(FaceTest, TestConstruct)
 {
 	const VertexVector vertices{
-		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
+		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), 0) ),
+		VertexSPtr(new Vertex(Vector3d(1.0, 0.0, 0.0), 1) )
 	};
 	Face f(0);
 	EXPECT_EQ(nullptr, f.getPolygon());

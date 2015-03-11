@@ -147,7 +147,8 @@ Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const uns
 
 			const float uAngle = 360.0f / uDivideNumber * i;
 			const float rad = uAngle *Tolerances::getPI() / 180.0f;
-			vertices.push_back( new Vertex( Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i ) );
+			VertexSPtr v( new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i) );
+			vertices.push_back(v);
 			vertexIds.push_back(i);
 		}
 	}
@@ -171,12 +172,14 @@ Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vertices.push_back(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
+		const VertexSPtr v(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
+		vertices.push_back(v);
 	}
 
 	faceBuilder.build( getHalfEdgeBuilder().buildClosedFromVertices( vertices ) );
 
-	vertices.push_back( new Vertex( Vector3d(0.0, 0.0, 1.0f), divideNumber ));
+	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0, 1.0f), divideNumber));
+	vertices.push_back(v);
 
 	for (unsigned int i = 0; i < divideNumber - 1; ++i) {
 		const unsigned int v0 = i;

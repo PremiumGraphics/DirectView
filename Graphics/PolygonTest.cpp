@@ -14,10 +14,10 @@ using namespace Crystal::Graphics;
 TEST(PolygonTest, TestScale)
 {
 	Polygon p(0);
-	p.setVertices( { new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) } );
+	p.setVertices( { VertexSPtr(new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) ) } );
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { new Vertex(Vector3d(0.1f, 0.01f, 10.0f), 0) };
+	const VertexVector expected = { VertexSPtr( new Vertex( Vector3d(0.1f, 0.01f, 10.0f), 0) ) };
 	const VertexVector& actual = p.getVertices();
 	EXPECT_TRUE( VerticesAreSame( expected, actual ) );
 }
@@ -25,11 +25,11 @@ TEST(PolygonTest, TestScale)
 TEST(PolygonTest, TestScaleWithCenter)
 {
 	Polygon p(0);
-	p.setVertices({ new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) });
+	p.setVertices({ VertexSPtr(new Vertex( Vector3d(1.0, 1.0, 1.0), 0 )) });
 	p.setCenter(Vector3d(1.0, 1.0, 1.0));
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { new Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) };
+	const VertexVector expected = { VertexSPtr( new Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) ) };
 	const VertexVector& actual = p.getVertices();
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
@@ -37,11 +37,11 @@ TEST(PolygonTest, TestScaleWithCenter)
 TEST(PolygonTest, TestMove)
 {
 	Polygon p(0);
-	p.setVertices({ new Vertex(Vector3d(1.0, 2.0, 3.0), 0) });
+	p.setVertices({ VertexSPtr(new Vertex(Vector3d(1.0, 2.0, 3.0), 0)) });
 
 	p.move(Vector3d(1.0, 10.0, 100.0));
 
-	const VertexVector expected = { new Vertex( Vector3d(2.0, 12.0, 103.0), 0 ) };
+	const VertexVector expected = { VertexSPtr( new Vertex(Vector3d(2.0, 12.0, 103.0), 0 ) ) };
 	const VertexVector& actual = p.getVertices();
 
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
@@ -50,12 +50,12 @@ TEST(PolygonTest, TestMove)
 TEST(PolygonTest, TestRotateX)
 {
 	Polygon p(0);
-	p.setVertices({ new Vertex(Vector3d(0.0, 0.0, 1.0), 0) });
+	p.setVertices({ VertexSPtr(new Vertex(Vector3d(0.0, 0.0, 1.0), 0) ) });
 	p.rotateX(180.0);
 
 	const VertexVector& actual = p.getVertices();
 
-	const VertexVector expected{ new Vertex( Vector3d(0.0, 0.0, -1.0), 0 ) };
+	const VertexVector expected{ VertexSPtr(new Vertex( Vector3d(0.0, 0.0, -1.0), 0 )) };
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 

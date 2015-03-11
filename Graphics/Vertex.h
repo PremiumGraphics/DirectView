@@ -86,7 +86,8 @@ private:
 	unsigned int id;
 };
 
-typedef std::vector<Vertex*> VertexVector;
+typedef std::shared_ptr< Vertex > VertexSPtr;
+typedef std::vector< VertexSPtr > VertexVector;
 
 class VertexBuilder {
 public:
@@ -99,31 +100,28 @@ public:
 	}
 
 	void clear() {
-		for (Vertex* v : vertices) {
-			delete v;
-		}
 		vertices.clear();
 	}
 
-	Vertex* build(const Math::Vector3d& position) {
-		vertices.push_back(new Vertex(position, nextId++));
+	VertexSPtr build(const Math::Vector3d& position) {
+		vertices.push_back(VertexSPtr( new Vertex(position, nextId++)));
 		return vertices.back();
 	}
 
-	Vertex* build(const Math::Vector3d& position, const Math::Vector3d& normal) {
-		vertices.push_back(new Vertex(position, normal, nextId++));
+	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal) {
+		vertices.push_back(VertexSPtr(new Vertex(position, normal, nextId++)));
 		return vertices.back();
 	}
 
-	Vertex* build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
-		vertices.push_back(new Vertex(position, normal, texCoord, nextId++));
+	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
+		vertices.push_back(VertexSPtr(new Vertex(position, normal, texCoord, nextId++)));
 		return vertices.back();
 	}
 
 	VertexVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
-		std::vector< Vertex* > vertices;
+		VertexVector vertices;
 		for (const Math::Vector3d& position : positions) {
-			Vertex* v = new Vertex(position, nextId++);
+			VertexSPtr v(new Vertex(position, nextId++));
 			vertices.push_back(v);
 		}
 		return vertices;
@@ -131,9 +129,9 @@ public:
 
 	VertexVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
 		assert(positions.size() == normals.size());
-		std::vector< Vertex* > vertices;
+		VertexVector vertices;
 		for (size_t i = 0; i < positions.size(); ++i) {
-			Vertex* v = new Vertex(positions[i], normals[i], nextId++);
+			VertexSPtr v( new Vertex(positions[i], normals[i], nextId++) );
 			vertices.push_back(v);
 		}
 		return vertices;

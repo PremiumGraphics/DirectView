@@ -38,7 +38,7 @@ public:
 
 	Math::Vector3dVector getPositions() {
 		Math::Vector3dVector vv;
-		for (Vertex* v: vertices) {
+		for (const VertexSPtr& v: vertices) {
 			vv.push_back(v->getPosition());
 		}
 		return vv;
@@ -46,7 +46,7 @@ public:
 
 	Math::Vector3dVector getNormals() {
 		Math::Vector3dVector vv;
-		for (Vertex* v : vertices) {
+		for (const VertexSPtr v : vertices) {
 			vv.push_back(v->getNormal());
 		}
 		return vv;
@@ -60,7 +60,7 @@ public:
 
 	void move(const Math::Vector3d& vector) {
 		//center += vector;
-		for (Vertex* v : vertices) {
+		for (const VertexSPtr v : vertices) {
 			v->move(vector);
 		}
 

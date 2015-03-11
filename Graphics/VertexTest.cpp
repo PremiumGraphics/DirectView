@@ -24,8 +24,8 @@ TEST(VertexBuilderTest, TestBuildVerticesFromPositions)
 	const VertexVector& actual = builder.buildVerticesFromPositions(positions);
 
 	const VertexVector expected{
-		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
-		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
+		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), 0) ),
+		VertexSPtr( new Vertex(Vector3d(1.0, 0.0, 0.0), 1) )
 	};
 
 	EXPECT_TRUE( VerticesAreSame( expected, actual ) );
@@ -47,8 +47,8 @@ TEST(VertexTest, TestCreateVerticesFromPositionsAndNormals)
 	const VertexVector& actual = vBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
 	const VertexVector expected{
-		new Vertex(Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 0),
-		new Vertex(Vector3d(1.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 1)
+		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 0) ),
+		VertexSPtr( new Vertex(Vector3d(1.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 1) )
 	};
 
 	EXPECT_TRUE( VerticesAreSame(expected, actual) );

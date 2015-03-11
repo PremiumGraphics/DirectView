@@ -28,7 +28,7 @@ public:
 		id( -1 )
 	{}
 
-	HalfEdge(Vertex* start, Vertex* end, const unsigned int id, Face* face) :
+	HalfEdge(const VertexSPtr start, const VertexSPtr end, const unsigned int id, Face* face) :
 		start(start),
 		end(end),
 		face(face),
@@ -47,13 +47,13 @@ public:
 
 	HalfEdgeSPtr getNext() { return next; }
 
-	void setStart(Vertex* start) { this->start = start; }
+	void setStart(VertexSPtr start) { this->start = start; }
 
-	void setEnd(Vertex* end) { this->end = end; }
+	void setEnd(VertexSPtr end) { this->end = end; }
 
-	Vertex* getStart() { return start; }
+	VertexSPtr getStart() { return start; }
 
-	Vertex* getEnd() { return end; }
+	VertexSPtr getEnd() { return end; }
 
 	Math::Vector3d getStartPosition() const { return start->getPosition(); }
 
@@ -62,8 +62,8 @@ public:
 	unsigned int getId() const { return id; }
 
 private:
-	Vertex* start;
-	Vertex* end;
+	VertexSPtr start;
+	VertexSPtr end;
 	HalfEdgeSPtr prev;
 	HalfEdgeSPtr next;
 	Face* face;
@@ -87,7 +87,7 @@ public:
 
 	void setFace(Face* f) { this->face = f; }
 
-	HalfEdge* build(Vertex* start, Vertex* end )
+	HalfEdge* build(const VertexSPtr& start, const VertexSPtr& end )
 	{
 		edges.push_back( HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face )) );
 	}

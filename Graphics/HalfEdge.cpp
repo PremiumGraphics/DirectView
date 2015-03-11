@@ -8,8 +8,8 @@ HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices()
 	assert(vv.size() >= 1);
 	HalfEdgeVector edges;
 	for (size_t i = 0; i < vv.size() - 1; ++i ) {
-		Vertex* start = vv[i];
-		Vertex* end = vv[i+1];
+		const VertexSPtr& start = vv[i];
+		const VertexSPtr& end = vv[i+1];
 		HalfEdgeSPtr edge( new HalfEdge( start, end, nextId++, face ) );
 		start->addEdge(edge);
 		end->addEdge(edge);
@@ -30,8 +30,8 @@ HalfEdgeList HalfEdgeBuilder::buildClosedFromVertices( const VertexVector& vv)
 	
 	HalfEdgeVector edges;
 	for (size_t i = 0; i < vv.size() - 1; ++i) {
-		Vertex* start = vv[i];
-		Vertex* end = vv[i + 1];
+		const VertexSPtr& start = vv[i];
+		const VertexSPtr& end = vv[i + 1];
 		HalfEdgeSPtr edge( new HalfEdge(start, end, nextId++, face) );
 		start->addEdge(edge);
 		end->addEdge(edge);

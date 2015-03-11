@@ -42,8 +42,8 @@ public:
 	void setSelectedVertex(const unsigned int id)
 	{
 		if (id >= 0 && id < vBuilder.getVertices().size()) {
-			Graphics::Vertex* v = vBuilder.getVertices()[id];
-			selectedVertex = v;
+			const Graphics::VertexSPtr& v = vBuilder.getVertices()[id];
+			selectedVertex = v.get();
 			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
 			dialog->Show();
 		}
