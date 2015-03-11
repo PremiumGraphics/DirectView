@@ -85,6 +85,8 @@ public:
 
 	HalfEdgeList buildClosedFromVertices(Face* face, const VertexVector& vv);
 
+	VertexBuilder& getVertexBuilder() const { return vBuilder; }
+
 private:
 	HalfEdgeList edges;
 	VertexBuilder& vBuilder;

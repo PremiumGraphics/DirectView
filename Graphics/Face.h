@@ -79,8 +79,7 @@ class Face;
 
 class FaceBuilder {
 public:
-	FaceBuilder(VertexBuilder& vBuilder, HalfEdgeBuilder& eBuilder) :
-		vBuilder(vBuilder),
+	FaceBuilder(HalfEdgeBuilder& eBuilder) :
 		eBuilder(eBuilder),
 		nextId(0),
 		polygon( nullptr )
@@ -102,12 +101,11 @@ public:
 
 	FaceVector getFaces() const { return faces; }
 
-	VertexBuilder& getVertexBuilder() const { return vBuilder; }
+	VertexBuilder& getVertexBuilder() const { return eBuilder.getVertexBuilder(); }
 
 	HalfEdgeBuilder& getHalfEdgeBuilder() const { return eBuilder; }
 
 private:
-	VertexBuilder& vBuilder;
 	VertexVector vertices;
 	FaceVector faces;
 	HalfEdgeBuilder& eBuilder;

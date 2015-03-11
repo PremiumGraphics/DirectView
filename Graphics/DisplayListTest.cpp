@@ -42,7 +42,7 @@ TEST(DisplayListTest, TestAddFace)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder builder(vBuilder, eBuilder);
+	FaceBuilder builder( eBuilder);
 	builder.buildQuad();
 
 	DisplayList list;
@@ -56,7 +56,7 @@ TEST(DisplayListTest, TestAddPolygon)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 
 	DisplayList list;

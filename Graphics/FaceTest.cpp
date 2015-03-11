@@ -91,7 +91,7 @@ TEST(FaceBuilderTest, TestBuildQuad)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder builder(vBuilder, eBuilder);
+	FaceBuilder builder( eBuilder);
 	std::unique_ptr< Face > f( builder.buildQuad() );
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
@@ -101,7 +101,7 @@ TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder builder(vBuilder, eBuilder);
+	FaceBuilder builder( eBuilder);
 	std::unique_ptr< Face > f( builder.buildCircleByNumber(3, 3) );
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());

@@ -11,7 +11,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildQuad() );
 
@@ -45,7 +45,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildBox());
 
@@ -73,7 +73,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCircleByAngle(1.0f, 90.0f));
 	EXPECT_EQ(4, p->getVertices().size());
@@ -108,7 +108,7 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildTriangle() );
 
@@ -142,7 +142,7 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
@@ -177,7 +177,7 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCylinder(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
@@ -190,7 +190,7 @@ TEST(PolygonBuilderTest, TestBuildCone)
 {
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder(vBuilder, eBuilder);
+	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(vBuilder, fBuilder);
 	std::unique_ptr< Polygon > p(builder.buildCone(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
