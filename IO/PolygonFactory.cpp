@@ -44,7 +44,7 @@ PolygonSPtrList PolygonFactory::create(const STLFile& file)
 		normals.push_back( c.getNormal() );
 		const std::vector< Vector3d >& pos = c.getPositions();
 		const VertexVector& vv = vBuilder.buildVerticesFromPositions(pos);
-		const HalfEdgeList& edges = eBuilder.buildClosedFromVertices(vv);
+		const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vv);
 		const FaceSPtr& f = fBuilder.build(edges);
 		//face->setNormalIds( { normalId, normalId, normalId } );
 		//face->setVertexIds( { vertexId, vertexId+1, vertexId+2 } );

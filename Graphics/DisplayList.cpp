@@ -86,7 +86,7 @@ std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
 Vector3dVector DisplayList::getPositions(const Face& f) const
 {
 	Vector3dVector positions;
-	const HalfEdgeList& edges = f.getEdges();
+	const HalfEdgeSPtrList& edges = f.getEdges();
 	for (const HalfEdgeSPtr& e : edges) {
 		positions.push_back(e->getStartPosition());
 		if (e == edges.back() && f.isOpen()) {

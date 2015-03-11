@@ -72,7 +72,7 @@ private:
 
 
 typedef std::vector< HalfEdgeSPtr > HalfEdgeVector;
-typedef std::list< HalfEdgeSPtr > HalfEdgeList;
+typedef std::list< HalfEdgeSPtr > HalfEdgeSPtrList;
 
 class HalfEdgeBuilder
 {
@@ -92,9 +92,9 @@ public:
 		return HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face ));
 	}
 
-	HalfEdgeList buildOpenFromVertices(const VertexVector& vv);
+	HalfEdgeSPtrList buildOpenFromVertices(const VertexVector& vv);
 
-	HalfEdgeList buildClosedFromVertices(const VertexVector& vv);
+	HalfEdgeSPtrList buildClosedFromVertices(const VertexVector& vv);
 
 	VertexBuilder& getVertexBuilder() const { return vBuilder; }
 

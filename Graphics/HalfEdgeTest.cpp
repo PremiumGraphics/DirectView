@@ -23,7 +23,7 @@ TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 	};
 
 	HalfEdgeBuilder builder( vBuilder );
-	const HalfEdgeList& actual = builder.buildOpenFromVertices(vv);
+	const HalfEdgeSPtrList& actual = builder.buildOpenFromVertices(vv);
 	EXPECT_EQ(2, actual.size());
 	EXPECT_EQ(nullptr, actual.front()->getPrev());
 	EXPECT_EQ(nullptr, actual.back()->getNext());
@@ -46,7 +46,7 @@ TEST(HalfEdgeTest, TestBuildClosedFromVertices)
 	};
 
 	HalfEdgeBuilder builder( vBuilder );
-	const HalfEdgeList& actual = builder.buildClosedFromVertices(vv);
+	const HalfEdgeSPtrList& actual = builder.buildClosedFromVertices(vv);
 	EXPECT_EQ(3, actual.size());
 	EXPECT_NE(nullptr, actual.front()->getPrev());
 	EXPECT_NE(nullptr, actual.back()->getNext());

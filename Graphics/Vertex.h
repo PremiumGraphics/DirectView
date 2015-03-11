@@ -10,7 +10,7 @@ namespace Crystal {
 	namespace Graphics {
 		class HalfEdge;
 		typedef std::shared_ptr<HalfEdge> HalfEdgeSPtr;
-		typedef std::list< HalfEdgeSPtr > HalfEdgeList;
+		typedef std::list< HalfEdgeSPtr > HalfEdgeSPtrList;
 
 class Vertex {
 public:
@@ -46,7 +46,7 @@ public:
 
 	void addEdge(const HalfEdgeSPtr& e) { this->edges.push_back( e ); }
 
-	HalfEdgeList getEdges() const { return edges; }
+	HalfEdgeSPtrList getEdges() const { return edges; }
 
 	void move(const Math::Vector3d& vec){
 		position += vec;
@@ -82,7 +82,7 @@ private:
 	Math::Vector3d position;
 	Math::Vector3d normal;
 	Math::Vector3d texCoord;
-	HalfEdgeList edges;
+	HalfEdgeSPtrList edges;
 	unsigned int id;
 };
 

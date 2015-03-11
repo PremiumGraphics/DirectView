@@ -40,7 +40,7 @@ std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, con
 		const VertexSPtr& v = getVertexBuilder().build(radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d(0.0, 0.0, 1.0));
 		vertices.push_back(v);
 	}
-	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
+	const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices( vertices);
 	return std::shared_ptr<Face>(new Face(edges, nextId++));
 }
 
@@ -53,7 +53,7 @@ std::shared_ptr< Face > FaceBuilder::buildQuad()
 		getVertexBuilder().build(Vector3d(1.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0))
 	};
 
-	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
+	const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices( vertices);
 	FaceSPtr f(std::shared_ptr<Face>(new Face(edges, nextId++)));
 	f->setPolygon(polygon);
 	return f;

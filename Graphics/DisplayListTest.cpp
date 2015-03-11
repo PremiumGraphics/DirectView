@@ -43,10 +43,10 @@ TEST(DisplayListTest, TestAddFace)
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder builder( eBuilder);
-	builder.buildQuad();
+	FaceSPtr f = builder.buildQuad();
 
 	DisplayList list;
-	list.add(builder.getFaces().front().get());
+	list.add(f.get());
 
 	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
 	EXPECT_EQ( expected, list.getFaceIds());

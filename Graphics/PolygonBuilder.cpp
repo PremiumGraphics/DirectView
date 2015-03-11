@@ -53,7 +53,7 @@ PolygonSPtr PolygonBuilder::buildBox()
 	faceBuilder.setPolygon(polygon);
 
 	HalfEdgeBuilder& eBuilder = faceBuilder.getHalfEdgeBuilder();
-	const std::vector<HalfEdgeList> edges = {
+	const std::vector<HalfEdgeSPtrList> edges = {
 		eBuilder.buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
 		eBuilder.buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
 		eBuilder.buildClosedFromVertices({ vs[4], vs[5], vs[6], vs[7] }),
@@ -63,7 +63,7 @@ PolygonSPtr PolygonBuilder::buildBox()
 	};
 
 	FaceVector faces;
-	for (const HalfEdgeList& e : edges) {
+	for (const HalfEdgeSPtrList& e : edges) {
 		faces.push_back( faceBuilder.build(e) );
 	}
 	polygon->setVertices(vs);
@@ -103,7 +103,7 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv0.push_back( getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
 	}
-	const HalfEdgeList& edges0 = eBuilder.buildClosedFromVertices( vv0);
+	const HalfEdgeSPtrList& edges0 = eBuilder.buildClosedFromVertices( vv0);
 	faces.push_back( faceBuilder.build( edges0 ) );
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
@@ -113,18 +113,18 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 		const float rad = angle *Tolerances::getPI() / 180.0f;
 		vv1.push_back(getVertexBuilder().build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)));
 	}
-	const HalfEdgeList& edges1 = eBuilder.buildClosedFromVertices(vv1);
+	const HalfEdgeSPtrList& edges1 = eBuilder.buildClosedFromVertices(vv1);
 	faces.push_back( faceBuilder.build( edges1 ) );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
 		const VertexVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
-		const HalfEdgeList& edges2 = eBuilder.buildClosedFromVertices(vv);
+		const HalfEdgeSPtrList& edges2 = eBuilder.buildClosedFromVertices(vv);
 		faces.push_back( faceBuilder.build( edges2 ) );
 	}
 
 	{
 		const VertexVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
-		const HalfEdgeList& edges3 = eBuilder.buildClosedFromVertices(vv);
+		const HalfEdgeSPtrList& edges3 = eBuilder.buildClosedFromVertices(vv);
 		faces.push_back( faceBuilder.build( edges3 ) );
 	}
 

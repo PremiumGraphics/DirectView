@@ -20,7 +20,7 @@ public:
 	{};
 
 
-	Face(const HalfEdgeList& edges, const unsigned int id) :
+	Face(const HalfEdgeSPtrList& edges, const unsigned int id) :
 		edges( edges ),
 		id( id ),
 		polygon(nullptr)
@@ -34,9 +34,9 @@ public:
 
 	bool isOpen() const { return !isClosed(); }
 
-	void setEdges(const HalfEdgeList& edges) { this->edges = edges; }
+	void setEdges(const HalfEdgeSPtrList& edges) { this->edges = edges; }
 
-	HalfEdgeList getEdges() const { return edges; }
+	HalfEdgeSPtrList getEdges() const { return edges; }
 
 	VertexVector getVertices() const {
 		VertexVector vertices;
@@ -56,7 +56,7 @@ public:
 
 private:
 	//VertexVector vertices;
-	HalfEdgeList edges;
+	HalfEdgeSPtrList edges;
 	const unsigned int id;
 	PolygonSPtr polygon;
 };
@@ -80,7 +80,7 @@ public:
 
 	std::shared_ptr<Face> buildQuad();
 
-	std::shared_ptr<Face> build(const HalfEdgeList& edges ) {
+	std::shared_ptr<Face> build(const HalfEdgeSPtrList& edges ) {
 		std::shared_ptr<Face> f( new Face(edges, nextId++) );
 		f->setPolygon(polygon);
 		return f;
