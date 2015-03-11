@@ -79,28 +79,29 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
-	/*
-
-	Polygon expected;
-	const VertexVector& positions = Vertex::createVerticesFromPositions(
-	{
+	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		0
+		);
+	const Vertex v1(
 		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		1);
+	const Vertex v2(
 		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0)
-	}
-	);
-	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0)
-	};
-	expected.setVertices(positions);
-	expected.setNormals(normals);
-	Face f;
-	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 0, 0, 0 });
-	expected.setFaces({ f });
-	EXPECT_EQ(expected, *p);
-	*/
+		Vector3d(0.0, 0.0, 1.0),
+		2);
+	const Vertex v3(
+		Vector3d(-1.0, 0.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		3
+		);
+
+	EXPECT_EQ(v0, *(p->getVertices()[0]));
+	EXPECT_EQ(v1, *(p->getVertices()[1]));
+	EXPECT_EQ(v2, *(p->getVertices()[2]));
+	EXPECT_EQ(v3, *(p->getVertices()[3]));
 }
 
 

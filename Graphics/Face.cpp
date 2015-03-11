@@ -3,17 +3,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-Vector3dVector Face::getPositions() const
-{
-	Vector3dVector positions;
-	for (HalfEdge* e : edges) {
-		positions.push_back(e->getStartPosition());
-		if (e == edges.back() && isOpen()) {
-			positions.push_back(e->getEndPosition());
-		}
-	}
-	return positions;
-}
 
 Vector3dVector Face::getNormals() const
 {
@@ -41,7 +30,7 @@ Vector3dVector Face::getTexCoords() const
 }
 
 
-Face* FaceBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
+std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
@@ -54,11 +43,11 @@ Face* FaceBuilder::buildCircleByNumber(const float radius, const unsigned int di
 		vertices.push_back(v);
 	}
 	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
-	faces.push_back(new Face(edges, nextId++));
+	faces.push_back( std::shared_ptr<Face>(new Face(edges, nextId++)) );
 	return faces.back();
 }
 
-Face* FaceBuilder::buildQuad()
+std::shared_ptr< Face > FaceBuilder::buildQuad()
 {
 	vertices = {
 		getVertexBuilder().build(Vector3d(0.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
@@ -68,7 +57,7 @@ Face* FaceBuilder::buildQuad()
 	};
 
 	const HalfEdgeList& edges = eBuilder.buildClosedFromVertices( vertices);
-	faces = { new Face(edges, nextId++) };
+	faces = { std::shared_ptr<Face>(new Face(edges, nextId++)) };
 	faces.back()->setPolygon(polygon);
 	return faces.back();
 }

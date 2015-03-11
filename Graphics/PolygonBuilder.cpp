@@ -74,7 +74,7 @@ Polygon* PolygonBuilder::buildBox()
 
 Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
-	Face* f = faceBuilder.buildCircleByNumber(radius, divideNumber);
+	std::shared_ptr< Face > f = faceBuilder.buildCircleByNumber(radius, divideNumber);
 
 	Polygon* polygon = new Polygon(nextId++);
 	f->setPolygon(polygon);

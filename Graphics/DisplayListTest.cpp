@@ -46,7 +46,7 @@ TEST(DisplayListTest, TestAddFace)
 	builder.buildQuad();
 
 	DisplayList list;
-	list.add(builder.getFaces().front());
+	list.add(builder.getFaces().front().get());
 
 	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
 	EXPECT_EQ( expected, list.getFaceIds());
@@ -81,3 +81,30 @@ TEST(DisplayListTest, TestAddPolygon)
 	}
 
 }
+
+/*
+TEST(FaceTest, TestGetPositions)
+{
+	{
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildOpenFromVertices();
+		Face f(edges, 0);
+		EXPECT_EQ(2, f.getPositions().size());
+		EXPECT_EQ(nullptr, f.getPolygon());
+	}
+
+	{
+		VertexBuilder vBuilder;
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+		HalfEdgeBuilder builder(vBuilder);
+		const HalfEdgeList& edges = builder.buildClosedFromVertices(vBuilder.getVertices());
+		Face f(edges, 0);
+		EXPECT_EQ(2, f.getPositions().size());
+		EXPECT_EQ(nullptr, f.getPolygon());
+	}
+}
+*/

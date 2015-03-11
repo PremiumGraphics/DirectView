@@ -52,8 +52,8 @@ public:
 	void setSelectedFace(const unsigned int id)
 	{
 		if (id >= 0 && id < vBuilder.getVertices().size()) {
-			Graphics::Face* f = fBuilder.getFaces()[id];
-			selectedFace = f;
+			std::shared_ptr< Graphics::Face > f = fBuilder.getFaces()[id];
+			selectedFace = f.get();
 		}
 	}
 

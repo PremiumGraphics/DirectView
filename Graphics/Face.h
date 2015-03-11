@@ -4,6 +4,7 @@
 #include "HalfEdge.h"
 
 #include <vector>
+#include <memory>
 
 namespace Crystal {
 	namespace Graphics {
@@ -32,14 +33,6 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	std::vector<unsigned int> getVertexIds() {
-		std::vector<unsigned int> ids;
-		for (HalfEdge* edge : edges) {
-			ids.push_back( edge->getStart()->getId() );
-		}
-		return ids;
-	}
-
 	bool isClosed() const { return edges.back()->getEndPosition() == edges.front()->getStartPosition(); }
 
 	bool isOpen() const { return !isClosed(); }
@@ -56,8 +49,6 @@ public:
 		return vertices;
 	}
 
-	Math::Vector3dVector getPositions() const;
-
 	Math::Vector3dVector getNormals() const;
 
 	Math::Vector3dVector getTexCoords() const;
@@ -73,7 +64,7 @@ private:
 	Polygon* polygon;
 };
 
-typedef std::vector<Face*> FaceVector;
+typedef std::vector< std::shared_ptr<Face> > FaceVector;
 
 class Face;
 
@@ -87,12 +78,12 @@ public:
 
 	void setPolygon(Polygon* polygon){ this->polygon = polygon; }
 
-	Face* buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	std::shared_ptr<Face> buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	Face* buildQuad();
+	std::shared_ptr<Face> buildQuad();
 
 	void build(const HalfEdgeList& edges ) {
-		Face* f = new Face(edges, nextId++);
+		std::shared_ptr<Face> f( new Face(edges, nextId++) );
 		f->setPolygon(polygon);
 		faces.push_back(f);
 	}

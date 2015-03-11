@@ -7,11 +7,11 @@ using namespace Crystal::Graphics;
 
 DisplayList::DisplayList(Face* f)
 {
-	this->vertices = toArray( f->getPositions() );
+	this->vertices = toArray( getPositions( *f) );
 	this->normals = toArray( f->getNormals() );
 	this->texCoords = toArray( f->getTexCoords() );
 
-	this->ids.push_back( f->getVertexIds() );
+	this->ids.push_back( getVertexIds( *f ) );
 }
 
 
@@ -33,7 +33,7 @@ void DisplayList::clear()
 
 void DisplayList::add(Face* f)
 {
-	const std::vector<float>& vs = toArray(f->getPositions());
+	const std::vector<float>& vs = toArray( getPositions( *f ));
 	vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
 	const std::vector<float>& ns = toArray(f->getNormals());
@@ -42,20 +42,21 @@ void DisplayList::add(Face* f)
 	const std::vector<float> ts = toArray(f->getTexCoords());
 	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
-	const std::vector<unsigned int> ids_ = f->getVertexIds();
+	const std::vector<unsigned int> ids_ = getVertexIds(*f);
 	this->ids.push_back( ids_ );
 
 	vertexIds.insert(vertexIds.end(), ids_.begin(), ids_.end());
 
-	for (size_t i = 0; i < f->getPositions().size(); ++i) {
+	const Vector3dVector positions = getPositions(*f);
+	for (size_t i = 0; i < positions.size(); ++i) {
 		faceIds.push_back(f->getId());
 	}
 }
 
 void DisplayList::add(Polygon* p)
 {
-	for (Face* f : p->getFaces()) {
-		add(f);
+	for (std::shared_ptr<Face> f : p->getFaces()) {
+		add(f.get());
 	}
 	for (size_t i = 0; i < p->getVertices().size(); ++i) {
 		polygonIds.push_back(p->getId());
@@ -73,3 +74,25 @@ void DisplayList::addHighlight(Face* f)
 	;
 }
 */
+
+std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
+	std::vector<unsigned int> ids;
+	for (HalfEdge* edge : f.getEdges() ) {
+		ids.push_back(edge->getStart()->getId());
+	}
+	return ids;
+}
+
+Vector3dVector DisplayList::getPositions(const Face& f) const
+{
+	Vector3dVector positions;
+	const HalfEdgeList& edges = f.getEdges();
+	for (HalfEdge* e : edges) {
+		positions.push_back(e->getStartPosition());
+		if (e == edges.back() && f.isOpen()) {
+			positions.push_back(e->getEndPosition());
+		}
+	}
+	return positions;
+}
+

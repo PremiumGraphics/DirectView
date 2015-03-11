@@ -10,6 +10,7 @@ TEST(HalfEdgeTest, TestConstruct)
 	HalfEdge edge;
 	EXPECT_EQ(nullptr, edge.getPrev());
 	EXPECT_EQ(nullptr, edge.getNext());
+	EXPECT_EQ(nullptr, edge.getFace());
 }
 
 TEST(HalfEdgeTest, TestBuildOpenFromVertices)
@@ -30,9 +31,10 @@ TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 	EXPECT_EQ(1, actual.front()->getStart()->getEdges().size());
 	EXPECT_EQ(2, actual.front()->getEnd()->getEdges().size());
 	EXPECT_EQ(nullptr, actual.front()->getFace());
+	EXPECT_EQ(nullptr, actual.back()->getFace());
 }
 
-TEST(HalfEdgeTest, TestBuilderClosedFromVertices)
+TEST(HalfEdgeTest, TestBuildClosedFromVertices)
 {
 	VertexBuilder vBuilder;
 	vBuilder.build(Vector3d(0.0, 0.0, 0.0));

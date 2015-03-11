@@ -17,7 +17,7 @@ PolygonGroupList PolygonFactory::create(const OBJFile& file)
 
 		FaceVector faces;
 		for (const OBJFace& f : g.getFaces()) {
-			Face* face = new Face(0);
+			std::shared_ptr<Face> face(  new Face(0) );
 			//face->setVertexIds( f.getVertexIndices() );
 			//face->setNormalIds( f.getNormalIndices() );
 			//face.setTexIds( f.getTexIndices() );
@@ -41,10 +41,10 @@ PolygonGroupList PolygonFactory::create(const STLFile& file)
 	unsigned int normalId = 0;
 	unsigned int vertexId = 0;
 	for (const STLCell& c : cells) {
+		std::shared_ptr<Face> face(new Face(0));
 		normals.push_back( c.getNormal() );
 		const std::vector< Vector3d >& pos = c.getPositions();
 		positions.insert(positions.end(), pos.begin(), pos.end());
-		Face* face = new Face(0);
 		//face->setNormalIds( { normalId, normalId, normalId } );
 		//face->setVertexIds( { vertexId, vertexId+1, vertexId+2 } );
 		normalId += 1;

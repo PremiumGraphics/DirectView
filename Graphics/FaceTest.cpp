@@ -8,15 +8,15 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
 
-/*
 TEST(FaceTest, TestConstruct)
 {
 	const VertexVector vertices{
 		new Vertex(Vector3d(0.0, 0.0, 0.0), 0),
 		new Vertex(Vector3d(1.0, 0.0, 0.0), 1)
 	};
+	Face f(0);
+	EXPECT_EQ(nullptr, f.getPolygon());
 }
-*/
 
 TEST(FaceTest, TestIsClosed)
 {
@@ -47,31 +47,6 @@ TEST(FaceTest, TestIsClosed)
 	//Face f;
 }
 
-TEST(FaceTest, TestGetPositions)
-{
-	{
-		VertexBuilder vBuilder;
-		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeList& edges = builder.buildOpenFromVertices();
-		Face f(edges, 0);
-		EXPECT_EQ(2, f.getPositions().size());
-		EXPECT_EQ(nullptr, f.getPolygon());
-	}
-
-	{
-		VertexBuilder vBuilder;
-		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeList& edges = builder.buildClosedFromVertices(vBuilder.getVertices());
-		Face f(edges, 0);
-		EXPECT_EQ(2, f.getPositions().size());
-		EXPECT_EQ(nullptr, f.getPolygon());
-	}
-}
-
 TEST(FaceTest, TestGetNormals)
 {
 	{
@@ -92,7 +67,7 @@ TEST(FaceBuilderTest, TestBuildQuad)
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder builder( eBuilder);
-	std::unique_ptr< Face > f( builder.buildQuad() );
+	std::shared_ptr< Face > f( builder.buildQuad() );
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
 }
@@ -102,7 +77,7 @@ TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder builder( eBuilder);
-	std::unique_ptr< Face > f( builder.buildCircleByNumber(3, 3) );
+	std::shared_ptr< Face > f(builder.buildCircleByNumber(3, 3));
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
 }

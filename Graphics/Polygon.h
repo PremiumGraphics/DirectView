@@ -19,15 +19,12 @@ public:
 
 	~Polygon()
 	{
-		for (Face* f : faces) {
-			delete f;
-		}
 	}
 
 
-	void setFaces(const std::vector< Face* >& faces) { this->faces = faces; }
+	void setFaces(const FaceVector& faces) { this->faces = faces; }
 
-	std::vector< Face* > getFaces() const { return faces; }
+	FaceVector getFaces() const { return faces; }
 
 	void setName(const std::string& name) { this->name = name; }
 

@@ -76,6 +76,12 @@ private:
 	std::vector< unsigned int > faceIds;
 	std::vector< unsigned int > polygonIds;
 	std::vector< std::vector< unsigned int > > ids;
+
+	std::vector<unsigned int> getVertexIds(const Face& f) const;
+
+	Math::Vector3dVector getPositions(const Face& f) const;
+
+
 };
 	}
 }
