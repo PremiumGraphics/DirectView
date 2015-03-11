@@ -109,33 +109,31 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	VertexBuilder vBuilder;
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder(eBuilder);
-	PolygonBuilder builder( fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildTriangle() );
+	PolygonBuilder builder(fBuilder);
+	std::unique_ptr< Polygon > p(builder.buildTriangle());
 
-	EXPECT_EQ( 3, p->getVertices().size());
-	/*
-	Polygon expected;
-	const VertexVector positions = Vertex::createVerticesFromPositions(
-	{
+	EXPECT_EQ(3, p->getVertices().size());
+
+	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		0
+		);
+	const Vertex v1(
 		Vector3d(std::sin(120.0f * Tolerances::getPI() / 180.0f), std::cos(120.0f * Tolerances::getPI() / 180.0f), 0.0),
-		Vector3d(std::sin(240.0f * Tolerances::getPI() / 180.0f), std::cos(240.0f * Tolerances::getPI() / 180.0f), 0.0)
-	});
+		Vector3d(0.0, 0.0, 1.0),
+		1);
+	const Vertex v2(
+		Vector3d(std::sin(240.0f * Tolerances::getPI() / 180.0f), std::cos(240.0f * Tolerances::getPI() / 180.0f), 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		2);
 
 
-	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0)
-	};
-	//const Vector3d expected(-0.5, 0.5, 0.0);
+	EXPECT_EQ(v0, *(p->getVertices()[0]));
+	EXPECT_EQ(v1, *(p->getVertices()[1]));
+	EXPECT_EQ(v2, *(p->getVertices()[2]));
 
-	expected.setVertices(positions);
-	expected.setNormals(normals);
-	const FaceVector& faces = p->getFaces();
 
-	expected.setFaces({ f });
-
-	EXPECT_EQ(expected, *p);
-	*/
 }
 
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
@@ -148,28 +146,29 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
 
-	/*
-	const VertexVector& actual = p->getVertices();
-
-	Polygon expected;
-	const VertexVector positions = Vertex::createVerticesFromPositions(
-	{
+	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		0
+		);
+	const Vertex v1(
 		Vector3d(1.0, 0.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		1);
+	const Vertex v2(
 		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0)
-	});
-	const Vector3dVector normals{
-		Vector3d(0.0, 0.0, 1.0)
-	};
-	expected.setVertices(positions);
-	expected.setNormals(normals);
-	Face f;
-	f.setVertexIds({ 0, 1, 2, 3 });
-	f.setNormalIds({ 0, 0, 0, 0 });
-	expected.setFaces({ f });
-	EXPECT_EQ(expected, *p);
-	*/
+		Vector3d(0.0, 0.0, 1.0),
+		2);
+	const Vertex v3(
+		Vector3d(-1.0, 0.0, 0.0),
+		Vector3d(0.0, 0.0, 1.0),
+		3
+		);
+
+	EXPECT_EQ(v0, *(p->getVertices()[0]));
+	EXPECT_EQ(v1, *(p->getVertices()[1]));
+	EXPECT_EQ(v2, *(p->getVertices()[2]));
+	EXPECT_EQ(v3, *(p->getVertices()[3]));
 }
 
 
