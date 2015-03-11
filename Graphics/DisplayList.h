@@ -2,13 +2,16 @@
 #define __CRYSTAL_GRAPHICS_DISPLAY_LIST_H__
 
 #include <vector>
+#include <memory>
 
 #include "../Math/Vector3d.h"
 
 namespace Crystal {
 	namespace Graphics{
-		class Face;
-		class Polygon;
+
+class Face;
+class Polygon;
+typedef std::shared_ptr< Polygon > PolygonSPtr;
 
 class DisplayList
 {
@@ -18,7 +21,7 @@ public:
 
 	DisplayList(Face* f);
 
-	DisplayList(Polygon* polygon);
+	DisplayList(const PolygonSPtr& polygon);
 
 	DisplayList(const Math::Vector3dVector& poss) {
 		vertices = Math::toArray(poss);
@@ -39,7 +42,7 @@ public:
 
 	void add(Face* f);
 
-	void add(Polygon* p);
+	void add(const PolygonSPtr& p);
 
 	/*
 	void addHighlight(Vertex* v);

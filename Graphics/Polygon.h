@@ -2,6 +2,8 @@
 #define __CRYSTAL_GRAPHICS_POLYGON_H__
 
 #include <vector>
+#include <memory>
+
 #include "../Math/Vector3d.h"
 #include "Vertex.h"
 #include "Face.h"
@@ -88,6 +90,9 @@ private:
 	Math::Vector3d center;
 	unsigned int id;
 };
+
+typedef std::shared_ptr< Polygon > PolygonSPtr;
+typedef std::vector< Polygon > PolygonVector;
 
 	}
 }

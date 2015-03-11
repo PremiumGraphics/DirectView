@@ -10,6 +10,7 @@ namespace Crystal {
 	namespace Graphics {
 
 class Polygon;
+typedef std::shared_ptr< Polygon > PolygonSPtr;
 
 class Face {
 public:
@@ -49,15 +50,15 @@ public:
 
 	Math::Vector3dVector getTexCoords() const;
 
-	Polygon* getPolygon() const { return polygon; }
+	PolygonSPtr getPolygon() const { return polygon; }
 
-	void setPolygon(Polygon* polygon) { this->polygon = polygon; }
+	void setPolygon(const PolygonSPtr& polygon) { this->polygon = polygon; }
 
 private:
 	//VertexVector vertices;
 	HalfEdgeList edges;
 	const unsigned int id;
-	Polygon* polygon;
+	PolygonSPtr polygon;
 };
 
 typedef std::vector< std::shared_ptr<Face> > FaceVector;
@@ -72,7 +73,7 @@ public:
 		polygon( nullptr )
 	{}
 
-	void setPolygon(Polygon* polygon){ this->polygon = polygon; }
+	void setPolygon(const PolygonSPtr& polygon){ this->polygon = polygon; }
 
 	std::shared_ptr<Face> buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
@@ -96,7 +97,7 @@ private:
 	VertexVector vertices;
 	FaceVector faces;
 	HalfEdgeBuilder& eBuilder;
-	Polygon* polygon;
+	PolygonSPtr polygon;
 	unsigned int nextId;
 };
 

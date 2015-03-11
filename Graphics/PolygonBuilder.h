@@ -17,21 +17,21 @@ public:
 		faceBuilder( faceBuilder )
 	{}
 
-	Polygon* buildQuad();
+	PolygonSPtr buildQuad();
 
-	Polygon* buildBox();
+	PolygonSPtr buildBox();
 
-	Polygon* buildCircleByNumber(const float radius, const unsigned int divideNumber);
+	PolygonSPtr buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
-	Polygon* buildCircleByAngle(const float radius, const float divideAngle);
+	PolygonSPtr buildCircleByAngle(const float radius, const float divideAngle);
 
-	Polygon* buildTriangle() { return buildCircleByNumber(1.0f, 3); }
+	PolygonSPtr buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	Polygon* buildCylinder(const unsigned int divideNuber);
+	PolygonSPtr buildCylinder(const unsigned int divideNuber);
 
-	Polygon* buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	PolygonSPtr buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	Polygon* buildCone(const unsigned int divideNumber);
+	PolygonSPtr buildCone(const unsigned int divideNumber);
 
 	VertexBuilder& getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
 

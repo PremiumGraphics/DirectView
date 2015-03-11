@@ -48,7 +48,7 @@ private:
 
 	Graphics::MaterialList& materials;
 
-	std::map< wxTreeItemId, Graphics::Polygon* > map;
+	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
 };
 
 	}

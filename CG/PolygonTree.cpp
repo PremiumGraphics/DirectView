@@ -130,7 +130,7 @@ void PolygonTree::OnItemActivated(wxTreeEvent& event)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	Graphics::Polygon* p = map[id];
+	const Graphics::PolygonSPtr& p = map[id];
 	property->build(p);
 }
 

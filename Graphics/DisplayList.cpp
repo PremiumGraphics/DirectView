@@ -15,7 +15,7 @@ DisplayList::DisplayList(Face* f)
 }
 
 
-DisplayList::DisplayList(Polygon* polygon)
+DisplayList::DisplayList(const PolygonSPtr& polygon)
 {
 	add(polygon);
 }
@@ -53,7 +53,7 @@ void DisplayList::add(Face* f)
 	}
 }
 
-void DisplayList::add(Polygon* p)
+void DisplayList::add(const PolygonSPtr& p)
 {
 	for (std::shared_ptr<Face> f : p->getFaces()) {
 		add(f.get());

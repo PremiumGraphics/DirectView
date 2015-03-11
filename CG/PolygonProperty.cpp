@@ -27,7 +27,7 @@ void PolygonProperty::build( const PolygonGroup& group )
 {
 	this->group = group;
 
-	Graphics::Polygon* polygon = group.getPolygon();
+	const Graphics::PolygonSPtr& polygon = group.getPolygon();
 
 	Clear();
 	Append( new wxStringProperty("Name", wxPG_LABEL, polygon->getName() ) );

@@ -6,11 +6,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-Polygon* PolygonBuilder::buildQuad()
+PolygonSPtr PolygonBuilder::buildQuad()
 {
 	FaceVector faces;
 
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon( new Polygon(nextId++) );
 	faceBuilder.setPolygon(polygon);
 
 	faceBuilder.buildQuad();
@@ -23,7 +23,7 @@ Polygon* PolygonBuilder::buildQuad()
 	return polygon;
 }
 
-Polygon* PolygonBuilder::buildBox()
+PolygonSPtr PolygonBuilder::buildBox()
 {
 	const Vector3dVector normals = {
 		Vector3d(0.0, 0.0, 1.0),
@@ -49,7 +49,7 @@ Polygon* PolygonBuilder::buildBox()
 
 	const VertexVector& vs = faceBuilder.getVertexBuilder().buildVerticesFromPositionsAndNormals(positions, normals);
 
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon( new Polygon(nextId++) );
 	faceBuilder.setPolygon(polygon);
 
 	HalfEdgeBuilder& eBuilder = faceBuilder.getHalfEdgeBuilder();
@@ -72,28 +72,28 @@ Polygon* PolygonBuilder::buildBox()
 	return polygon;
 }
 
-Polygon* PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {
 	std::shared_ptr< Face > f = faceBuilder.buildCircleByNumber(radius, divideNumber);
 
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon( new Polygon(nextId++) );
 	f->setPolygon(polygon);
 	polygon->setVertices(f->getVertices());
 	polygon->setFaces({ f });
 	return polygon;
 }
 
-Polygon* PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
+PolygonSPtr PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
 {
 	const int howMany = static_cast<int>(360.0f / divideAngle);
 	return buildCircleByNumber(radius, howMany);
 }
 
-Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon(new Polygon(nextId++));
 	faceBuilder.setPolygon(polygon);
 
 	VertexVector vv0;
@@ -135,7 +135,7 @@ Polygon* PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 
 }
 
-Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
+PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
 {
 	VertexVector vertices;
 	FaceVector faces;
@@ -152,20 +152,20 @@ Polygon* PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const uns
 			vertexIds.push_back(i);
 		}
 	}
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon( new Polygon(nextId++) );
 	polygon->setVertices(vertices);
 	polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
 
 }
 
-Polygon* PolygonBuilder::buildCone(const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 	VertexVector vertices;
 	FaceVector faces;
 
-	Polygon* polygon = new Polygon(nextId++);
+	PolygonSPtr polygon( new Polygon(nextId++) );
 
 	faceBuilder.setPolygon(polygon);
 

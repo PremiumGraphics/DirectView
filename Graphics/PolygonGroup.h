@@ -2,6 +2,9 @@
 #define __CRYSTAL_GRAPHICS_POLYGON_GROUP_H__
 
 #include <list>
+#include <memory>
+
+#include "Polygon.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -16,21 +19,21 @@ public:
 		material(nullptr)
 	{}
 
-	PolygonGroup(Polygon* polygon) :
+	PolygonGroup(const PolygonSPtr& polygon) :
 		polygon(polygon),
 		material(nullptr)
 	{}
 
-	void setPolygon(Polygon* polygon) { this->polygon = polygon; }
+	void setPolygon(const PolygonSPtr& polygon) { this->polygon = polygon; }
 
 	void setMaterial(Material* material) { this->material = material; }
 
-	Polygon* getPolygon() const { return polygon; }
+	std::shared_ptr< Polygon > getPolygon() const { return polygon; }
 
 	Material* getMaterial() const { return material; }
 
 private:
-	Polygon* polygon;
+	std::shared_ptr< Polygon > polygon;
 	Material* material;
 };
 

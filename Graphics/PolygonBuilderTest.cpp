@@ -13,13 +13,13 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder( fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildQuad() );
+	PolygonSPtr p(builder.buildQuad() );
 
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().front()->getEdges().size());
 	EXPECT_EQ(0, p->getId());
-	EXPECT_EQ( p.get(), p->getFaces().front()->getPolygon());
+	EXPECT_EQ( p.get(), p->getFaces().front()->getPolygon().get() );
 
 	const Vector3dVector normals{
 		Vector3d(0.0, 0.0, 1.0),
@@ -47,7 +47,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder( fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildBox());
+	PolygonSPtr p(builder.buildBox());
 
 	VertexBuilder vBuilder2;
 	const VertexVector positions = vBuilder2.buildVerticesFromPositions(
@@ -63,7 +63,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	});
 
 	EXPECT_EQ(8, p->getVertices().size());
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
 	//EXPECT_TRUE( VerticesAreSame( positions, p->getVertices()) );
 	EXPECT_EQ(6, p->getFaces().size());
@@ -75,9 +75,9 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildCircleByAngle(1.0f, 90.0f));
+	PolygonSPtr p(builder.buildCircleByAngle(1.0f, 90.0f));
 	EXPECT_EQ(4, p->getVertices().size());
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
 	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
@@ -111,7 +111,7 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildTriangle());
+	PolygonSPtr p(builder.buildTriangle());
 
 	EXPECT_EQ(3, p->getVertices().size());
 
@@ -143,9 +143,9 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildCircleByNumber(1.0f, 4));
+	PolygonSPtr p(builder.buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
 	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
@@ -179,8 +179,8 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildCylinder(3));
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
+	PolygonSPtr p(builder.buildCylinder(3));
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
 	//EXPECT_EQ(6, p->getVertices().size());
 	//EXPECT_EQ(5, p->getFaces().size());
@@ -192,8 +192,8 @@ TEST(PolygonBuilderTest, TestBuildCone)
 	HalfEdgeBuilder eBuilder(vBuilder);
 	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder(fBuilder);
-	std::unique_ptr< Polygon > p(builder.buildCone(3));
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon());
+	PolygonSPtr p(builder.buildCone(3));
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());
 	EXPECT_EQ(0, p->getId());

@@ -292,10 +292,6 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	for ( PolygonGroup& g : polygons ) {
-		Graphics::Polygon* p = g.getPolygon();
-		delete p;
-	}
 	polygons.clear();
 }
 
