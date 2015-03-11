@@ -10,7 +10,7 @@ using namespace Crystal::Graphics;
 
 TEST(FaceTest, TestConstruct)
 {
-	const VertexVector vertices{
+	const VertexSPtrVector vertices{
 		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), 0) ),
 		VertexSPtr(new Vertex(Vector3d(1.0, 0.0, 0.0), 1) )
 	};
@@ -22,7 +22,7 @@ TEST(FaceTest, TestIsClosed)
 {
 	{
 		VertexBuilder vBuilder;
-		const VertexVector vv{
+		const VertexSPtrVector vv{
 			vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
 			vBuilder.build(Vector3d(1.0, 0.0, 0.0))
 		};
@@ -36,7 +36,7 @@ TEST(FaceTest, TestIsClosed)
 
 	{
 		VertexBuilder vBuilder;
-		const VertexVector vv{
+		const VertexSPtrVector vv{
 			vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
 			vBuilder.build(Vector3d(1.0, 0.0, 0.0))
 		};
@@ -55,7 +55,7 @@ TEST(FaceTest, TestGetNormals)
 {
 	{
 		VertexBuilder vBuilder;
-		const VertexVector vv{
+		const VertexSPtrVector vv{
 			vBuilder.build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0)),
 			vBuilder.build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0))
 		};

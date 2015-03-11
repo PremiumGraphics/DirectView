@@ -87,7 +87,7 @@ private:
 };
 
 typedef std::shared_ptr< Vertex > VertexSPtr;
-typedef std::vector< VertexSPtr > VertexVector;
+typedef std::vector< VertexSPtr > VertexSPtrVector;
 
 class VertexBuilder {
 public:
@@ -111,8 +111,8 @@ public:
 		return VertexSPtr(new Vertex(position, normal, texCoord, nextId++));
 	}
 
-	VertexVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
-		VertexVector vertices;
+	VertexSPtrVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
+		VertexSPtrVector vertices;
 		for (const Math::Vector3d& position : positions) {
 			VertexSPtr v(new Vertex(position, nextId++));
 			vertices.push_back(v);
@@ -120,9 +120,9 @@ public:
 		return vertices;
 	}
 
-	VertexVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
+	VertexSPtrVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
 		assert(positions.size() == normals.size());
-		VertexVector vertices;
+		VertexSPtrVector vertices;
 		for (size_t i = 0; i < positions.size(); ++i) {
 			VertexSPtr v( new Vertex(positions[i], normals[i], nextId++) );
 			vertices.push_back(v);
@@ -146,7 +146,7 @@ private:
 };
 
 
-static bool VerticesAreSame(const VertexVector& lhs, const VertexVector& rhs)
+static bool VerticesAreSame(const VertexSPtrVector& lhs, const VertexSPtrVector& rhs)
 {
 	if (lhs.size() != rhs.size()) {
 		return false;

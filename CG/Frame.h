@@ -167,7 +167,7 @@ private:
 	CylinderConfigDialog::Config cylinderConfig;
 
 	Graphics::VertexBuilder vBuilder;
-	Graphics::VertexVector vertices;
+	Graphics::VertexSPtrVector vertices;
 	Graphics::FaceBuilder fBuilder;
 	Graphics::HalfEdgeBuilder eBuilder;
 	Graphics::PolygonBuilder builder;

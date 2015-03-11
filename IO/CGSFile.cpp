@@ -23,7 +23,7 @@ bool CGSFile::save( const std::string& filename )
 	//	polygonElem->SetAttribute( "ID", p->getId() );
 	//	polygonElem->SetAttribute( "Selected", p->isSelected );
 
-	//	const VertexVector& vertices = p->getVertices();
+	//	const VertexSPtrVector& vertices = p->getVertices();
 	//	XMLElement* vertexElem = doc.NewElement( "Vertex" );
 	//	for( Vertex* v : vertices ) {
 	//		XMLElement* posElem = doc.NewElement("Pos");
@@ -43,7 +43,7 @@ bool CGSFile::save( const std::string& filename )
 	//	const FaceVector& faces = p->getFaces();
 	//	XMLElement* faceElem = doc.NewElement( "Face" );
 	//	for( Face* f: faces ) {
-	//		const VertexVector& vertices = f->getVertices();
+	//		const VertexSPtrVector& vertices = f->getVertices();
 	//		XMLElement* idsElem = doc.NewElement( "VertexIds" );
 	//		for( Vertex* v: vertices ) {
 	//			idsElem->SetAttribute( "ID", v->getId() );

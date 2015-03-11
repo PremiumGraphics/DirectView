@@ -38,8 +38,8 @@ public:
 
 	HalfEdgeSPtrList getEdges() const { return edges; }
 
-	VertexVector getVertices() const {
-		VertexVector vertices;
+	VertexSPtrVector getVertices() const {
+		VertexSPtrVector vertices;
 		for (const HalfEdgeSPtr& e : edges) {
 			vertices.push_back(e->getStart());
 		}
@@ -55,7 +55,7 @@ public:
 	void setPolygon(const PolygonSPtr& polygon) { this->polygon = polygon; }
 
 private:
-	//VertexVector vertices;
+	//VertexSPtrVector vertices;
 	HalfEdgeSPtrList edges;
 	const unsigned int id;
 	PolygonSPtr polygon;
@@ -84,14 +84,14 @@ public:
 		return f;
 	}
 
-	VertexVector getVertices() const { return vertices; }
+	VertexSPtrVector getVertices() const { return vertices; }
 
 	VertexBuilder& getVertexBuilder() const { return eBuilder.getVertexBuilder(); }
 
 	HalfEdgeBuilder& getHalfEdgeBuilder() const { return eBuilder; }
 
 private:
-	VertexVector vertices;
+	VertexSPtrVector vertices;
 	HalfEdgeBuilder& eBuilder;
 	PolygonSPtr polygon;
 	unsigned int nextId;

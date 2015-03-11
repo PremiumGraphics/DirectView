@@ -21,9 +21,9 @@ TEST(VertexBuilderTest, TestBuildVerticesFromPositions)
 	};
 
 	VertexBuilder builder;
-	const VertexVector& actual = builder.buildVerticesFromPositions(positions);
+	const VertexSPtrVector& actual = builder.buildVerticesFromPositions(positions);
 
-	const VertexVector expected{
+	const VertexSPtrVector expected{
 		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), 0) ),
 		VertexSPtr( new Vertex(Vector3d(1.0, 0.0, 0.0), 1) )
 	};
@@ -44,9 +44,9 @@ TEST(VertexTest, TestCreateVerticesFromPositionsAndNormals)
 	};
 
 	VertexBuilder vBuilder;
-	const VertexVector& actual = vBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
+	const VertexSPtrVector& actual = vBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
 
-	const VertexVector expected{
+	const VertexSPtrVector expected{
 		VertexSPtr( new Vertex(Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 0) ),
 		VertexSPtr( new Vertex(Vector3d(1.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0), 1) )
 	};

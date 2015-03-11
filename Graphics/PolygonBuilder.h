@@ -17,6 +17,8 @@ public:
 		faceBuilder( faceBuilder )
 	{}
 
+	PolygonSPtr build() { return PolygonSPtr(new Polygon(nextId++) ); }
+
 	PolygonSPtr buildQuad();
 
 	PolygonSPtr buildBox();

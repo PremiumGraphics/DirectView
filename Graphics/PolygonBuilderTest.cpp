@@ -29,7 +29,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	};
 
 	VertexBuilder vBuilder2;
-	const VertexVector& positions = vBuilder2.buildVerticesFromPositionsAndNormals(
+	const VertexSPtrVector& positions = vBuilder2.buildVerticesFromPositionsAndNormals(
 	{
 		Vector3d(0.0, 1.0, 0.0),
 		Vector3d(0.0, 0.0, 0.0),
@@ -50,7 +50,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	PolygonSPtr p(builder.buildBox());
 
 	VertexBuilder vBuilder2;
-	const VertexVector positions = vBuilder2.buildVerticesFromPositions(
+	const VertexSPtrVector positions = vBuilder2.buildVerticesFromPositions(
 	{
 		Vector3d(0.0, 1.0, 1.0),
 		Vector3d(0.0, 0.0, 1.0),

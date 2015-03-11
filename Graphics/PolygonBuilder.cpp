@@ -47,7 +47,7 @@ PolygonSPtr PolygonBuilder::buildBox()
 		Vector3d(1.0, 1.0, 0.0)
 	};
 
-	const VertexVector& vs = faceBuilder.getVertexBuilder().buildVerticesFromPositionsAndNormals(positions, normals);
+	const VertexSPtrVector& vs = faceBuilder.getVertexBuilder().buildVerticesFromPositionsAndNormals(positions, normals);
 
 	PolygonSPtr polygon( new Polygon(nextId++) );
 	faceBuilder.setPolygon(polygon);
@@ -96,7 +96,7 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	FaceVector faces;
 	faceBuilder.setPolygon(polygon);
 
-	VertexVector vv0;
+	VertexSPtrVector vv0;
 	HalfEdgeBuilder& eBuilder = getHalfEdgeBuilder();
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
@@ -107,7 +107,7 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	faces.push_back( faceBuilder.build( edges0 ) );
 	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
 
-	VertexVector vv1;
+	VertexSPtrVector vv1;
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
@@ -117,13 +117,13 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	faces.push_back( faceBuilder.build( edges1 ) );
 
 	for (unsigned int i = 0; i < divideNumber-1; ++i) {
-		const VertexVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
+		const VertexSPtrVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
 		const HalfEdgeSPtrList& edges2 = eBuilder.buildClosedFromVertices(vv);
 		faces.push_back( faceBuilder.build( edges2 ) );
 	}
 
 	{
-		const VertexVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
+		const VertexSPtrVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
 		const HalfEdgeSPtrList& edges3 = eBuilder.buildClosedFromVertices(vv);
 		faces.push_back( faceBuilder.build( edges3 ) );
 	}
@@ -137,7 +137,7 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 
 PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
 {
-	VertexVector vertices;
+	VertexSPtrVector vertices;
 	//FaceVector faces;
 	for (unsigned int i = 0; i < uDivideNumber; ++i) {
 		std::vector<unsigned int> vertexIds;
@@ -162,7 +162,7 @@ PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const 
 PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
-	VertexVector vertices;
+	VertexSPtrVector vertices;
 	FaceVector faces;
 
 	PolygonSPtr polygon( new Polygon(nextId++) );

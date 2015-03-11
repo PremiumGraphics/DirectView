@@ -93,9 +93,9 @@ public:
 		return HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face ));
 	}
 
-	HalfEdgeSPtrList buildOpenFromVertices(const VertexVector& vv);
+	HalfEdgeSPtrList buildOpenFromVertices(const VertexSPtrVector& vv);
 
-	HalfEdgeSPtrList buildClosedFromVertices(const VertexVector& vv);
+	HalfEdgeSPtrList buildClosedFromVertices(const VertexSPtrVector& vv);
 
 	VertexBuilder& getVertexBuilder() const { return vBuilder; }
 

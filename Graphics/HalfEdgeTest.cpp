@@ -16,7 +16,7 @@ TEST(HalfEdgeTest, TestConstruct)
 TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 {
 	VertexBuilder vBuilder;
-	VertexVector vv{
+	VertexSPtrVector vv{
 		vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
 		vBuilder.build(Vector3d(1.0, 0.0, 0.0)),
 		vBuilder.build(Vector3d(1.0, 1.0, 0.0))
@@ -39,7 +39,7 @@ TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 TEST(HalfEdgeTest, TestBuildClosedFromVertices)
 {
 	VertexBuilder vBuilder;
-	VertexVector vv{
+	VertexSPtrVector vv{
 		vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
 		vBuilder.build(Vector3d(1.0, 0.0, 0.0)),
 		vBuilder.build(Vector3d(1.0, 1.0, 0.0))

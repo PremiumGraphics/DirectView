@@ -33,11 +33,11 @@ public:
 
 	std::string getName() const { return name; }
 
-	void setVertices(const VertexVector& vs) { this->vertices = vs; }
+	void setVertices(const VertexSPtrVector& vs) { this->vertices = vs; }
 
-	void addVertices(const VertexVector& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
+	void addVertices(const VertexSPtrVector& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
 
-	VertexVector getVertices() const { return vertices; }
+	VertexSPtrVector getVertices() const { return vertices; }
 
 	Math::Vector3dVector getPositions() {
 		Math::Vector3dVector vv;
@@ -91,7 +91,7 @@ public:
 private:
 	std::string name;
 	FaceVector faces;
-	VertexVector vertices;
+	VertexSPtrVector vertices;
 	Math::Vector3d center;
 	MaterialSPtr material;
 	unsigned int id;

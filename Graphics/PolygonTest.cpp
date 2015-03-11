@@ -17,8 +17,8 @@ TEST(PolygonTest, TestScale)
 	p.setVertices( { VertexSPtr(new Vertex( Vector3d(1.0, 1.0, 1.0), 0 ) ) } );
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { VertexSPtr( new Vertex( Vector3d(0.1f, 0.01f, 10.0f), 0) ) };
-	const VertexVector& actual = p.getVertices();
+	const VertexSPtrVector expected = { VertexSPtr( new Vertex( Vector3d(0.1f, 0.01f, 10.0f), 0) ) };
+	const VertexSPtrVector& actual = p.getVertices();
 	EXPECT_TRUE( VerticesAreSame( expected, actual ) );
 }
 
@@ -29,8 +29,8 @@ TEST(PolygonTest, TestScaleWithCenter)
 	p.setCenter(Vector3d(1.0, 1.0, 1.0));
 	p.scale(Vector3d(0.1f, 0.01f, 10.0f));
 
-	const VertexVector expected = { VertexSPtr( new Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) ) };
-	const VertexVector& actual = p.getVertices();
+	const VertexSPtrVector expected = { VertexSPtr( new Vertex(Vector3d(1.0f, 1.0f, 1.0f), 0 ) ) };
+	const VertexSPtrVector& actual = p.getVertices();
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
@@ -41,8 +41,8 @@ TEST(PolygonTest, TestMove)
 
 	p.move(Vector3d(1.0, 10.0, 100.0));
 
-	const VertexVector expected = { VertexSPtr( new Vertex(Vector3d(2.0, 12.0, 103.0), 0 ) ) };
-	const VertexVector& actual = p.getVertices();
+	const VertexSPtrVector expected = { VertexSPtr( new Vertex(Vector3d(2.0, 12.0, 103.0), 0 ) ) };
+	const VertexSPtrVector& actual = p.getVertices();
 
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
@@ -53,9 +53,9 @@ TEST(PolygonTest, TestRotateX)
 	p.setVertices({ VertexSPtr(new Vertex(Vector3d(0.0, 0.0, 1.0), 0) ) });
 	p.rotateX(180.0);
 
-	const VertexVector& actual = p.getVertices();
+	const VertexSPtrVector& actual = p.getVertices();
 
-	const VertexVector expected{ VertexSPtr(new Vertex( Vector3d(0.0, 0.0, -1.0), 0 )) };
+	const VertexSPtrVector expected{ VertexSPtr(new Vertex( Vector3d(0.0, 0.0, -1.0), 0 )) };
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
@@ -117,9 +117,9 @@ TEST(PolygonTest, TestRotateZWithCenter)
 	p.setCenter(Vector3d(1.0, 0.0, 0.0));
 	p.rotateZ(180.0);
 
-	const VertexVector& actual = p.getPositions();
+	const VertexSPtrVector& actual = p.getPositions();
 
-	const VertexVector expected{ Vertex( Vector3d(1.0, 0.0, 0.0), 0 ) };
+	const VertexSPtrVector expected{ Vertex( Vector3d(1.0, 0.0, 0.0), 0 ) };
 	EXPECT_EQ(expected, actual);
 }
 */

@@ -29,6 +29,10 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	PolygonBuilder builder(fBuilder);
 	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
+
+	EXPECT_EQ(1, polygons.size());
+	EXPECT_EQ(3, polygons.front()->getVertices().size());
+	EXPECT_EQ(1, polygons.front()->getFaces().size());
 	//Polygon expected;
 	//expected.setPositions( positions );
 	//Face f;
