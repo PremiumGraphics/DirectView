@@ -53,11 +53,3 @@ TEST(VertexTest, TestCreateVerticesFromPositionsAndNormals)
 
 	EXPECT_TRUE( VerticesAreSame(expected, actual) );
 }
-
-TEST(VertexBuilderTest, TestBuild)
-{
-	VertexBuilder builder;
-	builder.build(Vector3d(0.0, 0.0, 0.0));
-
-	EXPECT_EQ(1, builder.getVertices().size());
-}

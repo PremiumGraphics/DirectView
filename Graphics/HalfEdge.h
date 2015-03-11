@@ -87,19 +87,18 @@ public:
 
 	void setFace(Face* f) { this->face = f; }
 
-	HalfEdge* build(const VertexSPtr& start, const VertexSPtr& end )
+	HalfEdgeSPtr build(const VertexSPtr& start, const VertexSPtr& end )
 	{
-		edges.push_back( HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face )) );
+		return HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face ));
 	}
 
-	HalfEdgeList buildOpenFromVertices();
+	HalfEdgeList buildOpenFromVertices(const VertexVector& vv);
 
 	HalfEdgeList buildClosedFromVertices(const VertexVector& vv);
 
 	VertexBuilder& getVertexBuilder() const { return vBuilder; }
 
 private:
-	HalfEdgeList edges;
 	VertexBuilder& vBuilder;
 	unsigned int nextId;
 	Face* face;

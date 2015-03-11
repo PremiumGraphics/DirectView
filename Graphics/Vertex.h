@@ -96,26 +96,19 @@ public:
 	{}
 
 	~VertexBuilder() {
-		clear();
 	}
 
-	void clear() {
-		vertices.clear();
-	}
 
 	VertexSPtr build(const Math::Vector3d& position) {
-		vertices.push_back(VertexSPtr( new Vertex(position, nextId++)));
-		return vertices.back();
+		return VertexSPtr( new Vertex(position, nextId++));
 	}
 
 	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal) {
-		vertices.push_back(VertexSPtr(new Vertex(position, normal, nextId++)));
-		return vertices.back();
+		return VertexSPtr(new Vertex(position, normal, nextId++));
 	}
 
 	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
-		vertices.push_back(VertexSPtr(new Vertex(position, normal, texCoord, nextId++)));
-		return vertices.back();
+		return VertexSPtr(new Vertex(position, normal, texCoord, nextId++));
 	}
 
 	VertexVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
@@ -148,10 +141,7 @@ public:
 		return vertices;
 	}
 
-	VertexVector getVertices() const { return vertices; }
-
 private:
-	VertexVector vertices;
 	unsigned int nextId;
 };
 

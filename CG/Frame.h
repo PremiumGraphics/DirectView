@@ -41,8 +41,8 @@ public:
 
 	void setSelectedVertex(const unsigned int id)
 	{
-		if (id >= 0 && id < vBuilder.getVertices().size()) {
-			const Graphics::VertexSPtr& v = vBuilder.getVertices()[id];
+		if (id >= 0 && id < vertices.size()) {
+			const Graphics::VertexSPtr& v = vertices[id];
 			selectedVertex = v.get();
 			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
 			dialog->Show();
@@ -51,10 +51,12 @@ public:
 
 	void setSelectedFace(const unsigned int id)
 	{
-		if (id >= 0 && id < vBuilder.getVertices().size()) {
+		/*
+		if (id >= 0 && id < vBuilder.get().size()) {
 			std::shared_ptr< Graphics::Face > f = fBuilder.getFaces()[id];
 			selectedFace = f.get();
 		}
+		*/
 	}
 
 
@@ -165,6 +167,7 @@ private:
 	CylinderConfigDialog::Config cylinderConfig;
 
 	Graphics::VertexBuilder vBuilder;
+	Graphics::VertexVector vertices;
 	Graphics::FaceBuilder fBuilder;
 	Graphics::HalfEdgeBuilder eBuilder;
 	Graphics::PolygonBuilder builder;

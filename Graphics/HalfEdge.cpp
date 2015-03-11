@@ -2,9 +2,8 @@
 
 using namespace Crystal::Graphics;
 
-HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices()
+HalfEdgeList HalfEdgeBuilder::buildOpenFromVertices(const VertexVector& vv)
 {
-	const VertexVector& vv = vBuilder.getVertices();
 	assert(vv.size() >= 1);
 	HalfEdgeVector edges;
 	for (size_t i = 0; i < vv.size() - 1; ++i ) {

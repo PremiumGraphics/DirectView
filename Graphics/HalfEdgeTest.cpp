@@ -16,12 +16,14 @@ TEST(HalfEdgeTest, TestConstruct)
 TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 {
 	VertexBuilder vBuilder;
-	vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-	vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-	vBuilder.build(Vector3d(1.0, 1.0, 0.0));
+	VertexVector vv{
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0)),
+		vBuilder.build(Vector3d(1.0, 1.0, 0.0))
+	};
 
 	HalfEdgeBuilder builder( vBuilder );
-	const HalfEdgeList& actual = builder.buildOpenFromVertices( );
+	const HalfEdgeList& actual = builder.buildOpenFromVertices(vv);
 	EXPECT_EQ(2, actual.size());
 	EXPECT_EQ(nullptr, actual.front()->getPrev());
 	EXPECT_EQ(nullptr, actual.back()->getNext());
@@ -37,12 +39,14 @@ TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 TEST(HalfEdgeTest, TestBuildClosedFromVertices)
 {
 	VertexBuilder vBuilder;
-	vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-	vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-	vBuilder.build(Vector3d(1.0, 1.0, 0.0));
+	VertexVector vv{
+		vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
+		vBuilder.build(Vector3d(1.0, 0.0, 0.0)),
+		vBuilder.build(Vector3d(1.0, 1.0, 0.0))
+	};
 
 	HalfEdgeBuilder builder( vBuilder );
-	const HalfEdgeList& actual = builder.buildClosedFromVertices(vBuilder.getVertices() );
+	const HalfEdgeList& actual = builder.buildClosedFromVertices(vv);
 	EXPECT_EQ(3, actual.size());
 	EXPECT_NE(nullptr, actual.front()->getPrev());
 	EXPECT_NE(nullptr, actual.back()->getNext());
