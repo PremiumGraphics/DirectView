@@ -166,10 +166,8 @@ private:
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 
-	const Graphics::VertexBuilderSPtr vBuilder;
 	Graphics::VertexSPtrVector vertices;
-	Graphics::FaceBuilder fBuilder;
-	const Graphics::HalfEdgeBuilderSPtr eBuilder;
+	const Graphics::FaceBuilderSPtr fBuilder;
 	Graphics::PolygonBuilder builder;
 
 	Graphics::Vertex* selectedVertex;

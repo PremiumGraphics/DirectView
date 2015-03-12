@@ -80,7 +80,8 @@ class HalfEdgeBuilder
 public:
 
 	HalfEdgeBuilder() :
-		vBuilder( new VertexBuilder())
+		vBuilder( new VertexBuilder()),
+		nextId(0)
 	{}
 
 	HalfEdgeBuilder(const VertexBuilderSPtr& vBuilder) :

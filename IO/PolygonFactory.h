@@ -29,7 +29,7 @@ private:
 	Graphics::PolygonBuilder& pBuilder;
 	Graphics::VertexBuilderSPtr vBuilder;
 	Graphics::HalfEdgeBuilderSPtr eBuilder;
-	Graphics::FaceBuilder& fBuilder;
+	Graphics::FaceBuilderSPtr fBuilder;
 };
 	}
 }

@@ -12,7 +12,11 @@ namespace Crystal{
 class PolygonBuilder{
 public:
 
-	PolygonBuilder(FaceBuilder& faceBuilder) :
+	PolygonBuilder() :
+		faceBuilder( FaceBuilderSPtr(new FaceBuilder() ) )
+	{}
+
+	PolygonBuilder(const FaceBuilderSPtr& faceBuilder) :
 		nextId(0),
 		faceBuilder( faceBuilder )
 	{}
@@ -35,11 +39,11 @@ public:
 
 	PolygonSPtr buildCone(const unsigned int divideNumber);
 
-	FaceBuilder& getFaceBuilder() const { return faceBuilder; }
+	FaceBuilderSPtr getFaceBuilder() const { return faceBuilder; }
 
-	VertexBuilderSPtr getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
+	VertexBuilderSPtr getVertexBuilder() const { return faceBuilder->getVertexBuilder(); }
 
-	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }
+	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder->getHalfEdgeBuilder(); }
 
 	void clear(){
 		nextId = 0;
@@ -48,7 +52,7 @@ public:
 private:
 	unsigned int nextId;
 
-	FaceBuilder& faceBuilder;
+	FaceBuilderSPtr faceBuilder;
 };
 	}
 }
