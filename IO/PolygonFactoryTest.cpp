@@ -23,8 +23,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	group.setFaces( {face} );
 	file.setGroups({ group });
 
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder hBuilder(vBuilder);
+	const HalfEdgeBuilderSPtr hBuilder( new HalfEdgeBuilder() );
 	FaceBuilder fBuilder(hBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonFactory factory(builder);
@@ -61,7 +60,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	file.setCells(STLCellVector{ cell });
 
 	VertexBuilder vBuilder;
-	HalfEdgeBuilder hBuilder(vBuilder);
+	const HalfEdgeBuilderSPtr hBuilder(new HalfEdgeBuilder() );
 	FaceBuilder fBuilder(hBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonFactory factory(builder);

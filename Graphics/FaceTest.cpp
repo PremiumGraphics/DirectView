@@ -21,13 +21,13 @@ TEST(FaceTest, TestConstruct)
 TEST(FaceTest, TestIsClosed)
 {
 	{
-		VertexBuilder vBuilder;
+		VertexBuilderSPtr vBuilder( new VertexBuilder() );
 		const VertexSPtrVector vv{
-			vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
-			vBuilder.build(Vector3d(1.0, 0.0, 0.0))
+			vBuilder->build(Vector3d(0.0, 0.0, 0.0)),
+			vBuilder->build(Vector3d(1.0, 0.0, 0.0))
 		};
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeSPtrList& edges = builder.buildOpenFromVertices(vv);
+		HalfEdgeBuilderSPtr builder( new HalfEdgeBuilder( vBuilder ));
+		const HalfEdgeSPtrList& edges = builder->buildOpenFromVertices(vv);
 		Face f(edges, 0);
 		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
@@ -35,13 +35,13 @@ TEST(FaceTest, TestIsClosed)
 	}
 
 	{
-		VertexBuilder vBuilder;
+		VertexBuilderSPtr vBuilder( new VertexBuilder() );
 		const VertexSPtrVector vv{
-			vBuilder.build(Vector3d(0.0, 0.0, 0.0)),
-			vBuilder.build(Vector3d(1.0, 0.0, 0.0))
+			vBuilder->build(Vector3d(0.0, 0.0, 0.0)),
+			vBuilder->build(Vector3d(1.0, 0.0, 0.0))
 		};
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeSPtrList& edges = builder.buildClosedFromVertices(vv);
+		HalfEdgeBuilderSPtr builder( new HalfEdgeBuilder( vBuilder ) );
+		const HalfEdgeSPtrList& edges = builder->buildClosedFromVertices(vv);
 		Face f(edges, 0);
 		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());
@@ -54,10 +54,10 @@ TEST(FaceTest, TestIsClosed)
 TEST(FaceTest, TestGetNormals)
 {
 	{
-		VertexBuilder vBuilder;
+		VertexBuilderSPtr vBuilder(new VertexBuilder());
 		const VertexSPtrVector vv{
-			vBuilder.build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0)),
-			vBuilder.build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0))
+			vBuilder->build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0)),
+			vBuilder->build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0))
 		};
 		HalfEdgeBuilder builder(vBuilder);
 		const HalfEdgeSPtrList& edges = builder.buildOpenFromVertices(vv);
@@ -70,8 +70,7 @@ TEST(FaceTest, TestGetNormals)
 
 TEST(FaceBuilderTest, TestBuildQuad)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder( new HalfEdgeBuilder() );
 	FaceBuilder builder( eBuilder);
 	std::shared_ptr< Face > f( builder.buildQuad() );
 	EXPECT_EQ(0, f->getId());
@@ -80,8 +79,7 @@ TEST(FaceBuilderTest, TestBuildQuad)
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder( new HalfEdgeBuilder() );
 	FaceBuilder builder( eBuilder);
 	std::shared_ptr< Face > f(builder.buildCircleByNumber(3, 3));
 	EXPECT_EQ(0, f->getId());

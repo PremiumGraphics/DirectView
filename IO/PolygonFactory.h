@@ -27,8 +27,8 @@ public:
 
 private:
 	Graphics::PolygonBuilder& pBuilder;
-	Graphics::VertexBuilder& vBuilder;
-	Graphics::HalfEdgeBuilder& eBuilder;
+	Graphics::VertexBuilderSPtr vBuilder;
+	Graphics::HalfEdgeBuilderSPtr eBuilder;
 	Graphics::FaceBuilder& fBuilder;
 };
 	}

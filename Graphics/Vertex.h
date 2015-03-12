@@ -145,6 +145,7 @@ private:
 	unsigned int nextId;
 };
 
+typedef std::shared_ptr< VertexBuilder > VertexBuilderSPtr;
 
 static bool VerticesAreSame(const VertexSPtrVector& lhs, const VertexSPtrVector& rhs)
 {

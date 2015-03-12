@@ -14,16 +14,16 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 		//polygon->setPositions( g.getPositions() );
 		//polygon->setNormals( g.getNormals() );
 		//polygon->setTexCoords( g.getTexCoords() );
-		const VertexSPtrVector& vv = vBuilder.buildVerticesFromPositions(g.getPositions());
+		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositions(g.getPositions());
 
-		FaceVector faces;
+		FaceSPtrVector faces;
 		for (const OBJFace& f : g.getFaces()) {
 
 			VertexSPtrVector vvv;
 			for (unsigned int i : f.getVertexIndices()) {
 				vvv.push_back(vv[i]);
 			}
-			const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vvv);
+			const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(vvv);
 			FaceSPtr f = fBuilder.build(edges);
 
 			//face->setVertexIds( f.getVertexIndices() );
@@ -42,13 +42,13 @@ PolygonSPtrList PolygonFactory::create(const STLFile& file)
 {
 	PolygonSPtr polygon = pBuilder.build();
 	const STLCellVector& cells = file.getCells();
-	FaceVector faces;
+	FaceSPtrVector faces;
 
 	for (const STLCell& c : cells) {
 		const Vector3dVector& pos = c.getPositions();
 		const Vector3dVector normals(3, c.getNormal());
-		const VertexSPtrVector& vv = vBuilder.buildVerticesFromPositionsAndNormals(pos, normals);
-		const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vv);
+		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(pos, normals);
+		const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(vv);
 		const FaceSPtr& face = fBuilder.build(edges);
 		faces.push_back(face);
 		polygon->addVertices(vv);

@@ -37,23 +37,23 @@ std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, con
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		const VertexSPtr& v = getVertexBuilder().build(radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d(0.0, 0.0, 1.0));
+		const VertexSPtr& v = getVertexBuilder()->build(radius * Vector3d(std::sin(rad), std::cos(rad), 0.0f), Vector3d(0.0, 0.0, 1.0));
 		vertices.push_back(v);
 	}
-	const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices( vertices);
+	const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices( vertices);
 	return std::shared_ptr<Face>(new Face(edges, nextId++));
 }
 
 std::shared_ptr< Face > FaceBuilder::buildQuad()
 {
 	vertices = {
-		getVertexBuilder().build(Vector3d(0.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
-		getVertexBuilder().build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
-		getVertexBuilder().build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
-		getVertexBuilder().build(Vector3d(1.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0))
+		getVertexBuilder()->build(Vector3d(0.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
+		getVertexBuilder()->build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
+		getVertexBuilder()->build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0)),
+		getVertexBuilder()->build(Vector3d(1.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0))
 	};
 
-	const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices( vertices);
+	const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices( vertices);
 	FaceSPtr f(std::shared_ptr<Face>(new Face(edges, nextId++)));
 	f->setPolygon(polygon);
 	return f;

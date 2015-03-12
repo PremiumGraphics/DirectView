@@ -25,9 +25,9 @@ public:
 	}
 
 
-	void setFaces(const FaceVector& faces) { this->faces = faces; }
+	void setFaces(const FaceSPtrVector& faces) { this->faces = faces; }
 
-	FaceVector getFaces() const { return faces; }
+	FaceSPtrVector getFaces() const { return faces; }
 
 	void setName(const std::string& name) { this->name = name; }
 
@@ -90,7 +90,7 @@ public:
 
 private:
 	std::string name;
-	FaceVector faces;
+	FaceSPtrVector faces;
 	VertexSPtrVector vertices;
 	Math::Vector3d center;
 	MaterialSPtr material;

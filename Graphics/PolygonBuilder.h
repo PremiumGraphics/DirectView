@@ -37,9 +37,9 @@ public:
 
 	FaceBuilder& getFaceBuilder() const { return faceBuilder; }
 
-	VertexBuilder& getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
+	VertexBuilderSPtr getVertexBuilder() const { return faceBuilder.getVertexBuilder(); }
 
-	HalfEdgeBuilder& getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }
+	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder.getHalfEdgeBuilder(); }
 
 	void clear(){
 		nextId = 0;

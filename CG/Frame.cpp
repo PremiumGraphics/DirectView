@@ -100,7 +100,8 @@ public:
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	eBuilder( vBuilder ),
+	vBuilder( new VertexBuilder() ),
+	eBuilder( new HalfEdgeBuilder( vBuilder ) ),
 	fBuilder( eBuilder ),
 	builder( fBuilder)
 {

@@ -9,8 +9,7 @@ using namespace Crystal::Graphics;
 
 TEST(PolygonBuilderTest, TestBuildQuad)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder ( new HalfEdgeBuilder() );
 	FaceBuilder fBuilder( eBuilder);
 	PolygonBuilder builder( fBuilder);
 	PolygonSPtr p(builder.buildQuad() );
@@ -28,8 +27,8 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 		Vector3d(0.0, 0.0, 1.0)
 	};
 
-	VertexBuilder vBuilder2;
-	const VertexSPtrVector& positions = vBuilder2.buildVerticesFromPositionsAndNormals(
+	VertexBuilderSPtr vBuilder2( new VertexBuilder() );
+	const VertexSPtrVector& positions = vBuilder2->buildVerticesFromPositionsAndNormals(
 	{
 		Vector3d(0.0, 1.0, 0.0),
 		Vector3d(0.0, 0.0, 0.0),
@@ -43,8 +42,7 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 
 TEST(PolygonBuilderTest, TestBuildBox)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder(new HalfEdgeBuilder());
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder( fBuilder);
 	PolygonSPtr p(builder.buildBox());
@@ -71,8 +69,7 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder( new HalfEdgeBuilder() );
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonSPtr p(builder.buildCircleByAngle(1.0f, 90.0f));
@@ -107,8 +104,7 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder(new HalfEdgeBuilder());
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonSPtr p(builder.buildTriangle());
@@ -139,8 +135,7 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
+	HalfEdgeBuilderSPtr eBuilder(new HalfEdgeBuilder());
 	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonSPtr p(builder.buildCircleByNumber(1.0f, 4));
@@ -175,9 +170,8 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 
 TEST(PolygonBuilderTest, TestBuildCylinder)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder( eBuilder);
+	HalfEdgeBuilderSPtr eBuilder(new HalfEdgeBuilder());
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonSPtr p(builder.buildCylinder(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
@@ -188,9 +182,8 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 
 TEST(PolygonBuilderTest, TestBuildCone)
 {
-	VertexBuilder vBuilder;
-	HalfEdgeBuilder eBuilder(vBuilder);
-	FaceBuilder fBuilder( eBuilder);
+	HalfEdgeBuilderSPtr eBuilder(new HalfEdgeBuilder());
+	FaceBuilder fBuilder(eBuilder);
 	PolygonBuilder builder(fBuilder);
 	PolygonSPtr p(builder.buildCone(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
