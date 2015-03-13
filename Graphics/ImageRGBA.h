@@ -4,6 +4,8 @@
 #include <vector>
 #include <cassert>
 
+#include <memory>
+
 #include "ColorRGBA.h"
 
 namespace Crystal {
@@ -97,6 +99,10 @@ private:
 	const int height;
 	std::vector< ColorRGBA< T > > values;
 };
+
+
+typedef std::shared_ptr< ImageRGBA<float> > ImageRGBASPtr;
+
 
 	}
 }

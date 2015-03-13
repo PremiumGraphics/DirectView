@@ -12,34 +12,44 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 {
 	OBJFile file;
 	const std::vector< Vector3d > positions = {
+		Vector3d(0.0, 1.0, 0.0),
 		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 1.0)
+		Vector3d(1.0, 0.0, 1.0),
+		Vector3d(1.0, 1.0, 0.0)
+	};
+	const std::vector< Vector3d > normals{
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0),
+		Vector3d(0.0, 0.0, 1.0)
 	};
 	OBJFace face;
-	face.setVertexIndices({ 0, 1, 2 });
+	face.setVertexIndices({ 0, 1, 2, 3 });
+	face.setNormalIndices({ 0, 1, 2, 3 });
 	OBJGroup group;
 	group.setPositions(positions);
-	group.setFaces( {face} );
+	group.setNormals(normals);
+	group.setFaces({ face });
 	file.setGroups({ group });
 
 	PolygonBuilderSPtr builder(new PolygonBuilder());
 	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
 
+
+	PolygonBuilder bb;
+	PolygonSPtr p = bb.buildQuad();
+
 	EXPECT_EQ(1, polygons.size());
-	EXPECT_EQ(3, polygons.front()->getVertices().size());
+	EXPECT_EQ(4, polygons.front()->getVertices().size());
 	EXPECT_EQ(1, polygons.front()->getFaces().size());
-	//Polygon expected;
-	//expected.setPositions( positions );
-	//Face f;
-	//f.setVertexIds({ 0, 1, 2 });
-	//expected.setFaces( { f } );
-	//const Polygon* p = polygons.front().getPolygon();
-	//const Material* m = polygons.front().getMaterial();
-	//EXPECT_EQ( expected, *p );
-	//EXPECT_EQ( nullptr, m );
-	//delete p;
+
+	VertexBuilder vBuilder;
+	VertexSPtrVector vv = vBuilder.buildVerticesFromPositionsAndNormals(positions, normals);
+	EXPECT_EQ(*vv[0], *p->getVertices()[0]);
+	EXPECT_EQ(*vv[1], *p->getVertices()[1]);
+	//EXPECT_EQ(*vv[1], *p->getVertices()[1]);
+	//EXPECT_EQ(*vv[2], *p->getVertices()[2]);
 }
 
 TEST(PolygonFactoryTest, TestCreateFromSTL)

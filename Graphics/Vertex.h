@@ -44,9 +44,13 @@ public:
 
 	Math::Vector3d getTexCoord() const { return texCoord; }
 
-	void addEdge(const HalfEdgeSPtr& e) { this->edges.push_back( e ); }
+	void removeEdge(HalfEdge* e) {
+		edges.remove(e);
+	}
 
-	HalfEdgeSPtrList getEdges() const { return edges; }
+	void addEdge(HalfEdge* e) { this->edges.push_back( e ); }
+
+	std::list< HalfEdge* > getEdges() const { return edges; }
 
 	void move(const Math::Vector3d& vec){
 		position += vec;
@@ -82,7 +86,7 @@ private:
 	Math::Vector3d position;
 	Math::Vector3d normal;
 	Math::Vector3d texCoord;
-	HalfEdgeSPtrList edges;
+	std::list< HalfEdge* > edges;
 	unsigned int id;
 };
 

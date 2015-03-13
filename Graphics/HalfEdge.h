@@ -34,7 +34,10 @@ public:
 		end(end),
 		face(face),
 		id( id )
-	{}
+	{
+		start->addEdge(this);
+		end->addEdge(this);
+	}
 
 	FaceSPtr getFace() const { return face; }
 
@@ -50,7 +53,11 @@ public:
 
 	void setStart(VertexSPtr start) { this->start = start; }
 
-	void setEnd(VertexSPtr end) { this->end = end; }
+	void setEnd(VertexSPtr end) {
+		end->removeEdge(this);
+		this->end = end;
+		this->end->addEdge(this);
+	}
 
 	VertexSPtr getStart() { return start; }
 
@@ -61,6 +68,7 @@ public:
 	Math::Vector3d getEndPosition() const { return end->getPosition(); }
 
 	unsigned int getId() const { return id; }
+
 
 private:
 	VertexSPtr start;
@@ -104,6 +112,9 @@ public:
 	HalfEdgeSPtrList buildClosedFromVertices(const VertexSPtrVector& vv);
 
 	VertexBuilderSPtr getVertexBuilder() const { return vBuilder; }
+
+	HalfEdgeSPtr insert(const HalfEdgeSPtr& edge, const VertexSPtr& v);
+
 
 private:
 	VertexBuilderSPtr vBuilder;

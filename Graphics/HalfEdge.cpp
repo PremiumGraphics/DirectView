@@ -10,8 +10,8 @@ HalfEdgeSPtrList HalfEdgeBuilder::buildOpenFromVertices(const VertexSPtrVector& 
 		const VertexSPtr& start = vv[i];
 		const VertexSPtr& end = vv[i+1];
 		HalfEdgeSPtr edge( new HalfEdge( start, end, nextId++, face ) );
-		start->addEdge(edge);
-		end->addEdge(edge);
+		//start->addEdge(edge.get());
+		//end->addEdge(edge.get());
 		edges.push_back(edge);
 	}
 	for (size_t i = 0; i < edges.size() - 1; ++i ) {
@@ -32,8 +32,8 @@ HalfEdgeSPtrList HalfEdgeBuilder::buildClosedFromVertices( const VertexSPtrVecto
 		const VertexSPtr& start = vv[i];
 		const VertexSPtr& end = vv[i + 1];
 		HalfEdgeSPtr edge( new HalfEdge(start, end, nextId++, face) );
-		start->addEdge(edge);
-		end->addEdge(edge);
+		//start->addEdge(edge.get());
+		//end->addEdge(edge.get());
 		edges.push_back(edge);
 	}
 
@@ -43,8 +43,8 @@ HalfEdgeSPtrList HalfEdgeBuilder::buildClosedFromVertices( const VertexSPtrVecto
 	}
 	{
 		HalfEdgeSPtr edge( new HalfEdge(vv.back(), vv.front(), nextId++, face) );
-		vv.back()->addEdge(edge);
-		vv.front()->addEdge(edge);
+		//vv.back()->addEdge(edge.get());
+		//vv.front()->addEdge(edge.get());
 		edges.push_back(edge);
 	}
 
@@ -52,4 +52,20 @@ HalfEdgeSPtrList HalfEdgeBuilder::buildClosedFromVertices( const VertexSPtrVecto
 	edges.back()->setNext( edges.front() );
 
 	return HalfEdgeSPtrList( edges.begin(), edges.end() );
+}
+
+HalfEdgeSPtr HalfEdgeBuilder::insert(const HalfEdgeSPtr& edge, const VertexSPtr& v)
+{
+	//HalfEdgeSPtr edge1(new HalfEdge(start, v, id, face));
+	const HalfEdgeSPtr& next = edge->getNext();
+
+	VertexSPtr end = edge->getEnd();
+	edge->setEnd(v);
+	HalfEdgeSPtr edge2(new HalfEdge(v, end, nextId++, face));
+	edge2->setNext(next);
+	if (next != nullptr) {
+		next->setPrev(edge2);
+	}
+
+	return edge2;
 }

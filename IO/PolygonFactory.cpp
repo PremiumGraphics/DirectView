@@ -12,9 +12,8 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 	for (const OBJGroup& g : file.getGroups()) {
 		PolygonSPtr polygon = pBuilder->build();
 		//polygon->setPositions( g.getPositions() );
-		//polygon->setNormals( g.getNormals() );
 		//polygon->setTexCoords( g.getTexCoords() );
-		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositions(g.getPositions());
+		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(g.getPositions(), g.getNormals());
 
 		FaceSPtrVector faces;
 		for (const OBJFace& f : g.getFaces()) {

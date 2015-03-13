@@ -13,7 +13,24 @@ TEST(HalfEdgeTest, TestConstruct)
 	EXPECT_EQ(nullptr, edge.getFace());
 }
 
-TEST(HalfEdgeTest, TestBuildOpenFromVertices)
+TEST(HalfEdgeBuilderTest, TestInsert)
+{
+	VertexBuilder vBuilder;
+	HalfEdgeBuilder eBuilder;
+	VertexSPtr v0 = vBuilder.build(Vector3d(0.0, 0.0, 0.0));
+	VertexSPtr v1 = vBuilder.build(Vector3d(1.0, 0.0, 0.0));
+	HalfEdgeSPtr edge = eBuilder.build( v0, v1 );
+	VertexSPtr v2 = vBuilder.build(Vector3d(0.5, 0.0, 0.0));
+
+	HalfEdgeSPtr inserted = eBuilder.insert(edge, v2);
+	EXPECT_EQ(v0.get(), edge->getStart().get());
+	EXPECT_EQ(v2.get(), edge->getEnd().get());
+	EXPECT_EQ(v2.get(), inserted->getStart().get());
+	EXPECT_EQ(v1.get(), inserted->getEnd().get());
+	EXPECT_EQ(2, v2->getEdges().size());
+}
+
+TEST(HalfEdgeBuilderTest, TestBuildOpenFromVertices)
 {
 	VertexBuilderSPtr vBuilder( new VertexBuilder() );
 	VertexSPtrVector vv{
@@ -36,7 +53,7 @@ TEST(HalfEdgeTest, TestBuildOpenFromVertices)
 	EXPECT_EQ(nullptr, actual.back()->getFace());
 }
 
-TEST(HalfEdgeTest, TestBuildClosedFromVertices)
+TEST(HalfEdgeBuilderTest, TestBuildClosedFromVertices)
 {
 	VertexBuilderSPtr vBuilder( new VertexBuilder() );
 	VertexSPtrVector vv{

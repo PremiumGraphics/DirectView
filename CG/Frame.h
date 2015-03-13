@@ -43,7 +43,7 @@ public:
 	{
 		if (id >= 0 && id < vertices.size()) {
 			const Graphics::VertexSPtr& v = vertices[id];
-			selectedVertex = v.get();
+			selectedVertex = v;
 			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
 			dialog->Show();
 		}
@@ -169,8 +169,8 @@ private:
 	Graphics::VertexSPtrVector vertices;
 	const Graphics::PolygonBuilderSPtr builder;
 
-	Graphics::Vertex* selectedVertex;
-	Graphics::Face* selectedFace;
+	Graphics::VertexSPtr selectedVertex;
+	Graphics::FaceSPtr selectedFace;
 
 	View* view;
 
