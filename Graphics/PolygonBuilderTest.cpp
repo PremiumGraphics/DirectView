@@ -9,9 +9,8 @@ using namespace Crystal::Graphics;
 
 TEST(PolygonBuilderTest, TestBuildQuad)
 {
-	FaceBuilderSPtr fBuilder( new FaceBuilder() );
-	PolygonBuilder builder( fBuilder);
-	PolygonSPtr p(builder.buildQuad() );
+	PolygonBuilderSPtr builder( new PolygonBuilder() );
+	PolygonSPtr p(builder->buildQuad() );
 
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
@@ -41,9 +40,8 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 
 TEST(PolygonBuilderTest, TestBuildBox)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildBox());
+	PolygonBuilderSPtr builder( new PolygonBuilder() );
+	PolygonSPtr p(builder->buildBox());
 
 	VertexBuilder vBuilder2;
 	const VertexSPtrVector positions = vBuilder2.buildVerticesFromPositions(
@@ -67,9 +65,8 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildCircleByAngle(1.0f, 90.0f));
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildCircleByAngle(1.0f, 90.0f));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
@@ -101,9 +98,8 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildTriangle());
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildTriangle());
 
 	EXPECT_EQ(3, p->getVertices().size());
 
@@ -131,9 +127,8 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildCircleByNumber(1.0f, 4));
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
@@ -165,9 +160,8 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 
 TEST(PolygonBuilderTest, TestBuildCylinder)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildCylinder(3));
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildCylinder(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
 	//EXPECT_EQ(6, p->getVertices().size());
@@ -176,9 +170,8 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 
 TEST(PolygonBuilderTest, TestBuildCone)
 {
-	FaceBuilderSPtr fBuilder(new FaceBuilder());
-	PolygonBuilder builder(fBuilder);
-	PolygonSPtr p(builder.buildCone(3));
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildCone(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());

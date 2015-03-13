@@ -6,6 +6,8 @@
 #include "Face.h"
 #include "Vertex.h"
 
+#include <memory>
+
 namespace Crystal{
 	namespace Graphics{
 
@@ -13,7 +15,8 @@ class PolygonBuilder{
 public:
 
 	PolygonBuilder() :
-		faceBuilder( FaceBuilderSPtr(new FaceBuilder() ) )
+		faceBuilder( FaceBuilderSPtr(new FaceBuilder() ) ),
+		nextId(0)
 	{}
 
 	PolygonBuilder(const FaceBuilderSPtr& faceBuilder) :
@@ -54,6 +57,9 @@ private:
 
 	FaceBuilderSPtr faceBuilder;
 };
+
+typedef std::shared_ptr< PolygonBuilder > PolygonBuilderSPtr;
+
 	}
 }
 

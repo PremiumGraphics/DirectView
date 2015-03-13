@@ -167,8 +167,7 @@ private:
 	CylinderConfigDialog::Config cylinderConfig;
 
 	Graphics::VertexSPtrVector vertices;
-	const Graphics::FaceBuilderSPtr fBuilder;
-	Graphics::PolygonBuilder builder;
+	const Graphics::PolygonBuilderSPtr builder;
 
 	Graphics::Vertex* selectedVertex;
 	Graphics::Face* selectedFace;
