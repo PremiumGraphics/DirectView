@@ -81,6 +81,7 @@ private:
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > faceIds;
 	std::vector< unsigned int > polygonIds;
+	std::vector< unsigned int > materialIds;
 	std::vector< std::vector< unsigned int > > ids;
 
 	std::vector<unsigned int> getVertexIds(const Face& f) const;

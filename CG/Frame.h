@@ -37,7 +37,7 @@ public:
 
 	Graphics::LightSPtrList getLights() { return lights; }
 
-	Graphics::MaterialSPtrList getMaterials() { return materials; }
+	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
 
 	void setSelectedVertex(const unsigned int id)
 	{
@@ -187,7 +187,6 @@ private:
 
 	Graphics::Camera<float> camera;
 	Graphics::PolygonSPtrList polygons;
-	Graphics::MaterialSPtrList materials;
 	Graphics::LightSPtrList lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );

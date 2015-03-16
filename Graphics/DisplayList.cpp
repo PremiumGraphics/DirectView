@@ -10,14 +10,6 @@ using namespace Crystal::Graphics;
 DisplayList::DisplayList(Face* f, const ColorRGBA<float>& color)
 {
 	add(f, color);
-	/*
-	this->vertices = toArray( getPositions( *f) );
-	this->normals = toArray( f->getNormals() );
-	this->texCoords = toArray( f->getTexCoords() );
-	this->colors = ColorRGB<float>::Black().toArray3();
-
-	this->ids.push_back( getVertexIds( *f ) );
-	*/
 }
 
 
@@ -37,6 +29,7 @@ void DisplayList::clear()
 	vertexIds.clear();
 	faceIds.clear();
 	polygonIds.clear();
+	materialIds.clear();
 }
 
 /*
@@ -80,13 +73,14 @@ void DisplayList::add(const PolygonSPtr& p)
 	}
 	for (size_t i = 0; i < p->getVertices().size(); ++i) {
 		polygonIds.push_back(p->getId());
+		materialIds.push_back(p->getMaterial()->getId());
 	}
 }
 
 std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
 	std::vector<unsigned int> ids;
-	for (const HalfEdgeSPtr& edge : f.getEdges() ) {
-		ids.push_back(edge->getStart()->getId());
+	for (const VertexSPtr& v : f.getVertices()) {
+		v->getId();
 	}
 	return ids;
 }
@@ -103,4 +97,3 @@ Vector3dVector DisplayList::getPositions(const Face& f) const
 	}
 	return positions;
 }
-

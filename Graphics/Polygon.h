@@ -41,22 +41,6 @@ public:
 
 	VertexSPtrVector getVertices() const { return vertices; }
 
-	Math::Vector3dVector getPositions() {
-		Math::Vector3dVector vv;
-		for (const VertexSPtr& v: vertices) {
-			vv.push_back(v->getPosition());
-		}
-		return vv;
-	}
-
-	Math::Vector3dVector getNormals() {
-		Math::Vector3dVector vv;
-		for (const VertexSPtr v : vertices) {
-			vv.push_back(v->getNormal());
-		}
-		return vv;
-	}
-
 	void rotateX(const double angle);
 
 	void rotateY(const double angle);

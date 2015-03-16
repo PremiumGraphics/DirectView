@@ -5,6 +5,7 @@
 
 #include "Face.h"
 #include "Vertex.h"
+#include "Material.h"
 
 #include <memory>
 
@@ -16,6 +17,7 @@ public:
 
 	PolygonBuilder() :
 		faceBuilder( FaceBuilderSPtr(new FaceBuilder() ) ),
+		materialBuilder(MaterialBuilderSPtr( new MaterialBuilder() )),
 		nextId(0)
 	{}
 
@@ -23,6 +25,13 @@ public:
 		nextId(0),
 		faceBuilder( faceBuilder )
 	{}
+
+	PolygonBuilder(const FaceBuilderSPtr& faceBuilder, const MaterialBuilderSPtr& materialBuilder) :
+		nextId(0),
+		faceBuilder(faceBuilder),
+		materialBuilder( materialBuilder )
+	{}
+
 
 	PolygonSPtr build() { return PolygonSPtr(new Polygon(nextId++) ); }
 
@@ -48,6 +57,8 @@ public:
 
 	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder->getHalfEdgeBuilder(); }
 
+	MaterialBuilderSPtr getMaterialBuilder() const { return materialBuilder; }
+
 	void clear(){
 		nextId = 0;
 	}
@@ -56,6 +67,7 @@ private:
 	unsigned int nextId;
 
 	FaceBuilderSPtr faceBuilder;
+	MaterialBuilderSPtr materialBuilder;
 };
 
 typedef std::shared_ptr< PolygonBuilder > PolygonBuilderSPtr;

@@ -21,18 +21,23 @@ struct Texture
 class Material
 {
 public:
-	Material():
+
+	Material() :
 		diffuse(Graphics::ColorRGBA<float>::Black()),
 		specular(Graphics::ColorRGBA<float>::Black()),
 		ambient(Graphics::ColorRGBA<float>::Black()),
-		shininess(1.0f)
-	{}
+		shininess(1.0f),
+		id(id)
+	{
+	}
 
-	Material(const int id) :
+
+	Material(const unsigned int id) :
 		diffuse( Graphics::ColorRGBA<float>::Black() ),
 		specular( Graphics::ColorRGBA<float>::Black() ),
 		ambient( Graphics::ColorRGBA<float>::Black() ),
-		shininess( 1.0f )
+		shininess( 1.0f ),
+		id( id )
 	{
 	}
 
@@ -65,6 +70,8 @@ public:
 
 	void setTexture(const Texture& texture) { this->texture = texture; }
 
+	unsigned int getId() const { return id; }
+
 private:
 	std::string name;
 
@@ -73,12 +80,36 @@ private:
 	Graphics::ColorRGBA<float> diffuse;
 	Graphics::ColorRGBA<float> specular;
 
+	const unsigned int id;
+
 	Texture texture;
 
 };
 
 typedef std::shared_ptr< Material > MaterialSPtr;
 typedef std::list< MaterialSPtr > MaterialSPtrList;
+
+class MaterialBuilder
+{
+public:
+	MaterialBuilder() :
+		nextId(0)
+	{}
+
+	MaterialSPtr build(){
+		MaterialSPtr m(new Material(nextId++));
+		materials.push_back(m);
+		return m;
+	};
+
+	MaterialSPtrList getMaterials() const { return materials; }
+
+private:
+	unsigned int nextId;
+	MaterialSPtrList materials;
+};
+
+typedef std::shared_ptr< MaterialBuilder > MaterialBuilderSPtr;
 
 	}
 }
