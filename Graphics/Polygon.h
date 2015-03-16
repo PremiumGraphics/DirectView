@@ -7,6 +7,7 @@
 #include "../Math/Vector3d.h"
 #include "Vertex.h"
 #include "Face.h"
+#include "Material.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -17,7 +18,8 @@ class Polygon {
 public:
 
 	Polygon(unsigned int id) :
-		id(id)
+		id(id),
+		material(new Material())
 	{}
 
 	~Polygon()
@@ -100,6 +102,28 @@ private:
 typedef std::shared_ptr< Polygon > PolygonSPtr;
 typedef std::vector< PolygonSPtr > PolygonSPtrVector;
 typedef std::list< PolygonSPtr > PolygonSPtrList;
+
+/*
+static Graphics::VertexSPtrVector getFaces(const PolygonSPtrVector& polygons) {
+	VertexSPtrVector vertices;
+	for (PolygonSPtr p : polygons) {
+		const VertexSPtrVector& vv = p->getVertices();
+		for ()
+			vertices.push_back(p->getVertices())
+	}
+}
+
+
+/*
+static Graphics::VertexSPtrVector getVertices(const PolygonSPtrVector& polygons ) {
+	VertexSPtrVector vertices;
+	for (PolygonSPtr p : polygons) {
+		const VertexSPtrVector& vv = p->getVertices();
+		for ()
+		vertices.push_back(p->getVertices() )
+	}
+}
+*/
 
 	}
 }

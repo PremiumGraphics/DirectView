@@ -694,8 +694,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildTriangle());
-	polygonTree->build();
+	addPolygon( builder->buildTriangle() );
 }
 
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
@@ -709,8 +708,7 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildQuad());
-	polygonTree->build();
+	addPolygon( builder->buildQuad() );
 }
 
 void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
@@ -724,8 +722,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildCircleByNumber(1.0f, circleConfig.getDivideNumber()));
-	polygonTree->build();
+	addPolygon( builder->buildCircleByNumber(1.0f, circleConfig.getDivideNumber()) );
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
@@ -739,8 +736,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
-	polygonTree->build();
+	addPolygon( builder->buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
 }
 
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
@@ -808,4 +804,19 @@ void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
 	menu.Append(wxID_ANY, wxT("Z"));
 
 	e.PopupMenu(&menu);
+}
+
+void Frame::addPolygon(const PolygonSPtr& polygon) {
+	this->polygons.push_back(polygon);
+
+	FaceSPtrVector fs = polygon->getFaces();
+	faces.insert(faces.end(), fs.begin(), fs.end());
+
+	//HalfEdgeBuilderSPtr es = polygon->getE
+
+	VertexSPtrVector vs = polygon->getVertices();
+	vertices.insert(vertices.end(), vs.begin(), vs.end());
+
+	polygonTree->build();
+
 }

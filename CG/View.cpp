@@ -317,8 +317,8 @@ void View::build()
 void View::buildDisplayList()
 {
 	dispList.clear();
-	const PolygonSPtrList& groups = frame->getPolygons();
-	for (const PolygonSPtr& p : groups) {
+	const PolygonSPtrList& polygons = frame->getPolygons();
+	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p );
 	}
 }

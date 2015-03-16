@@ -5,11 +5,15 @@
 #include <memory>
 
 #include "../Math/Vector3d.h"
-using namespace Crystal::Math;
-
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+
+TEST(PolygonTest, TestConstruct)
+{
+	Polygon p(0);
+	EXPECT_NE( nullptr, p.getMaterial() );
+}
 
 TEST(PolygonTest, TestScale)
 {

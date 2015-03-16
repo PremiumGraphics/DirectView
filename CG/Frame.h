@@ -41,9 +41,10 @@ public:
 
 	void setSelectedVertex(const unsigned int id)
 	{
+		selectedVertex.clear();
 		if (id >= 0 && id < vertices.size()) {
 			const Graphics::VertexSPtr& v = vertices[id];
-			selectedVertex = v;
+			selectedVertex.push_back( v );
 			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
 			dialog->Show();
 		}
@@ -51,14 +52,21 @@ public:
 
 	void setSelectedFace(const unsigned int id)
 	{
-		/*
-		if (id >= 0 && id < vBuilder.get().size()) {
-			std::shared_ptr< Graphics::Face > f = fBuilder.getFaces()[id];
-			selectedFace = f.get();
+		selectedFace.clear();
+		if (id >= 0 && id < faces.size()) {
+			std::shared_ptr< Graphics::Face > f = faces[id];
+			selectedFace.push_back( f );
+			FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
+			dialog->Show();
 		}
-		*/
 	}
 
+
+	Graphics::VertexSPtrVector getSelectedVertex() const { return selectedVertex; }
+
+	Graphics::FaceSPtrVector getSelectedFace() const { return selectedFace; }
+
+	void addPolygon(const Graphics::PolygonSPtr& polygon);
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -167,10 +175,11 @@ private:
 	CylinderConfigDialog::Config cylinderConfig;
 
 	Graphics::VertexSPtrVector vertices;
+	Graphics::FaceSPtrVector faces;
 	const Graphics::PolygonBuilderSPtr builder;
 
-	Graphics::VertexSPtr selectedVertex;
-	Graphics::FaceSPtr selectedFace;
+	Graphics::VertexSPtrVector selectedVertex;
+	Graphics::FaceSPtrVector selectedFace;
 
 	View* view;
 
