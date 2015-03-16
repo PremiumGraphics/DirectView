@@ -5,10 +5,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-WireFrameRenderer::WireFrameRenderer()
-{
-}
-
 WireFrameRenderer::~WireFrameRenderer()
 {
 }
@@ -19,11 +15,14 @@ void WireFrameRenderer::build()
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
+		"in vec3 color;						\n"
+		"out vec3 vColor;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
+		"	vColor = color;					\n"
 		"}\n"
 		;
 
@@ -33,11 +32,11 @@ void WireFrameRenderer::build()
 
 	const std::string fStr =
 		"#version 150			\n"
-		"//uniform vec3 color;	\n"
+		"in vec3 vColor;	\n"
 		"out vec4 fragColor;	\n"
 		"void main(void)		\n"
 		"{\n"
-		"	fragColor.rgb = vec3( 0.5, 0.5, 0.5 );//color;	\n"
+		"	fragColor.rgb = vColor;//color;	\n"
 		"	fragColor.a = 1.0;	\n"
 		"}						\n"
 		;
@@ -61,6 +60,7 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
+	location.color = glGetAttribLocation(shader.getId(), "color");
 
 	return location;
 }
@@ -68,13 +68,9 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 
 void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
 	const std::vector<float> positions = list.getPositions();
 	const std::vector< std::vector<unsigned int> > ids = list.getIds();
+	const std::vector<float> colors = list.getColors();
 	if ( positions.empty() ) {
 		return;
 	}
@@ -94,13 +90,16 @@ void WireFrameRenderer::render(const int width, const int height, const Camera<f
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	glVertexAttribPointer(location.color, 3, GL_FLOAT, GL_FALSE, 0, &(colors.front()));
 
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
 	for ( const std::vector<unsigned int>& ids_ : ids ) {
 		glDrawElements(GL_LINE_LOOP, ids_.size(), GL_UNSIGNED_INT, &(ids_.front()));
 	}
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 

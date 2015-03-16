@@ -227,9 +227,18 @@ void View::draw(const wxSize& size)
 	const int height = size.GetHeight();
 
 	buildDisplayList();
+
 	
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+
+		glLineWidth(1.0f);
 		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispList);
+		glLineWidth(5.0f);
+		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
 		//flatRenderer.render( width, height, frame->getModel() );
@@ -317,8 +326,13 @@ void View::build()
 void View::buildDisplayList()
 {
 	dispList.clear();
+	dispListSelected.clear();
 	const PolygonSPtrList& polygons = frame->getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p );
+	}
+	const FaceSPtrVector& faces = frame->getSelectedFace();
+	for (const FaceSPtr& f : faces) {
+		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
 	}
 }

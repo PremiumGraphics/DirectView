@@ -45,8 +45,8 @@ public:
 		if (id >= 0 && id < vertices.size()) {
 			const Graphics::VertexSPtr& v = vertices[id];
 			selectedVertex.push_back( v );
-			VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
-			dialog->Show();
+			//VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
+			//dialog->Show();
 		}
 	}
 
@@ -56,8 +56,8 @@ public:
 		if (id >= 0 && id < faces.size()) {
 			std::shared_ptr< Graphics::Face > f = faces[id];
 			selectedFace.push_back( f );
-			FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
-			dialog->Show();
+			//FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
+			//dialog->Show();
 		}
 	}
 

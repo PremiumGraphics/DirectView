@@ -90,6 +90,8 @@ private:
 	Graphics::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;
+	Graphics::DisplayList dispListSelected;
+
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };
