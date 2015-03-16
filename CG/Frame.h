@@ -89,7 +89,7 @@ private:
 
 	void OnPolygonRotateZ(wxRibbonButtonBarEvent&);
 
-	void OnPick(wxRibbonButtonBarEvent&);
+	//void OnPick(wxRibbonButtonBarEvent&);
 
 	void OnAbout( wxRibbonButtonBarEvent& );
 

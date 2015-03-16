@@ -99,33 +99,31 @@ void View::OnKeyDown(wxKeyEvent& event)
 
 void View::OnMouse( wxMouseEvent& event )
 {
-	if (mode == PICK_VERTEX) {
-		if (event.LeftDClick()) {
-			const int width = GetClientSize().GetWidth();
-			const int height = GetClientSize().GetHeight();
-			std::vector< GLubyte > pixels(width * height * 4);
-			glReadBuffer(GL_FRONT);
-			glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
-			wxImage image(width, height);
+	if (event.LeftDClick()) {
+		const int width = GetClientSize().GetWidth();
+		const int height = GetClientSize().GetHeight();
+		std::vector< GLubyte > pixels(width * height * 4);
+		glReadBuffer(GL_FRONT);
+		glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
+		wxImage image(width, height);
 
-			int index = 0;
+		int index = 0;
 
-			for (int y = height - 1; y >= 0; --y) {
-				for (int x = 0; x < width; ++x) {
-					image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
-					index += 4;
-				}
+		for (int y = height - 1; y >= 0; --y) {
+			for (int x = 0; x < width; ++x) {
+				image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
+				index += 4;
 			}
-
-			const wxPoint& position = event.GetPosition();
-			const unsigned char r = image.GetRed(position.x, position.y);
-			const unsigned char g = image.GetGreen(position.x, position.y);
-			const unsigned char b = image.GetBlue(position.x, position.y);
-			wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-			frame->setSelectedVertex( r );
-			frame->setSelectedFace( g );
-			//frame->selectedFace = frame->get
 		}
+
+		const wxPoint& position = event.GetPosition();
+		const unsigned char r = image.GetRed(position.x, position.y);
+		const unsigned char g = image.GetGreen(position.x, position.y);
+		const unsigned char b = image.GetBlue(position.x, position.y);
+		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
+		frame->setSelectedVertex( r );
+		frame->setSelectedFace( g );
+		//frame->selectedFace = frame->get
 		return;
 	}
 

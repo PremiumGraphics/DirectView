@@ -1,17 +1,23 @@
 #include "DisplayList.h"
 
 #include "Polygon.h"
+#include "Material.h"
+#include "ColorRGB.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-DisplayList::DisplayList(Face* f)
+DisplayList::DisplayList(Face* f, const ColorRGBA<float>& color)
 {
+	add(f, color);
+	/*
 	this->vertices = toArray( getPositions( *f) );
 	this->normals = toArray( f->getNormals() );
 	this->texCoords = toArray( f->getTexCoords() );
+	this->colors = ColorRGB<float>::Black().toArray3();
 
 	this->ids.push_back( getVertexIds( *f ) );
+	*/
 }
 
 
@@ -25,13 +31,22 @@ void DisplayList::clear()
 	vertices.clear();
 	normals.clear();
 	texCoords.clear();
+	colors.clear();
+
 	ids.clear();
 	vertexIds.clear();
 	faceIds.clear();
 	polygonIds.clear();
 }
 
-void DisplayList::add(Face* f)
+/*
+void DisplayList::add(Vertex* v)
+{
+	v->getPosition()
+}
+*/
+
+void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 {
 	const std::vector<float>& vs = toArray( getPositions( *f ));
 	vertices.insert(vertices.end(), vs.begin(), vs.end() );
@@ -39,7 +54,7 @@ void DisplayList::add(Face* f)
 	const std::vector<float>& ns = toArray(f->getNormals());
 	normals.insert(normals.end(), ns.begin(), ns.end());
 
-	const std::vector<float> ts = toArray(f->getTexCoords());
+	const std::vector<float>& ts = toArray(f->getTexCoords());
 	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
 	const std::vector<unsigned int> ids_ = getVertexIds(*f);
@@ -51,29 +66,22 @@ void DisplayList::add(Face* f)
 	for (size_t i = 0; i < positions.size(); ++i) {
 		faceIds.push_back(f->getId());
 	}
+
+	for (size_t i = 0; i < positions.size(); ++i) {
+		const std::vector<float>& cs = color.toArray3();
+		colors.insert( colors.end(), cs.begin(), cs.end() );
+	}
 }
 
 void DisplayList::add(const PolygonSPtr& p)
 {
 	for (std::shared_ptr<Face> f : p->getFaces()) {
-		add(f.get());
+		add(f.get(), p->getMaterial()->getAmbient());
 	}
 	for (size_t i = 0; i < p->getVertices().size(); ++i) {
 		polygonIds.push_back(p->getId());
 	}
 }
-
-/*
-void DisplayList::addHighlight(Vertex* v)
-{
-	;
-}
-
-void DisplayList::addHighlight(Face* f)
-{
-	;
-}
-*/
 
 std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
 	std::vector<unsigned int> ids;

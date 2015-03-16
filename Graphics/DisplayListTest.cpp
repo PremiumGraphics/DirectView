@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Graphics/DisplayList.h"
+#include "../Graphics/Material.h"
 #include "../Graphics/Polygon.h"
 #include "../Graphics/PolygonBuilder.h"
 
@@ -44,7 +45,7 @@ TEST(DisplayListTest, TestAddFace)
 	FaceSPtr f = builder->buildQuad();
 
 	DisplayList list;
-	list.add(f.get());
+	list.add(f.get(), ColorRGBA<float>::Black());
 
 	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
 	EXPECT_EQ( expected, list.getFaceIds());
@@ -54,9 +55,11 @@ TEST(DisplayListTest, TestAddPolygon)
 {
 	FaceBuilderSPtr fBuilder( new FaceBuilder() );
 	PolygonBuilder builder( fBuilder);
+	PolygonSPtr p = builder.buildQuad();
+	p->setMaterial(MaterialSPtr(new Material()));
 
 	DisplayList list;
-	list.add(builder.buildQuad() );
+	list.add( p );
 
 	{
 		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
@@ -68,13 +71,28 @@ TEST(DisplayListTest, TestAddPolygon)
 		EXPECT_EQ( expected, list.getVertexIds() );
 	}
 
+
+	{
+		const std::vector<float> expected{
+			0.0, 0.0, 0.0,
+			0.0, 0.0, 0.0,
+			0.0, 0.0, 0.0,
+			0.0, 0.0, 0.0
+		};
+		EXPECT_EQ(expected, list.getColors() );
+	}
+
 	list.clear();
-	list.add(builder.buildTriangle());
+	p = builder.buildTriangle();
+	p->setMaterial(MaterialSPtr(new Material()));
+
+	list.add(p);
 
 	{
 		const std::vector<unsigned int> expected{ 0, 1, 2, 3, 4, 5, 6 };
 		EXPECT_EQ( expected, list.getVertexIds() );
 	}
+
 
 }
 

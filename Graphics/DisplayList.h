@@ -6,12 +6,16 @@
 
 #include "../Math/Vector3d.h"
 
+#include "ColorRGBA.h"
+
 namespace Crystal {
 	namespace Graphics{
 
 class Face;
 class Polygon;
 typedef std::shared_ptr< Polygon > PolygonSPtr;
+class Vertex;
+typedef std::shared_ptr< Vertex > VertexSPtr;
 
 class DisplayList
 {
@@ -19,7 +23,7 @@ public:
 	DisplayList()
 	{}
 
-	DisplayList(Face* f);
+	DisplayList(Face* f, const ColorRGBA<float>& color);
 
 	DisplayList(const PolygonSPtr& polygon);
 
@@ -40,21 +44,19 @@ public:
 
 	void clear();
 
-	void add(Face* f);
+	//void add(Vertex* v);
+
+	void add(Face* f, const ColorRGBA<float>& color);
 
 	void add(const PolygonSPtr& p);
-
-	/*
-	void addHighlight(Vertex* v);
-
-	void addHighlight(Face* f);
-	*/
 
 	std::vector< float > getPositions() const { return vertices; }
 
 	std::vector< float > getNormals() const { return normals; }
 
 	std::vector< float > getTexCoords() const { return texCoords; }
+
+	std::vector< float > getColors() const { return colors; }
 
 	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
 
@@ -75,6 +77,7 @@ private:
 	std::vector< float > vertices;
 	std::vector< float > normals;
 	std::vector< float > texCoords;
+	std::vector< float > colors;
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > faceIds;
 	std::vector< unsigned int > polygonIds;

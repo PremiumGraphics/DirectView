@@ -33,7 +33,7 @@ enum {
 	ID_POLYGON_ROTATE_X,
 	ID_POLYGON_ROTATE_Y,
 	ID_POLYGON_ROTATE_Z,
-	ID_PICK_VERTEX,
+	//ID_PICK_VERTEX,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -159,7 +159,7 @@ Frame::Frame()
 	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX",	wxImage("../Resource/3D-X-Axis-Rotation.png"));
 	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY",	wxImage("../Resource/3D-Y-Axis-Rotation.png"));
 	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ",	wxImage("../Resource/3D-Z-Axis-Rotation.png"));
-	operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
+	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	operation->AddButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
 
@@ -171,7 +171,7 @@ Frame::Frame()
 	Connect( ID_POLYGON_ROTATE_X,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateX) );
 	Connect( ID_POLYGON_ROTATE_Y,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateY) );
 	Connect( ID_POLYGON_ROTATE_Z,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateZ) );
-	Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
+	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
 	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnDropDown));
 
 
@@ -412,10 +412,10 @@ void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 	view->setMode( View::LIGHT_TRANSLATE );
 }
 
+/*
 void Frame::OnPick(wxRibbonButtonBarEvent&)
 {
 	view->setMode(View::PICK_VERTEX);
-	/*
 	const int width = view->GetClientSize().GetWidth();
 	const int height = view->GetClientSize().GetHeight();
 	std::vector< GLubyte > pixels(width * height * 4);
@@ -433,8 +433,8 @@ void Frame::OnPick(wxRibbonButtonBarEvent&)
 	}
 
 	view->
-	*/
 }
+*/
 
 
 #include "../IO/PolygonFactory.h"
