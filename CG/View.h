@@ -55,7 +55,7 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { pointRenderer.getPointSize(); }
+	float getPointSize() const { pointSize; }
 
 private:
 	MODE mode;
@@ -84,6 +84,7 @@ private:
 	void build();
 
 	Graphics::WireFrameRenderer wireFrameRenderer;
+	Graphics::SurfaceRenderer surfaceRenderer;
 	Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
 	Graphics::PointRenderer pointRenderer;
@@ -92,6 +93,7 @@ private:
 	Graphics::DisplayList dispList;
 	Graphics::DisplayList dispListSelected;
 
+	float pointSize;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

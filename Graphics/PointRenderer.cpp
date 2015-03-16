@@ -9,8 +9,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-PointRenderer::PointRenderer() :
-	pointSize(10)
+PointRenderer::PointRenderer()
 {}
 
 PointRenderer::~PointRenderer()
@@ -82,14 +81,6 @@ void PointRenderer::render(const int width, const int height, const Camera<float
 
 	glViewport(0, 0, width, height);
 
-
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
-	glPointSize(pointSize);
-
 	glUseProgram(shader.getId());
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
@@ -103,6 +94,7 @@ void PointRenderer::render(const int width, const int height, const Camera<float
 	glEnableVertexAttribArray(0);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+
 	glDisableVertexAttribArray(0);
 
 	glUseProgram(0);

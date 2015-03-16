@@ -22,7 +22,8 @@ View::View( Frame* parent, const int width, const int height  )
 glContext( this ),// width, height ),
 frame( parent ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( WIRE_FRAME )
+renderingMode( WIRE_FRAME ),
+pointSize( 10.0f )
 {
 	glContext.SetCurrent( *this );
 
@@ -228,78 +229,31 @@ void View::draw(const wxSize& size)
 
 	buildDisplayList();
 
-	
-	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 
+	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
 		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispList);
+		glClear(GL_DEPTH_BUFFER_BIT);
 		glLineWidth(5.0f);
 		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
-		//flatRenderer.render( width, height, frame->getModel() );
-		//onScreenRenderer.render( width, height, flatRenderer.getTexture() );
+		surfaceRenderer.render(width, height, *(frame->getCamera()), dispList);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		surfaceRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
 	}
 	else if (renderingMode == RENDERING_MODE::PHONG) {
-		//Vector3dVector positions;
-		//Vector3dVector normals;
-		//std::vector< std::vector<unsigned int> > indices;
-		//for (const PolygonGroup& g : frame->getPolygons()) {
-		//	Graphics::Polygon* p = g.getPolygon();
-		//	for (Graphics::Face* f : p->getFaces()) {
-		//		const std::vector<unsigned int>& ids = f->getVertexIds();
-		//		indices.push_back(ids);
-		//		const Half
-		//		const Vector3dVector& ps = f->getEdges(); ->getPositions();
-		//		const Vector3dVector& ns = p->getNormals();
-
-		//		positions.insert(positions.end(), ps.begin(), ps.end());
-		//		normals.insert(normals.end(), ns.begin(), ns.end());
-
-		//	}
-		//}
-		//SmoothRenderer::Param param;
-		//param.positions = toArray(positions);
-		//param.normals = toArray(normals);
-
-		//Camera<float>* c = frame->getCamera();
-		//param.eyePos = c->getPos().toArray();
-		//param.projectionMatrix = c->getPerspectiveMatrix().toArray4x4();
-		//param.modelviewMatrix = c->getModelviewMatrix().toArray4x4();
-
-		//param.lights = frame->getLights();
-
-		//for (Graphics::Material* m : frame->getMaterials() ) {
-		//	param.matAmbient = m->getAmbient().toArray3();
-		//	param.matDiffuse = m->getDiffuse().toArray3();
-		//	param.matSpecular = m->getSpecular().toArray3();
-		//	param.shininess = m->getShininess();
-		//}
-
-		///*
-		//std::list< Material* > materials = frame->getMaterials();
-		//for (Graphics::Polygon* p : frame->getPolygons()) {
-		//	if (p->materialName.empty()) {
-		//		continue;
-		//	}
-		//	Material* mat = nullptr;
-		//	for (Graphics::Material* m : materials) {
-		//		if (p->materialName == m->name) {
-		//			mat = m;
-		//		}
-		//	}
-		//}
-		//*/
-		//smoothRenderer.render(width, height, param, indices);
+		smoothRenderer.render(width, height, *(frame->getCamera()), dispList, frame->getLights(), frame->getMaterials() );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.render(width, height, *(frame->getCamera()), dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
+		glPointSize(pointSize);
 		pointRenderer.render(width, height, frame->getCamera(), dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
@@ -317,6 +271,7 @@ void View::build()
 	normalRenderer.build();
 	pointRenderer.build();
 	idRenderer.build();
+	surfaceRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

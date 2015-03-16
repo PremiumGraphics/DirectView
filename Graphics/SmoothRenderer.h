@@ -7,7 +7,9 @@
 #include "../Math/Matrix4d.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/ShaderObject.h"
-
+#include "../Graphics/Camera.h"
+#include "DisplayList.h"
+#include "Material.h"
 
 namespace Crystal {
 	namespace Math {
@@ -24,6 +26,7 @@ public:
 
 	void build();
 
+	/*
 	struct Param {
 		std::vector<float> positions;
 		std::vector<float> normals;
@@ -36,8 +39,9 @@ public:
 		std::vector<float> matDiffuse;
 		float shininess;
 	};
+	*/
 
-	void render(const int width, const int height, const Param& param, const std::vector< std::vector<unsigned int> >& indices );
+	void render(const int width, const int height, const Camera<float>& camera, const DisplayList& list, const LightSPtrList& lights, const MaterialSPtrList& materials );
 
 private:
 	Graphics::ShaderObject shader;

@@ -19,8 +19,7 @@ namespace Crystal {
 class WireFrameRenderer : public RendererBase {
 public:
 
-	WireFrameRenderer() :
-		lineWidth( 1.0 )
+	WireFrameRenderer()
 	{};
 
 	virtual ~WireFrameRenderer();
@@ -28,10 +27,6 @@ public:
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list);
 
 	void build();
-
-	float getLineWidth() const { return lineWidth; }
-
-	void setLineWidth(const float width) { this->lineWidth = width; }
 
 private:
 	struct Location {
@@ -43,7 +38,29 @@ private:
 
 	Location getLocations();
 
-	float lineWidth;
+	Graphics::ShaderObject shader;
+};
+
+class SurfaceRenderer : public RendererBase {
+public:
+	SurfaceRenderer()
+	{};
+
+	virtual ~SurfaceRenderer();
+
+	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list);
+
+	void build();
+
+private:
+	struct Location {
+		GLuint projectionMatrix;
+		GLuint modelviewMatrix;
+		GLuint position;
+		GLuint color;
+	};
+
+	Location getLocations();
 
 	Graphics::ShaderObject shader;
 };

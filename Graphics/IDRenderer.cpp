@@ -78,11 +78,6 @@ IDRenderer::Location IDRenderer::getLocations()
 
 void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
 	if (list.getPositions().empty() ) {
 		return;
 	}

@@ -124,12 +124,6 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 
 	glViewport(0, 0, width, height);
 
-
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
 	//glPointSize( pointSize );
 	glLineWidth(1.0f);
 
