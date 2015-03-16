@@ -50,10 +50,13 @@ void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 	const std::vector<float>& ts = toArray(f->getTexCoords());
 	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
-	const std::vector<unsigned int> ids_ = getVertexIds(*f);
-	this->ids.push_back( ids_ );
+	std::vector<unsigned int> vids;
+	for (const VertexSPtr& v : f->getVertices()) {
+		vids.push_back( v->getId() );
+	}
 
-	vertexIds.insert(vertexIds.end(), ids_.begin(), ids_.end());
+	vertexIds.insert(vertexIds.end(), vids.begin(), vids.end());
+	ids.push_back(vids);
 
 	const Vector3dVector positions = getPositions(*f);
 	for (size_t i = 0; i < positions.size(); ++i) {
@@ -75,14 +78,6 @@ void DisplayList::add(const PolygonSPtr& p)
 		polygonIds.push_back(p->getId());
 		materialIds.push_back(p->getMaterial()->getId());
 	}
-}
-
-std::vector<unsigned int> DisplayList::getVertexIds(const Face& f) const {
-	std::vector<unsigned int> ids;
-	for (const VertexSPtr& v : f.getVertices()) {
-		v->getId();
-	}
-	return ids;
 }
 
 Vector3dVector DisplayList::getPositions(const Face& f) const

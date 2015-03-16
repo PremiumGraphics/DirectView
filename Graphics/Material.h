@@ -22,6 +22,7 @@ class Material
 {
 public:
 
+	/*
 	Material() :
 		diffuse(Graphics::ColorRGBA<float>::Black()),
 		specular(Graphics::ColorRGBA<float>::Black()),
@@ -30,6 +31,7 @@ public:
 		id(id)
 	{
 	}
+	*/
 
 
 	Material(const unsigned int id) :

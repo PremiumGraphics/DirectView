@@ -10,7 +10,7 @@ PolygonSPtr PolygonBuilder::buildQuad()
 {
 	FaceSPtrVector faces;
 
-	PolygonSPtr polygon( new Polygon(nextId++) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
 	faceBuilder->setPolygon(polygon);
 
 	FaceSPtr f( faceBuilder->buildQuad() );
@@ -49,7 +49,7 @@ PolygonSPtr PolygonBuilder::buildBox()
 
 	const VertexSPtrVector& vs = faceBuilder->getVertexBuilder()->buildVerticesFromPositionsAndNormals(positions, normals);
 
-	PolygonSPtr polygon( new Polygon(nextId++) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
 	faceBuilder->setPolygon(polygon);
 
 	const HalfEdgeBuilderSPtr& eBuilder = faceBuilder->getHalfEdgeBuilder();
@@ -75,7 +75,7 @@ PolygonSPtr PolygonBuilder::buildCircleByNumber(const float radius, const unsign
 {
 	std::shared_ptr< Face > f = faceBuilder->buildCircleByNumber(radius, divideNumber);
 
-	PolygonSPtr polygon( new Polygon(nextId++) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
 	f->setPolygon(polygon);
 	polygon->setVertices(f->getVertices());
 	polygon->setFaces({ f });
@@ -92,7 +92,7 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 {
 	assert(divideNumber >= 3);
 
-	PolygonSPtr polygon(new Polygon(nextId++));
+	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
 	FaceSPtrVector faces;
 	faceBuilder->setPolygon(polygon);
 
@@ -152,7 +152,7 @@ PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const 
 			vertexIds.push_back(i);
 		}
 	}
-	PolygonSPtr polygon( new Polygon(nextId++) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
 	polygon->setVertices(vertices);
 	//polygon->setFaces(faceBuilder.getFaces());
 	return polygon;
@@ -165,7 +165,7 @@ PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber)
 	VertexSPtrVector vertices;
 	FaceSPtrVector faces;
 
-	PolygonSPtr polygon( new Polygon(nextId++) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
 
 	faceBuilder->setPolygon(polygon);
 

@@ -17,9 +17,9 @@ namespace Crystal {
 class Polygon {
 public:
 
-	Polygon(unsigned int id) :
+	Polygon(unsigned int id, const MaterialSPtr& m) :
 		id(id),
-		material(new Material())
+		material(m)
 	{}
 
 	~Polygon()

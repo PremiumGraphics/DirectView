@@ -53,16 +53,17 @@ TEST(DisplayListTest, TestAddFace)
 
 TEST(DisplayListTest, TestAddPolygon)
 {
-	FaceBuilderSPtr fBuilder( new FaceBuilder() );
-	PolygonBuilder builder( fBuilder);
+	//FaceBuilderSPtr fBuilder( new FaceBuilder() );
+	PolygonBuilder builder;
 	PolygonSPtr p = builder.buildQuad();
-	p->setMaterial(MaterialSPtr(new Material()));
+	p->setMaterial(MaterialSPtr(new Material(0)));
 
 	DisplayList list;
 	list.add( p );
 
 	{
 		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
+		EXPECT_EQ(1, list.getIds().size());
 		EXPECT_EQ(expected, list.getPolygonIds());
 	}
 
@@ -84,7 +85,7 @@ TEST(DisplayListTest, TestAddPolygon)
 
 	list.clear();
 	p = builder.buildTriangle();
-	p->setMaterial(MaterialSPtr(new Material()));
+	p->setMaterial(MaterialSPtr(new Material(1)));
 
 	list.add(p);
 

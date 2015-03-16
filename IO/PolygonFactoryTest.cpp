@@ -72,7 +72,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	const PolygonSPtrList& polygons = factory.create(file);
 
 	EXPECT_EQ( 1, polygons.size());
-	EXPECT_EQ( nullptr, polygons.front()->getMaterial());
+	EXPECT_NE( nullptr, polygons.front()->getMaterial());
 	EXPECT_EQ(1, polygons.front()->getFaces().size());
 	EXPECT_EQ(3, polygons.front()->getFaces().front()->getEdges().size());
 	EXPECT_EQ( 3, polygons.front()->getVertices().size() );

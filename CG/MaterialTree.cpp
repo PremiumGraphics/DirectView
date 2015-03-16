@@ -77,10 +77,12 @@ void MaterialTree::OnItemActivated( wxTreeEvent& e )
 
 void MaterialTree::OnAdd( wxMenuEvent& )
 {
+	/*
 	MaterialSPtr m(new Material());
 	m->setName( "test" );
 	materials.push_back(m);
 	build();
+	*/
 }
 
 void MaterialTree::OnDelete( wxMenuEvent& )

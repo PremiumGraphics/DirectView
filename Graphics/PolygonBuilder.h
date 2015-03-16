@@ -33,7 +33,7 @@ public:
 	{}
 
 
-	PolygonSPtr build() { return PolygonSPtr(new Polygon(nextId++) ); }
+	PolygonSPtr build() { return PolygonSPtr(new Polygon(nextId++, materialBuilder->build()) ); }
 
 	PolygonSPtr buildQuad();
 
