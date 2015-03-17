@@ -146,8 +146,6 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="LightTree.cpp" />
-    <ClCompile Include="MaterialTree.cpp" />
     <ClCompile Include="ModelingDialog.cpp" />
     <ClCompile Include="PolygonProperty.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
@@ -156,20 +154,20 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="LightTree.h" />
-    <ClInclude Include="MaterialTree.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="PolygonTree.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>

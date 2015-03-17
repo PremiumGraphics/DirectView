@@ -4,8 +4,6 @@
 #include "PolygonProperty.h"
 
 #include "../Graphics/Material.h"
-#include "MaterialTree.h"
-
 
 #include "../Math/Box.h"
 
