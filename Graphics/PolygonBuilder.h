@@ -51,7 +51,11 @@ public:
 
 	PolygonSPtr buildCone(const unsigned int divideNumber);
 
+	FaceSPtrVector getFaces() const { return faceBuilder->getFaces(); }
+
 	FaceBuilderSPtr getFaceBuilder() const { return faceBuilder; }
+
+	VertexSPtrVector getVertices() const { return faceBuilder->getVertexBuilder()->getVertices(); }
 
 	VertexBuilderSPtr getVertexBuilder() const { return faceBuilder->getVertexBuilder(); }
 

@@ -808,14 +808,7 @@ void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
 
 void Frame::addPolygon(const PolygonSPtr& polygon) {
 	this->polygons.push_back(polygon);
-
-	FaceSPtrVector fs = polygon->getFaces();
-	faces.insert(faces.end(), fs.begin(), fs.end());
-
 	//HalfEdgeBuilderSPtr es = polygon->getE
-
-	VertexSPtrVector vs = polygon->getVertices();
-	vertices.insert(vertices.end(), vs.begin(), vs.end());
 
 	polygonTree->build();
 

@@ -39,11 +39,15 @@ public:
 
 	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
 
+	Graphics::VertexSPtrVector getVertices() const { return builder->getVertices(); }
+
+	Graphics::FaceSPtrVector getFaces() const { return builder->getFaces(); }
+
 	void setSelectedVertex(const unsigned int id)
 	{
 		selectedVertex.clear();
-		if (id >= 0 && id < vertices.size()) {
-			const Graphics::VertexSPtr& v = vertices[id];
+		if (id >= 0 && id < getVertices().size()) {
+			const Graphics::VertexSPtr& v = getVertices()[id];
 			selectedVertex.push_back( v );
 			//VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
 			//dialog->Show();
@@ -53,8 +57,8 @@ public:
 	void setSelectedFace(const unsigned int id)
 	{
 		selectedFace.clear();
-		if (id >= 0 && id < faces.size()) {
-			std::shared_ptr< Graphics::Face > f = faces[id];
+		if (id >= 0 && id < getFaces().size()) {
+			std::shared_ptr< Graphics::Face > f = getFaces()[id];
 			selectedFace.push_back( f );
 			//FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
 			//dialog->Show();
@@ -174,8 +178,6 @@ private:
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 
-	Graphics::VertexSPtrVector vertices;
-	Graphics::FaceSPtrVector faces;
 	const Graphics::PolygonBuilderSPtr builder;
 
 	Graphics::VertexSPtrVector selectedVertex;

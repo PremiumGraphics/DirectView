@@ -114,6 +114,8 @@ public:
 
 	VertexSPtrVector buildVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords);
 
+	VertexSPtrVector getVertices() const { return vertices; }
+
 private:
 	VertexSPtrVector vertices;
 	unsigned int nextId;

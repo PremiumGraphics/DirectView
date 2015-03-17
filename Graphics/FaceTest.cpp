@@ -75,6 +75,7 @@ TEST(FaceBuilderTest, TestBuildQuad)
 	std::shared_ptr< Face > f( builder.buildQuad() );
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
+	EXPECT_EQ(1, builder.getFaces().size());
 }
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
@@ -84,6 +85,7 @@ TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 	std::shared_ptr< Face > f(builder.buildCircleByNumber(3, 3));
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
+	EXPECT_EQ(1, builder.getFaces().size());
 }
 
 TEST(FaceBuilderTest, TestBuildCirleByAngle)

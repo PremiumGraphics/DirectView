@@ -95,8 +95,11 @@ public:
 
 	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return eBuilder; }
 
+	FaceSPtrVector getFaces() const { return faces; }
+
 private:
 	VertexSPtrVector vertices;
+	FaceSPtrVector faces;
 	HalfEdgeBuilderSPtr eBuilder;
 	PolygonSPtr polygon;
 	unsigned int nextId;
