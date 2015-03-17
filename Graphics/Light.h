@@ -65,7 +65,12 @@ public:
 		return l;
 	}
 
+	void clear(){ lights.clear(); }
+
+	void remove(LightSPtr l) { lights.remove(l); }
+
 	LightSPtrList getLights() const { return lights; }
+
 
 private:
 	LightSPtrList lights;

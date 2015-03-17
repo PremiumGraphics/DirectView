@@ -54,10 +54,7 @@ private:
 
 	void OnAdd( wxMenuEvent& );
 
-	void OnDelete( wxMenuEvent& ) {
-		const wxTreeItemId item = GetFocusedItem();
-		Delete(item);
-	}
+	void OnDelete(wxMenuEvent&);
 
 	LightProperty* property;
 
@@ -131,7 +128,7 @@ private:
 
 	PolygonProperty* property;
 
-	Graphics::PolygonBuilder builder;
+	Graphics::PolygonBuilder& builder;
 
 	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
 };

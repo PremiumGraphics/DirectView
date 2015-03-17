@@ -63,6 +63,8 @@ public:
 
 	MaterialBuilderSPtr getMaterialBuilder() const { return materialBuilder; }
 
+	void remove(const PolygonSPtr& p) { polygons.remove(p); }
+
 	void clear(){
 		nextId = 0;
 	}

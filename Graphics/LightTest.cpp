@@ -16,3 +16,12 @@ TEST(LightBuilderTest, TestBuild)
 	builder.build();
 	EXPECT_EQ(1, builder.getLights().size());
 }
+
+TEST(LightBuilderTest, TestClear)
+{
+	LightBuilder builder;
+	builder.build();
+	LightSPtr l = builder.build();
+	builder.remove(l);
+	EXPECT_EQ(1, builder.getLights().size());
+}

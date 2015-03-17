@@ -79,10 +79,15 @@ void LightTree::OnMenu(wxTreeEvent& event)
 
 void LightTree::OnAdd(wxMenuEvent&)
 {
-	//LightSPtr light( new Light() );
-	//lights_.push_back( light );
-	builder.
-	build();
+	builder.build();
+	this->build();
+}
+
+void LightTree::OnDelete(wxMenuEvent&) {
+	const wxTreeItemId item = GetFocusedItem();
+	LightSPtr l = map[item];
+	builder.remove(l);
+	Delete(item);
 }
 
 LightTree::~LightTree()
@@ -272,18 +277,9 @@ void PolygonTree::OnAdd(wxMenuEvent&)
 
 void PolygonTree::OnDelete(wxMenuEvent&)
 {
-	const wxTreeItemId item = GetFocusedItem();
-
-	const std::string& name = GetItemText(item).ToStdString();
-
-	/*
-	Graphics::Polygon* p = model->find( name );// property->build( polygon );
-	if( p == nullptr ) {
-	return;
-	}
-	model->remove( p );
-	*/
-	Delete(item);
+	const wxTreeItemId id = GetFocusedItem();
+	builder.remove(map[id]);
+	Delete(id);
 }
 
 void PolygonTree::OnItemActivated(wxTreeEvent& event)
