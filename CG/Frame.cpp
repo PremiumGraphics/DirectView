@@ -5,7 +5,7 @@
 #include "View.h"
 
 #include "Tree.h"
-#include "PolygonProperty.h"
+#include "PropertyDialog.h"
 #include "../Graphics/PolygonBuilder.h"
 
 #include "wx/filename.h"
@@ -66,8 +66,6 @@ enum {
 
 	ID_CAPTURE,
 };
-
-#include "PolygonTree.h"
 
 
 class AppInfo {

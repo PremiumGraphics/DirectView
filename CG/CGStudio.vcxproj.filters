@@ -6,8 +6,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="PolygonTree.cpp" />
-    <ClCompile Include="PolygonProperty.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="ModelingDialog.cpp" />
     <ClCompile Include="Tree.cpp" />
@@ -18,8 +16,6 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="PolygonTree.h" />
-    <ClInclude Include="PolygonProperty.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
