@@ -7,7 +7,7 @@
 
 #include "../Graphics/Light.h"
 
-#include "LightProperty.h"
+#include "PropertyDialog.h"
 
 namespace Crystal {
 	namespace CG {

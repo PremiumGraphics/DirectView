@@ -81,3 +81,60 @@ private:
 }
 
 #endif
+
+#ifndef __CRYSTAL_APP_LIGHT_PROPERTY_H__
+#define __CRYSTAL_APP_LIGHT_PROPERTY_H__
+
+#include "../Graphics/Light.h"
+
+namespace Crystal {
+	namespace CG {
+
+		class LightProperty : public wxPropertyGrid {
+		public:
+			LightProperty(wxWindow* parent, const wxSize& size);
+
+			void setValue(Graphics::LightSPtr light);
+
+		private:
+			Graphics::LightSPtr light;
+
+			void OnChange(wxPropertyGridEvent& event);
+		};
+
+	}
+}
+
+#endif
+
+#ifndef __CRYSTAL_APP_MATERIAL_PROPERTY_H__
+#define __CRYSTAL_APP_MATERIAL_PROPERTY_H__
+
+#include "../Graphics/Material.h"
+
+namespace Crystal {
+	namespace CG {
+
+
+		class MaterialProperty : public wxPropertyGrid {
+		public:
+			MaterialProperty(wxWindow* parent, const wxSize& size);
+
+			void setValue(const Graphics::MaterialSPtr& material);
+
+			void OnChange(wxPropertyGridEvent& event);
+
+			void OnDoubleClick(wxPropertyGridEvent& event);
+
+		private:
+			Graphics::MaterialSPtr m;
+			//wxColourProperty* diffuse;
+
+			wxString getImageFile();
+
+		};
+
+	}
+}
+
+#endif

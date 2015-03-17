@@ -7,8 +7,8 @@
 #include <memory>
 
 #include "../Graphics/Material.h"
+#include "PropertyDialog.h"
 
-#include "MaterialProperty.h"
 
 namespace Crystal {
 	namespace CG {

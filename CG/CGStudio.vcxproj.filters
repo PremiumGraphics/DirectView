@@ -6,9 +6,7 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="MaterialProperty.cpp" />
     <ClCompile Include="MaterialTree.cpp" />
-    <ClCompile Include="LightProperty.cpp" />
     <ClCompile Include="LightTree.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
     <ClCompile Include="PolygonProperty.cpp" />
@@ -21,9 +19,7 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="MaterialProperty.h" />
     <ClInclude Include="MaterialTree.h" />
-    <ClInclude Include="LightProperty.h" />
     <ClInclude Include="LightTree.h" />
     <ClInclude Include="PolygonTree.h" />
     <ClInclude Include="PolygonProperty.h" />

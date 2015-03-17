@@ -4,9 +4,7 @@
 
 #include "View.h"
 
-#include "MaterialProperty.h"
 #include "MaterialTree.h"
-#include "LightProperty.h"
 #include "LightTree.h"
 #include "PolygonProperty.h"
 #include "../Graphics/PolygonBuilder.h"
