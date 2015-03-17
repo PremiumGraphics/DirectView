@@ -99,6 +99,7 @@
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
+    <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="WireFrameRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

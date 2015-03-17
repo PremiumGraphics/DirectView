@@ -102,50 +102,20 @@ public:
 	~VertexBuilder() {
 	}
 
+	VertexSPtr build(const Math::Vector3d& position);
 
-	VertexSPtr build(const Math::Vector3d& position) {
-		return VertexSPtr( new Vertex(position, nextId++));
-	}
+	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal);
 
-	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal) {
-		return VertexSPtr(new Vertex(position, normal, nextId++));
-	}
+	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord);
 
-	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord){
-		return VertexSPtr(new Vertex(position, normal, texCoord, nextId++));
-	}
+	VertexSPtrVector buildVerticesFromPositions(const Math::Vector3dVector& positions);
 
-	VertexSPtrVector buildVerticesFromPositions(const Math::Vector3dVector& positions) {
-		VertexSPtrVector vertices;
-		for (const Math::Vector3d& position : positions) {
-			VertexSPtr v(new Vertex(position, nextId++));
-			vertices.push_back(v);
-		}
-		return vertices;
-	}
+	VertexSPtrVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals);
 
-	VertexSPtrVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals) {
-		assert(positions.size() == normals.size());
-		VertexSPtrVector vertices;
-		for (size_t i = 0; i < positions.size(); ++i) {
-			VertexSPtr v( new Vertex(positions[i], normals[i], nextId++) );
-			vertices.push_back(v);
-		}
-		return vertices;
-	}
-
-	static std::vector< Vertex* > buildVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords) {
-		assert(positions.size() == normals.size());
-		assert(normals.size() == texCoords.size());
-		std::vector< Vertex* > vertices;
-		for (size_t i = 0; i < positions.size(); ++i) {
-			Vertex* v = new Vertex(positions[i], normals[i], texCoords[i], i);
-			vertices.push_back(v);
-		}
-		return vertices;
-	}
+	VertexSPtrVector buildVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords);
 
 private:
+	VertexSPtrVector vertices;
 	unsigned int nextId;
 };
 
