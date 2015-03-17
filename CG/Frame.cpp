@@ -253,8 +253,8 @@ Frame::Frame()
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *builder, builder->getMaterialBuilder()->getMaterials() );
-	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, builder->getMaterialBuilder()->getMaterials());
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *builder );
+	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, builder->getMaterialBuilder() );
 	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lights );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );

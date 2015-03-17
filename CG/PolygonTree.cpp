@@ -25,8 +25,7 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	PolygonBuilder& builder,
-	MaterialSPtrList& materials
+	PolygonBuilder& builder
 	)
 	: 
 	wxTreeCtrl(
@@ -37,8 +36,7 @@ PolygonTree::PolygonTree
 	//wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 	),
 	property( property ),
-	builder( builder ),
-	materials( materials )
+	builder( builder )
 {
 	SetSize( 100, 500 );
 	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( PolygonTree::onMenu ) );

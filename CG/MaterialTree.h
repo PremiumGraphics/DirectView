@@ -22,7 +22,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		MaterialProperty* property,
-		Graphics::MaterialSPtrList& materials
+		Graphics::MaterialBuilderSPtr& builder
 		);
 
 	~MaterialTree();
@@ -38,7 +38,7 @@ private:
 
 	void OnItemActivated(wxTreeEvent& event);
 
-	Graphics::MaterialSPtrList& materials;
+	Graphics::MaterialBuilderSPtr builder;
 
 	MaterialProperty* property;
 
