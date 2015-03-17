@@ -25,7 +25,7 @@ PolygonTree::PolygonTree
 	const wxPoint& pos,
 	const wxSize& size,
 	PolygonProperty* property,
-	PolygonSPtrList& polygons,
+	PolygonBuilder& builder,
 	MaterialSPtrList& materials
 	)
 	: 
@@ -37,7 +37,7 @@ PolygonTree::PolygonTree
 	//wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 	),
 	property( property ),
-	polygons( polygons ),
+	builder( builder ),
 	materials( materials )
 {
 	SetSize( 100, 500 );
@@ -63,9 +63,7 @@ void PolygonTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot( "Polygon" );
 
-	this->polygons = polygons;
-
-	for (const PolygonSPtr& g:  polygons) {
+	for (const PolygonSPtr& g:  builder.getPolygons()) {
 		const wxTreeItemId id = AppendItem( root, g->getName() );
 		map[id] = g;
 		//SetItemState( id, polygon->isSelected );

@@ -33,7 +33,7 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Graphics::PolygonSPtrList getPolygons() const { return polygons; }
+	Graphics::PolygonSPtrList getPolygons() const { return builder->getPolygons(); }
 
 	Graphics::LightSPtrList getLights() { return lights; }
 
@@ -188,7 +188,6 @@ private:
 	wxLocale locale;
 
 	Graphics::Camera<float> camera;
-	Graphics::PolygonSPtrList polygons;
 	Graphics::LightSPtrList lights;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );

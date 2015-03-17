@@ -67,9 +67,12 @@ public:
 		nextId = 0;
 	}
 
+	PolygonSPtrList getPolygons() const { return polygons; }
+
 private:
 	unsigned int nextId;
 
+	PolygonSPtrList polygons;
 	FaceBuilderSPtr faceBuilder;
 	MaterialBuilderSPtr materialBuilder;
 };

@@ -253,7 +253,7 @@ Frame::Frame()
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty, polygons, builder->getMaterialBuilder()->getMaterials() );
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *builder, builder->getMaterialBuilder()->getMaterials() );
 	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, builder->getMaterialBuilder()->getMaterials());
 	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lights );
 
@@ -290,7 +290,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	polygons.clear();
+	builder->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -494,7 +494,6 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 
 		PolygonFactory factory( builder );
 		PolygonSPtrList g = factory.create(file);
-		polygons.insert(polygons.end(), g.begin(), g.end());
 		view->Refresh();
 
 		polygonTree->build();
@@ -751,7 +750,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildCylinder(3));
+	builder->buildCylinder(3);
 	polygonTree->build();
 }
 
@@ -766,7 +765,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildBox());
+	builder->buildBox();
 	polygonTree->build();
 }
 
@@ -782,7 +781,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder->buildCone(coneConfig.divideNumber) );
+	builder->buildCone(coneConfig.divideNumber);
 	polygonTree->build();
 }
 
@@ -807,7 +806,6 @@ void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
 }
 
 void Frame::addPolygon(const PolygonSPtr& polygon) {
-	this->polygons.push_back(polygon);
 	//HalfEdgeBuilderSPtr es = polygon->getE
 
 	polygonTree->build();

@@ -12,6 +12,8 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 	PolygonBuilderSPtr builder( new PolygonBuilder() );
 	PolygonSPtr p(builder->buildQuad() );
 
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().front()->getEdges().size());
@@ -43,6 +45,8 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	PolygonBuilderSPtr builder( new PolygonBuilder() );
 	PolygonSPtr p(builder->buildBox());
 
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	VertexBuilder vBuilder2;
 	const VertexSPtrVector positions = vBuilder2.buildVerticesFromPositions(
 	{
@@ -67,6 +71,9 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
 	PolygonBuilderSPtr builder(new PolygonBuilder());
 	PolygonSPtr p(builder->buildCircleByAngle(1.0f, 90.0f));
+
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
@@ -101,6 +108,8 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	PolygonBuilderSPtr builder(new PolygonBuilder());
 	PolygonSPtr p(builder->buildTriangle());
 
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	EXPECT_EQ(3, p->getVertices().size());
 
 	const Vertex v0(
@@ -131,6 +140,8 @@ TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 	PolygonSPtr p(builder->buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
+
+	EXPECT_EQ(1, builder->getPolygons().size());
 
 	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),
@@ -164,6 +175,8 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	PolygonSPtr p(builder->buildCylinder(3));
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	//EXPECT_EQ(6, p->getVertices().size());
 	//EXPECT_EQ(5, p->getFaces().size());
 }
@@ -172,6 +185,9 @@ TEST(PolygonBuilderTest, TestBuildCone)
 {
 	PolygonBuilderSPtr builder(new PolygonBuilder());
 	PolygonSPtr p(builder->buildCone(3));
+
+	EXPECT_EQ(1, builder->getPolygons().size());
+
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(4, p->getFaces().size());

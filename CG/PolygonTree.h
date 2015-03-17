@@ -22,7 +22,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		Graphics::PolygonSPtrList& polygons,
+		Graphics::PolygonBuilder& builder,
 		Graphics::MaterialSPtrList& materials
 		);
 
@@ -43,7 +43,7 @@ private:
 
 	PolygonProperty* property;
 
-	Graphics::PolygonSPtrList& polygons;
+	Graphics::PolygonBuilder& builder;
 
 	Graphics::MaterialSPtrList& materials;
 
