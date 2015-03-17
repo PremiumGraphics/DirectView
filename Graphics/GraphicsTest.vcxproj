@@ -22,6 +22,7 @@
     <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
+    <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="PolygonBuilderTest.cpp" />
     <ClCompile Include="PolygonTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />

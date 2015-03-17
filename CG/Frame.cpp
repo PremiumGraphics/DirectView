@@ -250,7 +250,7 @@ Frame::Frame()
 
 	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *builder );
 	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, builder->getMaterialBuilder() );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lights );
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lightBuilder );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );

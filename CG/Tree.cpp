@@ -17,7 +17,7 @@ LightTree::LightTree
 	const wxPoint& pos,
 	const wxSize& size,
 	LightProperty* property,
-	LightSPtrList& lights
+	LightBuilder& builder
 	)
 	: 
 	wxTreeCtrl(
@@ -28,7 +28,7 @@ LightTree::LightTree
 	//wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 	),
 	property( property ),
-	lights_( lights )
+	builder( builder )
 {
 	//SetSize( 100, 500 );
 	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( LightTree::OnMenu ) );
@@ -56,7 +56,7 @@ void LightTree::build()
 
 	const wxTreeItemId root = AddRoot( "Light" );
 
-	for( const LightSPtr& l : lights_ ) {
+	for( const LightSPtr& l : builder.getLights() ) {
 		const wxTreeItemId id = AppendItem( root, l->name );
 		//SetItemState( id, l.isSelected );
 		map[id] = l;
@@ -79,8 +79,9 @@ void LightTree::OnMenu(wxTreeEvent& event)
 
 void LightTree::OnAdd(wxMenuEvent&)
 {
-	LightSPtr light( new Light() );
-	lights_.push_back( light );
+	//LightSPtr light( new Light() );
+	//lights_.push_back( light );
+	builder.
 	build();
 }
 
@@ -205,7 +206,7 @@ property(property),
 builder(builder)
 {
 	SetSize(100, 500);
-	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler(PolygonTree::onMenu));
+	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler(PolygonTree::OnMenu));
 	Connect(this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler(PolygonTree::OnItemActivated));
 	Connect(this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK, wxTreeEventHandler(PolygonTree::OnItemStateClick));
 
@@ -247,14 +248,14 @@ void PolygonTree::OnItemStateClick(wxTreeEvent& event)
 	*/
 }
 
-void PolygonTree::onMenu(wxTreeEvent& event)
+void PolygonTree::OnMenu(wxTreeEvent& event)
 {
 	wxMenu menu;
 
 	wxMenuItem* add = menu.Append(wxNewId(), "Add");
 	wxMenuItem* del = menu.Append(wxNewId(), "Delete");
 
-	Connect(add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::onAdd));
+	Connect(add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnAdd));
 	Connect(del->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnDelete));
 	PopupMenu(&menu, event.GetPoint());
 
@@ -265,7 +266,7 @@ PolygonTree::~PolygonTree()
 {
 }
 
-void PolygonTree::onAdd(wxMenuEvent&)
+void PolygonTree::OnAdd(wxMenuEvent&)
 {
 }
 

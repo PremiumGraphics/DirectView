@@ -29,7 +29,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		LightProperty* property,
-		Graphics::LightSPtrList& lights
+		Graphics::LightBuilder& builder
 		);
 
 	~LightTree();
@@ -61,7 +61,7 @@ private:
 
 	LightProperty* property;
 
-	Graphics::LightSPtrList& lights_;
+	Graphics::LightBuilder& builder;
 
 	typedef std::map<wxTreeItemId, Graphics::LightSPtr> ItemLightMap;
 	ItemLightMap map;
@@ -123,9 +123,9 @@ public:
 private:
 	void OnItemStateClick(wxTreeEvent& event);
 
-	void onMenu(wxTreeEvent& event);
+	void OnMenu(wxTreeEvent& event);
 
-	void onAdd(wxMenuEvent&);
+	void OnAdd(wxMenuEvent&);
 
 	void OnDelete(wxMenuEvent&);
 

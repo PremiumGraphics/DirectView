@@ -56,6 +56,23 @@ private:
 typedef std::shared_ptr< Light > LightSPtr;
 typedef std::list < LightSPtr > LightSPtrList;
 
+class LightBuilder
+{
+public:
+	LightSPtr build() {
+		LightSPtr l(new Light());
+		lights.push_back(l);
+		return l;
+	}
+
+	LightSPtrList getLights() const { return lights; }
+
+private:
+	LightSPtrList lights;
+};
+
+typedef std::shared_ptr< LightBuilder > LightBuilderSPtr;
+
 	}
 }
 

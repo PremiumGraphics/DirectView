@@ -35,7 +35,7 @@ public:
 
 	Graphics::PolygonSPtrList getPolygons() const { return builder->getPolygons(); }
 
-	Graphics::LightSPtrList getLights() { return lights; }
+	Graphics::LightSPtrList getLights() { return lightBuilder.getLights(); }
 
 	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
 
@@ -188,7 +188,7 @@ private:
 	wxLocale locale;
 
 	Graphics::Camera<float> camera;
-	Graphics::LightSPtrList lights;
+	Graphics::LightBuilder lightBuilder;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
