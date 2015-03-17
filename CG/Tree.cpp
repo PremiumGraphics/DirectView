@@ -7,8 +7,6 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
-#include <algorithm>
-
 #include "Resource/unchecked.xpm"
 #include "Resource/checked.xpm"
 

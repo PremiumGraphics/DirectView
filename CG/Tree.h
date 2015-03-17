@@ -4,10 +4,18 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <list>
 
 #include "../Graphics/Light.h"
 
 #include "PropertyDialog.h"
+
+
+#include "../Graphics/Material.h"
+#include "../IO/PolygonFactory.h"
+
+
+#include <memory>
 
 namespace Crystal {
 	namespace CG {
@@ -59,108 +67,77 @@ private:
 	ItemLightMap map;
 };
 
-	}
-}
 
-#endif
+class MaterialTree : public wxTreeCtrl
+{
+public:
+	MaterialTree
+		(
+		wxWindow *parent,
+		const wxPoint& pos,
+		const wxSize& size,
+		MaterialProperty* property,
+		Graphics::MaterialBuilderSPtr& builder
+		);
 
-#include <vector>
-#include <string>
-#include <map>
-#include <memory>
+	~MaterialTree();
 
-#include "../Graphics/Material.h"
-#include "PropertyDialog.h"
+	void build();
 
+private:
+	void OnMenu(wxTreeEvent& event);
 
-namespace Crystal {
-	namespace CG {
+	void OnAdd(wxMenuEvent&);
 
-		class MaterialTree : public wxTreeCtrl
-		{
-		public:
-			MaterialTree
-				(
-				wxWindow *parent,
-				const wxPoint& pos,
-				const wxSize& size,
-				MaterialProperty* property,
-				Graphics::MaterialBuilderSPtr& builder
-				);
+	void OnDelete(wxMenuEvent&);
 
-			~MaterialTree();
+	void OnItemActivated(wxTreeEvent& event);
 
-			void build();
+	Graphics::MaterialBuilderSPtr builder;
 
-		private:
-			void OnMenu(wxTreeEvent& event);
+	MaterialProperty* property;
 
-			void OnAdd(wxMenuEvent&);
+	std::map< wxTreeItemId, Graphics::MaterialSPtr > map;
+};
 
-			void OnDelete(wxMenuEvent&);
+class PolygonProperty;
 
-			void OnItemActivated(wxTreeEvent& event);
+class PolygonTree : public wxTreeCtrl
+{
+public:
+	PolygonTree
+		(
+		wxWindow *parent,
+		const wxPoint& pos,
+		const wxSize& size,
+		PolygonProperty* property,
+		Graphics::PolygonBuilder& builder
+		);
 
-			Graphics::MaterialBuilderSPtr builder;
+	~PolygonTree();
 
-			MaterialProperty* property;
+	void build();
 
-			std::map< wxTreeItemId, Graphics::MaterialSPtr > map;
-		};
+	void OnItemActivated(wxTreeEvent& event);
 
-	}
-}
+private:
+	void OnItemStateClick(wxTreeEvent& event);
 
-#ifndef __CRYSTAL_APP_POLYGON_TREE_H__
-#define __CRYSTAL_APP_POLYGON_TREE_H__
+	void onMenu(wxTreeEvent& event);
 
-#include <vector>
-#include <string>
-#include <list>
-#include <map>
+	void onAdd(wxMenuEvent&);
 
-#include "../Graphics/Material.h"
-#include "../IO/PolygonFactory.h"
+	void OnDelete(wxMenuEvent&);
 
-namespace Crystal {
-	namespace CG {
-		class PolygonProperty;
+	PolygonProperty* property;
 
-		class PolygonTree : public wxTreeCtrl
-		{
-		public:
-			PolygonTree
-				(
-				wxWindow *parent,
-				const wxPoint& pos,
-				const wxSize& size,
-				PolygonProperty* property,
-				Graphics::PolygonBuilder& builder
-				);
+	Graphics::PolygonBuilder builder;
 
-			~PolygonTree();
-
-			void build();
-
-			void OnItemActivated(wxTreeEvent& event);
-
-		private:
-			void OnItemStateClick(wxTreeEvent& event);
-
-			void onMenu(wxTreeEvent& event);
-
-			void onAdd(wxMenuEvent&);
-
-			void OnDelete(wxMenuEvent&);
-
-			PolygonProperty* property;
-
-			Graphics::PolygonBuilder builder;
-
-			std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
-		};
+	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
+};
 
 	}
 }
+
 
 #endif
