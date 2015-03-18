@@ -17,13 +17,13 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height  )
+View::View( Frame* parent, const int width, const int height, Model& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
-frame( parent ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
-pointSize( 10.0f )
+pointSize( 10.0f ),
+model( model )
 {
 	glContext.SetCurrent( *this );
 
@@ -69,7 +69,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	Camera<float>* camera = frame->getModel().getCamera();
+	Camera<float>* camera = model.getCamera();
 	Vector3d pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -122,8 +122,8 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-		frame->getModel().setSelectedVertex( r );
-		frame->getModel().setSelectedFace( g );
+		model.setSelectedVertex( r );
+		model.setSelectedFace( g );
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -149,11 +149,11 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
-			frame->getModel().getCamera()->move( pos );
-			frame->getModel().getCamera()->addAngle( angle );
+			model.getCamera()->move( pos );
+			model.getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = frame->getModel().getLights();
+			const LightSPtrList& lights = model.getLights();
 			for (const LightSPtr& l : lights) {
 				Vector3d lpos = l->getPos();
 				lpos += pos;
@@ -161,46 +161,39 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if( mode == POLYGON_SCALE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
 			for( const PolygonSPtr& p : polygons ) {
 				p->scale(scale);
 			}
 		}
 		else if( mode == POLYGON_TRANSLATE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			for( const PolygonSPtr& p : polygons ) {
 				p->move( pos );
 				//p->rotate( matrix );
 			}
 		}
 		else if( mode == POLYGON_ROTATE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			for( const PolygonSPtr& p : polygons) {
 				p->rotateZ( pos.getX() );
 			}
-			/*
-			Matrix3d matrix = Matrix3d::RotateX( angle.getX() ) * Matrix3d::RotateY( angle.getY() ) * Matrix3d::RotateZ( angle.getZ() );
-			const PolygonList& polygons = frame->getModel()->getPolygonModel()->getSelectedPolygons();
-			for( Graphics::Polygon* p : polygons ) {
-				p->rotate( matrix );
-			}
-			*/
 		}
 		else if (mode == POLYGON_ROTATE_X) {
-			PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			PolygonSPtrList& polygons = model.getPolygons();
 			for ( const PolygonSPtr& p : polygons) {
 				p->rotateX(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Y) {
-			PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			PolygonSPtrList& polygons = model.getPolygons();
 			for (const PolygonSPtr& p : polygons) {
 				p->rotateY(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Z) {
-			PolygonSPtrList& polygons = frame->getModel().getPolygons();
+			PolygonSPtrList& polygons = model.getPolygons();
 			for (const PolygonSPtr& p : polygons) {
 				p->rotateZ(pos.getX());
 			}
@@ -234,7 +227,7 @@ void View::draw(const wxSize& size)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	Camera<float> c = *(frame->getModel().getCamera());
+	Camera<float> c = *(model.getCamera());
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
@@ -249,7 +242,7 @@ void View::draw(const wxSize& size)
 		surfaceRenderer.render(width, height, c, dispListSelected);
 	}
 	else if (renderingMode == RENDERING_MODE::PHONG) {
-		smoothRenderer.render(width, height, c, dispList, frame->getModel().getLights(), frame->getModel().getMaterials() );
+		smoothRenderer.render(width, height, c, dispList, model.getLights(), model.getMaterials() );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.render(width, height, c, dispList );
@@ -284,11 +277,11 @@ void View::buildDisplayList()
 {
 	dispList.clear();
 	dispListSelected.clear();
-	const PolygonSPtrList& polygons = frame->getModel().getPolygons();
+	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p );
 	}
-	const FaceSPtrVector& faces = frame->getModel().getSelectedFaces();
+	const FaceSPtrVector& faces = model.getSelectedFaces();
 	for (const FaceSPtr& f : faces) {
 		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
 	}

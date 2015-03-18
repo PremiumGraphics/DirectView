@@ -229,7 +229,7 @@ Frame::Frame()
 	const int width = 1024;//720;
 	const int height = 512;////480;
 
-	view = new View( this, width, height );
+	view = new View( this, width, height, model );
 
 	SetIcon(wxICON(sample));
 
