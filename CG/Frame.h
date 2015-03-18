@@ -3,8 +3,6 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/Light.h"
-#include "../Graphics/PolygonBuilder.h"
-#include "../IO/PolygonFactory.h"
 
 #include "Model.h"
 

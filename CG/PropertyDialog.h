@@ -102,20 +102,6 @@ namespace Crystal {
 			void OnChange(wxPropertyGridEvent& event);
 		};
 
-	}
-}
-
-#endif
-
-#ifndef __CRYSTAL_APP_MATERIAL_PROPERTY_H__
-#define __CRYSTAL_APP_MATERIAL_PROPERTY_H__
-
-#include "../Graphics/Material.h"
-
-namespace Crystal {
-	namespace CG {
-
-
 		class MaterialProperty : public wxPropertyGrid {
 		public:
 			MaterialProperty(wxWindow* parent, const wxSize& size);
@@ -133,20 +119,6 @@ namespace Crystal {
 			wxString getImageFile();
 
 		};
-
-	}
-}
-
-#endif
-
-#ifndef __CRYSTAL_APP_POLYGON_PROPERTY_H__
-#define __CRYSTAL_APP_POLYGON_PROPERTY_H__
-
-#include "../Graphics/Polygon.h"
-#include "../Graphics/Material.h"
-
-namespace Crystal {
-	namespace CG {
 
 		class PolygonProperty : public wxPropertyGrid {
 		public:
