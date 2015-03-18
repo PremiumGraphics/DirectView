@@ -247,7 +247,7 @@ void View::draw(const wxSize& size)
 		surfaceRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
 	}
 	else if (renderingMode == RENDERING_MODE::PHONG) {
-		smoothRenderer.render(width, height, *(frame->getCamera()), dispList, frame->getLights(), frame->getMaterials() );
+		smoothRenderer.render(width, height, *(frame->getCamera()), dispList, frame->getLights(), frame->getModel().getMaterials() );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.render(width, height, *(frame->getCamera()), dispList );

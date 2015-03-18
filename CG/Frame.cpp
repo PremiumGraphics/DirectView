@@ -95,7 +95,7 @@ public:
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	builder( new PolygonBuilder() )
+	lightBuilder(new LightBuilder() )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -241,15 +241,15 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	polygonProperty = new PolygonProperty( this, wxSize( 300, 100), builder->getMaterialBuilder()->getMaterials() );
+	polygonProperty = new PolygonProperty( this, wxSize( 300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials() );
 	materialProperty = new MaterialProperty( this, wxSize( 300, 100) );
 	lightProperty = new LightProperty( this, wxSize( 300, 100  ) );
 
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *builder );
-	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, builder->getMaterialBuilder() );
+	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *model.getPolygonBuilder() );
+	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder() );
 	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lightBuilder );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
@@ -285,7 +285,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	builder->clear();
+	model.getPolygonBuilder()->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -487,7 +487,7 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 			return;
 		}
 
-		PolygonFactory factory( builder );
+		PolygonFactory factory( model.getPolygonBuilder() );
 		PolygonSPtrList g = factory.create(file);
 		view->Refresh();
 
@@ -688,7 +688,9 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	addPolygon( builder->buildTriangle() );
+	model.getPolygonBuilder()->buildTriangle();
+	polygonTree->build();
+
 }
 
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
@@ -702,7 +704,8 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	addPolygon( builder->buildQuad() );
+	model.getPolygonBuilder()->buildQuad();
+	polygonTree->build();
 }
 
 void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
@@ -716,7 +719,8 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	addPolygon( builder->buildCircleByNumber(1.0f, circleConfig.getDivideNumber()) );
+	model.getPolygonBuilder()->buildCircleByNumber(1.0f, circleConfig.getDivideNumber());
+	polygonTree->build();
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
@@ -730,7 +734,8 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	addPolygon( builder->buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber()));
+	model.getPolygonBuilder()->buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber());
+	polygonTree->build();
 }
 
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
@@ -745,7 +750,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	builder->buildCylinder(3);
+	model.getPolygonBuilder()->buildCylinder(3);
 	polygonTree->build();
 }
 
@@ -760,7 +765,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	builder->buildBox();
+	model.getPolygonBuilder()->buildBox();
 	polygonTree->build();
 }
 
@@ -776,7 +781,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	builder->buildCone(coneConfig.divideNumber);
+	model.getPolygonBuilder()->buildCone(coneConfig.divideNumber);
 	polygonTree->build();
 }
 
@@ -798,11 +803,4 @@ void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
 	menu.Append(wxID_ANY, wxT("Z"));
 
 	e.PopupMenu(&menu);
-}
-
-void Frame::addPolygon(const PolygonSPtr& polygon) {
-	//HalfEdgeBuilderSPtr es = polygon->getE
-
-	polygonTree->build();
-
 }

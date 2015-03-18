@@ -29,7 +29,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		LightProperty* property,
-		Graphics::LightBuilder& builder
+		const Graphics::LightBuilderSPtr& builder
 		);
 
 	~LightTree();
@@ -58,7 +58,7 @@ private:
 
 	LightProperty* property;
 
-	Graphics::LightBuilder& builder;
+	const Graphics::LightBuilderSPtr& builder;
 
 	typedef std::map<wxTreeItemId, Graphics::LightSPtr> ItemLightMap;
 	ItemLightMap map;
@@ -74,7 +74,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		MaterialProperty* property,
-		Graphics::MaterialBuilderSPtr& builder
+		const Graphics::MaterialBuilderSPtr& builder
 		);
 
 	~MaterialTree();

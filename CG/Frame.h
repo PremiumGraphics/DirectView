@@ -24,6 +24,21 @@ namespace Crystal {
 		class MaterialProperty;
 		class LightProperty;
 
+class Model {
+public:
+	Model() :
+		builder(new Graphics::PolygonBuilder() )
+	{}
+
+	Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
+
+	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
+
+private:
+	const Graphics::PolygonBuilderSPtr builder;
+
+};
+
 class Frame : public wxFrame//wxMDIParentFrame
 {
 public:
@@ -33,15 +48,15 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Graphics::PolygonSPtrList getPolygons() const { return builder->getPolygons(); }
+	Graphics::PolygonSPtrList getPolygons() const { return model.getPolygonBuilder()->getPolygons(); }
 
-	Graphics::LightSPtrList getLights() { return lightBuilder.getLights(); }
+	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
-	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
+	Graphics::VertexSPtrVector getVertices() const { return model.getPolygonBuilder()->getVertices(); }
 
-	Graphics::VertexSPtrVector getVertices() const { return builder->getVertices(); }
+	Graphics::FaceSPtrVector getFaces() const { return model.getPolygonBuilder()->getFaces(); }
 
-	Graphics::FaceSPtrVector getFaces() const { return builder->getFaces(); }
+	Model getModel() const { return model; }
 
 	void setSelectedVertex(const unsigned int id)
 	{
@@ -69,8 +84,6 @@ public:
 	Graphics::VertexSPtrVector getSelectedVertex() const { return selectedVertex; }
 
 	Graphics::FaceSPtrVector getSelectedFace() const { return selectedFace; }
-
-	void addPolygon(const Graphics::PolygonSPtr& polygon);
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -178,17 +191,17 @@ private:
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 
-	const Graphics::PolygonBuilderSPtr builder;
 
 	Graphics::VertexSPtrVector selectedVertex;
 	Graphics::FaceSPtrVector selectedFace;
 
 	View* view;
+	Model model;
 
 	wxLocale locale;
 
 	Graphics::Camera<float> camera;
-	Graphics::LightBuilder lightBuilder;
+	Graphics::LightBuilderSPtr lightBuilder;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

@@ -17,7 +17,7 @@ LightTree::LightTree
 	const wxPoint& pos,
 	const wxSize& size,
 	LightProperty* property,
-	LightBuilder& builder
+	const LightBuilderSPtr& builder
 	)
 	: 
 	wxTreeCtrl(
@@ -56,7 +56,7 @@ void LightTree::build()
 
 	const wxTreeItemId root = AddRoot( "Light" );
 
-	for( const LightSPtr& l : builder.getLights() ) {
+	for( const LightSPtr& l : builder->getLights() ) {
 		const wxTreeItemId id = AppendItem( root, l->name );
 		//SetItemState( id, l.isSelected );
 		map[id] = l;
@@ -79,14 +79,14 @@ void LightTree::OnMenu(wxTreeEvent& event)
 
 void LightTree::OnAdd(wxMenuEvent&)
 {
-	builder.build();
+	builder->build();
 	this->build();
 }
 
 void LightTree::OnDelete(wxMenuEvent&) {
 	const wxTreeItemId item = GetFocusedItem();
 	LightSPtr l = map[item];
-	builder.remove(l);
+	builder->remove(l);
 	Delete(item);
 }
 
@@ -109,7 +109,7 @@ wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
 MaterialProperty* property,
-MaterialBuilderSPtr& builder
+const MaterialBuilderSPtr& builder
 )
 :
 wxTreeCtrl(
