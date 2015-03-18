@@ -94,12 +94,10 @@ public:
 
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	lightBuilder(new LightBuilder() )
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
-	camera.setNear(1.0f);
 
     wxRibbonBar* bar = new wxRibbonBar
 		(
@@ -250,7 +248,7 @@ Frame::Frame()
 
 	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *model.getPolygonBuilder() );
 	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder() );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, lightBuilder );
+	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, model.getLightBuilder() );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( polygonTree, 0, wxEXPAND );

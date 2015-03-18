@@ -69,7 +69,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	Camera<float>* camera = frame->getCamera();
+	Camera<float>* camera = frame->getModel().getCamera();
 	Vector3d pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -122,8 +122,8 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-		frame->setSelectedVertex( r );
-		frame->setSelectedFace( g );
+		frame->getModel().setSelectedVertex( r );
+		frame->getModel().setSelectedFace( g );
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -149,11 +149,11 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
-			frame->getCamera()->move( pos );
-			frame->getCamera()->addAngle( angle );
+			frame->getModel().getCamera()->move( pos );
+			frame->getModel().getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = frame->getLights();
+			const LightSPtrList& lights = frame->getModel().getLights();
 			for (const LightSPtr& l : lights) {
 				Vector3d lpos = l->getPos();
 				lpos += pos;
@@ -234,30 +234,32 @@ void View::draw(const wxSize& size)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
+	Camera<float> c = *(frame->getModel().getCamera());
+
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispList);
+		wireFrameRenderer.render(width, height, c, dispList);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glLineWidth(5.0f);
-		wireFrameRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
+		wireFrameRenderer.render(width, height, c, dispListSelected);
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
-		surfaceRenderer.render(width, height, *(frame->getCamera()), dispList);
+		surfaceRenderer.render(width, height, c, dispList);
 		glClear(GL_DEPTH_BUFFER_BIT);
-		surfaceRenderer.render(width, height, *(frame->getCamera()), dispListSelected);
+		surfaceRenderer.render(width, height, c, dispListSelected);
 	}
 	else if (renderingMode == RENDERING_MODE::PHONG) {
-		smoothRenderer.render(width, height, *(frame->getCamera()), dispList, frame->getLights(), frame->getModel().getMaterials() );
+		smoothRenderer.render(width, height, c, dispList, frame->getModel().getLights(), frame->getModel().getMaterials() );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.render(width, height, *(frame->getCamera()), dispList );
+		normalRenderer.render(width, height, c, dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		glPointSize(pointSize);
-		pointRenderer.render(width, height, frame->getCamera(), dispList );
+		pointRenderer.render(width, height, &c, dispList );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.render(width, height, *(frame->getCamera()), dispList );
+		idRenderer.render(width, height, c, dispList );
 	}
 	else {
 		assert( false );
@@ -286,7 +288,7 @@ void View::buildDisplayList()
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p );
 	}
-	const FaceSPtrVector& faces = frame->getSelectedFace();
+	const FaceSPtrVector& faces = frame->getModel().getSelectedFaces();
 	for (const FaceSPtr& f : faces) {
 		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
 	}

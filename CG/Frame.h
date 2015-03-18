@@ -34,40 +34,7 @@ public:
 
 	~Frame();
 
-	Graphics::Camera<float>* getCamera() { return &camera; }
-
-	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
-
-	Graphics::VertexSPtrVector getVertices() const { return model.getPolygonBuilder()->getVertices(); }
-
-	Model getModel() const { return model; }
-
-	void setSelectedVertex(const unsigned int id)
-	{
-		selectedVertex.clear();
-		if (id >= 0 && id < getVertices().size()) {
-			const Graphics::VertexSPtr& v = getVertices()[id];
-			selectedVertex.push_back( v );
-			//VertexPropertyDialog* dialog = new VertexPropertyDialog(this, *v);
-			//dialog->Show();
-		}
-	}
-
-	void setSelectedFace(const unsigned int id)
-	{
-		selectedFace.clear();
-		if (id >= 0 && id < model.getFaces().size()) {
-			std::shared_ptr< Graphics::Face > f = model.getFaces()[id];
-			selectedFace.push_back( f );
-			//FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
-			//dialog->Show();
-		}
-	}
-
-
-	Graphics::VertexSPtrVector getSelectedVertex() const { return selectedVertex; }
-
-	Graphics::FaceSPtrVector getSelectedFace() const { return selectedFace; }
+	Model& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -175,17 +142,10 @@ private:
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 
-
-	Graphics::VertexSPtrVector selectedVertex;
-	Graphics::FaceSPtrVector selectedFace;
-
 	View* view;
 	Model model;
 
 	wxLocale locale;
-
-	Graphics::Camera<float> camera;
-	Graphics::LightBuilderSPtr lightBuilder;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
