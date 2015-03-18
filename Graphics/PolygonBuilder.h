@@ -66,6 +66,7 @@ public:
 	void remove(const PolygonSPtr& p) { polygons.remove(p); }
 
 	void clear(){
+		polygons.clear();
 		nextId = 0;
 	}
 

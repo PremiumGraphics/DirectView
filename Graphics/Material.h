@@ -106,6 +106,8 @@ public:
 
 	MaterialSPtrList getMaterials() const { return materials; }
 
+	void clear() { materials.clear(); }
+
 private:
 	unsigned int nextId;
 	MaterialSPtrList materials;

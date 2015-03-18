@@ -56,6 +56,8 @@ private:
 
 	void OnDelete(wxMenuEvent&);
 
+	void OnClear(wxMenuEvent&);
+
 	LightProperty* property;
 
 	Graphics::LightBuilderSPtr builder;
@@ -87,6 +89,8 @@ private:
 	void OnAdd(wxMenuEvent&);
 
 	void OnDelete(wxMenuEvent&);
+
+	void OnClear(wxMenuEvent&);
 
 	void OnItemActivated(wxTreeEvent& event);
 
@@ -125,6 +129,8 @@ private:
 	void OnAdd(wxMenuEvent&);
 
 	void OnDelete(wxMenuEvent&);
+
+	void OnClear(wxMenuEvent&);
 
 	PolygonProperty* property;
 

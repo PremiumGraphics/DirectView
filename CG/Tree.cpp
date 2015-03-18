@@ -69,9 +69,12 @@ void LightTree::OnMenu(wxTreeEvent& event)
 	
 	wxMenuItem* add = menu.Append( wxNewId(), "Add" );
 	wxMenuItem* del = menu.Append( wxNewId(), "Delete" );
+	wxMenuItem* clear = menu.Append(wxNewId(), "Clear" );
 
 	Connect( add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler( LightTree::OnAdd ) );
 	Connect( del->GetId(), wxEVT_COMMAND_MENU_SELECTED , wxMenuEventHandler( LightTree::OnDelete ) );	
+	Connect( clear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(LightTree::OnClear));
+
 	PopupMenu( &menu, event.GetPoint() );
 
 	event.Skip();
@@ -83,11 +86,19 @@ void LightTree::OnAdd(wxMenuEvent&)
 	this->build();
 }
 
-void LightTree::OnDelete(wxMenuEvent&) {
+void LightTree::OnDelete(wxMenuEvent&)
+{
 	const wxTreeItemId item = GetFocusedItem();
 	LightSPtr l = map[item];
 	builder->remove(l);
 	Delete(item);
+}
+
+void LightTree::OnClear(wxMenuEvent&)
+{
+	builder->clear();
+	map.clear();
+	DeleteChildren(GetRootItem());
 }
 
 LightTree::~LightTree()
@@ -146,9 +157,12 @@ void MaterialTree::OnMenu(wxTreeEvent& event)
 
 	wxMenuItem* add = menu.Append(wxNewId(), "Add");
 	wxMenuItem* del = menu.Append(wxNewId(), "Delete");
+	wxMenuItem* clear = menu.Append(wxNewId(), "Clear");
 
-	Connect(add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(MaterialTree::OnAdd));
-	Connect(del->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(MaterialTree::OnDelete));
+	Connect(add->GetId(),	wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(MaterialTree::OnAdd));
+	Connect(del->GetId(),	wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(MaterialTree::OnDelete));
+	Connect(clear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(MaterialTree::OnClear));
+
 	PopupMenu(&menu, event.GetPoint());
 
 	event.Skip();
@@ -171,7 +185,9 @@ void MaterialTree::OnItemActivated(wxTreeEvent& e)
 
 void MaterialTree::OnAdd(wxMenuEvent&)
 {
-	builder->build();
+	const wxString& str = wxGetTextFromUser("Name");
+	MaterialSPtr m = builder->build();
+	m->setName(str.ToStdString());
 	build();
 }
 
@@ -181,13 +197,15 @@ void MaterialTree::OnDelete(wxMenuEvent&)
 	if (item == GetRootItem()) {
 		return;
 	}
-
-	/*
-	const std::string& name = GetItemText( item ).ToStdString();
-	Material* m = model->find( name );
-	model->remove( m );
-	*/
+	map.erase(item);
 	Delete(item);
+}
+
+void MaterialTree::OnClear(wxMenuEvent&)
+{
+	builder->clear();
+	map.clear();
+	DeleteChildren( GetRootItem() );
 }
 
 
@@ -259,9 +277,12 @@ void PolygonTree::OnMenu(wxTreeEvent& event)
 
 	wxMenuItem* add = menu.Append(wxNewId(), "Add");
 	wxMenuItem* del = menu.Append(wxNewId(), "Delete");
+	wxMenuItem* clear = menu.Append(wxNewId(), "Clear");
 
 	Connect(add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnAdd));
 	Connect(del->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnDelete));
+	Connect(clear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnClear));
+
 	PopupMenu(&menu, event.GetPoint());
 
 	event.Skip();
@@ -282,6 +303,14 @@ void PolygonTree::OnDelete(wxMenuEvent&)
 	Delete(id);
 }
 
+
+void PolygonTree::OnClear(wxMenuEvent&)
+{
+	builder->clear();
+	map.clear();
+	DeleteChildren(GetRootItem());
+}
+
 void PolygonTree::OnItemActivated(wxTreeEvent& event)
 {
 	const wxTreeItemId id = event.GetItem();
@@ -292,4 +321,3 @@ void PolygonTree::OnItemActivated(wxTreeEvent& event)
 	const Graphics::PolygonSPtr& p = map[id];
 	property->build(p);
 }
-

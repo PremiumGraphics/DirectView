@@ -6,13 +6,14 @@
 #include "../Graphics/Vertex.h"
 #include "../Graphics/Face.h"
 #include "../Graphics/Polygon.h"
+#include "../Graphics/Light.h"
 
 namespace Crystal{
 	namespace CG{
 
 class VertexPropertyDialog : public wxDialog {
 public:
-	VertexPropertyDialog(wxWindow* parent, Graphics::Vertex& vertex);
+	VertexPropertyDialog(wxWindow* parent, const Graphics::VertexSPtr& vertex);
 
 	void OnOk(wxCommandEvent& e);
 
@@ -43,7 +44,7 @@ private:
 	wxSpinCtrlDouble* texCoordY;
 	wxSpinCtrlDouble* texCoordZ;
 
-	Graphics::Vertex& vertex;
+	Graphics::VertexSPtr vertex;
 };
 
 class FacePropertyDialog : public wxDialog {
@@ -77,65 +78,52 @@ private:
 	wxSpinCtrl* faces;
 };
 
-	}
+class LightProperty : public wxPropertyGrid {
+public:
+	LightProperty(wxWindow* parent, const wxSize& size);
+
+	void setValue(Graphics::LightSPtr light);
+
+private:
+	Graphics::LightSPtr light;
+
+	void OnChange(wxPropertyGridEvent& event);
+};
+
+class MaterialProperty : public wxPropertyGrid {
+public:
+	MaterialProperty(wxWindow* parent, const wxSize& size);
+
+	void setValue(const Graphics::MaterialSPtr& material);
+
+	void OnChange(wxPropertyGridEvent& event);
+
+	void OnDoubleClick(wxPropertyGridEvent& event);
+
+private:
+	Graphics::MaterialSPtr m;
+	//wxColourProperty* diffuse;
+
+	wxString getImageFile();
+
+};
+
+class PolygonProperty : public wxPropertyGrid {
+public:
+	PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialSPtrList& materials);
+
+	void build(const Graphics::PolygonSPtr& group);
+
+	void OnDoubleClick(wxPropertyGridEvent& event);
+
+	void OnChanged(wxPropertyGridEvent& event);
+
+private:
+	Graphics::PolygonSPtr polygon;
+	const Graphics::MaterialSPtrList& materials;
+};
+
 }
-
-#endif
-
-#ifndef __CRYSTAL_APP_LIGHT_PROPERTY_H__
-#define __CRYSTAL_APP_LIGHT_PROPERTY_H__
-
-#include "../Graphics/Light.h"
-
-namespace Crystal {
-	namespace CG {
-
-		class LightProperty : public wxPropertyGrid {
-		public:
-			LightProperty(wxWindow* parent, const wxSize& size);
-
-			void setValue(Graphics::LightSPtr light);
-
-		private:
-			Graphics::LightSPtr light;
-
-			void OnChange(wxPropertyGridEvent& event);
-		};
-
-		class MaterialProperty : public wxPropertyGrid {
-		public:
-			MaterialProperty(wxWindow* parent, const wxSize& size);
-
-			void setValue(const Graphics::MaterialSPtr& material);
-
-			void OnChange(wxPropertyGridEvent& event);
-
-			void OnDoubleClick(wxPropertyGridEvent& event);
-
-		private:
-			Graphics::MaterialSPtr m;
-			//wxColourProperty* diffuse;
-
-			wxString getImageFile();
-
-		};
-
-		class PolygonProperty : public wxPropertyGrid {
-		public:
-			PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialSPtrList& materials);
-
-			void build(const Graphics::PolygonSPtr& group);
-
-			void OnDoubleClick(wxPropertyGridEvent& event);
-
-			void OnChanged(wxPropertyGridEvent& event);
-
-		private:
-			Graphics::PolygonSPtr polygon;
-			const Graphics::MaterialSPtrList& materials;
-		};
-
-	}
 }
 
 #endif

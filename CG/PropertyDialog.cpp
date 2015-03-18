@@ -5,7 +5,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
-VertexPropertyDialog::VertexPropertyDialog(wxWindow* parent, Vertex& vertex) :
+VertexPropertyDialog::VertexPropertyDialog(wxWindow* parent, const VertexSPtr& vertex) :
 wxDialog(parent, wxID_ANY, "VertexProperty", wxDefaultPosition, wxSize(500, 500)),
 vertex( vertex )
 {
@@ -13,7 +13,7 @@ vertex( vertex )
 
 	new wxStaticText(this, wxID_ANY, "ID", wxPoint(0, 0));
 	wxSpinCtrl* id = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 0));
-	id->SetValue(vertex.getId());
+	id->SetValue(vertex->getId());
 
 	new wxStaticText(this, wxID_ANY, "Position", wxPoint(0, 100));
 
@@ -21,7 +21,7 @@ vertex( vertex )
 	positionY = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(200, 100), size);
 	positionZ = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100), size);
 
-	setPosition(vertex.getPosition());
+	setPosition(vertex->getPosition());
 
 	new wxStaticText(this, wxID_ANY, "Normal", wxPoint(0, 200));
 
@@ -29,14 +29,14 @@ vertex( vertex )
 	normalY = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(200, 200), size);
 	normalZ = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 200), size);
 
-	setNormal(vertex.getNormal());
+	setNormal(vertex->getNormal());
 
 	new wxStaticText(this, wxID_ANY, "TexCoord", wxPoint(0, 300));
 	texCoordX = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300), size);
 	texCoordY = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(200, 300), size);
 	texCoordZ = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 300), size);
 
-	setTexCoord(vertex.getTexCoord());
+	setTexCoord(vertex->getTexCoord());
 
 	wxButton* okButton = new wxButton(this, wxID_OK, "OK", wxPoint(400, 100) );
 	wxButton* cancelButton = new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(400, 200));
@@ -44,9 +44,9 @@ vertex( vertex )
 
 void VertexPropertyDialog::OnOk(wxCommandEvent& e)
 {
-	vertex.setPosition( getPosition() );
-	vertex.setNormal( getNormal() );
-	vertex.setTexCoord( getTexCoord());
+	vertex->setPosition( getPosition() );
+	vertex->setNormal( getNormal() );
+	vertex->setTexCoord( getTexCoord());
 	//positionX->GetValue();
 }
 
