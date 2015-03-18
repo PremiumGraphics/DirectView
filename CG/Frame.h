@@ -6,6 +6,8 @@
 #include "../Graphics/PolygonBuilder.h"
 #include "../IO/PolygonFactory.h"
 
+#include "Model.h"
+
 #include "ModelingDialog.h"
 
 #include "PropertyDialog.h"
@@ -24,20 +26,6 @@ namespace Crystal {
 		class MaterialProperty;
 		class LightProperty;
 
-class Model {
-public:
-	Model() :
-		builder(new Graphics::PolygonBuilder() )
-	{}
-
-	Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
-
-	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
-
-private:
-	const Graphics::PolygonBuilderSPtr builder;
-
-};
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -48,13 +36,9 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Graphics::PolygonSPtrList getPolygons() const { return model.getPolygonBuilder()->getPolygons(); }
-
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
 	Graphics::VertexSPtrVector getVertices() const { return model.getPolygonBuilder()->getVertices(); }
-
-	Graphics::FaceSPtrVector getFaces() const { return model.getPolygonBuilder()->getFaces(); }
 
 	Model getModel() const { return model; }
 
@@ -72,8 +56,8 @@ public:
 	void setSelectedFace(const unsigned int id)
 	{
 		selectedFace.clear();
-		if (id >= 0 && id < getFaces().size()) {
-			std::shared_ptr< Graphics::Face > f = getFaces()[id];
+		if (id >= 0 && id < model.getFaces().size()) {
+			std::shared_ptr< Graphics::Face > f = model.getFaces()[id];
 			selectedFace.push_back( f );
 			//FacePropertyDialog* dialog = new FacePropertyDialog(this, *f);
 			//dialog->Show();

@@ -161,21 +161,21 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if( mode == POLYGON_SCALE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
+			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
 			for( const PolygonSPtr& p : polygons ) {
 				p->scale(scale);
 			}
 		}
 		else if( mode == POLYGON_TRANSLATE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
+			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			for( const PolygonSPtr& p : polygons ) {
 				p->move( pos );
 				//p->rotate( matrix );
 			}
 		}
 		else if( mode == POLYGON_ROTATE ) {
-			Graphics::PolygonSPtrList& polygons = frame->getPolygons();
+			Graphics::PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			for( const PolygonSPtr& p : polygons) {
 				p->rotateZ( pos.getX() );
 			}
@@ -188,19 +188,19 @@ void View::OnMouse( wxMouseEvent& event )
 			*/
 		}
 		else if (mode == POLYGON_ROTATE_X) {
-			PolygonSPtrList& polygons = frame->getPolygons();
+			PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			for ( const PolygonSPtr& p : polygons) {
 				p->rotateX(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Y) {
-			PolygonSPtrList& polygons = frame->getPolygons();
+			PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			for (const PolygonSPtr& p : polygons) {
 				p->rotateY(pos.getX());
 			}
 		}
 		else if (mode == POLYGON_ROTATE_Z) {
-			PolygonSPtrList& polygons = frame->getPolygons();
+			PolygonSPtrList& polygons = frame->getModel().getPolygons();
 			for (const PolygonSPtr& p : polygons) {
 				p->rotateZ(pos.getX());
 			}
@@ -282,7 +282,7 @@ void View::buildDisplayList()
 {
 	dispList.clear();
 	dispListSelected.clear();
-	const PolygonSPtrList& polygons = frame->getPolygons();
+	const PolygonSPtrList& polygons = frame->getModel().getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p );
 	}

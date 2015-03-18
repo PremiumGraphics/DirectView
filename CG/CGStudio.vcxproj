@@ -159,6 +159,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />

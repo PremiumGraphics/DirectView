@@ -20,6 +20,7 @@
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="Model.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
