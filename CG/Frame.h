@@ -12,6 +12,9 @@
 
 #include "PropertyDialog.h"
 
+#include "Tree.h"
+#include "PropertyDialog.h"
+
 #include <memory>
 
 namespace Crystal {
@@ -28,7 +31,31 @@ namespace Crystal {
 
 		class Frame;
 
-struct Widgets {
+class Widgets {
+public:
+	Widgets() {}
+
+	void build(Frame* parent, Model& model);
+
+	void refresh() {
+		polygonTree->build();
+		materialTree->build();
+		lightTree->build();
+	}
+
+	PolygonTree* getPolygonTree() const { return polygonTree; }
+
+	MaterialTree* getMaterialTree() const { return materialTree; }
+
+	LightTree* getLightTree() const { return lightTree; }
+
+	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
+
+	MaterialProperty* getMaterialProperty() const { return materialProperty; }
+
+	LightProperty* getLightProperty() const { return lightProperty; }
+
+private:
 	PolygonTree* polygonTree;
 	MaterialTree* materialTree;
 	LightTree* lightTree;
@@ -36,9 +63,8 @@ struct Widgets {
 	PolygonProperty* polygonProperty;
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
-
-	void build(Frame* parent, Model& model);
 };
+
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -140,13 +166,7 @@ private:
 
 	Widgets w;
 
-	TriangleConfigDialog::Config triangleConfig;
-	QuadConfigDialog::Config quadConfig;
-	CircleConfigDialog::Config circleConfig;
-	SphereConfigDialog::Config sphereConfig;
-	BoxConfigDialog::Config boxConfig;
-	ConeConfigDialog::Config coneConfig;
-	CylinderConfigDialog::Config cylinderConfig;
+	ModelingDialogs modelings;
 
 	View* view;
 	Model model;

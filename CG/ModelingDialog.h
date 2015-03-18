@@ -285,6 +285,16 @@ private:
 	wxSpinCtrlDouble* zSize;
 };
 
+struct ModelingDialogs {
+	TriangleConfigDialog::Config triangleConfig;
+	QuadConfigDialog::Config quadConfig;
+	CircleConfigDialog::Config circleConfig;
+	SphereConfigDialog::Config sphereConfig;
+	BoxConfigDialog::Config boxConfig;
+	ConeConfigDialog::Config coneConfig;
+	CylinderConfigDialog::Config cylinderConfig;
+};
+
 	}
 }
 
