@@ -58,7 +58,7 @@ private:
 
 	LightProperty* property;
 
-	const Graphics::LightBuilderSPtr& builder;
+	Graphics::LightBuilderSPtr builder;
 
 	typedef std::map<wxTreeItemId, Graphics::LightSPtr> ItemLightMap;
 	ItemLightMap map;
@@ -108,7 +108,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		Graphics::PolygonBuilder& builder
+		const Graphics::PolygonBuilderSPtr& builder
 		);
 
 	~PolygonTree();
@@ -128,7 +128,7 @@ private:
 
 	PolygonProperty* property;
 
-	Graphics::PolygonBuilder& builder;
+	Graphics::PolygonBuilderSPtr builder;
 
 	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
 };

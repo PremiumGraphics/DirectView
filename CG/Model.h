@@ -1,6 +1,10 @@
 #ifndef __CRYSTAL_APP_MODEL_H__
 #define __CRYSTAL_APP_MODEL_H__
 
+#include "../Graphics/PolygonBuilder.h"
+#include "../Graphics/Light.h"
+#include "../Graphics/Camera.h"
+
 namespace Crystal {
 	namespace CG {
 
@@ -11,6 +15,11 @@ public:
 		lightBuilder(new Graphics::LightBuilder())
 	{
 		camera.setNear(1.0f);
+	}
+
+	void clear()
+	{
+		builder->clear();
 	}
 
 	Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
@@ -29,30 +38,9 @@ public:
 
 	Graphics::FaceSPtrVector getSelectedFaces() const { return selectedFace; }
 
-	void setSelectedVertex(const Graphics::VertexSPtr& v) {
-		this->selectedVertex.clear();
-		this->selectedVertex.push_back(v);
-	}
+	void setSelectedVertex(const unsigned int id);
 
-	void setSelectedFace(const Graphics::FaceSPtr& f) {
-		this->selectedFace.clear();
-		this->selectedFace.push_back(f);
-	}
-
-
-	void setSelectedVertex(const unsigned int id)
-	{
-		if (id >= 0 && id < getVertices().size()) {
-			const Graphics::VertexSPtr& v = getVertices()[id];
-		}
-	}
-
-	void setSelectedFace(const unsigned int id)
-	{
-		if (id >= 0 && id < getFaces().size()) {
-			std::shared_ptr< Graphics::Face > f = getFaces()[id];
-		}
-	}
+	void setSelectedFace(const unsigned int id);
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 

@@ -92,6 +92,17 @@ public:
 
 };
 
+void Widgets::build(Frame* parent, Model& model)
+{
+	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
+	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
+	lightProperty = new LightProperty(parent, wxSize(300, 100));
+
+	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
+	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
+	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
+}
+
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
@@ -239,25 +250,29 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	polygonProperty = new PolygonProperty( this, wxSize( 300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials() );
-	materialProperty = new MaterialProperty( this, wxSize( 300, 100) );
-	lightProperty = new LightProperty( this, wxSize( 300, 100  ) );
+	w.build(this, model);
+
+	/*
+	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
+	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
+	lightProperty = new LightProperty(parent, wxSize(300, 100));
+
+	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, *model.getPolygonBuilder());
+	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
+	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
+	*/
 
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	polygonTree = new PolygonTree( this, wxPoint( 0, 0 ), wxSize( 300, 100 ), polygonProperty,  *model.getPolygonBuilder() );
-	materialTree = new MaterialTree(this, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder() );
-	lightTree= new LightTree( this, wxPoint( 0, 600 ), wxSize( 300, 100 ), lightProperty, model.getLightBuilder() );
-
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
-	rSizer->Add( polygonTree, 0, wxEXPAND );
-	rSizer->Add( materialTree, 0, wxEXPAND );
-	rSizer->Add( lightTree, 0, wxEXPAND );
+	rSizer->Add( w.polygonTree, 0, wxEXPAND );
+	rSizer->Add( w.materialTree, 0, wxEXPAND );
+	rSizer->Add( w.lightTree, 0, wxEXPAND );
 
-	rSizer->Add( polygonProperty, 0, wxEXPAND );
-	rSizer->Add( materialProperty, 0, wxEXPAND );
-	rSizer->Add( lightProperty, 0, wxEXPAND );
+	rSizer->Add( w.polygonProperty, 0, wxEXPAND );
+	rSizer->Add( w.materialProperty, 0, wxEXPAND );
+	rSizer->Add( w.lightProperty, 0, wxEXPAND );
 
 	hSizer->Add( rSizer, 0, wxEXPAND );
 	hSizer->Add(view, 0, wxEXPAND);
@@ -268,8 +283,8 @@ Frame::Frame()
 
 	//sizer->Add( tree, 0, wxEXPAND );
 
-	polygonTree->build();
-	lightTree->build();
+	w.polygonTree->build();
+	w.lightTree->build();
 
 	SetSizer( vSizer );
 	
@@ -278,12 +293,11 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	clear();
+	model.clear();
 }
 
 void Frame::clear()
 {
-	model.getPolygonBuilder()->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -298,8 +312,8 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 	clear();
 	view->Refresh();
 
-	polygonTree->build();
-	materialTree->build();
+	w.polygonTree->build();
+	w.materialTree->build();
 }
 
 void Frame::OnClose( wxRibbonButtonBarEvent& )
@@ -469,8 +483,8 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		polygonTree->build();
-		materialTree->build();
+		w.polygonTree->build();
+		w.materialTree->build();
 
 		OnCameraFit( e );
 	}
@@ -489,8 +503,8 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		PolygonSPtrList g = factory.create(file);
 		view->Refresh();
 
-		polygonTree->build();
-		materialTree->build();
+		w.polygonTree->build();
+		w.materialTree->build();
 
 		OnCameraFit( e );
 	}
@@ -687,8 +701,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildTriangle();
-	polygonTree->build();
-
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
@@ -703,7 +716,7 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildQuad();
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
@@ -718,7 +731,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildCircleByNumber(1.0f, circleConfig.getDivideNumber());
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
@@ -733,7 +746,7 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildSphere(sphereConfig.getUDivideNumber(), sphereConfig.getVDivideNumber());
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
@@ -749,7 +762,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildCylinder(3);
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
@@ -764,7 +777,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildBox();
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
@@ -780,7 +793,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder()->buildCone(coneConfig.divideNumber);
-	polygonTree->build();
+	w.polygonTree->build();
 }
 
 void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)

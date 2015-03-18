@@ -26,6 +26,19 @@ namespace Crystal {
 		class MaterialProperty;
 		class LightProperty;
 
+		class Frame;
+
+struct Widgets {
+	PolygonTree* polygonTree;
+	MaterialTree* materialTree;
+	LightTree* lightTree;
+
+	PolygonProperty* polygonProperty;
+	MaterialProperty* materialProperty;
+	LightProperty* lightProperty;
+
+	void build(Frame* parent, Model& model);
+};
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -125,14 +138,7 @@ private:
 
 private:
 
-	//wxTreeCtrl* tree;
-	PolygonTree* polygonTree;
-	MaterialTree* materialTree;
-	LightTree* lightTree;
-
-	PolygonProperty* polygonProperty;
-	MaterialProperty* materialProperty;
-	LightProperty* lightProperty;
+	Widgets w;
 
 	TriangleConfigDialog::Config triangleConfig;
 	QuadConfigDialog::Config quadConfig;

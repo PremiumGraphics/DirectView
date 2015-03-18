@@ -146,6 +146,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelingDialog.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
