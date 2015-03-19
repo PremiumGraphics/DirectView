@@ -112,7 +112,7 @@ class PolygonProperty : public wxPropertyGrid {
 public:
 	PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialSPtrList& materials);
 
-	void build(const Graphics::PolygonSPtr& group);
+	void build(const Graphics::PolygonSPtr& polygon);
 
 	void OnDoubleClick(wxPropertyGridEvent& event);
 

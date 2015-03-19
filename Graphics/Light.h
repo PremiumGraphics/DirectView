@@ -42,6 +42,8 @@ public:
 
 	void setPos(const Math::Vector3d& pos) { this->pos = pos; }
 
+	void setName(const std::string& name) { this->name = name; }
+
 	std::string name;
 	bool isSelected;
 

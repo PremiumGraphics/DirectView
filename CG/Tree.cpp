@@ -31,9 +31,9 @@ LightTree::LightTree
 	builder( builder )
 {
 	//SetSize( 100, 500 );
-	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler( LightTree::OnMenu ) );
-	Connect( this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler( LightTree::OnItemActivated ) );
-	Connect( this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK, wxTreeEventHandler( LightTree::OnItemStateClick ) );
+	Connect( this->GetId(), wxEVT_TREE_ITEM_MENU,			wxTreeEventHandler( LightTree::OnMenu ) );
+	Connect( this->GetId(), wxEVT_TREE_ITEM_ACTIVATED,		wxTreeEventHandler( LightTree::OnItemActivated ) );
+	Connect( this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK,	wxTreeEventHandler( LightTree::OnItemStateClick ) );
 
 	//const wxTreeItemId root = AddRoot( "Material" );
 
@@ -71,9 +71,9 @@ void LightTree::OnMenu(wxTreeEvent& event)
 	wxMenuItem* del = menu.Append( wxNewId(), "Delete" );
 	wxMenuItem* clear = menu.Append(wxNewId(), "Clear" );
 
-	Connect( add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler( LightTree::OnAdd ) );
-	Connect( del->GetId(), wxEVT_COMMAND_MENU_SELECTED , wxMenuEventHandler( LightTree::OnDelete ) );	
-	Connect( clear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(LightTree::OnClear));
+	Connect( add->GetId(),		wxEVT_COMMAND_MENU_SELECTED,	wxMenuEventHandler( LightTree::OnAdd ) );
+	Connect( del->GetId(),		wxEVT_COMMAND_MENU_SELECTED,	wxMenuEventHandler( LightTree::OnDelete ) );	
+	Connect( clear->GetId(),	wxEVT_COMMAND_MENU_SELECTED,	wxMenuEventHandler(LightTree::OnClear));
 
 	PopupMenu( &menu, event.GetPoint() );
 
@@ -82,8 +82,13 @@ void LightTree::OnMenu(wxTreeEvent& event)
 
 void LightTree::OnAdd(wxMenuEvent&)
 {
-	builder->build();
+	const wxString& str = wxGetTextFromUser("Name");
+	LightSPtr p = builder->build();
+	p->setName(str.ToStdString());
 	this->build();
+
+	build();
+
 }
 
 void LightTree::OnDelete(wxMenuEvent&)
@@ -229,9 +234,9 @@ property(property),
 builder(builder)
 {
 	SetSize(100, 500);
-	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler(PolygonTree::OnMenu));
-	Connect(this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler(PolygonTree::OnItemActivated));
-	Connect(this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK, wxTreeEventHandler(PolygonTree::OnItemStateClick));
+	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU,			wxTreeEventHandler(PolygonTree::OnMenu));
+	Connect(this->GetId(), wxEVT_TREE_ITEM_ACTIVATED,		wxTreeEventHandler(PolygonTree::OnItemActivated));
+	Connect(this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK,	wxTreeEventHandler(PolygonTree::OnItemStateClick));
 
 	const wxTreeItemId root = AddRoot("Polygon");
 
@@ -260,15 +265,13 @@ void PolygonTree::build()
 
 void PolygonTree::OnItemStateClick(wxTreeEvent& event)
 {
-	// toggle item state
-	const wxTreeItemId itemId = event.GetItem();
-	const std::string& name = GetItemText(itemId).ToStdString();
+	const wxTreeItemId id = event.GetItem();
 
-	/*
-	Crystal::Graphics::Polygon* p = model->find( name );
-	p->isSelected = !p->isSelected;
-	SetItemState( itemId, p->isSelected );
-	*/
+	if (map.find(id) == map.end()) {
+		return;
+	}
+	const PolygonSPtr& p = map[id];
+	property->build( p );
 }
 
 void PolygonTree::OnMenu(wxTreeEvent& event)
@@ -279,8 +282,8 @@ void PolygonTree::OnMenu(wxTreeEvent& event)
 	wxMenuItem* del = menu.Append(wxNewId(), "Delete");
 	wxMenuItem* clear = menu.Append(wxNewId(), "Clear");
 
-	Connect(add->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnAdd));
-	Connect(del->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnDelete));
+	Connect(add->GetId(),	wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnAdd));
+	Connect(del->GetId(),	wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnDelete));
 	Connect(clear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxMenuEventHandler(PolygonTree::OnClear));
 
 	PopupMenu(&menu, event.GetPoint());
@@ -294,6 +297,10 @@ PolygonTree::~PolygonTree()
 
 void PolygonTree::OnAdd(wxMenuEvent&)
 {
+	const wxString& str = wxGetTextFromUser("Name");
+	PolygonSPtr m = builder->build();
+	m->setName(str.ToStdString());
+	build();
 }
 
 void PolygonTree::OnDelete(wxMenuEvent&)
