@@ -65,6 +65,9 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 	//EXPECT_TRUE( VerticesAreSame( positions, p->getVertices()) );
 	EXPECT_EQ(6, p->getFaces().size());
+
+	EXPECT_EQ(4, p->getFaces().front()->getVertices().size());
+	EXPECT_EQ(4, p->getFaces().back()->getVertices().size());
 }
 
 TEST(PolygonBuilderTest, TestCreateCircleByAngle)

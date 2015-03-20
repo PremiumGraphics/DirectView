@@ -44,7 +44,7 @@ void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 	const std::vector<float>& vs = toArray( getPositions( *f ));
 	vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
-	const std::vector<float>& ns = toArray(f->getNormals());
+	const std::vector<float>& ns = toArray( getNormals( *f ) );
 	normals.insert(normals.end(), ns.begin(), ns.end());
 
 	const std::vector<float>& ts = toArray(f->getTexCoords());
@@ -91,4 +91,18 @@ Vector3dVector DisplayList::getPositions(const Face& f) const
 		}
 	}
 	return positions;
+}
+
+
+Vector3dVector DisplayList::getNormals(const Face& f) const
+{
+	Vector3dVector normals;
+	const HalfEdgeSPtrList& edges = f.getEdges();
+	for (const HalfEdgeSPtr& e : edges) {
+		normals.push_back(e->getStart()->getNormal());
+		if (e == edges.back() && f.isOpen()) {
+			normals.push_back(e->getEnd()->getNormal());
+		}
+	}
+	return normals;
 }

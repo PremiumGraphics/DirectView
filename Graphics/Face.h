@@ -46,8 +46,6 @@ public:
 		return vertices;
 	}
 
-	Math::Vector3dVector getNormals() const;
-
 	Math::Vector3dVector getTexCoords() const;
 
 	PolygonSPtr getPolygon() const { return polygon; }
@@ -96,6 +94,10 @@ public:
 	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return eBuilder; }
 
 	FaceSPtrVector getFaces() const { return faces; }
+
+	FaceSPtr createOffset(const FaceSPtr& original);
+
+	FaceSPtrVector buildSides(const FaceSPtr& lhs, const FaceSPtr& rhs);
 
 private:
 	VertexSPtrVector vertices;

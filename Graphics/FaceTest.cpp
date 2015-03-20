@@ -51,28 +51,10 @@ TEST(FaceTest, TestIsClosed)
 	//Face f;
 }
 
-TEST(FaceTest, TestGetNormals)
-{
-	{
-		VertexBuilderSPtr vBuilder(new VertexBuilder());
-		const VertexSPtrVector vv{
-			vBuilder->build(Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0)),
-			vBuilder->build(Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0))
-		};
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeSPtrList& edges = builder.buildOpenFromVertices(vv);
-		Face f(edges, 0);
-		EXPECT_EQ(2, f.getNormals().size());
-		EXPECT_EQ(nullptr, f.getPolygon());
-	}
-
-}
-
 TEST(FaceBuilderTest, TestBuildQuad)
 {
-	HalfEdgeBuilderSPtr eBuilder( new HalfEdgeBuilder() );
-	FaceBuilder builder( eBuilder);
-	std::shared_ptr< Face > f( builder.buildQuad() );
+	FaceBuilder builder;
+	FaceSPtr f( builder.buildQuad() );
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
 	EXPECT_EQ(1, builder.getFaces().size());
@@ -80,9 +62,8 @@ TEST(FaceBuilderTest, TestBuildQuad)
 
 TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 {
-	HalfEdgeBuilderSPtr eBuilder( new HalfEdgeBuilder() );
-	FaceBuilder builder( eBuilder);
-	std::shared_ptr< Face > f(builder.buildCircleByNumber(3, 3));
+	FaceBuilder builder;
+	FaceSPtr f( builder.buildCircleByNumber(3, 3));
 	EXPECT_EQ(0, f->getId());
 	EXPECT_EQ(nullptr, f->getPolygon());
 	EXPECT_EQ(1, builder.getFaces().size());
@@ -91,4 +72,27 @@ TEST(FaceBuilderTest, TestBuildCirlceByNumber)
 TEST(FaceBuilderTest, TestBuildCirleByAngle)
 {
 
+}
+
+TEST(FaceBuilderTest, TestBuildOffset)
+{
+	FaceBuilder builder;
+	FaceSPtr original( builder.buildQuad() );
+
+	FaceSPtr dest = builder.createOffset(original);
+	EXPECT_EQ(2, builder.getFaces().size());
+	EXPECT_EQ(8, builder.getVertices().size());
+
+	EXPECT_EQ(4, dest->getEdges().size());
+}
+
+TEST(FaceBuilderTest, TestBuildSides)
+{
+	FaceBuilder builder;
+	FaceSPtr original(builder.buildQuad());
+
+	FaceSPtr dest = builder.createOffset(original);
+
+	const FaceSPtrVector& faces = builder.buildSides(original, dest);
+	EXPECT_EQ(4, faces.size());
 }

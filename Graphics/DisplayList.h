@@ -88,8 +88,10 @@ private:
 
 	Math::Vector3dVector getPositions(const Face& f) const;
 
+	Math::Vector3dVector getNormals(const Face& f) const;
 
 };
+
 	}
 }
 

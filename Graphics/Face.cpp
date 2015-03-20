@@ -3,19 +3,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-
-Vector3dVector Face::getNormals() const
-{
-	Vector3dVector normals;
-	for (const HalfEdgeSPtr& e : edges) {
-		normals.push_back(e->getStart()->getNormal());
-		if (e == edges.back() && isOpen()) {
-			normals.push_back(e->getEnd()->getNormal());
-		}
-	}
-	return normals;
-}
-
 Vector3dVector Face::getTexCoords() const
 {
 	Vector3dVector texCoords;
@@ -56,8 +43,52 @@ std::shared_ptr< Face > FaceBuilder::buildQuad()
 	};
 
 	const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices( vertices);
-	FaceSPtr f(std::shared_ptr<Face>(new Face(edges, nextId++)));
+	FaceSPtr f(new Face(edges, nextId++));
 	faces.push_back(f);
 	f->setPolygon(polygon);
 	return f;
+}
+
+FaceSPtr FaceBuilder::createOffset(const FaceSPtr& original)
+{
+	const VertexSPtrVector& vs = original->getVertices();
+
+	Vector3dVector positions;
+	for (const VertexSPtr& v : vs) {
+		positions.push_back( v->getPosition() + Vector3d( 0.0, 0.0, 1.0 ) );
+	}
+	VertexSPtrVector ps = getVertexBuilder()->buildVerticesFromPositions(positions);
+	vertices.insert(vertices.end(), ps.begin(), ps.end());
+	const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(ps);
+
+	FaceSPtr f(new Face(edges, nextId++));
+	faces.push_back(f);
+	f->setPolygon(polygon);
+	return f;
+}
+
+FaceSPtrVector FaceBuilder::buildSides(const FaceSPtr& lhs, const FaceSPtr& rhs)
+{
+	assert(lhs->getEdges().size() == rhs->getEdges().size());
+	
+	const HalfEdgeSPtrList& ee1 = lhs->getEdges();
+	const HalfEdgeSPtrList& ee2 = rhs->getEdges();
+	std::vector< HalfEdgeSPtr > e1( ee1.begin(), ee1.end() );
+	std::vector< HalfEdgeSPtr > e2( ee2.begin(), ee2.end() );
+
+	FaceSPtrVector fs;
+	for (size_t i = 0; i < e1.size(); ++i) {
+		VertexSPtrVector vs;
+		vs.push_back( e1[i]->getStart());
+		vs.push_back( e1[i]->getEnd() );
+		vs.push_back( e2[i]->getEnd());
+		vs.push_back( e2[i]->getStart());
+		const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(vs);
+
+		FaceSPtr f(new Face(edges, nextId++));
+		fs.push_back(f);
+		f->setPolygon(polygon);
+	}
+	faces.insert(faces.end(), fs.begin(), fs.end());
+	return fs;	
 }

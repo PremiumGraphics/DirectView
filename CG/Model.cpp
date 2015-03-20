@@ -10,7 +10,8 @@ using namespace Crystal::CG;
 void Model::setSelectedVertex(const unsigned int id)
 {
 	if (id >= 0 && id < getVertices().size()) {
-		const VertexSPtr& v = getVertices()[id];
+		const VertexSPtrVector& vs = getVertices();
+		const VertexSPtr& v = vs[id];
 		this->selectedVertex.clear();
 		this->selectedVertex.push_back(v);
 	}
@@ -19,7 +20,8 @@ void Model::setSelectedVertex(const unsigned int id)
 void Model::setSelectedFace(const unsigned int id)
 {
 	if (id >= 0 && id < getFaces().size()) {
-		std::shared_ptr< Graphics::Face > f = getFaces()[id];
+		const FaceSPtrVector& faces = getFaces();
+		const FaceSPtr& f = faces[id];
 		this->selectedFace.clear();
 		this->selectedFace.push_back(f);
 	}
