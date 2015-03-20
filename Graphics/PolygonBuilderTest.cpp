@@ -47,19 +47,6 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 	EXPECT_EQ(1, builder->getPolygons().size());
 
-	VertexBuilder vBuilder2;
-	const VertexSPtrVector positions = vBuilder2.buildVerticesFromPositions(
-	{
-		Vector3d(0.0, 1.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0),
-		Vector3d(1.0, 1.0, 1.0),
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
-	});
-
 	EXPECT_EQ(8, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 

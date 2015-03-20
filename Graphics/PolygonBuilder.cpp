@@ -26,50 +26,24 @@ PolygonSPtr PolygonBuilder::buildQuad()
 
 PolygonSPtr PolygonBuilder::buildBox()
 {
-	const Vector3dVector normals = {
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(0.0, 0.0, -1.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(-1.0, 0.0, 0.0),
-		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(0.0, 1.0, 0.0)
-	};
-
-	const Vector3dVector positions = {
-		Vector3d(0.0, 1.0, 1.0),
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0),
-		Vector3d(1.0, 1.0, 1.0),
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(1.0, 1.0, 0.0)
-	};
-
-	const VertexSPtrVector& vs = faceBuilder->getVertexBuilder()->buildVerticesFromPositionsAndNormals(positions, normals);
-
-	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
-	polygons.push_back(polygon);
-	faceBuilder->setPolygon(polygon);
-
-	const HalfEdgeBuilderSPtr& eBuilder = faceBuilder->getHalfEdgeBuilder();
-	const std::vector<HalfEdgeSPtrList> edges = {
-		eBuilder->buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
-		eBuilder->buildClosedFromVertices({ vs[0], vs[1], vs[2], vs[3] }),
-		eBuilder->buildClosedFromVertices({ vs[4], vs[5], vs[6], vs[7] }),
-		eBuilder->buildClosedFromVertices({ vs[2], vs[3], vs[7], vs[6] }),
-		eBuilder->buildClosedFromVertices({ vs[3], vs[0], vs[4], vs[7] }),
-		eBuilder->buildClosedFromVertices({ vs[5], vs[1], vs[2], vs[6] }),
-	};
+	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
+	faceBuilder->setPolygon( polygon );
+	FaceSPtr f1(faceBuilder->buildQuad());
+	FaceSPtr f2(faceBuilder->createOffset(f1));
+	FaceSPtrVector fs = faceBuilder->buildSides(f1, f2);
 
 	FaceSPtrVector faces;
-	for (const HalfEdgeSPtrList& e : edges) {
-		faces.push_back( faceBuilder->build(e) );
-	}
-	polygon->setVertices(vs);
+	faces.push_back( f1 );
+	faces.push_back( f2 );
+	faces.insert(faces.end(), fs.begin(), fs.end());
+
+	VertexSPtrVector v1 = f1->getVertices();
+	VertexSPtrVector v2 = f2->getVertices();
+	v1.insert(v1.end(), v2.begin(), v2.end());
+
+	polygon->setVertices(v1);
 	polygon->setFaces(faces);
+	polygons.push_back(polygon);
 	return polygon;
 }
 
