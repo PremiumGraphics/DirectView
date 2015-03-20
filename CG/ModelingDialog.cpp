@@ -123,3 +123,37 @@ BoxConfigDialog::Config BoxConfigDialog::getConfig() const
 	config.zSize = zSize->GetValue();
 	return config;
 }
+
+CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent) :
+wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500))
+{
+	new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
+	divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+
+	new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 200));
+
+	new wxStaticText(this, wxID_ANY, "Width", wxPoint(0, 300));
+	width = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
+
+	new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 400));
+	height = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
+
+	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
+	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+}
+
+void CylinderConfigDialog::setConfig(const Config& config)
+{
+	this->divideNumber->SetValue(config.divideNumber);
+	this->width->SetValue(config.width);
+	this->height->SetValue(config.height);
+}
+
+CylinderConfigDialog::Config CylinderConfigDialog::getConfig() const
+{
+	Config config;
+	config.divideNumber = divideNumber->GetValue();
+	config.width = width->GetValue();
+	config.height = height->GetValue();
+	return config;
+}

@@ -755,7 +755,7 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildCylinder(3);
+	model.getPolygonBuilder()->buildCylinder(modelings.cylinderConfig.divideNumber);
 	w.getPolygonTree()->build();
 }
 

@@ -29,6 +29,7 @@ std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, con
 	}
 	const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices( vertices);
 	FaceSPtr f(new Face(edges, nextId++));
+	f->setPolygon(polygon);
 	faces.push_back(f);
 	return f;
 }

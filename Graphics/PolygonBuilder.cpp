@@ -32,9 +32,7 @@ PolygonSPtr PolygonBuilder::buildBox()
 	FaceSPtr f2(faceBuilder->createOffset(f1));
 	FaceSPtrVector fs = faceBuilder->buildSides(f1, f2);
 
-	FaceSPtrVector faces;
-	faces.push_back( f1 );
-	faces.push_back( f2 );
+	FaceSPtrVector faces{ f1, f2 };
 	faces.insert(faces.end(), fs.begin(), fs.end());
 
 	VertexSPtrVector v1 = f1->getVertices();
@@ -70,46 +68,21 @@ PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
 	assert(divideNumber >= 3);
 
 	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
-	polygons.push_back(polygon);
-
-	FaceSPtrVector faces;
 	faceBuilder->setPolygon(polygon);
+	FaceSPtr f1(faceBuilder->buildCircleByNumber(1.0f,divideNumber));
+	FaceSPtr f2(faceBuilder->createOffset(f1));
+	FaceSPtrVector fs = faceBuilder->buildSides(f1, f2);
 
-	VertexSPtrVector vv0;
-	const HalfEdgeBuilderSPtr& eBuilder = getHalfEdgeBuilder();
-	for (unsigned int i = 0; i < divideNumber; ++i) {
-		const float angle = 360.0f / divideNumber * i;
-		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vv0.push_back( getVertexBuilder()->build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)) );
-	}
-	const HalfEdgeSPtrList& edges0 = eBuilder->buildClosedFromVertices( vv0);
-	faces.push_back( faceBuilder->build( edges0 ) );
-	//faces.push_back( new Face( vertices, vertexIds0, 0 ) );
+	FaceSPtrVector faces{ f1, f2 };
+	faces.insert(faces.end(), fs.begin(), fs.end());
 
-	VertexSPtrVector vv1;
-	for (unsigned int i = 0; i < divideNumber; ++i) {
-		const float angle = 360.0f / divideNumber * i;
-		const float rad = angle *Tolerances::getPI() / 180.0f;
-		vv1.push_back(getVertexBuilder()->build(Vector3d(std::sin(rad), std::cos(rad), 0.0f)));
-	}
-	const HalfEdgeSPtrList& edges1 = eBuilder->buildClosedFromVertices(vv1);
-	faces.push_back( faceBuilder->build( edges1 ) );
+	VertexSPtrVector v1 = f1->getVertices();
+	VertexSPtrVector v2 = f2->getVertices();
+	v1.insert(v1.end(), v2.begin(), v2.end());
 
-	for (unsigned int i = 0; i < divideNumber-1; ++i) {
-		const VertexSPtrVector vv{ vv0[i], vv0[i+1], vv1[i+1], vv1[i] };
-		const HalfEdgeSPtrList& edges2 = eBuilder->buildClosedFromVertices(vv);
-		faces.push_back( faceBuilder->build( edges2 ) );
-	}
-
-	{
-		const VertexSPtrVector vv{ vv0.back(), vv0.front(), vv1.front(), vv1.back() };
-		const HalfEdgeSPtrList& edges3 = eBuilder->buildClosedFromVertices(vv);
-		faces.push_back( faceBuilder->build( edges3 ) );
-	}
-
-	polygon->addVertices(vv0);
-	polygon->addVertices(vv1);
+	polygon->setVertices(v1);
 	polygon->setFaces(faces);
+	polygons.push_back(polygon);
 	return polygon;
 
 }

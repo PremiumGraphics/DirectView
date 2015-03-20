@@ -233,32 +233,25 @@ class CylinderConfigDialog : public wxDialog
 {
 public:
 	struct Config{
-		float divideNumber;
+		int divideNumber;
+		float width;
+		float height;
+
+		Config() :
+			divideNumber( 3),
+			width( 1.0 )
+		{}
 	};
-	CylinderConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500,500))
-	{
-		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
-		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+	CylinderConfigDialog(wxWindow* parent);
 
-		new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 200));
+	void setConfig(const Config& config);
 
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
-
-	void setConfig(const Config& config) {
-		this->divideNumber->SetValue( config.divideNumber );
-	}
-
-	Config getConfig() const {
-		Config config;
-		config.divideNumber = divideNumber->GetValue();
-		return config;
-	}
+	Config getConfig() const;
 
 private:
 	wxSpinCtrl* divideNumber;
+	wxSpinCtrl* width;
+	wxSpinCtrl* height;
 };
 
 class BoxConfigDialog : public wxDialog
