@@ -20,10 +20,15 @@ struct DXFFace{
 	}
 
 	Math::Vector3dVector getPositions() const { return positions; }
+
+	void setLayerName(const std::string& layerName) { this->layerName = layerName; }
+
+	std::string getLayerName() const { return layerName; }
 	
 private:
 	int colorNumber;
 	Math::Vector3dVector positions;
+	std::string layerName;
 };
 
 typedef std::vector< DXFFace > DXFFaceVector;
@@ -43,8 +48,6 @@ public:
 	std::vector< std::string > getStrs() const { return strs; }
 
 private:
-	std::string layerName;
-
 	std::vector< std::string > strs;
 
 	DXFFaceVector faces;

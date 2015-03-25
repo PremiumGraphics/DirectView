@@ -8,6 +8,50 @@ using namespace Crystal::IO;
 
 void DXFFile::read(std::istream& stream)
 {
+	std::string str;
+	std::getline(stream, str);
+	const int is0 = std::stoi(str);
+	assert(is0 == 0);
+
+	std::getline( stream, str);
+	assert( str == "SECTION" );
+
+	std::getline(stream, str);
+	const int is2 = std::stoi(str);
+	assert(is2 == 2);
+
+	std::getline(stream, str);
+	assert(str == "ENTITIES");
+
+	while (str != "EOF") {
+		DXFFace f;
+		std::getline(stream, str);
+		Vector3dVector positions;
+		Vector3d pos;
+		if (str == "0") {
+			std::getline(stream, str);
+			if (str == "3DFACE") {
+				;
+			}
+		}
+		else if (str == "8") {
+			std::getline(stream, str);
+			f.setLayerName( str );
+		}
+		else if (str == "10") {
+			std::getline(stream, str);
+			pos.setX( std::stof(str) );
+		}
+		else if (str == "20") {
+			std::getline(stream, str);
+			pos.setY( std::stof(str) );
+		}
+		else if (str == "30") {
+			std::getline(stream, str);
+			pos.setZ(std::stof(str));
+			positions.push_back(pos);
+		}
+	}
 }
 
 void DXFFile::write(std::ostream& stream)
@@ -17,13 +61,14 @@ void DXFFile::write(std::ostream& stream)
 		"SECTION",
 		"2",
 		"ENTITIES",
-		"0",
-		"3DFACE",
-		"8",
-		layerName
 	};
 
 	for (const DXFFace& f : faces) {
+		strs.push_back( "0");
+		strs.push_back( "3DFACE");
+		strs.push_back( "8");
+		strs.push_back( f.getLayerName());
+
 		const Vector3d& v0 = f.getPositions()[0];
 		strs.push_back( "10");
 		strs.push_back( std::to_string(v0.getX()) );
