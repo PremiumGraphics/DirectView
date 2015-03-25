@@ -21,5 +21,6 @@
     <ClCompile Include="VTKAttributeTest.cpp" />
     <ClCompile Include="VTKAttributePartTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
+    <ClCompile Include="DXFFileTest.cpp" />
   </ItemGroup>
 </Project>

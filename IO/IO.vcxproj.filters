@@ -21,6 +21,7 @@
     <ClCompile Include="XMLIOHelper.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="PolygonFactory.cpp" />
+    <ClCompile Include="DXFFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h" />
@@ -46,5 +47,6 @@
     <ClInclude Include="XMLIOHelper.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="PolygonFactory.h" />
+    <ClInclude Include="DXFFile.h" />
   </ItemGroup>
 </Project>

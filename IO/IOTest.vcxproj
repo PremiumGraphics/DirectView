@@ -16,6 +16,7 @@
     <ClCompile Include="AVSUCDComponentBlockTest.cpp" />
     <ClCompile Include="AVSUCDFileTest.cpp" />
     <ClCompile Include="ColorRGBAMapIOTest.cpp" />
+    <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
