@@ -167,10 +167,15 @@ private:
 
 };
 
-struct OBJFile_ {
+struct OBJFile {
 	std::string comment;
 	std::vector< OBJGroup > groups;
 	std::string materialName;
+
+
+	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
+
+	std::vector< OBJGroup > getGroups() const { return groups; }
 
 };
 
@@ -192,36 +197,29 @@ public:
 
 private:
 	std::vector< std::string > strs;
-	OBJFile_ file;
+	OBJFile file;
 };
 
-class OBJFile {
+class OBJFileReader {
 public:
-	OBJFile()
+	OBJFileReader()
 	{}
 
-	OBJFile(std::istream& stream) {
+	OBJFileReader(std::istream& stream) {
 		read(stream);
 	}
 
-	bool read( const std::string& path, const std::string& filename );
+	bool read(const std::string& path, const std::string& filename);
 
-	bool read( std::istream& stream);
+	bool read(std::istream& stream);
 
-	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
+	void setGroups(const std::vector< OBJGroup >& groups) { file.groups = groups; }
 
-	std::vector< OBJGroup > getGroups() const { return groups; }
+	std::vector< OBJGroup > getGroups() const { return file.groups; }
 
-	bool operator==(const OBJFile& rhs) const {
-		return
-			//this->mtlFileNames == rhs.mtlFileNames &&
-			this->groups == rhs.groups;
-	}
+private:
+	OBJFile file;
 
-private:	
-	std::string comment;
-	std::vector< OBJGroup > groups;
-	std::string materialName;
 };
 
 

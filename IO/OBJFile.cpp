@@ -43,7 +43,7 @@ std::string OBJFace::write(std::ostream& stream) const
 }
 
 
-bool OBJFile::read(const std::string& path, const std::string& filename)
+bool OBJFileReader::read(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;
 
@@ -89,7 +89,7 @@ void OBJGroup::readFaces(const std::string& str)
 	faces.push_back( OBJFace( vertexIndices, texIndices, normalIndices ) );
 }
 
-bool OBJFile::read(std::istream& stream )
+bool OBJFileReader::read(std::istream& stream )
 {
 	std::string str;
 
@@ -127,7 +127,7 @@ bool OBJFile::read(std::istream& stream )
 			group.readFaces(str);
 		}
 		else if( header == "g") {
-			groups.push_back(group);
+			file.groups.push_back(group);
 
 			std::getline( stream, str);
 
@@ -143,7 +143,7 @@ bool OBJFile::read(std::istream& stream )
 	}
 	group.setMaterials(materials);
 
-	groups.push_back(group);
+	file.groups.push_back(group);
 	
 	return true;
 }
@@ -230,29 +230,6 @@ bool OBJFileWriter::write(std::ostream& stream)
 		}
 		for (const OBJFace& f : g.getFaces()) {
 			std::string s = f.write(stream);
-			/*
-			s += "f";
-			if (f.hasTexIndices() && !f.hasNormals()) {
-				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
-					s += " " + std::to_string( f.getVertexIndices()[i] ) + "/" + std::to_string( f.getTexIndices()[i] );
-				}
-			}
-			else if (f.hasTexIndices() && f.hasNormals()) {
-				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
-					s += " " + std::to_string( f.getVertexIndices()[i] ) + "/" + std::to_string( f.getTexIndices()[i] ) + "/" + std::to_string( f.getNormalIndices()[i] );
-				}
-			}
-			else if (f.hasNormals()) {
-				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
-					s += " " + std::to_string(f.getVertexIndices()[i]) + "//" + std::to_string(f.getNormalIndices()[i]);
-				}
-			}
-			else {
-				for (const unsigned int i : f.getVertexIndices()) {
-					s += " " + std::to_string(i);
-				}
-			}
-			*/
 			strs.push_back(s);
 		}
 	}
