@@ -193,7 +193,7 @@ void OBJGroup::readTexCoords(const std::string& str)
 }
 
 
-bool OBJFile::write(const std::string& path, const std::string& filename)
+bool OBJFileWriter::write(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -204,7 +204,7 @@ bool OBJFile::write(const std::string& path, const std::string& filename)
 	return write(stream);
 }
 
-bool OBJFile::write(std::ostream& stream)
+bool OBJFileWriter::write(std::ostream& stream)
 {
 	//strs.push_back( "# " + comment );
 
@@ -213,7 +213,7 @@ bool OBJFile::write(std::ostream& stream)
 	//stream << "mtllib" << " " << mtlFileName << std::endl;
 
 
-	for (const OBJGroup& g : groups) {
+	for (const OBJGroup& g : file.groups) {
 		//stream << "g " << g.getName() << std::endl;
 		strs.push_back("g " + g.getName());
 		//strs.push_back("usemtl " + materialName);

@@ -167,6 +167,34 @@ private:
 
 };
 
+struct OBJFile_ {
+	std::string comment;
+	std::vector< OBJGroup > groups;
+	std::string materialName;
+
+};
+
+class OBJFileWriter {
+public:
+	bool write(const std::string& path, const std::string& filename);
+
+	bool write(std::ostream& stream);
+
+	std::ostream& operator<<(::std::ostream& os)
+	{
+		write(os);
+		return os;
+	}
+
+	void setGroups(const std::vector< OBJGroup >& groups) { this->file.groups = groups; }
+
+	std::vector< std::string > getStrs() const { return strs; }
+
+private:
+	std::vector< std::string > strs;
+	OBJFile_ file;
+};
+
 class OBJFile {
 public:
 	OBJFile()
@@ -180,14 +208,9 @@ public:
 
 	bool read( std::istream& stream);
 
-	bool write( const std::string& path, const std::string& filename );
-
-	bool write(std::ostream& stream);
-
 	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
 
 	std::vector< OBJGroup > getGroups() const { return groups; }
-
 
 	bool operator==(const OBJFile& rhs) const {
 		return
@@ -195,19 +218,10 @@ public:
 			this->groups == rhs.groups;
 	}
 
-	std::ostream& operator<<(::std::ostream& os)
-	{
-		write(os);
-		return os;
-	}
-
-	std::vector< std::string > getStrs() const { return strs; }
-
 private:	
 	std::string comment;
 	std::vector< OBJGroup > groups;
 	std::string materialName;
-	std::vector< std::string > strs;
 };
 
 

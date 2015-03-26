@@ -174,7 +174,7 @@ TEST(OBJFileTest, TestWrite)
 {
 	{
 		std::ostringstream stream;
-		OBJFile file;
+		OBJFileWriter file;
 		file.write(stream);
 		const std::vector< std::string >& strs = file.getStrs();
 		EXPECT_TRUE(strs.empty() );
@@ -183,7 +183,7 @@ TEST(OBJFileTest, TestWrite)
 
 
 	{
-		OBJFile file;
+		OBJFileWriter file;
 		OBJGroup group;
 		group.setNormals({ Vector3d(0.5f, 1.0f, 0.0f) });
 		file.setGroups({ group });
@@ -212,7 +212,7 @@ TEST(OBJFileTest, TestWrite)
 TEST(OBJFileTest, TestWrite2)
 {
 	std::stringstream stream;
-	OBJFile file;
+	OBJFileWriter file;
 	OBJGroup group;
 	group.setPositions({ Vector3d(0.1f, 0.2f, 0.3f) });
 	file.setGroups({ group });
@@ -226,7 +226,7 @@ TEST(OBJFileTest, TestWrite2)
 
 TEST(OBJFileTest, TestWriteFaces)
 {
-	OBJFile file;
+	OBJFileWriter file;
 	OBJFace face({ 0, 1, 2 }, {}, {} );
 	OBJGroup group;
 	group.setFaces(std::vector < OBJFace > { face });
@@ -241,7 +241,7 @@ TEST(OBJFileTest, TestWriteFaces)
 
 TEST(OBJFileTest, TestWriteFacesVertexTex)
 {
-	OBJFile file;
+	OBJFileWriter file;
 	OBJFace face({ 0, 1, 2 }, { 1, 1, 1 }, {} );
 	OBJGroup group;
 	group.setFaces(std::vector < OBJFace > { face });
@@ -257,7 +257,7 @@ TEST(OBJFileTest, TestWriteFacesVertexTex)
 
 TEST(OBJFileTest, TestWriteFacesVertexNormal)
 {
-	OBJFile file;
+	OBJFileWriter file;
 	OBJFace face({ 0, 1, 2 }, {}, {3, 4, 5});
 	OBJGroup group;
 	group.setFaces(std::vector < OBJFace > { face });
@@ -272,7 +272,7 @@ TEST(OBJFileTest, TestWriteFacesVertexNormal)
 
 TEST(OBJFileTest, TestWriteFacesVertexTexNormal)
 {
-	OBJFile file;
+	OBJFileWriter file;
 	OBJFace face({ 0, 1, 2 }, { 1, 1, 1 }, {2, 2, 2});
 	OBJGroup group;
 	group.setFaces(std::vector < OBJFace > { face });
@@ -288,7 +288,7 @@ TEST(OBJFileTest, TestWriteFacesVertexTexNormal)
 
 TEST(OBJFileTest, TestWriteGroups)
 {
-	OBJFile file;
+	OBJFileWriter file;
 	OBJGroup group("name");
 	file.setGroups(std::vector < OBJGroup > {group});
 	std::stringstream stream;
