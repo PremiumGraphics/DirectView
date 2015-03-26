@@ -467,9 +467,9 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		wxString path = fn.GetPath( false );
 		wxString name = fn.GetName() + "."  + fn.GetExt();
 
-		OBJFileReader obj;
-		const bool isOK = obj.read( path.ToStdString(), name.ToStdString() );
-		if( isOK ) {
+		OBJFileReader reader;
+		OBJFile file = reader.read( path.ToStdString(), name.ToStdString() );
+		if( file.isValid() ) {
 			wxMessageBox( wxT("インポートに成功しました。") );
 		}
 		else {

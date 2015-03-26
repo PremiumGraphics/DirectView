@@ -168,36 +168,44 @@ private:
 };
 
 struct OBJFile {
-	std::string comment;
-	std::vector< OBJGroup > groups;
 	std::string materialName;
 
+	bool isValid() const {
+		return true;	//Å@TODO.
+	}
 
 	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
 
 	std::vector< OBJGroup > getGroups() const { return groups; }
 
+	void setComment(const std::string& comment) { this->comment = comment; }
+
+	std::string getComment() const { return comment; }
+
+private:
+	std::string comment;
+	std::vector< OBJGroup > groups;
+
 };
 
 class OBJFileWriter {
 public:
-	bool write(const std::string& path, const std::string& filename);
+	bool write(const std::string& path, const std::string& filename, const OBJFile& file);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream, const OBJFile& file);
 
+	/*
 	std::ostream& operator<<(::std::ostream& os)
 	{
 		write(os);
 		return os;
 	}
-
-	void setGroups(const std::vector< OBJGroup >& groups) { this->file.groups = groups; }
+	*/
 
 	std::vector< std::string > getStrs() const { return strs; }
 
 private:
 	std::vector< std::string > strs;
-	OBJFile file;
 };
 
 class OBJFileReader {
@@ -209,17 +217,9 @@ public:
 		read(stream);
 	}
 
-	bool read(const std::string& path, const std::string& filename);
+	OBJFile read(const std::string& path, const std::string& filename);
 
-	bool read(std::istream& stream);
-
-	void setGroups(const std::vector< OBJGroup >& groups) { file.groups = groups; }
-
-	std::vector< OBJGroup > getGroups() const { return file.groups; }
-
-private:
-	OBJFile file;
-
+	OBJFile read(std::istream& stream);
 };
 
 

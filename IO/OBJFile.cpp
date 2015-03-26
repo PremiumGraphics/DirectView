@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include "OBJFile.h"
 
 #include <fstream>
@@ -43,19 +45,6 @@ std::string OBJFace::write(std::ostream& stream) const
 }
 
 
-bool OBJFileReader::read(const std::string& path, const std::string& filename)
-{
-	const std::string fullPathName = path + "/" + filename;
-
-	std::ifstream stream;
-	stream.open(fullPathName.c_str());
-
-	if (!stream.is_open()) {
-		return false;
-	}
-	return read(stream);
-}
-
 void OBJGroup::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
@@ -89,8 +78,23 @@ void OBJGroup::readFaces(const std::string& str)
 	faces.push_back( OBJFace( vertexIndices, texIndices, normalIndices ) );
 }
 
-bool OBJFileReader::read(std::istream& stream )
+
+OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {
+	const std::string fullPathName = path + "/" + filename;
+
+	std::ifstream stream;
+	stream.open(fullPathName.c_str());
+
+	assert(stream.is_open());
+
+	return read(stream);
+}
+
+
+OBJFile OBJFileReader::read(std::istream& stream )
+{
+	OBJFile file;
 	std::string str;
 
 	std::string header = Helper::read< std::string >(stream);
@@ -98,6 +102,8 @@ bool OBJFileReader::read(std::istream& stream )
 	OBJGroup group;
 
 	std::vector< std::string > materials;
+
+	std::vector<OBJGroup> groups;
 
 	while( !stream.eof() ) {
 		if( header == "#" ) {
@@ -127,7 +133,7 @@ bool OBJFileReader::read(std::istream& stream )
 			group.readFaces(str);
 		}
 		else if( header == "g") {
-			file.groups.push_back(group);
+			groups.push_back(group);
 
 			std::getline( stream, str);
 
@@ -143,9 +149,11 @@ bool OBJFileReader::read(std::istream& stream )
 	}
 	group.setMaterials(materials);
 
-	file.groups.push_back(group);
+	groups.push_back(group);
+
+	file.setGroups(groups);
 	
-	return true;
+	return file;
 }
 
 
@@ -193,7 +201,7 @@ void OBJGroup::readTexCoords(const std::string& str)
 }
 
 
-bool OBJFileWriter::write(const std::string& path, const std::string& filename)
+bool OBJFileWriter::write(const std::string& path, const std::string& filename, const OBJFile& file)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -201,10 +209,10 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename)
 	if (!stream.is_open()) {
 		return false;
 	}
-	return write(stream);
+	return write(stream, file);
 }
 
-bool OBJFileWriter::write(std::ostream& stream)
+bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
 {
 	//strs.push_back( "# " + comment );
 
@@ -213,7 +221,7 @@ bool OBJFileWriter::write(std::ostream& stream)
 	//stream << "mtllib" << " " << mtlFileName << std::endl;
 
 
-	for (const OBJGroup& g : file.groups) {
+	for (const OBJGroup& g : file.getGroups() ) {
 		//stream << "g " << g.getName() << std::endl;
 		strs.push_back("g " + g.getName());
 		//strs.push_back("usemtl " + materialName);
