@@ -211,7 +211,7 @@ bool OBJFile::write(std::ostream& stream)
 			}
 			else if (f.hasTexIndices() && f.hasNormals()) {
 				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
-					stream << " " << f.getVertexIndices()[i] << "/" << f.getTexIndices()[i] << "/" << f.getNormalIndices()[i];
+					s += " " + std::to_string( f.getVertexIndices()[i] ) + "/" + std::to_string( f.getTexIndices()[i] ) + "/" + std::to_string( f.getNormalIndices()[i] );
 				}
 			}
 			else {
