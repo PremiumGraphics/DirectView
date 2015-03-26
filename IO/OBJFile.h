@@ -61,6 +61,7 @@ struct OBJFace
 			normalIndices == rhs.normalIndices;
 	}
 
+	std::string write(std::ostream& stream) const;
 
 private:
 

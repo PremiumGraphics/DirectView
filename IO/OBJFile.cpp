@@ -15,6 +15,33 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
+std::string OBJFace::write(std::ostream& stream) const
+{
+	std::string s;
+	s += "f";
+	if ( hasTexIndices() && !hasNormals()) {
+		for (size_t i = 0; i < vertexIndices.size(); ++i) {
+			s += " " + std::to_string(vertexIndices[i]) + "/" + std::to_string(texIndices[i]);
+		}
+	}
+	else if (hasTexIndices() && hasNormals()) {
+		for (size_t i = 0; i < vertexIndices.size(); ++i) {
+			s += " " + std::to_string(vertexIndices[i]) + "/" + std::to_string(texIndices[i]) + "/" + std::to_string(normalIndices[i]);
+		}
+	}
+	else if (hasNormals()) {
+		for (size_t i = 0; i < vertexIndices.size(); ++i) {
+			s += " " + std::to_string(vertexIndices[i]) + "//" + std::to_string(normalIndices[i]);
+		}
+	}
+	else {
+		for (const unsigned int i : vertexIndices) {
+			s += " " + std::to_string(i);
+		}
+	}
+	return s;
+}
+
 
 bool OBJFile::read(const std::string& path, const std::string& filename)
 {
@@ -202,7 +229,8 @@ bool OBJFile::write(std::ostream& stream)
 			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );
 		}
 		for (const OBJFace& f : g.getFaces()) {
-			std::string s;
+			std::string s = f.write(stream);
+			/*
 			s += "f";
 			if (f.hasTexIndices() && !f.hasNormals()) {
 				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
@@ -214,13 +242,18 @@ bool OBJFile::write(std::ostream& stream)
 					s += " " + std::to_string( f.getVertexIndices()[i] ) + "/" + std::to_string( f.getTexIndices()[i] ) + "/" + std::to_string( f.getNormalIndices()[i] );
 				}
 			}
+			else if (f.hasNormals()) {
+				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
+					s += " " + std::to_string(f.getVertexIndices()[i]) + "//" + std::to_string(f.getNormalIndices()[i]);
+				}
+			}
 			else {
 				for (const unsigned int i : f.getVertexIndices()) {
 					s += " " + std::to_string(i);
 				}
 			}
+			*/
 			strs.push_back(s);
-			stream << std::endl;
 		}
 	}
 

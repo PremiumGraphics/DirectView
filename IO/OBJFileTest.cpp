@@ -56,12 +56,14 @@ TEST(OBJFileTest, TestReadVertices)
 	stream
 		<< "v 0.1 0.2 0.3" << std::endl
 		<< "vt 0.5 1.0" << std::endl
-		<< "vn 0.707 0.0 0.707" << std::endl;
+		<< "vn 1.0 0.0 0.0" << std::endl;
 	OBJFile file(stream);
 
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.1f, 0.2f, 0.3f) }, file.getGroups().front().getPositions() );
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.5f, 1.0f, 0.0f) }, file.getGroups().front().getTexCoords());
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.707f, 0.0f, 0.707f) }, file.getGroups().front().getNormals() );
+	const OBJGroup actual = file.getGroups().front();
+
+	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.1f, 0.2f, 0.3f) }, actual.getPositions() );
+	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.5f, 1.0f, 0.0f) }, actual.getTexCoords());
+	EXPECT_EQ( std::vector < Vector3d > { Vector3d(1.0f, 0.0f, 0.0f) }, actual.getNormals() );
 }
 
 TEST(OBJFileTest, TestReadFaces)
@@ -208,34 +210,33 @@ TEST(OBJFileTest, TestWrite)
 }
 
 TEST(OBJFileTest, TestWrite2)
+{
+	std::stringstream stream;
+	OBJFile file;
+	OBJGroup group;
+	group.setPositions({ Vector3d(0.1f, 0.2f, 0.3f) });
+	file.setGroups({ group });
+	//file.setPositions(std::vector < Vector3d > { Vector3d(0.1f, 0.2f, 0.3f) });
+	file.write(stream);
 
-	{
-		std::stringstream stream;
-		OBJFile file;
-		OBJGroup group;
-		group.setPositions({ Vector3d(0.1f, 0.2f, 0.3f) });
-		file.setGroups({ group });
-		//file.setPositions(std::vector < Vector3d > { Vector3d(0.1f, 0.2f, 0.3f) });
-		file.write(stream);
-
-		const std::vector< std::string >& strs = file.getStrs();
-		EXPECT_EQ( strs[0], "g ");
-		EXPECT_EQ( strs[1], "v 0.1000 0.2000 0.3000");
-	}
+	const std::vector< std::string >& strs = file.getStrs();
+	EXPECT_EQ( strs[0], "g ");
+	EXPECT_EQ( strs[1], "v 0.1000 0.2000 0.3000");
+}
 
 TEST(OBJFileTest, TestWriteFaces)
 {
-		OBJFile file;
-		OBJFace face({ 0, 1, 2 }, {}, {} );
-		OBJGroup group;
-		group.setFaces(std::vector < OBJFace > { face });
-		file.setGroups({ group });
-		std::stringstream stream;
-		file.write(stream);
-		const std::vector< std::string >& strs = file.getStrs();
+	OBJFile file;
+	OBJFace face({ 0, 1, 2 }, {}, {} );
+	OBJGroup group;
+	group.setFaces(std::vector < OBJFace > { face });
+	file.setGroups({ group });
+	std::stringstream stream;
+	file.write(stream);
+	const std::vector< std::string >& strs = file.getStrs();
 
-		EXPECT_EQ( strs[0], "g ");
-		EXPECT_EQ( strs[1], "f 0 1 2");
+	EXPECT_EQ( strs[0], "g ");
+	EXPECT_EQ( strs[1], "f 0 1 2");
 }
 
 TEST(OBJFileTest, TestWriteFacesVertexTex)
@@ -251,6 +252,22 @@ TEST(OBJFileTest, TestWriteFacesVertexTex)
 
 	EXPECT_EQ(strs[0], "g ");
 	EXPECT_EQ(strs[1], "f 0/1 1/1 2/1");
+}
+
+
+TEST(OBJFileTest, TestWriteFacesVertexNormal)
+{
+	OBJFile file;
+	OBJFace face({ 0, 1, 2 }, {}, {3, 4, 5});
+	OBJGroup group;
+	group.setFaces(std::vector < OBJFace > { face });
+	file.setGroups({ group });
+	std::stringstream stream;
+	file.write(stream);
+	const std::vector< std::string >& strs = file.getStrs();
+	EXPECT_EQ(strs[0], "g ");
+	EXPECT_EQ(strs[1], "f 0//3 1//4 2//5");
+
 }
 
 TEST(OBJFileTest, TestWriteFacesVertexTexNormal)
@@ -271,16 +288,15 @@ TEST(OBJFileTest, TestWriteFacesVertexTexNormal)
 
 TEST(OBJFileTest, TestWriteGroups)
 {
-	{
-		OBJFile file;
-		OBJGroup group("name");
-		file.setGroups(std::vector < OBJGroup > {group});
-		std::stringstream stream;
-		file.write(stream);
-		const std::vector< std::string >& strs = file.getStrs();
+	OBJFile file;
+	OBJGroup group("name");
+	file.setGroups(std::vector < OBJGroup > {group});
+	std::stringstream stream;
+	file.write(stream);
+	const std::vector< std::string >& strs = file.getStrs();
 
-		EXPECT_EQ(strs[0], "g name");
-	}
+	EXPECT_EQ(strs[0], "g name");
+}
 
 	/*
 	{
@@ -293,4 +309,3 @@ TEST(OBJFileTest, TestWriteGroups)
 		EXPECT_EQ("g name\nf 0 1 2\n", stream.str());
 	}
 	*/
-}
