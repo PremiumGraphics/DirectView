@@ -166,7 +166,7 @@ void OBJGroup::readTexCoords(const std::string& str)
 }
 
 
-bool OBJFile::write(const std::string& path, const std::string& filename) const
+bool OBJFile::write(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -177,35 +177,36 @@ bool OBJFile::write(const std::string& path, const std::string& filename) const
 	return write(stream);
 }
 
-bool OBJFile::write(std::ostream& stream) const
+bool OBJFile::write(std::ostream& stream)
 {
-
-	//std::string str;
-	//stream << "# Exported from CG Studio" << std::endl;
+	//strs.push_back( "# " + comment );
 
 	//stream << std::endl;
 
 	//stream << "mtllib" << " " << mtlFileName << std::endl;
 
-	//IO::MTLFile mtl;
-	//mtl.save(path + "/" + "test.mtl" );
 
 	for (const OBJGroup& g : groups) {
-		stream << "g " << g.getName() << std::endl;
+		//stream << "g " << g.getName() << std::endl;
+		strs.push_back("g " + g.getName());
+		//strs.push_back("usemtl " + materialName);
 		for (const Vector3d& pos : g.getPositions()) {
-			stream << "v " << pos.getX() << " " << pos.getY() << " " << pos.getZ() << std::endl;
+			char s[256];
+			sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ() );
+			strs.push_back(s);
 		}
 		for (const Vector3d& tex : g.getTexCoords() ) {
-			stream << "vt " << tex.getX() << " " << tex.getY() << " " << tex.getZ() << std::endl;
+			strs.push_back("vt " + std::to_string(tex.getX()) + " " + std::to_string(tex.getY()) + " " + std::to_string(tex.getZ()));
 		}
 		for (const Vector3d& n : g.getNormals() ) {
-			stream << "vn " << n.getX() << " " << n.getY() << " " << n.getZ() << std::endl;
+			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );
 		}
 		for (const OBJFace& f : g.getFaces()) {
-			stream << "f";
+			std::string s;
+			s += "f";
 			if (f.hasTexIndices() && !f.hasNormals()) {
 				for (size_t i = 0; i < f.getVertexIndices().size(); ++i) {
-					stream << " " << f.getVertexIndices()[i] << "/" << f.getTexIndices()[i];
+					s += " " + std::to_string( f.getVertexIndices()[i] ) + "/" + std::to_string( f.getTexIndices()[i] );
 				}
 			}
 			else if (f.hasTexIndices() && f.hasNormals()) {
@@ -215,11 +216,18 @@ bool OBJFile::write(std::ostream& stream) const
 			}
 			else {
 				for (const unsigned int i : f.getVertexIndices()) {
-					stream << " " << i;
+					s += " " + std::to_string(i);
 				}
 			}
+			strs.push_back(s);
 			stream << std::endl;
 		}
 	}
+
+
+	for (const std::string& str : strs) {
+		stream << str << std::endl;
+	}
+
 	return true;
 }

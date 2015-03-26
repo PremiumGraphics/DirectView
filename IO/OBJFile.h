@@ -179,9 +179,9 @@ public:
 
 	bool read( std::istream& stream);
 
-	bool write( const std::string& path, const std::string& filename ) const;
+	bool write( const std::string& path, const std::string& filename );
 
-	bool write(std::ostream& stream) const;
+	bool write(std::ostream& stream);
 
 	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
 
@@ -200,11 +200,13 @@ public:
 		return os;
 	}
 
+	std::vector< std::string > getStrs() const { return strs; }
+
 private:	
-
+	std::string comment;
 	std::vector< OBJGroup > groups;
-	
-
+	std::string materialName;
+	std::vector< std::string > strs;
 };
 
 
