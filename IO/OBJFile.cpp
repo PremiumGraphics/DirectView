@@ -214,7 +214,9 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename, 
 
 bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
 {
-	//strs.push_back( "# " + comment );
+	if (!file.getComment().empty()) {
+		strs.push_back( "# " + file.getComment() );
+	}
 
 	//stream << std::endl;
 
@@ -231,7 +233,9 @@ bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
 			strs.push_back(s);
 		}
 		for (const Vector3d& tex : g.getTexCoords() ) {
-			strs.push_back("vt " + std::to_string(tex.getX()) + " " + std::to_string(tex.getY()) + " " + std::to_string(tex.getZ()));
+			char s[256];
+			sprintf(s, "vt %.4lf %.4lf %.4lf", tex.getX(), tex.getY(), tex.getZ());
+			strs.push_back(s);
 		}
 		for (const Vector3d& n : g.getNormals() ) {
 			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );

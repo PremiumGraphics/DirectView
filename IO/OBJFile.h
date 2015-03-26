@@ -168,23 +168,24 @@ private:
 };
 
 struct OBJFile {
-	std::string materialName;
-
 	bool isValid() const {
 		return true;	//Å@TODO.
 	}
-
-	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
-
-	std::vector< OBJGroup > getGroups() const { return groups; }
 
 	void setComment(const std::string& comment) { this->comment = comment; }
 
 	std::string getComment() const { return comment; }
 
+	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
+
+	std::vector< OBJGroup > getGroups() const { return groups; }
+
+	std::string getMaterialName() const { return materialName; }
+
 private:
 	std::string comment;
 	std::vector< OBJGroup > groups;
+	std::string materialName;
 
 };
 
