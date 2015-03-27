@@ -67,6 +67,24 @@ public:
 
 	std::vector<MTL> getMaterials() const { return mtls; }
 
+	static bool readOnOff(const std::string& str)
+	{
+		if (str == "on") {
+			return true;
+		}
+		else if (str == "off") {
+			return false;
+		}
+		else {
+			assert(false);
+			return false;
+		}
+	}
+
+
+	static MTLTextureOption getTextureOptions(const std::string& str);
+
+
 private:
 	std::vector<MTL> mtls;
 };

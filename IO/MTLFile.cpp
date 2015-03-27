@@ -139,3 +139,55 @@ bool MTLFile::save( const std::string& filename )
 	//}
 	return true;
 }
+
+MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
+{
+	std::stringstream stream(str);
+	MTLTextureOption options;
+	std::string nextStr = Helper::readNextString(stream);
+	while (!nextStr.empty() && nextStr.front() == '-') {
+		std::string str = Helper::read<std::string>(stream);
+		if (str == "-blendu") {
+			str = Helper::read<std::string>(stream);
+			options.blendu = MTLFile::readOnOff(str);
+		}
+		else if (str == "-blendv") {
+			str = Helper::read<std::string>(stream);
+			options.blendv = MTLFile::readOnOff(str);
+		}
+		else if (str == "-boost") {
+			options.boost = Helper::read<float>(stream);
+		}
+		else if (str == "-mm") {
+			options.baseValue = Helper::read<float>(stream);
+			options.gainValue = Helper::read<float>(stream);
+		}
+		else if (str == "-o") {
+			options.origin = Helper::readVector(stream);
+		}
+		else if (str == "-s") {
+			options.scale = Helper::readVector(stream);
+		}
+		else if (str == "-t") {
+			options.turblence = Helper::readVector(stream);
+		}
+		else if (str == "-texres") {
+			options.resolution = Helper::read<int>(stream);
+		}
+		else if (str == "-clamp") {
+			str = Helper::read<std::string>(stream);
+			options.clamp = MTLFile::readOnOff(str);
+		}
+		else if (str == "-bm") {
+			options.bm = Helper::read<float>(stream);
+		}
+		else if (str == "-imfchan") {
+			const char c = Helper::read<char>(stream);
+			//r | g | b | m | l | z
+			assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
+			options.imfchan = c;
+		}
+		nextStr = Helper::readNextString(stream);
+	}
+	return options;
+}

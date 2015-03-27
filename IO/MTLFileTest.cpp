@@ -2,105 +2,36 @@
  
 #include "../IO/MTLFile.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-using namespace Crystal::Math;
-
-
-#include "Helper.h"
-
-bool readOnOff(const std::string& str)
-{
-	if (str == "on") {
-		return true;
-	}
-	else if( str == "off" ) {
-		return false;
-	}
-	else {
-		assert(false);
-		return false;
-	}
-}
-
-MTLTextureOption getTextureOptions(const std::string& str)
-{
-	std::stringstream stream(str);
-	MTLTextureOption options;
-	std::string nextStr = Helper::readNextString(stream);
-	while (!nextStr.empty() && nextStr.front() == '-') {
-		std::string str = Helper::read<std::string>(stream);
-		if (str == "-blendu") {
-			str = Helper::read<std::string>(stream);
-			options.blendu = readOnOff(str);
-		}
-		else if (str == "-blendv") {
-			str = Helper::read<std::string>(stream);
-			options.blendv = readOnOff(str);
-		}
-		else if (str == "-boost") {
-			options.boost = Helper::read<float>(stream);
-		}
-		else if (str == "-mm") {
-			options.baseValue = Helper::read<float>(stream);
-			options.gainValue = Helper::read<float>(stream);
-		}
-		else if (str == "-o") {
-			options.origin = Helper::readVector(stream);
-		}
-		else if (str == "-s") {
-			options.scale = Helper::readVector(stream);
-		}
-		else if (str == "-t") {
-			options.turblence = Helper::readVector(stream);
-		}
-		else if (str == "-texres") {
-			options.resolution = Helper::read<int>(stream);
-		}
-		else if (str == "-clamp") {
-			str = Helper::read<std::string>(stream);
-			options.clamp = readOnOff(str);
-		}
-		else if (str == "-bm") {
-			options.bm = Helper::read<float>(stream);
-		}
-		else if (str == "-imfchan") {
-			const char c = Helper::read<char>(stream);
-			//r | g | b | m | l | z
-			assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
-			options.imfchan = c;
-		}
-		nextStr = Helper::readNextString(stream);
-	}
-	return options;
-}
 
 TEST(MTLFileTest, TestTextureOptions)
 {
-	EXPECT_TRUE( getTextureOptions("-blendu on").blendu );
-	EXPECT_TRUE( getTextureOptions("-blendv on").blendv );
+	EXPECT_TRUE( MTLFile::getTextureOptions("-blendu on").blendu );
+	EXPECT_TRUE( MTLFile::getTextureOptions("-blendv on").blendv );
 
-	EXPECT_FALSE( getTextureOptions("-blendu off").blendu);
-	EXPECT_FALSE( getTextureOptions("-blendv off").blendv);
+	EXPECT_FALSE( MTLFile::getTextureOptions("-blendu off").blendu);
+	EXPECT_FALSE( MTLFile::getTextureOptions("-blendv off").blendv);
 
-	EXPECT_FLOAT_EQ( 0.1f, getTextureOptions("-boost 0.1").boost );
+	EXPECT_FLOAT_EQ( 0.1f, MTLFile::getTextureOptions("-boost 0.1").boost );
 
-	EXPECT_EQ( Vector3d(1.0f, 0.0f, 0.0f), getTextureOptions("-o 1.0 0.0 0.0").origin );
-	EXPECT_EQ( Vector3d(0.1f, 0.1f, 0.1f), getTextureOptions("-s 0.1 0.1 0.1 ").scale );
-	EXPECT_EQ( Vector3d(0.5f, 0.5f, 0.0f), getTextureOptions("-t 0.5 0.5 0.0").turblence );
+	EXPECT_EQ( Vector3d(1.0f, 0.0f, 0.0f), MTLFile::getTextureOptions("-o 1.0 0.0 0.0").origin );
+	EXPECT_EQ( Vector3d(0.1f, 0.1f, 0.1f), MTLFile::getTextureOptions("-s 0.1 0.1 0.1 ").scale );
+	EXPECT_EQ( Vector3d(0.5f, 0.5f, 0.0f), MTLFile::getTextureOptions("-t 0.5 0.5 0.0").turblence );
 
-	EXPECT_EQ( 255, getTextureOptions("-texres 255").resolution);
+	EXPECT_EQ( 255, MTLFile::getTextureOptions("-texres 255").resolution);
 
-	EXPECT_TRUE( getTextureOptions("-clamp on").clamp );
-	EXPECT_FALSE( getTextureOptions("-clamp off").clamp );
+	EXPECT_TRUE( MTLFile::getTextureOptions("-clamp on").clamp );
+	EXPECT_FALSE( MTLFile::getTextureOptions("-clamp off").clamp );
 
-	EXPECT_EQ( 'r', getTextureOptions("-imfchan r").imfchan );
-	EXPECT_EQ( 'g', getTextureOptions("-imfchan g").imfchan );
-	EXPECT_EQ( 'b', getTextureOptions("-imfchan b").imfchan );
-	EXPECT_EQ( 'm', getTextureOptions("-imfchan m").imfchan );
-	EXPECT_EQ( 'l', getTextureOptions("-imfchan l").imfchan );
-	EXPECT_EQ( 'z', getTextureOptions("-imfchan z").imfchan );
+	EXPECT_EQ( 'r', MTLFile::getTextureOptions("-imfchan r").imfchan);
+	EXPECT_EQ( 'g', MTLFile::getTextureOptions("-imfchan g").imfchan);
+	EXPECT_EQ( 'b', MTLFile::getTextureOptions("-imfchan b").imfchan);
+	EXPECT_EQ( 'm', MTLFile::getTextureOptions("-imfchan m").imfchan);
+	EXPECT_EQ( 'l', MTLFile::getTextureOptions("-imfchan l").imfchan);
+	EXPECT_EQ( 'z', MTLFile::getTextureOptions("-imfchan z").imfchan);
 }
 
 
