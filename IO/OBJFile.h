@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 namespace Crystal {
 	namespace IO {

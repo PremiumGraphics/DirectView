@@ -1,4 +1,5 @@
-//#include "stdafx.h"
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include "MTLFile.h"
 
 #include "Helper.h"
@@ -26,6 +27,7 @@ void MTLTextureOption::setDefault()
 	origin = Math::Vector3d::Zero();
 	scale = Math::Vector3d(1.0f, 1.0f, 1.0f);
 	turblence = Math::Vector3d::Zero();
+	imfchan = "l";
 }
 
 bool MTLFile::read(const std::string& filename)
@@ -110,47 +112,7 @@ bool MTLFile::read(std::istream& stream)
 	return true;
 }
 
-bool MTLFile::save( const std::string& filename )
-{
-	std::ofstream stream( filename.c_str() );
 
-	if( !stream.is_open() ) {
-		return false;
-	}
-
-	stream << "# Exported from CGStudio" << std::endl;
-
-	//for( const Material* m : materials.getMaterials() ) {
-	//	stream << std::endl;
-
-	//	stream << "newmtl " << m->name << std::endl;
-
-	//	const ColorRGBA<float>& ambient = m->getAmbient();
-	//	stream << "Ka " << ambient.getRed() << " " << ambient.getGreen() << " " << ambient.getBlue() << std::endl;
-
-	//	const ColorRGBA<float>& diffuse = m->getDiffuse();
-	//	stream << "Kd " << diffuse.getRed() << " " << diffuse.getGreen() << " " << diffuse.getBlue() << std::endl;
-
-	//	const ColorRGBA<float>& specular = m->getSpecular();
-	//	stream << "Ks " << specular.getRed() << " " << specular.getGreen() << " " << specular.getBlue() << std::endl;
-
-	//	//stream << "Ns " << m->shininess << std::endl;
-
-	//	/*
-	//	const Texture& texture = m->texture;
-	//	if( !texture.getAmbientFileName().empty() ) {
-	//		stream << "map_Ka " << texture.getAmbientFileName() << std::endl;
-	//	}
-	//	if( !texture.getDiffuseFileName().empty() ) {
-	//		stream << "map_Kd " << texture.getDiffuseFileName() << std::endl;
-	//	}
-	//	if( !texture.getSpecularFileName().empty() ) {
-	//		stream << "map_Ks " << texture.getSpecularFileName() << std::endl;
-	//	}
-	//	*/
-	//}
-	return true;
-}
 
 MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
 {
@@ -194,12 +156,83 @@ MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
 			options.setBumpMultiplier( Helper::read<float>(stream) );
 		}
 		else if (str == "-imfchan") {
-			const char c = Helper::read<char>(stream);
+			const std::string& c = Helper::read<std::string>(stream);
 			//r | g | b | m | l | z
-			assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
+			//assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
 			options.setImfChan( c );
+		}
+		else if (str == "-type") {
+			options.setType( Helper::read<std::string>(stream) );
 		}
 		nextStr = Helper::readNextString(stream);
 	}
 	return options;
+}
+
+bool MTLFileWriter::save(const std::string& filename, const MaterialSPtr& m)
+{
+	std::ofstream stream(filename.c_str());
+
+	if (!stream.is_open()) {
+		return false;
+	}
+
+	return save(stream, m);
+}
+
+bool MTLFileWriter::save(std::ostream& stream, const MaterialSPtr& m)
+{
+
+	//stream << "# Exported from CGStudio" << std::endl;
+
+	//strs.push_back( "newmtl " + m->getName());
+
+	const ColorRGBA<float>& ambient = m->getAmbient();
+	char s[256];
+	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
+	strs.push_back(s);
+
+	/*
+	const ColorRGBA<float>& diffuse = m->getDiffuse();
+	stream << "Kd " << diffuse.getRed() << " " << diffuse.getGreen() << " " << diffuse.getBlue() << std::endl;
+
+	const ColorRGBA<float>& specular = m->getSpecular();
+	stream << "Ks " << specular.getRed() << " " << specular.getGreen() << " " << specular.getBlue() << std::endl;
+	*/
+
+	//for (const Material* m : file.getMaterials()) {
+		//	stream << std::endl;
+
+		//	stream << "newmtl " << m->name << std::endl;
+
+		//	const ColorRGBA<float>& ambient = m->getAmbient();
+		//	stream << "Ka " << ambient.getRed() << " " << ambient.getGreen() << " " << ambient.getBlue() << std::endl;
+
+		//	const ColorRGBA<float>& diffuse = m->getDiffuse();
+		//	stream << "Kd " << diffuse.getRed() << " " << diffuse.getGreen() << " " << diffuse.getBlue() << std::endl;
+
+		//	const ColorRGBA<float>& specular = m->getSpecular();
+		//	stream << "Ks " << specular.getRed() << " " << specular.getGreen() << " " << specular.getBlue() << std::endl;
+
+		//	//stream << "Ns " << m->shininess << std::endl;
+
+		//	/*
+		//	const Texture& texture = m->texture;
+		//	if( !texture.getAmbientFileName().empty() ) {
+		//		stream << "map_Ka " << texture.getAmbientFileName() << std::endl;
+		//	}
+		//	if( !texture.getDiffuseFileName().empty() ) {
+		//		stream << "map_Kd " << texture.getDiffuseFileName() << std::endl;
+		//	}
+		//	if( !texture.getSpecularFileName().empty() ) {
+		//		stream << "map_Ks " << texture.getSpecularFileName() << std::endl;
+		//	}
+		//	*/
+		//}
+
+
+	for (const std::string& str : strs) {
+		stream << str << std::endl;
+	}
+	return true;
 }

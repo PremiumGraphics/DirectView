@@ -68,9 +68,13 @@ struct MTLTextureOption {
 
 	float getBumpMultiplier() const { return bm; }
 
-	void setImfChan(const char imf) { this->imfchan = imf; }
+	void setImfChan(const std::string& imf) { this->imfchan = imf; }
 
-	char getImfChan() const { return imfchan; }
+	std::string getImfChan() const { return imfchan; }
+
+	void setType(const std::string& type) { this->type = type; }
+
+	std::string getType() const { return type; }
 
 private:
 	bool blendu;
@@ -84,7 +88,8 @@ private:
 	int resolution;
 	bool clamp;
 	float bm;
-	char imfchan;
+	std::string imfchan;
+	std::string type;
 };
 
 
@@ -117,9 +122,8 @@ class MTLFile {
 public:
 	bool read( const std::string& filename );
 
-	bool read(std::istream& stream);
+	bool read( std::istream& stream );
 
-	bool save( const std::string& filename );
 
 	std::vector<MTL> getMaterials() const { return mtls; }
 
@@ -143,6 +147,20 @@ public:
 
 private:
 	std::vector<MTL> mtls;
+	MTLTextureOption option;
+};
+
+class MTLFileWriter
+{
+public:
+	bool save(const std::string& filename, const Graphics::MaterialSPtr& m);
+
+	bool save(std::ostream& stream, const Graphics::MaterialSPtr& m);
+
+	std::vector< std::string > getStrs() const { return strs; }
+
+private:
+	std::vector< std::string > strs;
 };
 
 	}
