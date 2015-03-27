@@ -17,6 +17,62 @@ namespace Crystal {
 	namespace IO {
 
 struct MTLTextureOption {
+	MTLTextureOption()
+	{
+		setDefault();
+	}
+
+	void setDefault();
+
+	void setBlendU(const bool u) { this->blendu = u; }
+
+	bool getBlendU() const { return blendu; }
+
+	void setBlendV(const bool v) { this->blendv = v; }
+
+	bool getBlendV() const { return blendv; }
+
+	void setBoost(const float b) { this->boost = b; }
+
+	float getBoost() const { return boost; }
+
+	void setBaseValue(const float v) { this->baseValue = v; }
+
+	float getBaseValue() const { return baseValue; }
+
+	void setGainValue(const float v) { this->gainValue = v; }
+
+	float getGainValue() const { return gainValue; }
+
+	void setOrigin(const Math::Vector3d& origin) { this->origin = origin; }
+
+	Math::Vector3d getOrigin() const { return origin; }
+
+	void setScale(const Math::Vector3d& scale) { this->scale = scale; }
+
+	Math::Vector3d getScale() const { return scale; }
+
+	void setTurblence(const Math::Vector3d& t) { this->turblence = t; }
+
+	Math::Vector3d getTurblence() const { return turblence; }
+
+	void setResolution(const int resolution) { this->resolution = resolution; }
+
+	int getResolution() const { return resolution; }
+
+	void setClamp(const bool clamp) { this->clamp = clamp; }
+
+	bool getClamp() const { return clamp; }
+
+	void setBumpMultiplier(const float bm) { this->bm = bm; }
+
+	float getBumpMultiplier() const { return bm; }
+
+	void setImfChan(const char imf) { this->imfchan = imf; }
+
+	char getImfChan() const { return imfchan; }
+
+private:
 	bool blendu;
 	bool blendv;
 	float boost;

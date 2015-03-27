@@ -16,6 +16,18 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
+void MTLTextureOption::setDefault()
+{
+	blendu = true;
+	blendv = true;
+	boost = 1.0f; // TODO.
+	baseValue = 0.0f;
+	gainValue = 1.0f;
+	origin = Math::Vector3d::Zero();
+	scale = Math::Vector3d(1.0f, 1.0f, 1.0f);
+	turblence = Math::Vector3d::Zero();
+}
+
 bool MTLFile::read(const std::string& filename)
 {
 	std::ifstream stream;
@@ -149,43 +161,43 @@ MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
 		std::string str = Helper::read<std::string>(stream);
 		if (str == "-blendu") {
 			str = Helper::read<std::string>(stream);
-			options.blendu = MTLFile::readOnOff(str);
+			options.setBlendU( MTLFile::readOnOff(str) );
 		}
 		else if (str == "-blendv") {
 			str = Helper::read<std::string>(stream);
-			options.blendv = MTLFile::readOnOff(str);
+			options.setBlendV( MTLFile::readOnOff(str) );
 		}
 		else if (str == "-boost") {
-			options.boost = Helper::read<float>(stream);
+			options.setBoost( Helper::read<float>(stream) );
 		}
 		else if (str == "-mm") {
-			options.baseValue = Helper::read<float>(stream);
-			options.gainValue = Helper::read<float>(stream);
+			options.setBaseValue( Helper::read<float>(stream) );
+			options.setGainValue( Helper::read<float>(stream) );
 		}
 		else if (str == "-o") {
-			options.origin = Helper::readVector(stream);
+			options.setOrigin( Helper::readVector(stream) );
 		}
 		else if (str == "-s") {
-			options.scale = Helper::readVector(stream);
+			options.setScale( Helper::readVector(stream) );
 		}
 		else if (str == "-t") {
-			options.turblence = Helper::readVector(stream);
+			options.setTurblence( Helper::readVector(stream) );
 		}
 		else if (str == "-texres") {
-			options.resolution = Helper::read<int>(stream);
+			options.setResolution( Helper::read<int>(stream) );
 		}
 		else if (str == "-clamp") {
 			str = Helper::read<std::string>(stream);
-			options.clamp = MTLFile::readOnOff(str);
+			options.setClamp( MTLFile::readOnOff(str) );
 		}
 		else if (str == "-bm") {
-			options.bm = Helper::read<float>(stream);
+			options.setBumpMultiplier( Helper::read<float>(stream) );
 		}
 		else if (str == "-imfchan") {
 			const char c = Helper::read<char>(stream);
 			//r | g | b | m | l | z
 			assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
-			options.imfchan = c;
+			options.setImfChan( c );
 		}
 		nextStr = Helper::readNextString(stream);
 	}
