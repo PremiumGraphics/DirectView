@@ -39,6 +39,7 @@ public:
 		specular( Graphics::ColorRGBA<float>::Black() ),
 		ambient( Graphics::ColorRGBA<float>::Black() ),
 		shininess( 1.0f ),
+		transparent( 0.0f ),
 		id( id )
 	{
 	}
@@ -68,6 +69,10 @@ public:
 
 	float getShininess() const { return shininess; }
 
+	void setTransparent(const float t) { this->transparent = t; }
+
+	float getTransparent() const { return transparent; }
+
 	Texture getTexture() const { return texture; }
 
 	void setTexture(const Texture& texture) { this->texture = texture; }
@@ -78,6 +83,7 @@ private:
 	std::string name;
 
 	float shininess;
+	float transparent;
 	Graphics::ColorRGBA<float> ambient;
 	Graphics::ColorRGBA<float> diffuse;
 	Graphics::ColorRGBA<float> specular;

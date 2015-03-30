@@ -192,13 +192,21 @@ bool MTLFileWriter::save(std::ostream& stream, const MaterialSPtr& m)
 	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
 	strs.push_back(s);
 
-	/*
 	const ColorRGBA<float>& diffuse = m->getDiffuse();
-	stream << "Kd " << diffuse.getRed() << " " << diffuse.getGreen() << " " << diffuse.getBlue() << std::endl;
+	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
+	strs.push_back(s);
 
 	const ColorRGBA<float>& specular = m->getSpecular();
-	stream << "Ks " << specular.getRed() << " " << specular.getGreen() << " " << specular.getBlue() << std::endl;
-	*/
+	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
+	strs.push_back(s);
+
+	const float shininess = m->getShininess();
+	sprintf(s, "Ns %.4lf", shininess);
+	strs.push_back(s);
+
+	const float tr = m->getTransparent();
+	sprintf(s, "Tr %.4lf", tr);
+	strs.push_back(s);
 
 	//for (const Material* m : file.getMaterials()) {
 		//	stream << std::endl;

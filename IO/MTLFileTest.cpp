@@ -116,11 +116,19 @@ TEST(MTLFileWriterTest, TestWrite)
 {
 	MaterialSPtr m(new Material(0));
 	m->setAmbient(ColorRGBA<float>(1.0f, 1.0f, 1.0f));
+	m->setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f));
+	m->setSpecular(ColorRGBA<float>(0.0f, 0.0f, 1.0f));
+	m->setShininess(10.0f);
+	m->setTransparent(0.9f);
 
 	std::ostringstream stream;
 	MTLFileWriter writer;
 	writer.save(stream, m);
 	const std::vector< std::string >& strs = writer.getStrs();
-	//EXPECT_EQ("Ka 1.000 1.000 1.000", strs.front());
+	EXPECT_EQ("Ka 1.0000 1.0000 1.0000", strs.front());
+	EXPECT_EQ("Kd 1.0000 0.0000 0.0000", strs[1]);
+	EXPECT_EQ("Ks 0.0000 0.0000 1.0000", strs[2]);
+	EXPECT_EQ("Ns 10.0000", strs[3]);
+	EXPECT_EQ("Tr 0.9000", strs[4]);
 	//const std::string& str = stream.str();
 }
