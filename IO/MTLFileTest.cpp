@@ -19,7 +19,17 @@ TEST(MTLTextureOptionTest, TestConstruct)
 	EXPECT_EQ( "l", opt.getImfChan() );
 }
 
-TEST(MTLFileTest, TestTextureOptions)
+TEST(MTLFileTest, TestWriteTextureOptions)
+{
+	MTLTextureOption opt;
+	MTLFile file;
+	std::ostringstream stream;
+	const std::vector< std::string >& strs = file.writeTextureOptions(stream, opt);
+	EXPECT_EQ(strs[0], "-blendu on");
+	EXPECT_EQ(strs[1], "-blendv on");
+}
+
+TEST(MTLFileTest, TestReadTextureOptions)
 {
 	EXPECT_TRUE( MTLFile::getTextureOptions("-blendu on").getBlendU() );
 	EXPECT_TRUE( MTLFile::getTextureOptions("-blendv on").getBlendV() );
@@ -62,7 +72,7 @@ TEST(MTLFileTest, TestTextureOptions)
 	return os << mtl.getAmbient() << mtl.getDiffuse() << mtl.getSpecular() << std::endl;
 }
 
-TEST(MTLFileTest, TestRead)
+TEST(MTLFileReaderTest, TestRead)
 {
 	std::stringstream stream;
 	stream
@@ -85,7 +95,7 @@ TEST(MTLFileTest, TestRead)
 	EXPECT_EQ( expecteds, actual);
 }
 
-TEST(MTLFileTest, TestReadTexture)
+TEST(MTLFileReaderTest, TestReadTexture)
 {
 	std::stringstream stream;
 	stream
@@ -102,7 +112,7 @@ TEST(MTLFileTest, TestReadTexture)
 	expected.setName( "name" );
 	expected.setAmbientTextureName( "ambient.png" );
 	expected.setDiffuseTextureName( "diffuse.png" );
-	expected.shininessTexture = "shininess.png";
+	expected.setShininessTextureName( "shininess.png" );
 	expected.setBumpTextureName( "bump.png" );
 
 	const std::vector<MTL> expecteds = { expected };

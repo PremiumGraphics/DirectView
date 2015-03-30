@@ -94,7 +94,7 @@ std::vector<MTL> MTLFileReader::read(std::istream& stream)
 		}
 		else if( header == "map_Ks" ) {
 			const std::string& filename = Helper::read< std::string >(stream);
-			mtls.back().shininessTexture = filename;
+			mtls.back().setShininessTextureName( filename );
 		}
 		else if( header == "map_Ns" ) {
 			const std::string& filename = Helper::read< std::string >(stream);
@@ -168,6 +168,31 @@ MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
 	}
 	return options;
 }
+
+std::vector< std::string > MTLFile::writeTextureOptions(std::ostream& stream, MTLTextureOption& option)
+{
+	std::vector< std::string > strs;
+	{
+		std::string str;
+		str += "-blendu ";
+		str += (option.getBlendU() ? "on" : "off");
+		strs.push_back(str);
+	}
+
+	{
+		std::string str;
+		str += "-blendv ";
+		str += (option.getBlendV() ? "on" : "off");
+		strs.push_back(str);
+	}
+
+	for (const std::string& str : strs) {
+		stream << str << std::endl;
+	}
+
+	return strs;
+}
+
 
 bool MTLFileWriter::save(const std::string& filename, const MaterialSPtr& m)
 {

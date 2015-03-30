@@ -139,7 +139,9 @@ struct MTL {
 
 	std::string getDiffuseTextureName() const { return diffuseTexture; }
 
-	std::string shininessTexture;
+	void setShininessTextureName(const std::string sname) { this->shininessTexture = sname; }
+
+	std::string getShininessTextureName() const { return shininessTexture; }
 
 	void setBumpTextureName(const std::string& bname) { this->bumpTexture = bname; }
 
@@ -166,6 +168,7 @@ private:
 	Illumination illumination;
 	std::string ambientTexture;
 	std::string diffuseTexture;
+	std::string shininessTexture;
 	std::string bumpTexture;
 
 };
@@ -176,6 +179,7 @@ public:
 
 	static MTLTextureOption getTextureOptions(const std::string& str);
 
+	static std::vector< std::string > writeTextureOptions(std::ostream& stream, MTLTextureOption& option);
 
 	static bool readOnOff(const std::string& str)
 	{
@@ -191,9 +195,6 @@ public:
 		}
 	}
 
-
-private:
-	MTLTextureOption option;
 };
 
 class MTLFileReader
