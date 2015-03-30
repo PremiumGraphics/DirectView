@@ -155,6 +155,7 @@ TEST(MTLFileReaderTest, TestExample1)
 	EXPECT_EQ( 1, file.mtls.size() );
 	EXPECT_EQ("neon_green", file.mtls.front().getName());
 	EXPECT_EQ( ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getDiffuse() );
+	EXPECT_EQ(0, file.mtls.front().getIllumination());
 }
 
 TEST(MTLFileReaderTest, TestExample2)
@@ -171,6 +172,8 @@ TEST(MTLFileReaderTest, TestExample2)
 	EXPECT_EQ("flat_green", file.mtls.front().getName());
 	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getAmbient());
 	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getDiffuse());
+	EXPECT_EQ(1, file.mtls.front().getIllumination());
+
 }
 
 TEST(MTLFileReaderTest, TestExample3)
@@ -181,20 +184,29 @@ TEST(MTLFileReaderTest, TestExample3)
 		<< "newmtl diss_green" << std::endl
 		<< "Ka 0.0000 1.0000 0.0000" << std::endl
 		<< "Kd 0.0000 1.0000 0.0000" << std::endl
-		<< "d 0.8000" << std::endl;
+		<< "d 0.8000" << std::endl
+		<< "illum 1" << std::endl;
 
 	const MTLFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.mtls.size());
+	EXPECT_EQ("diss_green", file.mtls.front().getName());
 	EXPECT_FLOAT_EQ(0.8f, file.mtls.front().getTransparent());
 
 }
 
-/*
-This is a flat green, partially dissolved material.
+TEST(MTLFileReaderTest, TestExample4)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl shiny_green" << std::endl
+		<< "Ka 0.0000 1.0000 0.0000" << std::endl
+		<< "Kd 0.0000 1.0000 0.0000" << std::endl
+		<< "Ks 1.0000 1.0000 1.0000" << std::endl
+		<< "Ns 200.0000" << std::endl
+		<< "illum 1" << std::endl;
 
-newmtl diss_green
-Ka 0.0000 1.0000 0.0000
-Kd 0.0000 1.0000 0.0000
-d 0.8000
-illum 1
-*/
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	EXPECT_FLOAT_EQ(200.0f, file.mtls.front().getSpecularExponent());
+}

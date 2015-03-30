@@ -110,6 +110,10 @@ MTLFile MTLFileReader::read(std::istream& stream)
 		else if ( header == "map_bump" || header == "bump" ) {
 			mtls.back().setBumpTextureName( Helper::read< std::string >(stream) );
 		}
+		else if (header == "illum") {
+			const int i = Helper::read< int >(stream);
+			mtls.back().setIllumination( MTL::Illumination(i));
+		}
 
 		stream >> header;
 	}
