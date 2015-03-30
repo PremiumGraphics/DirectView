@@ -125,6 +125,10 @@ struct MTL {
 
 	void setSpecular(const Graphics::ColorRGB<float>& s) { this->specular = s; }
 
+	void setSpecularExponent(const float f) { this->specularExponent = f; }
+
+	float getSpecularExponent() const { return specularExponent; }
+
 	Graphics::ColorRGB<float> getSpecular() const { return specular; }
 
 	void setIllumination(const Illumination& i) { this->illumination = i; }
@@ -146,6 +150,10 @@ struct MTL {
 	void setBumpTextureName(const std::string& bname) { this->bumpTexture = bname; }
 
 	std::string getBumpTextureName() const { return bumpTexture; }
+
+	void setTransparent(const float t) { this->transparent = t; }
+
+	float getTransparent() const { return transparent; }
 
 	bool operator==(const MTL& rhs) const {
 		return
@@ -170,6 +178,8 @@ private:
 	std::string diffuseTexture;
 	std::string shininessTexture;
 	std::string bumpTexture;
+	float specularExponent;
+	float transparent;
 
 };
 
@@ -195,15 +205,17 @@ public:
 		}
 	}
 
+	std::vector<MTL> mtls;
+	MTLTextureOption option;
 };
 
 class MTLFileReader
 {
 public:
 
-	std::vector<MTL> read(const std::string& filename);
+	MTLFile read(const std::string& filename);
 
-	std::vector<MTL> read(std::istream& stream);
+	MTLFile read(std::istream& stream);
 };
 
 class MTLFileWriter

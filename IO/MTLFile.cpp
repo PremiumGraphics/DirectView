@@ -30,7 +30,7 @@ void MTLTextureOption::setDefault()
 	imfchan = "l";
 }
 
-std::vector<MTL> MTLFileReader::read(const std::string& filename)
+MTLFile MTLFileReader::read(const std::string& filename)
 {
 	std::ifstream stream;
 
@@ -41,7 +41,7 @@ std::vector<MTL> MTLFileReader::read(const std::string& filename)
 	return read(stream);
 }
 
-std::vector<MTL> MTLFileReader::read(std::istream& stream)
+MTLFile MTLFileReader::read(std::istream& stream)
 {
 	std::vector<MTL> mtls;
 	std::string str;
@@ -74,8 +74,13 @@ std::vector<MTL> MTLFileReader::read(std::istream& stream)
 		else if( header == "Ks" ) {
 			mtls.back().setSpecular( Helper::readColorRGB(stream) );
 		}
-		else if( header == "Ns" ) {
+		else if( header == "Ns") {
 			const float ns = Helper::read< float >( stream );
+			mtls.back().setSpecularExponent(ns);
+		}
+		else if (header == "d" || header == "Tr") {
+			const float d = Helper::read<float>(stream);
+			mtls.back().setTransparent(d);
 		}
 		else if( header == "map_Ka" ) {
 			mtls.back().setAmbientTextureName( Helper::read< std::string >(stream) );
@@ -109,7 +114,9 @@ std::vector<MTL> MTLFileReader::read(std::istream& stream)
 		stream >> header;
 	}
 
-	return mtls;
+	MTLFile file;
+	file.mtls = mtls;
+	return file;
 }
 
 

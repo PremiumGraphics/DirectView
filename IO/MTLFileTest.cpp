@@ -83,7 +83,7 @@ TEST(MTLFileReaderTest, TestRead)
 		<< "illum 0" << std::endl;
 
 	MTLFileReader reader;
-	const std::vector<MTL>& actual = reader.read(stream);
+	const MTLFile& file = reader.read(stream);
 	
 	MTL expected;
 	expected.setName( "FrontColor" );
@@ -92,7 +92,7 @@ TEST(MTLFileReaderTest, TestRead)
 	expected.setSpecular( ColorRGB<float>(0.1f, 0.1f, 0.1f) );
 
 	const std::vector<MTL> expecteds = { expected };
-	EXPECT_EQ( expecteds, actual);
+	EXPECT_EQ( expecteds, file.mtls);
 }
 
 TEST(MTLFileReaderTest, TestReadTexture)
@@ -106,7 +106,7 @@ TEST(MTLFileReaderTest, TestReadTexture)
 		<< "bump bump.png" << std::endl;
 
 	MTLFileReader reader;
-	const std::vector<MTL>& actual = reader.read(stream);
+	const MTLFile& file = reader.read(stream);
 
 	MTL expected;
 	expected.setName( "name" );
@@ -116,7 +116,7 @@ TEST(MTLFileReaderTest, TestReadTexture)
 	expected.setBumpTextureName( "bump.png" );
 
 	const std::vector<MTL> expecteds = { expected };
-	EXPECT_EQ(expecteds, actual);
+	EXPECT_EQ(expecteds, file.mtls);
 }
 
 
@@ -140,3 +140,61 @@ TEST(MTLFileWriterTest, TestWrite)
 	EXPECT_EQ("Tr 0.9000", strs[4]);
 	//const std::string& str = stream.str();
 }
+
+// from http://paulbourke.net/dataformats/mtl/
+TEST(MTLFileReaderTest, TestExample1)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl neon_green" << std::endl
+		<< "Kd 0.0000 1.0000 0.0000" << std::endl
+		<< "illum 0" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ( 1, file.mtls.size() );
+	EXPECT_EQ("neon_green", file.mtls.front().getName());
+	EXPECT_EQ( ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getDiffuse() );
+}
+
+TEST(MTLFileReaderTest, TestExample2)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl flat_green" << std::endl
+		<< "Ka 0.0000 1.0000 0.0000" << std::endl
+		<< "Kd 0.0000 1.0000 0.0000" << std::endl
+		<< "illum 1" << std::endl;
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	EXPECT_EQ("flat_green", file.mtls.front().getName());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), file.mtls.front().getDiffuse());
+}
+
+TEST(MTLFileReaderTest, TestExample3)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl diss_green" << std::endl
+		<< "Ka 0.0000 1.0000 0.0000" << std::endl
+		<< "Kd 0.0000 1.0000 0.0000" << std::endl
+		<< "d 0.8000" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	EXPECT_FLOAT_EQ(0.8f, file.mtls.front().getTransparent());
+
+}
+
+/*
+This is a flat green, partially dissolved material.
+
+newmtl diss_green
+Ka 0.0000 1.0000 0.0000
+Kd 0.0000 1.0000 0.0000
+d 0.8000
+illum 1
+*/
