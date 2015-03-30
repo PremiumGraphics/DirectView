@@ -59,7 +59,7 @@ TEST(MTLFileTest, TestTextureOptions)
 
 
 ::std::ostream& operator<<(::std::ostream& os, const MTL& mtl) {
-	return os << mtl.ambient << mtl.diffuse << mtl.specular << std::endl;
+	return os << mtl.getAmbient() << mtl.getDiffuse() << mtl.getSpecular() << std::endl;
 }
 
 TEST(MTLFileTest, TestRead)
@@ -72,15 +72,14 @@ TEST(MTLFileTest, TestRead)
 		<< "Ks 0.1 0.1 0.1" << std::endl
 		<< "illum 0" << std::endl;
 
-	MTLFile file;
-	file.read(stream);
-	const std::vector<MTL>& actual = file.getMaterials();
+	MTLFileReader reader;
+	const std::vector<MTL>& actual = reader.read(stream);
 	
 	MTL expected;
-	expected.name = "FrontColor";
-	expected.ambient = ColorRGB<float>(0.0f, 0.0f, 0.0f);
-	expected.diffuse = ColorRGB<float>(1.0f, 1.0f, 1.0f);
-	expected.specular = ColorRGB<float>(0.1f, 0.1f, 0.1f);
+	expected.setName( "FrontColor" );
+	expected.setAmbient( ColorRGB<float>(0.0f, 0.0f, 0.0f) );
+	expected.setDiffuse( ColorRGB<float>(1.0f, 1.0f, 1.0f) );
+	expected.setSpecular( ColorRGB<float>(0.1f, 0.1f, 0.1f) );
 
 	const std::vector<MTL> expecteds = { expected };
 	EXPECT_EQ( expecteds, actual);
@@ -96,16 +95,15 @@ TEST(MTLFileTest, TestReadTexture)
 		<< "map_Ks shininess.png" << std::endl
 		<< "bump bump.png" << std::endl;
 
-	MTLFile file;
-	file.read(stream);
-	const std::vector<MTL>& actual = file.getMaterials();
+	MTLFileReader reader;
+	const std::vector<MTL>& actual = reader.read(stream);
 
 	MTL expected;
-	expected.name = "name";
-	expected.ambientTexture = "ambient.png";
-	expected.diffuseTexture = "diffuse.png";
+	expected.setName( "name" );
+	expected.setAmbientTextureName( "ambient.png" );
+	expected.setDiffuseTextureName( "diffuse.png" );
 	expected.shininessTexture = "shininess.png";
-	expected.bumpTexture = "bump.png";
+	expected.setBumpTextureName( "bump.png" );
 
 	const std::vector<MTL> expecteds = { expected };
 	EXPECT_EQ(expecteds, actual);

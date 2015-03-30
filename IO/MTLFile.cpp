@@ -30,20 +30,20 @@ void MTLTextureOption::setDefault()
 	imfchan = "l";
 }
 
-bool MTLFile::read(const std::string& filename)
+std::vector<MTL> MTLFileReader::read(const std::string& filename)
 {
 	std::ifstream stream;
 
 	stream.open(filename.c_str());
 
-	if (!stream.is_open()) {
-		return false;
-	}
+	assert(stream.is_open());
+
 	return read(stream);
 }
 
-bool MTLFile::read(std::istream& stream)
+std::vector<MTL> MTLFileReader::read(std::istream& stream)
 {
+	std::vector<MTL> mtls;
 	std::string str;
 	
 	std::string comment;
@@ -61,24 +61,24 @@ bool MTLFile::read(std::istream& stream)
 			const std::string& materialName = Helper::read< std::string >(stream);
 			
 			MTL mtl;
-			mtl.name = materialName;
+			mtl.setName( materialName );
 			mtls.push_back( mtl );
 		}
 		else if( header == "Ka" ) {
-			mtls.back().ambient = Helper::readColorRGB(stream);
+			mtls.back().setAmbient( Helper::readColorRGB(stream) );
 
 		}
 		else if( header == "Kd" ) {
-			mtls.back().diffuse = Helper::readColorRGB(stream);
+			mtls.back().setDiffuse( Helper::readColorRGB(stream) );
 		}
 		else if( header == "Ks" ) {
-			mtls.back().specular = Helper::readColorRGB(stream);
+			mtls.back().setSpecular( Helper::readColorRGB(stream) );
 		}
 		else if( header == "Ns" ) {
 			const float ns = Helper::read< float >( stream );
 		}
 		else if( header == "map_Ka" ) {
-			mtls.back().ambientTexture = Helper::read< std::string >(stream);
+			mtls.back().setAmbientTextureName( Helper::read< std::string >(stream) );
 		}
 		else if( header == "map_Kd" ) {
 			str = Helper::read< std::string >(stream);
@@ -90,7 +90,7 @@ bool MTLFile::read(std::istream& stream)
 				Helper::readVector(stream);
 				str = Helper::read< std::string >(stream);
 			}
-			mtls.back().diffuseTexture = str;
+			mtls.back().setDiffuseTextureName( str );
 		}
 		else if( header == "map_Ks" ) {
 			const std::string& filename = Helper::read< std::string >(stream);
@@ -103,13 +103,13 @@ bool MTLFile::read(std::istream& stream)
 			const std::string& filename = Helper::read< std::string >(stream);
 		}
 		else if ( header == "map_bump" || header == "bump" ) {
-			mtls.back().bumpTexture = Helper::read< std::string >(stream);
+			mtls.back().setBumpTextureName( Helper::read< std::string >(stream) );
 		}
 
 		stream >> header;
 	}
 
-	return true;
+	return mtls;
 }
 
 

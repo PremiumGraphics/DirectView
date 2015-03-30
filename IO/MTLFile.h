@@ -17,6 +17,7 @@ namespace Crystal {
 	namespace IO {
 
 struct MTLTextureOption {
+
 	MTLTextureOption()
 	{
 		setDefault();
@@ -94,15 +95,55 @@ private:
 
 
 struct MTL {
-	std::string name;
-	Graphics::ColorRGB<float> ambient;
-	Graphics::ColorRGB<float> diffuse;
-	Graphics::ColorRGB<float> specular;
-	std::string ambientTexture;
-	std::string diffuseTexture;
-	std::string bumpTexture;
+	enum Illumination {
+		COLOR_ON_AND_AMBIENT_OFF = 0,
+		COLOR_ON_AND_AMBIENT_ON = 1,
+		HIGHLIGHT_ON = 2,
+		REFRECTION_ON_AND_RAY_TRACE_ON = 3,
+
+		REFLECTION_ON_AND_RAY_TRACE_OFF = 8,
+
+		CAST_SHADOWS_ONTO_INVISIBLE_SURFACES = 10,
+	};
+
+	MTL()
+	{
+		illumination = Illumination::COLOR_ON_AND_AMBIENT_OFF;
+	}
+
+	void setName(const std::string& name) { this->name = name; }
+
+	std::string getName() const { return name; }
+
+	void setAmbient(const Graphics::ColorRGB<float>& a) { this->ambient = a; }
+
+	Graphics::ColorRGB<float> getAmbient() const { return ambient; }
+
+	void setDiffuse(const Graphics::ColorRGB<float>& d) { this->diffuse = d; }
+
+	Graphics::ColorRGB<float> getDiffuse() const { return diffuse; }
+
+	void setSpecular(const Graphics::ColorRGB<float>& s) { this->specular = s; }
+
+	Graphics::ColorRGB<float> getSpecular() const { return specular; }
+
+	void setIllumination(const Illumination& i) { this->illumination = i; }
+
+	Illumination getIllumination() const { return illumination; }
+
+	void setAmbientTextureName(const std::string& tname) { this->ambientTexture = tname; }
+
+	std::string getAmbientTextureName() const { return ambientTexture; }
+
+	void setDiffuseTextureName(const std::string& dname) { this->diffuseTexture = dname; }
+
+	std::string getDiffuseTextureName() const { return diffuseTexture; }
+
 	std::string shininessTexture;
-	int illumination;
+
+	void setBumpTextureName(const std::string& bname) { this->bumpTexture = bname; }
+
+	std::string getBumpTextureName() const { return bumpTexture; }
 
 	bool operator==(const MTL& rhs) const {
 		return
@@ -116,16 +157,25 @@ struct MTL {
 			shininessTexture == rhs.shininessTexture &&
 			illumination == rhs.illumination;
 	}
+
+private:
+	std::string name;
+	Graphics::ColorRGB<float> ambient;
+	Graphics::ColorRGB<float> diffuse;
+	Graphics::ColorRGB<float> specular;
+	Illumination illumination;
+	std::string ambientTexture;
+	std::string diffuseTexture;
+	std::string bumpTexture;
+
 };
 
 class MTLFile {
 public:
-	bool read( const std::string& filename );
-
-	bool read( std::istream& stream );
 
 
-	std::vector<MTL> getMaterials() const { return mtls; }
+	static MTLTextureOption getTextureOptions(const std::string& str);
+
 
 	static bool readOnOff(const std::string& str)
 	{
@@ -142,12 +192,17 @@ public:
 	}
 
 
-	static MTLTextureOption getTextureOptions(const std::string& str);
-
-
 private:
-	std::vector<MTL> mtls;
 	MTLTextureOption option;
+};
+
+class MTLFileReader
+{
+public:
+
+	std::vector<MTL> read(const std::string& filename);
+
+	std::vector<MTL> read(std::istream& stream);
 };
 
 class MTLFileWriter
