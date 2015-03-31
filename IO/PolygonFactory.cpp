@@ -9,14 +9,14 @@ using namespace Crystal::IO;
 PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 {
 	PolygonSPtrList polygons;
-	for (const OBJGroup& g : file.getGroups()) {
+	for (const OBJGroupSPtr& g : file.getGroups()) {
 		PolygonSPtr polygon = pBuilder->build();
 		//polygon->setPositions( g.getPositions() );
 		//polygon->setTexCoords( g.getTexCoords() );
-		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(g.getPositions(), g.getNormals());
+		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(g->getPositions(), g->getNormals());
 
 		FaceSPtrVector faces;
-		for (const OBJFace& f : g.getFaces()) {
+		for (const OBJFace& f : g->getFaces()) {
 
 			VertexSPtrVector vvv;
 			for (unsigned int i : f.getVertexIndices()) {

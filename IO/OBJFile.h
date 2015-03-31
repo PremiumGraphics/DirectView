@@ -120,9 +120,6 @@ struct OBJGroup {
 		return
 			name == rhs.name &&
 			faces == rhs.faces &&
-			positions == rhs.positions &&
-			normals == rhs.normals &&
-			texCoords == rhs.texCoords &&
 			materials == rhs.materials;
 	}
 
@@ -138,9 +135,9 @@ struct OBJGroup {
 
 	void setNormals(const std::vector< Math::Vector3d >& normals) { this->normals = normals; }
 
-	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
-
 	std::vector< Math::Vector3d > getNormals() const { return normals; }
+
+	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
 	void setTexCoords(const std::vector< Math::Vector3d >& texCoords) { this->texCoords = texCoords; }
 
@@ -148,25 +145,28 @@ struct OBJGroup {
 
 	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
-	void readVertices(const std::string& str);
+	Math::Vector3dVector readVertices(const std::string& str);
 
-	void readNormals(const std::string& str);
+	Math::Vector3dVector readNormals(const std::string& str);
 
-	void readTexCoords(const std::string& str);
+	Math::Vector3dVector readTexCoords(const std::string& str);
 
 	void readFaces(const std::string& str);
 
 
 private:
 	std::string name;
-	std::vector< Math::Vector3d > positions;
-	std::vector< Math::Vector3d > normals;
-	std::vector< Math::Vector3d > texCoords;
 	std::vector< OBJFace > faces;
 	std::vector< std::string > materials;
 	OBJMTLLib mtlLib;
+	Math::Vector3dVector positions;
+	Math::Vector3dVector normals;
+	Math::Vector3dVector texCoords;
 
 };
+
+typedef std::shared_ptr< OBJGroup > OBJGroupSPtr;
+typedef std::vector< OBJGroupSPtr > OBJGroupSPtrVector;
 
 struct OBJFile {
 	bool isValid() const {
@@ -177,15 +177,15 @@ struct OBJFile {
 
 	std::string getComment() const { return comment; }
 
-	void setGroups(const std::vector< OBJGroup >& groups) { this->groups = groups; }
+	void setGroups(const OBJGroupSPtrVector& groups) { this->groups = groups; }
 
-	std::vector< OBJGroup > getGroups() const { return groups; }
+	OBJGroupSPtrVector getGroups() const { return groups; }
 
 	std::string getMaterialName() const { return materialName; }
 
 private:
 	std::string comment;
-	std::vector< OBJGroup > groups;
+	OBJGroupSPtrVector groups;
 	std::string materialName;
 
 };

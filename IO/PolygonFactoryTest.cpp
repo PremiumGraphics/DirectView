@@ -26,10 +26,10 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	OBJFace face;
 	face.setVertexIndices({ 0, 1, 2, 3 });
 	face.setNormalIndices({ 0, 1, 2, 3 });
-	OBJGroup group;
-	group.setPositions(positions);
-	group.setNormals(normals);
-	group.setFaces({ face });
+	OBJGroupSPtr group( new OBJGroup() );
+	group->setPositions(positions);
+	group->setNormals(normals);
+	group->setFaces({ face });
 	file.setGroups({ group });
 
 	PolygonBuilderSPtr builder(new PolygonBuilder());

@@ -99,11 +99,15 @@ OBJFile OBJFileReader::read(std::istream& stream )
 
 	std::string header = Helper::read< std::string >(stream);
 
-	OBJGroup group;
+	OBJGroupSPtr group( new OBJGroup() );
 
 	std::vector< std::string > materials;
 
-	std::vector<OBJGroup> groups;
+	OBJGroupSPtrVector groups;
+
+	Vector3dVector positions;
+	Vector3dVector normals;
+	Vector3dVector texCoords;
 
 	while( !stream.eof() ) {
 		if( header == "#" ) {
@@ -113,31 +117,38 @@ OBJFile OBJFileReader::read(std::istream& stream )
 		else if( header == "mtllib" ) {
 			std::getline(stream, str);
 			OBJMTLLib lib(str);
-			group.setMtlLib( lib );
+			group->setMtlLib( lib );
 			//libs.push_back(lib);
 		}
 		else if( header == "v" ) {
 			std::getline(stream, str);
-			group.readVertices(str);
+			const Vector3dVector& vertices = group->readVertices(str);
+			positions.insert(positions.end(), vertices.begin(), vertices.end());
 		}
 		else if( header == "vt" ) {
 			std::getline(stream, str);
-			group.readTexCoords(str);
+			const Vector3dVector& texs = group->readTexCoords(str);
+			texCoords.insert(texCoords.end(), texs.begin(), texs.end() );
 		}
 		else if( header == "vn" || header == "-vn" ) {
 			std::getline(stream, str);
-			group.readNormals( str );
+			const Vector3dVector& norms = group->readNormals( str );
+			normals.insert(normals.end(), norms.begin(), norms.end());
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
-			group.readFaces(str);
+			group->readFaces(str);
 		}
 		else if( header == "g") {
+			group->setPositions(positions);
+			group->setNormals(normals);
+			group->setTexCoords(texCoords);
+			
 			groups.push_back(group);
 
 			std::getline( stream, str);
 
-			group = OBJGroup( str );
+			group = OBJGroupSPtr(new OBJGroup());
 		}
 		else if( header == "usemtl" ) {
 			std::getline(stream, str);
@@ -147,7 +158,12 @@ OBJFile OBJFileReader::read(std::istream& stream )
 		}
 		header = Helper::read< std::string >(stream);
 	}
-	group.setMaterials(materials);
+
+	group->setPositions(positions);
+	group->setNormals(normals);
+	group->setTexCoords(texCoords);
+
+	group->setMaterials(materials);
 
 	groups.push_back(group);
 
@@ -157,8 +173,9 @@ OBJFile OBJFileReader::read(std::istream& stream )
 }
 
 
-void OBJGroup::readVertices(const std::string& str)
+Vector3dVector OBJGroup::readVertices(const std::string& str)
 {
+	Vector3dVector positions;
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "v");
 
@@ -172,10 +189,12 @@ void OBJGroup::readVertices(const std::string& str)
 	else {
 		positions.push_back( Vector3d(x, y, z) );
 	}
+	return positions;
 }
 
-void OBJGroup::readNormals(const std::string& str)
+Vector3dVector OBJGroup::readNormals(const std::string& str)
 {
+	Vector3dVector normals;
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "vn");
 	const float x = ::std::stof(strs[0].c_str());
@@ -183,10 +202,13 @@ void OBJGroup::readNormals(const std::string& str)
 	const float z = ::std::stof(strs[2].c_str());
 	//assert( Tolerances::isEqualLoosely(Vector3d(x, y, z).getLengthSquared(), 1.0f));
 	normals.push_back( Vector3d(x, y, z) );
+	return normals;
 }
 
-void OBJGroup::readTexCoords(const std::string& str)
+Vector3dVector OBJGroup::readTexCoords(const std::string& str)
 {
+	Vector3dVector texCoords;
+
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "vt");
 	const float u = ::std::stof(strs[0]);
@@ -198,6 +220,7 @@ void OBJGroup::readTexCoords(const std::string& str)
 	else {
 		texCoords.push_back( Vector3d(u, v, 0.0f) );
 	}
+	return texCoords;
 }
 
 
@@ -223,24 +246,24 @@ bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
 	//stream << "mtllib" << " " << mtlFileName << std::endl;
 
 
-	for (const OBJGroup& g : file.getGroups() ) {
+	for (const OBJGroupSPtr& g : file.getGroups() ) {
 		//stream << "g " << g.getName() << std::endl;
-		strs.push_back("g " + g.getName());
+		strs.push_back("g " + g->getName());
 		//strs.push_back("usemtl " + materialName);
-		for (const Vector3d& pos : g.getPositions()) {
+		for (const Vector3d& pos : g->getPositions()) {
 			char s[256];
 			sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ() );
 			strs.push_back(s);
 		}
-		for (const Vector3d& tex : g.getTexCoords() ) {
+		for (const Vector3d& tex : g->getTexCoords() ) {
 			char s[256];
 			sprintf(s, "vt %.4lf %.4lf %.4lf", tex.getX(), tex.getY(), tex.getZ());
 			strs.push_back(s);
 		}
-		for (const Vector3d& n : g.getNormals() ) {
+		for (const Vector3d& n : g->getNormals() ) {
 			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );
 		}
-		for (const OBJFace& f : g.getFaces()) {
+		for (const OBJFace& f : g->getFaces()) {
 			std::string s = f.write(stream);
 			strs.push_back(s);
 		}
