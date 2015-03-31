@@ -64,12 +64,12 @@ struct OBJFace
 
 	std::string write(std::ostream& stream) const;
 
-private:
+	std::string usemtlname;
 
+private:
 	std::vector<unsigned int> vertexIndices;
 	std::vector<unsigned int> texIndices;
 	std::vector<unsigned int> normalIndices;
-
 };
 
 
@@ -145,13 +145,11 @@ struct OBJGroup {
 
 	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
-	Math::Vector3dVector readVertices(const std::string& str);
+	Math::Vector3d readVertices(const std::string& str);
 
-	Math::Vector3dVector readNormals(const std::string& str);
+	Math::Vector3d readVector3d(const std::string& str);
 
-	Math::Vector3dVector readTexCoords(const std::string& str);
-
-	void readFaces(const std::string& str);
+	OBJFace readFaces(const std::string& str);
 
 
 private:

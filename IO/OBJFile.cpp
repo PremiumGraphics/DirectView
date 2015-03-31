@@ -44,8 +44,7 @@ std::string OBJFace::write(std::ostream& stream) const
 	return s;
 }
 
-
-void OBJGroup::readFaces(const std::string& str)
+OBJFace OBJGroup::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
@@ -53,7 +52,6 @@ void OBJGroup::readFaces(const std::string& str)
 	std::vector<unsigned int> texIndices;
 	std::vector<unsigned int> normalIndices;
 	//assert(strs.front() == "f");
-	OBJFace face;
 	for (unsigned int i = 0; i < strs.size(); ++i) {
 		if (strs[i].empty()) {
 			continue;
@@ -75,7 +73,7 @@ void OBJGroup::readFaces(const std::string& str)
 			normalIndices.push_back(index);
 		}
 	}
-	faces.push_back( OBJFace( vertexIndices, texIndices, normalIndices ) );
+	return OBJFace( vertexIndices, texIndices, normalIndices );
 }
 
 
@@ -109,6 +107,9 @@ OBJFile OBJFileReader::read(std::istream& stream )
 	Vector3dVector normals;
 	Vector3dVector texCoords;
 
+	std::string useMtlName;
+	std::vector<OBJFace> faces;
+
 	while( !stream.eof() ) {
 		if( header == "#" ) {
 			std::getline( stream, str );
@@ -122,22 +123,19 @@ OBJFile OBJFileReader::read(std::istream& stream )
 		}
 		else if( header == "v" ) {
 			std::getline(stream, str);
-			const Vector3dVector& vertices = group->readVertices(str);
-			positions.insert(positions.end(), vertices.begin(), vertices.end());
+			positions.push_back( group->readVertices(str) );
 		}
 		else if( header == "vt" ) {
 			std::getline(stream, str);
-			const Vector3dVector& texs = group->readTexCoords(str);
-			texCoords.insert(texCoords.end(), texs.begin(), texs.end() );
+			texCoords.push_back( group->readVector3d( str ) );
 		}
 		else if( header == "vn" || header == "-vn" ) {
 			std::getline(stream, str);
-			const Vector3dVector& norms = group->readNormals( str );
-			normals.insert(normals.end(), norms.begin(), norms.end());
+			normals.push_back(group->readVector3d(str));
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
-			group->readFaces(str);
+			faces.push_back( group->readFaces(str) );
 		}
 		else if( header == "g") {
 			group->setPositions(positions);
@@ -155,6 +153,7 @@ OBJFile OBJFileReader::read(std::istream& stream )
 			//OBJMaterial material(str);
 			const std::string name = str;
 			materials.push_back(name);
+			useMtlName = name;
 		}
 		header = Helper::read< std::string >(stream);
 	}
@@ -162,7 +161,7 @@ OBJFile OBJFileReader::read(std::istream& stream )
 	group->setPositions(positions);
 	group->setNormals(normals);
 	group->setTexCoords(texCoords);
-
+	group->setFaces(faces);
 	group->setMaterials(materials);
 
 	groups.push_back(group);
@@ -173,9 +172,8 @@ OBJFile OBJFileReader::read(std::istream& stream )
 }
 
 
-Vector3dVector OBJGroup::readVertices(const std::string& str)
+Vector3d OBJGroup::readVertices(const std::string& str)
 {
-	Vector3dVector positions;
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "v");
 
@@ -184,43 +182,26 @@ Vector3dVector OBJGroup::readVertices(const std::string& str)
 	const float z = std::stof(strs[2].c_str());
 	if (strs.size() == 4) {
 		const float w = ::std::stof(strs[3].c_str());
-		positions.push_back( Vector3d(x, y, z) );
+		return Vector3d(x, y, z);
 	}
 	else {
-		positions.push_back( Vector3d(x, y, z) );
+		return Vector3d(x, y, z);
 	}
-	return positions;
 }
 
-Vector3dVector OBJGroup::readNormals(const std::string& str)
+Vector3d OBJGroup::readVector3d(const std::string& str)
 {
-	Vector3dVector normals;
-	const std::vector< std::string >& strs = Helper::split(str, ' ');
-	//assert(strs.front() == "vn");
-	const float x = ::std::stof(strs[0].c_str());
-	const float y = ::std::stof(strs[1].c_str());
-	const float z = ::std::stof(strs[2].c_str());
-	//assert( Tolerances::isEqualLoosely(Vector3d(x, y, z).getLengthSquared(), 1.0f));
-	normals.push_back( Vector3d(x, y, z) );
-	return normals;
-}
-
-Vector3dVector OBJGroup::readTexCoords(const std::string& str)
-{
-	Vector3dVector texCoords;
-
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "vt");
 	const float u = ::std::stof(strs[0]);
 	const float v = ::std::stof(strs[1]);
 	if (strs.size() == 3) {
 		const float w = std::stof(strs[2]);
-		texCoords.push_back( Vector3d(u, v, w) );
+		return Vector3d(u, v, w);
 	}
 	else {
-		texCoords.push_back( Vector3d(u, v, 0.0f) );
+		return Vector3d(u, v, 0.0f);
 	}
-	return texCoords;
 }
 
 

@@ -357,3 +357,52 @@ TEST(OBJFileTest, TestExampleGroups)
 	const OBJFile& file = reader.read(stream);
 	EXPECT_EQ( 7, file.getGroups().size() );
 }
+
+TEST(OBJFileTest, TestExampleSmoothingGroup)
+{
+	std::stringstream stream;
+	stream
+		<< "v 0.000000 2.000000 0.000000" << std::endl
+		<< "v 0.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 2.000000 0.000000" << std::endl
+		<< "v 4.000000 0.000000 -1.255298" << std::endl
+		<< "v 4.000000 2.000000 -1.255298" << std::endl
+		<< "# 6 vertices" << std::endl
+		<< "g all" << std::endl
+		<< "s 1" << std::endl
+		<< "f 1 2 3 4" << std::endl
+		<< "f 4 3 5 6" << std::endl
+		<< "# 2 elements" << std::endl;
+
+	OBJFileReader reader;
+	const OBJFile& file = reader.read(stream);
+	EXPECT_EQ(2, file.getGroups().size());
+	EXPECT_EQ(6, file.getGroups().front()->getPositions().size());
+	EXPECT_EQ(2, file.getGroups().back()->getFaces().size());
+}
+
+TEST(OBJFileTest, TestExampleTextureMappedSquare)
+{
+	std::stringstream stream;
+	stream
+		<< "mtllib master.mtl" << std::endl
+		<< "v 0.000000 2.000000 0.000000" << std::endl
+		<< "v 0.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 2.000000 0.000000" << std::endl
+		<< "vt 0.000000 1.000000 0.000000" << std::endl
+		<< "vt 0.000000 0.000000 0.000000" << std::endl
+		<< "vt 1.000000 0.000000 0.000000" << std::endl
+		<< "vt 1.000000 1.000000 0.000000" << std::endl
+		<< "# 4 vertices" << std::endl
+		<< "usemtl wood" << std::endl
+		<< "f 1/1 2/2 3/3 4/4" << std::endl
+		<< "# 1 element" << std::endl;
+
+	OBJFileReader reader;
+	const OBJFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.getGroups().size());
+	EXPECT_EQ(4, file.getGroups().front()->getPositions().size());
+	EXPECT_EQ(4, file.getGroups().front()->getTexCoords().size());
+}
