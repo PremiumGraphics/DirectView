@@ -114,6 +114,10 @@ MTLFile MTLFileReader::read(std::istream& stream)
 			const int i = Helper::read< int >(stream);
 			mtls.back().setIllumination( MTL::Illumination(i));
 		}
+		else if (header == "Ni") {
+			const float d = Helper::read<float>(stream);
+			mtls.back().setOpticalDensity( d );
+		}
 
 		stream >> header;
 	}

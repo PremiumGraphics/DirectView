@@ -4,11 +4,12 @@
 #include <map>
 
 #include "../Graphics/Material.h"
+#include "../Graphics/ColorRGB.h"
 
 #include "../Math/Vector3d.h"
 
-#include "../Graphics/ColorRGB.h"
 
+#include <cassert>
 
 #include <fstream>
 #include <string>
@@ -155,6 +156,13 @@ struct MTL {
 
 	float getTransparent() const { return transparent; }
 
+	void setOpticalDensity(const float d) {
+		assert( ( 0.001f <= d ) && (d <= 10.0f) );
+		this->opticalDensity = d;
+	}
+
+	float getOpticalDensity() const { return opticalDensity; }
+
 	bool operator==(const MTL& rhs) const {
 		return
 			name == rhs.name &&
@@ -180,7 +188,7 @@ private:
 	std::string bumpTexture;
 	float specularExponent;
 	float transparent;
-
+	float opticalDensity;
 };
 
 class MTLFile {

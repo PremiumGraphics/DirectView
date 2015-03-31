@@ -189,9 +189,13 @@ TEST(MTLFileReaderTest, TestExample3)
 
 	const MTLFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.mtls.size());
-	EXPECT_EQ("diss_green", file.mtls.front().getName());
-	EXPECT_FLOAT_EQ(0.8f, file.mtls.front().getTransparent());
 
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("diss_green", mtl.getName());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
+	EXPECT_FLOAT_EQ(0.8f, mtl.getTransparent());
+	EXPECT_EQ(1, mtl.getIllumination());
 }
 
 TEST(MTLFileReaderTest, TestExample4)
@@ -208,5 +212,104 @@ TEST(MTLFileReaderTest, TestExample4)
 
 	const MTLFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.mtls.size());
-	EXPECT_FLOAT_EQ(200.0f, file.mtls.front().getSpecularExponent());
+
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("shiny_green", mtl.getName());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
+	EXPECT_EQ(ColorRGB<float>(1.0, 1.0, 1.0), mtl.getSpecular());
+	EXPECT_FLOAT_EQ(200.0f, mtl.getSpecularExponent());
+	EXPECT_EQ(1, mtl.getIllumination());
+}
+
+TEST(MTLFileReaderTest, TestExample5)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl green_mirror" << std::endl
+		<< "Ka 0.0000 1.0000 0.0000" << std::endl
+		<< "Kd 0.0000 1.0000 0.0000" << std::endl
+		<< "Ks 0.0000 1.0000 0.0000" << std::endl
+		<< "Ns 200.0000" << std::endl
+		<< "illum 3" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+
+	EXPECT_EQ(1, file.mtls.size());
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("green_mirror", mtl.getName());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
+	EXPECT_EQ(ColorRGB<float>(0.0, 1.0, 0.0), mtl.getSpecular());
+	EXPECT_FLOAT_EQ(200.0f, mtl.getSpecularExponent());
+	EXPECT_EQ(3, mtl.getIllumination());
+}
+
+TEST(MTLFileReaderTest, TestExample6)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl fake_windsh" << std::endl
+		<< "Ka 0.0000 0.0000 0.0000" << std::endl
+		<< "Kd 0.0000 0.0000 0.0000" << std::endl
+		<< "Ks 0.9000 0.9000 0.9000" << std::endl
+		<< "d 0.1000" << std::endl
+		<< "Ns 200" << std::endl
+		<< "illum 4" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("fake_windsh", mtl.getName());
+	EXPECT_EQ(ColorRGB<float>(0.0, 0.0, 0.0), mtl.getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0, 0.0, 0.0), mtl.getDiffuse());
+	EXPECT_EQ(ColorRGB<float>(0.9f, 0.9f, 0.9f), mtl.getSpecular());
+	EXPECT_FLOAT_EQ(200.0f, mtl.getSpecularExponent());
+	EXPECT_EQ(4, mtl.getIllumination());
+}
+
+TEST(MTLFileReaderTest, TestExample7)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl fresnel_blue" << std::endl
+		<< "Ka 0.0000 0.0000 0.0000" << std::endl
+		<< "Kd 0.0000 0.0000 0.0000" << std::endl
+		<< "Ks 0.6180 0.8760 0.1430" << std::endl
+		<< "Ns 200" << std::endl
+		<< "illum 5" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("fresnel_blue", mtl.getName());
+	EXPECT_EQ(ColorRGB<float>(0.0f, 0.0f, 0.0f), mtl.getAmbient());
+	EXPECT_EQ(ColorRGB<float>(0.0f, 0.0f, 0.0f), mtl.getDiffuse());
+	EXPECT_EQ(ColorRGB<float>(0.6180f, 0.8760f, 0.1430f), mtl.getSpecular());
+	EXPECT_FLOAT_EQ(200.0f, mtl.getSpecularExponent());
+	EXPECT_EQ(5, mtl.getIllumination());
+}
+
+TEST(MTLFileReaderTest, TestExample8)
+{
+	MTLFileReader reader;
+	std::stringstream stream;
+	stream
+		<< "newmtl real_windsh" << std::endl
+		<< "Ka 0.0000 0.0000 0.0000" << std::endl
+		<< "Kd 0.0000 0.0000 0.0000" << std::endl
+		<< "Ks 0.0000 0.0000 0.0000" << std::endl
+		<< "Tf 1.0000 1.0000 1.0000" << std::endl
+		<< "Ns 200" << std::endl
+		<< "Ni 1.2000" << std::endl
+		<< "illum 6" << std::endl;
+
+	const MTLFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.mtls.size());
+	const MTL& mtl = file.mtls.front();
+	EXPECT_EQ("real_windsh", mtl.getName());
+	EXPECT_FLOAT_EQ(1.2f, mtl.getOpticalDensity());
 }
