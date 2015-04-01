@@ -27,14 +27,6 @@ using namespace Crystal::IO;
 	return os;
 }
 
-::std::ostream& operator<<(::std::ostream& os, const OBJMTLLib& lib)
-{
-	os << "name " << lib.getName() << std::endl;
-	for (const std::string& m : lib.getMaterials()) {
-		os << m << std::endl;
-	}
-	return os;
-}
 
 /*
 ::std::ostream& operator<<(::std::ostream& os, const OBJFile& file) {
@@ -314,7 +306,8 @@ TEST(OBJFileTest, TestWriteGroups)
 	}
 	*/
 
-TEST(OBJFileTest, TestExample1)
+// from http://www.martinreddy.net/gfx/3d/OBJ.spec
+TEST(OBJFileTest, TestExampleSquare)
 {
 	std::stringstream stream;
 	stream
@@ -325,7 +318,51 @@ TEST(OBJFileTest, TestExample1)
 		<< "f 1 2 3 4" << std::endl;
 }
 
-// from http://www.martinreddy.net/gfx/3d/OBJ.spec
+TEST(OBJFileTest, TestExampleCube)
+{
+	std::stringstream stream;
+	stream
+		<< "v 0.000000 2.000000 2.000000" << std::endl
+		<< "v 0.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 2.000000 2.000000" << std::endl
+		<< "v 0.000000 2.000000 0.000000" << std::endl
+		<< "v 0.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 2.000000 0.000000" << std::endl
+		<< "f 1 2 3 4" << std::endl
+		<< "f 8 7 6 5" << std::endl
+		<< "f 4 3 7 8" << std::endl
+		<< "f 5 1 4 8" << std::endl
+		<< "f 5 6 2 1" << std::endl
+		<< "f 2 6 7 3" << std::endl;
+
+	OBJFileReader reader;
+	const OBJFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.getGroups().size());
+	EXPECT_EQ(8, file.getGroups().front()->getPositions().size());
+	EXPECT_EQ(6, file.getGroups().front()->getFaces().size());
+}
+
+TEST(OBJFileTest, TestNegativeReferenceNumber)
+{
+	std::stringstream stream;
+	stream
+		<< "v 0.000000 2.000000 2.000000" << std::endl
+		<< "v 0.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 2.000000 2.000000" << std::endl
+		<< "f -4 -3 -2 -1" << std::endl;
+
+	OBJFileReader reader;
+	const OBJFile& file = reader.read(stream);
+	EXPECT_EQ(1, file.getGroups().size());
+	EXPECT_EQ(4, file.getGroups().front()->getPositions().size());
+	EXPECT_EQ(1, file.getGroups().front()->getFaces().size());
+	std::vector<int> expected{ -4, - 3, -2, -1 };
+	EXPECT_EQ(expected, file.getGroups().front()->getFaces().front().getVertexIndices());
+}
+
 TEST(OBJFileTest, TestExampleGroups)
 {
 	std::stringstream stream;

@@ -48,9 +48,9 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
-	std::vector<unsigned int> vertexIndices;
-	std::vector<unsigned int> texIndices;
-	std::vector<unsigned int> normalIndices;
+	OBJIndices vertexIndices;
+	OBJIndices texIndices;
+	OBJIndices normalIndices;
 	//assert(strs.front() == "f");
 	for (unsigned int i = 0; i < strs.size(); ++i) {
 		if (strs[i].empty()) {

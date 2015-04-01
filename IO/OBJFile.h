@@ -12,28 +12,30 @@
 namespace Crystal {
 	namespace IO {
 
+typedef std::vector<int> OBJIndices;
+
 struct OBJFace
 {
 	OBJFace()
 	{}
 
-	OBJFace(const std::vector<unsigned int> vertexIndices, const std::vector<unsigned int>& texIndices = {}, const std::vector<unsigned int>& normalIndices = {}) :
+	OBJFace(const OBJIndices& vertexIndices, const OBJIndices& texIndices = {}, const OBJIndices& normalIndices = {}) :
 		vertexIndices( vertexIndices ),
 		texIndices( texIndices ),
 		normalIndices( normalIndices )
 	{}
 
-	void setVertexIndices(const std::vector<unsigned int>& vertexIndices) { this->vertexIndices = vertexIndices; }
+	void setVertexIndices(const OBJIndices& vertexIndices) { this->vertexIndices = vertexIndices; }
 
-	std::vector<unsigned int> getVertexIndices() const { return vertexIndices; }
+	OBJIndices getVertexIndices() const { return vertexIndices; }
 
-	void setTexIndices(const std::vector<unsigned int>& texIndices) { this->texIndices = texIndices; }
+	void setTexIndices(const OBJIndices& texIndices) { this->texIndices = texIndices; }
 
-	std::vector<unsigned int> getTexIndices() const { return texIndices; }
+	OBJIndices getTexIndices() const { return texIndices; }
 
-	void setNormalIndices(const std::vector<unsigned int>& normalIndices) { this->normalIndices = normalIndices; }
+	void setNormalIndices(const OBJIndices& normalIndices) { this->normalIndices = normalIndices; }
 
-	std::vector<unsigned int> getNormalIndices() const { return normalIndices; }
+	OBJIndices getNormalIndices() const { return normalIndices; }
 
 	bool hasTexIndices() const {
 		return !texIndices.empty();
@@ -67,9 +69,9 @@ struct OBJFace
 	std::string usemtlname;
 
 private:
-	std::vector<unsigned int> vertexIndices;
-	std::vector<unsigned int> texIndices;
-	std::vector<unsigned int> normalIndices;
+	OBJIndices vertexIndices;
+	OBJIndices texIndices;
+	OBJIndices normalIndices;
 };
 
 
@@ -223,6 +225,15 @@ public:
 };
 
 
+
+static ::std::ostream& operator<<(::std::ostream& os, const OBJMTLLib& lib)
+{
+	os << "name " << lib.getName() << std::endl;
+	for (const std::string& m : lib.getMaterials()) {
+		os << m << std::endl;
+	}
+	return os;
+}
 
 	}
 }
