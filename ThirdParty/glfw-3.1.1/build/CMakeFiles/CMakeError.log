@@ -1,0 +1,45 @@
+Determining if files pthread.h exist failed with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec3446619213.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/04/06 11:57:45 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3446619213.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec3446619213.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec3446619213.dir\Debug\cmTryCom.F5224D3F.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec3446619213.dir\Debug\cmTryCom.F5224D3F.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3446619213.dir\Debug\\" /Fd"cmTryCompileExec3446619213.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\CheckIncludeFiles.c"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3446619213.dir\Debug\\" /Fd"cmTryCompileExec3446619213.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\CheckIncludeFiles.c"
+  
+  CheckIncludeFiles.c
+C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\CheckIncludeFiles.c(2): fatal error C1083: include ファイルを開けません。'pthread.h':No such file or directory [C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3446619213.vcxproj]
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3446619213.vcxproj" (既定のターゲット) のビルドが終了しました -- 失敗。
+
+ビルドに失敗しました。
+
+"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3446619213.vcxproj" (既定のターゲット) (1) ->
+(ClCompile ターゲット) -> 
+  C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\CheckIncludeFiles.c(2): fatal error C1083: include ファイルを開けません。'pthread.h':No such file or directory [C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3446619213.vcxproj]
+
+    0 個の警告
+    1 エラー
+
+経過時間 00:00:00.23
+
+Source:
+/* */
+#include <pthread.h>
+
+
+int main(void){return 0;}
+

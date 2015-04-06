@@ -1,0 +1,125 @@
+The system is: Windows - 6.1 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/04/06 11:57:42 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\3.1.1\CompilerIdC\CompilerIdC.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "Debug\" を作成しています。
+  ディレクトリ "Debug\CompilerIdC.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "Debug\CompilerIdC.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /nologo /W0 /WX- /Od /Oy- /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\3.1.1\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe
+FinalizeBuildStatus:
+  ファイル "Debug\CompilerIdC.tlog\unsuccessfulbuild" を削除しています。
+  "Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\3.1.1\CompilerIdC\CompilerIdC.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.43
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/3.1.1/CompilerIdC/CompilerIdC.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec359629748.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/04/06 11:57:43 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec359629748.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec359629748.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec359629748.dir\Debug\cmTryCom.3AC51307.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec359629748.dir\Debug\cmTryCom.3AC51307.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec359629748.dir\Debug\\" /Fd"cmTryCompileExec359629748.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec359629748.dir\Debug\\" /Fd"cmTryCompileExec359629748.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  
+  testCCompiler.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec359629748.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec359629748.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec359629748.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec359629748.dir\Debug\testCCompiler.obj
+  cmTryCompileExec359629748.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec359629748.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec359629748.dir\Debug\cmTryCom.3AC51307.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec359629748.dir\Debug\cmTryCom.3AC51307.tlog\cmTryCompileExec359629748.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec359629748.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.71
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec3343583838.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/04/06 11:57:44 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3343583838.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec3343583838.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec3343583838.dir\Debug\cmTryCom.3AC36D63.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec3343583838.dir\Debug\cmTryCom.3AC36D63.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3343583838.dir\Debug\\" /Fd"cmTryCompileExec3343583838.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCCompilerABI.c"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3343583838.dir\Debug\\" /Fd"cmTryCompileExec3343583838.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCCompilerABI.c"
+  
+  CMakeCCompilerABI.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3343583838.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3343583838.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/glfw-3.1.1/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3343583838.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3343583838.dir\Debug\CMakeCCompilerABI.obj
+  cmTryCompileExec3343583838.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3343583838.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec3343583838.dir\Debug\cmTryCom.3AC36D63.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec3343583838.dir\Debug\cmTryCom.3AC36D63.tlog\cmTryCompileExec3343583838.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\glfw-3.1.1\build\CMakeFiles\CMakeTmp\cmTryCompileExec3343583838.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.49
+
+
