@@ -10,9 +10,6 @@
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
-    <ClCompile Include="WireFrameRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="NormalRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
-    <ClInclude Include="WireFrameRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="NormalRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>

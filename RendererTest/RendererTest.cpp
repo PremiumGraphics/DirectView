@@ -12,14 +12,12 @@ using namespace Crystal::Graphics;
 
 int main(void)
 {
-	GLFWwindow* window;
-
-	if (!glfwInit())
+	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
+	}
 
-	window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
-	if (!window)
-	{
+	GLFWwindow* window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
@@ -41,20 +39,17 @@ int main(void)
 	list.setIds(ids);
 	list.setColors(colors);
 
-	while (!glfwWindowShouldClose(window))
-	{
-		float ratio;
+	while (!glfwWindowShouldClose(window)) {
 		int width, height;
 
 		glfwGetFramebufferSize(window, &width, &height);
-		ratio = width / (float)height;
+		//ratio = width / (float)height;
 
 		glViewport(0, 0, width, height);
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
-
 
 		renderer.render(width, height, camera, list);
 

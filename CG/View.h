@@ -5,7 +5,7 @@
 
 #include "Frame.h"
 
-#include "../Graphics/WireFrameRenderer.h"
+#include "../CrystalShader/WireFrameRenderer.h"
 #include "../Graphics/NormalRenderer.h"
 #include "../Graphics/IDRenderer.h"
 #include "../Graphics/PointRenderer.h"
