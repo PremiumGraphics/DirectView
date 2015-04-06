@@ -2,7 +2,7 @@
 
 #include "SmoothRenderer.h"
 
-#include "Material.h"
+#include "../Graphics/Material.h"
 
 #include <cassert>
 

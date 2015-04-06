@@ -74,9 +74,19 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FastPointRenderer.cpp" />
+    <ClCompile Include="IDRenderer.cpp" />
+    <ClCompile Include="NormalRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
+    <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="WireFrameRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FastPointRenderer.h" />
+    <ClInclude Include="IDRenderer.h" />
+    <ClInclude Include="NormalRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
+    <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="WireFrameRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

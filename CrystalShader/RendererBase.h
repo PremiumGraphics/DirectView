@@ -1,8 +1,8 @@
 #ifndef __CRYSTAL_GRAPHICS_RENDERER_BASE_H__
 #define __CRYSTAL_GRAPHICS_RENDERER_BASE_H__
 
-#include "Camera.h"
-#include "DisplayList.h"
+#include "../Graphics/Camera.h"
+#include "../Graphics/DisplayList.h"
 
 namespace Crystal {
 	namespace Math {

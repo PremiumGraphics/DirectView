@@ -8,8 +8,8 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/ShaderObject.h"
 #include "../Graphics/Camera.h"
-#include "DisplayList.h"
-#include "Material.h"
+#include "../Graphics/DisplayList.h"
+#include "../Graphics/Material.h"
 
 namespace Crystal {
 	namespace Math {

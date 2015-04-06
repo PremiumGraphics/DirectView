@@ -88,17 +88,12 @@
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
-    <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
-    <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="NormalRenderer.cpp" />
-    <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
-    <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,21 +105,15 @@
     <ClInclude Include="ColorRGBAMap.h" />
     <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Face.h" />
-    <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="HalfEdge.h" />
-    <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="ImageRGB.h" />
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="NormalRenderer.h" />
-    <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonBuilder.h" />
-    <ClInclude Include="RendererBase.h" />
     <ClInclude Include="ShaderObject.h" />
-    <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

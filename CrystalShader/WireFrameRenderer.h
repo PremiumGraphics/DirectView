@@ -8,7 +8,7 @@
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Camera.h"
 
-#include "../Graphics/RendererBase.h"
+#include "RendererBase.h"
 
 namespace Crystal {
 	namespace Math {

@@ -10,21 +10,6 @@
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
-    <ClCompile Include="NormalRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="IDRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="PointRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="SmoothRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="FastPointRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,28 +31,5 @@
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
-    <ClInclude Include="NormalRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="IDRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererBase.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="PointRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="SmoothRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="FastPointRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{dc1ed882-cd31-4e9b-97b1-af762f81252c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>
