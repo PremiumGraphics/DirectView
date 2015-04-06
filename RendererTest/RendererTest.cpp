@@ -1,4 +1,4 @@
-#include "../Graphics/WireFrameRenderer.h"
+#include "../CrystalShader/WireFrameRenderer.h"
 
 #include "../ThirdParty/glfw-3.1.1/include/GLFW/glfw3.h"
 
@@ -9,6 +9,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 
 int main(void)
 {

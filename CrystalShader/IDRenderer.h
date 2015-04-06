@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_ID_RENDERER_H__
-#define __CRYSTAL_GRAPHICS_ID_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_ID_RENDERER_H__
+#define __CRYSTAL_SHADER_ID_RENDERER_H__
 
 #include <map>
 #include <vector>
@@ -15,7 +15,7 @@ namespace Crystal {
 	namespace Math {
 		class Vector3d;
 	}
-	namespace Graphics {
+	namespace Shader {
 
 class IDRenderer : public RendererBase {
 public:

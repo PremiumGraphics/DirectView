@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_FAST_POINT_RENDERER_H__
-#define __CRYSTAL_GRAPHICS_FAST_POINT_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_FAST_POINT_RENDERER_H__
+#define __CRYSTAL_SHADER_FAST_POINT_RENDERER_H__
 
 #include "../Graphics/ShaderObject.h"
 
@@ -7,7 +7,7 @@
 #include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
-	namespace Graphics {
+	namespace Shader {
 
 class FastPointRenderer {
 public:
@@ -18,7 +18,7 @@ public:
 
 	void build();
 
-	void render( const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const std::vector<float>& values, const float min, const float max, const std::vector<ColorRGBA<float> >& texColors, const float pointSize );
+	void render( const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const std::vector<float>& values, const float min, const float max, const std::vector<Graphics::ColorRGBA<float> >& texColors, const float pointSize );
 
 private:
 	Graphics::ShaderObject shader;

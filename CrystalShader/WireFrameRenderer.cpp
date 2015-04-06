@@ -4,6 +4,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 
 WireFrameRenderer::~WireFrameRenderer()
 {
@@ -11,7 +12,7 @@ WireFrameRenderer::~WireFrameRenderer()
 
 void WireFrameRenderer::build()
 {
-	Shader vShader;
+	Graphics::Shader vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -26,9 +27,9 @@ void WireFrameRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile( vStr, Shader::Stage::VERTEX );
+	vShader.compile( vStr, Graphics::Shader::Stage::VERTEX );
 
-	Shader fShader;
+	Graphics::Shader fShader;
 
 	const std::string fStr =
 		"#version 150			\n"
@@ -41,7 +42,7 @@ void WireFrameRenderer::build()
 		"}						\n"
 		;
 
-	fShader.compile( fStr, Shader::Stage::FRAGMENT );
+	fShader.compile( fStr, Graphics::Shader::Stage::FRAGMENT );
 
 	shader.link( vShader, fShader );
 
@@ -112,7 +113,7 @@ SurfaceRenderer::~SurfaceRenderer()
 
 void SurfaceRenderer::build()
 {
-	Shader vShader;
+	Graphics::Shader vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -127,9 +128,9 @@ void SurfaceRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile(vStr, Shader::Stage::VERTEX);
+	vShader.compile(vStr, Graphics::Shader::Stage::VERTEX);
 
-	Shader fShader;
+	Graphics::Shader fShader;
 
 	const std::string fStr =
 		"#version 150			\n"
@@ -142,7 +143,7 @@ void SurfaceRenderer::build()
 		"}						\n"
 		;
 
-	fShader.compile(fStr, Shader::Stage::FRAGMENT);
+	fShader.compile(fStr, Graphics::Shader::Stage::FRAGMENT);
 
 	shader.link(vShader, fShader);
 

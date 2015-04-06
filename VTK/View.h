@@ -61,7 +61,7 @@ private:
 
 	WireFrameRenderer meshRenderer;
 	Graphics::VectorRenderer vectorRenderer;
-	Graphics::FastPointRenderer pointRenderer;
+	Shader::FastPointRenderer pointRenderer;
 
 	std::vector<float> positions;
 	std::vector<float> cellCenters;

@@ -4,6 +4,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 
 IDRenderer::IDRenderer()
 {
@@ -15,7 +16,7 @@ IDRenderer::~IDRenderer()
 
 void IDRenderer::build()
 {
-	Shader vShader;
+	Graphics::Shader vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -34,9 +35,9 @@ void IDRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile(vStr, Shader::Stage::VERTEX);
+	vShader.compile(vStr, Graphics::Shader::Stage::VERTEX);
 
-	Shader fShader;
+	Graphics::Shader fShader;
 
 	const std::string fStr =
 		"#version 150			\n"
@@ -49,7 +50,7 @@ void IDRenderer::build()
 		"}						\n"
 		;
 
-	fShader.compile(fStr, Shader::Stage::FRAGMENT);
+	fShader.compile(fStr, Graphics::Shader::Stage::FRAGMENT);
 
 	shader.link(vShader, fShader);
 

@@ -82,12 +82,12 @@ private:
 	
 	void build();
 
-	Graphics::WireFrameRenderer wireFrameRenderer;
-	Graphics::SurfaceRenderer surfaceRenderer;
+	Shader::WireFrameRenderer wireFrameRenderer;
+	Shader::SurfaceRenderer surfaceRenderer;
 	Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
 	Graphics::PointRenderer pointRenderer;
-	Graphics::IDRenderer idRenderer;
+	Shader::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;
 	Graphics::DisplayList dispListSelected;
