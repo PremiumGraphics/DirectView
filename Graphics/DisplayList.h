@@ -46,6 +46,8 @@ public:
 
 	//void add(Vertex* v);
 
+	void setColors(const std::vector<float>& colors) { this->colors = colors; }
+
 	void add(Face* f, const ColorRGBA<float>& color);
 
 	void add(const PolygonSPtr& p);
@@ -63,6 +65,8 @@ public:
 	std::vector< unsigned int > getFaceIds() const { return faceIds; }
 
 	std::vector< unsigned int > getPolygonIds() const { return polygonIds; }
+
+	void setIds(const std::vector< std::vector< unsigned int > >& ids) { this->ids = ids; }
 
 	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
 
