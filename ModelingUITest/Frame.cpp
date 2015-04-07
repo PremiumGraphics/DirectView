@@ -40,8 +40,6 @@ enum {
 	ID_POLYGON_SCALE_Y,
 	ID_POLYGON_SCALE_Z,
 
-	ID_TEXTURE,
-
 	ID_CREATE_TRIANGLE,
 	ID_CREATE_QUAD,
 	ID_CREATE_CIRCLE,
@@ -58,7 +56,7 @@ enum {
 
 class AppInfo {
 public:
-	static std::string getProductName() { return "CGStudio"; }
+	static std::string getProductName() { return "Modeling3DUITest"; }
 
 #define CG_STUDIO_MAJOR_VERSION 0
 #define CG_STUDIO_MINOR_VERSION 2
@@ -83,12 +81,8 @@ public:
 void Widgets::build(Frame* parent, Model& model)
 {
 	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
-	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
-	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
 	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
-	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
-	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
 
 
@@ -192,11 +186,6 @@ Frame::Frame()
 	Connect( ID_CREATE_CONE,		wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
 	Connect( ID_CREATE_CONE,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig) );
 
-	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
-	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
-	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
-	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
-
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ヘルプ"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
 	helpToolBar->AddButton(wxID_ABOUT, "About", wxArtProvider::GetBitmap(wxART_INFORMATION, wxART_OTHER, wxSize(32, 32)), "このソフトについて");
@@ -236,12 +225,8 @@ Frame::Frame()
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
 	rSizer->Add( w.getPolygonTree(), 0, wxEXPAND );
-	rSizer->Add( w.getMaterialTree(), 0, wxEXPAND );
-	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
 
 	rSizer->Add( w.getPolygonProperty(), 0, wxEXPAND );
-	rSizer->Add( w.getMaterialProperty(), 0, wxEXPAND );
-	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
 
 	hSizer->Add( rSizer, 0, wxEXPAND );
 	hSizer->Add( view, 0, wxEXPAND);

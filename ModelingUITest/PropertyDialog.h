@@ -78,18 +78,6 @@ private:
 	wxSpinCtrl* faces;
 };
 
-class LightProperty : public wxPropertyGrid {
-public:
-	LightProperty(wxWindow* parent, const wxSize& size);
-
-	void setValue(Graphics::LightSPtr light);
-
-private:
-	Graphics::LightSPtr light;
-
-	void OnChange(wxPropertyGridEvent& event);
-};
-
 class MaterialProperty : public wxPropertyGrid {
 public:
 	MaterialProperty(wxWindow* parent, const wxSize& size);

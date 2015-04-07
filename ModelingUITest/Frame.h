@@ -37,30 +37,18 @@ public:
 
 	void refresh() {
 		polygonTree->build();
-		materialTree->build();
-		lightTree->build();
 	}
 
 	PolygonTree* getPolygonTree() const { return polygonTree; }
 
-	MaterialTree* getMaterialTree() const { return materialTree; }
-
-	LightTree* getLightTree() const { return lightTree; }
 
 	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
-
-	MaterialProperty* getMaterialProperty() const { return materialProperty; }
-
-	LightProperty* getLightProperty() const { return lightProperty; }
 
 private:
 	PolygonTree* polygonTree;
 	MaterialTree* materialTree;
-	LightTree* lightTree;
 
 	PolygonProperty* polygonProperty;
-	MaterialProperty* materialProperty;
-	LightProperty* lightProperty;
 };
 
 
