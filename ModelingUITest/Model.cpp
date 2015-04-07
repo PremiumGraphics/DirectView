@@ -5,7 +5,7 @@
 #include "Model.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
+using namespace Crystal::Modeling;
 
 void Model::setSelectedVertex(const unsigned int id)
 {

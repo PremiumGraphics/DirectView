@@ -6,10 +6,8 @@
 
 #include "../Graphics/Polygon.h"
 
-#include "Converter.h"
-
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
+using namespace Crystal::Modeling;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
@@ -150,14 +148,6 @@ void View::OnMouse( wxMouseEvent& event )
 		if( mode == CAMERA_TRANSLATE ) {
 			model.getCamera()->move( pos );
 			model.getCamera()->addAngle( angle );
-		}
-		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = model.getLights();
-			for (const LightSPtr& l : lights) {
-				Vector3d lpos = l->getPos();
-				lpos += pos;
-				l->setPos(lpos);
-			}
 		}
 		else if( mode == POLYGON_SCALE ) {
 			Graphics::PolygonSPtrList& polygons = model.getPolygons();

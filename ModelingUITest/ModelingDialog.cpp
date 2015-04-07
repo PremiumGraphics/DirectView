@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ModelingDialog.h"
 
-using namespace Crystal::CG;
+using namespace Crystal::Modeling;
 
 TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))

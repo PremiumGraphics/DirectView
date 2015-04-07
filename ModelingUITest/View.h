@@ -18,7 +18,7 @@ namespace Crystal {
 	namespace Graphics {
 		class Color;
 	}
-	namespace CG {
+	namespace Modeling {
 
 class View : public wxGLCanvas
 {
@@ -36,7 +36,6 @@ public:
 		POLYGON_ROTATE_Z,
 
 		CAMERA_TRANSLATE,
-		LIGHT_TRANSLATE,
 		//PICK_VERTEX,
 	};
 	void buildDisplayList();

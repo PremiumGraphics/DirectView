@@ -6,13 +6,12 @@
 #include "../Graphics/Camera.h"
 
 namespace Crystal {
-	namespace CG {
+	namespace Modeling {
 
 class Model {
 public:
 	Model() :
-		builder(new Graphics::PolygonBuilder()),
-		lightBuilder(new Graphics::LightBuilder())
+		builder(new Graphics::PolygonBuilder())
 	{
 		camera.setNear(1.0f);
 	}
@@ -23,10 +22,6 @@ public:
 	}
 
 	Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
-
-	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
-
-	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
 
 	Graphics::FaceSPtrVector getFaces() const { return builder->getFaces(); }
 
@@ -44,7 +39,6 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
 
 private:
@@ -53,7 +47,6 @@ private:
 	Graphics::FaceSPtrVector selectedFace;
 
 	Graphics::Camera<float> camera;
-	Graphics::LightBuilderSPtr lightBuilder;
 
 };
 

@@ -18,7 +18,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace CG {
+	namespace Modeling {
 
 
 class PolygonProperty;

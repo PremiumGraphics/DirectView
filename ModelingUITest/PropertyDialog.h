@@ -9,7 +9,7 @@
 #include "../Graphics/Light.h"
 
 namespace Crystal{
-	namespace CG{
+	namespace Modeling{
 
 class VertexPropertyDialog : public wxDialog {
 public:
@@ -76,24 +76,6 @@ private:
 	wxSpinCtrl* vertices;
 	wxSpinCtrl* edges;
 	wxSpinCtrl* faces;
-};
-
-class MaterialProperty : public wxPropertyGrid {
-public:
-	MaterialProperty(wxWindow* parent, const wxSize& size);
-
-	void setValue(const Graphics::MaterialSPtr& material);
-
-	void OnChange(wxPropertyGridEvent& event);
-
-	void OnDoubleClick(wxPropertyGridEvent& event);
-
-private:
-	Graphics::MaterialSPtr m;
-	//wxColourProperty* diffuse;
-
-	wxString getImageFile();
-
 };
 
 class PolygonProperty : public wxPropertyGrid {

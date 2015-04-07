@@ -16,14 +16,13 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
-using namespace Crystal::CG;
+using namespace Crystal::Modeling;
 
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
 
 	ID_CAMERA_CONFIG,
 
-	ID_LIGHT_TRANSLATE,
 	ID_CAMERA_TRANSLATE,
 	ID_POLYGON_TRANSLATE,
 	ID_POLYGON_ROTATE,
@@ -136,7 +135,6 @@ Frame::Frame()
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
@@ -150,7 +148,6 @@ Frame::Frame()
 	operation->AddButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonTranslate ) );
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonScale ) );
 	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotate ) );
@@ -301,6 +298,7 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 		return;
 	}
 
+	/*
 	CGSFile file;
 	const bool isOk = file.save( filename.ToStdString() );
 	if( isOk ) {
@@ -309,6 +307,7 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 	else {
 		wxMessageBox( wxT("•Û‘¶‚ÉŽ¸”s‚µ‚Ü‚µ‚½B") );
 	}
+	*/
 }
 
 void Frame::OnFileSaveAs( wxRibbonButtonBarEvent& e )
@@ -363,11 +362,6 @@ void Frame::OnPolygonRotateY(wxRibbonButtonBarEvent&)
 void Frame::OnPolygonRotateZ(wxRibbonButtonBarEvent&)
 {
 	view->setMode(View::POLYGON_ROTATE_Z);
-}
-
-void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
-{
-	view->setMode( View::LIGHT_TRANSLATE );
 }
 
 /*

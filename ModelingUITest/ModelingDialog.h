@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 namespace Crystal{
-	namespace CG {
+	namespace Modeling {
 
 class TriangleConfigDialog : public wxDialog
 {

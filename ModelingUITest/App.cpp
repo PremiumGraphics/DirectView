@@ -5,7 +5,7 @@
 #include "App.h"
 //#include "Model.h"
 
-using namespace Crystal::CG;
+using namespace Crystal::Modeling;
 
 IMPLEMENT_APP( App )
 

@@ -16,7 +16,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace CG {
+	namespace Modeling {
 		class View;
 		class Model;
 		class PolygonTree;
@@ -77,8 +77,6 @@ private:
 	void OnExport( wxRibbonButtonBarEvent& e);
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
-
-	void OnLightTranslate( wxRibbonButtonBarEvent& );
 
 	void OnPolygonTranslate( wxRibbonButtonBarEvent& );
 
