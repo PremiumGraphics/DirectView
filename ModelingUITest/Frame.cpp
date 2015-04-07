@@ -35,15 +35,10 @@ enum {
 	ID_IMPORT,
 	ID_EXPORT,
 
-	ID_GL_CONFIG,
-	ID_LOCALE,
-
 	ID_POLYGON_SCALE,
 	ID_POLYGON_SCALE_X,
 	ID_POLYGON_SCALE_Y,
 	ID_POLYGON_SCALE_Z,
-
-	ID_OFF_SCREEN_CONFIG,
 
 	ID_TEXTURE,
 
@@ -54,13 +49,6 @@ enum {
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
-
-	ID_RENDERING_WIREFRAME,
-	ID_RENDERING_FLAT,
-	ID_RENDERING_PHONG,
-	ID_RENDERING_NORMAL,
-	ID_RENDERING_POINT,
-	ID_RENDERING_ID,
 
 	ID_CAMERA_FIT,
 
@@ -179,22 +167,6 @@ Frame::Frame()
 	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnDropDown));
 
 
-	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
-	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
-	rendering->AddButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
-	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
-	rendering->AddButton( ID_RENDERING_ID,			"ID",		wxImage("../Resource/point.png"));
-
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
-	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
-	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
-	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
-	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
-	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
-
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar( modelingPanel );
 	modelingBar->AddHybridButton( ID_CREATE_TRIANGLE,	"Triangle",	wxImage("../Resource/triangle.png") );
@@ -233,9 +205,6 @@ Frame::Frame()
 
 
 	bar->Realize();
-
-	Connect( ID_LOCALE,		wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( Frame::OnLocale ) );
-	
 
 	const int width = 1024;//720;
 	const int height = 512;////480;
@@ -608,41 +577,6 @@ void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
 	view->setMode( View::POLYGON_SCALE );
 }
 
-void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
-{
-	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
-	view->Refresh();
-}
-
-void Frame::OnPhong( wxRibbonButtonBarEvent& )
-{
-	view->setRenderingMode( View::RENDERING_MODE::PHONG );
-	view->Refresh();
-}
-
-void Frame::OnFlat( wxRibbonButtonBarEvent& )
-{
-	view->setRenderingMode( View::RENDERING_MODE::FLAT );
-	view->Refresh();
-}
-
-void Frame::OnNormal(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode( View::RENDERING_MODE::NORMAL );
-	view->Refresh();
-}
-
-void Frame::OnPoint(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::POINT);
-	view->Refresh();
-}
-
-void Frame::OnID(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::ID);
-	view->Refresh();
-}
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {

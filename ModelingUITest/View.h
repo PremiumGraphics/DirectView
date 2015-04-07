@@ -39,28 +39,14 @@ public:
 		LIGHT_TRANSLATE,
 		//PICK_VERTEX,
 	};
-
-	enum RENDERING_MODE {
-		WIRE_FRAME,
-		PHONG,
-		FLAT,
-		NORMAL,
-		POINT,
-		ID,
-	};
-
 	void buildDisplayList();
 
 	void setMode( const MODE& m ) { this->mode = m; }
-
-	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
 	float getPointSize() const { pointSize; }
 
 private:
 	MODE mode;
-
-	RENDERING_MODE renderingMode;
 
 	void OnPaint( wxPaintEvent& );
 
@@ -83,11 +69,6 @@ private:
 	void build();
 
 	Shader::WireFrameRenderer wireFrameRenderer;
-	Shader::SurfaceRenderer surfaceRenderer;
-	Graphics::SmoothRenderer smoothRenderer;
-	Graphics::NormalRenderer normalRenderer;
-	Graphics::PointRenderer pointRenderer;
-	Shader::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;
 	Graphics::DisplayList dispListSelected;

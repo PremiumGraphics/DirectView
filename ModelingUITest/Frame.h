@@ -112,18 +112,6 @@ private:
 
 	void OnPolygonScale( wxRibbonButtonBarEvent& e);
 
-	void OnWireFrame( wxRibbonButtonBarEvent& e);
-
-	void OnPhong( wxRibbonButtonBarEvent& );
-
-	void OnFlat( wxRibbonButtonBarEvent& );
-
-	void OnNormal(wxRibbonButtonBarEvent&);
-
-	void OnPoint(wxRibbonButtonBarEvent&);
-
-	void OnID(wxRibbonButtonBarEvent&);
-
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
