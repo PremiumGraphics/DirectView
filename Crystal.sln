@@ -58,6 +58,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RendererTest", "RendererTes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrystalShader", "CrystalShader\CrystalShader.vcxproj", "{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelingUITest", "ModelingUITest\ModelingUITest.vcxproj", "{BDF4D3A9-5407-43F1-821D-010D90128FA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +208,18 @@ Global
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}.Release|Win32.ActiveCfg = Release|Win32
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}.Release|Win32.Build.0 = Release|Win32
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}.Release|x64.ActiveCfg = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|Win32.Build.0 = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Debug|x64.ActiveCfg = Debug|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Any CPU.ActiveCfg = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Win32.ActiveCfg = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Win32.Build.0 = Release|Win32
+		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
