@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_APP_MODEL_H__
-#define __CRYSTAL_APP_MODEL_H__
+#ifndef __CRYSTAL_MODELING_MODEL_H__
+#define __CRYSTAL_MODELING_MODEL_H__
 
 #include "../Graphics/PolygonBuilder.h"
 #include "../Graphics/Light.h"

@@ -79,9 +79,9 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
+	polygonProperty = new PolygonProperty(parent, wxSize(300, 300), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
 
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
+	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 300), polygonProperty, model.getPolygonBuilder());
 }
 
 
@@ -192,8 +192,9 @@ Frame::Frame()
 
 	bar->Realize();
 
-	const int width = 1024;//720;
-	const int height = 512;////480;
+
+	const int width = 1600;//720;
+	const int height = 900;////480;
 
 	view = new View( this, width, height, model );
 
@@ -608,7 +609,8 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildTriangle();
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildTriangle();
+	polygon->setName("Triangle");
 	w.getPolygonTree()->build();
 }
 
@@ -622,7 +624,8 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildQuad();
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
+	polygon->setName("Quad");
 	w.getPolygonTree()->build();
 }
 
@@ -637,7 +640,8 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildCircleByNumber(1.0f, modelings.circleConfig.getDivideNumber());
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildCircleByNumber(1.0f, modelings.circleConfig.getDivideNumber());
+	polygon->setName("Circle");
 	w.getPolygonTree()->build();
 }
 
@@ -652,7 +656,8 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
+	polygon->setName("Sphere");
 	w.getPolygonTree()->build();
 }
 
@@ -668,7 +673,8 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildCylinder(modelings.cylinderConfig.divideNumber);
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildCylinder(modelings.cylinderConfig.divideNumber);
+	polygon->setName("Cylinder");
 	w.getPolygonTree()->build();
 }
 
@@ -683,7 +689,8 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildBox();
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildBox();
+	polygon->setName("Box");
 	w.getPolygonTree()->build();
 }
 
