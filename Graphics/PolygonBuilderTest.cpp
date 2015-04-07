@@ -183,3 +183,11 @@ TEST(PolygonBuilderTest, TestBuildCone)
 	EXPECT_EQ(4, p->getFaces().size());
 	EXPECT_EQ(0, p->getId());
 }
+
+/*
+TEST(PolygonBuilderTest, TestBoundingBox)
+{
+	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonSPtr p(builder->buildCircleByNumber(1.0f, 4));
+}
+*/

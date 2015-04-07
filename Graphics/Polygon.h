@@ -74,6 +74,8 @@ public:
 
 	void setMaterial(const MaterialSPtr& m) { this->material = m; }
 
+	Math::Box getBoundingBox() const;
+
 private:
 	std::string name;
 	FaceSPtrVector faces;

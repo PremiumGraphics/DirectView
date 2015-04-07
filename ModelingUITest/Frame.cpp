@@ -135,7 +135,7 @@ Frame::Frame()
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
+	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 
@@ -561,7 +561,7 @@ void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
 	/*
-	const Math::Vector3d& center = getModel()->getPolygonModel()->getCenter();
+	const Math::Vector3d& center = model.getPolygonBuilder()->getgetgetCenter();
 	Camera<float>* camera = getModel()->getCamera();
 	camera->setPos( -1.0 * center );
 	const float minZ = getModel()->getPolygonModel()->getBoundingBox().getMinZ();

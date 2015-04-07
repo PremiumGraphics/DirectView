@@ -53,10 +53,10 @@ void PolygonTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot("Polygon");
 
-	for (const PolygonSPtr& g : builder->getPolygons()) {
-		const wxTreeItemId id = AppendItem(root, g->getName());
-		map[id] = g;
-		//SetItemState( id, polygon->isSelected );
+	for (const PolygonSPtr& p : builder->getPolygons()) {
+		const wxTreeItemId id = AppendItem(root, p->getName());
+		map[id] = p;
+		SetItemState( id, true );
 	}
 }
 

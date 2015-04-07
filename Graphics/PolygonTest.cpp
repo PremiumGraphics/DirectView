@@ -5,6 +5,8 @@
 #include <memory>
 
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
+
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -63,6 +65,14 @@ TEST(PolygonTest, TestRotateX)
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
 }
 
+TEST(PolygonTest, TestBoundingBox)
+{
+	Polygon p(0, nullptr);
+	p.setVertices({ VertexSPtr(new Vertex(Vector3d(0.0, 0.0, 0.0), 0)) });
+	Box box = p.getBoundingBox();
+	EXPECT_EQ(box.getMin(), Vector3d(0.0f, 0.0f, 0.0f));
+	EXPECT_EQ(box.getMax(), Vector3d(0.0f, 0.0f, 0.0f));
+}
 /*
 TEST(PolygonTest, TestRotateXWithCenter)
 {
