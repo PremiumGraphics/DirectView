@@ -72,10 +72,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BazierCurve.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />

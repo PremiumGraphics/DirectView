@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BazierCurveTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />

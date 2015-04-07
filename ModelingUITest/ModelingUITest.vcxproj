@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />

@@ -15,5 +15,7 @@
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
+    <ClCompile Include="BazierCurveTest.cpp" />
   </ItemGroup>
 </Project>

@@ -68,10 +68,14 @@ TEST(PolygonTest, TestRotateX)
 TEST(PolygonTest, TestBoundingBox)
 {
 	Polygon p(0, nullptr);
-	p.setVertices({ VertexSPtr(new Vertex(Vector3d(0.0, 0.0, 0.0), 0)) });
+	const VertexSPtrVector vertices = {
+		VertexSPtr(new Vertex(Vector3d(0.0, 0.0, 0.0), 0)),
+		VertexSPtr(new Vertex(Vector3d(1.0, 0.0, 1.0), 0))
+	};
+	p.setVertices(vertices);
 	Box box = p.getBoundingBox();
 	EXPECT_EQ(box.getMin(), Vector3d(0.0f, 0.0f, 0.0f));
-	EXPECT_EQ(box.getMax(), Vector3d(0.0f, 0.0f, 0.0f));
+	EXPECT_EQ(box.getMax(), Vector3d(1.0f, 0.0f, 1.0f));
 }
 /*
 TEST(PolygonTest, TestRotateXWithCenter)
