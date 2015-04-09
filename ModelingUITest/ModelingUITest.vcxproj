@@ -146,7 +146,6 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FileTest.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelingDialogTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -159,7 +158,6 @@
     <ClInclude Include="FileTest.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="ModelingDialogTest.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />
