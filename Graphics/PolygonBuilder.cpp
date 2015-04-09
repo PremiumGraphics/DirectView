@@ -113,7 +113,7 @@ PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const 
 
 }
 
-PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber, const float height)
 {
 	assert(divideNumber >= 3);
 	VertexSPtrVector vertices;
@@ -133,7 +133,7 @@ PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber)
 
 	faces.push_back( faceBuilder->build( getHalfEdgeBuilder()->buildClosedFromVertices( vertices ) ) );
 
-	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0, 1.0f), divideNumber));
+	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0f, height), divideNumber));
 	vertices.push_back(v);
 
 	for (unsigned int i = 0; i < divideNumber - 1; ++i) {

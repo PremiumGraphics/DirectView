@@ -132,8 +132,8 @@ wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500)
 
 	new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 200));
 
-	new wxStaticText(this, wxID_ANY, "Width", wxPoint(0, 300));
-	width = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
+	new wxStaticText(this, wxID_ANY, "Radius", wxPoint(0, 300));
+	radius = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
 
 	new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 400));
 	height = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
@@ -145,7 +145,7 @@ wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500)
 void CylinderConfigDialog::setConfig(const Config& config)
 {
 	this->divideNumber->SetValue(config.divideNumber);
-	this->width->SetValue(config.width);
+	this->radius->SetValue(config.radius);
 	this->height->SetValue(config.height);
 }
 
@@ -153,7 +153,7 @@ CylinderConfigDialog::Config CylinderConfigDialog::getConfig() const
 {
 	Config config;
 	config.divideNumber = divideNumber->GetValue();
-	config.width = width->GetValue();
+	config.radius = radius->GetValue();
 	config.height = height->GetValue();
 	return config;
 }

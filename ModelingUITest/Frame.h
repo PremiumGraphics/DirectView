@@ -82,12 +82,6 @@ private:
 
 	void OnPolygonRotate( wxRibbonButtonBarEvent& );
 
-	void OnPolygonRotateX(wxRibbonButtonBarEvent&);
-
-	void OnPolygonRotateY(wxRibbonButtonBarEvent&);
-
-	void OnPolygonRotateZ(wxRibbonButtonBarEvent&);
-
 	//void OnPick(wxRibbonButtonBarEvent&);
 
 	void OnAbout( wxRibbonButtonBarEvent& );
@@ -129,8 +123,6 @@ private:
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
-
-	void OnDropDown(wxRibbonButtonBarEvent& e);
 
 	void clear();
 

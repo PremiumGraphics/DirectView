@@ -26,9 +26,6 @@ enum {
 	ID_CAMERA_TRANSLATE,
 	ID_POLYGON_TRANSLATE,
 	ID_POLYGON_ROTATE,
-	ID_POLYGON_ROTATE_X,
-	ID_POLYGON_ROTATE_Y,
-	ID_POLYGON_ROTATE_Z,
 	//ID_PICK_VERTEX,
 
 	ID_IMPORT,
@@ -137,13 +134,7 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton( ID_POLYGON_TRANSLATE, "Move",		wxImage("../Resource/8-direction.png") );
-	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
-
-	operation->AddDropdownButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
-	operation->AddButton( ID_POLYGON_ROTATE_X, "RotateX",	wxImage("../Resource/3D-X-Axis-Rotation.png"));
-	operation->AddButton( ID_POLYGON_ROTATE_Y, "RotateY",	wxImage("../Resource/3D-Y-Axis-Rotation.png"));
-	operation->AddButton( ID_POLYGON_ROTATE_Z, "RotateZ",	wxImage("../Resource/3D-Z-Axis-Rotation.png"));
-	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
+	operation->AddButton( ID_POLYGON_ROTATE,	"Rotate",	wxImage("../Resource/3D-X-Axis-Rotation.png") );
 
 	operation->AddButton( ID_POLYGON_SCALE,		"Scale",	wxImage("../Resource/8-direction.png") );
 
@@ -151,11 +142,7 @@ Frame::Frame()
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonTranslate ) );
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonScale ) );
 	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotate ) );
-	Connect( ID_POLYGON_ROTATE_X,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateX) );
-	Connect( ID_POLYGON_ROTATE_Y,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateY) );
-	Connect( ID_POLYGON_ROTATE_Z,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPolygonRotateZ) );
 	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
-	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnDropDown));
 
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
@@ -349,45 +336,6 @@ void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::POLYGON_ROTATE );
 }
-
-void Frame::OnPolygonRotateX(wxRibbonButtonBarEvent&)
-{
-	view->setMode(View::POLYGON_ROTATE_X);
-}
-
-void Frame::OnPolygonRotateY(wxRibbonButtonBarEvent&)
-{
-	view->setMode(View::POLYGON_ROTATE_Y);
-}
-
-void Frame::OnPolygonRotateZ(wxRibbonButtonBarEvent&)
-{
-	view->setMode(View::POLYGON_ROTATE_Z);
-}
-
-/*
-void Frame::OnPick(wxRibbonButtonBarEvent&)
-{
-	view->setMode(View::PICK_VERTEX);
-	const int width = view->GetClientSize().GetWidth();
-	const int height = view->GetClientSize().GetHeight();
-	std::vector< GLubyte > pixels(width * height * 4);
-	glReadBuffer(GL_FRONT);
-	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
-	wxImage image(width, height);
-
-	int index = 0;
-
-	for (int y = height - 1; y >= 0; --y) {
-		for (int x = 0; x < width; ++x) {
-			image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
-			index += 4;
-		}
-	}
-
-	view->
-}
-*/
 
 
 #include "../IO/PolygonFactory.h"
@@ -706,7 +654,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildCone( modelings.coneConfig.divideNumber);
+	model.getPolygonBuilder()->buildCone( modelings.coneConfig.divideNumber, modelings.coneConfig.height );
 	w.getPolygonTree()->build();
 }
 
@@ -717,15 +665,4 @@ void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
 	if (dialog.ShowModal() == wxID_OK) {
 		modelings.coneConfig = dialog.getConfig();
 	}
-}
-
-
-void Frame::OnDropDown(wxRibbonButtonBarEvent& e)
-{
-	wxMenu menu;
-	menu.Append(wxID_ANY, wxT("X"));
-	menu.Append(wxID_ANY, wxT("Y"));
-	menu.Append(wxID_ANY, wxT("Z"));
-
-	e.PopupMenu(&menu);
 }

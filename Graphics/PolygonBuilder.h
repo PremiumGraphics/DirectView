@@ -53,7 +53,7 @@ public:
 
 	PolygonSPtr buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	PolygonSPtr buildCone(const unsigned int divideNumber);
+	PolygonSPtr buildCone(const unsigned int divideNumber, const float height);
 
 	FaceSPtrVector getFaces() const { return faceBuilder->getFaces(); }
 

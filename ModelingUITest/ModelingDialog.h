@@ -193,7 +193,7 @@ class ConeConfigDialog : public wxDialog
 public:
 	struct Config {
 		Config() :
-			divideNumber( 3),
+			divideNumber( 30),
 			radius( 1.0f),
 			height( 1.0f)
 			{}
@@ -211,15 +211,25 @@ public:
 
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+
+		new wxStaticText(this, wxID_ANY, "Radius", wxPoint(0, 200));
+		radius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
+
+		new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 300));
+		height = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
 	}
 
 	void setConfig(const Config& config) {
 		divideNumber->SetValue(config.divideNumber);
+		radius->SetValue(config.radius);
+		height->SetValue(config.height);
 	}
 
 	Config getConfig() const {
 		Config config;
 		config.divideNumber = divideNumber->GetValue();
+		config.radius = radius->GetValue();
+		config.height = height->GetValue();
 		return config;
 	}
 
@@ -234,12 +244,12 @@ class CylinderConfigDialog : public wxDialog
 public:
 	struct Config{
 		int divideNumber;
-		float width;
+		float radius;
 		float height;
 
 		Config() :
-			divideNumber( 3),
-			width( 1.0 )
+			divideNumber( 30),
+			radius( 1.0 )
 		{}
 	};
 	CylinderConfigDialog(wxWindow* parent);
@@ -250,7 +260,7 @@ public:
 
 private:
 	wxSpinCtrl* divideNumber;
-	wxSpinCtrl* width;
+	wxSpinCtrl* radius;
 	wxSpinCtrl* height;
 };
 

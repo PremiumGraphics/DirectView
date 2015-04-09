@@ -169,24 +169,6 @@ void View::OnMouse( wxMouseEvent& event )
 				p->rotateZ( pos.getX() );
 			}
 		}
-		else if (mode == POLYGON_ROTATE_X) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for ( const PolygonSPtr& p : polygons) {
-				p->rotateX(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Y) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateY(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Z) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateZ(pos.getX());
-			}
-		}
 		else {
 			assert( false );
 		}
