@@ -1,14 +1,34 @@
-#ifndef __CRYSTAL_MODELING_MODELING_DIALOG_H__
-#define __CRYSTAL_MODELING_MODELING_DIALOG_H__
+#ifndef __CRYSTAL_UI_MODELING_DIALOG_H__
+#define __CRYSTAL_UI_MODELING_DIALOG_H__
 
 #include "stdafx.h"
 
 #include "../Math/Cone.h"
 
-#include "../UI/UI.h"
-
 namespace Crystal{
-	namespace Modeling {
+	namespace UI {
+
+class TriangleConfigDialog : public wxDialog
+{
+public:
+	struct Config {
+		Config() : xSize(1.0), ySize(1.0)
+		{}
+		float xSize;
+		float ySize;
+	};
+
+	TriangleConfigDialog(wxWindow* parent);
+
+	void setConfig(const Config& config);
+
+	Config getConfig() const;
+
+private:
+	wxSpinCtrlDouble* xSize;
+	wxSpinCtrlDouble* ySize;
+};
+
 
 
 class QuadConfigDialog : public wxDialog

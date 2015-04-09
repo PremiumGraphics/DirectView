@@ -146,13 +146,12 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="ModelingDialog.cpp" />
+    <ClCompile Include="PolygonTree.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,11 +159,10 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelingDialog.h" />
+    <ClInclude Include="PolygonTree.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Tree.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #include <stdafx.h>
 
-#include "Tree.h"
+#include "PolygonTree.h"
 
 #include "../Graphics/Light.h"
 

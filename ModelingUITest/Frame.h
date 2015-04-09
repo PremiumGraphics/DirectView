@@ -6,11 +6,11 @@
 
 #include "Model.h"
 
-#include "ModelingDialog.h"
+#include "../UI/ModelingDialog.h"
 
 #include "PropertyDialog.h"
 
-#include "Tree.h"
+#include "PolygonTree.h"
 #include "PropertyDialog.h"
 
 #include <memory>
@@ -130,7 +130,7 @@ private:
 
 	Widgets w;
 
-	ModelingDialogs modelings;
+	UI::ModelingDialogs modelings;
 
 	View* view;
 	Model model;

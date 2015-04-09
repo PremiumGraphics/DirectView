@@ -6,8 +6,6 @@
 #include <map>
 #include <list>
 
-#include "../Graphics/Light.h"
-
 #include "PropertyDialog.h"
 
 

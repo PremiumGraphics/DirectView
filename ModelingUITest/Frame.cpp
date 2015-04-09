@@ -4,7 +4,7 @@
 
 #include "View.h"
 
-#include "Tree.h"
+#include "PolygonTree.h"
 #include "PropertyDialog.h"
 #include "../Graphics/PolygonBuilder.h"
 
@@ -17,6 +17,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 using namespace Crystal::Modeling;
+using namespace Crystal::UI;
 
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
