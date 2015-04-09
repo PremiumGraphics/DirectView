@@ -124,8 +124,6 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnDropDown(wxRibbonButtonBarEvent& e);
-
 	void clear();
 
 private:
