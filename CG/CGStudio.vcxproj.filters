@@ -7,7 +7,6 @@
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
-    <ClCompile Include="ModelingDialog.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Model.cpp" />
   </ItemGroup>
@@ -18,7 +17,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Model.h" />

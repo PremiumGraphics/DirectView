@@ -8,6 +8,7 @@
 #include "Material.h"
 
 #include "../Math/Cone.h"
+#include "../Math/Cylinder.h"
 
 #include <memory>
 
@@ -51,7 +52,7 @@ public:
 
 	PolygonSPtr buildTriangle() { return buildCircleByNumber(1.0f, 3); }
 
-	PolygonSPtr buildCylinder(const unsigned int divideNuber);
+	PolygonSPtr build(const unsigned int divideNuber, const Math::Cylinder& c);
 
 	PolygonSPtr buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 

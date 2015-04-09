@@ -147,7 +147,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="ModelingDialog.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -161,7 +160,6 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

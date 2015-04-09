@@ -50,9 +50,17 @@ public:
 
 	virtual Vector3d getCenter() const { return center; }
 
+	float getVolume() const {
+		return radius * radius * Tolerances::getPI() * height;
+	}
+
+	void setRadius(const float r) { this->radius = r; }
+
 	float getRadius() const { return radius; }
 
-	float getHeight() const { return height; }
+	void setHeight(const float h) { height = h; }
+
+	float getHeight() const { return this->height; }
 
 	virtual bool isValid() const {
 		return ( height > 0.0f ) && ( radius > 0.0f ) ;

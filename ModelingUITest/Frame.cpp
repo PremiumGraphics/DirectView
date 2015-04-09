@@ -621,7 +621,8 @@ void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildCylinder(modelings.cylinderConfig.divideNumber);
+	Cylinder c;
+	const PolygonSPtr& polygon = model.getPolygonBuilder()->build(modelings.cylinderConfig.divideNumber, c);
 	polygon->setName("Cylinder");
 	w.getPolygonTree()->build();
 }

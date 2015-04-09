@@ -3,6 +3,7 @@
 #include "Face.h"
 
 #include "../Math/Cone.h"
+#include "../Math/Cylinder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -64,7 +65,7 @@ PolygonSPtr PolygonBuilder::buildCircleByAngle(const float radius, const float d
 	return buildCircleByNumber(radius, howMany);
 }
 
-PolygonSPtr PolygonBuilder::buildCylinder(const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cylinder& c )
 {
 	assert(divideNumber >= 3);
 
