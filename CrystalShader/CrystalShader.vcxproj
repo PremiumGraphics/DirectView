@@ -14,6 +14,7 @@
     <ProjectGuid>{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CrystalShader</RootNamespace>
+    <ProjectName>Shader</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

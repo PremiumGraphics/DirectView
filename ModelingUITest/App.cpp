@@ -22,7 +22,7 @@ bool App::OnInit()
 
 	SetVendorName(wxT("VendorName"));
 	//new Frame();
-	//new FileTest::Frame();
+	new FileTest::Frame();
 	new ModelingDialogTest::Frame();
 
 	return true;
