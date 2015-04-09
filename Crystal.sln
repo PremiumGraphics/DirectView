@@ -61,7 +61,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelingUITest", "ModelingUITest\ModelingUITest.vcxproj", "{BDF4D3A9-5407-43F1-821D-010D90128FA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3DB61408-BFAA-4587-A3E3-135662D2C7A1} = {3DB61408-BFAA-4587-A3E3-135662D2C7A1}
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654} = {8402EB69-C2BB-4596-85F0-5B7ECCFDE654}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UI", "UI\UI.vcxproj", "{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,6 +226,18 @@ Global
 		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Win32.ActiveCfg = Release|Win32
 		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|Win32.Build.0 = Release|Win32
 		{BDF4D3A9-5407-43F1-821D-010D90128FA4}.Release|x64.ActiveCfg = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|Win32.Build.0 = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Debug|x64.ActiveCfg = Debug|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|Win32.ActiveCfg = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|Win32.Build.0 = Release|Win32
+		{8402EB69-C2BB-4596-85F0-5B7ECCFDE654}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
