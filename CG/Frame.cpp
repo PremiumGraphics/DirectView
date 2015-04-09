@@ -94,11 +94,9 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
 	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
 	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
@@ -241,11 +239,9 @@ Frame::Frame()
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
-	rSizer->Add( w.getPolygonTree(), 0, wxEXPAND );
 	rSizer->Add( w.getMaterialTree(), 0, wxEXPAND );
 	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
 
-	rSizer->Add( w.getPolygonProperty(), 0, wxEXPAND );
 	rSizer->Add( w.getMaterialProperty(), 0, wxEXPAND );
 	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
 

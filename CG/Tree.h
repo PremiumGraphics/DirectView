@@ -103,42 +103,6 @@ private:
 
 class PolygonProperty;
 
-class PolygonTree : public wxTreeCtrl
-{
-public:
-	PolygonTree
-		(
-		wxWindow *parent,
-		const wxPoint& pos,
-		const wxSize& size,
-		PolygonProperty* property,
-		const Graphics::PolygonBuilderSPtr& builder
-		);
-
-	~PolygonTree();
-
-	void build();
-
-	void OnItemActivated(wxTreeEvent& event);
-
-private:
-	void OnItemStateClick(wxTreeEvent& event);
-
-	void OnMenu(wxTreeEvent& event);
-
-	void OnAdd(wxMenuEvent&);
-
-	void OnDelete(wxMenuEvent&);
-
-	void OnClear(wxMenuEvent&);
-
-	PolygonProperty* property;
-
-	Graphics::PolygonBuilderSPtr builder;
-
-	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
-};
-
 	}
 }
 

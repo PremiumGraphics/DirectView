@@ -36,12 +36,9 @@ public:
 	void build(Frame* parent, Model& model);
 
 	void refresh() {
-		polygonTree->build();
 		materialTree->build();
 		lightTree->build();
 	}
-
-	PolygonTree* getPolygonTree() const { return polygonTree; }
 
 	MaterialTree* getMaterialTree() const { return materialTree; }
 
@@ -54,7 +51,6 @@ public:
 	LightProperty* getLightProperty() const { return lightProperty; }
 
 private:
-	PolygonTree* polygonTree;
 	MaterialTree* materialTree;
 	LightTree* lightTree;
 
