@@ -11,16 +11,19 @@ IMPLEMENT_APP( App )
 
 #include <wx/generic/choicdgg.h>
 
+#include "FileTest.h"
+
 
 bool App::OnInit()
 {
-	if ( !wxApp::OnInit() ) {
+	if (!wxApp::OnInit()) {
 		return false;
 	}
 
-	SetVendorName( wxT("VendorName") );
-	new Frame();
-	
+	SetVendorName(wxT("VendorName"));
+	//new Frame();
+	new FileTest::Frame();
+
 	return true;
 }
 

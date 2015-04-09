@@ -59,19 +59,7 @@ public:
 	Model& getModel() { return model; }
 
 private:
-	void OnNew( wxRibbonButtonBarEvent& );
 
-	void OnClose( wxRibbonButtonBarEvent& );
-
-	void OnFileOpen( wxRibbonButtonBarEvent& e );
-
-	void OnFileSave( wxRibbonButtonBarEvent& );
-
-	void OnFileSaveAs( wxRibbonButtonBarEvent& e );
-
-	void OnImport( wxRibbonButtonBarEvent& e );
-
-	void OnExport( wxRibbonButtonBarEvent& e);
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
@@ -81,7 +69,6 @@ private:
 
 	//void OnPick(wxRibbonButtonBarEvent&);
 
-	void OnAbout( wxRibbonButtonBarEvent& );
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
