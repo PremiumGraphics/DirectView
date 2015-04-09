@@ -7,6 +7,8 @@
 #include "Vertex.h"
 #include "Material.h"
 
+#include "../Math/Cone.h"
+
 #include <memory>
 
 namespace Crystal{
@@ -53,7 +55,7 @@ public:
 
 	PolygonSPtr buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
-	PolygonSPtr buildCone(const unsigned int divideNumber, const float height);
+	PolygonSPtr build(const unsigned int divideNumber, const Math::Cone& cone);
 
 	FaceSPtrVector getFaces() const { return faceBuilder->getFaces(); }
 

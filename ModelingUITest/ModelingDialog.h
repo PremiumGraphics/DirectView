@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 
+#include "../Math/Cone.h"
+
 namespace Crystal{
 	namespace Modeling {
 
@@ -193,14 +195,11 @@ class ConeConfigDialog : public wxDialog
 public:
 	struct Config {
 		Config() :
-			divideNumber( 30),
-			radius( 1.0f),
-			height( 1.0f)
+			divideNumber( 30)
 			{}
 
 		int divideNumber;
-		float radius;
-		float height;
+		Math::Cone cone;
 	};
 
 	ConeConfigDialog(wxWindow* parent) :
@@ -221,15 +220,15 @@ public:
 
 	void setConfig(const Config& config) {
 		divideNumber->SetValue(config.divideNumber);
-		radius->SetValue(config.radius);
-		height->SetValue(config.height);
+		radius->SetValue(config.cone.getRadius());
+		height->SetValue(config.cone.getHeight());
 	}
 
 	Config getConfig() const {
 		Config config;
 		config.divideNumber = divideNumber->GetValue();
-		config.radius = radius->GetValue();
-		config.height = height->GetValue();
+		config.cone.setRadius( radius->GetValue() );
+		config.cone.setHeight( height->GetValue() );
 		return config;
 	}
 

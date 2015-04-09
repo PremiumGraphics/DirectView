@@ -654,7 +654,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder()->buildCone( modelings.coneConfig.divideNumber, modelings.coneConfig.height );
+	model.getPolygonBuilder()->build( modelings.coneConfig.divideNumber, modelings.coneConfig.cone );
 	w.getPolygonTree()->build();
 }
 

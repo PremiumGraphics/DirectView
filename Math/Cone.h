@@ -49,12 +49,20 @@ public:
 
 	virtual Vector3d getCenter() const { return center; }
 
+	void setRadius(const float r) { this->radius = r; }
+
 	float getRadius() const { return radius; }
+
+	void setHeight(const float h) { this->height = h; }
 
 	float getHeight() const { return height; }
 
 	virtual bool isValid() const {
 		return ( height > 0.0f ) && ( radius > 0.0f ) ;
+	}
+
+	float getVolume() const {
+		return radius * radius * Tolerances::getPI() * height / 3.0f;
 	}
 
 	void outerOffset(const float offsetLength) {};

@@ -11,3 +11,20 @@ TEST( ConeTest, TestConstruct )
 	EXPECT_EQ( 1.0f, cone.getRadius() );
 	EXPECT_EQ( 1.0f, cone.getHeight() );
 }
+
+TEST(ConeTest, TestGetSet)
+{
+	Cone cone;
+	cone.setRadius(50.0f);
+	cone.setHeight(10.0f);
+
+	EXPECT_EQ(50.0f, cone.getRadius());
+	EXPECT_EQ(10.0f, cone.getHeight());
+}
+
+TEST(ConeTest, TestVolume)
+{
+	Cone cone;
+	const float actual = cone.getVolume();
+	EXPECT_FLOAT_EQ(Tolerances::getPI() / 3.0f, actual);
+}

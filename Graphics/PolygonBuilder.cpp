@@ -2,6 +2,7 @@
 
 #include "Face.h"
 
+#include "../Math/Cone.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -113,7 +114,7 @@ PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const 
 
 }
 
-PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber, const float height)
+PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& cone)
 {
 	assert(divideNumber >= 3);
 	VertexSPtrVector vertices;
@@ -133,7 +134,7 @@ PolygonSPtr PolygonBuilder::buildCone(const unsigned int divideNumber, const flo
 
 	faces.push_back( faceBuilder->build( getHalfEdgeBuilder()->buildClosedFromVertices( vertices ) ) );
 
-	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0f, height), divideNumber));
+	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0f, cone.getHeight()), divideNumber));
 	vertices.push_back(v);
 
 	for (unsigned int i = 0; i < divideNumber - 1; ++i) {
