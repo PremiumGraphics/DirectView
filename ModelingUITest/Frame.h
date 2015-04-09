@@ -8,10 +8,9 @@
 
 #include "../UI/ModelingDialog.h"
 
-#include "PropertyDialog.h"
+#include "../UI/PropertyDialog.h"
 
-#include "PolygonTree.h"
-#include "PropertyDialog.h"
+#include "../UI/PolygonTree.h"
 
 #include <memory>
 

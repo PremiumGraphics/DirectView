@@ -4,8 +4,8 @@
 
 #include "View.h"
 
-#include "PolygonTree.h"
-#include "PropertyDialog.h"
+#include "../UI/PolygonTree.h"
+#include "../UI/PropertyDialog.h"
 #include "../Graphics/PolygonBuilder.h"
 
 #include "wx/filename.h"

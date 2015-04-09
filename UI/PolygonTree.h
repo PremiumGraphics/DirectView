@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MODELING_TREE_H__
-#define __CRYSTAL_MODELING_TREE_H__
+#ifndef __CRYSTAL_UI_POLYGON_MODELING_TREE_H__
+#define __CRYSTAL_UI_POLYGON_MODELING_TREE_H__
 
 #include <vector>
 #include <string>
