@@ -157,16 +157,12 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\checked.xpm" />
     <None Include="Resource\unchecked.xpm" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CGStudio.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resource\3D-X-Axis-Rotation.png" />

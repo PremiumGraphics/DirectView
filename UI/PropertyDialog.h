@@ -9,7 +9,7 @@
 #include "../Graphics/Light.h"
 
 namespace Crystal{
-	namespace Modeling{
+	namespace UI{
 
 class VertexPropertyDialog : public wxDialog {
 public:

@@ -3,7 +3,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::Modeling;
+using namespace Crystal::UI;
 
 VertexPropertyDialog::VertexPropertyDialog(wxWindow* parent, const VertexSPtr& vertex) :
 wxDialog(parent, wxID_ANY, "VertexProperty", wxDefaultPosition, wxSize(500, 500)),

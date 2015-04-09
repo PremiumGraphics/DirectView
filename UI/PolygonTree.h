@@ -16,8 +16,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace Modeling {
-
+	namespace UI {
 
 class PolygonProperty;
 

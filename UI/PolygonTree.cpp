@@ -5,7 +5,7 @@
 #include "../Graphics/Light.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::Modeling;
+using namespace Crystal::UI;
 
 #include "Resource/unchecked.xpm"
 #include "Resource/checked.xpm"

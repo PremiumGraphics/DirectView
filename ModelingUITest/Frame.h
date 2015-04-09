@@ -18,11 +18,9 @@ namespace Crystal {
 	namespace Modeling {
 		class View;
 		class Model;
-		class PolygonTree;
 		class MaterialTree;
 		class LightTree;
 
-		class PolygonProperty;
 		class MaterialProperty;
 		class LightProperty;
 
@@ -38,16 +36,16 @@ public:
 		polygonTree->build();
 	}
 
-	PolygonTree* getPolygonTree() const { return polygonTree; }
+	UI::PolygonTree* getPolygonTree() const { return polygonTree; }
 
 
-	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
+	UI::PolygonProperty* getPolygonProperty() const { return polygonProperty; }
 
 private:
-	PolygonTree* polygonTree;
+	UI::PolygonTree* polygonTree;
 	MaterialTree* materialTree;
 
-	PolygonProperty* polygonProperty;
+	UI::PolygonProperty* polygonProperty;
 };
 
 
