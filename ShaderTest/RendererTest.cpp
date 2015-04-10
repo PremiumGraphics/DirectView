@@ -1,4 +1,4 @@
-#include "../CrystalShader/WireFrameRenderer.h"
+#include "../Shader/WireFrameRenderer.h"
 
 #include "../ThirdParty/glfw-3.1.1/include/GLFW/glfw3.h"
 

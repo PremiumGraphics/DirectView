@@ -5,11 +5,11 @@
 
 #include "Frame.h"
 
-#include "../CrystalShader/WireFrameRenderer.h"
-#include "../CrystalShader/NormalRenderer.h"
-#include "../CrystalShader/IDRenderer.h"
-#include "../CrystalShader/PointRenderer.h"
-#include "../CrystalShader/SmoothRenderer.h"
+#include "../Shader/WireFrameRenderer.h"
+#include "../Shader/NormalRenderer.h"
+#include "../Shader/IDRenderer.h"
+#include "../Shader/PointRenderer.h"
+#include "../Shader/SmoothRenderer.h"
 
 
 #include "../Graphics/DisplayList.h"
