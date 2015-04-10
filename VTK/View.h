@@ -4,7 +4,7 @@
 #include "WireFrameRenderer.h"
 #include "VectorRenderer.h"
 
-#include "../CrystalShader/FastPointRenderer.h"
+#include "../Shader/FastPointRenderer.h"
 
 namespace Crystal {
 	namespace App {

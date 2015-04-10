@@ -139,7 +139,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>../$(Configuration)/;.\..\ThirdParty\wxWidgets-3.0.2\lib\vc_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wxmsw30u_propgrid.lib;Math.lib;Physics.lib;Graphics.lib;CrystalShader.lib;IO.lib;wxmsw30u_richtext.lib;wxmsw30u_gl.lib;wxmsw30u_ribbon.lib;opengl32.lib;glu32.lib;wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxmsw30u_propgrid.lib;Math.lib;Physics.lib;Graphics.lib;Shader.lib;IO.lib;wxmsw30u_richtext.lib;wxmsw30u_gl.lib;wxmsw30u_ribbon.lib;opengl32.lib;glu32.lib;wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
