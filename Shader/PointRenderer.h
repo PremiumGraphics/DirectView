@@ -8,7 +8,7 @@
 #include "../Graphics/DisplayList.h"
 
 namespace Crystal {
-	namespace Graphics {
+	namespace Shader {
 
 class PointRenderer {
 public:

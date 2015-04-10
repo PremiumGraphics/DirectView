@@ -8,6 +8,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 
 PointRenderer::PointRenderer()
 {}
@@ -54,10 +55,10 @@ static std::stringstream getFragmentSource()
 
 void PointRenderer::build()
 {
-	Shader vShader;
-	Shader fShader;
-	vShader.compile(getVertexSource().str(), Shader::Stage::VERTEX);
-	fShader.compile(getFragmentSource().str(), Shader::Stage::FRAGMENT);
+	Graphics::Shader vShader;
+	Graphics::Shader fShader;
+	vShader.compile(getVertexSource().str(), Graphics::Shader::Stage::VERTEX);
+	fShader.compile(getFragmentSource().str(), Graphics::Shader::Stage::FRAGMENT);
 	std::string log;
 	log += vShader.getLog();
 	log += fShader.getLog();

@@ -13,10 +13,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::UI;
 
 enum {
-	ID_CREATE_TRIANGLE = wxID_HIGHEST + 1,
-	ID_CREATE_QUAD,
-	ID_CREATE_CIRCLE,
-	ID_CREATE_SPHERE,
+	ID_CREATE_SPHERE = wxID_HIGHEST + 1,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
@@ -39,24 +36,25 @@ Frame::Frame()
 	wxRibbonPage* page = new wxRibbonPage(bar, wxNewId(), wxT("Polygon"));
 	//wxRibbonPanel* panel = new wxRibbonPanel( page, wxID_ANY, wxT("Polygon") );
 
-
-
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	modelingBar->AddHybridButton(ID_CREATE_TRIANGLE, "Triangle", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_QUAD, "Quad", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage(32, 32));
+	const int createTriangleId = wxNewId();
+	const int createQuadId = wxNewId();
+	const int createCircleId = wxNewId();
+	modelingBar->AddHybridButton( createTriangleId, "Triangle", wxImage(32, 32));
+	modelingBar->AddHybridButton( createQuadId, "Quad", wxImage(32, 32));
+	modelingBar->AddHybridButton( createCircleId, "Circle", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
-	Connect(ID_CREATE_TRIANGLE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
-	Connect(ID_CREATE_TRIANGLE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
-	Connect(ID_CREATE_QUAD, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
-	Connect(ID_CREATE_QUAD, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
-	Connect(ID_CREATE_CIRCLE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
-	Connect(ID_CREATE_CIRCLE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
+	Connect(createTriangleId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
+	Connect(createTriangleId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
+	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
+	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
+	Connect(createCircleId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
+	Connect(createCircleId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
 	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
