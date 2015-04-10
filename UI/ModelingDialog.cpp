@@ -26,7 +26,7 @@ Triangle TriangleConfigDialog::get() const
 	return Triangle();
 }
 
-QuadConfigDialog::QuadConfigDialog(wxWindow* parent) :
+QuadConfigDialog::QuadConfigDialog(wxWindow* parent, const Quad& q) :
 wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
@@ -37,13 +37,11 @@ wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 
 	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+
+	this->xSize->SetValue(q.getLengthX());
+	this->ySize->SetValue(q.getLengthY());
 }
 
-void QuadConfigDialog::setConfig(const Config& config)
-{
-	this->xSize->SetValue(config.xSize);
-	this->ySize->SetValue(config.ySize);
-}
 
 CircleConfigDialog::CircleConfigDialog(wxWindow* parent) :
 wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
@@ -83,7 +81,7 @@ wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 }
 
 
-BoxConfigDialog::BoxConfigDialog(wxWindow* parent) :
+BoxConfigDialog::BoxConfigDialog(wxWindow* parent, const Box& box) :
 wxDialog(parent, wxID_ANY, "BoxConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
@@ -100,22 +98,16 @@ wxDialog(parent, wxID_ANY, "BoxConfig", wxDefaultPosition, wxSize(500, 500))
 
 	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+
+	//xSize->SetValue(box.xSize);
+	//ySize->SetValue(box.ySize);
+	//zSize->SetValue(config.zSize);
+
 }
 
-void BoxConfigDialog::setConfig(const Config& config)
+Box BoxConfigDialog::get() const
 {
-	xSize->SetValue(config.xSize);
-	ySize->SetValue(config.ySize);
-	zSize->SetValue(config.zSize);
-}
-
-BoxConfigDialog::Config BoxConfigDialog::getConfig() const
-{
-	Config config;
-	config.xSize = xSize->GetValue();
-	config.ySize = ySize->GetValue();
-	config.zSize = zSize->GetValue();
-	return config;
+	return Box();
 }
 
 CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent) :

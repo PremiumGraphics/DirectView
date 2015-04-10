@@ -8,7 +8,7 @@
 #include "../UI/ModelingDialog.h"
 
 
-using namespace ModelingDialogTest;
+using namespace Crystal::ModelingDialogTest;
 using namespace Crystal::Graphics;
 using namespace Crystal::UI;
 
@@ -96,10 +96,9 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 {
-	QuadConfigDialog dialog(this);
-	//dialog.setConfig(modelings.quadConfig);
+	QuadConfigDialog dialog(this, quad);
 	if (dialog.ShowModal() == wxID_OK) {
-		//modelings.quadConfig = dialog.getConfig();
+		quad = dialog.get();
 	}
 }
 
@@ -166,13 +165,11 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 {
-	BoxConfigDialog dialog(this);
-	//dialog.setConfig(modelings.boxConfig);
+	BoxConfigDialog dialog(this, box);
 	if (dialog.ShowModal() == wxID_OK) {
-		//modelings.boxConfig = dialog.getConfig();
+		box = dialog.get();
 	}
 }
-
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {

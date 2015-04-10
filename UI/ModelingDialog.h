@@ -3,8 +3,9 @@
 
 #include "stdafx.h"
 
-#include "../Math/Cone.h"
 #include "../Math/Triangle.h"
+#include "../Math/Quad.h"
+#include "../Math/Cone.h"
 
 namespace Crystal{
 	namespace UI {
@@ -26,20 +27,10 @@ private:
 class QuadConfigDialog : public wxDialog
 {
 public:
-	struct Config{
-		float xSize;
-		float ySize;
-	};
+	QuadConfigDialog(wxWindow* parent, const Math::Quad& q);
 
-	QuadConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() {
-		Config config;
-		config.xSize = xSize->GetValue();
-		config.ySize = ySize->GetValue();
-		return config;
+	Math::Quad get(){
+		return Math::Quad();
 	}
 
 private:
@@ -260,20 +251,10 @@ private:
 class BoxConfigDialog : public wxDialog
 {
 public:
-	struct Config{
-		Config() :
-			xSize(1.0), ySize(1.0), zSize( 1.0)
-		{}
-		float xSize;
-		float ySize;
-		float zSize;
-	};
 
-	BoxConfigDialog(wxWindow* parent);
+	BoxConfigDialog(wxWindow* parent, const Math::Box& box);
 
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
+	Math::Box get() const;
 
 private:
 	wxSpinCtrlDouble* xSize;
@@ -282,10 +263,8 @@ private:
 };
 
 struct ModelingDialogs {
-	QuadConfigDialog::Config quadConfig;
 	CircleConfigDialog::Config circleConfig;
 	SphereConfigDialog::Config sphereConfig;
-	BoxConfigDialog::Config boxConfig;
 	ConeConfigDialog::Config coneConfig;
 	CylinderConfigDialog::Config cylinderConfig;
 };

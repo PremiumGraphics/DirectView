@@ -1,8 +1,12 @@
 #include "stdafx.h"
 
 #include "../Math/Triangle.h"
+#include "../Math/Quad.h"
+#include "../Math/Circle.h"
+#include "../Math/Box.h"
 
-namespace ModelingDialogTest {
+namespace Crystal {
+	namespace ModelingDialogTest {
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -38,7 +42,11 @@ public:
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
 private:
-	Crystal::Math::Triangle triangle;
+	Math::Triangle triangle;
+	Math::Quad quad;
+	Math::Circle circle;
+	Math::Box box;
 };
 
+	}
 }

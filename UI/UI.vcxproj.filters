@@ -5,10 +5,8 @@
     <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UI.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
