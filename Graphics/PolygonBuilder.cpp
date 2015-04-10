@@ -65,6 +65,11 @@ PolygonSPtr PolygonBuilder::buildCircleByAngle(const float radius, const float d
 	return buildCircleByNumber(radius, howMany);
 }
 
+PolygonSPtr PolygonBuilder::build(const Triangle& triangle)
+{
+	return buildCircleByNumber(1.0, 3);
+}
+
 PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cylinder& c )
 {
 	assert(divideNumber >= 3);

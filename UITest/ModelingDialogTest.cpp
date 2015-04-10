@@ -81,9 +81,9 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 {
-	TriangleConfigDialog dialog(this);
+	TriangleConfigDialog dialog(this, triangle);
 	if (dialog.ShowModal() == wxID_OK) {
-		dialog.setConfig(dialog.getConfig());
+		triangle = dialog.get();
 	}
 }
 

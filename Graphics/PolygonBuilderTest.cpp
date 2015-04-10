@@ -96,7 +96,8 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	PolygonBuilderSPtr builder(new PolygonBuilder());
-	PolygonSPtr p(builder->buildTriangle());
+	const Triangle triangle;
+	PolygonSPtr p(builder->build(triangle));
 
 	EXPECT_EQ(1, builder->getPolygons().size());
 

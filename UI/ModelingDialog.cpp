@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "ModelingDialog.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::UI;
 
 
-TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent) :
+TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent, const Triangle& triangle) :
 wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
@@ -17,20 +18,12 @@ wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 
 	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
+
 }
 
-void TriangleConfigDialog::setConfig(const Config& config)
+Triangle TriangleConfigDialog::get() const
 {
-	xSize->SetValue(config.xSize);
-	ySize->SetValue(config.ySize);
-}
-
-TriangleConfigDialog::Config TriangleConfigDialog::getConfig() const
-{
-	Config config;
-	config.xSize = xSize->GetValue();
-	config.ySize = ySize->GetValue();
-	return config;
+	return Triangle();
 }
 
 QuadConfigDialog::QuadConfigDialog(wxWindow* parent) :

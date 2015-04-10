@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 #include "../Math/Cone.h"
+#include "../Math/Triangle.h"
 
 namespace Crystal{
 	namespace UI {
@@ -11,18 +12,9 @@ namespace Crystal{
 class TriangleConfigDialog : public wxDialog
 {
 public:
-	struct Config {
-		Config() : xSize(1.0), ySize(1.0)
-		{}
-		float xSize;
-		float ySize;
-	};
+	TriangleConfigDialog(wxWindow* parent, const Math::Triangle& t);
 
-	TriangleConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
+	Math::Triangle get() const;
 
 private:
 	wxSpinCtrlDouble* xSize;
@@ -290,7 +282,6 @@ private:
 };
 
 struct ModelingDialogs {
-	TriangleConfigDialog::Config triangleConfig;
 	QuadConfigDialog::Config quadConfig;
 	CircleConfigDialog::Config circleConfig;
 	SphereConfigDialog::Config sphereConfig;
