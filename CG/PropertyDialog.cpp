@@ -156,7 +156,7 @@ void LightProperty::setValue(LightSPtr light)
 	Append(new wxFloatProperty("PosZ", wxPG_LABEL, pos.getZ()));
 
 	Append(new wxColourProperty(wxT("Diffuse"), wxPG_LABEL, Converter::toWxColor(light->getDiffuse())));
-	Append(new wxColourProperty(wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(light->getAmbient())));
+	//Append(new wxColourProperty(wxT("Ambient"), wxPG_LABEL, Converter::toWxColor(light->getAmbient())));
 	Append(new wxColourProperty(wxT("Specular"), wxPG_LABEL, Converter::toWxColor(light->getSpecular())));
 }
 
@@ -189,12 +189,13 @@ void LightProperty::OnChange(wxPropertyGridEvent& event)
 		wxColour c = wxANY_AS(value, wxColour);
 		const Graphics::ColorRGB<float>& color = Converter::toColorRGB(c);
 		light->setDiffuse(color);
-	}
+	}/*
 	else if (name == wxT("Ambient")) {
 		wxColour c = wxANY_AS(value, wxColour);
 		const Graphics::ColorRGB<float>& color = Converter::toColorRGB(c);
 		light->setAmbient(color);
 	}
+	*/
 	else if (name == wxT("Specular")) {
 		wxColour c = wxANY_AS(value, wxColour);
 		const Graphics::ColorRGB<float>& color = Converter::toColorRGB(c);

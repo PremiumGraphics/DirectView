@@ -56,6 +56,10 @@ typedef std::list < LightSPtr > LightSPtrList;
 
 class DirectionalLight {
 public:
+	DirectionalLight() :
+		color(ColorRGB<float>::White())
+	{}
+
 	void setDirection(const Math::Vector3d& direction) { this->direction = direction; }
 
 	Math::Vector3d getDirection() const { return direction; }
@@ -75,7 +79,7 @@ public:
 	AmbientLight() :
 		color( ColorRGB<float>::White() )
 	{}
-
+	
 	Graphics::ColorRGB<float> getColor() const { return color; }
 
 	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }

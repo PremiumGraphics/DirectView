@@ -43,7 +43,7 @@ wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 }
 
 
-CircleConfigDialog::CircleConfigDialog(wxWindow* parent) :
+CircleConfigDialog::CircleConfigDialog(wxWindow* parent, const Circle& c) :
 wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 100));
@@ -64,7 +64,7 @@ wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 }
 
-SphereConfigDialog::SphereConfigDialog(wxWindow* parent) :
+SphereConfigDialog::SphereConfigDialog(wxWindow* parent, const Sphere& s) :
 wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "U Divide", wxPoint(0, 100));
@@ -110,7 +110,7 @@ Box BoxConfigDialog::get() const
 	return Box();
 }
 
-CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent) :
+CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent, const Cylinder& cylinder) :
 wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
@@ -128,18 +128,8 @@ wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500)
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 }
 
-void CylinderConfigDialog::setConfig(const Config& config)
-{
-	this->divideNumber->SetValue(config.divideNumber);
-	this->radius->SetValue(config.radius);
-	this->height->SetValue(config.height);
-}
 
-CylinderConfigDialog::Config CylinderConfigDialog::getConfig() const
+Cylinder CylinderConfigDialog::get() const
 {
-	Config config;
-	config.divideNumber = divideNumber->GetValue();
-	config.radius = radius->GetValue();
-	config.height = height->GetValue();
-	return config;
+	return Cylinder();
 }

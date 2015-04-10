@@ -31,5 +31,6 @@
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,9 @@
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
 #include "../Math/Cone.h"
+#include "../Math/Circle.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 namespace Crystal{
 	namespace UI {
@@ -42,58 +45,11 @@ private:
 class CircleConfigDialog : public wxDialog
 {
 public:
-	struct Config{
-		Config() :
-			divideNumber(3),
-			width( 1.0),
-			height( 1.0)
-		{}
 
-		void setDivideAngle(const float angle) { divideNumber = 360.0f / angle; }
+	CircleConfigDialog(wxWindow* parent, const Math::Circle& circle);
 
-		void setDivideNumber(const unsigned int divideNumber) { this->divideNumber = divideNumber; }
-
-		unsigned int getDivideNumber() const { return divideNumber; }
-
-		float getDivideAngle() const { return 360.0f / divideNumber; }
-
-		void setWidth(const float width) { this->width = width;  }
-
-		void setHeight(const float height) { this->height = height; }
-
-		float getWidth() const { return width; }
-
-		float getHeight() const { return height; }
-
-		bool isValid() const {
-			return
-				divideNumber >= 3 &&
-				width >= 0.0f &&
-				height >= 0.0f;
-		}
-
-	private:
-		unsigned int divideNumber;
-		float width;
-		float height;
-	};
-
-
-	CircleConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config) {
-		divideNumber->SetValue(config.getDivideNumber());
-		divideAngle->SetValue(360.0f / config.getDivideNumber() );
-		width->SetValue(config.getWidth());
-		height->SetValue(config.getHeight());
-	}
-
-	Config getConfig() const {
-		Config config;
-		config.setDivideNumber( divideNumber->GetValue() );
-		config.setWidth(width->GetValue());
-		config.setHeight(height->GetValue());
-		return config;
+	Math::Circle get() const {
+		return Math::Circle();
 	}
 
 private:
@@ -107,61 +63,11 @@ private:
 class SphereConfigDialog : public wxDialog
 {
 public:
-	struct Config {
-		Config() :
-			uDivideNumber( 3 ),
-			vDivideNumber( 3 ),
-			uRadius( 1.0f ),
-			vRadius( 1.0f )
-		{}
+	
+	SphereConfigDialog(wxWindow* parent, const Math::Sphere& sphere);
 
-		float getUDivideNumber() const { return uDivideNumber; }
-
-		void setUDivideNumber(const int uDivideNumber) { this->uDivideNumber = uDivideNumber; }
-
-		float getVDivideNumber() const { return vDivideNumber; }
-
-		void setVDivideNumber(const int vDivideNumber) { this->vDivideNumber = vDivideNumber; }
-
-		float getURadius() const { return uRadius; }
-
-		float getVRadius() const { return vRadius; }
-
-		void setURadius(const float uRadius) { this->uRadius = uRadius; }
-
-		void setVRadius(const float vRadius) { this->vRadius = vRadius; }
-
-		bool isValid() const {
-			return
-				uDivideNumber >= 3 &&
-				vDivideNumber >= 3 &&
-				uRadius > 0.0f &&
-				vRadius > 0.0f;
-		}
-
-	private:
-		unsigned int uDivideNumber;
-		unsigned int vDivideNumber;
-		float uRadius;
-		float vRadius;
-	};
-
-	SphereConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config) {
-		uDivideAngle->SetValue( config.getUDivideNumber() );
-		vDivideAngle->SetValue( config.getVDivideNumber() );
-		uRadius->SetValue(config.getURadius());
-		vRadius->SetValue(config.getVRadius());
-	}
-
-	Config getConfig() const {
-		Config config;
-		config.setUDivideNumber(config.getUDivideNumber());
-		config.setVDivideNumber(config.getVDivideNumber());
-		config.setURadius(config.getURadius());
-		config.setVRadius(config.getVRadius());
-		return config;
+	Math::Sphere get() const {
+		return Math::Sphere();
 	}
 
 private:
@@ -226,21 +132,9 @@ private:
 class CylinderConfigDialog : public wxDialog
 {
 public:
-	struct Config{
-		int divideNumber;
-		float radius;
-		float height;
+	CylinderConfigDialog(wxWindow* parent, const Math::Cylinder& cylinder);
 
-		Config() :
-			divideNumber( 30),
-			radius( 1.0 )
-		{}
-	};
-	CylinderConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
+	Math::Cylinder get() const;
 
 private:
 	wxSpinCtrl* divideNumber;
@@ -263,10 +157,7 @@ private:
 };
 
 struct ModelingDialogs {
-	CircleConfigDialog::Config circleConfig;
-	SphereConfigDialog::Config sphereConfig;
 	ConeConfigDialog::Config coneConfig;
-	CylinderConfigDialog::Config cylinderConfig;
 };
 
 	}

@@ -113,6 +113,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonBuilder.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>

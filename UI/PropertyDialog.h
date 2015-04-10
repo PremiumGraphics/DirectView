@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MODELING_PROPERTY_DIALOG_H__
 #define __CRYSTAL_MODELING_PROPERTY_DIALOG_H__
 
-#include <stdafx.h>
+#include "stdafx.h"
 
 #include "../Graphics/Vertex.h"
 #include "../Graphics/Face.h"

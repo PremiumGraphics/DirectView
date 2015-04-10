@@ -111,9 +111,10 @@ void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 {
-	CircleConfigDialog dialog(this);
+	CircleConfigDialog dialog(this, circle);
 	//dialog.setConfig(modelings.circleConfig);
 	if (dialog.ShowModal() == wxID_OK) {
+		circle = dialog.get();
 		//modelings.circleConfig = dialog.getConfig();
 	}
 }
@@ -129,10 +130,10 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
 {
-	//const int num = wxGetNumberFromUser("Divide Number", wxEmptyString, wxEmptyString, 3, 360);
-	SphereConfigDialog dialog(this);
+	SphereConfigDialog dialog(this, sphere);
 	//dialog.setConfig(modelings.sphereConfig);
 	if (dialog.ShowModal() == wxID_OK) {
+		sphere = dialog.get();
 		//modelings.sphereConfig = dialog.getConfig();
 	}
 }
@@ -147,10 +148,9 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 {
-	CylinderConfigDialog dialog(this);
-	//dialog.setConfig(modelings.cylinderConfig);
+	CylinderConfigDialog dialog(this, cylinder);
 	if (dialog.ShowModal() == wxID_OK) {
-		//modelings.cylinderConfig = dialog.getConfig();
+		cylinder = dialog.get();
 	}
 }
 

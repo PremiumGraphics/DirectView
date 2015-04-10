@@ -3,7 +3,9 @@
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
 #include "../Math/Circle.h"
+#include "../Math/Sphere.h"
 #include "../Math/Box.h"
+#include "../Math/Cylinder.h"
 
 namespace Crystal {
 	namespace ModelingDialogTest {
@@ -45,7 +47,9 @@ private:
 	Math::Triangle triangle;
 	Math::Quad quad;
 	Math::Circle circle;
+	Math::Sphere sphere;
 	Math::Box box;
+	Math::Cylinder cylinder;
 };
 
 	}

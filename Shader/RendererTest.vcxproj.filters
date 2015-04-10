@@ -7,5 +7,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PointRendererTest.h" />
+    <ClInclude Include="WireFrameRendererTest.h" />
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ public:
 	Sphere( const Math::Box& boundingBox ) {
 		center = boundingBox.getCenter();
 		const Vector3d& length = boundingBox.getLength();
-		radius = std::min( std::min( length.getX(), length.getY() ), length.getZ() ) * 0.5f;
+		radius = std::min<float>( std::min<float>( length.getX(), length.getY() ), length.getZ() ) * 0.5f;
 	}
 
 	static Sphere UnitSphere() {
