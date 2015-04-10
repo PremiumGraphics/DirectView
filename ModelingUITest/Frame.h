@@ -4,8 +4,6 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Light.h"
 
-#include "Model.h"
-
 #include "../UI/ModelingDialog.h"
 
 #include "../UI/PropertyDialog.h"
