@@ -3,5 +3,9 @@
   <ItemGroup>
     <ClCompile Include="RendererTest.cpp" />
     <ClCompile Include="PointRendererTest.cpp" />
+    <ClCompile Include="WireFrameRendererTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PointRendererTest.h" />
   </ItemGroup>
 </Project>

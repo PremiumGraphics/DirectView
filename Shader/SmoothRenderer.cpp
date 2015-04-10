@@ -137,7 +137,7 @@ void SmoothRenderer::render(const int width, const int height, const Camera<floa
 	for (const LightSPtr& l : lights) {
 		const std::vector< float >& lightPos = l->getPos().toArray();
 		const std::vector< float >& kd = l->getDiffuse().toArray3();
-		const std::vector< float >& ka = l->getAmbient().toArray3();
+		const std::vector< float >& ka = ColorRGB<float>::White().toArray3();
 		const std::vector< float >& ks = l->getSpecular().toArray3();
 
 		char str[256];

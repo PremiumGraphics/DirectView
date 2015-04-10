@@ -86,7 +86,7 @@ private:
 	Shader::SurfaceRenderer surfaceRenderer;
 	Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
-	Graphics::PointRenderer pointRenderer;
+	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;

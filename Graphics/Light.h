@@ -11,24 +11,21 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Light {
+
+class PointLight {
 public:
-	Light() :
+	PointLight() :
 		pos( Math::Vector3d( 1.0f, 1.0f, 1.0f ) ),
 		diffuse( ColorRGB<float>::Red() ),
 		specular( ColorRGB<float>::Green() ),
-		ambient( ColorRGB<float>::Blue() ),
 		isSelected( true )
 	{
 	}
 
-	~Light(){};
+	~PointLight(){};
 
 public:
 
-	Graphics::ColorRGB<float> getAmbient() const { return ambient; }
-
-	void setAmbient( const Graphics::ColorRGB<float>& a ) { this->ambient = a; }
 
 	Graphics::ColorRGB<float> getDiffuse() const { return diffuse; }
 
@@ -50,19 +47,48 @@ public:
 private:
 	Math::Vector3d pos;
 
-	Graphics::ColorRGB<float> ambient;
 	Graphics::ColorRGB<float> diffuse;
 	Graphics::ColorRGB<float> specular;
 };
 
-typedef std::shared_ptr< Light > LightSPtr;
+typedef std::shared_ptr< PointLight > LightSPtr;
 typedef std::list < LightSPtr > LightSPtrList;
+
+class DirectionalLight {
+public:
+	void setDirection(const Math::Vector3d& direction) { this->direction = direction; }
+
+	Math::Vector3d getDirection() const { return direction; }
+
+	Graphics::ColorRGB<float> getColor() const { return color; }
+
+	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
+
+private:
+	Math::Vector3d direction;
+
+	Graphics::ColorRGB<float> color;
+};
+
+class AmbientLight {
+public:
+	AmbientLight() :
+		color( ColorRGB<float>::White() )
+	{}
+
+	Graphics::ColorRGB<float> getColor() const { return color; }
+
+	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
+
+private:
+	Graphics::ColorRGB<float> color;
+};
 
 class LightBuilder
 {
 public:
 	LightSPtr build() {
-		LightSPtr l(new Light());
+		LightSPtr l(new PointLight());
 		lights.push_back(l);
 		return l;
 	}

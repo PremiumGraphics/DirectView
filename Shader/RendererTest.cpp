@@ -11,6 +11,12 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+class WireFrameRendererTest {
+public:
+	int test(){};
+};
+
+
 int main(void)
 {
 	if (!glfwInit()) {

@@ -4,10 +4,16 @@
 
 using namespace Crystal::Graphics;
 
-TEST(LightTest, TestConstruct )
+TEST(AmbientLightTest, TestConstruct )
 {
-	Light l;
-	EXPECT_EQ( ColorRGB<float>::Blue(), l.getAmbient() );
+	AmbientLight l;
+	EXPECT_EQ( ColorRGB<float>::White(), l.getColor() );
+}
+
+TEST(DirectionalLightTest, TestConstruct)
+{
+	DirectionalLight l;
+	EXPECT_EQ(ColorRGB<float>::White(), l.getColor());
 }
 
 TEST(LightBuilderTest, TestBuild)

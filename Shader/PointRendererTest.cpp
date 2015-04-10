@@ -7,14 +7,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "PointRendererTest.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-class PointRendererTest {
-public:
-	int test();
-};
 
 int PointRendererTest::test(void)
 {

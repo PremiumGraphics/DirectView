@@ -10,13 +10,13 @@ TEST( BoxTest, TestConstruct )
 	EXPECT_EQ( b.getVolume(), 1.0f );
 }
 
-TEST( BoxTest, getVolumeTest )
+TEST( BoxTest, TestGetVolume )
 {
 	Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 1.0f, 2.0f, 3.0f ) );
 	EXPECT_TRUE( Tolerances::isEqualLoosely( b.getVolume(), 6.0f ) );
 }
 
-TEST( BoxTest, LengthTest )
+TEST( BoxTest, TestGetLength )
 {
 	Box b( Vector3d( 1.0f, 1.0f, 1.0f ), Vector3d( 1.0f, 2.0f, 3.0f ) );
 	const Vector3d& lengths = b.getLength();
@@ -24,14 +24,14 @@ TEST( BoxTest, LengthTest )
 
 }
 
-TEST( BoxTest, offsetTest )
+TEST( BoxTest, TestOffset )
 {
 	Box b;
 	b.outerOffset( 1.0f );
 	EXPECT_EQ( b, Box( Vector3d( -1.0f, -1.0f, -1.0f ), Vector3d( 2.0f, 2.0f, 2.0f ) ) );
 }
 
-TEST( BoxTest, isShrinkedTest )
+TEST( BoxTest, TestIsShrinked )
 {
 	{
 		Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 0.0f, 0.0f, 0.0f ) );
@@ -44,7 +44,7 @@ TEST( BoxTest, isShrinkedTest )
 	}
 }
 
-TEST( BoxTest, isValidTest )
+TEST( BoxTest, TestIsValid )
 {
 	{
 		Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 0.0f, 0.0f, 0.0f ) );

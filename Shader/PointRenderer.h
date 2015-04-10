@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_POINT_RENDERER_H__
-#define __CRYSTAL_GRAPHICS_POINT_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_POINT_RENDERER_H__
+#define __CRYSTAL_SHADER_POINT_RENDERER_H__
 
 #include "../Graphics/ShaderObject.h"
 
