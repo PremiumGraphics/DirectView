@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="PolygonTree.h" />
-    <ClInclude Include="ModelingDialog.h" />
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -10,6 +9,5 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="PolygonTree.cpp" />
-    <ClCompile Include="ModelingDialog.cpp" />
   </ItemGroup>
 </Project>

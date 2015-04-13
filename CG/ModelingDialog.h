@@ -1,292 +1,164 @@
-#ifndef __CRYSTAL_APP_MODELING_DIALOG_H__
-#define __CRYSTAL_APP_MODELING_DIALOG_H__
+#ifndef __CRYSTAL_UI_MODELING_DIALOG_H__
+#define __CRYSTAL_UI_MODELING_DIALOG_H__
 
 #include "stdafx.h"
+
+#include "../Math/Triangle.h"
+#include "../Math/Quad.h"
+#include "../Math/Cone.h"
+#include "../Math/Circle.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 namespace Crystal{
 	namespace CG {
 
-class TriangleConfigDialog : public wxDialog
-{
-public:
-	struct Config {
-		Config() : xSize(1.0), ySize( 1.0)
-		{}
-		float xSize;
-		float ySize;
-	};
+		class TriangleConfigDialog : public wxDialog
+		{
+		public:
+			TriangleConfigDialog(wxWindow* parent, const Math::Triangle& t);
 
-	TriangleConfigDialog(wxWindow* parent);
+			Math::Triangle get() const;
 
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
-
-private:
-	wxSpinCtrlDouble* xSize;
-	wxSpinCtrlDouble* ySize;
-};
-
-class QuadConfigDialog : public wxDialog
-{
-public:
-	struct Config{
-		float xSize;
-		float ySize;
-	};
-
-	QuadConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() {
-		Config config;
-		config.xSize = xSize->GetValue();
-		config.ySize = ySize->GetValue();
-		return config;
-	}
-
-private:
-	wxSpinCtrlDouble* xSize;
-	wxSpinCtrlDouble* ySize;
-};
+		private:
+			wxSpinCtrlDouble* xSize;
+			wxSpinCtrlDouble* ySize;
+		};
 
 
-class CircleConfigDialog : public wxDialog
-{
-public:
-	struct Config{
-		Config() :
-			divideNumber(3),
-			width( 1.0),
-			height( 1.0)
-		{}
 
-		void setDivideAngle(const float angle) { divideNumber = 360.0f / angle; }
+		class QuadConfigDialog : public wxDialog
+		{
+		public:
+			QuadConfigDialog(wxWindow* parent, const Math::Quad& q);
 
-		void setDivideNumber(const unsigned int divideNumber) { this->divideNumber = divideNumber; }
+			Math::Quad get(){
+				return Math::Quad();
+			}
 
-		unsigned int getDivideNumber() const { return divideNumber; }
-
-		float getDivideAngle() const { return 360.0f / divideNumber; }
-
-		void setWidth(const float width) { this->width = width;  }
-
-		void setHeight(const float height) { this->height = height; }
-
-		float getWidth() const { return width; }
-
-		float getHeight() const { return height; }
-
-		bool isValid() const {
-			return
-				divideNumber >= 3 &&
-				width >= 0.0f &&
-				height >= 0.0f;
-		}
-
-	private:
-		unsigned int divideNumber;
-		float width;
-		float height;
-	};
+		private:
+			wxSpinCtrlDouble* xSize;
+			wxSpinCtrlDouble* ySize;
+		};
 
 
-	CircleConfigDialog(wxWindow* parent);
+		class CircleConfigDialog : public wxDialog
+		{
+		public:
 
-	void setConfig(const Config& config) {
-		divideNumber->SetValue(config.getDivideNumber());
-		divideAngle->SetValue(360.0f / config.getDivideNumber() );
-		width->SetValue(config.getWidth());
-		height->SetValue(config.getHeight());
-	}
+			CircleConfigDialog(wxWindow* parent, const Math::Circle& circle);
 
-	Config getConfig() const {
-		Config config;
-		config.setDivideNumber( divideNumber->GetValue() );
-		config.setWidth(width->GetValue());
-		config.setHeight(height->GetValue());
-		return config;
-	}
+			Math::Circle get() const {
+				return Math::Circle();
+			}
 
-private:
-	wxSpinCtrlDouble* divideAngle;
-	wxSpinCtrl* divideNumber;
-	wxSpinCtrlDouble* width;
-	wxSpinCtrlDouble* height;
-};
+		private:
+			wxSpinCtrlDouble* divideAngle;
+			wxSpinCtrl* divideNumber;
+			wxSpinCtrlDouble* width;
+			wxSpinCtrlDouble* height;
+		};
 
 
-class SphereConfigDialog : public wxDialog
-{
-public:
-	struct Config {
-		Config() :
-			uDivideNumber( 3 ),
-			vDivideNumber( 3 ),
-			uRadius( 1.0f ),
-			vRadius( 1.0f )
-		{}
+		class SphereConfigDialog : public wxDialog
+		{
+		public:
 
-		float getUDivideNumber() const { return uDivideNumber; }
+			SphereConfigDialog(wxWindow* parent, const Math::Sphere& sphere);
 
-		void setUDivideNumber(const int uDivideNumber) { this->uDivideNumber = uDivideNumber; }
+			Math::Sphere get() const {
+				return Math::Sphere();
+			}
 
-		float getVDivideNumber() const { return vDivideNumber; }
+		private:
+			wxSpinCtrlDouble* uDivideAngle;
+			wxSpinCtrlDouble* vDivideAngle;
 
-		void setVDivideNumber(const int vDivideNumber) { this->vDivideNumber = vDivideNumber; }
+			wxSpinCtrl* uDivideNumber;
+			wxSpinCtrl* vDivideNumber;
 
-		float getURadius() const { return uRadius; }
+			wxSpinCtrlDouble* uRadius;
+			wxSpinCtrlDouble* vRadius;
+		};
 
-		float getVRadius() const { return vRadius; }
+		class ConeConfigDialog : public wxDialog
+		{
+		public:
+			struct Config {
+				Config() :
+					divideNumber(30)
+				{}
 
-		void setURadius(const float uRadius) { this->uRadius = uRadius; }
+				int divideNumber;
+				Math::Cone cone;
+			};
 
-		void setVRadius(const float vRadius) { this->vRadius = vRadius; }
+			ConeConfigDialog(wxWindow* parent) :
+				wxDialog(parent, wxID_ANY, "ConeConfig", wxDefaultPosition, wxSize(500, 500))
+			{
+				new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
+				divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
 
-		bool isValid() const {
-			return
-				uDivideNumber >= 3 &&
-				vDivideNumber >= 3 &&
-				uRadius > 0.0f &&
-				vRadius > 0.0f;
-		}
+				new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
+				new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 
-	private:
-		unsigned int uDivideNumber;
-		unsigned int vDivideNumber;
-		float uRadius;
-		float vRadius;
-	};
+				new wxStaticText(this, wxID_ANY, "Radius", wxPoint(0, 200));
+				radius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 
-	SphereConfigDialog(wxWindow* parent);
+				new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 300));
+				height = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
+			}
 
-	void setConfig(const Config& config) {
-		uDivideAngle->SetValue( config.getUDivideNumber() );
-		vDivideAngle->SetValue( config.getVDivideNumber() );
-		uRadius->SetValue(config.getURadius());
-		vRadius->SetValue(config.getVRadius());
-	}
+			void setConfig(const Config& config) {
+				divideNumber->SetValue(config.divideNumber);
+				radius->SetValue(config.cone.getRadius());
+				height->SetValue(config.cone.getHeight());
+			}
 
-	Config getConfig() const {
-		Config config;
-		config.setUDivideNumber(config.getUDivideNumber());
-		config.setVDivideNumber(config.getVDivideNumber());
-		config.setURadius(config.getURadius());
-		config.setVRadius(config.getVRadius());
-		return config;
-	}
+			Config getConfig() const {
+				Config config;
+				config.divideNumber = divideNumber->GetValue();
+				config.cone.setRadius(radius->GetValue());
+				config.cone.setHeight(height->GetValue());
+				return config;
+			}
 
-private:
-	wxSpinCtrlDouble* uDivideAngle;
-	wxSpinCtrlDouble* vDivideAngle;
+		private:
+			wxSpinCtrl* divideNumber;
+			wxSpinCtrlDouble* radius;
+			wxSpinCtrlDouble* height;
+		};
 
-	wxSpinCtrl* uDivideNumber;
-	wxSpinCtrl* vDivideNumber;
+		class CylinderConfigDialog : public wxDialog
+		{
+		public:
+			CylinderConfigDialog(wxWindow* parent, const Math::Cylinder& cylinder);
 
-	wxSpinCtrlDouble* uRadius;
-	wxSpinCtrlDouble* vRadius;
-};
+			Math::Cylinder get() const;
 
-class ConeConfigDialog : public wxDialog
-{
-public:
-	struct Config {
-		Config() :
-			divideNumber( 3),
-			radius( 1.0f),
-			height( 1.0f)
-			{}
+		private:
+			wxSpinCtrl* divideNumber;
+			wxSpinCtrl* radius;
+			wxSpinCtrl* height;
+		};
 
-		int divideNumber;
-		float radius;
-		float height;
-	};
+		class BoxConfigDialog : public wxDialog
+		{
+		public:
 
-	ConeConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "ConeConfig", wxDefaultPosition, wxSize( 500, 500))
-	{
-		new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
-		divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+			BoxConfigDialog(wxWindow* parent, const Math::Box& box);
 
-		new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-	}
+			Math::Box get() const;
 
-	void setConfig(const Config& config) {
-		divideNumber->SetValue(config.divideNumber);
-	}
+		private:
+			wxSpinCtrlDouble* xSize;
+			wxSpinCtrlDouble* ySize;
+			wxSpinCtrlDouble* zSize;
+		};
 
-	Config getConfig() const {
-		Config config;
-		config.divideNumber = divideNumber->GetValue();
-		return config;
-	}
-
-private:
-	wxSpinCtrl* divideNumber;
-	wxSpinCtrlDouble* radius;
-	wxSpinCtrlDouble* height;
-};
-
-class CylinderConfigDialog : public wxDialog
-{
-public:
-	struct Config{
-		int divideNumber;
-		float width;
-		float height;
-
-		Config() :
-			divideNumber( 3),
-			width( 1.0 )
-		{}
-	};
-	CylinderConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
-
-private:
-	wxSpinCtrl* divideNumber;
-	wxSpinCtrl* width;
-	wxSpinCtrl* height;
-};
-
-class BoxConfigDialog : public wxDialog
-{
-public:
-	struct Config{
-		Config() :
-			xSize(1.0), ySize(1.0), zSize( 1.0)
-		{}
-		float xSize;
-		float ySize;
-		float zSize;
-	};
-
-	BoxConfigDialog(wxWindow* parent);
-
-	void setConfig(const Config& config);
-
-	Config getConfig() const;
-
-private:
-	wxSpinCtrlDouble* xSize;
-	wxSpinCtrlDouble* ySize;
-	wxSpinCtrlDouble* zSize;
-};
-
-struct ModelingDialogs {
-	TriangleConfigDialog::Config triangleConfig;
-	QuadConfigDialog::Config quadConfig;
-	CircleConfigDialog::Config circleConfig;
-	SphereConfigDialog::Config sphereConfig;
-	BoxConfigDialog::Config boxConfig;
-	ConeConfigDialog::Config coneConfig;
-	CylinderConfigDialog::Config cylinderConfig;
-};
+		struct ModelingDialogs {
+			ConeConfigDialog::Config coneConfig;
+		};
 
 	}
 }

@@ -9,6 +9,7 @@
     <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelingDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -20,6 +21,7 @@
     <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelingDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
