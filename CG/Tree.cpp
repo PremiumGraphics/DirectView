@@ -258,7 +258,7 @@ void PolygonTree::build()
 	for (const PolygonSPtr& p : builder.getPolygons()) {
 		const wxTreeItemId id = AppendItem(root, p->getName());
 		map[id] = p;
-		SetItemState(id, true);
+		SetItemState(id, p->isSelected);
 	}
 }
 
@@ -270,6 +270,8 @@ void PolygonTree::OnItemStateClick(wxTreeEvent& event)
 		return;
 	}
 	const PolygonSPtr& p = map[id];
+	p->isSelected = !p->isSelected;
+	SetItemState(id, p->isSelected);
 	property->build(p);
 }
 

@@ -28,6 +28,8 @@ enum {
 	ID_LIGHT_TRANSLATE,
 	ID_CAMERA_TRANSLATE,
 	//ID_PICK_VERTEX,
+	ID_POLYGON_TRANSLATE,
+	ID_POLYGON_ROTATE,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -39,6 +41,8 @@ enum {
 
 	ID_CREATE_TRIANGLE,
 	ID_CREATE_SPHERE,
+	ID_CREATE_QUAD,
+	ID_CREATE_CIRCLE,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
@@ -146,12 +150,15 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
+	operation->AddButton(ID_POLYGON_TRANSLATE, "Translate", wxBitmap(32, 32));
+	operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
 
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
 	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
-
+	Connect( ID_POLYGON_TRANSLATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
+	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -171,11 +178,9 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	const int createQuadId = wxNewId();
-	const int createCircleId = wxNewId();
 	modelingBar->AddHybridButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
-	modelingBar->AddHybridButton(createQuadId, "Quad", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(createCircleId, "Circle", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png"));
+	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
@@ -183,10 +188,10 @@ Frame::Frame()
 
 	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
 	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
-	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
-	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
-	Connect(createCircleId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
-	Connect(createCircleId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
+	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
+	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
+	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
+	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
 	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
@@ -213,9 +218,8 @@ Frame::Frame()
 
 	Connect( ID_LOCALE,		wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( Frame::OnLocale ) );
 	
-
-	const int width = 1024;//720;
-	const int height = 512;////480;
+	const int width = 1600;//720;
+	const int height = 900;////480;
 
 	view = new View( this, width, height, model );
 
@@ -696,7 +700,8 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder().buildCircleByNumber(1.0f, 180);
+	PolygonSPtr p = model.getPolygonBuilder().buildCircleByNumber(1.0f, 180);
+	p->setName("Circle");
 	view->Refresh();
 }
 

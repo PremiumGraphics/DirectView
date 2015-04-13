@@ -170,14 +170,19 @@ void View::OnMouse( wxMouseEvent& event )
 		else if( mode == POLYGON_TRANSLATE ) {
 			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			for( const PolygonSPtr& p : polygons ) {
-				p->move( pos );
+				if (p->isSelected) {
+					p->move(pos);
+				}
 				//p->rotate( matrix );
 			}
 		}
 		else if( mode == POLYGON_ROTATE ) {
 			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			for( const PolygonSPtr& p : polygons) {
-				p->rotateZ( pos.getX() );
+				if (p->isSelected) {
+					p->rotateZ(pos.getX());
+					p->rotateY(pos.getY());
+				}
 			}
 		}
 		else if (mode == POLYGON_ROTATE_X) {

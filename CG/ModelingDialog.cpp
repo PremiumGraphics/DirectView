@@ -6,7 +6,7 @@ using namespace Crystal::CG;
 
 
 TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent, const Triangle& triangle) :
-wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
+wxDialog(parent, wxID_ANY, "TriangleConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
 	xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
@@ -16,9 +16,12 @@ wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 	ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 	ySize->SetValue(1.0);
 
+	new wxStaticText(this, wxID_ANY, "Name", wxPoint(0, 300));
+	name = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
+	name->SetLabel("Triangle");
+
 	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-
 }
 
 Triangle TriangleConfigDialog::get() const

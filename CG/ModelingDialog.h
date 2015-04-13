@@ -23,6 +23,7 @@ namespace Crystal{
 		private:
 			wxSpinCtrlDouble* xSize;
 			wxSpinCtrlDouble* ySize;
+			wxTextCtrl* name;
 		};
 
 
