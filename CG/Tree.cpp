@@ -300,6 +300,10 @@ PolygonTree::~PolygonTree()
 void PolygonTree::OnAdd(wxMenuEvent&)
 {
 	const wxString& str = wxGetTextFromUser("Name");
+	PolygonGroup* g = new PolygonGroup();
+	g->setName(str.ToStdString());
+	groups.push_back(g);
+
 	//PolygonSPtr m = builder.build();
 	//m->setName(str.ToStdString());
 	build();
@@ -315,7 +319,7 @@ void PolygonTree::OnDelete(wxMenuEvent&)
 
 void PolygonTree::OnClear(wxMenuEvent&)
 {
-	//builder.clear();
+	groups.clear();
 	map.clear();
 	DeleteChildren(GetRootItem());
 }

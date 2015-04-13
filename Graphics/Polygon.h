@@ -32,9 +32,6 @@ public:
 
 	FaceSPtrVector getFaces() const { return faces; }
 
-	void setName(const std::string& name) { this->name = name; }
-
-	std::string getName() const { return name; }
 
 	void setVertices(const VertexSPtrVector& vs) { this->vertices = vs; }
 
@@ -60,7 +57,6 @@ public:
 
 	bool operator==(const Polygon& rhs) const {
 		return
-			name == rhs.name &&
 			//faces == rhs.faces &&
 			VerticesAreSame(vertices, rhs.vertices);
 	}
@@ -73,12 +69,9 @@ public:
 
 	Material* getMaterial() const { return material; }
 
-	void setMaterial(Material* m) { this->material = m; }
-
 	Math::Box getBoundingBox() const;
 
 private:
-	std::string name;
 	FaceSPtrVector faces;
 	VertexSPtrVector vertices;
 	Math::Vector3d center;
@@ -99,11 +92,17 @@ public:
 
 	void add( Polygon* polygon) { this->polygons.push_back(polygon); }
 
+	void clear() {
+		polygons.clear();
+	}
+
 	bool getSelected() const { return isSelected; }
 
 	void setSelected(const bool b) { this->isSelected = b; }
 
 	std::list< Polygon* > getPolygons() const { return polygons; }
+
+	void setName(const std::string& name) { this->name = name; }
 
 	std::string getName() const { return name; }
 
@@ -111,6 +110,7 @@ private:
 	std::list< Polygon* > polygons;
 	bool isSelected;
 	std::string name;
+	Material* m;
 
 };
 /*

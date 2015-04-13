@@ -13,9 +13,9 @@ namespace Crystal {
 
 class Face;
 class Polygon;
-typedef std::shared_ptr< Polygon > PolygonSPtr;
 class Vertex;
 typedef std::shared_ptr< Vertex > VertexSPtr;
+class PolygonGroup;
 
 class DisplayList
 {
@@ -25,7 +25,7 @@ public:
 
 	DisplayList(Face* f, const ColorRGBA<float>& color);
 
-	DisplayList(const PolygonSPtr& polygon);
+	DisplayList(Polygon* polygon);
 
 	DisplayList(const Math::Vector3dVector& poss) {
 		vertices = Math::toArray(poss);
@@ -50,7 +50,9 @@ public:
 
 	void add(Face* f, const ColorRGBA<float>& color);
 
-	void add(const PolygonSPtr& p);
+	void add(Polygon* p);
+
+	void add(const PolygonGroup& g);
 
 	std::vector< float > getPositions() const { return vertices; }
 

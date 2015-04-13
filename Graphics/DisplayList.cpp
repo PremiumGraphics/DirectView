@@ -13,7 +13,7 @@ DisplayList::DisplayList(Face* f, const ColorRGBA<float>& color)
 }
 
 
-DisplayList::DisplayList(const PolygonSPtr& polygon)
+DisplayList::DisplayList(Polygon* polygon)
 {
 	add(polygon);
 }
@@ -69,7 +69,7 @@ void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 	}
 }
 
-void DisplayList::add(const PolygonSPtr& p)
+void DisplayList::add(Polygon* p)
 {
 	for (std::shared_ptr<Face> f : p->getFaces()) {
 		add(f.get(), p->getMaterial()->getAmbient());
@@ -79,6 +79,14 @@ void DisplayList::add(const PolygonSPtr& p)
 		materialIds.push_back(p->getMaterial()->getId());
 	}
 }
+
+void DisplayList::add(const PolygonGroup& g)
+{
+	for ( Polygon* p : g.getPolygons()) {
+		add(p);
+	}
+}
+
 
 Vector3dVector DisplayList::getPositions(const Face& f) const
 {

@@ -284,7 +284,7 @@ void View::buildDisplayList()
 	dispListSelected.clear();
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
-		dispList.add( p );
+		dispList.add( p.get() );
 	}
 	const FaceSPtrVector& faces = model.getSelectedFaces();
 	for (const FaceSPtr& f : faces) {
