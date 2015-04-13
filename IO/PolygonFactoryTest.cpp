@@ -32,7 +32,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 	group->setFaces({ face });
 	file.setGroups({ group });
 
-	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonBuilder builder;
 	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
 
@@ -68,7 +68,7 @@ TEST(PolygonFactoryTest, TestCreateFromSTL)
 	cell.setNormal(Vector3d(1.0, 0.0, 0.0));
 	file.setCells(STLCellVector{ cell });
 
-	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonBuilder builder;
 	PolygonFactory factory(builder);
 	const PolygonSPtrList& polygons = factory.create(file);
 

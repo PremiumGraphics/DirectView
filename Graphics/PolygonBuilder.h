@@ -90,8 +90,6 @@ private:
 	MaterialBuilderSPtr materialBuilder;
 };
 
-typedef std::shared_ptr< PolygonBuilder > PolygonBuilderSPtr;
-
 	}
 }
 

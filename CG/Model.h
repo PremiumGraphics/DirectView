@@ -11,7 +11,6 @@ namespace Crystal {
 class Model {
 public:
 	Model() :
-		builder(new Graphics::PolygonBuilder()),
 		lightBuilder(new Graphics::LightBuilder())
 	{
 		camera.setNear(1.0f);
@@ -19,20 +18,20 @@ public:
 
 	void clear()
 	{
-		builder->clear();
+		builder.clear();
 	}
 
-	Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
+	Graphics::PolygonBuilder& getPolygonBuilder() { return builder; }
 
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
-	Graphics::MaterialSPtrList getMaterials() { return builder->getMaterialBuilder()->getMaterials(); }
+	Graphics::MaterialSPtrList getMaterials() { return builder.getMaterialBuilder()->getMaterials(); }
 
-	Graphics::FaceSPtrVector getFaces() const { return builder->getFaces(); }
+	Graphics::FaceSPtrVector getFaces() const { return builder.getFaces(); }
 
-	Graphics::PolygonSPtrList getPolygons() const { return builder->getPolygons(); }
+	Graphics::PolygonSPtrList getPolygons() const { return builder.getPolygons(); }
 
-	Graphics::VertexSPtrVector getVertices() const { return builder->getVertices(); }
+	Graphics::VertexSPtrVector getVertices() const { return builder.getVertices(); }
 
 	Graphics::VertexSPtrVector getSelectedVertices() const { return selectedVertex; }
 
@@ -48,7 +47,7 @@ public:
 
 
 private:
-	const Graphics::PolygonBuilderSPtr builder;
+	Graphics::PolygonBuilder builder;
 	Graphics::VertexSPtrVector selectedVertex;
 	Graphics::FaceSPtrVector selectedFace;
 

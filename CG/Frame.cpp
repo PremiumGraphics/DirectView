@@ -78,7 +78,7 @@ void Widgets::build(Frame* parent, Model& model)
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
 	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
-	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
+	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder().getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
 

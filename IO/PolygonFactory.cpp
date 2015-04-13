@@ -10,7 +10,7 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 {
 	PolygonSPtrList polygons;
 	for (const OBJGroupSPtr& g : file.getGroups()) {
-		PolygonSPtr polygon = pBuilder->build();
+		PolygonSPtr polygon = pBuilder.build();
 		//polygon->setPositions( g.getPositions() );
 		//polygon->setTexCoords( g.getTexCoords() );
 		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(g->getPositions(), g->getNormals());
@@ -39,7 +39,7 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 
 PolygonSPtrList PolygonFactory::create(const STLFile& file)
 {
-	PolygonSPtr polygon = pBuilder->build();
+	PolygonSPtr polygon = pBuilder.build();
 	const STLCellVector& cells = file.getCells();
 	FaceSPtrVector faces;
 

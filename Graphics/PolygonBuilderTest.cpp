@@ -61,10 +61,10 @@ TEST(PolygonBuilderTest, TestBuildBox)
 
 TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 {
-	PolygonBuilderSPtr builder(new PolygonBuilder());
-	PolygonSPtr p(builder->buildCircleByAngle(1.0f, 90.0f));
+	PolygonBuilder builder;
+	PolygonSPtr p(builder.buildCircleByAngle(1.0f, 90.0f));
 
-	EXPECT_EQ(1, builder->getPolygons().size());
+	EXPECT_EQ(1, builder.getPolygons().size());
 
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
@@ -97,11 +97,11 @@ TEST(PolygonBuilderTest, TestCreateCircleByAngle)
 
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
-	PolygonBuilderSPtr builder(new PolygonBuilder());
+	PolygonBuilder builder;
 	const Triangle triangle;
-	PolygonSPtr p(builder->build(triangle));
+	PolygonSPtr p(builder.build(triangle));
 
-	EXPECT_EQ(1, builder->getPolygons().size());
+	EXPECT_EQ(1, builder.getPolygons().size());
 
 	EXPECT_EQ(3, p->getVertices().size());
 

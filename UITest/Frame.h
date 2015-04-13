@@ -25,24 +25,23 @@ namespace Crystal {
 
 		class Model {
 		public:
-			Model() :
-				builder(new Graphics::PolygonBuilder())
+			Model()
 			{
 				camera.setNear(1.0f);
 			}
 
 			void clear()
 			{
-				builder->clear();
+				builder.clear();
 			}
 
-			Graphics::PolygonBuilderSPtr getPolygonBuilder() const  { return builder; }
+			Graphics::PolygonBuilder* getPolygonBuilder() { return &builder; }
 
-			Graphics::FaceSPtrVector getFaces() const { return builder->getFaces(); }
+			Graphics::FaceSPtrVector getFaces() const { return builder.getFaces(); }
 
-			Graphics::PolygonSPtrList getPolygons() const { return builder->getPolygons(); }
+			Graphics::PolygonSPtrList getPolygons() const { return builder.getPolygons(); }
 
-			Graphics::VertexSPtrVector getVertices() const { return builder->getVertices(); }
+			Graphics::VertexSPtrVector getVertices() const { return builder.getVertices(); }
 
 			Graphics::VertexSPtrVector getSelectedVertices() const { return selectedVertex; }
 
@@ -57,7 +56,7 @@ namespace Crystal {
 
 
 		private:
-			const Graphics::PolygonBuilderSPtr builder;
+			Graphics::PolygonBuilder builder;
 			Graphics::VertexSPtrVector selectedVertex;
 			Graphics::FaceSPtrVector selectedFace;
 

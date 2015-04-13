@@ -17,7 +17,7 @@ wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
 PolygonProperty* property,
-const PolygonBuilderSPtr& builder
+PolygonBuilder* builder
 )
 :
 wxTreeCtrl(

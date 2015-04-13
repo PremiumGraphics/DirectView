@@ -14,11 +14,11 @@ namespace Crystal {
 
 class PolygonFactory {
 public:
-	PolygonFactory( const Graphics::PolygonBuilderSPtr& pBuilder ) :
+	PolygonFactory( const Graphics::PolygonBuilder& pBuilder) :
 		pBuilder( pBuilder ),
-		vBuilder(pBuilder->getVertexBuilder() ),
-		fBuilder(pBuilder->getFaceBuilder() ),
-		eBuilder(pBuilder->getHalfEdgeBuilder() )
+		vBuilder(pBuilder.getVertexBuilder() ),
+		fBuilder(pBuilder.getFaceBuilder() ),
+		eBuilder(pBuilder.getHalfEdgeBuilder() )
 	{}
 
 	Graphics::PolygonSPtrList create(const OBJFile& file);
@@ -26,7 +26,7 @@ public:
 	Graphics::PolygonSPtrList create(const STLFile& file);
 
 private:
-	Graphics::PolygonBuilderSPtr pBuilder;
+	Graphics::PolygonBuilder pBuilder;
 	Graphics::VertexBuilderSPtr vBuilder;
 	Graphics::HalfEdgeBuilderSPtr eBuilder;
 	Graphics::FaceBuilderSPtr fBuilder;
