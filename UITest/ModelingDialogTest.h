@@ -9,6 +9,8 @@
 
 #include "../Shader/WireFrameRenderer.h"
 #include "../Graphics/DisplayList.h"
+#include "../Graphics/Polygon.h"
+#include "../Graphics/PolygonBuilder.h"
 
 
 namespace Crystal {
@@ -23,7 +25,7 @@ public:
 
 	~View();
 
-	void buildDisplayList();
+	void buildDisplayList(const Graphics::PolygonSPtrList& polygons);
 
 private:
 
@@ -35,8 +37,6 @@ private:
 
 private:
 	wxGLContext glContext;
-
-	wxPoint mouseStart;
 
 	void build();
 
@@ -89,6 +89,8 @@ private:
 	Math::Cylinder cylinder;
 
 	View* view;
+	Graphics::PolygonSPtrList polygons;
+	Graphics::PolygonBuilder builder;
 };
 
 	}

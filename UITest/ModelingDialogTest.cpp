@@ -75,14 +75,14 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	buildDisplayList();
-
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
 	Camera<float> c;
+	c.setNear(0.1f);
+	c.move(Vector3d(0.0, 0.0, -5.0));
 
 	glLineWidth(1.0f);
 	wireFrameRenderer.render(width, height, c, dispList);
@@ -93,15 +93,12 @@ void View::build()
 	wireFrameRenderer.build();
 }
 
-void View::buildDisplayList()
+void View::buildDisplayList(const PolygonSPtrList& polygons)
 {
-	/*
 	dispList.clear();
-	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add(p);
 	}
-	*/
 }
 
 Frame::Frame()
@@ -181,6 +178,8 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
+	polygons.push_back(builder.buildQuad());
+	view->buildDisplayList(polygons);
 	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
 	//polygon->setName("Quad");
 	//w.getPolygonTree()->build();
@@ -196,11 +195,8 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	/*
-	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildCircleByNumber(1.0f, modelings.circleConfig.getDivideNumber());
-	polygon->setName("Circle");
-	w.getPolygonTree()->build();
-	*/
+	polygons.push_back(builder.buildCircleByNumber( 1.0f, 180 ));
+	view->buildDisplayList(polygons);
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
