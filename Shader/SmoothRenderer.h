@@ -41,7 +41,7 @@ public:
 	};
 	*/
 
-	void render(const int width, const int height, const Camera<float>& camera, const DisplayList& list, const LightSPtrList& lights, const MaterialSPtrList& materials );
+	void render(const int width, const int height, const Camera<float>& camera, const DisplayList& list, const LightSPtrList& lights, const std::list<Material*>& materials );
 
 private:
 	Graphics::ShaderObject shader;

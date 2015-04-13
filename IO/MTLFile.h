@@ -229,9 +229,9 @@ public:
 class MTLFileWriter
 {
 public:
-	bool save(const std::string& filename, const Graphics::MaterialSPtr& m);
+	bool save(const std::string& filename, const Graphics::Material& m);
 
-	bool save(std::ostream& stream, const Graphics::MaterialSPtr& m);
+	bool save(std::ostream& stream, const Graphics::Material& m);
 
 	std::vector< std::string > getStrs() const { return strs; }
 

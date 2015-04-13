@@ -209,7 +209,7 @@ std::vector< std::string > MTLFile::writeTextureOptions(std::ostream& stream, MT
 }
 
 
-bool MTLFileWriter::save(const std::string& filename, const MaterialSPtr& m)
+bool MTLFileWriter::save(const std::string& filename, const Material& m)
 {
 	std::ofstream stream(filename.c_str());
 
@@ -220,31 +220,31 @@ bool MTLFileWriter::save(const std::string& filename, const MaterialSPtr& m)
 	return save(stream, m);
 }
 
-bool MTLFileWriter::save(std::ostream& stream, const MaterialSPtr& m)
+bool MTLFileWriter::save(std::ostream& stream, const Material& m)
 {
 
 	//stream << "# Exported from CGStudio" << std::endl;
 
 	//strs.push_back( "newmtl " + m->getName());
 
-	const ColorRGBA<float>& ambient = m->getAmbient();
+	const ColorRGBA<float>& ambient = m.getAmbient();
 	char s[256];
 	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
 	strs.push_back(s);
 
-	const ColorRGBA<float>& diffuse = m->getDiffuse();
+	const ColorRGBA<float>& diffuse = m.getDiffuse();
 	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
 	strs.push_back(s);
 
-	const ColorRGBA<float>& specular = m->getSpecular();
+	const ColorRGBA<float>& specular = m.getSpecular();
 	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
 	strs.push_back(s);
 
-	const float shininess = m->getShininess();
+	const float shininess = m.getShininess();
 	sprintf(s, "Ns %.4lf", shininess);
 	strs.push_back(s);
 
-	const float tr = m->getTransparent();
+	const float tr = m.getTransparent();
 	sprintf(s, "Tr %.4lf", tr);
 	strs.push_back(s);
 

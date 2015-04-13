@@ -220,7 +220,7 @@ wxPG_SPLITTER_AUTO_CENTER | wxPG_BOLD_MODIFIED
 
 #include "Converter.h"
 
-void MaterialProperty::setValue(const MaterialSPtr& m)
+void MaterialProperty::setValue(Material* m)
 {
 	this->m = m;
 	Clear();

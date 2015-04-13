@@ -98,7 +98,7 @@ private:
 
 	MaterialProperty* property;
 
-	std::map< wxTreeItemId, Graphics::MaterialSPtr > map;
+	std::map< wxTreeItemId, Graphics::Material* > map;
 };
 
 class PolygonProperty;

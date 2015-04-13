@@ -57,7 +57,8 @@ TEST(DisplayListTest, TestAddPolygon)
 	PolygonBuilder builder;
 	const Quad q;
 	PolygonSPtr p = builder.build(q);
-	p->setMaterial(MaterialSPtr(new Material(0)));
+	Material m0(0);
+	p->setMaterial(&m0);
 
 	DisplayList list;
 	list.add( p );
@@ -87,7 +88,8 @@ TEST(DisplayListTest, TestAddPolygon)
 	list.clear();
 	Triangle t;
 	p = builder.build(t);
-	p->setMaterial(MaterialSPtr(new Material(1)));
+	Material m1(1);
+	p->setMaterial(&m1);
 
 	list.add(p);
 

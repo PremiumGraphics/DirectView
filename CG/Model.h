@@ -25,7 +25,7 @@ public:
 
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
-	Graphics::MaterialSPtrList getMaterials() { return builder.getMaterialBuilder().getMaterials(); }
+	std::list< Graphics::Material* > getMaterials() { return builder.getMaterialBuilder().getMaterials(); }
 
 	Graphics::FaceSPtrVector getFaces() const { return builder.getFaces(); }
 

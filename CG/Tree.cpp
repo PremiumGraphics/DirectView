@@ -150,7 +150,7 @@ void MaterialTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot("Material");
 
-	for (const MaterialSPtr& m : builder.getMaterials()) {
+	for (Material* m : builder.getMaterials()) {
 		const wxTreeItemId id = AppendItem(root, m->getName());
 		map[id] = m;
 	}
@@ -184,14 +184,14 @@ void MaterialTree::OnItemActivated(wxTreeEvent& e)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	const MaterialSPtr& m = map[id];
+	Material* m = map[id];
 	property->setValue(m);
 }
 
 void MaterialTree::OnAdd(wxMenuEvent&)
 {
 	const wxString& str = wxGetTextFromUser("Name");
-	MaterialSPtr m = builder.build();
+	Material* m = builder.build();
 	m->setName(str.ToStdString());
 	build();
 }

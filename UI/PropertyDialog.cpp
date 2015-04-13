@@ -129,7 +129,7 @@ polygon( polygon)
 }
 
 
-PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const MaterialSPtrList& materials) :
+PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Material*>& materials) :
 wxPropertyGrid
 (
 parent,
@@ -157,11 +157,11 @@ void PolygonProperty::build(const PolygonSPtr& group)
 	Append(new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()));
 	Append(new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()));
 
-	const MaterialSPtr& m = group->getMaterial();
+	Material* m = group->getMaterial();
 
 	wxArrayString materialNames;
 	materialNames.Add(wxEmptyString);
-	for (const MaterialSPtr& m : materials) {
+	for (const Material* m : materials) {
 		materialNames.Add(m->getName());
 	}
 
@@ -201,7 +201,7 @@ void PolygonProperty::OnChanged(wxPropertyGridEvent& event)
 	Vector3d center = polygon->getCenter();
 	if (name == "Material") {
 		const std::string &str = property->GetValueAsString().ToStdString();
-		for (const MaterialSPtr& m : materials) {
+		for (Material* m : materials) {
 			if (m->getName() == str) {
 				polygon->setMaterial(m);
 			}

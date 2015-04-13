@@ -12,12 +12,11 @@
 namespace Crystal {
 	namespace Graphics {
 		class Material;
-		typedef std::shared_ptr< Material > MaterialSPtr;
 
 class Polygon {
 public:
 
-	Polygon(unsigned int id, const MaterialSPtr& m) :
+	Polygon(unsigned int id, Material* m) :
 		id(id),
 		material(m)
 	{}
@@ -70,9 +69,9 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	MaterialSPtr getMaterial() const { return material; }
+	Material* getMaterial() const { return material; }
 
-	void setMaterial(const MaterialSPtr& m) { this->material = m; }
+	void setMaterial(Material* m) { this->material = m; }
 
 	Math::Box getBoundingBox() const;
 
@@ -81,7 +80,7 @@ private:
 	FaceSPtrVector faces;
 	VertexSPtrVector vertices;
 	Math::Vector3d center;
-	MaterialSPtr material;
+	Material* material;
 	unsigned int id;
 };
 

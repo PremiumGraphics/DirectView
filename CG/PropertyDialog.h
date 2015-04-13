@@ -94,14 +94,14 @@ class MaterialProperty : public wxPropertyGrid {
 public:
 	MaterialProperty(wxWindow* parent, const wxSize& size);
 
-	void setValue(const Graphics::MaterialSPtr& material);
+	void setValue(Graphics::Material* material);
 
 	void OnChange(wxPropertyGridEvent& event);
 
 	void OnDoubleClick(wxPropertyGridEvent& event);
 
 private:
-	Graphics::MaterialSPtr m;
+	Graphics::Material* m;
 	//wxColourProperty* diffuse;
 
 	wxString getImageFile();

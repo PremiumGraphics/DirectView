@@ -80,7 +80,7 @@ private:
 
 class PolygonProperty : public wxPropertyGrid {
 public:
-	PolygonProperty(wxWindow* parent, const wxSize& size, const Graphics::MaterialSPtrList& materials);
+	PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Graphics::Material*>& materials);
 
 	void build(const Graphics::PolygonSPtr& polygon);
 
@@ -90,7 +90,7 @@ public:
 
 private:
 	Graphics::PolygonSPtr polygon;
-	const Graphics::MaterialSPtrList& materials;
+	const std::list<Graphics::Material*>& materials;
 };
 
 }

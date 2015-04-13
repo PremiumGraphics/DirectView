@@ -94,9 +94,6 @@ private:
 
 };
 
-typedef std::shared_ptr< Material > MaterialSPtr;
-typedef std::list< MaterialSPtr > MaterialSPtrList;
-
 class MaterialBuilder
 {
 public:
@@ -104,19 +101,29 @@ public:
 		nextId(0)
 	{}
 
-	MaterialSPtr build(){
-		MaterialSPtr m(new Material(nextId++));
+	~MaterialBuilder()
+	{
+		clear();
+	}
+
+	Material* build(){
+		Material* m(new Material(nextId++));
 		materials.push_back(m);
 		return m;
 	};
 
-	MaterialSPtrList getMaterials() const { return materials; }
+	std::list< Material* > getMaterials() const { return materials; }
 
-	void clear() { materials.clear(); }
+	void clear() {
+		for (Material* m : materials) {
+			delete m;
+		}
+		materials.clear();
+	}
 
 private:
 	unsigned int nextId;
-	MaterialSPtrList materials;
+	std::list< Material* > materials;
 };
 
 	}

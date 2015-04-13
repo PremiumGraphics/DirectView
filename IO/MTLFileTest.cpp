@@ -122,12 +122,12 @@ TEST(MTLFileReaderTest, TestReadTexture)
 
 TEST(MTLFileWriterTest, TestWrite)
 {
-	MaterialSPtr m(new Material(0));
-	m->setAmbient(ColorRGBA<float>(1.0f, 1.0f, 1.0f));
-	m->setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f));
-	m->setSpecular(ColorRGBA<float>(0.0f, 0.0f, 1.0f));
-	m->setShininess(10.0f);
-	m->setTransparent(0.9f);
+	Material m(0);
+	m.setAmbient(ColorRGBA<float>(1.0f, 1.0f, 1.0f));
+	m.setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f));
+	m.setSpecular(ColorRGBA<float>(0.0f, 0.0f, 1.0f));
+	m.setShininess(10.0f);
+	m.setTransparent(0.9f);
 
 	std::ostringstream stream;
 	MTLFileWriter writer;
