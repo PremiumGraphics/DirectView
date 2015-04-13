@@ -23,7 +23,6 @@ public:
 
 	PolygonBuilder() :
 		faceBuilder( FaceBuilderSPtr(new FaceBuilder() ) ),
-		materialBuilder(MaterialBuilderSPtr( new MaterialBuilder() )),
 		nextId(0)
 	{}
 
@@ -32,15 +31,17 @@ public:
 		faceBuilder( faceBuilder )
 	{}
 
+	/*
 	PolygonBuilder(const FaceBuilderSPtr& faceBuilder, const MaterialBuilderSPtr& materialBuilder) :
 		nextId(0),
 		faceBuilder(faceBuilder),
 		materialBuilder( materialBuilder )
 	{}
+	*/
 
 
 	PolygonSPtr build() { 
-		PolygonSPtr p(new Polygon(nextId++, materialBuilder->build()) );
+		PolygonSPtr p(new Polygon(nextId++, materialBuilder.build()) );
 		polygons.push_back(p);
 		return p;
 	}
@@ -71,7 +72,7 @@ public:
 
 	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder->getHalfEdgeBuilder(); }
 
-	MaterialBuilderSPtr getMaterialBuilder() const { return materialBuilder; }
+	MaterialBuilder& getMaterialBuilder() { return materialBuilder; }
 
 	void remove(const PolygonSPtr& p) { polygons.remove(p); }
 
@@ -87,7 +88,7 @@ private:
 
 	PolygonSPtrList polygons;
 	FaceBuilderSPtr faceBuilder;
-	MaterialBuilderSPtr materialBuilder;
+	MaterialBuilder materialBuilder;
 };
 
 	}

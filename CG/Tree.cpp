@@ -125,7 +125,7 @@ wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
 MaterialProperty* property,
-const MaterialBuilderSPtr& builder
+MaterialBuilder& builder
 )
 :
 wxTreeCtrl(
@@ -150,7 +150,7 @@ void MaterialTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot("Material");
 
-	for (const MaterialSPtr& m : builder->getMaterials()) {
+	for (const MaterialSPtr& m : builder.getMaterials()) {
 		const wxTreeItemId id = AppendItem(root, m->getName());
 		map[id] = m;
 	}
@@ -191,7 +191,7 @@ void MaterialTree::OnItemActivated(wxTreeEvent& e)
 void MaterialTree::OnAdd(wxMenuEvent&)
 {
 	const wxString& str = wxGetTextFromUser("Name");
-	MaterialSPtr m = builder->build();
+	MaterialSPtr m = builder.build();
 	m->setName(str.ToStdString());
 	build();
 }
@@ -208,7 +208,7 @@ void MaterialTree::OnDelete(wxMenuEvent&)
 
 void MaterialTree::OnClear(wxMenuEvent&)
 {
-	builder->clear();
+	builder.clear();
 	map.clear();
 	DeleteChildren( GetRootItem() );
 }

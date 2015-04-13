@@ -119,8 +119,6 @@ private:
 	MaterialSPtrList materials;
 };
 
-typedef std::shared_ptr< MaterialBuilder > MaterialBuilderSPtr;
-
 	}
 }
 

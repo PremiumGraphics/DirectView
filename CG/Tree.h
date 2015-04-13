@@ -76,7 +76,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		MaterialProperty* property,
-		const Graphics::MaterialBuilderSPtr& builder
+		Graphics::MaterialBuilder& builder
 		);
 
 	~MaterialTree();
@@ -94,7 +94,7 @@ private:
 
 	void OnItemActivated(wxTreeEvent& event);
 
-	Graphics::MaterialBuilderSPtr builder;
+	Graphics::MaterialBuilder builder;
 
 	MaterialProperty* property;
 

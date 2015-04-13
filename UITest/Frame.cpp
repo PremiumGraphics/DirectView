@@ -66,7 +66,7 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 300), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
+	polygonProperty = new PolygonProperty(parent, wxSize(300, 300), model.getPolygonBuilder()->getMaterialBuilder().getMaterials());
 
 	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 300), polygonProperty, model.getPolygonBuilder());
 }

@@ -12,7 +12,7 @@ PolygonSPtr PolygonBuilder::build(const Quad& quad)
 {
 	FaceSPtrVector faces;
 
-	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder.build()) );
 	polygons.push_back(polygon);
 	faceBuilder->setPolygon(polygon);
 
@@ -28,7 +28,7 @@ PolygonSPtr PolygonBuilder::build(const Quad& quad)
 
 PolygonSPtr PolygonBuilder::build(const Box& box)
 {
-	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
+	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder.build()));
 	faceBuilder->setPolygon( polygon );
 	FaceSPtr f1(faceBuilder->buildQuad());
 	FaceSPtr f2(faceBuilder->createOffset(f1));
@@ -51,7 +51,7 @@ PolygonSPtr PolygonBuilder::buildCircleByNumber(const float radius, const unsign
 {
 	std::shared_ptr< Face > f = faceBuilder->buildCircleByNumber(radius, divideNumber);
 
-	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder.build()) );
 	polygons.push_back(polygon);
 	f->setPolygon(polygon);
 	polygon->setVertices(f->getVertices());
@@ -74,7 +74,7 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cylinde
 {
 	assert(divideNumber >= 3);
 
-	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
+	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder.build()));
 	faceBuilder->setPolygon(polygon);
 	FaceSPtr f1(faceBuilder->buildCircleByNumber(1.0f,divideNumber));
 	FaceSPtr f2(faceBuilder->createOffset(f1));
@@ -111,7 +111,7 @@ PolygonSPtr PolygonBuilder::build(const Sphere& sphere,const unsigned int uDivid
 			vertexIds.push_back(i);
 		}
 	}
-	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder.build()) );
 	polygons.push_back(polygon);
 
 	polygon->setVertices(vertices);
@@ -126,7 +126,7 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& c
 	VertexSPtrVector vertices;
 	FaceSPtrVector faces;
 
-	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder->build()) );
+	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder.build()) );
 	polygons.push_back(polygon);
 
 	faceBuilder->setPolygon(polygon);
