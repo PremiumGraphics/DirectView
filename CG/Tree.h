@@ -112,7 +112,7 @@ public:
 		const wxPoint& pos,
 		const wxSize& size,
 		PolygonProperty* property,
-		Graphics::PolygonBuilder* builder
+		Graphics::PolygonBuilder& builder
 		);
 
 	~PolygonTree();
@@ -134,7 +134,7 @@ private:
 
 	PolygonProperty* property;
 
-	Graphics::PolygonBuilder* builder;
+	Graphics::PolygonBuilder& builder;
 
 	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
 };

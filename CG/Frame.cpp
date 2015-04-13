@@ -37,6 +37,7 @@ enum {
 
 	ID_OFF_SCREEN_CONFIG,
 
+	ID_CREATE_TRIANGLE,
 	ID_CREATE_SPHERE,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
@@ -81,9 +82,11 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
+	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getMaterials());
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
 	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
+	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
 	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder().getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
@@ -168,10 +171,9 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	const int createTriangleId = wxNewId();
 	const int createQuadId = wxNewId();
 	const int createCircleId = wxNewId();
-	modelingBar->AddHybridButton(createTriangleId, "Triangle", wxImage("../Resource/triangle.png"));
+	modelingBar->AddHybridButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
 	modelingBar->AddHybridButton(createQuadId, "Quad", wxImage("../Resource/quad.png"));
 	modelingBar->AddHybridButton(createCircleId, "Circle", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
@@ -179,8 +181,8 @@ Frame::Frame()
 	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
-	Connect(createTriangleId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
-	Connect(createTriangleId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
+	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
+	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
 	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
 	Connect(createQuadId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
 	Connect(createCircleId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
@@ -241,9 +243,11 @@ Frame::Frame()
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
+	rSizer->Add(w.getPolygonTree(), 0, wxEXPAND);
 	rSizer->Add( w.getMaterialTree(), 0, wxEXPAND );
 	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
 
+	rSizer->Add(w.getPolygonProperty(), 0, wxEXPAND);
 	rSizer->Add( w.getMaterialProperty(), 0, wxEXPAND );
 	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
 
@@ -655,11 +659,10 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
 	const Triangle t;
-	model.getPolygonBuilder().build(t);
+	PolygonSPtr p = model.getPolygonBuilder().build(t);
+	p->setName("Triangle");
+	w.getPolygonTree()->build();
 	view->Refresh();
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildTriangle();
-	//polygon->setName("Triangle");
-	//w.getPolygonTree()->build();
 }
 
 void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
@@ -673,7 +676,9 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
 	const Quad q;
-	model.getPolygonBuilder().build(q);
+	PolygonSPtr p = model.getPolygonBuilder().build(q);
+	p->setName("Quad");
+	w.getPolygonTree()->build();
 	view->Refresh();
 
 	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();

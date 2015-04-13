@@ -219,7 +219,7 @@ wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
 PolygonProperty* property,
-PolygonBuilder* builder
+PolygonBuilder& builder
 )
 :
 wxTreeCtrl(
@@ -255,7 +255,7 @@ void PolygonTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot("Polygon");
 
-	for (const PolygonSPtr& p : builder->getPolygons()) {
+	for (const PolygonSPtr& p : builder.getPolygons()) {
 		const wxTreeItemId id = AppendItem(root, p->getName());
 		map[id] = p;
 		SetItemState(id, true);
@@ -297,7 +297,7 @@ PolygonTree::~PolygonTree()
 void PolygonTree::OnAdd(wxMenuEvent&)
 {
 	const wxString& str = wxGetTextFromUser("Name");
-	PolygonSPtr m = builder->build();
+	PolygonSPtr m = builder.build();
 	m->setName(str.ToStdString());
 	build();
 }
@@ -305,14 +305,14 @@ void PolygonTree::OnAdd(wxMenuEvent&)
 void PolygonTree::OnDelete(wxMenuEvent&)
 {
 	const wxTreeItemId id = GetFocusedItem();
-	builder->remove(map[id]);
+	builder.remove(map[id]);
 	Delete(id);
 }
 
 
 void PolygonTree::OnClear(wxMenuEvent&)
 {
-	builder->clear();
+	builder.clear();
 	map.clear();
 	DeleteChildren(GetRootItem());
 }
