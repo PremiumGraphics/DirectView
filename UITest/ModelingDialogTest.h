@@ -7,8 +7,45 @@
 #include "../Math/Box.h"
 #include "../Math/Cylinder.h"
 
+#include "../Shader/WireFrameRenderer.h"
+#include "../Graphics/DisplayList.h"
+
+
 namespace Crystal {
 	namespace ModelingDialogTest {
+
+class Frame;
+
+class View : public wxGLCanvas
+{
+public:
+	View(Frame *frame, const int width, const int height);
+
+	~View();
+
+	void buildDisplayList();
+
+private:
+
+	void OnPaint(wxPaintEvent&);
+
+	void OnSize(wxSizeEvent& e);
+
+	void draw(const wxSize& size);
+
+private:
+	wxGLContext glContext;
+
+	wxPoint mouseStart;
+
+	void build();
+
+	Shader::WireFrameRenderer wireFrameRenderer;
+
+	Graphics::DisplayList dispList;
+
+	wxDECLARE_NO_COPY_CLASS(View);
+};
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -50,6 +87,8 @@ private:
 	Math::Sphere sphere;
 	Math::Box box;
 	Math::Cylinder cylinder;
+
+	View* view;
 };
 
 	}

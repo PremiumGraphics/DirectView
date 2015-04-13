@@ -19,6 +19,91 @@ enum {
 	ID_CREATE_CONE,
 };
 
+
+View::View(Frame* parent, const int width, const int height)
+:wxGLCanvas(parent, wxID_ANY, NULL, wxPoint(0, 0), wxSize(width, height), wxFULL_REPAINT_ON_RESIZE),
+glContext(this)
+{
+	glContext.SetCurrent(*this);
+
+	//	const int attributes[] = {WX_GL_SAMPLE_BUFFERS};
+	//	bool b = IsDisplaySupported( attributes );
+
+	Connect(wxEVT_PAINT, wxPaintEventHandler(View::OnPaint));
+	//Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
+	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
+
+	build();
+
+	//texture = new TextureObject( pixels, 2, 1 );
+}
+
+View::~View()
+{
+	//delete texture;
+}
+
+#include "../Math/Vector3d.h"
+
+using namespace Crystal::Math;
+
+
+void View::OnPaint(wxPaintEvent&)
+{
+	wxPaintDC dc(this);
+
+	const wxSize size = GetClientSize();
+
+	glContext.SetCurrent(*this);
+
+	glViewport(0, 0, size.x, size.y);
+
+	draw(size);
+
+	glFlush();
+
+	SwapBuffers();
+}
+
+void View::OnSize(wxSizeEvent& e)
+{
+	draw(e.GetSize());
+}
+
+void View::draw(const wxSize& size)
+{
+	const int width = size.GetWidth();
+	const int height = size.GetHeight();
+
+	buildDisplayList();
+
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	Camera<float> c;
+
+	glLineWidth(1.0f);
+	wireFrameRenderer.render(width, height, c, dispList);
+}
+
+void View::build()
+{
+	wireFrameRenderer.build();
+}
+
+void View::buildDisplayList()
+{
+	/*
+	dispList.clear();
+	const PolygonSPtrList& polygons = model.getPolygons();
+	for (const PolygonSPtr& p : polygons) {
+		dispList.add(p);
+	}
+	*/
+}
+
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString)
 {
@@ -63,6 +148,15 @@ Frame::Frame()
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBoxConfig));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig));
+
+	view = new View(this, 512, 512);
+
+	wxSizer* vSizer = new wxBoxSizer(wxVERTICAL);
+
+	vSizer->Add(bar, 0, wxEXPAND);
+	vSizer->Add(view, 0, wxEXPAND);
+
+	SetSizer(vSizer);
 
 	bar->Realize();
 
