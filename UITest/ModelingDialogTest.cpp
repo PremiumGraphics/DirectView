@@ -163,6 +163,10 @@ Frame::Frame()
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
+	const Triangle t;
+	builder.build(t);
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
 	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildTriangle();
 	//polygon->setName("Triangle");
 	//w.getPolygonTree()->build();
@@ -178,8 +182,11 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder.buildQuad());
-	view->buildDisplayList(polygons);
+	const Quad q;
+	builder.build(q);
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
+
 	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
 	//polygon->setName("Quad");
 	//w.getPolygonTree()->build();
@@ -195,8 +202,9 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	polygons.push_back(builder.buildCircleByNumber( 1.0f, 180 ));
-	view->buildDisplayList(polygons);
+	builder.buildCircleByNumber( 1.0f, 180 );
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
 }
 
 void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
@@ -211,6 +219,9 @@ void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
+	builder.build(sphere, 30, 30);
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
 	/*
 	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
 	polygon->setName("Sphere");
@@ -246,9 +257,10 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildBox();
-	//polygon->setName("Box");
-	//w.getPolygonTree()->build();
+	const Box b;
+	builder.build(b);
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
 }
 
 void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
@@ -261,8 +273,9 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	//model.getPolygonBuilder()->build(modelings.coneConfig.divideNumber, modelings.coneConfig.cone);
-	//w.getPolygonTree()->build();
+	builder.build(10, cone);
+	view->buildDisplayList(builder.getPolygons());
+	view->Refresh();
 }
 
 void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)

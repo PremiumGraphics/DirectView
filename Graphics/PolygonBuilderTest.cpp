@@ -9,10 +9,11 @@ using namespace Crystal::Graphics;
 
 TEST(PolygonBuilderTest, TestBuildQuad)
 {
-	PolygonBuilderSPtr builder( new PolygonBuilder() );
-	PolygonSPtr p(builder->buildQuad() );
+	PolygonBuilder builder;
+	const Quad q;
+	PolygonSPtr p(builder.build(q) );
 
-	EXPECT_EQ(1, builder->getPolygons().size());
+	EXPECT_EQ(1, builder.getPolygons().size());
 
 	EXPECT_EQ(1, p->getFaces().size());
 	EXPECT_EQ(4, p->getVertices().size());
@@ -42,10 +43,11 @@ TEST(PolygonBuilderTest, TestBuildQuad)
 
 TEST(PolygonBuilderTest, TestBuildBox)
 {
-	PolygonBuilderSPtr builder( new PolygonBuilder() );
-	PolygonSPtr p(builder->buildBox());
+	PolygonBuilder builder;
+	const Box b;
+	PolygonSPtr p(builder.build(b));
 
-	EXPECT_EQ(1, builder->getPolygons().size());
+	EXPECT_EQ(1, builder.getPolygons().size());
 
 	EXPECT_EQ(8, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
@@ -127,12 +129,12 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 
 TEST(PolygonBuilderTest, TestBuildCircleByNumber)
 {
-	PolygonBuilderSPtr builder(new PolygonBuilder());
-	PolygonSPtr p(builder->buildCircleByNumber(1.0f, 4));
+	PolygonBuilder builder;
+	PolygonSPtr p(builder.buildCircleByNumber(1.0f, 4));
 	EXPECT_EQ(4, p->getVertices().size());
 	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
 
-	EXPECT_EQ(1, builder->getPolygons().size());
+	EXPECT_EQ(1, builder.getPolygons().size());
 
 	const Vertex v0(
 		Vector3d(0.0, 1.0, 0.0),

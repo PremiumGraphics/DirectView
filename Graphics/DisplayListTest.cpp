@@ -55,7 +55,8 @@ TEST(DisplayListTest, TestAddPolygon)
 {
 	//FaceBuilderSPtr fBuilder( new FaceBuilder() );
 	PolygonBuilder builder;
-	PolygonSPtr p = builder.buildQuad();
+	const Quad q;
+	PolygonSPtr p = builder.build(q);
 	p->setMaterial(MaterialSPtr(new Material(0)));
 
 	DisplayList list;

@@ -7,9 +7,11 @@
 #include "Vertex.h"
 #include "Material.h"
 
+#include "../Math/Quad.h"
 #include "../Math/Cone.h"
 #include "../Math/Cylinder.h"
 #include "../Math/Triangle.h"
+#include "../Math/Sphere.h"
 
 #include <memory>
 
@@ -43,9 +45,9 @@ public:
 		return p;
 	}
 
-	PolygonSPtr buildQuad();
+	PolygonSPtr build(const Math::Quad& quad);
 
-	PolygonSPtr buildBox();
+	PolygonSPtr build(const Math::Box& box);
 
 	PolygonSPtr buildCircleByNumber(const float radius, const unsigned int divideNumber);
 
@@ -55,7 +57,7 @@ public:
 
 	PolygonSPtr build(const unsigned int divideNuber, const Math::Cylinder& c);
 
-	PolygonSPtr buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber);
+	PolygonSPtr build(const Math::Sphere& sphere, const unsigned int uDivideNumber, const unsigned int vDivideNumber);
 
 	PolygonSPtr build(const unsigned int divideNumber, const Math::Cone& cone);
 

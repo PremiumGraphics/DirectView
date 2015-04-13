@@ -8,7 +8,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-PolygonSPtr PolygonBuilder::buildQuad()
+PolygonSPtr PolygonBuilder::build(const Quad& quad)
 {
 	FaceSPtrVector faces;
 
@@ -26,7 +26,7 @@ PolygonSPtr PolygonBuilder::buildQuad()
 	return polygon;
 }
 
-PolygonSPtr PolygonBuilder::buildBox()
+PolygonSPtr PolygonBuilder::build(const Box& box)
 {
 	PolygonSPtr polygon(new Polygon(nextId++, materialBuilder->build()));
 	faceBuilder->setPolygon( polygon );
@@ -94,7 +94,7 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cylinde
 
 }
 
-PolygonSPtr PolygonBuilder::buildSphere(const unsigned int uDivideNumber, const unsigned int vDivideNumber)
+PolygonSPtr PolygonBuilder::build(const Sphere& sphere,const unsigned int uDivideNumber, const unsigned int vDivideNumber)
 {
 	VertexSPtrVector vertices;
 	//FaceVector faces;

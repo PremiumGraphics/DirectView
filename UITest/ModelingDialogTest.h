@@ -87,9 +87,9 @@ private:
 	Math::Sphere sphere;
 	Math::Box box;
 	Math::Cylinder cylinder;
+	Math::Cone cone;
 
 	View* view;
-	Graphics::PolygonSPtrList polygons;
 	Graphics::PolygonBuilder builder;
 };
 

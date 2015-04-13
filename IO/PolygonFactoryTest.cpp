@@ -38,7 +38,8 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 
 
 	PolygonBuilder bb;
-	PolygonSPtr p = bb.buildQuad();
+	const Quad q;
+	PolygonSPtr p = bb.build(q);
 
 	EXPECT_EQ(1, polygons.size());
 	EXPECT_EQ(4, polygons.front()->getVertices().size());
