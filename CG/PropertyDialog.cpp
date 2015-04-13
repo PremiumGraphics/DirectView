@@ -362,7 +362,7 @@ void MaterialProperty::OnDoubleClick(wxPropertyGridEvent& event)
 }
 
 
-PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Material*>& materials) :
+PolygonGroupProperty::PolygonGroupProperty(wxWindow* parent, const wxSize& size, const std::list<Material*>& materials) :
 wxPropertyGrid
 (
 parent,
@@ -373,16 +373,18 @@ wxPG_SPLITTER_AUTO_CENTER | wxPG_BOLD_MODIFIED
 ),
 materials(materials)
 {
-	Connect(wxEVT_PG_CHANGED, wxPropertyGridEventHandler(PolygonProperty::OnChanged));
-	Connect(wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler(PolygonProperty::OnDoubleClick));
+	Connect(wxEVT_PG_CHANGED, wxPropertyGridEventHandler(PolygonGroupProperty::OnChanged));
+	Connect(wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler(PolygonGroupProperty::OnDoubleClick));
 }
 
-void PolygonProperty::build(const PolygonSPtr& group)
+void PolygonGroupProperty::build(PolygonGroup* group)
 {
-	this->polygon = group;
+	this->group = group;
 
 	Clear();
-	Append(new wxStringProperty("Name", wxPG_LABEL, polygon->getName()));
+	Append(new wxStringProperty("Name", wxPG_LABEL, group->getName()));
+
+	/*
 	Append(new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size()));
 	Append(new wxIntProperty("Vertices", wxPG_LABEL, polygon->getVertices().size()));
 	Append(new wxIntProperty("ID", wxPG_LABEL, polygon->getId()));
@@ -403,9 +405,10 @@ void PolygonProperty::build(const PolygonSPtr& group)
 	if (m != nullptr) {
 		materialProp->SetValueFromString(m->getName());
 	}
+	*/
 }
 
-void PolygonProperty::OnDoubleClick(wxPropertyGridEvent& event)
+void PolygonGroupProperty::OnDoubleClick(wxPropertyGridEvent& event)
 {
 	wxPGProperty* property = event.GetProperty();
 	wxMessageBox(property->GetLabel());
@@ -426,12 +429,13 @@ void PolygonProperty::OnDoubleClick(wxPropertyGridEvent& event)
 	//tree->Appen
 }
 
-void PolygonProperty::OnChanged(wxPropertyGridEvent& event)
+void PolygonGroupProperty::OnChanged(wxPropertyGridEvent& event)
 {
 	wxPGProperty* property = event.GetProperty();
 	const wxString& name = property->GetName();
 
-	Vector3d center = polygon->getCenter();
+	/*
+	//Vector3d center = polygon->getCenter();
 	if (name == "Material") {
 		const std::string &str = property->GetValueAsString().ToStdString();
 		for (Material* m : materials) {
@@ -440,6 +444,7 @@ void PolygonProperty::OnChanged(wxPropertyGridEvent& event)
 			}
 		}
 	}
+	/*
 	else if (name == "CenterX") {
 		const float x = property->GetValue().GetDouble();
 		center.setX(x);
@@ -453,4 +458,5 @@ void PolygonProperty::OnChanged(wxPropertyGridEvent& event)
 		center.setZ(z);
 	}
 	polygon->setCenter(center);
+	*/
 }

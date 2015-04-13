@@ -108,18 +108,18 @@ private:
 
 };
 
-class PolygonProperty : public wxPropertyGrid {
+class PolygonGroupProperty : public wxPropertyGrid {
 public:
-	PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Graphics::Material*>& materials);
+	PolygonGroupProperty(wxWindow* parent, const wxSize& size, const std::list<Graphics::Material*>& materials);
 
-	void build(const Graphics::PolygonSPtr& polygon);
+	void build(Graphics::PolygonGroup* group);
 
 	void OnDoubleClick(wxPropertyGridEvent& event);
 
 	void OnChanged(wxPropertyGridEvent& event);
 
 private:
-	Graphics::PolygonSPtr polygon;
+	Graphics::PolygonGroup* group;
 	const std::list<Graphics::Material*>& materials;
 };
 

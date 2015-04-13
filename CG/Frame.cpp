@@ -30,6 +30,7 @@ enum {
 	//ID_PICK_VERTEX,
 	ID_POLYGON_TRANSLATE,
 	ID_POLYGON_ROTATE,
+	ID_POLYGON_SCALE,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -86,11 +87,11 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getMaterials());
+	polygonProperty = new PolygonGroupProperty(parent, wxSize(300, 100), model.getMaterials());
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
 	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
+	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.groups);
 	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder().getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
@@ -152,13 +153,14 @@ Frame::Frame()
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 	operation->AddButton(ID_POLYGON_TRANSLATE, "Translate", wxBitmap(32, 32));
 	operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
-
+	operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
 	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
-	Connect( ID_POLYGON_TRANSLATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
-	Connect(ID_POLYGON_ROTATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
+	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
+	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
+	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonScale));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -700,7 +702,7 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
-	PolygonSPtr p = model.getPolygonBuilder().buildCircleByNumber(1.0f, 180);
+	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
 	p->setName("Circle");
 	view->Refresh();
 }

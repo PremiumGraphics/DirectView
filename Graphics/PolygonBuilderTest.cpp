@@ -59,10 +59,11 @@ TEST(PolygonBuilderTest, TestBuildBox)
 	EXPECT_EQ(4, p->getFaces().back()->getVertices().size());
 }
 
-TEST(PolygonBuilderTest, TestCreateCircleByAngle)
+TEST(PolygonBuilderTest, TestCreateCircle)
 {
 	PolygonBuilder builder;
-	PolygonSPtr p(builder.buildCircleByAngle(1.0f, 90.0f));
+	Circle c;
+	PolygonSPtr p(builder.build(c, 4));
 
 	EXPECT_EQ(1, builder.getPolygons().size());
 
@@ -123,43 +124,8 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	EXPECT_EQ(v0, *(p->getVertices()[0]));
 	EXPECT_EQ(v1, *(p->getVertices()[1]));
 	EXPECT_EQ(v2, *(p->getVertices()[2]));
-
-
 }
 
-TEST(PolygonBuilderTest, TestBuildCircleByNumber)
-{
-	PolygonBuilder builder;
-	PolygonSPtr p(builder.buildCircleByNumber(1.0f, 4));
-	EXPECT_EQ(4, p->getVertices().size());
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
-
-	EXPECT_EQ(1, builder.getPolygons().size());
-
-	const Vertex v0(
-		Vector3d(0.0, 1.0, 0.0),
-		Vector3d(0.0, 0.0, 1.0),
-		0
-		);
-	const Vertex v1(
-		Vector3d(1.0, 0.0, 0.0),
-		Vector3d(0.0, 0.0, 1.0),
-		1);
-	const Vertex v2(
-		Vector3d(0.0, -1.0, 0.0),
-		Vector3d(0.0, 0.0, 1.0),
-		2);
-	const Vertex v3(
-		Vector3d(-1.0, 0.0, 0.0),
-		Vector3d(0.0, 0.0, 1.0),
-		3
-		);
-
-	EXPECT_EQ(v0, *(p->getVertices()[0]));
-	EXPECT_EQ(v1, *(p->getVertices()[1]));
-	EXPECT_EQ(v2, *(p->getVertices()[2]));
-	EXPECT_EQ(v3, *(p->getVertices()[3]));
-}
 
 
 /*

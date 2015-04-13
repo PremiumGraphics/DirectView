@@ -4,6 +4,7 @@
 #include "../Graphics/PolygonBuilder.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
+#include "../Graphics/Polygon.h"
 
 namespace Crystal {
 	namespace CG {
@@ -44,6 +45,8 @@ public:
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
+
+	std::list< Graphics::PolygonGroup* > groups;
 
 
 private:

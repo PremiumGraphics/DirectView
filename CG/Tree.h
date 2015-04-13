@@ -101,7 +101,7 @@ private:
 	std::map< wxTreeItemId, Graphics::Material* > map;
 };
 
-class PolygonProperty;
+class PolygonGroupProperty;
 
 class PolygonTree : public wxTreeCtrl
 {
@@ -111,8 +111,8 @@ public:
 		wxWindow *parent,
 		const wxPoint& pos,
 		const wxSize& size,
-		PolygonProperty* property,
-		Graphics::PolygonBuilder& builder
+		PolygonGroupProperty* property,
+		std::list<Graphics::PolygonGroup*>& groups
 		);
 
 	~PolygonTree();
@@ -132,11 +132,11 @@ private:
 
 	void OnClear(wxMenuEvent&);
 
-	PolygonProperty* property;
+	PolygonGroupProperty* property;
 
-	Graphics::PolygonBuilder& builder;
+	std::list<Graphics::PolygonGroup*>& groups;
 
-	std::map< wxTreeItemId, Graphics::PolygonSPtr > map;
+	std::map< wxTreeItemId, Graphics::PolygonGroup* > map;
 };
 
 	}

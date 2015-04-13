@@ -47,9 +47,9 @@ PolygonSPtr PolygonBuilder::build(const Box& box)
 	return polygon;
 }
 
-PolygonSPtr PolygonBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
+PolygonSPtr PolygonBuilder::build(const Circle& circle, const unsigned int divideNumber)
 {
-	std::shared_ptr< Face > f = faceBuilder->buildCircleByNumber(radius, divideNumber);
+	std::shared_ptr< Face > f = faceBuilder->buildCircleByNumber(circle.getRadius(), divideNumber);
 
 	PolygonSPtr polygon( new Polygon(nextId++, materialBuilder.build()) );
 	polygons.push_back(polygon);
@@ -59,15 +59,10 @@ PolygonSPtr PolygonBuilder::buildCircleByNumber(const float radius, const unsign
 	return polygon;
 }
 
-PolygonSPtr PolygonBuilder::buildCircleByAngle(const float radius, const float divideAngle)
-{
-	const int howMany = static_cast<int>(360.0f / divideAngle);
-	return buildCircleByNumber(radius, howMany);
-}
-
 PolygonSPtr PolygonBuilder::build(const Triangle& triangle)
 {
-	return buildCircleByNumber(1.0, 3);
+	Circle c;
+	return build(c, 3);
 }
 
 PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cylinder& c )

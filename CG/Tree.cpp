@@ -218,8 +218,8 @@ PolygonTree::PolygonTree
 wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
-PolygonProperty* property,
-PolygonBuilder& builder
+PolygonGroupProperty* property,
+std::list<PolygonGroup*>& groups
 )
 :
 wxTreeCtrl(
@@ -230,7 +230,7 @@ size//,
 //wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 ),
 property(property),
-builder(builder)
+groups( groups )
 {
 	SetSize(100, 500);
 	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler(PolygonTree::OnMenu));
@@ -255,10 +255,11 @@ void PolygonTree::build()
 	DeleteAllItems();
 	const wxTreeItemId root = AddRoot("Polygon");
 
-	for (const PolygonSPtr& p : builder.getPolygons()) {
-		const wxTreeItemId id = AppendItem(root, p->getName());
-		map[id] = p;
-		SetItemState(id, p->isSelected);
+	//for (const PolygonSPtr& p : builder.getPolygons()) {
+	for ( PolygonGroup* g : groups ) {
+		const wxTreeItemId id = AppendItem(root, g->getName());
+		map[id] = g;
+		SetItemState(id, g->getSelected() );
 	}
 }
 
@@ -269,10 +270,10 @@ void PolygonTree::OnItemStateClick(wxTreeEvent& event)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	const PolygonSPtr& p = map[id];
-	p->isSelected = !p->isSelected;
-	SetItemState(id, p->isSelected);
-	property->build(p);
+	PolygonGroup* g = map[id];
+	g->setSelected( !g->getSelected() );
+	SetItemState(id, g->getSelected() );
+	property->build(g);
 }
 
 void PolygonTree::OnMenu(wxTreeEvent& event)
@@ -299,22 +300,22 @@ PolygonTree::~PolygonTree()
 void PolygonTree::OnAdd(wxMenuEvent&)
 {
 	const wxString& str = wxGetTextFromUser("Name");
-	PolygonSPtr m = builder.build();
-	m->setName(str.ToStdString());
+	//PolygonSPtr m = builder.build();
+	//m->setName(str.ToStdString());
 	build();
 }
 
 void PolygonTree::OnDelete(wxMenuEvent&)
 {
 	const wxTreeItemId id = GetFocusedItem();
-	builder.remove(map[id]);
+	//builder.remove(map[id]);
 	Delete(id);
 }
 
 
 void PolygonTree::OnClear(wxMenuEvent&)
 {
-	builder.clear();
+	//builder.clear();
 	map.clear();
 	DeleteChildren(GetRootItem());
 }
@@ -326,6 +327,6 @@ void PolygonTree::OnItemActivated(wxTreeEvent& event)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	const Graphics::PolygonSPtr& p = map[id];
+	Graphics::PolygonGroup* p = map[id];
 	property->build(p);
 }

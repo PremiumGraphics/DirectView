@@ -11,6 +11,7 @@
 #include "../Math/Cone.h"
 #include "../Math/Cylinder.h"
 #include "../Math/Triangle.h"
+#include "../Math/Circle.h"
 #include "../Math/Sphere.h"
 
 #include <memory>
@@ -50,9 +51,7 @@ public:
 
 	PolygonSPtr build(const Math::Box& box);
 
-	PolygonSPtr buildCircleByNumber(const float radius, const unsigned int divideNumber);
-
-	PolygonSPtr buildCircleByAngle(const float radius, const float divideAngle);
+	PolygonSPtr build(const Math::Circle& circle, const unsigned int divideNumber);
 
 	PolygonSPtr build(const Math::Triangle& t);
 

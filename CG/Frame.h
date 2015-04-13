@@ -31,7 +31,7 @@ namespace Crystal {
 		class MaterialTree;
 		class LightTree;
 
-		class PolygonProperty;
+		class PolygonGroupProperty;
 		class MaterialProperty;
 		class LightProperty;
 
@@ -55,7 +55,7 @@ public:
 
 	LightTree* getLightTree() const { return lightTree; }
 
-	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
+	PolygonGroupProperty* getPolygonProperty() const { return polygonProperty; }
 
 	MaterialProperty* getMaterialProperty() const { return materialProperty; }
 
@@ -66,7 +66,7 @@ private:
 	MaterialTree* materialTree;
 	LightTree* lightTree;
 
-	PolygonProperty* polygonProperty;
+	PolygonGroupProperty* polygonProperty;
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 };

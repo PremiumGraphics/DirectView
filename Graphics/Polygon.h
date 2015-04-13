@@ -97,17 +97,21 @@ public:
 		isSelected(true)
 	{}
 
-	void add(const PolygonSPtr& polygon) { this->polygons.push_back(polygon); }
+	void add( Polygon* polygon) { this->polygons.push_back(polygon); }
 
 	bool getSelected() const { return isSelected; }
 
 	void setSelected(const bool b) { this->isSelected = b; }
 
-	PolygonSPtrList getPolygons() const { return polygons; }
+	std::list< Polygon* > getPolygons() const { return polygons; }
+
+	std::string getName() const { return name; }
 
 private:
-	PolygonSPtrList polygons;
+	std::list< Polygon* > polygons;
 	bool isSelected;
+	std::string name;
+
 };
 /*
 static Graphics::VertexSPtrVector getFaces(const PolygonSPtrVector& polygons) {

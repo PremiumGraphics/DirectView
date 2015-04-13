@@ -77,6 +77,21 @@ TEST(PolygonTest, TestBoundingBox)
 	EXPECT_EQ(box.getMin(), Vector3d(0.0f, 0.0f, 0.0f));
 	EXPECT_EQ(box.getMax(), Vector3d(1.0f, 0.0f, 1.0f));
 }
+
+TEST(PolygonGroupTest, TestConstruct)
+{
+	PolygonGroup g;
+	EXPECT_TRUE( g.getSelected() );
+	EXPECT_TRUE( g.getPolygons().empty() );
+}
+
+TEST(PolygonGroupTest, TestAdd)
+{
+	PolygonGroup g;
+	Polygon p(0,nullptr);
+	g.add(&p);
+	EXPECT_EQ(1,g.getPolygons().size());
+}
 /*
 TEST(PolygonTest, TestRotateXWithCenter)
 {
