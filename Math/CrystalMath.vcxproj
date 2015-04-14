@@ -76,11 +76,13 @@
     <ClInclude Include="Box.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
+    <ClInclude Include="CSG.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />

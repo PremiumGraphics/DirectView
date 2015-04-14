@@ -107,6 +107,14 @@ public:
 		return equals( rhs );
 	}
 
+	bool isOuter(const Vector3d& v) const {
+		return v.getDistanceSquared(center) > (radius * radius);
+	}
+
+	bool isInner(const Vector3d& v) const {
+		return !isOuter(v);
+	}
+
 private:
 	Vector3d center;
 	float radius;

@@ -34,6 +34,8 @@
     </ClInclude>
     <ClInclude Include="Line.h" />
     <ClInclude Include="BazierCurve.h" />
+    <ClInclude Include="Octree.h" />
+    <ClInclude Include="CSG.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
