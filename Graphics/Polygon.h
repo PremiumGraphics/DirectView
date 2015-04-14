@@ -28,7 +28,9 @@ public:
 
 	bool isSelected;
 
-	std::string name;
+	void setName(const std::string& name) { this->name = name; }
+
+	std::string getName() const { return name; }
 
 	void setFaces(const FaceSPtrVector& faces) { this->faces = faces; }
 
@@ -81,6 +83,7 @@ private:
 	VertexSPtrVector vertices;
 	Math::Vector3d center;
 	Material* material;
+	std::string name;
 	unsigned int id;
 };
 

@@ -257,7 +257,7 @@ void PolygonTree::build()
 
 	//for (const PolygonSPtr& p : builder.getPolygons()) {
 	for ( Graphics::PolygonSPtr p : builder.getPolygons() ) {
-		const wxTreeItemId id = AppendItem(root, p->name );
+		const wxTreeItemId id = AppendItem(root, p->getName() );
 		map[id] = p.get();
 		SetItemState(id, p->isSelected );
 	}
