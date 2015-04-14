@@ -80,13 +80,6 @@ void DisplayList::add(Polygon* p)
 	}
 }
 
-void DisplayList::add(const PolygonGroup& g)
-{
-	for ( Polygon* p : g.getPolygons()) {
-		add(p);
-	}
-}
-
 
 Vector3dVector DisplayList::getPositions(const Face& f) const
 {

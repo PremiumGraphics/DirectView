@@ -61,7 +61,7 @@ TEST(DisplayListTest, TestAddPolygon)
 	p->setMaterial(&m0);
 
 	DisplayList list;
-	list.add( p );
+	list.add( p.get() );
 
 	{
 		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
@@ -91,7 +91,7 @@ TEST(DisplayListTest, TestAddPolygon)
 	Material m1(1);
 	p->setMaterial(&m1);
 
-	list.add(p);
+	list.add(p.get());
 
 	{
 		const std::vector<unsigned int> expected{ 0, 1, 2, 3, 4, 5, 6 };

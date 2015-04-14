@@ -362,7 +362,7 @@ void MaterialProperty::OnDoubleClick(wxPropertyGridEvent& event)
 }
 
 
-PolygonGroupProperty::PolygonGroupProperty(wxWindow* parent, const wxSize& size, const std::list<Material*>& materials) :
+PolygonProperty::PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Material*>& materials) :
 wxPropertyGrid
 (
 parent,
@@ -373,18 +373,17 @@ wxPG_SPLITTER_AUTO_CENTER | wxPG_BOLD_MODIFIED
 ),
 materials(materials)
 {
-	Connect(wxEVT_PG_CHANGED, wxPropertyGridEventHandler(PolygonGroupProperty::OnChanged));
-	Connect(wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler(PolygonGroupProperty::OnDoubleClick));
+	Connect(wxEVT_PG_CHANGED, wxPropertyGridEventHandler(PolygonProperty::OnChanged));
+	Connect(wxEVT_PG_DOUBLE_CLICK, wxPropertyGridEventHandler(PolygonProperty::OnDoubleClick));
 }
 
-void PolygonGroupProperty::build(PolygonGroup* group)
+void PolygonProperty::build(Crystal::Graphics::Polygon* polygon)
 {
-	this->group = group;
+	this->polygon = polygon;
 
 	Clear();
-	Append(new wxStringProperty("Name", wxPG_LABEL, group->getName()));
+	Append(new wxStringProperty("Name", wxPG_LABEL, polygon->name));
 
-	/*
 	Append(new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size()));
 	Append(new wxIntProperty("Vertices", wxPG_LABEL, polygon->getVertices().size()));
 	Append(new wxIntProperty("ID", wxPG_LABEL, polygon->getId()));
@@ -392,7 +391,7 @@ void PolygonGroupProperty::build(PolygonGroup* group)
 	Append(new wxFloatProperty("CenterY", wxPG_LABEL, polygon->getCenter().getY()));
 	Append(new wxFloatProperty("CenterZ", wxPG_LABEL, polygon->getCenter().getZ()));
 
-	Material* m = group->getMaterial();
+	Material* m = polygon->getMaterial();
 
 	wxArrayString materialNames;
 	materialNames.Add(wxEmptyString);
@@ -405,10 +404,9 @@ void PolygonGroupProperty::build(PolygonGroup* group)
 	if (m != nullptr) {
 		materialProp->SetValueFromString(m->getName());
 	}
-	*/
 }
 
-void PolygonGroupProperty::OnDoubleClick(wxPropertyGridEvent& event)
+void PolygonProperty::OnDoubleClick(wxPropertyGridEvent& event)
 {
 	wxPGProperty* property = event.GetProperty();
 	wxMessageBox(property->GetLabel());
@@ -429,7 +427,7 @@ void PolygonGroupProperty::OnDoubleClick(wxPropertyGridEvent& event)
 	//tree->Appen
 }
 
-void PolygonGroupProperty::OnChanged(wxPropertyGridEvent& event)
+void PolygonProperty::OnChanged(wxPropertyGridEvent& event)
 {
 	wxPGProperty* property = event.GetProperty();
 	const wxString& name = property->GetName();

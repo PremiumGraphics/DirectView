@@ -218,8 +218,8 @@ PolygonTree::PolygonTree
 wxWindow *parent,
 const wxPoint& pos,
 const wxSize& size,
-PolygonGroupProperty* property,
-std::list<PolygonGroup*>& groups
+PolygonProperty* property,
+PolygonBuilder& builder
 )
 :
 wxTreeCtrl(
@@ -230,7 +230,7 @@ size//,
 //wxTR_HAS_BUTTONS|wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER
 ),
 property(property),
-groups( groups )
+builder( builder )
 {
 	SetSize(100, 500);
 	Connect(this->GetId(), wxEVT_TREE_ITEM_MENU, wxTreeEventHandler(PolygonTree::OnMenu));
@@ -256,10 +256,10 @@ void PolygonTree::build()
 	const wxTreeItemId root = AddRoot("Polygon");
 
 	//for (const PolygonSPtr& p : builder.getPolygons()) {
-	for ( PolygonGroup* g : groups ) {
-		const wxTreeItemId id = AppendItem(root, g->getName());
-		map[id] = g;
-		SetItemState(id, g->getSelected() );
+	for ( Graphics::PolygonSPtr p : builder.getPolygons() ) {
+		const wxTreeItemId id = AppendItem(root, p->name );
+		map[id] = p.get();
+		SetItemState(id, p->isSelected );
 	}
 }
 
@@ -270,10 +270,10 @@ void PolygonTree::OnItemStateClick(wxTreeEvent& event)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	PolygonGroup* g = map[id];
-	g->setSelected( !g->getSelected() );
-	SetItemState(id, g->getSelected() );
-	property->build(g);
+	Graphics::Polygon* p = map[id];
+	p->isSelected = !p->isSelected;
+	SetItemState(id, p->isSelected );
+	property->build(p);
 }
 
 void PolygonTree::OnMenu(wxTreeEvent& event)
@@ -299,10 +299,8 @@ PolygonTree::~PolygonTree()
 
 void PolygonTree::OnAdd(wxMenuEvent&)
 {
-	const wxString& str = wxGetTextFromUser("Name");
-	PolygonGroup* g = new PolygonGroup();
-	g->setName(str.ToStdString());
-	groups.push_back(g);
+	//const wxString& str = wxGetTextFromUser("Name");
+	builder.build();
 
 	//PolygonSPtr m = builder.build();
 	//m->setName(str.ToStdString());
@@ -319,7 +317,7 @@ void PolygonTree::OnDelete(wxMenuEvent&)
 
 void PolygonTree::OnClear(wxMenuEvent&)
 {
-	groups.clear();
+	builder.clear();
 	map.clear();
 	DeleteChildren(GetRootItem());
 }
@@ -331,6 +329,6 @@ void PolygonTree::OnItemActivated(wxTreeEvent& event)
 	if (map.find(id) == map.end()) {
 		return;
 	}
-	Graphics::PolygonGroup* p = map[id];
+	Graphics::Polygon* p = map[id];
 	property->build(p);
 }

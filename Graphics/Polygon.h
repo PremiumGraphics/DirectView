@@ -28,10 +28,15 @@ public:
 
 	bool isSelected;
 
+	std::string name;
+
 	void setFaces(const FaceSPtrVector& faces) { this->faces = faces; }
 
 	FaceSPtrVector getFaces() const { return faces; }
 
+	void setMaterial(Material* m) { this->material = m; }
+
+	Material* getMaterial() { return material; }
 
 	void setVertices(const VertexSPtrVector& vs) { this->vertices = vs; }
 
@@ -83,36 +88,6 @@ typedef std::shared_ptr< Polygon > PolygonSPtr;
 typedef std::vector< PolygonSPtr > PolygonSPtrVector;
 typedef std::list< PolygonSPtr > PolygonSPtrList;
 
-class PolygonGroup
-{
-public:
-	PolygonGroup() :
-		isSelected(true)
-	{}
-
-	void add( Polygon* polygon) { this->polygons.push_back(polygon); }
-
-	void clear() {
-		polygons.clear();
-	}
-
-	bool getSelected() const { return isSelected; }
-
-	void setSelected(const bool b) { this->isSelected = b; }
-
-	std::list< Polygon* > getPolygons() const { return polygons; }
-
-	void setName(const std::string& name) { this->name = name; }
-
-	std::string getName() const { return name; }
-
-private:
-	std::list< Polygon* > polygons;
-	bool isSelected;
-	std::string name;
-	Material* m;
-
-};
 /*
 static Graphics::VertexSPtrVector getFaces(const PolygonSPtrVector& polygons) {
 	VertexSPtrVector vertices;

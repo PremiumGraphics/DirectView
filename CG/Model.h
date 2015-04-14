@@ -46,8 +46,6 @@ public:
 
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
-	std::list< Graphics::PolygonGroup* > groups;
-
 
 private:
 	Graphics::PolygonBuilder builder;

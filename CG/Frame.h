@@ -55,7 +55,7 @@ public:
 
 	LightTree* getLightTree() const { return lightTree; }
 
-	PolygonGroupProperty* getPolygonProperty() const { return polygonProperty; }
+	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
 
 	MaterialProperty* getMaterialProperty() const { return materialProperty; }
 
@@ -66,7 +66,7 @@ private:
 	MaterialTree* materialTree;
 	LightTree* lightTree;
 
-	PolygonGroupProperty* polygonProperty;
+	PolygonProperty* polygonProperty;
 	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 };
