@@ -52,6 +52,20 @@ TEST(FaceTest, TestIsClosed)
 	//Face f;
 }
 
+TEST(FaceTest, TestGetCenter)
+{
+	HalfEdgeBuilder builder;
+	VertexBuilderSPtr vBuilder = builder.getVertexBuilder();
+	const VertexSPtrVector vv{
+		vBuilder->build(Vector3d(0.0, 0.0, 0.0)),
+		vBuilder->build(Vector3d(1.0, 0.0, 0.0))
+	};
+
+	const HalfEdgeSPtrList& edges = builder.buildClosedFromVertices(vv);
+	Face f(edges, 0);
+	EXPECT_EQ( Vector3d( 0.5, 0.0, 0.0), f.getCenter());
+}
+
 TEST(FaceBuilderTest, TestBuildQuad)
 {
 	FaceBuilder builder;

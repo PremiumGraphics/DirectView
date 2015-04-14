@@ -9,6 +9,21 @@
 namespace Crystal{
 	namespace Physics{
 		class Coordinator;
+
+class ParticleBase {
+public:
+	ParticleBase(const float diameter, const Math::Vector3d& position) :
+		diameter( diameter )
+	{}
+
+	Math::Vector3d getPosition() const { return position; }
+
+	float getVolume() const { return diameter * diameter * diameter; }
+
+private:
+	float diameter;
+	Math::Vector3d position;
+};
 		
 class Particle 
 {

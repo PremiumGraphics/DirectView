@@ -117,6 +117,15 @@ PolygonSPtr PolygonBuilder::build(const Sphere& sphere,const unsigned int uDivid
 
 PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& cone)
 {
+	/*
+	const Circle c;
+	PolygonSPtr p = build(c, divideNumber);
+
+	const Math::Vector3d& center = p->getCenter();
+	VertexSPtr v( new Vertex(center) );
+	p->addVertices({ v });
+	*/
+
 	assert(divideNumber >= 3);
 	VertexSPtrVector vertices;
 	FaceSPtrVector faces;
@@ -129,30 +138,27 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& c
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
 		const float rad = angle *Tolerances::getPI() / 180.0f;
-		const VertexSPtr v(new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f), i));
+		const VertexSPtr v(new Vertex(Vector3d(std::sin(rad), 0.0f, std::cos(rad) ), i));
 		vertices.push_back(v);
 	}
 
-	faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( vertices ) ) );
+	//faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( vertices ) ) );
 
-	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0f, cone.getHeight()), divideNumber));
-	vertices.push_back(v);
+	const VertexSPtr topVertex(new Vertex(Vector3d(0.0, cone.getHeight(), 0.0f), divideNumber));
+	vertices.push_back(topVertex);
 
 	for (unsigned int i = 0; i < divideNumber - 1; ++i) {
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
-		const unsigned int v2 = divideNumber;
-		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
+		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], topVertex, vertices[v0] } ) ) );
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
-		const unsigned int v2 = divideNumber;
-		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
+		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], topVertex, vertices[v0] } ) ) );
 	}
 	polygon->setVertices(vertices);
 	polygon->setFaces(faces);
 	return polygon;
-
 }

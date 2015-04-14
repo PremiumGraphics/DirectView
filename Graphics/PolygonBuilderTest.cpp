@@ -126,6 +126,24 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 	EXPECT_EQ(v2, *(p->getVertices()[2]));
 }
 
+TEST(PolygonBuilderTest, TestBuildCone)
+{
+	PolygonBuilder builder;
+	Cone c;
+	PolygonSPtr p(builder.build(3, c));
+
+	EXPECT_EQ(1, builder.getPolygons().size());
+
+	EXPECT_EQ(4, p->getVertices().size());
+	EXPECT_EQ(3, p->getFaces().size());
+	/*
+	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
+	EXPECT_EQ(4, p->getVertices().size());
+	EXPECT_EQ(4, p->getFaces().size());
+	EXPECT_EQ(0, p->getId());
+	*/
+}
+
 
 
 /*
@@ -141,18 +159,6 @@ TEST(PolygonBuilderTest, TestBuildCylinder)
 	//EXPECT_EQ(5, p->getFaces().size());
 }
 
-TEST(PolygonBuilderTest, TestBuildCone)
-{
-	PolygonBuilderSPtr builder(new PolygonBuilder());
-	PolygonSPtr p(builder->buildCone(3));
-
-	EXPECT_EQ(1, builder->getPolygons().size());
-
-	EXPECT_EQ(p.get(), p->getFaces().front()->getPolygon().get());
-	EXPECT_EQ(4, p->getVertices().size());
-	EXPECT_EQ(4, p->getFaces().size());
-	EXPECT_EQ(0, p->getId());
-}
 */
 
 /*

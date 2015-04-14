@@ -48,6 +48,8 @@ public:
 
 	Math::Vector3dVector getTexCoords() const;
 
+	Math::Vector3d getCenter() const;
+
 	PolygonSPtr getPolygon() const { return polygon; }
 
 	void setPolygon(const PolygonSPtr& polygon) { this->polygon = polygon; }

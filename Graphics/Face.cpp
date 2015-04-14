@@ -16,6 +16,15 @@ Vector3dVector Face::getTexCoords() const
 
 }
 
+Vector3d Face::getCenter() const
+{
+	Vector3d center;
+	for (VertexSPtr v : getVertices()) {
+		center += v->getPosition() / getVertices().size();
+	}
+	return center;
+}
+
 
 std::shared_ptr< Face > FaceBuilder::buildCircleByNumber(const float radius, const unsigned int divideNumber)
 {

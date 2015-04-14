@@ -703,6 +703,8 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
+	w.refresh();
+
 	//p->setName("Circle");
 	view->Refresh();
 }
@@ -758,6 +760,7 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
 	model.getPolygonBuilder().build(b);
+	w.refresh();
 	view->Refresh();
 }
 
@@ -772,6 +775,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder().build(10, cone);
+	w.refresh();
 	view->Refresh();
 }
 
