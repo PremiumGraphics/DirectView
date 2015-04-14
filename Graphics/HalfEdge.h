@@ -122,8 +122,6 @@ private:
 	FaceSPtr face;
 };
 
-typedef std::shared_ptr< HalfEdgeBuilder > HalfEdgeBuilderSPtr;
-
 	}
 }
 

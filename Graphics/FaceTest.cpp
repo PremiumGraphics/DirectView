@@ -21,13 +21,14 @@ TEST(FaceTest, TestConstruct)
 TEST(FaceTest, TestIsClosed)
 {
 	{
-		VertexBuilderSPtr vBuilder( new VertexBuilder() );
+		HalfEdgeBuilder builder;
+		VertexBuilderSPtr vBuilder = builder.getVertexBuilder();
 		const VertexSPtrVector vv{
 			vBuilder->build(Vector3d(0.0, 0.0, 0.0)),
 			vBuilder->build(Vector3d(1.0, 0.0, 0.0))
 		};
-		HalfEdgeBuilderSPtr builder( new HalfEdgeBuilder( vBuilder ));
-		const HalfEdgeSPtrList& edges = builder->buildOpenFromVertices(vv);
+
+		const HalfEdgeSPtrList& edges = builder.buildOpenFromVertices(vv);
 		Face f(edges, 0);
 		EXPECT_TRUE(f.isOpen());
 		EXPECT_FALSE(f.isClosed());
@@ -35,13 +36,13 @@ TEST(FaceTest, TestIsClosed)
 	}
 
 	{
-		VertexBuilderSPtr vBuilder( new VertexBuilder() );
+		HalfEdgeBuilder builder;
+		VertexBuilderSPtr vBuilder = builder.getVertexBuilder();
 		const VertexSPtrVector vv{
 			vBuilder->build(Vector3d(0.0, 0.0, 0.0)),
 			vBuilder->build(Vector3d(1.0, 0.0, 0.0))
 		};
-		HalfEdgeBuilderSPtr builder( new HalfEdgeBuilder( vBuilder ) );
-		const HalfEdgeSPtrList& edges = builder->buildClosedFromVertices(vv);
+		const HalfEdgeSPtrList& edges = builder.buildClosedFromVertices(vv);
 		Face f(edges, 0);
 		EXPECT_FALSE(f.isOpen());
 		EXPECT_TRUE(f.isClosed());

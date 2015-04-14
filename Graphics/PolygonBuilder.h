@@ -69,7 +69,7 @@ public:
 
 	VertexBuilderSPtr getVertexBuilder() const { return faceBuilder->getVertexBuilder(); }
 
-	HalfEdgeBuilderSPtr getHalfEdgeBuilder() const { return faceBuilder->getHalfEdgeBuilder(); }
+	HalfEdgeBuilder& getHalfEdgeBuilder() const { return faceBuilder->getHalfEdgeBuilder(); }
 
 	MaterialBuilder& getMaterialBuilder() { return materialBuilder; }
 

@@ -133,7 +133,7 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& c
 		vertices.push_back(v);
 	}
 
-	faces.push_back( faceBuilder->build( getHalfEdgeBuilder()->buildClosedFromVertices( vertices ) ) );
+	faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( vertices ) ) );
 
 	const VertexSPtr v(new Vertex(Vector3d(0.0, 0.0f, cone.getHeight()), divideNumber));
 	vertices.push_back(v);
@@ -142,14 +142,14 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& c
 		const unsigned int v0 = i;
 		const unsigned int v1 = i + 1;
 		const unsigned int v2 = divideNumber;
-		faces.push_back( faceBuilder->build( getHalfEdgeBuilder()->buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
+		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
 	}
 
 	{
 		const unsigned int v0 = divideNumber - 1;
 		const unsigned int v1 = 0;
 		const unsigned int v2 = divideNumber;
-		faces.push_back( faceBuilder->build( getHalfEdgeBuilder()->buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
+		faces.push_back( faceBuilder->build( getHalfEdgeBuilder().buildClosedFromVertices( { vertices[v0], vertices[v1], vertices[v2] } ) ) );
 	}
 	polygon->setVertices(vertices);
 	polygon->setFaces(faces);

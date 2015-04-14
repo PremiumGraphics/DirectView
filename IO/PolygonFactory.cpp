@@ -22,7 +22,7 @@ PolygonSPtrList PolygonFactory::create(const OBJFile& file)
 			for (unsigned int i : f.getVertexIndices()) {
 				vvv.push_back(vv[i]);
 			}
-			const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(vvv);
+			const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vvv);
 			FaceSPtr f = fBuilder->build(edges);
 
 			//face->setVertexIds( f.getVertexIndices() );
@@ -47,7 +47,7 @@ PolygonSPtrList PolygonFactory::create(const STLFile& file)
 		const Vector3dVector& pos = c.getPositions();
 		const Vector3dVector normals(3, c.getNormal());
 		const VertexSPtrVector& vv = vBuilder->buildVerticesFromPositionsAndNormals(pos, normals);
-		const HalfEdgeSPtrList& edges = eBuilder->buildClosedFromVertices(vv);
+		const HalfEdgeSPtrList& edges = eBuilder.buildClosedFromVertices(vv);
 		const FaceSPtr& face = fBuilder->build(edges);
 		faces.push_back(face);
 		polygon->addVertices(vv);
