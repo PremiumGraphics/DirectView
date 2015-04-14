@@ -24,8 +24,10 @@ public:
 
 	void intersection(const ParticleObject& object);
 
-	void sub(const ParticleBase& particle);
 	*/
+	void sub(ParticleBase* particle);
+
+	void sub(const ParticleObject& rhs);
 
 private:
 	std::list<ParticleBase*> particles;
@@ -43,12 +45,15 @@ public:
 		divideLength(divideLength)
 	{}
 
-	std::list<ParticleBase*> build(const Math::Box& box);
+	void clear();
+
+	ParticleObject build(const Math::Box& box);
 
 	ParticleObject build(const Math::Sphere& s);
 
 private:
 	float divideLength;
+	std::list<ParticleBase*> particles;
 };
 	}
 }
