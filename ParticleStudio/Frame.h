@@ -8,11 +8,6 @@
 
 #include "ModelingDialog.h"
 
-#include "PropertyDialog.h"
-
-#include "Tree.h"
-#include "PropertyDialog.h"
-
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
 #include "../Math/Circle.h"
@@ -36,40 +31,6 @@ namespace Crystal {
 		class LightProperty;
 
 		class Frame;
-
-class Widgets {
-public:
-	Widgets() {}
-
-	void build(Frame* parent, Model& model);
-
-	void refresh() {
-		polygonTree->build();
-		materialTree->build();
-		lightTree->build();
-	}
-
-	PolygonTree* getPolygonTree() const { return polygonTree; }
-
-	MaterialTree* getMaterialTree() const { return materialTree; }
-
-	LightTree* getLightTree() const { return lightTree; }
-
-	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
-
-	MaterialProperty* getMaterialProperty() const { return materialProperty; }
-
-	LightProperty* getLightProperty() const { return lightProperty; }
-
-private:
-	PolygonTree* polygonTree;
-	MaterialTree* materialTree;
-	LightTree* lightTree;
-
-	PolygonProperty* polygonProperty;
-	MaterialProperty* materialProperty;
-	LightProperty* lightProperty;
-};
 
 
 class Frame : public wxFrame//wxMDIParentFrame
@@ -177,8 +138,6 @@ private:
 
 
 private:
-
-	Widgets w;
 
 	View* view;
 	Model model;

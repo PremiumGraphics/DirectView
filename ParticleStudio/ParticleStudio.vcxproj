@@ -13,8 +13,8 @@
   <PropertyGroup Label="Globals">
     <SccProjectName />
     <SccLocalPath />
-    <ProjectGuid>{9E0AA29D-0D3D-4635-9F5F-B155D380D674}</ProjectGuid>
-    <ProjectName>CGStudio</ProjectName>
+    <ProjectGuid>{64EF35B5-9344-4992-8DB1-24901990D4D4}</ProjectGuid>
+    <ProjectName>ParticleStudio</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -148,12 +148,10 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelingDialog.cpp" />
-    <ClCompile Include="PropertyDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,10 +160,8 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelingDialog.h" />
-    <ClInclude Include="PropertyDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Tree.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>

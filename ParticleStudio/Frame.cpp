@@ -4,8 +4,6 @@
 
 #include "View.h"
 
-#include "Tree.h"
-#include "PropertyDialog.h"
 #include "../Graphics/PolygonBuilder.h"
 
 #include "ModelingDialog.h"
@@ -84,18 +82,6 @@ public:
 	}
 
 };
-
-void Widgets::build(Frame* parent, Model& model)
-{
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getMaterials());
-	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
-	lightProperty = new LightProperty(parent, wxSize(300, 100));
-
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
-	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder().getMaterialBuilder());
-	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
-}
-
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
@@ -233,8 +219,6 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	w.build(this, model);
-
 	/*
 	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
@@ -246,26 +230,10 @@ Frame::Frame()
 	*/
 
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
-	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
-
-	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
-	rSizer->Add(w.getPolygonTree(), 0, wxEXPAND);
-	rSizer->Add( w.getMaterialTree(), 0, wxEXPAND );
-	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
-
-	rSizer->Add(w.getPolygonProperty(), 0, wxEXPAND);
-	rSizer->Add( w.getMaterialProperty(), 0, wxEXPAND );
-	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
-
-	hSizer->Add( rSizer, 0, wxEXPAND );
-	hSizer->Add( view, 0, wxEXPAND);
-
 
 	vSizer->Add( bar, 0, wxEXPAND );
-	vSizer->Add( hSizer, 0, wxEXPAND );
+	vSizer->Add( view, 0, wxEXPAND);
 
-	//sizer->Add( tree, 0, wxEXPAND );
-	w.refresh();
 
 	SetSizer( vSizer );
 	
@@ -292,8 +260,6 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 
 	clear();
 	view->Refresh();
-
-	w.refresh();
 }
 
 void Frame::OnClose( wxRibbonButtonBarEvent& )
@@ -448,8 +414,6 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		w.refresh();
-
 		OnCameraFit( e );
 	}
 	else if( ext == "stl" || ext == "STL" ) {
@@ -466,8 +430,6 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		PolygonFactory factory( model.getPolygonBuilder() );
 		PolygonSPtrList g = factory.create(file);
 		view->Refresh();
-
-		w.refresh();
 
 		OnCameraFit( e );
 	}
@@ -667,7 +629,6 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 	const Triangle t;
 	PolygonSPtr p = model.getPolygonBuilder().build(t);
 	//p->setName("Triangle");
-	w.getPolygonTree()->build();
 	view->Refresh();
 }
 
@@ -684,7 +645,6 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 	const Quad q;
 	PolygonSPtr p = model.getPolygonBuilder().build(q);
 	//p->setName("Quad");
-	w.getPolygonTree()->build();
 	view->Refresh();
 
 	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
@@ -703,7 +663,6 @@ void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
-	w.refresh();
 
 	//p->setName("Circle");
 	view->Refresh();
@@ -760,7 +719,6 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
 	model.getPolygonBuilder().build(b);
-	w.refresh();
 	view->Refresh();
 }
 
@@ -775,7 +733,6 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder().build(10, cone);
-	w.refresh();
 	view->Refresh();
 }
 
