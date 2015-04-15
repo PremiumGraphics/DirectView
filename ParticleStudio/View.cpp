@@ -8,6 +8,7 @@
 
 #include "Converter.h"
 
+using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
@@ -20,7 +21,6 @@ END_EVENT_TABLE()
 View::View( Frame* parent, const int width, const int height, Model& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
-mode( CAMERA_TRANSLATE ),
 pointSize( 10.0f ),
 model( model )
 {
@@ -121,8 +121,6 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-		model.setSelectedVertex( r );
-		model.setSelectedFace( g );
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -147,56 +145,8 @@ void View::OnMouse( wxMouseEvent& event )
 			pos += Vector3d( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
 		}
 		
-		if( mode == CAMERA_TRANSLATE ) {
-			model.getCamera()->move( pos );
-			model.getCamera()->addAngle( angle );
-		}
-		else if( mode == POLYGON_SCALE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
-			for( const PolygonSPtr& p : polygons ) {
-				p->scale(scale);
-			}
-		}
-		else if( mode == POLYGON_TRANSLATE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			for( const PolygonSPtr& p : polygons ) {
-				if (p->isSelected) {
-					p->move(pos);
-				}
-				//p->rotate( matrix );
-			}
-		}
-		else if( mode == POLYGON_ROTATE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			for( const PolygonSPtr& p : polygons) {
-				if (p->isSelected) {
-					p->rotateZ(pos.getX());
-					p->rotateY(pos.getY());
-				}
-			}
-		}
-		else if (mode == POLYGON_ROTATE_X) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for ( const PolygonSPtr& p : polygons) {
-				p->rotateX(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Y) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateY(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Z) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateZ(pos.getX());
-			}
-		}
-		else {
-			assert( false );
-		}
+		model.getCamera()->move( pos );
+		model.getCamera()->addAngle( angle );
 
 		draw( GetSize() );
 
@@ -230,7 +180,7 @@ void View::draw(const wxSize& size)
 		//glViewport(0, 0, (GLint)GetSize().x, (GLint)GetSize().y);
 
 	glPointSize(pointSize);
-	pointRenderer.render(width, height, &c, dispList );
+	pointRenderer.render(width, height, &c, positions );
 		/*
 		glBegin(GL_POINTS);
 		glVertex3f(0.0f, 0.0f, 5.0f);
@@ -246,9 +196,18 @@ void View::build()
 
 void View::buildDisplayList()
 {
-	dispList.clear();
+	positions.clear();
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
-		dispList.add( p.get() );
+		//dispList.add( p.get() );
+		for (const VertexSPtr& v : p->getVertices()) {
+			const std::vector<float>& vs = v->getPosition().toArray();
+			positions.insert(positions.end(), vs.begin(), vs.end());
+		}
 	}
+	/*
+	for (const Polygon& p : model.getParticleBuilder().) {
+
+	}
+	*/
 }

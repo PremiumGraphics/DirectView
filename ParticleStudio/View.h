@@ -5,9 +5,8 @@
 
 #include "Frame.h"
 
-#include "../Shader/PointRenderer.h"
-
-#include "../Graphics/DisplayList.h"
+//#include "../Shader/PointRenderer.h"
+#include "ParticleRenderer.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -22,26 +21,11 @@ public:
 
 	~View();
 
-	enum MODE{
-		POLYGON_TRANSLATE,
-		POLYGON_SCALE,
-		POLYGON_ROTATE,
-		POLYGON_ROTATE_X,
-		POLYGON_ROTATE_Y,
-		POLYGON_ROTATE_Z,
-
-		CAMERA_TRANSLATE,
-		//PICK_VERTEX,
-	};
 	void buildDisplayList();
-
-	void setMode( const MODE& m ) { this->mode = m; }
 
 	float getPointSize() const { pointSize; }
 
 private:
-	MODE mode;
-
 	void OnPaint( wxPaintEvent& );
 
 	void OnKeyDown( wxKeyEvent& e );
@@ -62,9 +46,10 @@ private:
 	
 	void build();
 
-	Shader::PointRenderer pointRenderer;
+	std::vector<float> positions;
 
-	Graphics::DisplayList dispList;
+	//Shader::PointRenderer pointRenderer;
+	Shader::ParticleRenderer pointRenderer;
 
 	float pointSize;
 

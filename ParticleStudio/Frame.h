@@ -59,15 +59,6 @@ private:
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
-	void OnPolygonTranslate( wxRibbonButtonBarEvent& );
-
-	void OnPolygonRotate( wxRibbonButtonBarEvent& );
-
-	void OnPolygonRotateX(wxRibbonButtonBarEvent&);
-
-	void OnPolygonRotateY(wxRibbonButtonBarEvent&);
-
-	void OnPolygonRotateZ(wxRibbonButtonBarEvent&);
 
 	//void OnPick(wxRibbonButtonBarEvent&);
 

@@ -21,15 +21,6 @@ using namespace Crystal::CG;
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
 
-	ID_CAMERA_CONFIG,
-
-	ID_LIGHT_TRANSLATE,
-	ID_CAMERA_TRANSLATE,
-	//ID_PICK_VERTEX,
-	ID_POLYGON_TRANSLATE,
-	ID_POLYGON_ROTATE,
-	ID_POLYGON_SCALE,
-
 	ID_IMPORT,
 	ID_EXPORT,
 
@@ -51,7 +42,7 @@ enum {
 
 class AppInfo {
 public:
-	static std::string getProductName() { return "CGStudio"; }
+	static std::string getProductName() { return "ParticleStudio"; }
 
 #define CG_STUDIO_MAJOR_VERSION 0
 #define CG_STUDIO_MINOR_VERSION 2
@@ -89,8 +80,6 @@ Frame::Frame()
 
 	bar->SetArtProvider( new wxRibbonAUIArtProvider );
 
-	Connect( ID_CAMERA_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
-
 	wxRibbonPage* page = new wxRibbonPage( bar, wxNewId(), wxT("Polygon") );
 	//wxRibbonPanel* panel = new wxRibbonPanel( page, wxID_ANY, wxT("Polygon") );
 
@@ -115,27 +104,20 @@ Frame::Frame()
 	toolbar->AddButton( ID_EXPORT,	"Export",	wxImage( "../Resource/export.png"), "Export" );
 	toolbar->AddButton( ID_CAPTURE, "Capture",	wxImage("../Resource/screenshot.png"));
 
+	toolbar->AddButton(ID_CAMERA_FIT, "Origin", wxImage("../Resource/zoom.png"));
+
 
 	Connect( ID_IMPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
 	Connect( ID_EXPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
 	Connect( ID_CAPTURE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
 
-	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
-	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
-	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
-	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
-	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-	operation->AddButton(ID_POLYGON_TRANSLATE, "Translate", wxBitmap(32, 32));
-	operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
-	operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
+	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
 
-	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
+
+	//wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
+	//wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
+
 	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
-	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
-	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
-	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonScale));
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
@@ -300,16 +282,6 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 	*/
 }
 
-void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
-{
-	view->setMode( View::CAMERA_TRANSLATE );
-}
-
-void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
-{
-	view->setMode( View::POLYGON_ROTATE );
-}
-
 /*
 void Frame::OnPick(wxRibbonButtonBarEvent&)
 {
@@ -469,20 +441,14 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 	wxMessageBox( s );
 }
 
-#include "wx/numdlg.h"
-
-void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
-{
-	view->setMode( View::POLYGON_TRANSLATE );
-}
-
-void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
-{
-	view->setMode( View::POLYGON_SCALE );
-}
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
+	Camera<float>* camera = model.getCamera();
+	camera->setPos( Vector3d( 0.0f, 0.0f, 0.0f ));
+	camera->setAngle(Vector3d(0.0f, 0.0f, 0.0f));
+	view->Refresh();
+
 	/*
 	const Math::Vector3d& center = getModel()->getPolygonModel()->getCenter();
 	Camera<float>* camera = getModel()->getCamera();
