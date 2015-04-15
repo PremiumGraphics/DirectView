@@ -32,6 +32,8 @@ enum {
 	ID_CAMERA_FIT,
 
 	ID_CAPTURE,
+
+	ID_GRAPHICS_SETTING,
 };
 
 
@@ -100,14 +102,14 @@ Frame::Frame()
 	toolbar->AddButton( ID_CAPTURE, "Capture",	wxImage("../Resource/screenshot.png"));
 
 	toolbar->AddButton(ID_CAMERA_FIT, "Origin", wxImage("../Resource/zoom.png"));
-
+	toolbar->AddButton(ID_GRAPHICS_SETTING, "Graphics", wxImage(32, 32));
 
 	Connect( ID_IMPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
 	Connect( ID_EXPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
 	Connect( ID_CAPTURE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
 
 	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
-
+	Connect(ID_GRAPHICS_SETTING, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGraphicsSetting));
 
 	//wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	//wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
@@ -479,4 +481,15 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	view->Refresh();
+}
+
+#include <wx/numdlg.h>
+
+void Frame::OnGraphicsSetting(wxRibbonButtonBarEvent& e)
+{
+	const int v = wxGetNumberFromUser("PointSize", wxEmptyString, wxEmptyString, view->getPointSize());
+	if (v != -1) {
+		view->setPointSize(v);
+		view->Refresh();
+	}
 }

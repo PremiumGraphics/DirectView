@@ -28,14 +28,17 @@ static std::stringstream getVertexSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
-		<< "in int id;"	<< std::endl
+		<< "in int id;" << std::endl
 		<< "out vec3 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
-		<< "	vColor = vec3( id / 255.0, 0.0, 1.0);" << std::endl
+		<< "	float r = id / 1024.0;" << std::endl
+		<< "	float g = id / 2048.0;" << std::endl
+		<< "	float b = id / 4096.0;" << std::endl
+		<< "	vColor = vec3( r, g, b);" << std::endl
 		<< "}" << std::endl;
 	return stream;
 }

@@ -67,6 +67,9 @@ private:
 
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
+	void OnGraphicsSetting(wxRibbonButtonBarEvent& e);
+
+
 private:
 
 private:

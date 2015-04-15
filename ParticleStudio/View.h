@@ -23,7 +23,9 @@ public:
 
 	void buildDisplayList();
 
-	float getPointSize() const { pointSize; }
+	float getPointSize() const { return pointSize; }
+
+	void setPointSize(const int size) { this->pointSize = size; }
 
 private:
 	void OnPaint( wxPaintEvent& );

@@ -91,12 +91,14 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3d.h" />
+    <ClInclude Include="Voxel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />
+    <ClCompile Include="Voxel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

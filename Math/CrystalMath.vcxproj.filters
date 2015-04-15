@@ -36,6 +36,7 @@
     <ClInclude Include="BazierCurve.h" />
     <ClInclude Include="Octree.h" />
     <ClInclude Include="CSG.h" />
+    <ClInclude Include="Voxel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -46,6 +47,7 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
+    <ClCompile Include="Voxel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
