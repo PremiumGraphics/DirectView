@@ -58,7 +58,7 @@ ParticleObject ParticleBuilder::build(const Box& box)
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-				ParticleBase* p = new ParticleBase(divideLength, Vector3d(x, y, z));
+				ParticleBase* p = new ParticleBase(divideLength, Vector3d(x, y, z), nextId++);
 				particles.push_back(p);
 				object.add(p);
 			}
@@ -76,7 +76,7 @@ ParticleObject ParticleBuilder::build(const Sphere& s)
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d v(x, y, z);
 				if (s.isInner(v)) {
-					ParticleBase* p = new ParticleBase(divideLength, v );
+					ParticleBase* p = new ParticleBase(divideLength, v, nextId++ );
 					particles.push_back(p);
 					object.add(p);
 				}
@@ -95,7 +95,7 @@ ParticleObject ParticleBuilder::build(const Cylinder& c)
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d v(x, y, z);
 				if (c.isInner(v)) {
-					ParticleBase* p = new ParticleBase(divideLength, v);
+					ParticleBase* p = new ParticleBase(divideLength, v, nextId++);
 					particles.push_back(p);
 					object.add(p);
 				}

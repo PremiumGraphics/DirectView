@@ -20,6 +20,7 @@ ParticleRenderer::~ParticleRenderer()
 
 namespace {
 	GLuint positionLocation = 0;
+	GLuint idLocation = 1;
 }
 static std::stringstream getVertexSource()
 {
@@ -27,13 +28,14 @@ static std::stringstream getVertexSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
+		<< "in int id;"	<< std::endl
 		<< "out vec3 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
-		<< "	vColor = vec3( 0.0, 0.0, 1.0);" << std::endl
+		<< "	vColor = vec3( id / 255.0, 0.0, 1.0);" << std::endl
 		<< "}" << std::endl;
 	return stream;
 }
@@ -65,10 +67,15 @@ void ParticleRenderer::build()
 	log += fShader.getLog();
 	shader.link(vShader, fShader);
 
-	glBindAttribLocation(shader.getId(), positionLocation, "position");
+	//glBindAttribLocation(shader.getId(), positionLocation, "position");
+	//glBindAttribLocation(shader.getId(), idLocation, "id");
+
+	positionLocation = glGetAttribLocation(shader.getId(), "position");
+	idLocation = glGetAttribLocation(shader.getId(), "id");
+
 }
 
-void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions)
+void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions, const std::vector<unsigned int>& ids)
 {
 	if (positions.empty()) {
 		return;
@@ -90,15 +97,17 @@ void ParticleRenderer::render(const int width, const int height, const Camera<fl
 	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	glVertexAttribIPointer(idLocation, 1, GL_INT, 0, &(ids.front()));
 
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
 
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 	glUseProgram(0);
-
 
 	assert(GL_NO_ERROR == glGetError());
 }

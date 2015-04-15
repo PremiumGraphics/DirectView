@@ -43,7 +43,8 @@ class ParticleBooleanAlgo {
 class ParticleBuilder {
 public:
 	ParticleBuilder(const float divideLength) :
-		divideLength(divideLength)
+		divideLength(divideLength),
+		nextId(0)
 	{}
 
 	void clear();
@@ -59,6 +60,7 @@ public:
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;
+	unsigned int nextId;
 };
 	}
 }

@@ -10,14 +10,14 @@ using namespace Crystal::Physics;
 
 TEST(ParticleBaseTest, TestGetVolume)
 {
-	ParticleBase particle(1.0f, Vector3d( 0.0f, 0.0f, 0.0f) );
+	ParticleBase particle(1.0f, Vector3d( 0.0f, 0.0f, 0.0f), 0 );
 	EXPECT_FLOAT_EQ( 1.0f, particle.getVolume() );
 }
 
 TEST(ParticleObjectTest, TestAdd)
 {
 	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f));
+	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
 }
@@ -25,10 +25,10 @@ TEST(ParticleObjectTest, TestAdd)
 TEST(ParticleObjectTest, TestSub)
 {
 	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f));
+	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f));
+	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
 	object.sub(&particle1);
 	EXPECT_TRUE(object.getParticles().empty());
 }
@@ -36,10 +36,10 @@ TEST(ParticleObjectTest, TestSub)
 TEST(ParticleObjectTest, TestSub2)
 {
 	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f));
+	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f));
+	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
 	ParticleObject rhs;
 	rhs.add(&particle1);
 	object.sub(rhs);
@@ -69,5 +69,4 @@ TEST(ParticleBuilderTest, TestBuildCylinder)
 	const Cylinder c( Vector3d( 0.0, 0.0, 0.0), 10.0f, 10.0f );
 	builder.build(c);
 	EXPECT_FALSE(builder.getParticles().empty());
-
 }

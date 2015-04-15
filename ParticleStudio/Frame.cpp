@@ -463,10 +463,9 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	//Cylinder c;
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->build(modelings.cylinderConfig.divideNumber, c);
-	//polygon->setName("Cylinder");
-	//w.getPolygonTree()->build();
+	const Cylinder c;
+	model.getParticleBuilder().build(c);
+	view->Refresh();
 }
 
 
