@@ -13,7 +13,8 @@ namespace Crystal{
 class ParticleBase {
 public:
 	ParticleBase(const float diameter, const Math::Vector3d& position) :
-		diameter( diameter )
+		diameter( diameter ),
+		position( position )
 	{}
 
 	Math::Vector3d getPosition() const { return position; }

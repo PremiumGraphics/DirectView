@@ -14,7 +14,7 @@ namespace Crystal {
 class Model {
 public:
 	Model() :
-		pBuilder( 1.0f)
+		pBuilder( 0.1f)
 	{
 		camera.setNear(1.0f);
 	}

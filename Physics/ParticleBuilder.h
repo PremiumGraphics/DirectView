@@ -51,6 +51,8 @@ public:
 
 	ParticleObject build(const Math::Sphere& s);
 
+	std::list<ParticleBase*> getParticles() const { return particles; }
+
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;

@@ -55,7 +55,6 @@ void ParticleBuilder::clear()
 ParticleObject ParticleBuilder::build(const Box& box)
 {
 	ParticleObject object;
-	std::list<ParticleBase*> particles;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {

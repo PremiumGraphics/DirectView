@@ -197,6 +197,7 @@ void View::build()
 void View::buildDisplayList()
 {
 	positions.clear();
+	/*
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		//dispList.add( p.get() );
@@ -204,6 +205,11 @@ void View::buildDisplayList()
 			const std::vector<float>& vs = v->getPosition().toArray();
 			positions.insert(positions.end(), vs.begin(), vs.end());
 		}
+	}
+	*/
+	for (const ParticleBase* p : model.getParticleBuilder().getParticles()) {
+		const std::vector<float>& vs = p->getPosition().toArray();
+		positions.insert(positions.end(), vs.begin(), vs.end());
 	}
 	/*
 	for (const Polygon& p : model.getParticleBuilder().) {
