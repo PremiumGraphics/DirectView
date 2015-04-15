@@ -21,7 +21,6 @@ View::View( Frame* parent, const int width, const int height, Model& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( POINT ),
 pointSize( 10.0f ),
 model( model )
 {
@@ -226,42 +225,30 @@ void View::draw(const wxSize& size)
 
 	Camera<float> c = *(model.getCamera());
 
-	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		glLineWidth(1.0f);
-		wireFrameRenderer.render(width, height, c, dispList);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glLineWidth(5.0f);
-		wireFrameRenderer.render(width, height, c, dispListSelected);
-	}
-	else if (renderingMode == RENDERING_MODE::POINT) {
-		glPointSize(pointSize);
-		pointRenderer.render(width, height, &c, dispList );
-	}
-	else {
-		assert( false );
-	}
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+		//glClear(GL_COLOR_BUFFER_BIT);
+		//glViewport(0, 0, (GLint)GetSize().x, (GLint)GetSize().y);
+
+	glPointSize(pointSize);
+	pointRenderer.render(width, height, &c, dispList );
+		/*
+		glBegin(GL_POINTS);
+		glVertex3f(0.0f, 0.0f, 5.0f);
+		glEnd();
+		glFlush();
+		*/
 }
 
 void View::build()
 {
-	wireFrameRenderer.build();
 	pointRenderer.build();
-	/*
-	wireFrameRenderer.build();
-	flatRenderer.build();
-	*/
 }
 
 void View::buildDisplayList()
 {
 	dispList.clear();
-	dispListSelected.clear();
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p.get() );
-	}
-	const FaceSPtrVector& faces = model.getSelectedFaces();
-	for (const FaceSPtr& f : faces) {
-		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
 	}
 }

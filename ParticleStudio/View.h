@@ -5,12 +5,7 @@
 
 #include "Frame.h"
 
-#include "../Shader/WireFrameRenderer.h"
-#include "../Shader/NormalRenderer.h"
-#include "../Shader/IDRenderer.h"
 #include "../Shader/PointRenderer.h"
-#include "../Shader/SmoothRenderer.h"
-
 
 #include "../Graphics/DisplayList.h"
 
@@ -38,24 +33,14 @@ public:
 		CAMERA_TRANSLATE,
 		//PICK_VERTEX,
 	};
-
-	enum RENDERING_MODE {
-		WIRE_FRAME,
-		POINT,
-	};
-
 	void buildDisplayList();
 
 	void setMode( const MODE& m ) { this->mode = m; }
-
-	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
 	float getPointSize() const { pointSize; }
 
 private:
 	MODE mode;
-
-	RENDERING_MODE renderingMode;
 
 	void OnPaint( wxPaintEvent& );
 
@@ -77,11 +62,9 @@ private:
 	
 	void build();
 
-	Shader::WireFrameRenderer wireFrameRenderer;
 	Shader::PointRenderer pointRenderer;
 
 	Graphics::DisplayList dispList;
-	Graphics::DisplayList dispListSelected;
 
 	float pointSize;
 
