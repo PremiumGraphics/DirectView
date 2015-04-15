@@ -36,17 +36,12 @@ public:
 		POLYGON_ROTATE_Z,
 
 		CAMERA_TRANSLATE,
-		LIGHT_TRANSLATE,
 		//PICK_VERTEX,
 	};
 
 	enum RENDERING_MODE {
 		WIRE_FRAME,
-		PHONG,
-		FLAT,
-		NORMAL,
 		POINT,
-		ID,
 	};
 
 	void buildDisplayList();
@@ -83,11 +78,7 @@ private:
 	void build();
 
 	Shader::WireFrameRenderer wireFrameRenderer;
-	Shader::SurfaceRenderer surfaceRenderer;
-	Graphics::SmoothRenderer smoothRenderer;
-	Graphics::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
-	Shader::IDRenderer idRenderer;
 
 	Graphics::DisplayList dispList;
 	Graphics::DisplayList dispListSelected;

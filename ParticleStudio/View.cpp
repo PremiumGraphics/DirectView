@@ -21,7 +21,7 @@ View::View( Frame* parent, const int width, const int height, Model& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( WIRE_FRAME ),
+renderingMode( POINT ),
 pointSize( 10.0f ),
 model( model )
 {
@@ -152,14 +152,6 @@ void View::OnMouse( wxMouseEvent& event )
 			model.getCamera()->move( pos );
 			model.getCamera()->addAngle( angle );
 		}
-		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = model.getLights();
-			for (const LightSPtr& l : lights) {
-				Vector3d lpos = l->getPos();
-				lpos += pos;
-				l->setPos(lpos);
-			}
-		}
 		else if( mode == POLYGON_SCALE ) {
 			Graphics::PolygonSPtrList& polygons = model.getPolygons();
 			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
@@ -241,23 +233,9 @@ void View::draw(const wxSize& size)
 		glLineWidth(5.0f);
 		wireFrameRenderer.render(width, height, c, dispListSelected);
 	}
-	else if( renderingMode == RENDERING_MODE::FLAT ) {
-		surfaceRenderer.render(width, height, c, dispList);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		surfaceRenderer.render(width, height, c, dispListSelected);
-	}
-	else if (renderingMode == RENDERING_MODE::PHONG) {
-		smoothRenderer.render(width, height, c, dispList, model.getLights(), model.getMaterials() );
-	}
-	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.render(width, height, c, dispList );
-	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		glPointSize(pointSize);
 		pointRenderer.render(width, height, &c, dispList );
-	}
-	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.render(width, height, c, dispList );
 	}
 	else {
 		assert( false );
@@ -267,11 +245,7 @@ void View::draw(const wxSize& size)
 void View::build()
 {
 	wireFrameRenderer.build();
-	smoothRenderer.build();
-	normalRenderer.build();
 	pointRenderer.build();
-	idRenderer.build();
-	surfaceRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

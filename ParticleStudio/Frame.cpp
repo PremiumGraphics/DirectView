@@ -34,9 +34,6 @@ enum {
 	ID_EXPORT,
 
 	ID_GL_CONFIG,
-	ID_LOCALE,
-
-	ID_OFF_SCREEN_CONFIG,
 
 	ID_CREATE_TRIANGLE,
 	ID_CREATE_SPHERE,
@@ -45,13 +42,6 @@ enum {
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
-
-	ID_RENDERING_WIREFRAME,
-	ID_RENDERING_FLAT,
-	ID_RENDERING_PHONG,
-	ID_RENDERING_NORMAL,
-	ID_RENDERING_POINT,
-	ID_RENDERING_ID,
 
 	ID_CAMERA_FIT,
 
@@ -142,27 +132,10 @@ Frame::Frame()
 	operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
 	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
 	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
 	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
 	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonScale));
-
-	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
-	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
-	rendering->AddButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
-	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
-	rendering->AddButton( ID_RENDERING_ID,			"ID",		wxImage("../Resource/point.png"));
-
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
-	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
-	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
-	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
-	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
-	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
@@ -189,12 +162,6 @@ Frame::Frame()
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig));
 
-
-	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
-	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
-	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
-	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
-
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ヘルプ"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
 	helpToolBar->AddButton(wxID_ABOUT, "About", wxArtProvider::GetBitmap(wxART_INFORMATION, wxART_OTHER, wxSize(32, 32)), "このソフトについて");
@@ -203,8 +170,6 @@ Frame::Frame()
 
 
 	bar->Realize();
-
-	Connect( ID_LOCALE,		wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( Frame::OnLocale ) );
 	
 	const int width = 1600;//720;
 	const int height = 900;////480;
@@ -343,11 +308,6 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::POLYGON_ROTATE );
-}
-
-void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
-{
-	view->setMode( View::LIGHT_TRANSLATE );
 }
 
 /*
@@ -509,23 +469,6 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 	wxMessageBox( s );
 }
 
-void Frame::OnLocale( wxCommandEvent& )
-{
-	const wxString names[] =
-	{
-		"System default",
-		"Japanese",
-	};
-	const int index = wxGetSingleChoiceIndex
-		(
-		_("Language Choice"),
-		_("Language"),
-		WXSIZEOF( names ),
-		names
-		);
-	//locale.Init( m_lang, wxLOCALE_DONT_LOAD_DEFAULT)
-}
-
 #include "wx/numdlg.h"
 
 void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
@@ -536,42 +479,6 @@ void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
 void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
 {
 	view->setMode( View::POLYGON_SCALE );
-}
-
-void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
-{
-	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
-	view->Refresh();
-}
-
-void Frame::OnPhong( wxRibbonButtonBarEvent& )
-{
-	view->setRenderingMode( View::RENDERING_MODE::PHONG );
-	view->Refresh();
-}
-
-void Frame::OnFlat( wxRibbonButtonBarEvent& )
-{
-	view->setRenderingMode( View::RENDERING_MODE::FLAT );
-	view->Refresh();
-}
-
-void Frame::OnNormal(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode( View::RENDERING_MODE::NORMAL );
-	view->Refresh();
-}
-
-void Frame::OnPoint(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::POINT);
-	view->Refresh();
-}
-
-void Frame::OnID(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::ID);
-	view->Refresh();
 }
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )

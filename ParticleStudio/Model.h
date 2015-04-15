@@ -11,8 +11,7 @@ namespace Crystal {
 
 class Model {
 public:
-	Model() :
-		lightBuilder(new Graphics::LightBuilder())
+	Model()
 	{
 		camera.setNear(1.0f);
 	}
@@ -23,8 +22,6 @@ public:
 	}
 
 	Graphics::PolygonBuilder& getPolygonBuilder() { return builder; }
-
-	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
 	std::list< Graphics::Material* > getMaterials() { return builder.getMaterialBuilder().getMaterials(); }
 
@@ -44,17 +41,12 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
-
-
 private:
 	Graphics::PolygonBuilder builder;
 	Graphics::VertexSPtrVector selectedVertex;
 	Graphics::FaceSPtrVector selectedFace;
 
 	Graphics::Camera<float> camera;
-	Graphics::LightBuilderSPtr lightBuilder;
-
 };
 
 	}

@@ -59,8 +59,6 @@ private:
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
-	void OnLightTranslate( wxRibbonButtonBarEvent& );
-
 	void OnPolygonTranslate( wxRibbonButtonBarEvent& );
 
 	void OnPolygonRotate( wxRibbonButtonBarEvent& );
@@ -77,19 +75,7 @@ private:
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
-	void OnLocale( wxCommandEvent& );
-
 	void OnPolygonScale( wxRibbonButtonBarEvent& e);
-
-	void OnWireFrame( wxRibbonButtonBarEvent& e);
-
-	void OnPhong( wxRibbonButtonBarEvent& );
-
-	void OnFlat( wxRibbonButtonBarEvent& );
-
-	void OnNormal(wxRibbonButtonBarEvent&);
-
-	void OnPoint(wxRibbonButtonBarEvent&);
 
 	void OnID(wxRibbonButtonBarEvent&);
 
