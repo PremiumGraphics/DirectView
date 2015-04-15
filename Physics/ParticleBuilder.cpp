@@ -67,17 +67,22 @@ ParticleObject ParticleBuilder::build(const Box& box)
 	return object;
 }
 
-/*
-ParticleObject ParticleBuilder::build(const Math::Sphere& s)
+ParticleObject ParticleBuilder::build(const Sphere& s)
 {
-	std::list<ParticleBase> particles = build( s.getBoundingBox() );
-
-	for (const ParticleBase& p : particles) {
-		const Vector3d& v = p.getPosition();
-		if (s.isInner(v)) {
-			particles.remove(v);
+	ParticleObject object;
+	Math::Box box = s.getBoundingBox();
+	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
+		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
+			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
+				const Vector3d v(x, y, z);
+				if (s.isInner(v)) {
+					ParticleBase* p = new ParticleBase(divideLength, v );
+					particles.push_back(p);
+					object.add(p);
+				}
+			}
 		}
 	}
-	ParticleObject object;;
+	return object;
+
 }
-*/

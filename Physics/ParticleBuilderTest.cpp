@@ -53,11 +53,10 @@ TEST(ParticleBuilderTest, TestBuildBox)
 	EXPECT_EQ(10, actual.getParticles().size());
 }
 
-/*
-TEST(ParticleBuilderTest, TestBuildCircle)
+TEST(ParticleBuilderTest, TestBuildSphere)
 {
 	ParticleBuilder builder(1.0f);
-	..const Circle c()
-	builder.build()
+	const Sphere s( Vector3d( 0.0, 0.0, 0.0), 10.0 );
+	builder.build(s);
+	EXPECT_FALSE(builder.getParticles().empty());
 }
-*/

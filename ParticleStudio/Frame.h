@@ -2,17 +2,8 @@
 #define __CRYSTAL_CG_FRAME_H__
 
 #include "../Graphics/Camera.h"
-#include "../Graphics/Light.h"
 
 #include "Model.h"
-
-#include "../Math/Triangle.h"
-#include "../Math/Quad.h"
-#include "../Math/Circle.h"
-#include "../Math/Sphere.h"
-#include "../Math/Box.h"
-#include "../Math/Cylinder.h"
-
 
 #include <memory>
 
@@ -62,23 +53,11 @@ private:
 
 	void OnAbout( wxRibbonButtonBarEvent& );
 
-	void OnGLConfig( wxRibbonButtonBarEvent& e );
-
-	void OnPolygonScale( wxRibbonButtonBarEvent& e);
-
-	void OnID(wxRibbonButtonBarEvent&);
-
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
 	void clear();
-
-	void OnCreateQuad(wxRibbonButtonBarEvent& e);
-
-	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
-
-	void OnCreateCircle(wxRibbonButtonBarEvent& e);
 
 	void OnCreateSphere(wxRibbonButtonBarEvent& e);
 
@@ -89,14 +68,6 @@ private:
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
 private:
-	Math::Triangle triangle;
-	Math::Quad quad;
-	Math::Circle circle;
-	Math::Sphere sphere;
-	Math::Box box;
-	Math::Cylinder cylinder;
-	Math::Cone cone;
-
 
 private:
 

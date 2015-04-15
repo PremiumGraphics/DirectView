@@ -1,11 +1,7 @@
 #ifndef __CRYSTAL_APP_MODEL_H__
 #define __CRYSTAL_APP_MODEL_H__
 
-#include "../Graphics/PolygonBuilder.h"
-#include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/Polygon.h"
-
 #include "../Physics/ParticleBuilder.h"
 
 namespace Crystal {
@@ -21,21 +17,14 @@ public:
 
 	void clear()
 	{
-		builder.clear();
+		pBuilder.clear();
 	}
-
-	Graphics::PolygonBuilder& getPolygonBuilder() { return builder; }
-
-	Graphics::PolygonSPtrList getPolygons() const { return builder.getPolygons(); }
-
-	Graphics::VertexSPtrVector getVertices() const { return builder.getVertices(); }
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
 	Physics::ParticleBuilder& getParticleBuilder() { return pBuilder; }
 
 private:
-	Graphics::PolygonBuilder builder;
 	Graphics::Camera<float> camera;
 	Physics::ParticleBuilder pBuilder;
 };

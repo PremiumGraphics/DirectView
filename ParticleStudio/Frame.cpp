@@ -24,12 +24,7 @@ enum {
 	ID_IMPORT,
 	ID_EXPORT,
 
-	ID_GL_CONFIG,
-
-	ID_CREATE_TRIANGLE,
 	ID_CREATE_SPHERE,
-	ID_CREATE_QUAD,
-	ID_CREATE_CIRCLE,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
@@ -121,17 +116,11 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	modelingBar->AddButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
-	modelingBar->AddButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png"));
-	modelingBar->AddButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/circle.png"));
 	modelingBar->AddButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
-	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
-	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
-	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
@@ -321,6 +310,8 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 
 	wxFileName fn( filename );
 
+	/*
+
 	const wxString& ext = fn.GetExt();
 	if( ext == "obj" ) {
 		wxString path = fn.GetPath( false );
@@ -352,12 +343,12 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 			return;
 		}
 
-		PolygonFactory factory( model.getPolygonBuilder() );
 		PolygonSPtrList g = factory.create(file);
 		view->Refresh();
 
 		OnCameraFit( e );
 	}
+	*/
 }
 
 
@@ -400,38 +391,6 @@ void Frame::OnExport( wxRibbonButtonBarEvent& e )
 		}
 	}
 	*/
-}
-
-void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
-{
-	const GLubyte* str = glGetString( GL_RENDERER );
-	const GLubyte* vendor = glGetString( GL_VENDOR );
-	const GLubyte* glVersion = glGetString( GL_VERSION );
-	const GLubyte* glslVersion = glGetString( GL_SHADING_LANGUAGE_VERSION );
-
-	wxString s;
-
-	char a[256];
-	sprintf( a, "%s\n", str );
-	
-	s += wxString::Format("Renderer = %s", a );
-
-	sprintf( a, "%s\n", vendor );
-	s += wxString::Format("Vendor = %s", a );
-
-	sprintf( a, "%s\n", glVersion );
-	s += wxString::Format("GL Version = %s", a );
-
-	sprintf( a, "%s\n", glslVersion );
-	s += wxString::Format("GLSL Version = %s", a );
-
-	GLint bufs;
-	glGetIntegerv( GL_SAMPLE_BUFFERS, &bufs );
-
-	sprintf( a, "%d\n", bufs );
-	s += wxString::Format("Sample Buffer = %s", a );
-
-	wxMessageBox( s );
 }
 
 
@@ -490,37 +449,10 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 }
 
 
-void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
-{
-	const Triangle t;
-	PolygonSPtr p = model.getPolygonBuilder().build(t);
-	//p->setName("Triangle");
-	view->Refresh();
-}
-
-void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
-{
-	const Quad q;
-	PolygonSPtr p = model.getPolygonBuilder().build(q);
-	//p->setName("Quad");
-	view->Refresh();
-
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
-	//polygon->setName("Quad");
-	//w.getPolygonTree()->build();
-}
-
-void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
-{
-	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
-
-	//p->setName("Circle");
-	view->Refresh();
-}
-
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder().build(sphere, 30, 30);
+	const Sphere s;
+	model.getParticleBuilder().build(s);
 	view->Refresh();
 	/*
 	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
@@ -541,13 +473,11 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
-	model.getPolygonBuilder().build(b);
 	model.getParticleBuilder().build(b);
 	view->Refresh();
 }
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
 }
