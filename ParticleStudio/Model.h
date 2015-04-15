@@ -26,8 +26,6 @@ public:
 
 	Graphics::PolygonBuilder& getPolygonBuilder() { return builder; }
 
-	Graphics::FaceSPtrVector getFaces() const { return builder.getFaces(); }
-
 	Graphics::PolygonSPtrList getPolygons() const { return builder.getPolygons(); }
 
 	Graphics::VertexSPtrVector getVertices() const { return builder.getVertices(); }

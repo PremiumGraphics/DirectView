@@ -6,7 +6,6 @@
 
 #include "../Graphics/PolygonBuilder.h"
 
-#include "ModelingDialog.h"
 
 #include "wx/filename.h"
 
@@ -14,6 +13,7 @@
 #include "../IO/STLFile.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 using namespace Crystal::CG;
@@ -121,28 +121,21 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	modelingBar->AddHybridButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
-	modelingBar->AddHybridButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/circle.png"));
-	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
+	modelingBar->AddButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png"));
+	modelingBar->AddButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/circle.png"));
+	modelingBar->AddButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
 	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
-	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
 	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
-	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
 	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
-	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
-	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinderConfig));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
-	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBoxConfig));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
-	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig));
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -505,14 +498,6 @@ void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 	view->Refresh();
 }
 
-void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
-{
-	TriangleConfigDialog dialog(this, triangle);
-	if (dialog.ShowModal() == wxID_OK) {
-		triangle = dialog.get();
-	}
-}
-
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
 	const Quad q;
@@ -525,30 +510,12 @@ void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 	//w.getPolygonTree()->build();
 }
 
-void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
-{
-	QuadConfigDialog dialog(this, quad);
-	if (dialog.ShowModal() == wxID_OK) {
-		quad = dialog.get();
-	}
-}
-
 void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
 {
 	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
 
 	//p->setName("Circle");
 	view->Refresh();
-}
-
-void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
-{
-	CircleConfigDialog dialog(this, circle);
-	//dialog.setConfig(modelings.circleConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		circle = dialog.get();
-		//modelings.circleConfig = dialog.getConfig();
-	}
 }
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
@@ -562,16 +529,6 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 	*/
 }
 
-void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
-{
-	SphereConfigDialog dialog(this, sphere);
-	//dialog.setConfig(modelings.sphereConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		sphere = dialog.get();
-		//modelings.sphereConfig = dialog.getConfig();
-	}
-}
-
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
 	//Cylinder c;
@@ -580,40 +537,17 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 	//w.getPolygonTree()->build();
 }
 
-void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
-{
-	CylinderConfigDialog dialog(this, cylinder);
-	if (dialog.ShowModal() == wxID_OK) {
-		cylinder = dialog.get();
-	}
-}
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
 	model.getPolygonBuilder().build(b);
+	model.getParticleBuilder().build(b);
 	view->Refresh();
-}
-
-void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
-{
-	BoxConfigDialog dialog(this, box);
-	if (dialog.ShowModal() == wxID_OK) {
-		box = dialog.get();
-	}
 }
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
-}
-
-void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
-{
-	ConeConfigDialog dialog(this);
-	//dialog.setConfig(modelings.coneConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		//modelings.coneConfig = dialog.getConfig();
-	}
 }
