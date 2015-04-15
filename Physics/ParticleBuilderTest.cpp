@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "ParticleBuilder.h"
 
+#include "../Math/Cylinder.h"
+
 #include <memory>
 
 using namespace Crystal::Math;
@@ -59,4 +61,13 @@ TEST(ParticleBuilderTest, TestBuildSphere)
 	const Sphere s( Vector3d( 0.0, 0.0, 0.0), 10.0 );
 	builder.build(s);
 	EXPECT_FALSE(builder.getParticles().empty());
+}
+
+TEST(ParticleBuilderTest, TestBuildCylinder)
+{
+	ParticleBuilder builder(1.0f);
+	const Cylinder c( Vector3d( 0.0, 0.0, 0.0), 10.0f, 10.0f );
+	builder.build(c);
+	EXPECT_FALSE(builder.getParticles().empty());
+
 }

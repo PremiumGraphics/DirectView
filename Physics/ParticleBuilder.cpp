@@ -84,5 +84,24 @@ ParticleObject ParticleBuilder::build(const Sphere& s)
 		}
 	}
 	return object;
+}
+
+ParticleObject ParticleBuilder::build(const Cylinder& c)
+{
+	ParticleObject object;
+	Box box = c.getBoundingBox();
+	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
+		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
+			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
+				const Vector3d v(x, y, z);
+				if (c.isInner(v)) {
+					ParticleBase* p = new ParticleBase(divideLength, v);
+					particles.push_back(p);
+					object.add(p);
+				}
+			}
+		}
+	}
+	return object;
 
 }

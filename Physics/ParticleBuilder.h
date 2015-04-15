@@ -3,6 +3,7 @@
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 #include "Particle.h"
 
@@ -50,6 +51,8 @@ public:
 	ParticleObject build(const Math::Box& box);
 
 	ParticleObject build(const Math::Sphere& s);
+
+	ParticleObject build(const Math::Cylinder& c);
 
 	std::list<ParticleBase*> getParticles() const { return particles; }
 
