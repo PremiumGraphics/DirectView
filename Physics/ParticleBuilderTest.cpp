@@ -14,54 +14,6 @@ TEST(ParticleBaseTest, TestGetVolume)
 	EXPECT_FLOAT_EQ( 1.0f, particle.getVolume() );
 }
 
-TEST(ParticleObjectTest, TestAdd)
-{
-	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
-	EXPECT_EQ(1, object.getParticles().size());
-}
-
-TEST(ParticleObjectTest, TestSub)
-{
-	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
-	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
-	object.sub(&particle1);
-	EXPECT_TRUE(object.getParticles().empty());
-}
-
-TEST(ParticleObjectTest, TestSub2)
-{
-	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
-	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
-	ParticleObject rhs;
-	rhs.add(&particle1);
-	object.sub(rhs);
-	EXPECT_TRUE(object.getParticles().empty());
-}
-
-TEST(ParticleObjectTest, TestIsInner)
-{
-	ParticleObject object;
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
-	EXPECT_EQ(1, object.getParticles().size());
-
-	ParticleBase rhs(1.0f, Vector3d( 0.0f, 0.0f, 0.0f), 1);
-	EXPECT_TRUE( object.isInner(&rhs) );
-	EXPECT_FALSE(object.isOuter(&rhs));
-
-	ParticleBase far(1.0f, Vector3d(10.0f, 0.0f, 0.0f), 2);
-	EXPECT_FALSE(object.isInner(&far));
-	EXPECT_TRUE(object.isOuter(&far));
-}
-
 TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder(1.0f);

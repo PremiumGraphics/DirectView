@@ -11,6 +11,7 @@
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="SurfaceBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
@@ -32,5 +33,6 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SurfaceBuilder.h" />
   </ItemGroup>
 </Project>

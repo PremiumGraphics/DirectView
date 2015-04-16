@@ -23,7 +23,7 @@ void ParticleObject::intersection(const ParticleObject& rhs)
 }
 */
 
-void ParticleObject::sub(ParticleBase* particle)
+void ParticleObject::remove(ParticleBase* particle)
 {
 	for (ParticleBase* p : particles) {
 		if (p->getPosition() == particle->getPosition()) {
@@ -36,7 +36,7 @@ void ParticleObject::sub(ParticleBase* particle)
 void ParticleObject::sub(const ParticleObject& rhs)
 {
 	for (ParticleBase* p : rhs.getParticles()) {
-		sub(p);
+		remove(p);
 	}
 }
 

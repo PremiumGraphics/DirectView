@@ -20,7 +20,7 @@ namespace Crystal {
 			void intersection(const ParticleObject& object);
 
 			*/
-			void sub(ParticleBase* particle);
+			void remove(ParticleBase* particle);
 
 			void sub(const ParticleObject& rhs);
 

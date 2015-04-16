@@ -94,6 +94,7 @@
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
+    <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +116,7 @@
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
