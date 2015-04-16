@@ -30,6 +30,10 @@ public:
 
 	void sub(const ParticleObject& rhs);
 
+	bool isInner(ParticleBase* particle) const;
+
+	bool isOuter(ParticleBase* particle) const;
+
 private:
 	std::list<ParticleBase*> particles;
 };

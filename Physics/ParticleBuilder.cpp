@@ -43,6 +43,20 @@ void ParticleObject::sub(const ParticleObject& rhs)
 	}
 }
 
+bool ParticleObject::isInner(ParticleBase* particle) const
+{
+	for (ParticleBase* p : particles) {
+		if (p->getPosition() == particle->getPosition()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool ParticleObject::isOuter(ParticleBase* particle) const
+{
+	return !isInner(particle);
+}
 
 void ParticleBuilder::clear()
 {
