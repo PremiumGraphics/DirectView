@@ -9,30 +9,6 @@
 namespace Crystal{
 	namespace Physics{
 		class Coordinator;
-
-class ParticleBase {
-public:
-	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) :
-		diameter( diameter ),
-		position( position ),
-		id( id )
-	{}
-
-	float getRadius() const { return diameter * 0.5f; }
-
-	float getDiameter() const { return diameter; }
-
-	Math::Vector3d getPosition() const { return position; }
-
-	float getVolume() const { return diameter * diameter * diameter; }
-
-	unsigned int getId() const { return id; }
-
-private:
-	float diameter;
-	Math::Vector3d position;
-	unsigned int id;
-};
 		
 class Particle 
 {

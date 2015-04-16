@@ -38,6 +38,7 @@
     <ClInclude Include="CSG.h" />
     <ClInclude Include="Voxel.h" />
     <ClInclude Include="Space3d.h" />
+    <ClInclude Include="ParticleBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

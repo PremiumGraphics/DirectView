@@ -5,6 +5,7 @@
 
 namespace Crystal {
 	namespace Math {
+
 class Space3d {
 public:
 	Space3d(const float size) :size( size)
@@ -29,6 +30,7 @@ private:
 	Vector3dVector positions;
 	float size;
 };
+
 	}
 }
 

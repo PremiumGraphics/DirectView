@@ -7,12 +7,12 @@ using namespace Crystal::Math;
 TEST(Space3dTest, TestConstruct)
 {
 	Space3d space( 1.0f );
-	EXPECT_TRUE( 1.0f, space.getMinSize());
+	EXPECT_FLOAT_EQ( 1.0f, space.getMinSize());
 	//space.setMinSize(1.0f);
 	//space.
 }
 
-TEST(Space3dTest, TestGetIndex)
+TEST(Space3dTest, TestGetHashedIndex)
 {
 	Space3d space(1.0f);
 	EXPECT_EQ(1.0f, space.getMinSize());

@@ -4,6 +4,7 @@
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
 #include "../Math/Cylinder.h"
+#include "../Math/ParticleBase.h"
 
 #include "Particle.h"
 #include "ParticleObject.h"
@@ -35,11 +36,11 @@ public:
 
 	ParticleObject build(const Math::Cylinder& c);
 
-	std::list<ParticleBase*> getParticles() const { return particles; }
+	std::list<Math::ParticleBase*> getParticles() const { return particles; }
 
 private:
 	float divideLength;
-	std::list<ParticleBase*> particles;
+	std::list<Math::ParticleBase*> particles;
 	unsigned int nextId;
 };
 	}
