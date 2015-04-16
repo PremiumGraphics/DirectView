@@ -37,6 +37,7 @@
     <ClInclude Include="Octree.h" />
     <ClInclude Include="CSG.h" />
     <ClInclude Include="Voxel.h" />
+    <ClInclude Include="Space3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

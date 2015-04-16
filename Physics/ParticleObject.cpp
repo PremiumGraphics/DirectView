@@ -1,5 +1,6 @@
 #include "ParticleObject.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 float ParticleObject::getVolume() const
@@ -53,4 +54,13 @@ bool ParticleObject::isInner(ParticleBase* particle) const
 bool ParticleObject::isOuter(ParticleBase* particle) const
 {
 	return !isInner(particle);
+}
+
+Box ParticleObject::getBoundingBox() const
+{
+	Box b(particles.front()->getPosition(), particles.back()->getPosition());
+	for (ParticleBase* p : particles) {
+		b.add(p->getPosition());
+	}
+	return b;
 }

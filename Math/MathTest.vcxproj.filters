@@ -18,5 +18,6 @@
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="BazierCurveTest.cpp" />
     <ClCompile Include="VoxelTest.cpp" />
+    <ClCompile Include="Space3dTest.cpp" />
   </ItemGroup>
 </Project>

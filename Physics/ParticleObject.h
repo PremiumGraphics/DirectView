@@ -3,34 +3,38 @@
 
 #include "Particle.h"
 
+#include "../Math/Box.h"
+
 namespace Crystal {
 	namespace Physics {
 
-		class ParticleObject {
-		public:
-			void add(ParticleBase* p) { this->particles.push_back(p); }
+class ParticleObject {
+public:
+	void add(ParticleBase* p) { this->particles.push_back(p); }
 
-			std::list<ParticleBase*> getParticles() const { return particles; }
+	std::list<ParticleBase*> getParticles() const { return particles; }
 
-			float getVolume() const;
+	float getVolume() const;
 
-			/*
-			void add(const ParticleObject& object);
+	/*
+	void add(const ParticleObject& object);
 
-			void intersection(const ParticleObject& object);
+	void intersection(const ParticleObject& object);
 
-			*/
-			void remove(ParticleBase* particle);
+	*/
+	void remove(ParticleBase* particle);
 
-			void sub(const ParticleObject& rhs);
+	void sub(const ParticleObject& rhs);
 
-			bool isInner(ParticleBase* particle) const;
+	bool isInner(ParticleBase* particle) const;
 
-			bool isOuter(ParticleBase* particle) const;
+	bool isOuter(ParticleBase* particle) const;
 
-		private:
-			std::list<ParticleBase*> particles;
-		};
+	Math::Box getBoundingBox() const;
+
+private:
+	std::list<ParticleBase*> particles;
+};
 
 
 	}

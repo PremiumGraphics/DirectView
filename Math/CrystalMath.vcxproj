@@ -86,6 +86,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Space3d.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tolerances.h" />
     <ClInclude Include="Triangle.h" />

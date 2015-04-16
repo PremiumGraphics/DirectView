@@ -26,6 +26,7 @@
     <ClCompile Include="PolygonBuilderTest.cpp" />
     <ClCompile Include="PolygonTest.cpp" />
     <ClCompile Include="SceneTest.cpp" />
+    <ClCompile Include="SurfaceBuilderTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -77,7 +78,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\msvc\gtest\Debug;../$(Configuration)/;..\ThirdParty\freeglut-2.8.1\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Math.lib;Graphics.lib;gtestd.lib;opengl32.lib;gtest_maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Math.lib;Physics.lib;Graphics.lib;gtestd.lib;opengl32.lib;gtest_maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

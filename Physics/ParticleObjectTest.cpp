@@ -2,6 +2,8 @@
 
 #include "ParticleObject.h"
 
+#include "ParticleBuilder.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
@@ -63,4 +65,12 @@ TEST(ParticleObjectTest, TestIsOuter)
 
 	ParticleBase far(1.0f, Vector3d(10.0f, 0.0f, 0.0f), 2);
 	EXPECT_TRUE(object.isOuter(&far));
+}
+
+TEST(ParticleObjectTest, TestGetBoundingBox)
+{
+	ParticleBuilder builder(1.0f);
+	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
+	const ParticleObject& object = builder.build(b);
+	EXPECT_EQ(object.getBoundingBox(), b);
 }

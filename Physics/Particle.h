@@ -18,6 +18,10 @@ public:
 		id( id )
 	{}
 
+	float getRadius() const { return diameter * 0.5f; }
+
+	float getDiameter() const { return diameter; }
+
 	Math::Vector3d getPosition() const { return position; }
 
 	float getVolume() const { return diameter * diameter * diameter; }
