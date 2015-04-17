@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_GRAPHICS_SURFACE_BUILDER_H__
 #define __CRYSTAL_GRAPHICS_SURFACE_BUILDER_H__
 
-#include "../Physics/ParticleObject.h"
+#include "../Math/ParticleObject.h"
 #include "Polygon.h"
 
 #include "ImageRGBA.h"
@@ -40,7 +40,7 @@ private:
 
 class SurfaceBuilder {
 public:
-	Polygon* build(const Physics::ParticleObject& object);
+	Polygon* build(const Math::ParticleObject& object);
 
 	Math::Vector3dVector findEdges(const ImageRGBA<float>& image);
 

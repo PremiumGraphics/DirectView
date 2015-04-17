@@ -2,7 +2,7 @@
 #define __CRYSTAL_APP_MODEL_H__
 
 #include "../Graphics/Camera.h"
-#include "../Physics/ParticleBuilder.h"
+#include "../Math/ParticleBuilder.h"
 
 namespace Crystal {
 	namespace CG {
@@ -22,11 +22,11 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Physics::ParticleBuilder& getParticleBuilder() { return pBuilder; }
+	Math::ParticleBuilder& getParticleBuilder() { return pBuilder; }
 
 private:
 	Graphics::Camera<float> camera;
-	Physics::ParticleBuilder pBuilder;
+	Math::ParticleBuilder pBuilder;
 };
 
 	}

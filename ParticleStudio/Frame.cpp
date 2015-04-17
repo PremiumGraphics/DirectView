@@ -13,7 +13,6 @@
 #include "../IO/STLFile.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 using namespace Crystal::CG;
