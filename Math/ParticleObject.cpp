@@ -1,7 +1,6 @@
 #include "ParticleObject.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Physics;
 
 float ParticleObject::getVolume() const
 {

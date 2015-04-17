@@ -6,7 +6,6 @@
 #include <memory>
 
 using namespace Crystal::Math;
-using namespace Crystal::Physics;
 
 TEST(ParticleBaseTest, TestGetVolume)
 {

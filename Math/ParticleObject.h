@@ -1,13 +1,15 @@
-#ifndef __CRYSTAL_PHYSICS_PARTICLE_OBJECT_H__
-#define __CRYSTAL_PHYSICS_PARTICLE_OBJECT_H__
+#ifndef __CRYSTAL_MATH_PARTICLE_OBJECT_H__
+#define __CRYSTAL_MATH_PARTICLE_OBJECT_H__
 
-#include "Particle.h"
+#include "ParticleBase.h"
 
 #include "../Math/ParticleBase.h"
 #include "../Math/Box.h"
 
+#include <list>
+
 namespace Crystal {
-	namespace Physics {
+	namespace Math {
 
 class ParticleObject {
 public:

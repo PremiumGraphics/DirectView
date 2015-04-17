@@ -7,16 +7,11 @@
     <ClInclude Include="Coordinator.h" />
     <ClInclude Include="BoundaryCoordinator.h" />
     <ClInclude Include="RigidCoordinator.h" />
-    <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="ParticleBuilder.h" />
-    <ClInclude Include="ParticleObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHSolver.cpp" />
     <ClCompile Include="NeighborSearcher.cpp" />
     <ClCompile Include="BoundaryCoordinator.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
-    <ClCompile Include="ParticleBuilder.cpp" />
-    <ClCompile Include="ParticleObject.cpp" />
   </ItemGroup>
 </Project>
