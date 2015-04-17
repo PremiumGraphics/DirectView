@@ -33,12 +33,18 @@ public:
 
 	bool isOuter(Math::ParticleBase* particle) const;
 
+	//bool isOn(ParticleBase* particle) const;
+
 	Math::Box getBoundingBox() const;
 
 private:
 	std::list<Math::ParticleBase*> particles;
 };
 
+class ParticleBooleanAlgo {
+public:
+	std::list<ParticleBase*> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
+};
 
 	}
 }

@@ -40,6 +40,7 @@ void ParticleObject::sub(const ParticleObject& rhs)
 	}
 }
 
+
 bool ParticleObject::isInner(ParticleBase* particle) const
 {
 	for (ParticleBase* p : particles) {
@@ -62,4 +63,17 @@ Box ParticleObject::getBoundingBox() const
 		b.add(p->getPosition());
 	}
 	return b;
+}
+
+std::list<ParticleBase*> ParticleBooleanAlgo::createIntersection(const ParticleObject& lhs, const ParticleObject& rhs)
+{
+	std::list<ParticleBase*> particles;
+	for (ParticleBase* p1 : lhs.getParticles()) {
+		for (ParticleBase* p2 : rhs.getParticles()) {
+			if (p1->getPosition() == p2->getPosition()) {
+				particles.push_back(p1);
+			}
+		}
+	}
+	return particles;
 }

@@ -73,3 +73,17 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 	const ParticleObject& object = builder.build(b);
 	EXPECT_EQ(object.getBoundingBox(), b);
 }
+
+TEST(ParticleBooleanAlgoTest, TestIntersection)
+{
+	ParticleBuilder builder(1.0f);
+	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
+	const ParticleObject& lhs = builder.build(b1.getInnerOffset( 0.5f));
+
+	const Box b2(Vector3d(1.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
+	const ParticleObject& rhs = builder.build(b2.getInnerOffset(0.5f));
+
+	ParticleBooleanAlgo algo;
+	const std::list<ParticleBase*> actual = algo.createIntersection(lhs, rhs);
+	EXPECT_EQ(9, actual.size());
+}
