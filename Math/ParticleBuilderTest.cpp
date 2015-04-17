@@ -17,8 +17,8 @@ TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder(1.0f);
 	const Box b(Vector3d( 0.0, 0.0, 0.0 ), Vector3d( 10.0f, 1.0f, 1.0f ));
-	const ParticleObject& actual = builder.build(b.getInnerOffset(0.5f));
-	EXPECT_EQ(10, actual.getParticles().size());
+	ParticleObject* actual = builder.build(b.getInnerOffset(0.5f));
+	EXPECT_EQ(10, actual->getParticles().size());
 }
 
 TEST(ParticleBuilderTest, TestBuildSphere)

@@ -11,26 +11,30 @@ void ParticleBuilder::clear()
 		delete p;
 	}
 	particles.clear();
+	for (ParticleObject* o : objects) {
+		delete o;
+	}
+	objects.clear();
 }
 
-ParticleObject ParticleBuilder::build(const Box& box)
+ParticleObject* ParticleBuilder::build(const Box& box)
 {
-	ParticleObject object;
+	ParticleObject* object = new ParticleObject();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				ParticleBase* p = new ParticleBase(divideLength, Vector3d(x, y, z), nextId++);
 				particles.push_back(p);
-				object.add(p);
+				object->add(p);
 			}
 		}
 	}
 	return object;
 }
 
-ParticleObject ParticleBuilder::build(const Sphere& s)
+ParticleObject* ParticleBuilder::build(const Sphere& s)
 {
-	ParticleObject object;
+	ParticleObject* object = new ParticleObject();
 	Math::Box box = s.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
@@ -39,7 +43,7 @@ ParticleObject ParticleBuilder::build(const Sphere& s)
 				if (s.isInner(v)) {
 					ParticleBase* p = new ParticleBase(divideLength, v, nextId++ );
 					particles.push_back(p);
-					object.add(p);
+					object->add(p);
 				}
 			}
 		}
@@ -47,9 +51,9 @@ ParticleObject ParticleBuilder::build(const Sphere& s)
 	return object;
 }
 
-ParticleObject ParticleBuilder::build(const Cylinder& c)
+ParticleObject* ParticleBuilder::build(const Cylinder& c)
 {
-	ParticleObject object;
+	ParticleObject* object = new ParticleObject();
 	Box box = c.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
@@ -58,7 +62,7 @@ ParticleObject ParticleBuilder::build(const Cylinder& c)
 				if (c.isInner(v)) {
 					ParticleBase* p = new ParticleBase(divideLength, v, nextId++);
 					particles.push_back(p);
-					object.add(p);
+					object->add(p);
 				}
 			}
 		}

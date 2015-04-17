@@ -196,6 +196,7 @@ void View::build()
 
 void View::buildDisplayList()
 {
+	//for (const ParticleObject& object : model.getParticleBuilder().)
 	positions.clear();
 	ids.clear();
 	/*

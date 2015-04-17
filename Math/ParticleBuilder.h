@@ -27,19 +27,24 @@ public:
 		nextId(0)
 	{}
 
+	~ParticleBuilder() {
+		clear();
+	}
+
 	void clear();
 
-	ParticleObject build(const Math::Box& box);
+	ParticleObject* build(const Math::Box& box);
 
-	ParticleObject build(const Math::Sphere& s);
+	ParticleObject* build(const Math::Sphere& s);
 
-	ParticleObject build(const Math::Cylinder& c);
+	ParticleObject* build(const Math::Cylinder& c);
 
 	std::list<ParticleBase*> getParticles() const { return particles; }
 
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;
+	std::list<ParticleObject*> objects;
 	unsigned int nextId;
 };
 	}
