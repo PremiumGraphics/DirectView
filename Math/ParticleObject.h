@@ -47,6 +47,7 @@ public:
 
 	std::list<ParticleBase*> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
 
+	std::list<ParticleBase*> createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
 };
 
 	}

@@ -86,3 +86,22 @@ std::list<ParticleBase*> ParticleBooleanAlgo::createIntersection(const ParticleO
 	}
 	return particles;
 }
+
+std::list<ParticleBase*> ParticleBooleanAlgo::createDiff(const ParticleObject& lhs, const ParticleObject& rhs)
+{
+	std::list<ParticleBase*> particles = lhs.getParticles();
+
+	std::list<ParticleBase*> intersects = createIntersection( lhs, rhs );
+
+	for (ParticleBase* p2 : intersects) {
+		for (std::list<ParticleBase*>::iterator iter = particles.begin(); iter != particles.end();) {
+			ParticleBase* p1 = (*iter);
+			if (p1->getPosition() == p2->getPosition()) {
+				iter = particles.erase(iter);
+				continue;
+			}
+			++iter;
+		}
+	}
+	return particles;
+}
