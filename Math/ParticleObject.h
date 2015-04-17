@@ -43,7 +43,10 @@ private:
 
 class ParticleBooleanAlgo {
 public:
+	std::list<ParticleBase*> createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
+
 	std::list<ParticleBase*> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
+
 };
 
 	}

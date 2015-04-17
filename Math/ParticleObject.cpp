@@ -65,6 +65,15 @@ Box ParticleObject::getBoundingBox() const
 	return b;
 }
 
+std::list<ParticleBase*> ParticleBooleanAlgo::createUnion(const ParticleObject& lhs, const ParticleObject& rhs)
+{
+	std::list<ParticleBase*> particles1 = lhs.getParticles();
+	const std::list<ParticleBase*> particles2 = rhs.getParticles();
+
+	particles1.insert(particles1.end(), particles2.begin(), particles2.end());
+	return particles1;
+}
+
 std::list<ParticleBase*> ParticleBooleanAlgo::createIntersection(const ParticleObject& lhs, const ParticleObject& rhs)
 {
 	std::list<ParticleBase*> particles;
