@@ -7,6 +7,10 @@
 #include "../Graphics/ColorRGBA.h"
 #include "../Graphics/DisplayList.h"
 
+#include "../Math/ParticleBase.h"
+
+#include <list>
+
 namespace Crystal {
 	namespace Shader {
 
@@ -23,7 +27,7 @@ namespace Crystal {
 
 		private:
 			Graphics::ShaderObject shader;
-		};
+};
 
 	}
 }

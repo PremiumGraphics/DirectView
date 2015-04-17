@@ -7,6 +7,7 @@
 
 //#include "../Shader/PointRenderer.h"
 #include "ParticleRenderer.h"
+#include "../Graphics/ParticleDisplayList.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -53,6 +54,7 @@ private:
 
 	//Shader::PointRenderer pointRenderer;
 	Shader::ParticleRenderer pointRenderer;
+	Graphics::ParticleDisplayList list;
 
 	float pointSize;
 

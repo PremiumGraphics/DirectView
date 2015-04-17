@@ -24,9 +24,16 @@ public:
 
 	Math::ParticleBuilder& getParticleBuilder() { return pBuilder; }
 
+	void clearSlectedObjects() { selectedObjects.clear(); }
+
+	void addSelectedObject(Math::ParticleObject* object) { selectedObjects.push_back(object); }
+
+	std::list<Math::ParticleObject*> getSelectedObjects() const { return selectedObjects; }
+
 private:
 	Graphics::Camera<float> camera;
 	Math::ParticleBuilder pBuilder;
+	std::list<Math::ParticleObject*> selectedObjects;
 };
 
 	}

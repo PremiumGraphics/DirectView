@@ -32,12 +32,13 @@ static std::stringstream getVertexSource()
 		<< "out vec3 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "uniform int objectId;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
 		<< "	float r = id / 1024.0;" << std::endl
 		<< "	float g = id / 2048.0;" << std::endl
-		<< "	float b = id / 4096.0;" << std::endl
+		<< "	float b = objectId / 512.0;" << std::endl
 		<< "	vColor = vec3( r, g, b);" << std::endl
 		<< "}" << std::endl;
 	return stream;
@@ -75,7 +76,6 @@ void ParticleRenderer::build()
 
 	positionLocation = glGetAttribLocation(shader.getId(), "position");
 	idLocation = glGetAttribLocation(shader.getId(), "id");
-
 }
 
 void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions, const std::vector<unsigned int>& ids)
@@ -98,6 +98,7 @@ void ParticleRenderer::render(const int width, const int height, const Camera<fl
 
 	ShaderUtil::setUniformMatrix(shader.getId(), "projectionMatrix", perspectiveMatrix);
 	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
+	ShaderUtil::setUniform(shader.getId(), "objectId", 0);
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(idLocation, 1, GL_INT, 0, &(ids.front()));

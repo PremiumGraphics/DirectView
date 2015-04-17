@@ -37,6 +37,10 @@ public:
 
 	Math::Box getBoundingBox() const;
 
+	std::vector< float > toPositionArray() const;
+
+	std::vector< unsigned int > toIdArray() const;
+
 private:
 	std::list<Math::ParticleBase*> particles;
 };

@@ -91,6 +91,7 @@
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="ParticleDisplayList.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="ParticleDisplayList.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="Scene.h" />

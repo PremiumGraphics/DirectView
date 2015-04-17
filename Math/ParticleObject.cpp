@@ -105,3 +105,22 @@ std::list<ParticleBase*> ParticleBooleanAlgo::createDiff(const ParticleObject& l
 	}
 	return particles;
 }
+
+std::vector< float > ParticleObject::toPositionArray() const
+{
+	std::vector< float > results;
+	for (ParticleBase* p : particles) {
+		std::vector<float> pos = p->getPosition().toArray();
+		results.insert(results.end(), pos.begin(), pos.end());
+	}
+	return results;
+}
+
+std::vector< unsigned int > ParticleObject::toIdArray() const
+{
+	std::vector< unsigned int > results;
+	for (ParticleBase* p : particles) {
+		results.push_back(p->getId());
+	}
+	return results;
+}
