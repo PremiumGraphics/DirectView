@@ -41,6 +41,8 @@ public:
 
 	std::list<ParticleBase*> getParticles() const { return particles; }
 
+	std::list<ParticleObject*> getObjects() const { return objects; }
+
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;

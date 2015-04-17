@@ -49,9 +49,6 @@ private:
 	
 	void build();
 
-	std::vector<float> positions;
-	std::vector<unsigned int> ids;
-
 	//Shader::PointRenderer pointRenderer;
 	Shader::ParticleRenderer pointRenderer;
 	Graphics::ParticleDisplayList list;

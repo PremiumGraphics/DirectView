@@ -5,7 +5,7 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
-#include "../Graphics/DisplayList.h"
+#include "../Graphics/ParticleDisplayList.h"
 
 #include "../Math/ParticleBase.h"
 
@@ -23,7 +23,7 @@ namespace Crystal {
 
 			void build();
 
-			void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const std::vector<unsigned int>& ids);
+			void render(const int width, const int height, const Graphics::Camera<float>* camera, const Graphics::ParticleDisplayList& list);
 
 		private:
 			Graphics::ShaderObject shader;

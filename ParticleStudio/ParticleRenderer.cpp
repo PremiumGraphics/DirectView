@@ -78,8 +78,10 @@ void ParticleRenderer::build()
 	idLocation = glGetAttribLocation(shader.getId(), "id");
 }
 
-void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const std::vector<float>& positions, const std::vector<unsigned int>& ids)
+void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const ParticleDisplayList& list)
 {
+	const std::vector< float >& positions = list.getPositions();
+	const std::vector< unsigned int >& ids = list.getIds();
 	if (positions.empty()) {
 		return;
 	}

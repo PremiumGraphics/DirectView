@@ -29,6 +29,7 @@ ParticleObject* ParticleBuilder::build(const Box& box)
 			}
 		}
 	}
+	objects.push_back(object);
 	return object;
 }
 
@@ -48,6 +49,7 @@ ParticleObject* ParticleBuilder::build(const Sphere& s)
 			}
 		}
 	}
+	objects.push_back(object);
 	return object;
 }
 
@@ -67,6 +69,7 @@ ParticleObject* ParticleBuilder::build(const Cylinder& c)
 			}
 		}
 	}
+	objects.push_back(object);
 	return object;
 
 }

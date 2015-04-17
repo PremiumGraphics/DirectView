@@ -180,7 +180,7 @@ void View::draw(const wxSize& size)
 		//glViewport(0, 0, (GLint)GetSize().x, (GLint)GetSize().y);
 
 	glPointSize(pointSize);
-	pointRenderer.render(width, height, &c, positions, ids );
+	pointRenderer.render(width, height, &c, list );
 		/*
 		glBegin(GL_POINTS);
 		glVertex3f(0.0f, 0.0f, 5.0f);
@@ -197,8 +197,7 @@ void View::build()
 void View::buildDisplayList()
 {
 	//for (const ParticleObject& object : model.getParticleBuilder().)
-	positions.clear();
-	ids.clear();
+	list.clear();
 	/*
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
@@ -209,10 +208,8 @@ void View::buildDisplayList()
 		}
 	}
 	*/
-	for (const ParticleBase* p : model.getParticleBuilder().getParticles()) {
-		const std::vector<float>& vs = p->getPosition().toArray();
-		positions.insert(positions.end(), vs.begin(), vs.end());
-		ids.push_back(p->getId());
+	for (const ParticleObject* object : model.getParticleBuilder().getObjects() ) {
+		list.add(*object);
 	}
 	/*
 	for (const Polygon& p : model.getParticleBuilder().) {
