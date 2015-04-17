@@ -6,12 +6,14 @@
 #include "../Math/ParticleBase.h"
 #include "../Math/Box.h"
 
+#include "../Util/UnCopyable.h"
+
 #include <list>
 
 namespace Crystal {
 	namespace Math {
 
-class ParticleObject {
+class ParticleObject : private UnCopyable {
 public:
 	void add(Math::ParticleBase* p) { this->particles.push_back(p); }
 

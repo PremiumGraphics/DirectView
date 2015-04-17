@@ -1,13 +1,14 @@
 #ifndef __CRYSTAL_MATH_PARTICLE_BASE_H__
 #define __CRYSTAL_MATH_PARTICLE_BASE_H__
 
+#include "../Util/UnCopyable.h"
+
 #include "Vector3d.h"
 
 namespace Crystal {
 	namespace Math {
 
-
-class ParticleBase {
+class ParticleBase : private UnCopyable {
 public:
 	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) :
 		diameter(diameter),

@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+#include "../Util/UnCopyable.h"
+
 #include "../Math/Vector3d.h"
 #include "Vertex.h"
 #include "Face.h"
@@ -13,7 +15,7 @@ namespace Crystal {
 	namespace Graphics {
 		class Material;
 
-class Polygon {
+class Polygon : private UnCopyable {
 public:
 
 	Polygon(unsigned int id, Material* m) :

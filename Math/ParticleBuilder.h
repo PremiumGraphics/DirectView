@@ -8,6 +8,8 @@
 #include "ParticleBase.h"
 #include "ParticleObject.h"
 
+#include "../Util/UnCopyable.h"
+
 #include <list>
 
 namespace Crystal {
@@ -20,7 +22,7 @@ class ParticleBooleanAlgo {
 };
 */
 
-class ParticleBuilder {
+class ParticleBuilder : private UnCopyable {
 public:
 	ParticleBuilder(const float divideLength) :
 		divideLength(divideLength),
