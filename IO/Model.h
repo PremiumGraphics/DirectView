@@ -22,8 +22,6 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Math::ParticleObjectBuilder& getParticleBuilder() { return pBuilder; }
-
 	Math::ParticleObjectSPtr create() {
 		Math::ParticleObjectSPtr object = pBuilder.build();
 		objects.push_back(object);

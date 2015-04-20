@@ -5,6 +5,12 @@
 
 #include "Vector3d.h"
 
+#include "Box.h"
+#include "Sphere.h"
+#include "Cylinder.h"
+
+#include <memory>
+
 namespace Crystal {
 	namespace Math {
 
@@ -32,7 +38,29 @@ private:
 	unsigned int id;
 };
 
+using ParticleBaseSPtr = std::shared_ptr < ParticleBase > ;
 
+class ParticleBuilder : private UnCopyable {
+public:
+	ParticleBuilder() :
+		nextId(0)
+	{}
+
+	ParticleBuilder(const float diameter) :
+		divideLength( diameter ),
+		nextId(0)
+	{}
+
+	std::vector<ParticleBase*> create(const Box& box);
+
+	std::vector<ParticleBase*> create(const Sphere& sphere);
+
+	std::vector<ParticleBase*> create(const Cylinder& cylinder);
+
+private:
+	float divideLength;
+	unsigned int nextId;
+};
 	}
 }
 

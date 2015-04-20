@@ -2,6 +2,7 @@
 
 #include "ParticleBase.h"
 
+
 using namespace Crystal::Math;
 
 
@@ -27,6 +28,13 @@ ParticleObjectSPtr ParticleObjectBuilder::build()
 ParticleObjectSPtr ParticleObjectBuilder::build(const Box& box)
 {
 	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
+	ParticleBuilder pBuilder(divideLength);
+	std::vector<ParticleBase*> ps = pBuilder.create(box);
+	for (ParticleBase* p : ps) {
+		object->add(p);
+	}
+	particles.insert(particles.end(), ps.begin(), ps.end());
+	/*
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
@@ -36,46 +44,32 @@ ParticleObjectSPtr ParticleObjectBuilder::build(const Box& box)
 			}
 		}
 	}
+	*/
 	return object;
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Sphere& s)
 {
 	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
-	Math::Box box = s.getBoundingBox();
-	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
-		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
-			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-				const Vector3d v(x, y, z);
-				if (s.isInner(v)) {
-					ParticleBase* p = new ParticleBase(divideLength, v, nextId++ );
-					particles.push_back(p);
-					object->add(p);
-				}
-			}
-		}
+	ParticleBuilder pBuilder(divideLength);
+	std::vector<ParticleBase*> ps = pBuilder.create(s);
+	for (ParticleBase* p : ps) {
+		object->add(p);
 	}
+	particles.insert(particles.end(), ps.begin(), ps.end());
 	return object;
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Cylinder& c)
 {
 	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
-	Box box = c.getBoundingBox();
-	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
-		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
-			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-				const Vector3d v(x, y, z);
-				if (c.isInner(v)) {
-					ParticleBase* p = new ParticleBase(divideLength, v, nextId++);
-					particles.push_back(p);
-					object->add(p);
-				}
-			}
-		}
+	ParticleBuilder pBuilder(divideLength);
+	std::vector<ParticleBase*> ps = pBuilder.create(c);
+	for (ParticleBase* p : ps) {
+		object->add(p);
 	}
+	particles.insert(particles.end(), ps.begin(), ps.end());
 	return object;
-
 }
 
 /*

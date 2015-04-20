@@ -26,7 +26,6 @@ class ParticleObjectBuilder : private UnCopyable {
 public:
 	ParticleObjectBuilder(const float divideLength) :
 		divideLength(divideLength),
-		nextId(0),
 		nextObjectId(0)
 	{}
 
@@ -56,7 +55,6 @@ private:
 	float divideLength;
 	std::list<ParticleBase*> particles;
 	//std::list<ParticleObject*> objects;
-	unsigned int nextId;
 	unsigned int nextObjectId;
 
 };
