@@ -21,9 +21,9 @@ public:
 		id(id)
 	{}
 
-	void add(Math::ParticleBase* p) { this->particles.push_back(p); }
+	void add(Math::ParticleBaseSPtr p) { this->particles.push_back(p); }
 
-	std::list<Math::ParticleBase*> getParticles() const { return particles; }
+	std::list<Math::ParticleBaseSPtr> getParticles() const { return particles; }
 
 	float getVolume() const;
 
@@ -33,7 +33,7 @@ public:
 	void intersection(const ParticleObject& object);
 
 	*/
-	void remove(Math::ParticleBase* particle);
+	void remove(Math::ParticleBaseSPtr particle);
 
 	void sub(const ParticleObject& rhs);
 
@@ -52,7 +52,7 @@ public:
 	unsigned int getId() const { return id; }
 
 private:
-	std::list<Math::ParticleBase*> particles;
+	std::list<Math::ParticleBaseSPtr> particles;
 	unsigned int id;
 };
 
@@ -60,11 +60,11 @@ using ParticleObjectSPtr = std::shared_ptr< ParticleObject >;
 
 class ParticleBooleanAlgo {
 public:
-	std::list<ParticleBase*> createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
+	std::list<ParticleBaseSPtr> createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
 
-	std::list<ParticleBase*> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
+	std::list<ParticleBaseSPtr> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
 
-	std::list<ParticleBase*> createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
+	std::list<ParticleBaseSPtr> createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
 };
 
 	}

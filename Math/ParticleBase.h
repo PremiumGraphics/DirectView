@@ -51,11 +51,11 @@ public:
 		nextId(0)
 	{}
 
-	std::vector<ParticleBase*> create(const Box& box);
+	std::vector<ParticleBaseSPtr> create(const Box& box);
 
-	std::vector<ParticleBase*> create(const Sphere& sphere);
+	std::vector<ParticleBaseSPtr> create(const Sphere& sphere);
 
-	std::vector<ParticleBase*> create(const Cylinder& cylinder);
+	std::vector<ParticleBaseSPtr> create(const Cylinder& cylinder);
 
 private:
 	float divideLength;

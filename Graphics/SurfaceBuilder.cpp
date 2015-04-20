@@ -8,7 +8,7 @@ Polygon* SurfaceBuilder::build(const ParticleObject& object)
 	const Box& bb = object.getBoundingBox();
 	const float length = object.getParticles().front()->getDiameter();
 	float y = bb.getMaxY() - length * 0.5f;
-	for ( ParticleBase* p : object.getParticles()) {
+	for ( ParticleBaseSPtr p : object.getParticles()) {
 		const Vector3d v = p->getPosition();
 	}
 	return nullptr;

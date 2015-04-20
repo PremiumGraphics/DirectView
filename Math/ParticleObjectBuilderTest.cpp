@@ -25,16 +25,16 @@ TEST(ParticleObjectBuilderTest, TestBuildSphere)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Sphere s( Vector3d( 0.0, 0.0, 0.0), 10.0 );
-	builder.build(s);
-	EXPECT_FALSE(builder.getParticles().empty());
+	ParticleObjectSPtr actual = builder.build(s);
+	EXPECT_FALSE(actual->getParticles().empty());
 }
 
 TEST(ParticleObjectBuilderTest, TestBuildCylinder)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Cylinder c( Vector3d( 0.0, 0.0, 0.0), 10.0f, 10.0f );
-	builder.build(c);
-	EXPECT_FALSE(builder.getParticles().empty());
+	ParticleObjectSPtr actual = builder.build(c);
+	EXPECT_FALSE(actual->getParticles().empty());
 }
 
 /*

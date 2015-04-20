@@ -9,31 +9,31 @@ using namespace Crystal::Math;
 TEST(ParticleObjectTest, TestAdd)
 {
 	ParticleObject object(0);
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
+	ParticleBaseSPtr particle = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+	object.add(particle);
 	EXPECT_EQ(1, object.getParticles().size());
 }
 
 TEST(ParticleObjectTest, TestRemove)
 {
 	ParticleObject object(0);
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
+	ParticleBaseSPtr particle = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+	object.add(particle);
 	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
-	object.remove(&particle1);
+	ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
+	object.remove(particle1);
 	EXPECT_TRUE(object.getParticles().empty());
 }
 
 TEST(ParticleObjectTest, TestSub)
 {
 	ParticleObject object(0);
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
+	ParticleBaseSPtr particle = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+	object.add(particle);
 	EXPECT_EQ(1, object.getParticles().size());
-	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
+	ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
 	ParticleObject rhs(1);
-	rhs.add(&particle1);
+	rhs.add(particle1);
 	object.sub(rhs);
 	EXPECT_TRUE(object.getParticles().empty());
 }
@@ -41,8 +41,8 @@ TEST(ParticleObjectTest, TestSub)
 TEST(ParticleObjectTest, TestIsInner)
 {
 	ParticleObject object(0);
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
+	ParticleBaseSPtr particle = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+	object.add(particle);
 	EXPECT_EQ(1, object.getParticles().size());
 
 	ParticleBase rhs(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
@@ -55,8 +55,8 @@ TEST(ParticleObjectTest, TestIsInner)
 TEST(ParticleObjectTest, TestIsOuter)
 {
 	ParticleObject object(0);
-	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
-	object.add(&particle);
+	ParticleBaseSPtr particle = std::make_shared<ParticleBase>(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+	object.add(particle);
 	EXPECT_EQ(1, object.getParticles().size());
 
 	ParticleBase rhs(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
@@ -71,6 +71,7 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObjectSPtr object = builder.build(b);
+	const Box actual = object->getBoundingBox();
 	EXPECT_EQ(object->getBoundingBox(), b);
 }
 
@@ -100,7 +101,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBase*> actual = algo.createUnion(*lhs, *rhs);
+	const std::list<ParticleBaseSPtr> actual = algo.createUnion(*lhs, *rhs);
 	EXPECT_EQ(20, actual.size());
 
 }
@@ -115,7 +116,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBase*> actual = algo.createIntersection(*lhs, *rhs);
+	const std::list<ParticleBaseSPtr> actual = algo.createIntersection(*lhs, *rhs);
 	EXPECT_EQ(9, actual.size());
 }
 
@@ -130,6 +131,6 @@ TEST(ParticleBooleanAlgoTest, TestCreateDiff)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBase*> actual = algo.createDiff(*lhs, *rhs);
+	const std::list<ParticleBaseSPtr> actual = algo.createDiff(*lhs, *rhs);
 	EXPECT_EQ(1, actual.size());
 }

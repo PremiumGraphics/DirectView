@@ -15,13 +15,6 @@
 namespace Crystal {
 	namespace Math {
 
-
-/*
-class ParticleBooleanAlgo {
-
-};
-*/
-
 class ParticleObjectBuilder : private UnCopyable {
 public:
 	ParticleObjectBuilder(const float divideLength) :
@@ -45,15 +38,12 @@ public:
 
 	ParticleObjectSPtr build(const Math::Cylinder& c);
 
-	std::list<ParticleBase*> getParticles() const { return particles; }
-
 	//std::list<ParticleObject*> getObjects() const { return objects; }
 
 	ParticleObjectSPtr getObject(const unsigned int id);
 
 private:
 	float divideLength;
-	std::list<ParticleBase*> particles;
 	//std::list<ParticleObject*> objects;
 	unsigned int nextObjectId;
 
