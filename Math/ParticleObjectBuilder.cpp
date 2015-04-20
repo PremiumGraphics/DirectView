@@ -6,7 +6,6 @@
 
 using namespace Crystal::Math;
 
-
 void ParticleObjectBuilder::clear()
 {
 	/*for (ParticleObject* o : objects) {
@@ -24,36 +23,32 @@ ParticleObjectSPtr ParticleObjectBuilder::build()
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Box& box)
 {
-	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
 	ParticleBuilder pBuilder(divideLength);
-	const std::vector<ParticleBaseSPtr>& ps = pBuilder.create(box);
-	for (const ParticleBaseSPtr& p : ps) {
-		object->add(p);
-	}
-	return object;
+	return build( pBuilder.create(box) );
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Sphere& s)
 {
-	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
 	ParticleBuilder pBuilder(divideLength);
-	const std::vector<ParticleBaseSPtr>& ps = pBuilder.create(s);
-	for (const ParticleBaseSPtr& p : ps) {
+	return build( pBuilder.create(s) );
+}
+
+ParticleObjectSPtr ParticleObjectBuilder::build(const Cylinder& c)
+{
+	//ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
+	ParticleBuilder pBuilder(divideLength);
+	return build( pBuilder.create(c));
+}
+
+ParticleObjectSPtr ParticleObjectBuilder::build(const std::list<ParticleBaseSPtr>& particles)
+{
+	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
+	for (const ParticleBaseSPtr& p : particles) {
 		object->add(p);
 	}
 	return object;
 }
 
-ParticleObjectSPtr ParticleObjectBuilder::build(const Cylinder& c)
-{
-	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
-	ParticleBuilder pBuilder(divideLength);
-	const std::vector<ParticleBaseSPtr>& ps = pBuilder.create(c);
-	for (const ParticleBaseSPtr& p : ps) {
-		object->add(p);
-	}
-	return object;
-}
 
 /*
 ParticleObject* ParticleObjectBuilder::getObject(const unsigned int id)

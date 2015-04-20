@@ -40,6 +40,8 @@ public:
 
 	//std::list<ParticleObject*> getObjects() const { return objects; }
 
+	ParticleObjectSPtr build(const std::list<ParticleBaseSPtr>& particles);
+
 	ParticleObjectSPtr getObject(const unsigned int id);
 
 private:

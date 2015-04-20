@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_MATH_PARTICLE_BASE_BUILDER_H__
 #define __CRYSTAL_MATH_PARTICLE_BASE_BUILDER_H__
 
+#include <list>
+
 #include "ParticleBase.h"
 
 namespace Crystal {
@@ -17,11 +19,11 @@ namespace Crystal {
 				nextId(0)
 			{}
 
-			std::vector<ParticleBaseSPtr> create(const Box& box);
+			std::list<ParticleBaseSPtr> create(const Box& box);
 
-			std::vector<ParticleBaseSPtr> create(const Sphere& sphere);
+			std::list<ParticleBaseSPtr> create(const Sphere& sphere);
 
-			std::vector<ParticleBaseSPtr> create(const Cylinder& cylinder);
+			std::list<ParticleBaseSPtr> create(const Cylinder& cylinder);
 
 		private:
 			float divideLength;
