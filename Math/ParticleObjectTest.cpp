@@ -68,7 +68,7 @@ TEST(ParticleObjectTest, TestIsOuter)
 
 TEST(ParticleObjectTest, TestGetBoundingBox)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* object = builder.build(b);
 	EXPECT_EQ(object->getBoundingBox(), b);
@@ -76,7 +76,7 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 
 TEST(ParticleObjectTest, TestToPositionArray)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* object = builder.build(b.getInnerOffset(0.5f));
 	EXPECT_EQ(30, object->toPositionArray().size());
@@ -84,7 +84,7 @@ TEST(ParticleObjectTest, TestToPositionArray)
 
 TEST(ParticleObjectTest, TestToIdArray)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* object = builder.build(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, object->toIdArray().size());
@@ -92,7 +92,7 @@ TEST(ParticleObjectTest, TestToIdArray)
 
 TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* lhs = builder.build(b1.getInnerOffset(0.5f));
 
@@ -107,7 +107,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 
 TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* lhs = builder.build(b1.getInnerOffset( 0.5f));
 
@@ -122,7 +122,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 
 TEST(ParticleBooleanAlgoTest, TestCreateDiff)
 {
-	ParticleBuilder builder(1.0f);
+	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
 	ParticleObject* lhs = builder.build(b1.getInnerOffset(0.5f));
 

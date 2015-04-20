@@ -22,14 +22,14 @@ class ParticleBooleanAlgo {
 };
 */
 
-class ParticleBuilder : private UnCopyable {
+class ParticleObjectBuilder : private UnCopyable {
 public:
-	ParticleBuilder(const float divideLength) :
+	ParticleObjectBuilder(const float divideLength) :
 		divideLength(divideLength),
 		nextId(0)
 	{}
 
-	~ParticleBuilder() {
+	~ParticleObjectBuilder() {
 		clear();
 	}
 

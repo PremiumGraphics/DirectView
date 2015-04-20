@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 
 
-void ParticleBuilder::clear()
+void ParticleObjectBuilder::clear()
 {
 	for (ParticleBase * p : particles) {
 		delete p;
@@ -17,7 +17,7 @@ void ParticleBuilder::clear()
 	objects.clear();
 }
 
-ParticleObject* ParticleBuilder::build(const Box& box)
+ParticleObject* ParticleObjectBuilder::build(const Box& box)
 {
 	ParticleObject* object = new ParticleObject(nextId++);
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
@@ -33,7 +33,7 @@ ParticleObject* ParticleBuilder::build(const Box& box)
 	return object;
 }
 
-ParticleObject* ParticleBuilder::build(const Sphere& s)
+ParticleObject* ParticleObjectBuilder::build(const Sphere& s)
 {
 	ParticleObject* object = new ParticleObject(nextId++);
 	Math::Box box = s.getBoundingBox();
@@ -53,7 +53,7 @@ ParticleObject* ParticleBuilder::build(const Sphere& s)
 	return object;
 }
 
-ParticleObject* ParticleBuilder::build(const Cylinder& c)
+ParticleObject* ParticleObjectBuilder::build(const Cylinder& c)
 {
 	ParticleObject* object = new ParticleObject(nextId++);
 	Box box = c.getBoundingBox();

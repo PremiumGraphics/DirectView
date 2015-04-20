@@ -22,7 +22,7 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Math::ParticleBuilder& getParticleBuilder() { return pBuilder; }
+	Math::ParticleObjectBuilder& getParticleBuilder() { return pBuilder; }
 
 	void clearSlectedObjects() { selectedObjects.clear(); }
 
@@ -32,7 +32,7 @@ public:
 
 private:
 	Graphics::Camera<float> camera;
-	Math::ParticleBuilder pBuilder;
+	Math::ParticleObjectBuilder pBuilder;
 	std::list<Math::ParticleObject*> selectedObjects;
 };
 
