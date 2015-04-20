@@ -10,6 +10,8 @@
 
 #include <list>
 
+#include <memory>
+
 namespace Crystal {
 	namespace Math {
 
@@ -53,6 +55,8 @@ private:
 	std::list<Math::ParticleBase*> particles;
 	unsigned int id;
 };
+
+using ParticleObjectSPtr = std::shared_ptr< ParticleObject >;
 
 class ParticleBooleanAlgo {
 public:

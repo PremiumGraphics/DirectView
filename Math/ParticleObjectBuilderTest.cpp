@@ -17,7 +17,7 @@ TEST(ParticleObjectBuilderTest, TestBuildBox)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d( 0.0, 0.0, 0.0 ), Vector3d( 10.0f, 1.0f, 1.0f ));
-	ParticleObject* actual = builder.build(b.getInnerOffset(0.5f));
+	ParticleObjectSPtr actual = builder.build(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, actual->getParticles().size());
 }
 
@@ -37,16 +37,18 @@ TEST(ParticleObjectBuilderTest, TestBuildCylinder)
 	EXPECT_FALSE(builder.getParticles().empty());
 }
 
+/*
 TEST(ParticleObjectBuilderTest, TestGetObject)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Cylinder c(Vector3d(0.0, 0.0, 0.0), 10.0f, 10.0f);
-	ParticleObject* o1 = builder.build(c);
+	ParticleObjectSPtr o1 = builder.build(c);
 
 	const Box b(Vector3d(0.0, 0.0, 0.0), Vector3d(10.0, 0.0, 0.0));
-	ParticleObject* o2 = builder.build(b);
+	ParticleObjectSPtr o2 = builder.build(b);
 
 	EXPECT_EQ(o1, builder.getObject(0));
 	EXPECT_EQ(o2, builder.getObject(1));
 	EXPECT_EQ(nullptr, builder.getObject(2));
 }
+*/

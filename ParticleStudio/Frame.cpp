@@ -453,7 +453,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	const Sphere s;
-	model.getParticleBuilder().build(s);
+	model.create(s);
 	view->Refresh();
 	/*
 	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
@@ -465,7 +465,7 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
 	const Cylinder c;
-	model.getParticleBuilder().build(c);
+	model.create(c);
 	view->Refresh();
 }
 
@@ -473,7 +473,7 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
-	model.getParticleBuilder().build(b);
+	model.create(b);
 	view->Refresh();
 }
 

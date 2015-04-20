@@ -70,7 +70,7 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* object = builder.build(b);
+	ParticleObjectSPtr object = builder.build(b);
 	EXPECT_EQ(object->getBoundingBox(), b);
 }
 
@@ -78,7 +78,7 @@ TEST(ParticleObjectTest, TestToPositionArray)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* object = builder.build(b.getInnerOffset(0.5f));
+	ParticleObjectSPtr object = builder.build(b.getInnerOffset(0.5f));
 	EXPECT_EQ(30, object->toPositionArray().size());
 }
 
@@ -86,7 +86,7 @@ TEST(ParticleObjectTest, TestToIdArray)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* object = builder.build(b.getInnerOffset(0.5f));
+	ParticleObjectSPtr object = builder.build(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, object->toIdArray().size());
 }
 
@@ -94,10 +94,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* lhs = builder.build(b1.getInnerOffset(0.5f));
+	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset(0.5f));
 
 	const Box b2(Vector3d(10.0f, 0.0f, 0.0f), Vector3d(20.0f, 1.0f, 1.0f));
-	ParticleObject* rhs = builder.build(b2.getInnerOffset(0.5f));
+	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const std::list<ParticleBase*> actual = algo.createUnion(*lhs, *rhs);
@@ -109,10 +109,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* lhs = builder.build(b1.getInnerOffset( 0.5f));
+	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset( 0.5f));
 
 	const Box b2(Vector3d(1.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* rhs = builder.build(b2.getInnerOffset(0.5f));
+	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const std::list<ParticleBase*> actual = algo.createIntersection(*lhs, *rhs);
@@ -124,10 +124,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateDiff)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* lhs = builder.build(b1.getInnerOffset(0.5f));
+	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset(0.5f));
 
 	const Box b2(Vector3d(1.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* rhs = builder.build(b2.getInnerOffset(0.5f));
+	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const std::list<ParticleBase*> actual = algo.createDiff(*lhs, *rhs);

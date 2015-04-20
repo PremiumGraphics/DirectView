@@ -5,9 +5,41 @@
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
-TEST(ModelTest, Test)
+TEST(ModelTest, TestConstruct)
 {
 	Model model;
-	Box b(Vector3d(0.0, 0.0, 0.0), Vector3d(10.0, 1.0, 1.0));
-	model.getParticleBuilder().build(b);
+	EXPECT_TRUE( model.getParticleObjects().empty() );
+	EXPECT_TRUE( model.getSelectedObjects().empty() );
+}
+
+TEST(ModelTest, TestCreate)
+{
+	Model model;
+	model.create();
+	EXPECT_EQ(1, model.getParticleObjects().size());
+}
+
+TEST(ModelTest, TestCreateBox)
+{
+	Model model;
+	Box b;
+	model.create(b);
+	EXPECT_EQ(1, model.getParticleObjects().size());
+}
+
+TEST(ModelTest, TestCreateCylinder)
+{
+	Model model;
+	Cylinder c;
+	model.create(c);
+	EXPECT_EQ(1, model.getParticleObjects().size());
+}
+
+TEST(ModelTest, TestClearObjects)
+{
+	Model model;
+	model.create();
+	EXPECT_EQ(1, model.getParticleObjects().size());
+	model.clearObjects();
+	EXPECT_TRUE(model.getParticleObjects().empty());
 }

@@ -12,7 +12,7 @@ TEST(ParticleDisplayListTest, TestAdd)
 	ParticleDisplayList list;
 	ParticleObjectBuilder builder(1.0f);
 	Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObject* object = builder.build(b.getInnerOffset(0.5f));
+	ParticleObjectSPtr object = builder.build(b.getInnerOffset(0.5f));
 	list.add(*object);
 
 	EXPECT_EQ(30, list.getPositions().size());

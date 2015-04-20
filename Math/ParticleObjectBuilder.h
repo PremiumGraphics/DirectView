@@ -36,26 +36,31 @@ public:
 
 	void clear();
 
-	ParticleObject* build(const Math::Box& box);
+	ParticleObjectSPtr build();
 
-	ParticleObject* build(const Math::Sphere& s);
+	//ParticleObject* build(const std::list<ParticleBase*> particles);
 
-	ParticleObject* build(const Math::Cylinder& c);
+	ParticleObjectSPtr build(const Math::Box& box);
+
+	ParticleObjectSPtr build(const Math::Sphere& s);
+
+	ParticleObjectSPtr build(const Math::Cylinder& c);
 
 	std::list<ParticleBase*> getParticles() const { return particles; }
 
-	std::list<ParticleObject*> getObjects() const { return objects; }
+	//std::list<ParticleObject*> getObjects() const { return objects; }
 
-	ParticleObject* getObject(const unsigned int id);
+	ParticleObjectSPtr getObject(const unsigned int id);
 
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;
-	std::list<ParticleObject*> objects;
+	//std::list<ParticleObject*> objects;
 	unsigned int nextId;
 	unsigned int nextObjectId;
 
 };
+
 	}
 }
 
