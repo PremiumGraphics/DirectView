@@ -11,6 +11,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
+using namespace Crystal::IO;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
@@ -45,8 +46,6 @@ View::~View()
 }
 
 #include "../Math/Vector3d.h"
-
-using namespace Crystal::Math;
 
 
 void View::OnPaint( wxPaintEvent& )
@@ -121,7 +120,11 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-		//model.addSelectedObject()
+		const unsigned int id = b * 512;
+		ParticleObject* object = model.getParticleBuilder().getObject(id);
+		if (object != nullptr) {
+			model.addSelectedObject(object);
+		}
 		//frame->selectedFace = frame->get
 		return;
 	}

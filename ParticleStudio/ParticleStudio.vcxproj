@@ -146,7 +146,6 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -158,7 +157,6 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

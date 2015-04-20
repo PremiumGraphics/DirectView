@@ -3,14 +3,13 @@
 
 #include "../Graphics/Camera.h"
 
-#include "Model.h"
+#include "../IO/Model.h"
 
 #include <memory>
 
 namespace Crystal {
 	namespace CG {
 		class View;
-		class Model;
 		class PolygonTree;
 		class MaterialTree;
 		class LightTree;
@@ -29,7 +28,7 @@ public:
 
 	~Frame();
 
-	Model& getModel() { return model; }
+	IO::Model& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -75,7 +74,7 @@ private:
 private:
 
 	View* view;
-	Model model;
+	IO::Model model;
 
 	wxLocale locale;
 

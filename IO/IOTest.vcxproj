@@ -18,6 +18,7 @@
     <ClCompile Include="ColorRGBAMapIOTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
+    <ClCompile Include="ModelTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />

@@ -1,16 +1,16 @@
-#ifndef __CRYSTAL_APP_MODEL_H__
-#define __CRYSTAL_APP_MODEL_H__
+#ifndef __CRYSTAL_IO_MODEL_H__
+#define __CRYSTAL_IO_MODEL_H__
 
 #include "../Graphics/Camera.h"
 #include "../Math/ParticleObjectBuilder.h"
 
 namespace Crystal {
-	namespace CG {
+	namespace IO {
 
 class Model {
 public:
 	Model() :
-		pBuilder( 0.1f)
+		pBuilder(0.1f)
 	{
 		camera.setNear(1.0f);
 	}
@@ -27,6 +27,10 @@ public:
 	void clearSlectedObjects() { selectedObjects.clear(); }
 
 	void addSelectedObject(Math::ParticleObject* object) { selectedObjects.push_back(object); }
+
+	bool findSelectedObject(Math::ParticleObject* object) {
+		return std::find(selectedObjects.begin(), selectedObjects.end(), object) != selectedObjects.end();
+	}
 
 	std::list<Math::ParticleObject*> getSelectedObjects() const { return selectedObjects; }
 
