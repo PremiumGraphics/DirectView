@@ -10,4 +10,7 @@ void ParticleDisplayList::add(const ParticleObject& object)
 
 	const std::vector<unsigned int>& is = object.toIdArray();
 	ids.insert(ids.end(), is.begin(), is.end());
+
+	std::vector<unsigned int> objectIds_(object.getParticles().size(), object.getId());
+	this->objectIds.insert(objectIds.end(), objectIds_.begin(), objectIds_.end());
 }

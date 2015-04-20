@@ -8,7 +8,7 @@ using namespace Crystal::Math;
 
 TEST(ParticleObjectTest, TestAdd)
 {
-	ParticleObject object;
+	ParticleObject object(0);
 	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
@@ -16,7 +16,7 @@ TEST(ParticleObjectTest, TestAdd)
 
 TEST(ParticleObjectTest, TestRemove)
 {
-	ParticleObject object;
+	ParticleObject object(0);
 	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
@@ -27,12 +27,12 @@ TEST(ParticleObjectTest, TestRemove)
 
 TEST(ParticleObjectTest, TestSub)
 {
-	ParticleObject object;
+	ParticleObject object(0);
 	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
 	ParticleBase particle1(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 1);
-	ParticleObject rhs;
+	ParticleObject rhs(1);
 	rhs.add(&particle1);
 	object.sub(rhs);
 	EXPECT_TRUE(object.getParticles().empty());
@@ -40,7 +40,7 @@ TEST(ParticleObjectTest, TestSub)
 
 TEST(ParticleObjectTest, TestIsInner)
 {
-	ParticleObject object;
+	ParticleObject object(0);
 	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());
@@ -54,7 +54,7 @@ TEST(ParticleObjectTest, TestIsInner)
 
 TEST(ParticleObjectTest, TestIsOuter)
 {
-	ParticleObject object;
+	ParticleObject object(0);
 	ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
 	object.add(&particle);
 	EXPECT_EQ(1, object.getParticles().size());

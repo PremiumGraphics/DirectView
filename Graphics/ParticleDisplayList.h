@@ -16,15 +16,19 @@ public:
 	void clear() {
 		positions.clear();
 		ids.clear();
+		objectIds.clear();
 	}
 
 	std::vector<float> getPositions() const { return positions; }
 
 	std::vector<unsigned int> getIds() const { return ids; }
 
+	std::vector<unsigned int> getObjectIds() const { return objectIds; }
+
 private:
 	std::vector<float> positions;
 	std::vector<unsigned int> ids;
+	std::vector<unsigned int> objectIds;
 };
 	}
 }

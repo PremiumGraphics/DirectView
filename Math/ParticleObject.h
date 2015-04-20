@@ -15,6 +15,10 @@ namespace Crystal {
 
 class ParticleObject : private UnCopyable {
 public:
+	ParticleObject(const unsigned int id) :
+		id(id)
+	{}
+
 	void add(Math::ParticleBase* p) { this->particles.push_back(p); }
 
 	std::list<Math::ParticleBase*> getParticles() const { return particles; }
@@ -43,8 +47,11 @@ public:
 
 	std::vector< unsigned int > toIdArray() const;
 
+	unsigned int getId() const { return id; }
+
 private:
 	std::list<Math::ParticleBase*> particles;
+	unsigned int id;
 };
 
 class ParticleBooleanAlgo {

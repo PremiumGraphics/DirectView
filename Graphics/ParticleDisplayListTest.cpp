@@ -17,4 +17,5 @@ TEST(ParticleDisplayListTest, TestAdd)
 
 	EXPECT_EQ(30, list.getPositions().size());
 	EXPECT_EQ(10, list.getIds().size());
+	EXPECT_EQ(10, list.getObjectIds().size());
 }
