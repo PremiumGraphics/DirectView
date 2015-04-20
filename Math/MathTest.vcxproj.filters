@@ -22,5 +22,6 @@
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
+    <ClCompile Include="ParticleBaseBuilderTest.cpp" />
   </ItemGroup>
 </Project>

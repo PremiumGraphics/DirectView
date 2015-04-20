@@ -2,7 +2,7 @@
 
 using namespace Crystal::Math;
 
-std::list<ParticleBaseSPtr> ParticleBuilder::create(const Box& box)
+std::list<ParticleBaseSPtr> ParticleBaseBuilder::create(const Box& box)
 {
 	std::list< ParticleBaseSPtr > particles;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
@@ -16,7 +16,7 @@ std::list<ParticleBaseSPtr> ParticleBuilder::create(const Box& box)
 	return particles;
 }
 
-std::list<ParticleBaseSPtr> ParticleBuilder::create(const Sphere& s)
+std::list<ParticleBaseSPtr> ParticleBaseBuilder::create(const Sphere& s)
 {
 	std::list< ParticleBaseSPtr > particles;
 	Math::Box box = s.getBoundingBox();
@@ -33,7 +33,7 @@ std::list<ParticleBaseSPtr> ParticleBuilder::create(const Sphere& s)
 	return particles;
 }
 
-std::list<ParticleBaseSPtr> ParticleBuilder::create(const Cylinder& c)
+std::list<ParticleBaseSPtr> ParticleBaseBuilder::create(const Cylinder& c)
 {
 	std::list< ParticleBaseSPtr > particles;
 	Box box = c.getBoundingBox();

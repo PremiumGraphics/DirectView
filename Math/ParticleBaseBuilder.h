@@ -8,13 +8,13 @@
 namespace Crystal {
 	namespace Math {
 
-		class ParticleBuilder : private UnCopyable {
+		class ParticleBaseBuilder : private UnCopyable {
 		public:
-			ParticleBuilder() :
+			ParticleBaseBuilder() :
 				nextId(0)
 			{}
 
-			ParticleBuilder(const float diameter) :
+			ParticleBaseBuilder(const float diameter) :
 				divideLength(diameter),
 				nextId(0)
 			{}

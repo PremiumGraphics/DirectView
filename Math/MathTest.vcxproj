@@ -21,6 +21,7 @@
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
+    <ClCompile Include="ParticleBaseBuilderTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
