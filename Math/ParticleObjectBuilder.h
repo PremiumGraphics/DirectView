@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_BUILDER_H__
-#define __CRYSTAL_MATH_PARTICLE_BUILDER_H__
+#ifndef __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
+#define __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
 
 #include "Box.h"
 #include "Sphere.h"
@@ -26,7 +26,8 @@ class ParticleObjectBuilder : private UnCopyable {
 public:
 	ParticleObjectBuilder(const float divideLength) :
 		divideLength(divideLength),
-		nextId(0)
+		nextId(0),
+		nextObjectId(0)
 	{}
 
 	~ParticleObjectBuilder() {
@@ -45,11 +46,15 @@ public:
 
 	std::list<ParticleObject*> getObjects() const { return objects; }
 
+	ParticleObject* getObject(const unsigned int id);
+
 private:
 	float divideLength;
 	std::list<ParticleBase*> particles;
 	std::list<ParticleObject*> objects;
 	unsigned int nextId;
+	unsigned int nextObjectId;
+
 };
 	}
 }

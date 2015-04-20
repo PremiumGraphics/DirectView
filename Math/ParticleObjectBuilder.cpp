@@ -19,7 +19,7 @@ void ParticleObjectBuilder::clear()
 
 ParticleObject* ParticleObjectBuilder::build(const Box& box)
 {
-	ParticleObject* object = new ParticleObject(nextId++);
+	ParticleObject* object = new ParticleObject(nextObjectId++);
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
@@ -35,7 +35,7 @@ ParticleObject* ParticleObjectBuilder::build(const Box& box)
 
 ParticleObject* ParticleObjectBuilder::build(const Sphere& s)
 {
-	ParticleObject* object = new ParticleObject(nextId++);
+	ParticleObject* object = new ParticleObject(nextObjectId++);
 	Math::Box box = s.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
@@ -55,7 +55,7 @@ ParticleObject* ParticleObjectBuilder::build(const Sphere& s)
 
 ParticleObject* ParticleObjectBuilder::build(const Cylinder& c)
 {
-	ParticleObject* object = new ParticleObject(nextId++);
+	ParticleObject* object = new ParticleObject(nextObjectId++);
 	Box box = c.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
@@ -72,4 +72,14 @@ ParticleObject* ParticleObjectBuilder::build(const Cylinder& c)
 	objects.push_back(object);
 	return object;
 
+}
+
+ParticleObject* ParticleObjectBuilder::getObject(const unsigned int id)
+{
+	for (ParticleObject* object : objects) {
+		if (object->getId() == id) {
+			return object;
+		}
+	}
+	return nullptr;
 }

@@ -13,7 +13,7 @@ TEST(ParticleBaseTest, TestGetVolume)
 	EXPECT_FLOAT_EQ( 1.0f, particle.getVolume() );
 }
 
-TEST(ParticleBuilderTest, TestBuildBox)
+TEST(ParticleObjectBuilderTest, TestBuildBox)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b(Vector3d( 0.0, 0.0, 0.0 ), Vector3d( 10.0f, 1.0f, 1.0f ));
@@ -21,7 +21,7 @@ TEST(ParticleBuilderTest, TestBuildBox)
 	EXPECT_EQ(10, actual->getParticles().size());
 }
 
-TEST(ParticleBuilderTest, TestBuildSphere)
+TEST(ParticleObjectBuilderTest, TestBuildSphere)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Sphere s( Vector3d( 0.0, 0.0, 0.0), 10.0 );
@@ -29,10 +29,24 @@ TEST(ParticleBuilderTest, TestBuildSphere)
 	EXPECT_FALSE(builder.getParticles().empty());
 }
 
-TEST(ParticleBuilderTest, TestBuildCylinder)
+TEST(ParticleObjectBuilderTest, TestBuildCylinder)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Cylinder c( Vector3d( 0.0, 0.0, 0.0), 10.0f, 10.0f );
 	builder.build(c);
 	EXPECT_FALSE(builder.getParticles().empty());
+}
+
+TEST(ParticleObjectBuilderTest, TestGetObject)
+{
+	ParticleObjectBuilder builder(1.0f);
+	const Cylinder c(Vector3d(0.0, 0.0, 0.0), 10.0f, 10.0f);
+	ParticleObject* o1 = builder.build(c);
+
+	const Box b(Vector3d(0.0, 0.0, 0.0), Vector3d(10.0, 0.0, 0.0));
+	ParticleObject* o2 = builder.build(b);
+
+	EXPECT_EQ(o1, builder.getObject(0));
+	EXPECT_EQ(o2, builder.getObject(1));
+	EXPECT_EQ(nullptr, builder.getObject(2));
 }
