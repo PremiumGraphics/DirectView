@@ -1,6 +1,7 @@
 #include "ParticleObjectBuilder.h"
 
 #include "ParticleBase.h"
+#include "ParticleBaseBuilder.h"
 
 
 using namespace Crystal::Math;

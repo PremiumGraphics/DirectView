@@ -41,6 +41,7 @@
     <ClInclude Include="ParticleBase.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="ParticleObjectBuilder.h" />
+    <ClInclude Include="ParticleBaseBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -55,6 +56,7 @@
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="ParticleBase.cpp" />
     <ClCompile Include="ParticleObjectBuilder.cpp" />
+    <ClCompile Include="ParticleBaseBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

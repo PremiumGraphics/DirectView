@@ -40,27 +40,6 @@ private:
 
 using ParticleBaseSPtr = std::shared_ptr < ParticleBase > ;
 
-class ParticleBuilder : private UnCopyable {
-public:
-	ParticleBuilder() :
-		nextId(0)
-	{}
-
-	ParticleBuilder(const float diameter) :
-		divideLength( diameter ),
-		nextId(0)
-	{}
-
-	std::vector<ParticleBaseSPtr> create(const Box& box);
-
-	std::vector<ParticleBaseSPtr> create(const Sphere& sphere);
-
-	std::vector<ParticleBaseSPtr> create(const Cylinder& cylinder);
-
-private:
-	float divideLength;
-	unsigned int nextId;
-};
 	}
 }
 
