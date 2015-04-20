@@ -2,7 +2,7 @@
 
 #include "ParticleObject.h"
 
-#include "ParticleBuilder.h"
+#include "ParticleObjectBuilder.h"
 
 using namespace Crystal::Math;
 

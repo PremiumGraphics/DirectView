@@ -39,8 +39,8 @@
     <ClInclude Include="Voxel.h" />
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="ParticleBase.h" />
-    <ClInclude Include="ParticleBuilder.h" />
     <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="ParticleObjectBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -52,9 +52,9 @@
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Voxel.cpp" />
-    <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="ParticleBase.cpp" />
+    <ClCompile Include="ParticleObjectBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

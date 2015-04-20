@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "ParticleBuilder.h"
+#include "ParticleObjectBuilder.h"
 
 #include "../Math/Cylinder.h"
 

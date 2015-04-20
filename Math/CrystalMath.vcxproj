@@ -84,8 +84,8 @@
     <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Octree.h" />
     <ClInclude Include="ParticleBase.h" />
-    <ClInclude Include="ParticleBuilder.h" />
     <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="ParticleObjectBuilder.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
@@ -100,8 +100,8 @@
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="ParticleBase.cpp" />
-    <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
+    <ClCompile Include="ParticleObjectBuilder.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />

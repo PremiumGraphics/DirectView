@@ -2,7 +2,7 @@
 
 #include "ParticleDisplayList.h"
 
-#include "../Math/ParticleBuilder.h"
+#include "../Math/ParticleObjectBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;

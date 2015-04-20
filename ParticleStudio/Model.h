@@ -2,7 +2,7 @@
 #define __CRYSTAL_APP_MODEL_H__
 
 #include "../Graphics/Camera.h"
-#include "../Math/ParticleBuilder.h"
+#include "../Math/ParticleObjectBuilder.h"
 
 namespace Crystal {
 	namespace CG {
