@@ -28,6 +28,10 @@ enum {
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
 
+	ID_CREATE_UNION,
+	ID_CREATE_DIFF,
+	ID_CREATE_INTERSECTION,
+
 	ID_CAMERA_FIT,
 
 	ID_CAPTURE,
@@ -122,10 +126,18 @@ Frame::Frame()
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
+	modelingBar->AddButton(ID_CREATE_UNION, "Union", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_DIFF, "Diff", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_INTERSECTION, "Intersect", wxImage(32,32) );
+
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
+
+	Connect(ID_CREATE_UNION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateUnion));
+	Connect(ID_CREATE_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateDiff));
+	Connect(ID_CREATE_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateIntersection));
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -490,5 +502,30 @@ void Frame::OnGraphicsSetting(wxRibbonButtonBarEvent& e)
 	if (v != -1) {
 		view->setPointSize(v);
 		view->Refresh();
+	}
+}
+
+
+void Frame::OnCreateUnion(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().size() != 2) {
+		wxMessageBox("Select Two Objects");
+		return;
+	}
+}
+
+void Frame::OnCreateDiff(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().size() != 2) {
+		wxMessageBox("Select Two Objects");
+		return;
+	}
+}
+
+void Frame::OnCreateIntersection(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().size() != 2) {
+		wxMessageBox("Select Two Objects");
+		return;
 	}
 }

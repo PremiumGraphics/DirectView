@@ -10,14 +10,6 @@
 namespace Crystal {
 	namespace CG {
 		class View;
-		class PolygonTree;
-		class MaterialTree;
-		class LightTree;
-
-		class PolygonGroupProperty;
-		class MaterialProperty;
-		class LightProperty;
-
 		class Frame;
 
 
@@ -68,6 +60,11 @@ private:
 
 	void OnGraphicsSetting(wxRibbonButtonBarEvent& e);
 
+	void OnCreateUnion(wxRibbonButtonBarEvent& e);
+
+	void OnCreateDiff(wxRibbonButtonBarEvent& e);
+
+	void OnCreateIntersection(wxRibbonButtonBarEvent& e);
 
 private:
 
