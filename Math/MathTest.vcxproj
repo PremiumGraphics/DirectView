@@ -23,6 +23,7 @@
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="ParticleBaseBuilderTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
+    <ClCompile Include="ParticleBooleanAlgoTest.cpp" />
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />

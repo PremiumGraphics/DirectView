@@ -42,6 +42,7 @@
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="ParticleObjectBuilder.h" />
     <ClInclude Include="ParticleBaseBuilder.h" />
+    <ClInclude Include="ParticleBooleanAlgo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="ParticleBase.cpp" />
     <ClCompile Include="ParticleObjectBuilder.cpp" />
     <ClCompile Include="ParticleBaseBuilder.cpp" />
+    <ClCompile Include="ParticleBooleanAlgo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

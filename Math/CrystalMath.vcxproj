@@ -85,6 +85,7 @@
     <ClInclude Include="Octree.h" />
     <ClInclude Include="ParticleBase.h" />
     <ClInclude Include="ParticleBaseBuilder.h" />
+    <ClInclude Include="ParticleBooleanAlgo.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="ParticleObjectBuilder.h" />
     <ClInclude Include="Primitive.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="ParticleBase.cpp" />
     <ClCompile Include="ParticleBaseBuilder.cpp" />
+    <ClCompile Include="ParticleBooleanAlgo.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="ParticleObjectBuilder.cpp" />
     <ClCompile Include="Quaternion.cpp" />

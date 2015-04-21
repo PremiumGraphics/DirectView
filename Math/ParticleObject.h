@@ -60,14 +60,6 @@ private:
 
 using ParticleObjectSPtr = std::shared_ptr< ParticleObject >;
 
-class ParticleBooleanAlgo {
-public:
-	std::list<ParticleBaseSPtr> createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
-
-	std::list<ParticleBaseSPtr> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
-
-	std::list<ParticleBaseSPtr> createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
-};
 
 	}
 }

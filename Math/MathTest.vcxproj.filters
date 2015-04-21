@@ -23,5 +23,6 @@
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
     <ClCompile Include="ParticleBaseBuilderTest.cpp" />
+    <ClCompile Include="ParticleBooleanAlgoTest.cpp" />
   </ItemGroup>
 </Project>
