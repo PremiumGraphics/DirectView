@@ -91,6 +91,9 @@ public:
 	bool isInner(const Math::Vector3d& point) const
 	{
 		// TODO. Judge by height.
+		if (point.getDistanceSquared( center ) > height * height) {
+			return false;
+		}
 		const Vector3d p1(center.getX(), 0.0, center.getZ());
 		const Vector3d p2(point.getX(), 0.0, point.getZ());
 		const float distSquared = p1.getDistanceSquared(p2);

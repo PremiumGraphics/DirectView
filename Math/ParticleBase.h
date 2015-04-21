@@ -19,6 +19,7 @@ public:
 	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) :
 		diameter(diameter),
 		position(position),
+		density( 1.0f ),
 		id(id)
 	{}
 
@@ -28,12 +29,17 @@ public:
 
 	Vector3d getPosition() const { return position; }
 
+	float getDensity() const { return density; }
+
 	float getVolume() const { return diameter * diameter * diameter; }
+
+	float getMass() const { return getDensity() * getVolume(); }
 
 	unsigned int getId() const { return id; }
 
 private:
 	float diameter;
+	float density;
 	Vector3d position;
 	unsigned int id;
 };

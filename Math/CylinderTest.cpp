@@ -30,8 +30,15 @@ TEST(CylinderTest, TestVolume)
 
 TEST(CylinderTest, TestIsInner)
 {
-	Cylinder c( Vector3d( 0.0, 0.0, 0.0 ), 1.0f, 1.0f );
-	EXPECT_TRUE( c.isInner(Vector3d(0.5f, 0.0, 0.0)) );
+	{
+		Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 1.0f);
+		EXPECT_TRUE(c.isInner(Vector3d(0.5f, 0.0, 0.0)));
+	}
+	{
+		Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 1.0f);
+		EXPECT_FALSE(c.isInner(Vector3d(0.5f, 5.0, 0.0)));
+
+	}
 }
 
 TEST(CylinderTest, TestGetBoundingBox)

@@ -115,6 +115,14 @@ public:
 		return !isOuter(v);
 	}
 
+	bool isOnStrictly(const Vector3d& v) const {
+		return Tolerances::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
+	}
+
+	bool isOnLoosely(const Vector3d& v) const {
+		return Tolerances::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
+	}
+
 private:
 	Vector3d center;
 	float radius;

@@ -43,3 +43,9 @@ TEST(SphereTest, TestIsInner)
 	EXPECT_TRUE( s.isInner(Vector3d(0.0f, 0.0f, 0.0f) ) );
 	EXPECT_FALSE( s.isInner(Vector3d( 2.0f, 0.0f, 0.0f) ) );
 }
+
+TEST(SphereTest, TestIsOnStrictly)
+{
+	Sphere s(Vector3d(0.0, 0.0, 0.0), 1.0f);
+	EXPECT_TRUE(s.isOnStrictly(Vector3d(1.0f, 0.0, 0.0f)));
+}
