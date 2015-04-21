@@ -70,6 +70,8 @@ private:
 
 	void OnCalculateMass(wxRibbonButtonBarEvent& e);
 
+	void OnCheckIntersection(wxRibbonButtonBarEvent& e);
+
 private:
 
 private:

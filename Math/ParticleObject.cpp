@@ -106,6 +106,21 @@ std::list<ParticleBaseSPtr> ParticleBooleanAlgo::createDiff(const ParticleObject
 	return particles;
 }
 
+bool ParticleObject::hasSelfIntersection() const
+{
+	for (const ParticleBaseSPtr& p1 : particles) {
+		for (const ParticleBaseSPtr& p2 : particles) {
+			if (p1 == p2){
+				continue;
+			}
+			if (p1->getPosition() == p2->getPosition()) {
+				return true;
+			}
+		}
+	}
+	false;
+}
+
 std::vector<float> ParticleObject::toPositionArray() const
 {
 	std::vector< float > results;

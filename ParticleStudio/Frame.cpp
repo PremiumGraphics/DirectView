@@ -36,6 +36,8 @@ enum {
 
 	ID_CALCULATE_VOLUME,
 	ID_CALCULATE_MASS,
+	ID_CHECK_SELF_INTERSECTION,
+	ID_CHECK_INTERSECTION,
 
 	ID_CAMERA_FIT,
 
@@ -136,9 +138,9 @@ Frame::Frame()
 	modelingBar->AddButton(ID_CREATE_INTERSECTION, "Intersect", wxImage(32,32) );
 
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
-	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
-	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
+	Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
+	Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
+	Connect(ID_CREATE_CONE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
 
 	Connect(ID_CREATE_UNION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateUnion));
 	Connect(ID_CREATE_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateDiff));
@@ -151,6 +153,13 @@ Frame::Frame()
 
 	Connect(ID_CALCULATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCalculateVolume));
 	Connect(ID_CALCULATE_MASS, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCalculateMass));
+
+	wxRibbonPanel* checkPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Check"));
+	wxRibbonButtonBar* checkBar = new wxRibbonButtonBar(checkPanel);
+	measureBar->AddButton(ID_CHECK_INTERSECTION, "Inter", wxImage(32, 32));
+	measureBar->AddButton(ID_CHECK_SELF_INTERSECTION, "SelfInter", wxImage(32, 32));
+
+	Connect(ID_CHECK_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCheckIntersection));
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -566,5 +575,19 @@ void Frame::OnCalculateMass(wxRibbonButtonBarEvent& e)
 		wxMessageBox("Select One Object");
 		return;
 	}
+}
 
+void Frame::OnCheckIntersection(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().empty()) {
+		wxMessageBox("Select One Object");
+		return;
+	}
+	const auto hasIntersection = model.getSelectedObjects().front()->hasSelfIntersection();
+	if (hasIntersection) {
+		wxMessageBox("Intersecion Found");
+	}
+	else {
+		wxMessageBox("Intersecions NOT found");
+	}
 }

@@ -45,6 +45,8 @@ public:
 
 	Math::Box getBoundingBox() const;
 
+	bool hasSelfIntersection() const;
+
 	std::vector< float > toPositionArray() const;
 
 	std::vector< unsigned int > toIdArray() const;
