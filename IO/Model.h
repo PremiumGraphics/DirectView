@@ -56,6 +56,8 @@ public:
 
 	void clearSlectedObjects() { selectedObjects.clear(); }
 
+	void removeSelectedObject(Math::ParticleObjectSPtr object) { selectedObjects.remove(object); }
+
 	void addSelectedObject(Math::ParticleObjectSPtr object) { selectedObjects.push_back(object); }
 
 	bool findSelectedObject(Math::ParticleObjectSPtr object) {

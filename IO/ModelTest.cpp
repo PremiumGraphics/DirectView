@@ -51,3 +51,20 @@ TEST(ModelTest, TestFindObjectById)
 	const ParticleObjectSPtr& rhs = model.getObjectById(0);
 	EXPECT_EQ(lhs, rhs);
 }
+
+TEST(ModelTest, TestAddSelected)
+{
+	Model model;
+	const ParticleObjectSPtr& object = model.create();
+	model.addSelectedObject(object);
+	EXPECT_EQ(1, model.getSelectedObjects().size());
+}
+
+TEST(ModelTest, TestRemoveSelected)
+{
+	Model model;
+	const ParticleObjectSPtr& object = model.create();
+	model.addSelectedObject(object);
+	model.removeSelectedObject(object);
+	EXPECT_TRUE(model.getSelectedObjects().empty());
+}

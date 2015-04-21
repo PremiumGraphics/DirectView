@@ -14,10 +14,11 @@ using namespace Crystal::CG;
 using namespace Crystal::IO;
 
 
-BEGIN_EVENT_TABLE( View, wxGLCanvas )
-	EVT_MOUSE_EVENTS( View::OnMouse )
+BEGIN_EVENT_TABLE(View, wxGLCanvas)
+EVT_MOUSE_EVENTS(View::OnMouse)
 END_EVENT_TABLE()
 
+const ColorRGB<float> selectedColor = ColorRGB<float>::Red();
 
 View::View( Frame* parent, const int width, const int height, Model& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
@@ -122,10 +123,18 @@ void View::OnMouse( wxMouseEvent& event )
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 		const unsigned int id = b * 512;
 		const ParticleObjectSPtr& object = model.getObjectById(id);
+
 		if (object.get() != nullptr) {
 			model.addSelectedObject(object);
 		}
+		if (r == 255 && g == 0 && b == 0) {
+			model.clearSlectedObjects();
+		}
 		//frame->selectedFace = frame->get
+		draw(GetSize());
+
+		SwapBuffers();
+
 		return;
 	}
 
@@ -208,6 +217,7 @@ void View::buildDisplayList()
 {
 	//for (const ParticleObject& object : model.getParticleBuilder().)
 	list.clear();
+	selectedList.clear();
 	/*
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
@@ -222,7 +232,7 @@ void View::buildDisplayList()
 		list.add(*object);
 	}
 	for (const ParticleObjectSPtr& object : model.getSelectedObjects()) {
-		selectedList.add(*object, ColorRGB<float>::Red());
+		selectedList.add(*object, selectedColor);
 	}
 	/*
 	for (const Polygon& p : model.getParticleBuilder().) {
