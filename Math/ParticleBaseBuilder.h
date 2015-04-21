@@ -8,27 +8,38 @@
 namespace Crystal {
 	namespace Math {
 
-		class ParticleBaseBuilder : private UnCopyable {
-		public:
-			ParticleBaseBuilder() :
-				nextId(0)
-			{}
+class ParticleBaseBuilder : private UnCopyable {
+public:
+	ParticleBaseBuilder() :
+		nextId(0),
+		density(1.0f)
+	{}
 
-			ParticleBaseBuilder(const float diameter) :
-				divideLength(diameter),
-				nextId(0)
-			{}
+	ParticleBaseBuilder(const float diameter) :
+		divideLength(diameter),
+		density(1.0f),
+		nextId(0)
+	{}
 
-			std::list<ParticleBaseSPtr> create(const Box& box);
+	float getDivideLength() const { return divideLength; }
 
-			std::list<ParticleBaseSPtr> create(const Sphere& sphere);
+	float getDensity() const { return density; }
 
-			std::list<ParticleBaseSPtr> create(const Cylinder& cylinder);
+	void setDivideLength(const float l) { this->divideLength = l; }
 
-		private:
-			float divideLength;
-			unsigned int nextId;
-		};
+	void setDensity(const float d) { this->density = density; }
+
+	std::list<ParticleBaseSPtr> create(const Box& box);
+
+	std::list<ParticleBaseSPtr> create(const Sphere& sphere);
+
+	std::list<ParticleBaseSPtr> create(const Cylinder& cylinder);
+
+private:
+	float divideLength;
+	float density;
+	unsigned int nextId;
+};
 
 	}
 }

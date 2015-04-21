@@ -23,6 +23,14 @@ public:
 		id(id)
 	{}
 
+	ParticleBase(const float diameter, const Math::Vector3d& position, const float density, const unsigned int id) :
+		diameter(diameter),
+		position(position),
+		density(density),
+		id(id)
+	{}
+
+
 	float getRadius() const { return diameter * 0.5f; }
 
 	float getDiameter() const { return diameter; }

@@ -19,6 +19,7 @@ class ParticleObjectBuilder : private UnCopyable {
 public:
 	ParticleObjectBuilder(const float divideLength) :
 		divideLength(divideLength),
+		density(1.0f),
 		nextObjectId(0)
 	{}
 
@@ -46,6 +47,7 @@ public:
 
 private:
 	float divideLength;
+	float density;
 	//std::list<ParticleObject*> objects;
 	unsigned int nextObjectId;
 

@@ -11,17 +11,14 @@ float ParticleObject::getVolume() const
 	return volume;
 }
 
-/*
-void ParticleObject::add(const ParticleObject& rhs)
+float ParticleObject::getMass() const
 {
-;
+	float mass = 0.0f;
+	for (const ParticleBaseSPtr& p : particles) {
+		mass += p->getMass();
+	}
+	return mass;
 }
-
-void ParticleObject::intersection(const ParticleObject& rhs)
-{
-;
-}
-*/
 
 void ParticleObject::remove(ParticleBaseSPtr particle)
 {

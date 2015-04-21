@@ -27,12 +27,8 @@ public:
 
 	float getVolume() const;
 
-	/*
-	void add(const ParticleObject& object);
+	float getMass() const;
 
-	void intersection(const ParticleObject& object);
-
-	*/
 	void remove(Math::ParticleBaseSPtr particle);
 
 	void sub(const ParticleObject& rhs);
