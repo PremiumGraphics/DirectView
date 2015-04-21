@@ -34,6 +34,9 @@ enum {
 	ID_CREATE_DIFF,
 	ID_CREATE_INTERSECTION,
 
+	ID_CALCULATE_VOLUME,
+	ID_CALCULATE_MASS,
+
 	ID_CAMERA_FIT,
 
 	ID_CAPTURE,
@@ -140,6 +143,14 @@ Frame::Frame()
 	Connect(ID_CREATE_UNION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateUnion));
 	Connect(ID_CREATE_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateDiff));
 	Connect(ID_CREATE_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateIntersection));
+
+	wxRibbonPanel* measurePanel = new wxRibbonPanel(page, wxID_ANY, wxT("Measure"));
+	wxRibbonButtonBar* measureBar = new wxRibbonButtonBar(measurePanel);
+	measureBar->AddButton(ID_CALCULATE_VOLUME, "Volume", wxImage(32, 32));
+	measureBar->AddButton(ID_CALCULATE_MASS, "Mass", wxImage(32, 32));
+
+	Connect(ID_CALCULATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCalculateVolume));
+	Connect(ID_CALCULATE_MASS, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCalculateMass));
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -536,4 +547,24 @@ void Frame::OnCreateIntersection(wxRibbonButtonBarEvent& e)
 		wxMessageBox("Select Two Objects");
 		return;
 	}
+}
+
+void Frame::OnCalculateVolume(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().empty()) {
+		wxMessageBox("Select One Object");
+		return;
+	}
+	const auto volume = model.getSelectedObjects().front()->getVolume();
+	const auto& str = wxString::Format("%lf", volume);
+	wxMessageBox(str);
+}
+
+void Frame::OnCalculateMass(wxRibbonButtonBarEvent& e)
+{
+	if (model.getSelectedObjects().empty()) {
+		wxMessageBox("Select One Object");
+		return;
+	}
+
 }

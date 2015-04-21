@@ -66,6 +66,10 @@ private:
 
 	void OnCreateIntersection(wxRibbonButtonBarEvent& e);
 
+	void OnCalculateVolume(wxRibbonButtonBarEvent& e);
+
+	void OnCalculateMass(wxRibbonButtonBarEvent& e);
+
 private:
 
 private:
