@@ -2,7 +2,7 @@
 
 #include "ParticleTree.h"
 
-using namespace Crystal::App;
+using namespace Crystal::CG;
 
 ParticleTree::ParticleTree
 (
@@ -28,8 +28,7 @@ size//,
 	Connect(this->GetId(), wxEVT_TREE_ITEM_ACTIVATED, wxTreeEventHandler(ParticleTree::OnItemActivated));
 	Connect(this->GetId(), wxEVT_TREE_STATE_IMAGE_CLICK, wxTreeEventHandler(ParticleTree::OnItemStateClick));
 
-	const wxTreeItemId root = AddRoot("Polygon");
-
+	build();
 	//wxIcon unchecked = wxIcon(unchecked_xpm);
 	//wxIcon checked = wxIcon(checked_xpm);
 

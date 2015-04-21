@@ -11,7 +11,7 @@ namespace Crystal {
 	namespace CG {
 		class View;
 		class Frame;
-
+		class ParticleTree;
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -72,6 +72,8 @@ private:
 
 	View* view;
 	IO::Model model;
+
+	ParticleTree* particleTree;
 
 	wxLocale locale;
 

@@ -2,7 +2,7 @@
 #define __CRYSTAL_APP_PARTICLE_TREE_H__
 
 namespace Crystal {
-	namespace App {
+	namespace CG {
 
 class ParticleTree : public wxTreeCtrl
 {

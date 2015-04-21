@@ -4,6 +4,8 @@
 
 #include "View.h"
 
+#include "ParticleTree.h"
+
 #include "../Graphics/PolygonBuilder.h"
 
 
@@ -170,11 +172,17 @@ Frame::Frame()
 	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 	*/
+	particleTree = new ParticleTree(this, wxPoint(0, 0), wxSize(300, 100));
 
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 
+	wxSizer *hSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	hSizer->Add(particleTree, 0, wxEXPAND);
+	hSizer->Add(view, 0, wxEXPAND);
+
 	vSizer->Add( bar, 0, wxEXPAND );
-	vSizer->Add( view, 0, wxEXPAND);
+	vSizer->Add( hSizer, 0, wxEXPAND);
 
 
 	SetSizer( vSizer );
