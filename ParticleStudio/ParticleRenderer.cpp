@@ -20,8 +20,7 @@ ParticleRenderer::~ParticleRenderer()
 
 namespace {
 	GLuint positionLocation = 0;
-	GLuint idLocation = 1;
-	GLuint objectIdLocation = 2;
+	GLuint colorLocation = 1;
 }
 static std::stringstream getVertexSource()
 {
@@ -29,18 +28,14 @@ static std::stringstream getVertexSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
-		<< "in int id;" << std::endl
-		<< "in int objectId;" << std::endl
+		<< "in vec3 color;" << std::endl
 		<< "out vec3 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
-		<< "	float r = id / 1024.0;" << std::endl
-		<< "	float g = id / 2048.0;" << std::endl
-		<< "	float b = objectId / 512.0;" << std::endl
-		<< "	vColor = vec3( r, g, b);" << std::endl
+		<< "	vColor = color;" << std::endl
 		<< "}" << std::endl;
 	return stream;
 }
@@ -76,15 +71,13 @@ void ParticleRenderer::build()
 	//glBindAttribLocation(shader.getId(), idLocation, "id");
 
 	positionLocation = glGetAttribLocation(shader.getId(), "position");
-	idLocation = glGetAttribLocation(shader.getId(), "id");
-	objectIdLocation = glGetAttribLocation(shader.getId(), "objectId");
+	colorLocation = glGetAttribLocation(shader.getId(), "color");
 }
 
 void ParticleRenderer::render(const int width, const int height, const Camera<float>* camera, const ParticleDisplayList& list)
 {
 	const std::vector< float >& positions = list.getPositions();
-	const std::vector< unsigned int >& ids = list.getIds();
-	const std::vector< unsigned int >& objectIds = list.getObjectIds();
+	const std::vector< float >& colors = list.getColors();
 	if (positions.empty()) {
 		return;
 	}
@@ -105,18 +98,15 @@ void ParticleRenderer::render(const int width, const int height, const Camera<fl
 	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(idLocation, 1, GL_INT, 0, &(ids.front()));
-	glVertexAttribIPointer(objectIdLocation, 1, GL_INT, 0, &(objectIds.front()));
+	glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, &(colors.front()));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
 
 	glUseProgram(0);
 

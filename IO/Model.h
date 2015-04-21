@@ -48,6 +48,8 @@ public:
 
 	void clearObjects() { objects.clear(); }
 
+	Math::ParticleObjectSPtr getObjectById(const unsigned int id);
+
 	//void remove(Math::ParticleObject* object) { pBuilder.}
 
 	std::list< Math::ParticleObjectSPtr > getParticleObjects() const { return objects; }
@@ -61,6 +63,7 @@ public:
 	}
 
 	std::list<Math::ParticleObjectSPtr> getSelectedObjects() const { return selectedObjects; }
+
 
 private:
 	Graphics::Camera<float> camera;

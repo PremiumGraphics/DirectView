@@ -43,3 +43,11 @@ TEST(ModelTest, TestClearObjects)
 	model.clearObjects();
 	EXPECT_TRUE(model.getParticleObjects().empty());
 }
+
+TEST(ModelTest, TestFindObjectById)
+{
+	Model model;
+	const ParticleObjectSPtr& lhs = model.create();
+	const ParticleObjectSPtr& rhs = model.getObjectById(0);
+	EXPECT_EQ(lhs, rhs);
+}

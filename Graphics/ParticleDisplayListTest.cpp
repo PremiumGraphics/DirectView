@@ -7,6 +7,23 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+TEST(ParticleDisplayList, TestConstruct)
+{
+	ParticleDisplayList list;
+	EXPECT_TRUE(list.getPositions().empty());
+}
+
+TEST(ParticleDisplayList, TestToColor)
+{
+	{
+		ParticleBase particle(1.0f, Vector3d(0.0f, 0.0f, 0.0f), 0);
+		ParticleDisplayList list;
+		const ColorRGB<float>& actual = list.toColor(particle);
+		const ColorRGB<float> expected(0.0f, 0.0f, 0.0f);
+		EXPECT_EQ(expected, actual);
+	}
+}
+
 TEST(ParticleDisplayListTest, TestAdd)
 {
 	ParticleDisplayList list;
@@ -16,6 +33,5 @@ TEST(ParticleDisplayListTest, TestAdd)
 	list.add(*object);
 
 	EXPECT_EQ(30, list.getPositions().size());
-	EXPECT_EQ(10, list.getIds().size());
-	EXPECT_EQ(10, list.getObjectIds().size());
+	EXPECT_EQ(30, list.getColors().size());
 }

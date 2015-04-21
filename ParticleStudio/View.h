@@ -52,6 +52,8 @@ private:
 	//Shader::PointRenderer pointRenderer;
 	Shader::ParticleRenderer pointRenderer;
 	Graphics::ParticleDisplayList list;
+	Graphics::ParticleDisplayList selectedList;
+
 
 	float pointSize;
 

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../Math/ParticleObject.h"
+#include "ColorRGB.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -11,24 +12,26 @@ namespace Crystal {
 class ParticleDisplayList
 {
 public:
-	void add(const Math::ParticleObject& object);
+	void add(const Math::ParticleObject& object );
+
+	void add(const Math::ParticleObject& object, const ColorRGB<float>& color);
 
 	void clear() {
 		positions.clear();
-		ids.clear();
-		objectIds.clear();
+		colors.clear();
 	}
 
 	std::vector<float> getPositions() const { return positions; }
 
-	std::vector<unsigned int> getIds() const { return ids; }
+	std::vector<float> getColors() const { return colors; }
 
-	std::vector<unsigned int> getObjectIds() const { return objectIds; }
+	ColorRGB<float> toColor(const Math::ParticleBase& particle);
 
+	std::vector< ColorRGB<float> > toColors(const Math::ParticleObject& object);
+	
 private:
 	std::vector<float> positions;
-	std::vector<unsigned int> ids;
-	std::vector<unsigned int> objectIds;
+	std::vector<float> colors;
 };
 	}
 }

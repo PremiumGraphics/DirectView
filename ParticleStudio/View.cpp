@@ -121,11 +121,10 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 		const unsigned int id = b * 512;
-		/*ParticleObjectSPtr object = model.getObject(id);
+		const ParticleObjectSPtr& object = model.getObjectById(id);
 		if (object.get() != nullptr) {
 			model.addSelectedObject(object);
 		}
-		*/
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -186,6 +185,12 @@ void View::draw(const wxSize& size)
 
 	glPointSize(pointSize);
 	pointRenderer.render(width, height, &c, list );
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	glPointSize(pointSize*1.5);
+	pointRenderer.render(width, height, &c, selectedList);
 		/*
 		glBegin(GL_POINTS);
 		glVertex3f(0.0f, 0.0f, 5.0f);
@@ -215,6 +220,9 @@ void View::buildDisplayList()
 	*/
 	for (const ParticleObjectSPtr& object : model.getParticleObjects() ) {
 		list.add(*object);
+	}
+	for (const ParticleObjectSPtr& object : model.getSelectedObjects()) {
+		selectedList.add(*object, ColorRGB<float>::Red());
 	}
 	/*
 	for (const Polygon& p : model.getParticleBuilder().) {
