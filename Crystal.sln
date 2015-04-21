@@ -78,6 +78,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleStudio", "ParticleS
 		{028C3897-F00D-4265-B059-BC79B022A0A0} = {028C3897-F00D-4265-B059-BC79B022A0A0}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleTest", "Math\ParticleTest.vcxproj", "{14FE38C3-1015-4C13-ABED-A459F29E6A93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -250,6 +252,18 @@ Global
 		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Win32.ActiveCfg = Release|Win32
 		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Win32.Build.0 = Release|Win32
 		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|x64.ActiveCfg = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Win32.ActiveCfg = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Win32.Build.0 = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|x64.ActiveCfg = Debug|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Any CPU.ActiveCfg = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Win32.ActiveCfg = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Win32.Build.0 = Release|Win32
+		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

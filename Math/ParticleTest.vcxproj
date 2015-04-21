@@ -11,25 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BazierCurveTest.cpp" />
-    <ClCompile Include="BoxTest.cpp" />
-    <ClCompile Include="CircleTest.cpp" />
-    <ClCompile Include="ConeTest.cpp" />
-    <ClCompile Include="CylinderTest.cpp" />
-    <ClCompile Include="LineTest.cpp" />
-    <ClCompile Include="MathTest.cpp" />
-    <ClCompile Include="Matrix2dTest.cpp" />
-    <ClCompile Include="Matrix3dTest.cpp" />
-    <ClCompile Include="Matrix4dTest.cpp" />
-    <ClCompile Include="QuadTest.cpp" />
-    <ClCompile Include="QuaternionTest.cpp" />
-    <ClCompile Include="SphereTest.cpp" />
-    <ClCompile Include="TolerancesTest.cpp" />
-    <ClCompile Include="Vector2dTest.cpp" />
-    <ClCompile Include="Vector3dTest.cpp" />
+    <ClCompile Include="ParticleBaseBuilderTest.cpp" />
+    <ClCompile Include="ParticleBaseTest.cpp" />
+    <ClCompile Include="ParticleBooleanAlgoTest.cpp" />
+    <ClCompile Include="ParticleObjectBuilderTest.cpp" />
+    <ClCompile Include="ParticleObjectTest.cpp" />
+    <ClCompile Include="Space3dTest.cpp" />
+    <ClCompile Include="VoxelTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>
+    <ProjectGuid>{14FE38C3-1015-4C13-ABED-A459F29E6A93}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GTestSample</RootNamespace>
   </PropertyGroup>
