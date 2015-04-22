@@ -40,7 +40,7 @@ private:
 
 class SurfaceBuilder {
 public:
-	Polygon* build(const Math::ParticleObject& object);
+	Polygon* build(const Particle::ParticleObject& object);
 
 	Math::Vector3dVector findEdges(const ImageRGBA<float>& image);
 

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_BASE_H__
-#define __CRYSTAL_MATH_PARTICLE_BASE_H__
+#ifndef __CRYSTAL_PARTICLE_PARTICLE_BASE_H__
+#define __CRYSTAL_PARTICLE_PARTICLE_BASE_H__
 
 #include "../Util/UnCopyable.h"
 
@@ -12,7 +12,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace Math {
+	namespace Particle {
 
 class ParticleBase : private UnCopyable {
 public:
@@ -35,7 +35,7 @@ public:
 
 	float getDiameter() const { return diameter; }
 
-	Vector3d getPosition() const { return position; }
+	Math::Vector3d getPosition() const { return position; }
 
 	float getDensity() const { return density; }
 
@@ -48,7 +48,7 @@ public:
 private:
 	float diameter;
 	float density;
-	Vector3d position;
+	Math::Vector3d position;
 	unsigned int id;
 };
 

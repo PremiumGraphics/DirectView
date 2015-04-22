@@ -1,6 +1,7 @@
 #include "ParticleBooleanAlgo.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 
 std::list<ParticleBaseSPtr> ParticleBooleanAlgo::createUnion(const ParticleObject& lhs, const ParticleObject& rhs)
 {

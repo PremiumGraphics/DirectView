@@ -5,6 +5,7 @@
 
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 
 void ParticleObjectBuilder::clear()
 {

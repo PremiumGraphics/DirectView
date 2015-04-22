@@ -1,6 +1,7 @@
 #include "ParticleBaseBuilder.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 
 std::list<ParticleBaseSPtr> ParticleBaseBuilder::create(const Box& box)
 {

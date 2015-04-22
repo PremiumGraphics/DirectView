@@ -5,6 +5,7 @@
 #include "../Particle/ParticleObjectBuilder.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::Graphics;
 
 TEST(ParticleDisplayList, TestConstruct)

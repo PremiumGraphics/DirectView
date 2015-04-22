@@ -1,6 +1,7 @@
 #include "ParticleDisplayList.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::Graphics;
 
 void ParticleDisplayList::add(const ParticleObject& object)

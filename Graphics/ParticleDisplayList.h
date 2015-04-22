@@ -12,9 +12,9 @@ namespace Crystal {
 class ParticleDisplayList
 {
 public:
-	void add(const Math::ParticleObject& object );
+	void add(const Particle::ParticleObject& object );
 
-	void add(const Math::ParticleObject& object, const ColorRGB<float>& color);
+	void add(const Particle::ParticleObject& object, const ColorRGB<float>& color);
 
 	void clear() {
 		positions.clear();
@@ -25,9 +25,9 @@ public:
 
 	std::vector<float> getColors() const { return colors; }
 
-	ColorRGB<float> toColor(const Math::ParticleBase& particle);
+	ColorRGB<float> toColor(const Particle::ParticleBase& particle);
 
-	std::vector< ColorRGB<float> > toColors(const Math::ParticleObject& object);
+	std::vector< ColorRGB<float> > toColors(const Particle::ParticleObject& object);
 	
 private:
 	std::vector<float> positions;

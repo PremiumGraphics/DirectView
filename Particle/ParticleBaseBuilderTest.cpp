@@ -3,6 +3,7 @@
 #include "ParticleBaseBuilder.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 
 TEST(ParticleBaseBuilderTest, TestCreateBox)
 {

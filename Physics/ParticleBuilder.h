@@ -8,6 +8,8 @@ namespace Crystal {
 		class Box;
 		class Sphere;
 		class Cylinder;
+	}
+	namespace Particle {
 		class ParticleBase;
 	}
 	namespace Physics {
@@ -19,7 +21,7 @@ public:
 		divideLength( 1.0f )
 	{}
 
-	ParticleSPtr create(const Math::ParticleBase& origin);
+	ParticleSPtr create(const Crystal::Particle::ParticleBase& origin);
 
 	ParticleSPtrVector create(const Math::Box& box);
 

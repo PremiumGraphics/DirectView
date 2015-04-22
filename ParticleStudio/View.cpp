@@ -9,6 +9,7 @@
 #include "Converter.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 using namespace Crystal::IO;

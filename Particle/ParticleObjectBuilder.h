@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
-#define __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
+#ifndef __CRYSTAL_PARTICLE_PARTICLE_OBJECT_BUILDER_H__
+#define __CRYSTAL_PARTICLE_PARTICLE_OBJECT_BUILDER_H__
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
@@ -13,7 +13,7 @@
 #include <list>
 
 namespace Crystal {
-	namespace Math {
+	namespace Particle {
 
 class ParticleObjectBuilder : private UnCopyable {
 public:

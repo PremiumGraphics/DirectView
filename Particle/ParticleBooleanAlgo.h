@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_BOOLEAN_ALGO_H__
-#define __CRYSTAL_MATH_PARTICLE_BOOLEAN_ALGO_H__
+#ifndef __CRYSTAL_MATH_PARTCIEL_PARTICLE_BOOLEAN_ALGO_H__
+#define __CRYSTAL_MATH_PARTCIEL__PARTICLE_BOOLEAN_ALGO_H__
 
 #include <list>
 
@@ -9,7 +9,7 @@
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {
-	namespace Math {
+	namespace Particle {
 
 class ParticleBooleanAlgo : private UnCopyable {
 public:

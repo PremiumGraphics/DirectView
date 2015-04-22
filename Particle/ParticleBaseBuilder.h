@@ -1,12 +1,12 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_BASE_BUILDER_H__
-#define __CRYSTAL_MATH_PARTICLE_BASE_BUILDER_H__
+#ifndef __CRYSTAL_PARTICLE_PARTICLE_BASE_BUILDER_H__
+#define __CRYSTAL_PARTICLE_PARTICLE_BASE_BUILDER_H__
 
 #include <list>
 
 #include "ParticleBase.h"
 
 namespace Crystal {
-	namespace Math {
+	namespace Particle {
 
 class ParticleBaseBuilder : private UnCopyable {
 public:
@@ -29,11 +29,11 @@ public:
 
 	void setDensity(const float d) { this->density = density; }
 
-	std::list<ParticleBaseSPtr> create(const Box& box);
+	std::list<ParticleBaseSPtr> create(const Math::Box& box);
 
-	std::list<ParticleBaseSPtr> create(const Sphere& sphere);
+	std::list<ParticleBaseSPtr> create(const Math::Sphere& sphere);
 
-	std::list<ParticleBaseSPtr> create(const Cylinder& cylinder);
+	std::list<ParticleBaseSPtr> create(const Math::Cylinder& cylinder);
 
 private:
 	float divideLength;

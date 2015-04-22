@@ -22,56 +22,56 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	Math::ParticleObjectSPtr create() {
-		Math::ParticleObjectSPtr object = pBuilder.build();
+	Particle::ParticleObjectSPtr create() {
+		Particle::ParticleObjectSPtr object = pBuilder.build();
 		objects.push_back(object);
 		return object;
 	}
 
-	Math::ParticleObjectSPtr create(const Math::Box& box) {
-		Math::ParticleObjectSPtr object = pBuilder.build(box);
+	Particle::ParticleObjectSPtr create(const Math::Box& box) {
+		Particle::ParticleObjectSPtr object = pBuilder.build(box);
 		objects.push_back(object);
 		return object;
 	}
 
-	Math::ParticleObjectSPtr create(const Math::Sphere& sphere) {
-		Math::ParticleObjectSPtr object = pBuilder.build(sphere);
+	Particle::ParticleObjectSPtr create(const Math::Sphere& sphere) {
+		Particle::ParticleObjectSPtr object = pBuilder.build(sphere);
 		objects.push_back(object);
 		return object;
 	}
 
-	Math::ParticleObjectSPtr create(const Math::Cylinder& cylinder) {
-		Math::ParticleObjectSPtr object = pBuilder.build(cylinder);
+	Particle::ParticleObjectSPtr create(const Math::Cylinder& cylinder) {
+		Particle::ParticleObjectSPtr object = pBuilder.build(cylinder);
 		objects.push_back(object);
 		return object;
 	}
 
 	void clearObjects() { objects.clear(); }
 
-	Math::ParticleObjectSPtr getObjectById(const unsigned int id);
+	Particle::ParticleObjectSPtr getObjectById(const unsigned int id);
 
 	//void remove(Math::ParticleObject* object) { pBuilder.}
 
-	std::list< Math::ParticleObjectSPtr > getParticleObjects() const { return objects; }
+	std::list< Particle::ParticleObjectSPtr > getParticleObjects() const { return objects; }
 
 	void clearSlectedObjects() { selectedObjects.clear(); }
 
-	void removeSelectedObject(Math::ParticleObjectSPtr object) { selectedObjects.remove(object); }
+	void removeSelectedObject(Particle::ParticleObjectSPtr object) { selectedObjects.remove(object); }
 
-	void addSelectedObject(Math::ParticleObjectSPtr object) { selectedObjects.push_back(object); }
+	void addSelectedObject(Particle::ParticleObjectSPtr object) { selectedObjects.push_back(object); }
 
-	bool findSelectedObject(Math::ParticleObjectSPtr object) {
+	bool findSelectedObject(Particle::ParticleObjectSPtr object) {
 		return std::find(selectedObjects.begin(), selectedObjects.end(), object) != selectedObjects.end();
 	}
 
-	std::list<Math::ParticleObjectSPtr> getSelectedObjects() const { return selectedObjects; }
+	std::list<Particle::ParticleObjectSPtr> getSelectedObjects() const { return selectedObjects; }
 
 
 private:
 	Graphics::Camera<float> camera;
-	Math::ParticleObjectBuilder pBuilder;
-	std::list<Math::ParticleObjectSPtr> objects;
-	std::list<Math::ParticleObjectSPtr> selectedObjects;
+	Particle::ParticleObjectBuilder pBuilder;
+	std::list<Particle::ParticleObjectSPtr> objects;
+	std::list<Particle::ParticleObjectSPtr> selectedObjects;
 };
 
 	}

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTICLE_OBJECT_H__
-#define __CRYSTAL_MATH_PARTICLE_OBJECT_H__
+#ifndef __CRYSTAL_PARTICLE_PARTICLE_OBJECT_H__
+#define __CRYSTAL_PARTICLE_PARTICLE_OBJECT_H__
 
 #include "ParticleBase.h"
 
@@ -13,7 +13,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace Math {
+	namespace Particle {
 
 class ParticleObject : private UnCopyable {
 public:
@@ -21,21 +21,21 @@ public:
 		id(id)
 	{}
 
-	void add(Math::ParticleBaseSPtr p) { this->particles.push_back(p); }
+	void add(ParticleBaseSPtr p) { this->particles.push_back(p); }
 
-	std::list<Math::ParticleBaseSPtr> getParticles() const { return particles; }
+	std::list<ParticleBaseSPtr> getParticles() const { return particles; }
 
 	float getVolume() const;
 
 	float getMass() const;
 
-	void remove(Math::ParticleBaseSPtr particle);
+	void remove(ParticleBaseSPtr particle);
 
 	void sub(const ParticleObject& rhs);
 
-	bool isInner(Math::ParticleBase* particle) const;
+	bool isInner(ParticleBase* particle) const;
 
-	bool isOuter(Math::ParticleBase* particle) const;
+	bool isOuter(ParticleBase* particle) const;
 
 	//bool isOn(ParticleBase* particle) const;
 
@@ -50,7 +50,7 @@ public:
 	unsigned int getId() const { return id; }
 
 private:
-	std::list<Math::ParticleBaseSPtr> particles;
+	std::list<ParticleBaseSPtr> particles;
 	unsigned int id;
 };
 

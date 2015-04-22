@@ -3,6 +3,7 @@
 #include "Model.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::IO;
 
 TEST(ModelTest, TestConstruct)

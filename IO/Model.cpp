@@ -1,6 +1,7 @@
 #include "Model.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::IO;
 
 ParticleObjectSPtr Model::getObjectById(const unsigned int id)

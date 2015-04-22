@@ -80,6 +80,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleStudio", "ParticleS
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleTest", "Particle\ParticleTest.vcxproj", "{14FE38C3-1015-4C13-ABED-A459F29E6A93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE} = {AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Particle", "Math\CrystalParticle.vcxproj", "{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}"
 	ProjectSection(ProjectDependencies) = postProject

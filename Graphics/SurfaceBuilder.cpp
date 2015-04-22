@@ -1,6 +1,7 @@
 #include "SurfaceBuilder.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 using namespace Crystal::Graphics;
 
 Polygon* SurfaceBuilder::build(const ParticleObject& object)

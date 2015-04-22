@@ -4,6 +4,7 @@
 #include "ParticleObjectBuilder.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Particle;
 
 TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 {
