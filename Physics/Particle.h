@@ -90,7 +90,7 @@ public:
 
 	int getGridID() const { return gridID; }
 
-	static bool compare( Particle* lhs, Particle* rhs ){
+	static bool compare(const std::shared_ptr<Particle>& lhs, const std::shared_ptr<Particle>& rhs){
 		return lhs->getGridID() < rhs->getGridID();
 	}
 
@@ -107,11 +107,11 @@ private:
 	int gridID;
 };
 
-typedef std::vector<Particle*> ParticleVector;
-
-typedef std::list<Particle*> ParticleList;
-
 using ParticleSPtr = std::shared_ptr < Particle > ;
+
+//using ParticleSPtrList = std::list < ParticleSPtr > ;
+
+using ParticleSPtrVector = std::vector < ParticleSPtr > ;
 
 //typedef std::pair<Particle*, Particle*> ParticlePair;
 

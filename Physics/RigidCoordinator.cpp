@@ -9,30 +9,30 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Vector3d getCenter(const ParticleVector& particles){
+Vector3d getCenter(const ParticleSPtrVector& particles){
 	if( particles.empty() ) {
 		return Vector3d( 0.0, 0.0, 0.0);
 	}
 	Vector3d center( 0.0, 0.0, 0.0);
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		center += (*iter)->getCenter();
 	}
 	return center /= static_cast<float>(particles.size());
 }
 
-Vector3d getAverageVelosity(const ParticleVector& particles)
+Vector3d getAverageVelosity(const ParticleSPtrVector& particles)
 {
 	Vector3d averageVelosity( 0.0, 0.0, 0.0 );
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		averageVelosity += (*iter)->getVelocity();// variable.velocity;
 	}
 	return averageVelosity / static_cast<float>(particles.size());
 }
 
-float getWeight(const ParticleVector& particles)
+float getWeight(const ParticleSPtrVector& particles)
 {
 	float weight = 0.0;
-	for( Particle* particle : particles ) {
+	for( const ParticleSPtr& particle : particles ) {
 		weight += particle->getMass();
 	}
 	return weight;
@@ -40,16 +40,16 @@ float getWeight(const ParticleVector& particles)
 
 #include <iostream>
 
-void RigidCoordinator::coordinate(const ParticleVector& particles, const float proceedTime)
+void RigidCoordinator::coordinate(const ParticleSPtrVector& particles, const float proceedTime)
 {
 	const Math::Vector3d& objectCenter = getCenter( particles );
 	const Math::Vector3d& velocityAverage = getAverageVelosity( particles );
 
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		(*iter)->setVelocity( velocityAverage );
 	}
 
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		(*iter)->addCenter( -1.0 * objectCenter );
 	}
 
@@ -62,8 +62,8 @@ void RigidCoordinator::coordinate(const ParticleVector& particles, const float p
 	Math::Vector3d inertiaMoment( 0.0, 0.0, 0.0 );
 	Math::Vector3d torque( 0.0, 0.0, 0.0 );
 	
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
-		Particle* particle = (*iter);
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+		const ParticleSPtr& particle = (*iter);
 		const Math::Vector3d& center = particle->getCenter();
 		
 		Math::Vector3d particleMoment( pow( center.getY(), 2) + pow( center.getZ(), 2),
@@ -79,7 +79,7 @@ void RigidCoordinator::coordinate(const ParticleVector& particles, const float p
 	getAngleVelosity( inertiaMoment , torque, proceedTime );
 
 	if( Math::Tolerances::isEqualStrictly( angleVelosity.getLength() ) ) {
-		for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+		for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 			(*iter)->addCenter( objectCenter );
 		}
 		convertToFluidForce( particles);
@@ -87,7 +87,7 @@ void RigidCoordinator::coordinate(const ParticleVector& particles, const float p
 	}
 	const float rotateAngle = angleVelosity.getLength() * proceedTime;
 	if( rotateAngle < 1.0e-5 ) {
-		for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+		for (ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter) {
 			(*iter)->addCenter( objectCenter );
 		}
 		convertToFluidForce( particles);
@@ -106,15 +106,15 @@ void RigidCoordinator::coordinate(const ParticleVector& particles, const float p
 	convertToFluidForce( particles );
 }
 
-void RigidCoordinator::convertToFluidForce(const ParticleVector& particles)
+void RigidCoordinator::convertToFluidForce(const ParticleSPtrVector& particles)
 {	
 	Math::Vector3d totalForce( 0.0, 0.0, 0.0 );
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		totalForce += (*iter)->getForce() * (*iter)->getVolume();
 	}
 
 	const float weight =  getWeight( particles );
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
+	for( ParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		(*iter)->setForce( totalForce / weight * (*iter)->getDensity() );
 	}
 }

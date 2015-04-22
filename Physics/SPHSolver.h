@@ -13,7 +13,7 @@ public:
 	void solve(const PhysicsObjectVector& objects, const float effectLength );
 
 private:
-	ParticleVector getParticles( const PhysicsObjectVector& objects );
+	ParticleSPtrVector getParticles( const PhysicsObjectVector& objects );
 
 	float getPoly6Kernel( const float distance, const float effectLength );
 

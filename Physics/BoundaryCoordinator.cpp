@@ -65,7 +65,7 @@ Vector3d getForce( const Vector3d& center, const float timeStep, const Box& box)
 	return force;
 }
 
-void BoundaryCoordinator::coordinate(const ParticleVector& particles )
+void BoundaryCoordinator::coordinate(const ParticleSPtrVector& particles )
 {
 	#pragma omp parallel for
 	for( int i = 0; i < static_cast<int>( particles.size() ); ++i ) {

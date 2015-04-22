@@ -15,13 +15,13 @@ using namespace Crystal::Physics;
 
 void SPHSolver::solve(const PhysicsObjectVector& objects, const float effectLength )
 {
-	const ParticleVector& particles = getParticles( objects );
+	const ParticleSPtrVector& particles = getParticles( objects );
 
 	if( particles.empty() ) {
 		return;
 	}
 
-	for( Particle* particle : particles ) {
+	for( const ParticleSPtr& particle : particles ) {
 		particle->init();
 	}
 
@@ -54,11 +54,11 @@ void SPHSolver::solve(const PhysicsObjectVector& objects, const float effectLeng
 	}
 }
 
-ParticleVector SPHSolver::getParticles( const PhysicsObjectVector& objects )
+ParticleSPtrVector SPHSolver::getParticles( const PhysicsObjectVector& objects )
 {
-	ParticleVector ordered;
+	ParticleSPtrVector ordered;
 	for( const PhysicsObject* object : objects ) {
-		const ParticleVector& particles = object->getParticles();
+		const ParticleSPtrVector& particles = object->getParticles();
 		ordered.insert( ordered.end(), particles.begin(), particles.end() );
 	}
 	return ordered;

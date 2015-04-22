@@ -9,7 +9,7 @@ namespace Crystal{
 	namespace Physics{
 		class NeighborSearcher{
 		public:
-			static ParticlePairVector createPairs( ParticleVector particles, const float effectLength);
+			static ParticlePairVector createPairs( ParticleSPtrVector particles, const float effectLength);
 		};
 	}
 }

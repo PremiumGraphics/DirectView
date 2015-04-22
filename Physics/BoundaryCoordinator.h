@@ -23,7 +23,7 @@ public:
 
 	~BoundaryCoordinator(void){};
 
-	virtual void coordinate(const ParticleVector& particles);
+	virtual void coordinate(const ParticleSPtrVector& particles);
 
 private:
 	const Math::Box box;

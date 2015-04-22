@@ -11,8 +11,13 @@ namespace Crystal {
 class PhysicsObject {
 public:
 	PhysicsObject() {};
-	
-	PhysicsObject( const ParticleVector& particles, const CoordinatorVector& coordinators ) :
+
+	PhysicsObject(const ParticleSPtrVector& particles ) :
+		particles(particles)
+	{}
+
+
+	PhysicsObject( const ParticleSPtrVector& particles, const CoordinatorVector& coordinators ) :
 		particles( particles ),
 		coordinators( coordinators )
 	{}
@@ -27,12 +32,9 @@ public:
 		}
 	}
 
-	ParticleVector getParticles() const { return particles; }
+	ParticleSPtrVector getParticles() const { return particles; }
 
 	void clear() {
-		for( Particle* particle : particles ) {
-			delete particle;
-		}
 		for( Coordinator* coordinator : coordinators ) {
 			delete coordinator;
 		}
@@ -45,7 +47,7 @@ public:
 	std::string getName() const { return name; }
 
 private:
-	ParticleVector particles;
+	ParticleSPtrVector particles;
 	CoordinatorVector coordinators;
 	std::string name;
 };

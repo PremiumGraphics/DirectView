@@ -17,7 +17,7 @@ public:
 
 	virtual ~Coordinator(){}
 
-	virtual void coordinate( const ParticleVector& particles ) = 0;
+	virtual void coordinate( const ParticleSPtrVector& particles ) = 0;
 
 protected:
 	float timeStep;
@@ -28,7 +28,7 @@ typedef std::vector<Coordinator*> CoordinatorVector;
 class StaticIntegrator : public Coordinator
 {
 public:
-	void coordinate( const ParticleVector& particles){}
+	void coordinate( const ParticleSPtrVector& particles){}
 };
 
 class EulerIntegrator : public Coordinator
@@ -38,8 +38,8 @@ public:
 		timeStep( timeStep )
 	{
 	}
-	void coordinate( const ParticleVector& particles ) {
-		for( Particle* particle : particles ) {
+	void coordinate( const ParticleSPtrVector& particles ) {
+		for( const ParticleSPtr& particle : particles ) {
 			Math::Vector3d accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
 			particle->addVelocity( accelaration * timeStep );
 			particle->addCenter( particle->getVelocity() * timeStep );
@@ -59,8 +59,8 @@ public:
 		timeStep( timeStep )
 	{}
 
-	void coordinate( const ParticleVector& particles ) {
-		for( Particle* particle: particles ) {
+	void coordinate( const std::list<ParticleSPtr>& particles ) {
+		for( const ParticleSPtr& particle : particles ) {
 			particle->addForce( force * particle->getDensity() );
 		}
 	}

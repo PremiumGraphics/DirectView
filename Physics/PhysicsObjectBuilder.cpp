@@ -1,14 +1,16 @@
 #include "PhysicsObjectBuilder.h"
 
+#include "PhysicsObject.h"
+
 #include "../Math/Box.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-std::list<ParticleSPtr> PhysicsObjectBuilder::create(const Box& box)
+PhysicsObjectSPtr PhysicsObjectBuilder::create(const Box& box)
 {
 	Particle::Constant constant;
-	std::list< ParticleSPtr > particles;
+	ParticleSPtrVector particles;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
@@ -17,6 +19,5 @@ std::list<ParticleSPtr> PhysicsObjectBuilder::create(const Box& box)
 			}
 		}
 	}
-	return particles;
-
+	return std::make_shared<PhysicsObject>(particles);
 }

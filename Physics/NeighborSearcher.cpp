@@ -11,18 +11,18 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-ParticlePairVector search1(const ParticleVector& particles, ParticleVector::const_iterator startIter, ParticleVector::const_iterator endIter, const float effectLengthSquared ){
+ParticlePairVector search1(const ParticleSPtrVector& particles, ParticleSPtrVector::const_iterator startIter, ParticleSPtrVector::const_iterator endIter, const float effectLengthSquared ){
 	ParticlePairVector pairs;
-	for( ParticleVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
+	for( ParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
 		const int gridID = (*xIter)->getGridID();
 		const Vector3d& centerX = (*xIter)->getCenter();
-		ParticleVector::const_iterator yIter = xIter;
+		ParticleSPtrVector::const_iterator yIter = xIter;
 		++yIter;// ignore itself.
 		while( yIter != particles.end() && ( (*yIter)->getGridID() <= gridID + 1) ) {
 			const Vector3d& centerY = (*yIter)->getCenter();
 			if( centerX.getDistanceSquared( centerY ) < effectLengthSquared ) {
-				pairs.push_back( ParticlePair( (*xIter), (*yIter) ) );
-				pairs.push_back( ParticlePair( (*yIter), (*xIter) ) );
+				pairs.push_back( ParticlePair( (*xIter).get(), (*yIter).get() ) );
+				pairs.push_back( ParticlePair( (*yIter).get(), (*xIter).get() ) );
 			}
 			++yIter;
 		}
@@ -30,18 +30,18 @@ ParticlePairVector search1(const ParticleVector& particles, ParticleVector::cons
 	return pairs;
 }
 
-ParticlePairVector search2(const ParticleVector& particles, ParticleVector::const_iterator startIter, ParticleVector::const_iterator endIter, const float effectLengthSquared )
+ParticlePairVector search2(const ParticleSPtrVector& particles, ParticleSPtrVector::const_iterator startIter, ParticleSPtrVector::const_iterator endIter, const float effectLengthSquared )
 {
 	ParticlePairVector pairs;
 
-	std::vector<ParticleVector::const_iterator> yIter(4, startIter);
+	std::vector<ParticleSPtrVector::const_iterator> yIter(4, startIter);
 	std::vector<int> offsetIds;
 	offsetIds.push_back(1023);
 	offsetIds.push_back(1047551);
 	offsetIds.push_back(1048575);
 	offsetIds.push_back(1049599);
 
-	for( ParticleVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
+	for( ParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
 		for( size_t i = 0; i < 4; ++i ) {
 			const int baseID = (*xIter)->getGridID() + offsetIds[i];
 			while( yIter[i] != particles.end() && ( (*yIter[i])->getGridID() < baseID ) ) {
@@ -49,12 +49,12 @@ ParticlePairVector search2(const ParticleVector& particles, ParticleVector::cons
 			}
 			
 			const Vector3d& centerX = (*xIter)->getCenter();
-			ParticleVector::const_iterator zIter = yIter[i];
+			ParticleSPtrVector::const_iterator zIter = yIter[i];
 			while( zIter != particles.end() && ( (*zIter)->getGridID() <= baseID + 2) ) {
 				const Vector3d& centerZ = (*zIter)->getCenter();
 				if( centerX.getDistanceSquared( centerZ ) < effectLengthSquared ) {
-					pairs.push_back( ParticlePair( (*xIter), (*zIter) ) );
-					pairs.push_back( ParticlePair( (*zIter), (*xIter) ) );
+					pairs.push_back( ParticlePair( (*xIter).get(), (*zIter).get() ) );
+					pairs.push_back( ParticlePair( (*zIter).get(), (*xIter).get() ) );
 				}
 				++zIter;
 			}
@@ -64,13 +64,13 @@ ParticlePairVector search2(const ParticleVector& particles, ParticleVector::cons
 	return pairs;
 }
 
-ParticlePairVector NeighborSearcher::createPairs(ParticleVector particles, const float effectLength)
+ParticlePairVector NeighborSearcher::createPairs(ParticleSPtrVector particles, const float effectLength)
 {
 	if( particles.empty() ) {
 		return ParticlePairVector();
 	}
 
-	for( Particle* particle : particles ) {
+	for( const ParticleSPtr& particle : particles ) {
 		particle->setGridID( effectLength );
 	}
 	
@@ -81,7 +81,7 @@ ParticlePairVector NeighborSearcher::createPairs(ParticleVector particles, const
 
 	std::vector<ParticlePairVector> eachPairs( threads );
 
-	std::vector<ParticleVector::const_iterator> iters;
+	std::vector<ParticleSPtrVector::const_iterator> iters;
 	for( int i = 0; i < threads; ++i ) {
 		iters.push_back( particles.begin() + i * particles.size() / threads );
 	}

@@ -3,6 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 #include "Particle.h"
+#include "PhysicsObject.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -12,10 +13,12 @@ class PhysicsObjectBuilder : private UnCopyable
 public:
 	PhysicsObjectBuilder() :
 		nextId(0),
-		density(1.0f)
+		density(1.0f),
+		divideLength( 1.0f )
 	{}
 
-	std::list<ParticleSPtr> create(const Math::Box& box);
+	PhysicsObjectSPtr create(const Math::Box& box);
+
 private:
 	float divideLength;
 	float density;
