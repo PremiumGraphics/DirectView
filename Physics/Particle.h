@@ -3,6 +3,7 @@
 
 #include <list>
 #include <vector>
+#include <memory>
 
 #include "../Math/Vector3d.h"
 
@@ -109,6 +110,8 @@ private:
 typedef std::vector<Particle*> ParticleVector;
 
 typedef std::list<Particle*> ParticleList;
+
+using ParticleSPtr = std::shared_ptr < Particle > ;
 
 //typedef std::pair<Particle*, Particle*> ParticlePair;
 

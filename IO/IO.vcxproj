@@ -53,6 +53,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
+    <ClInclude Include="PhysicsModel.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="tinyxml2.h" />

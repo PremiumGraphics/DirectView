@@ -50,5 +50,6 @@
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="PhysicsModel.h" />
   </ItemGroup>
 </Project>

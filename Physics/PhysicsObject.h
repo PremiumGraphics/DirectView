@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_PHYSICS_PHYSICS_OBJECT_H__
 #define __CRYSTAL_PHYSICS_PHYSICS_OBJECT_H__
 
+#include <memory>
+
 #include "Coordinator.h"
 
 namespace Crystal {
@@ -48,7 +50,7 @@ private:
 	std::string name;
 };
 
-
+using PhysicsObjectSPtr = std::shared_ptr < PhysicsObject > ;
 
 
 
