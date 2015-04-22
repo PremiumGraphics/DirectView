@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{76ABEF24-A77D-4981-8EA0-D73E8752D050}</ProjectGuid>
+    <ProjectGuid>{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}</ProjectGuid>
     <RootNamespace>CryphousGeometry</RootNamespace>
-    <ProjectName>Math</ProjectName>
+    <ProjectName>Particle</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,30 +72,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BazierCurve.h" />
-    <ClInclude Include="Box.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="Cone.h" />
-    <ClInclude Include="CSG.h" />
-    <ClInclude Include="Cylinder.h" />
-    <ClInclude Include="Line.h" />
-    <ClInclude Include="Matrix2d.h" />
-    <ClInclude Include="Matrix3d.h" />
-    <ClInclude Include="Matrix4d.h" />
-    <ClInclude Include="Primitive.h" />
-    <ClInclude Include="Quad.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Tolerances.h" />
-    <ClInclude Include="Triangle.h" />
-    <ClInclude Include="Vector2d.h" />
-    <ClInclude Include="Vector3d.h" />
+    <ClInclude Include="Octree.h" />
+    <ClInclude Include="ParticleBase.h" />
+    <ClInclude Include="ParticleBaseBuilder.h" />
+    <ClInclude Include="ParticleBooleanAlgo.h" />
+    <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="ParticleObjectBuilder.h" />
+    <ClInclude Include="Space3d.h" />
+    <ClInclude Include="Voxel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Box.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Triangle.cpp" />
-    <ClCompile Include="Vector3d.cpp" />
+    <ClCompile Include="ParticleBase.cpp" />
+    <ClCompile Include="ParticleBaseBuilder.cpp" />
+    <ClCompile Include="ParticleBooleanAlgo.cpp" />
+    <ClCompile Include="ParticleObject.cpp" />
+    <ClCompile Include="ParticleObjectBuilder.cpp" />
+    <ClCompile Include="Voxel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

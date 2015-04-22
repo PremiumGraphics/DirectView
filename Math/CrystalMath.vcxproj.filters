@@ -34,15 +34,7 @@
     </ClInclude>
     <ClInclude Include="Line.h" />
     <ClInclude Include="BazierCurve.h" />
-    <ClInclude Include="Octree.h" />
     <ClInclude Include="CSG.h" />
-    <ClInclude Include="Voxel.h" />
-    <ClInclude Include="Space3d.h" />
-    <ClInclude Include="ParticleBase.h" />
-    <ClInclude Include="ParticleObject.h" />
-    <ClInclude Include="ParticleObjectBuilder.h" />
-    <ClInclude Include="ParticleBaseBuilder.h" />
-    <ClInclude Include="ParticleBooleanAlgo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -53,12 +45,6 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
-    <ClCompile Include="Voxel.cpp" />
-    <ClCompile Include="ParticleObject.cpp" />
-    <ClCompile Include="ParticleBase.cpp" />
-    <ClCompile Include="ParticleObjectBuilder.cpp" />
-    <ClCompile Include="ParticleBaseBuilder.cpp" />
-    <ClCompile Include="ParticleBooleanAlgo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
