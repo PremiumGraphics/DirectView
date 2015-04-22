@@ -10,6 +10,24 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Particle\Octree.h" />
+    <ClInclude Include="..\Particle\ParticleBase.h" />
+    <ClInclude Include="..\Particle\ParticleBaseBuilder.h" />
+    <ClInclude Include="..\Particle\ParticleBooleanAlgo.h" />
+    <ClInclude Include="..\Particle\ParticleObject.h" />
+    <ClInclude Include="..\Particle\ParticleObjectBuilder.h" />
+    <ClInclude Include="..\Particle\Space3d.h" />
+    <ClInclude Include="..\Particle\Voxel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Particle\ParticleBase.cpp" />
+    <ClCompile Include="..\Particle\ParticleBaseBuilder.cpp" />
+    <ClCompile Include="..\Particle\ParticleBooleanAlgo.cpp" />
+    <ClCompile Include="..\Particle\ParticleObject.cpp" />
+    <ClCompile Include="..\Particle\ParticleObjectBuilder.cpp" />
+    <ClCompile Include="..\Particle\Voxel.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}</ProjectGuid>
     <RootNamespace>CryphousGeometry</RootNamespace>
@@ -71,24 +89,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Octree.h" />
-    <ClInclude Include="ParticleBase.h" />
-    <ClInclude Include="ParticleBaseBuilder.h" />
-    <ClInclude Include="ParticleBooleanAlgo.h" />
-    <ClInclude Include="ParticleObject.h" />
-    <ClInclude Include="ParticleObjectBuilder.h" />
-    <ClInclude Include="Space3d.h" />
-    <ClInclude Include="Voxel.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ParticleBase.cpp" />
-    <ClCompile Include="ParticleBaseBuilder.cpp" />
-    <ClCompile Include="ParticleBooleanAlgo.cpp" />
-    <ClCompile Include="ParticleObject.cpp" />
-    <ClCompile Include="ParticleObjectBuilder.cpp" />
-    <ClCompile Include="Voxel.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

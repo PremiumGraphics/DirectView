@@ -7,7 +7,7 @@
 #include "../Graphics/ColorRGBA.h"
 #include "../Graphics/ParticleDisplayList.h"
 
-#include "../Math/ParticleBase.h"
+#include "../Particle/ParticleBase.h"
 
 #include <list>
 

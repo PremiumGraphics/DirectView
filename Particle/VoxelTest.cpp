@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Math/Voxel.h"
+#include "Voxel.h"
 
 using namespace Crystal::Math;
 

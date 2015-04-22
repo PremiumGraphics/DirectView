@@ -3,7 +3,7 @@
 
 #include "ParticleBase.h"
 
-#include "../Math/ParticleBase.h"
+#include "ParticleBase.h"
 #include "../Math/Box.h"
 
 #include "../Util/UnCopyable.h"

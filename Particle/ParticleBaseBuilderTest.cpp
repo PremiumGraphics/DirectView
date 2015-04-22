@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Math/ParticleBaseBuilder.h"
+#include "ParticleBaseBuilder.h"
 
 using namespace Crystal::Math;
 

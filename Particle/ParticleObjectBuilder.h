@@ -1,9 +1,9 @@
 #ifndef __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
 #define __CRYSTAL_MATH_PARTICLE_OBJECT_BUILDER_H__
 
-#include "Box.h"
-#include "Sphere.h"
-#include "Cylinder.h"
+#include "../Math/Box.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 #include "ParticleBase.h"
 #include "ParticleObject.h"

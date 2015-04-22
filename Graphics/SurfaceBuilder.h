@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_GRAPHICS_SURFACE_BUILDER_H__
 #define __CRYSTAL_GRAPHICS_SURFACE_BUILDER_H__
 
-#include "../Math/ParticleObject.h"
+#include "../Particle/ParticleObject.h"
 #include "Polygon.h"
 
 #include "ImageRGBA.h"

@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_SPACE_3D_H__
 #define __CRYSTAL_MATH_SPACE_3D_H__
 
-#include "Vector3d.h"
+#include "../Math/Vector3d.h"
 
 namespace Crystal {
 	namespace Math {

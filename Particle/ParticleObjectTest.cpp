@@ -1,8 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "../Math/ParticleObject.h"
-
-#include "../Math/ParticleObjectBuilder.h"
+#include "ParticleObject.h"
+#include "ParticleObjectBuilder.h"
 
 using namespace Crystal::Math;
 

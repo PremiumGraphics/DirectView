@@ -2,7 +2,7 @@
 #define __CRYSTAL_IO_MODEL_H__
 
 #include "../Graphics/Camera.h"
-#include "../Math/ParticleObjectBuilder.h"
+#include "../Particle/ParticleObjectBuilder.h"
 
 namespace Crystal {
 	namespace IO {

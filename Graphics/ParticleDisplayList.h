@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../Math/ParticleObject.h"
+#include "../Particle/ParticleObject.h"
 #include "ColorRGB.h"
 
 namespace Crystal {

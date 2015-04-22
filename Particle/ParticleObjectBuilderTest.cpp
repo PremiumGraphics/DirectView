@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../Math/ParticleObjectBuilder.h"
 
+#include "ParticleObjectBuilder.h"
 #include "../Math/Cylinder.h"
 
 #include <memory>

@@ -3,11 +3,11 @@
 
 #include "../Util/UnCopyable.h"
 
-#include "Vector3d.h"
+#include "../Math/Vector3d.h"
 
-#include "Box.h"
-#include "Sphere.h"
-#include "Cylinder.h"
+#include "../Math/Box.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 #include <memory>
 
