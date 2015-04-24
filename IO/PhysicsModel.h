@@ -15,7 +15,8 @@ class PhysicsModel {
 public:
 	PhysicsModel()
 	{
-		camera.setNear(1.0f);
+		camera = std::make_shared<Graphics::Camera<float>>();
+		camera->setNear(1.0f);
 	}
 
 	void clear()
@@ -23,7 +24,7 @@ public:
 		objects.clear();
 	}
 
-	Graphics::Camera<float>* getCamera() { return &camera; }
+	Graphics::CameraSPtr<float> getCamera() { return camera; }
 
 	Physics::PhysicsObjectSPtr create(const Math::Box& box);
 
@@ -32,7 +33,7 @@ public:
 	std::list< Physics::PhysicsObjectSPtr > getObjects() const { return objects; }
 
 private:
-	Graphics::Camera<float> camera;
+	Graphics::CameraSPtr<float> camera;
 	Physics::PhysicsObjectBuilder builder;
 	std::list< Physics::PhysicsObjectSPtr > objects;
 };

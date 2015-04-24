@@ -437,7 +437,7 @@ void Frame::OnExport( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
-	Camera<float>* camera = model.getCamera();
+	const CameraSPtr<float>& camera = model.getCamera();
 	camera->setPos( Vector3d( 0.0f, 0.0f, 0.0f ));
 	camera->setAngle(Vector3d(0.0f, 0.0f, 0.0f));
 	view->Refresh();

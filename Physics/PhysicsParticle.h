@@ -9,11 +9,13 @@
 
 #include "../Particle/ParticleBase.h"
 
+#include "../Util/UnCopyable.h"
+
 namespace Crystal{
 	namespace Physics{
 		class Coordinator;
 		
-class PhysicsParticle
+class PhysicsParticle : private UnCopyable
 {
 public:
 	

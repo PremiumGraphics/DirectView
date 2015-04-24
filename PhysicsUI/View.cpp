@@ -71,7 +71,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	Camera<float>* camera = model.getCamera();
+	const CameraSPtr<float>& camera = model.getCamera();
 	Vector3d pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {

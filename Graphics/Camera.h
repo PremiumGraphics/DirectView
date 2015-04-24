@@ -4,6 +4,8 @@
 #include "../Math/Matrix4d.h"
 #include "../Math/Vector3d.h"
 
+#include <memory>
+
 namespace Crystal {
 	namespace Graphics {
 
@@ -122,6 +124,9 @@ private:
 
 	Math::Vector3d angle;
 };
+
+template<typename T>
+using CameraSPtr = std::shared_ptr < Camera<T> > ;
 
 	}
 }

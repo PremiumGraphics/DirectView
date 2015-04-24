@@ -30,7 +30,7 @@ void SPHSolver::solve(const PhysicsObjectVector& objects, const float effectLeng
 	#pragma omp parallel for
 	for( int i = 0; i < static_cast<int>( pairs.size() ); ++i ) {
 		const float distance = pairs[i].getDistance();
-		pairs[i].particle1->addDensity( getPoly6Kernel( distance, effectLength ) * pairs[i].particle2->getMass() );
+		pairs[i].getParticle1()->addDensity( getPoly6Kernel( distance, effectLength ) * pairs[i].getParticle2()->getMass() );
 	}
 	
 	for( int i = 0; i < static_cast<int>( particles.size() ); ++i ) {
@@ -41,12 +41,12 @@ void SPHSolver::solve(const PhysicsObjectVector& objects, const float effectLeng
 	for( int i = 0; i < static_cast<int>( pairs.size() ); ++i ) {
 		const float pressure = pairs[i].getPressure();
 		const Vector3d distanceVector = pairs[i].getDistanceVector();
-		pairs[i].particle1->addForce( getSpikyKernelGradient( distanceVector, effectLength ) * pressure * pairs[i].particle2->getVolume() );
+		pairs[i].getParticle1()->addForce( getSpikyKernelGradient( distanceVector, effectLength ) * pressure * pairs[i].getParticle2()->getVolume() );
 
 		const float viscosityCoe = pairs[i].getViscosityCoe();
 		const Vector3d velocityDiff = pairs[i].getVelocityDiff();
 		const float distance = pairs[i].getDistance();
-		pairs[i].particle1->addForce( viscosityCoe * velocityDiff * getViscosityKernelLaplacian( distance, effectLength ) * pairs[i].particle2->getVolume() );
+		pairs[i].getParticle2()->addForce( viscosityCoe * velocityDiff * getViscosityKernelLaplacian( distance, effectLength ) * pairs[i].getParticle2()->getVolume() );
 	}
 
 	for( PhysicsObject* object : objects ) {
