@@ -7,8 +7,8 @@ using namespace Crystal::Physics;
  
 TEST( EulerIntegratorTest, Test )
 {
-	Particle::Constant constant;
-	ParticleSPtr particle = std::make_shared<Particle>( constant, Vector3d( 0.0, 0.0, 0.0 ) );
+	PhysicsParticle::Constant constant;
+	ParticleSPtr particle = std::make_shared<PhysicsParticle>( constant, Vector3d( 0.0, 0.0, 0.0 ) );
 	EulerIntegrator integrator( 0.1 );
 	ParticleSPtrVector particles;
 	particles.push_back( particle );

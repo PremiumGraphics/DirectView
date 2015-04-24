@@ -7,12 +7,12 @@ namespace Crystal {
 	namespace Physics {
 
 struct ParticlePair{
-	ParticlePair(Particle* particle1, Particle* particle2) :
+	ParticlePair(PhysicsParticle* particle1, PhysicsParticle* particle2) :
 		particle1(particle1), particle2(particle2)
 	{
 	}
-	Particle* particle1;
-	Particle* particle2;
+	PhysicsParticle* particle1;
+	PhysicsParticle* particle2;
 
 	Math::Vector3d getDistanceVector() const {
 		return Math::Vector3d(particle1->getCenter() - particle2->getCenter());

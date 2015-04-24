@@ -12,7 +12,7 @@ using namespace Crystal::Physics;
 
 ParticleSPtr ParticleBuilder::create(const ParticleBase& origin)
 {
-	return std::make_shared<Particle>(constant, origin.getPosition());
+	return std::make_shared<PhysicsParticle>(constant, origin.getPosition());
 }
 
 ParticleSPtrVector ParticleBuilder::create(const Box& box)
@@ -21,7 +21,7 @@ ParticleSPtrVector ParticleBuilder::create(const Box& box)
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-				particles.push_back(std::make_shared<Particle>(constant, Vector3d(x, y, z)));
+				particles.push_back(std::make_shared<PhysicsParticle>(constant, Vector3d(x, y, z)));
 				//object->add(p);
 			}
 		}
@@ -38,7 +38,7 @@ ParticleSPtrVector ParticleBuilder::create(const Sphere& s)
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d v(x, y, z);
 				if (s.isInner(v)) {
-					particles.push_back(std::make_shared<Particle>(constant, Vector3d(x, y, z)));
+					particles.push_back(std::make_shared<PhysicsParticle>(constant, Vector3d(x, y, z)));
 				}
 			}
 		}
@@ -55,7 +55,7 @@ ParticleSPtrVector ParticleBuilder::create(const Cylinder& cylinder)
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d v(x, y, z);
 				if (cylinder.isInner(v)) {
-					particles.push_back(std::make_shared<Particle>(constant, Vector3d(x, y, z)));
+					particles.push_back(std::make_shared<PhysicsParticle>(constant, Vector3d(x, y, z)));
 				}
 			}
 		}

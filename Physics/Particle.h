@@ -13,7 +13,7 @@ namespace Crystal{
 	namespace Physics{
 		class Coordinator;
 		
-class Particle
+class PhysicsParticle
 {
 public:
 	
@@ -25,7 +25,7 @@ public:
 		float diameter;
 	};
 	
-	Particle::Particle(const Constant& constant, const Math::Vector3d& center) :
+	PhysicsParticle::PhysicsParticle(const Constant& constant, const Math::Vector3d& center) :
 	constant( constant ),
 	center( center )
 	{
@@ -92,7 +92,7 @@ public:
 
 	int getGridID() const { return gridID; }
 
-	static bool compare(const std::shared_ptr<Particle>& lhs, const std::shared_ptr<Particle>& rhs){
+	static bool compare(const std::shared_ptr<PhysicsParticle>& lhs, const std::shared_ptr<PhysicsParticle>& rhs){
 		return lhs->getGridID() < rhs->getGridID();
 	}
 
@@ -109,7 +109,7 @@ private:
 	int gridID;
 };
 
-using ParticleSPtr = std::shared_ptr < Particle > ;
+using ParticleSPtr = std::shared_ptr < PhysicsParticle > ;
 
 //using ParticleSPtrList = std::list < ParticleSPtr > ;
 

@@ -74,7 +74,7 @@ ParticlePairVector NeighborSearcher::createPairs(ParticleSPtrVector particles, c
 		particle->setGridID( effectLength );
 	}
 	
-	std::sort( particles.begin(), particles.end(), &Particle::compare );
+	std::sort( particles.begin(), particles.end(), &PhysicsParticle::compare );
 
 	// optimization for quad core.
 	const int threads = 8;

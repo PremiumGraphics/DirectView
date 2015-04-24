@@ -32,7 +32,7 @@ public:
 private:
 	unsigned int nextId;
 	float divideLength;
-	Particle::Constant constant;
+	PhysicsParticle::Constant constant;
 };
 
 	}
