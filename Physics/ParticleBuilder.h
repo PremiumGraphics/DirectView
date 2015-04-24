@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_PARTICLE_BUILDER_H__
 #define __CRYSTAL_PHYSICS_PARTICLE_BUILDER_H__
 
-#include "Particle.h"
+#include "PhysicsParticle.h"
 
 namespace Crystal {
 	namespace Math {

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Particle.h"
+#include "PhysicsParticle.h"
 
 #include "../Math/Vector3d.h"
 

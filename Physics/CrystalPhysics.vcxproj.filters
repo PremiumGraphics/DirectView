@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClInclude Include="SPHSolver.h" />
     <ClInclude Include="NeighborSearcher.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="Coordinator.h" />
     <ClInclude Include="BoundaryCoordinator.h" />
     <ClInclude Include="RigidCoordinator.h" />
@@ -11,6 +10,7 @@
     <ClInclude Include="PhysicsObjectBuilder.h" />
     <ClInclude Include="ParticleBuilder.h" />
     <ClInclude Include="ParticlePair.h" />
+    <ClInclude Include="PhysicsParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHSolver.cpp" />

@@ -2,7 +2,7 @@
 #define __CRYSTAL_PHYSICS_PHYSICS_OBJECT_BUILDER_H__
 
 #include "../Util/UnCopyable.h"
-#include "Particle.h"
+#include "PhysicsParticle.h"
 #include "PhysicsObject.h"
 
 namespace Crystal {

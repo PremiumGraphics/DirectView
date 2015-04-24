@@ -1,7 +1,7 @@
 #ifndef __NEIGHBOR_SEARCHER_H__
 #define __NEIGHBOR_SEARCHER_H__
 
-#include "Particle.h"
+#include "PhysicsParticle.h"
 #include "ParticlePair.h"
 
 #include <vector>

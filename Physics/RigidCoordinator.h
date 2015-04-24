@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_RIGID_ENFORCER_H__
 #define __CRYSTAL_PHYSICS_RIGID_ENFORCER_H__
 
-#include "Particle.h"
+#include "PhysicsParticle.h"
 #include "Coordinator.h"
 
 namespace Crystal{
