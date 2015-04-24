@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ParticleBaseBuilderTest.cpp" />
+    <ClCompile Include="ParticleBasePairTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
     <ClCompile Include="ParticleBooleanAlgoTest.cpp" />
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />

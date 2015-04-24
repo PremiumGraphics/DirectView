@@ -9,8 +9,8 @@
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsObjectBuilder.h" />
     <ClInclude Include="ParticleBuilder.h" />
-    <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsParticle.h" />
+    <ClInclude Include="PhysicsParticlePair.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHSolver.cpp" />

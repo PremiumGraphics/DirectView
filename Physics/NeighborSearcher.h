@@ -1,8 +1,8 @@
-#ifndef __NEIGHBOR_SEARCHER_H__
-#define __NEIGHBOR_SEARCHER_H__
+#ifndef __CRYSTAL_PHYSICS_NEIGHBOR_SEARCHER_H__
+#define __CRYSTAL_PHYSICS_NEIGHBOR_SEARCHER_H__
 
 #include "PhysicsParticle.h"
-#include "ParticlePair.h"
+#include "PhysicsParticlePair.h"
 
 #include <vector>
 

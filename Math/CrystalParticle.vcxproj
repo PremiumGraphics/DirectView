@@ -19,6 +19,8 @@
     <ClInclude Include="..\Particle\ParticleObjectBuilder.h" />
     <ClInclude Include="..\Particle\Space3d.h" />
     <ClInclude Include="..\Particle\Voxel.h" />
+    <ClInclude Include="ParticleBasePair.h" />
+    <ClInclude Include="ParticleFindAlgo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Particle\ParticleBase.cpp" />

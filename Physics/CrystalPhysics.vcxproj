@@ -141,10 +141,10 @@
     <ClInclude Include="Coordinator.h" />
     <ClInclude Include="NeighborSearcher.h" />
     <ClInclude Include="ParticleBuilder.h" />
-    <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsObjectBuilder.h" />
     <ClInclude Include="PhysicsParticle.h" />
+    <ClInclude Include="PhysicsParticlePair.h" />
     <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHSolver.h" />
   </ItemGroup>

@@ -21,8 +21,8 @@ ParticlePairVector search1(const PhysicsParticleSPtrVector& particles, PhysicsPa
 		while( yIter != particles.end() && ( (*yIter)->getGridID() <= gridID + 1) ) {
 			const Vector3d& centerY = (*yIter)->getCenter();
 			if( centerX.getDistanceSquared( centerY ) < effectLengthSquared ) {
-				pairs.push_back( ParticlePair( (*xIter).get(), (*yIter).get() ) );
-				pairs.push_back( ParticlePair( (*yIter).get(), (*xIter).get() ) );
+				pairs.push_back( PhysicsParticlePair( (*xIter), (*yIter) ) );
+				pairs.push_back( PhysicsParticlePair( (*yIter), (*xIter) ) );
 			}
 			++yIter;
 		}
@@ -53,8 +53,8 @@ ParticlePairVector search2(const PhysicsParticleSPtrVector& particles, PhysicsPa
 			while( zIter != particles.end() && ( (*zIter)->getGridID() <= baseID + 2) ) {
 				const Vector3d& centerZ = (*zIter)->getCenter();
 				if( centerX.getDistanceSquared( centerZ ) < effectLengthSquared ) {
-					pairs.push_back( ParticlePair( (*xIter).get(), (*zIter).get() ) );
-					pairs.push_back( ParticlePair( (*zIter).get(), (*xIter).get() ) );
+					pairs.push_back( PhysicsParticlePair( (*xIter), (*zIter) ) );
+					pairs.push_back( PhysicsParticlePair( (*zIter), (*xIter) ) );
 				}
 				++zIter;
 			}

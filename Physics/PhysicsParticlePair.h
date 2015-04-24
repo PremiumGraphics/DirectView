@@ -6,11 +6,12 @@
 namespace Crystal {
 	namespace Physics {
 
-class ParticlePair
+class PhysicsParticlePair
 {
 public:
-	ParticlePair(PhysicsParticle* particle1, PhysicsParticle* particle2) :
-		particle1(particle1), particle2(particle2)
+	PhysicsParticlePair(const PhysicsParticleSPtr& particle1, const PhysicsParticleSPtr& particle2) :
+		particle1(particle1),
+		particle2(particle2)
 	{
 	}
 
@@ -34,16 +35,16 @@ public:
 		return Math::Vector3d(particle1->getVelocity(), particle2->getVelocity());
 	}
 
-	PhysicsParticle* getParticle1() const { return particle1; }
+	PhysicsParticleSPtr getParticle1() const { return particle1; }
 
-	PhysicsParticle* getParticle2() const { return particle2; }
+	PhysicsParticleSPtr getParticle2() const { return particle2; }
 
 private:
-	PhysicsParticle* particle1;
-	PhysicsParticle* particle2;
+	PhysicsParticleSPtr particle1;
+	PhysicsParticleSPtr particle2;
 };
 
-typedef std::vector<ParticlePair> ParticlePairVector;
+typedef std::vector<PhysicsParticlePair> ParticlePairVector;
 
 	}
 }
