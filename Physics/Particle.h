@@ -7,11 +7,13 @@
 
 #include "../Math/Vector3d.h"
 
+#include "../Particle/ParticleBase.h"
+
 namespace Crystal{
 	namespace Physics{
 		class Coordinator;
 		
-class Particle 
+class Particle
 {
 public:
 	
@@ -115,36 +117,6 @@ using ParticleSPtrVector = std::vector < ParticleSPtr > ;
 
 //typedef std::pair<Particle*, Particle*> ParticlePair;
 
-struct ParticlePair{
-	ParticlePair( Particle* particle1, Particle* particle2 ) :
-		particle1( particle1 ), particle2( particle2 )
-	{
-	}
-	Particle* particle1;
-	Particle* particle2;
-
-	Math::Vector3d getDistanceVector() const {
-		return Math::Vector3d( particle1->getCenter() - particle2->getCenter() );
-	}
-
-	float getDistance() const {
-		return getDistanceVector().getLength();
-	}
-
-	float getPressure() const {
-		return ( particle1->getPressure() + particle2->getPressure() ) * 0.5f;
-	}
-
-	float getViscosityCoe() const {
-		return ( particle1->getViscosityCoe() + particle2->getViscosityCoe() ) * 0.5f;
-	}
-
-	Math::Vector3d getVelocityDiff() const {
-		return Math::Vector3d( particle1->getVelocity(), particle2->getVelocity() );
-	}
-};
-
-typedef std::vector<ParticlePair> ParticlePairVector; 
 
 	}
 }

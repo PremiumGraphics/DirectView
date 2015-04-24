@@ -2,6 +2,7 @@
 #define __NEIGHBOR_SEARCHER_H__
 
 #include "Particle.h"
+#include "ParticlePair.h"
 
 #include <vector>
 
