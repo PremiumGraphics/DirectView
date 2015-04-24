@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionFindAlgoTest.cpp" />
     <ClCompile Include="ParticleBaseBuilderTest.cpp" />
     <ClCompile Include="ParticleBasePairTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />

@@ -28,8 +28,12 @@ public:
 			(particle2 != nullptr);
 	}
 
-	void getDistance() const {
-		particle1->getPosition().getDistance(particle2->getPosition());
+	Math::Vector3d getDistanceVector() const {
+		return Math::Vector3d(particle1->getPosition() - particle2->getPosition());
+	}
+
+	float getDistance() const {
+		return particle1->getPosition().getDistance(particle2->getPosition());
 	}
 
 private:

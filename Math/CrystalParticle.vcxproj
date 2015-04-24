@@ -14,13 +14,14 @@
     <ClInclude Include="..\Particle\Octree.h" />
     <ClInclude Include="..\Particle\ParticleBase.h" />
     <ClInclude Include="..\Particle\ParticleBaseBuilder.h" />
+    <ClInclude Include="..\Particle\ParticleBasePair.h" />
     <ClInclude Include="..\Particle\ParticleBooleanAlgo.h" />
+    <ClInclude Include="..\Particle\ParticleFindAlgo.h" />
     <ClInclude Include="..\Particle\ParticleObject.h" />
     <ClInclude Include="..\Particle\ParticleObjectBuilder.h" />
     <ClInclude Include="..\Particle\Space3d.h" />
     <ClInclude Include="..\Particle\Voxel.h" />
     <ClInclude Include="ParticleBasePair.h" />
-    <ClInclude Include="ParticleFindAlgo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Particle\ParticleBase.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="..\Particle\ParticleObject.cpp" />
     <ClCompile Include="..\Particle\ParticleObjectBuilder.cpp" />
     <ClCompile Include="..\Particle\Voxel.cpp" />
+    <ClCompile Include="ParticleFindAlgo.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}</ProjectGuid>
