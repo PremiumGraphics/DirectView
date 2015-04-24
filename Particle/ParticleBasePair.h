@@ -36,6 +36,12 @@ public:
 		return particle1->getPosition().getDistance(particle2->getPosition());
 	}
 
+	float isNeighbor() const {
+		const float threshold = particle1->getRadius() + particle2->getRadius();
+		return getDistance() < threshold;
+	}
+
+
 private:
 	ParticleBaseSPtr particle1;
 	ParticleBaseSPtr particle2;

@@ -5,12 +5,15 @@
 
 #include "ParticleBasePair.h"
 
+#include <list>
+
 namespace Crystal {
 	namespace Particle {
 
-class CollisionFindAlgo : private UnCopyable {
+class ParticleFindAlgo : private UnCopyable {
 public:
-	bool hasCollision(const ParticleBasePair& pair, const float threshold);
+
+	std::vector<ParticleBasePair> getPairs(const std::list<ParticleBaseSPtr>& particles) const;
 private:
 	
 };

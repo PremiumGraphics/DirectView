@@ -27,10 +27,10 @@
     <ClCompile Include="..\Particle\ParticleBase.cpp" />
     <ClCompile Include="..\Particle\ParticleBaseBuilder.cpp" />
     <ClCompile Include="..\Particle\ParticleBooleanAlgo.cpp" />
+    <ClCompile Include="..\Particle\ParticleFindAlgo.cpp" />
     <ClCompile Include="..\Particle\ParticleObject.cpp" />
     <ClCompile Include="..\Particle\ParticleObjectBuilder.cpp" />
     <ClCompile Include="..\Particle\Voxel.cpp" />
-    <ClCompile Include="ParticleFindAlgo.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}</ProjectGuid>
