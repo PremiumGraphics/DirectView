@@ -3,7 +3,7 @@
 
 #include "../Graphics/Camera.h"
 
-#include "../IO/Model.h"
+#include "../IO/PhysicsModel.h"
 
 #include <memory>
 
@@ -20,7 +20,7 @@ public:
 
 	~Frame();
 
-	IO::Model& getModel() { return model; }
+	IO::PhysicsModel& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -77,7 +77,7 @@ private:
 private:
 
 	View* view;
-	IO::Model model;
+	IO::PhysicsModel model;
 
 	ParticleTree* particleTree;
 

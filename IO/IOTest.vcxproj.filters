@@ -23,5 +23,6 @@
     <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />
+    <ClCompile Include="PhysicsModelTest.cpp" />
   </ItemGroup>
 </Project>

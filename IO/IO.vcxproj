@@ -28,6 +28,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
+    <ClCompile Include="PhysicsModel.cpp" />
     <ClCompile Include="PolygonFactory.cpp" />
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="tinyxml2.cpp" />

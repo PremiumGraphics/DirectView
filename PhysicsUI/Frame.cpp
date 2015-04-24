@@ -492,23 +492,21 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const Sphere s;
 	model.create(s);
 	view->Refresh();
-	/*
-	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
-	polygon->setName("Sphere");
-	w.getPolygonTree()->build();
 	*/
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const Cylinder c;
 	model.create(c);
 	view->Refresh();
+	*/
 }
-
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
@@ -536,30 +534,37 @@ void Frame::OnGraphicsSetting(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateUnion(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().size() != 2) {
 		wxMessageBox("Select Two Objects");
 		return;
 	}
+	*/
 }
 
 void Frame::OnCreateDiff(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().size() != 2) {
 		wxMessageBox("Select Two Objects");
 		return;
 	}
+	*/
 }
 
 void Frame::OnCreateIntersection(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().size() != 2) {
 		wxMessageBox("Select Two Objects");
 		return;
 	}
+	*/
 }
 
 void Frame::OnCalculateVolume(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().empty()) {
 		wxMessageBox("Select One Object");
 		return;
@@ -567,18 +572,22 @@ void Frame::OnCalculateVolume(wxRibbonButtonBarEvent& e)
 	const auto volume = model.getSelectedObjects().front()->getVolume();
 	const auto& str = wxString::Format("%lf", volume);
 	wxMessageBox(str);
+	*/
 }
 
 void Frame::OnCalculateMass(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().empty()) {
 		wxMessageBox("Select One Object");
 		return;
 	}
+	*/
 }
 
 void Frame::OnCheckIntersection(wxRibbonButtonBarEvent& e)
 {
+	/*
 	if (model.getSelectedObjects().empty()) {
 		wxMessageBox("Select One Object");
 		return;
@@ -590,4 +599,5 @@ void Frame::OnCheckIntersection(wxRibbonButtonBarEvent& e)
 	else {
 		wxMessageBox("Intersecions NOT found");
 	}
+	*/
 }

@@ -4,11 +4,14 @@
 #include "../Math/Matrix3d.h"
 #include "../Math/Quaternion.h"
 
+#include "../Physics/PhysicsObject.h"
+
 #include "../Graphics/Polygon.h"
 
 #include "Converter.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 using namespace Crystal::IO;
@@ -20,7 +23,7 @@ END_EVENT_TABLE()
 
 const ColorRGB<float> selectedColor = ColorRGB<float>::Red();
 
-View::View( Frame* parent, const int width, const int height, Model& model  )
+View::View( Frame* parent, const int width, const int height, PhysicsModel& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 pointSize( 10.0f ),
@@ -122,7 +125,8 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 		const unsigned int id = b;
-		const ParticleObjectSPtr& object = model.getObjectById(id);
+		/*
+		const PhysicsObjectSPtr& object = model.getObjectById(id);
 
 		if (object.get() != nullptr) {
 			model.addSelectedObject(object);
@@ -130,6 +134,7 @@ void View::OnMouse( wxMouseEvent& event )
 		if (r == 255 && g == 0 && b == 0) {
 			model.clearSlectedObjects();
 		}
+		*/
 		//frame->selectedFace = frame->get
 		draw(GetSize());
 
@@ -228,12 +233,11 @@ void View::buildDisplayList()
 		}
 	}
 	*/
-	for (const ParticleObjectSPtr& object : model.getParticleObjects() ) {
+	/*
+	for (const PhysicsObjectSPtr& object : model.getObjects() ) {
 		list.add(*object);
 	}
-	for (const ParticleObjectSPtr& object : model.getSelectedObjects()) {
-		selectedList.add(*object, selectedColor);
-	}
+	*/
 	/*
 	for (const Polygon& p : model.getParticleBuilder().) {
 
