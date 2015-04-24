@@ -15,7 +15,6 @@
     <ClCompile Include="CoordinatorTest.cpp" />
     <ClCompile Include="ParticleBuilderTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
-    <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectBuilderTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
   </ItemGroup>
