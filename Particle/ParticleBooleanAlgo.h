@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_PARTCIEL_PARTICLE_BOOLEAN_ALGO_H__
-#define __CRYSTAL_MATH_PARTCIEL__PARTICLE_BOOLEAN_ALGO_H__
+#ifndef __CRYSTAL_PARTCIEL_PARTICLE_BOOLEAN_ALGO_H__
+#define __CRYSTAL_PARTCIEL_PARTICLE_BOOLEAN_ALGO_H__
 
 #include <list>
 
@@ -13,11 +13,13 @@ namespace Crystal {
 
 class ParticleBooleanAlgo : private UnCopyable {
 public:
-	std::list<ParticleBaseSPtr> createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
+	ParticleBaseSPtrList createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
 
-	std::list<ParticleBaseSPtr> createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
+	ParticleBaseSPtrList createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);
 
-	std::list<ParticleBaseSPtr> createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
+	ParticleBaseSPtrList createDiff(const ParticleObject& lhs, const ParticleObject& rhs);
+
+private:
 };
 
 	}

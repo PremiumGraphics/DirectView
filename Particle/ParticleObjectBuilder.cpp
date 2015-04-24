@@ -17,7 +17,7 @@ void ParticleObjectBuilder::clear()
 
 ParticleObjectSPtr ParticleObjectBuilder::build()
 {
-	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
+	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextId++);
 	//objects.push_back(object);
 	return object;
 }
@@ -43,7 +43,7 @@ ParticleObjectSPtr ParticleObjectBuilder::build(const Cylinder& c)
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const std::list<ParticleBaseSPtr>& particles)
 {
-	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
+	ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextId++);
 	for (const ParticleBaseSPtr& p : particles) {
 		object->add(p);
 	}

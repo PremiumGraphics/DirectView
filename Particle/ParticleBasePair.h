@@ -16,6 +16,7 @@ public:
 		particle1( particle1 ),
 		particle2( particle2 )
 	{
+		assert( isValid() );
 	}
 
 	ParticleBaseSPtr getParticle1() const { return particle1; }
@@ -25,7 +26,8 @@ public:
 	bool isValid() const {
 		return
 			(particle1 != nullptr) &&
-			(particle2 != nullptr);
+			(particle2 != nullptr) &&
+			(particle1 != particle2 );
 	}
 
 	Math::Vector3d getDistanceVector() const {
@@ -46,6 +48,8 @@ private:
 	ParticleBaseSPtr particle1;
 	ParticleBaseSPtr particle2;
 };
+
+using ParticleBasePairVector = std::vector < ParticleBasePair > ;
 	}
 }
 

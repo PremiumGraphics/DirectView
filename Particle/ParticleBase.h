@@ -5,11 +5,8 @@
 
 #include "../Math/Vector3d.h"
 
-#include "../Math/Box.h"
-#include "../Math/Sphere.h"
-#include "../Math/Cylinder.h"
-
 #include <memory>
+#include <list>
 
 namespace Crystal {
 	namespace Particle {
@@ -56,6 +53,7 @@ private:
 };
 
 using ParticleBaseSPtr = std::shared_ptr < ParticleBase > ;
+using ParticleBaseSPtrList = std::list < ParticleBaseSPtr > ;
 
 	}
 }

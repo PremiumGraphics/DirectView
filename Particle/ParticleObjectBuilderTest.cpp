@@ -8,6 +8,21 @@
 using namespace Crystal::Math;
 using namespace Crystal::Particle;
 
+TEST(ParticleObjectBuilderTest, TestConstruct)
+{
+	ParticleObjectBuilder builder;
+	EXPECT_EQ(1.0f, builder.getDivideLength());
+	EXPECT_EQ(1.0f, builder.getDensity());
+	EXPECT_EQ(0, builder.getNextId());
+}
+
+TEST(ParticleObjectBuilderTest, TestConstructByDivideLength)
+{
+	ParticleObjectBuilder builder(10.0f);
+	EXPECT_EQ(10.0f, builder.getDivideLength());
+	EXPECT_EQ(1.0f, builder.getDensity());
+	EXPECT_EQ(0, builder.getNextId());
+}
 
 TEST(ParticleObjectBuilderTest, TestBuildBox)
 {

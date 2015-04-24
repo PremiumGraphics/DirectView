@@ -5,15 +5,16 @@
 
 #include "ParticleBase.h"
 
+#include "../Math/Box.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
+
 namespace Crystal {
 	namespace Particle {
 
 class ParticleBaseBuilder : private UnCopyable {
 public:
-	ParticleBaseBuilder() :
-		nextId(0),
-		density(1.0f)
-	{}
+	ParticleBaseBuilder() : ParticleBaseBuilder( 1.0f ) {}
 
 	ParticleBaseBuilder(const float diameter) :
 		divideLength(diameter),
@@ -25,15 +26,11 @@ public:
 
 	float getDensity() const { return density; }
 
-	void setDivideLength(const float l) { this->divideLength = l; }
+	ParticleBaseSPtrList create(const Math::Box& box);
 
-	void setDensity(const float d) { this->density = density; }
+	ParticleBaseSPtrList create(const Math::Sphere& sphere);
 
-	std::list<ParticleBaseSPtr> create(const Math::Box& box);
-
-	std::list<ParticleBaseSPtr> create(const Math::Sphere& sphere);
-
-	std::list<ParticleBaseSPtr> create(const Math::Cylinder& cylinder);
+	ParticleBaseSPtrList create(const Math::Cylinder& cylinder);
 
 private:
 	float divideLength;

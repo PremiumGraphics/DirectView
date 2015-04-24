@@ -16,7 +16,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBaseSPtr> actual = algo.createUnion(*lhs, *rhs);
+	const ParticleBaseSPtrList& actual = algo.createUnion(*lhs, *rhs);
 	EXPECT_EQ(20, actual.size());
 
 }
@@ -31,7 +31,7 @@ TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBaseSPtr> actual = algo.createIntersection(*lhs, *rhs);
+	const ParticleBaseSPtrList& actual = algo.createIntersection(*lhs, *rhs);
 	EXPECT_EQ(9, actual.size());
 }
 
@@ -46,6 +46,6 @@ TEST(ParticleBooleanAlgoTest, TestCreateDiff)
 	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
-	const std::list<ParticleBaseSPtr> actual = algo.createDiff(*lhs, *rhs);
+	const ParticleBaseSPtrList& actual = algo.createDiff(*lhs, *rhs);
 	EXPECT_EQ(1, actual.size());
 }
