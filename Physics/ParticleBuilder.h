@@ -21,13 +21,13 @@ public:
 		divideLength( 1.0f )
 	{}
 
-	ParticleSPtr create(const Crystal::Particle::ParticleBase& origin);
+	PhysicsParticleSPtr create(const Crystal::Particle::ParticleBase& origin);
 
-	ParticleSPtrVector create(const Math::Box& box);
+	PhysicsParticleSPtrVector create(const Math::Box& box);
 
-	ParticleSPtrVector create(const Math::Sphere& sphere);
+	PhysicsParticleSPtrVector create(const Math::Sphere& sphere);
 
-	ParticleSPtrVector create(const Math::Cylinder& cylinder);
+	PhysicsParticleSPtrVector create(const Math::Cylinder& cylinder);
 
 private:
 	unsigned int nextId;

@@ -12,12 +12,12 @@ class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const ParticleSPtrVector& particles ) :
+	PhysicsObject(const PhysicsParticleSPtrVector& particles ) :
 		particles(particles)
 	{}
 
 
-	PhysicsObject( const ParticleSPtrVector& particles, const CoordinatorVector& coordinators ) :
+	PhysicsObject( const PhysicsParticleSPtrVector& particles, const CoordinatorVector& coordinators ) :
 		particles( particles ),
 		coordinators( coordinators )
 	{}
@@ -32,7 +32,7 @@ public:
 		}
 	}
 
-	ParticleSPtrVector getParticles() const { return particles; }
+	PhysicsParticleSPtrVector getParticles() const { return particles; }
 
 	void clear() {
 		for( Coordinator* coordinator : coordinators ) {
@@ -47,7 +47,7 @@ public:
 	std::string getName() const { return name; }
 
 private:
-	ParticleSPtrVector particles;
+	PhysicsParticleSPtrVector particles;
 	CoordinatorVector coordinators;
 	std::string name;
 };

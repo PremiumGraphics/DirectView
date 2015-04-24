@@ -13,7 +13,7 @@ TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder;
 	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	const ParticleSPtrVector& actual = builder.create(b.getInnerOffset(0.5f));
+	const PhysicsParticleSPtrVector& actual = builder.create(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, actual.size());
 }
 
@@ -21,7 +21,7 @@ TEST(ParticleBuilderTest, TestCreateSphere)
 {
 	ParticleBuilder builder;
 	const Sphere s(Vector3d(0.0, 0.0, 0.0), 1.0);
-	const ParticleSPtrVector& particles = builder.create(s);
+	const PhysicsParticleSPtrVector& particles = builder.create(s);
 	EXPECT_EQ(7, particles.size());
 }
 
@@ -29,6 +29,6 @@ TEST(ParticleBuilderTest, TestCreateCylinder)
 {
 	ParticleBuilder builder;
 	const Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 2.0f);
-	const ParticleSPtrVector& particles = builder.create(c);
+	const PhysicsParticleSPtrVector& particles = builder.create(c);
 	EXPECT_FALSE(particles.empty());
 }

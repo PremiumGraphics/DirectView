@@ -11,12 +11,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-ParticlePairVector search1(const ParticleSPtrVector& particles, ParticleSPtrVector::const_iterator startIter, ParticleSPtrVector::const_iterator endIter, const float effectLengthSquared ){
+ParticlePairVector search1(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared){
 	ParticlePairVector pairs;
-	for( ParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
+	for( PhysicsParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
 		const int gridID = (*xIter)->getGridID();
 		const Vector3d& centerX = (*xIter)->getCenter();
-		ParticleSPtrVector::const_iterator yIter = xIter;
+		PhysicsParticleSPtrVector::const_iterator yIter = xIter;
 		++yIter;// ignore itself.
 		while( yIter != particles.end() && ( (*yIter)->getGridID() <= gridID + 1) ) {
 			const Vector3d& centerY = (*yIter)->getCenter();
@@ -30,18 +30,18 @@ ParticlePairVector search1(const ParticleSPtrVector& particles, ParticleSPtrVect
 	return pairs;
 }
 
-ParticlePairVector search2(const ParticleSPtrVector& particles, ParticleSPtrVector::const_iterator startIter, ParticleSPtrVector::const_iterator endIter, const float effectLengthSquared )
+ParticlePairVector search2(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared)
 {
 	ParticlePairVector pairs;
 
-	std::vector<ParticleSPtrVector::const_iterator> yIter(4, startIter);
+	std::vector<PhysicsParticleSPtrVector::const_iterator> yIter(4, startIter);
 	std::vector<int> offsetIds;
 	offsetIds.push_back(1023);
 	offsetIds.push_back(1047551);
 	offsetIds.push_back(1048575);
 	offsetIds.push_back(1049599);
 
-	for( ParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
+	for (PhysicsParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter) {
 		for( size_t i = 0; i < 4; ++i ) {
 			const int baseID = (*xIter)->getGridID() + offsetIds[i];
 			while( yIter[i] != particles.end() && ( (*yIter[i])->getGridID() < baseID ) ) {
@@ -49,7 +49,7 @@ ParticlePairVector search2(const ParticleSPtrVector& particles, ParticleSPtrVect
 			}
 			
 			const Vector3d& centerX = (*xIter)->getCenter();
-			ParticleSPtrVector::const_iterator zIter = yIter[i];
+			PhysicsParticleSPtrVector::const_iterator zIter = yIter[i];
 			while( zIter != particles.end() && ( (*zIter)->getGridID() <= baseID + 2) ) {
 				const Vector3d& centerZ = (*zIter)->getCenter();
 				if( centerX.getDistanceSquared( centerZ ) < effectLengthSquared ) {
@@ -64,13 +64,13 @@ ParticlePairVector search2(const ParticleSPtrVector& particles, ParticleSPtrVect
 	return pairs;
 }
 
-ParticlePairVector NeighborSearcher::createPairs(ParticleSPtrVector particles, const float effectLength)
+ParticlePairVector NeighborSearcher::createPairs(PhysicsParticleSPtrVector particles, const float effectLength)
 {
 	if( particles.empty() ) {
 		return ParticlePairVector();
 	}
 
-	for( const ParticleSPtr& particle : particles ) {
+	for( const PhysicsParticleSPtr& particle : particles ) {
 		particle->setGridID( effectLength );
 	}
 	
@@ -81,7 +81,7 @@ ParticlePairVector NeighborSearcher::createPairs(ParticleSPtrVector particles, c
 
 	std::vector<ParticlePairVector> eachPairs( threads );
 
-	std::vector<ParticleSPtrVector::const_iterator> iters;
+	std::vector<PhysicsParticleSPtrVector::const_iterator> iters;
 	for( int i = 0; i < threads; ++i ) {
 		iters.push_back( particles.begin() + i * particles.size() / threads );
 	}

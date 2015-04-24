@@ -10,14 +10,14 @@ using namespace Crystal::Math;
 using namespace Crystal::Particle;
 using namespace Crystal::Physics;
 
-ParticleSPtr ParticleBuilder::create(const ParticleBase& origin)
+PhysicsParticleSPtr ParticleBuilder::create(const ParticleBase& origin)
 {
 	return std::make_shared<PhysicsParticle>(constant, origin.getPosition());
 }
 
-ParticleSPtrVector ParticleBuilder::create(const Box& box)
+PhysicsParticleSPtrVector ParticleBuilder::create(const Box& box)
 {
-	ParticleSPtrVector particles;
+	PhysicsParticleSPtrVector particles;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
@@ -29,9 +29,9 @@ ParticleSPtrVector ParticleBuilder::create(const Box& box)
 	return particles;
 }
 
-ParticleSPtrVector ParticleBuilder::create(const Sphere& s)
+PhysicsParticleSPtrVector ParticleBuilder::create(const Sphere& s)
 {
-	ParticleSPtrVector particles;
+	PhysicsParticleSPtrVector particles;
 	Math::Box box = s.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
@@ -46,9 +46,9 @@ ParticleSPtrVector ParticleBuilder::create(const Sphere& s)
 	return particles;
 }
 
-ParticleSPtrVector ParticleBuilder::create(const Cylinder& cylinder)
+PhysicsParticleSPtrVector ParticleBuilder::create(const Cylinder& cylinder)
 {
-	ParticleSPtrVector particles;
+	PhysicsParticleSPtrVector particles;
 	Box box = cylinder.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {

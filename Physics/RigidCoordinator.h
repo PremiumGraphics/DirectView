@@ -14,12 +14,12 @@ public:
 
 	~RigidCoordinator(void){};
 
-	void coordinate(const ParticleSPtrVector& particles, const float proceedTime);
+	void coordinate(const PhysicsParticleSPtrVector& particles, const float proceedTime);
 
 private:
 	Math::Vector3d angleVelosity;
 
-	void convertToFluidForce(const ParticleSPtrVector& particles);
+	void convertToFluidForce(const PhysicsParticleSPtrVector& particles);
 
 	void getAngleVelosity( const Math::Vector3d& I, const Math::Vector3d& N, const float proceedTime );
 };

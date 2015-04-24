@@ -109,11 +109,11 @@ private:
 	int gridID;
 };
 
-using ParticleSPtr = std::shared_ptr < PhysicsParticle > ;
+using PhysicsParticleSPtr = std::shared_ptr < PhysicsParticle > ;
 
 //using ParticleSPtrList = std::list < ParticleSPtr > ;
 
-using ParticleSPtrVector = std::vector < ParticleSPtr > ;
+using PhysicsParticleSPtrVector = std::vector < PhysicsParticleSPtr > ;
 
 //typedef std::pair<Particle*, Particle*> ParticlePair;
 
