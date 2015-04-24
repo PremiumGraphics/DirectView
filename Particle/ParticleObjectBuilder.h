@@ -17,17 +17,16 @@ namespace Crystal {
 
 class ParticleObjectBuilder : private UnCopyable {
 public:
-	ParticleObjectBuilder() :
-		divideLength( 1.0f ),
-		density(1.0f),
+	ParticleObjectBuilder() : ParticleObjectBuilder( 1.0f ) {}
+
+	ParticleObjectBuilder(const float divideLength) : ParticleObjectBuilder( divideLength, 1.0f ) {}
+
+	ParticleObjectBuilder(const float divideLength, const float density) :
+		divideLength(divideLength),
+		density(density),
 		nextId(0)
 	{}
 
-	ParticleObjectBuilder(const float divideLength) :
-		divideLength(divideLength),
-		density(1.0f),
-		nextId(0)
-	{}
 
 	~ParticleObjectBuilder() {
 		clear();
@@ -36,8 +35,6 @@ public:
 	void clear();
 
 	ParticleObjectSPtr build();
-
-	//ParticleObject* build(const std::list<ParticleBase*> particles);
 
 	ParticleObjectSPtr build(const Math::Box& box);
 
@@ -58,11 +55,9 @@ public:
 	unsigned int getNextId() const { return nextId; }
 
 private:
-	float divideLength;
-	float density;
-	//std::list<ParticleObject*> objects;
+	const float divideLength;
+	const float density;
 	unsigned int nextId;
-
 };
 
 	}

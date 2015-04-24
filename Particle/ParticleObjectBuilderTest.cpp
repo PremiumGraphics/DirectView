@@ -24,6 +24,15 @@ TEST(ParticleObjectBuilderTest, TestConstructByDivideLength)
 	EXPECT_EQ(0, builder.getNextId());
 }
 
+TEST(ParticleObjectBuilderTest, TestConstructByDivideLengthAndDensity)
+{
+	ParticleObjectBuilder builder(10.0f, 5.0f);
+	EXPECT_EQ(10.0f, builder.getDivideLength());
+	EXPECT_EQ(5.0f, builder.getDensity());
+	EXPECT_EQ(0, builder.getNextId());
+}
+
+
 TEST(ParticleObjectBuilderTest, TestBuildBox)
 {
 	ParticleObjectBuilder builder(1.0f);
