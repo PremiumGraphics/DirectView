@@ -8,11 +8,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Particle;
 
-TEST(ParticleBaseTest, TestGetVolume)
-{
-	ParticleBase particle(1.0f, Vector3d( 0.0f, 0.0f, 0.0f), 0 );
-	EXPECT_FLOAT_EQ( 1.0f, particle.getVolume() );
-}
 
 TEST(ParticleObjectBuilderTest, TestBuildBox)
 {

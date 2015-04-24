@@ -3,7 +3,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Particle;
 
-std::vector<ParticleBasePair> ParticleFindAlgo::getPairs(const std::list<ParticleBaseSPtr>& particles) const
+std::vector<ParticleBasePair> ParticleFindAlgo::findPairs(const std::list<ParticleBaseSPtr>& particles) const
 {
 	std::vector<ParticleBasePair> pairs;
 

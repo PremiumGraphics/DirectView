@@ -8,15 +8,26 @@ using namespace Crystal::Particle;
 TEST(ParticleBasePairTest, TestConstruct)
 {
 	ParticleBasePair pair;
+	EXPECT_EQ( nullptr, pair.getParticle1() );
+	EXPECT_EQ( nullptr, pair.getParticle2() );
 	EXPECT_FALSE(pair.isValid());
 }
 
 TEST(ParticleBasePairTest, TestGetDistance)
 {
-	ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>();
-	particle1->setPosition(Vector3d(0.0, 0.0, 0.0));
-	ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>();
-	particle2->setPosition(Vector3d(1.0, 0.0, 0.0));
-	ParticleBasePair pair(particle1, particle2);
+	const ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>( Vector3d( 0.0, 0.0, 0.0 ) );
+	const ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>( Vector3d( 1.0, 0.0, 0.0 ) );
+	const ParticleBasePair pair(particle1, particle2);
 	EXPECT_FLOAT_EQ( 1.0f, pair.getDistance() );
+}
+
+TEST(ParticleBasePairTest, TestIsNeighbor)
+{
+	const ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>(Vector3d(0.0, 0.0, 0.0));
+	const ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>(Vector3d(1.0, 0.0, 0.0));
+	const ParticleBasePair pair(particle1, particle2);
+	EXPECT_FALSE( pair.isNeighbor() );
+
+	particle1->setPosition(Vector3d(0.5f, 0.0, 0.0));
+	EXPECT_TRUE(pair.isNeighbor());
 }

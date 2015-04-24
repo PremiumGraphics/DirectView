@@ -13,7 +13,7 @@ namespace Crystal {
 class ParticleFindAlgo : private UnCopyable {
 public:
 
-	std::vector<ParticleBasePair> getPairs(const std::list<ParticleBaseSPtr>& particles) const;
+	std::vector<ParticleBasePair> findPairs(const std::list<ParticleBaseSPtr>& particles) const;
 private:
 	
 };

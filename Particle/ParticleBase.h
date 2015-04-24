@@ -16,19 +16,13 @@ namespace Crystal {
 
 class ParticleBase : private UnCopyable {
 public:
-	ParticleBase() :
-		diameter( 1.0f ),
-		position(Math::Vector3d::Zero() ),
-		density( 1.0f ),
-		id( -1 )
-	{}
+	ParticleBase() : ParticleBase(1.0f) {}
 
-	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) :
-		diameter(diameter),
-		position(position),
-		density( 1.0f ),
-		id(id)
-	{}
+	ParticleBase(const float diameter) : ParticleBase(diameter, Math::Vector3d(0.0, 0.0, 0.0), 1.0f, -1) {}
+
+	ParticleBase(const Math::Vector3d& position) : ParticleBase( 1.0f, position, -1) {}
+
+	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) : ParticleBase( diameter, position, 1.0f, id ) {}
 
 	ParticleBase(const float diameter, const Math::Vector3d& position, const float density, const unsigned int id) :
 		diameter(diameter),
