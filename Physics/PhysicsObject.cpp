@@ -12,11 +12,11 @@ float PhysicsObject::getMass() const
 	return weight;
 }
 
-float PhysicsObject::getVolume() const
+float PhysicsObject::getRestVolume() const
 {
 	auto volume = 0.0f;
 	for (const auto& particle : particles) {
-		volume += particle->getVolume();
+		volume += particle->getRestVolume();
 	}
 	return volume;
 }

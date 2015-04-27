@@ -11,8 +11,12 @@
 namespace Crystal {
 	namespace Particle {
 
-class ParticleBooleanAlgo : private UnCopyable {
+class ParticleBooleanAlgo final : private UnCopyable {
 public:
+	ParticleBooleanAlgo() = default;
+
+	~ParticleBooleanAlgo() = default;
+
 	ParticleBaseSPtrList createUnion(const ParticleObject& lhs, const ParticleObject& rhs);
 
 	ParticleBaseSPtrList createIntersection(const ParticleObject& lhs, const ParticleObject& rhs);

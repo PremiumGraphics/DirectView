@@ -29,12 +29,11 @@ TEST(FluidObjectTest, TestGetMass)
 	EXPECT_FLOAT_EQ(1.0f, fluid.getMass());
 }
 
-TEST(FluidObjectTest, TestGetVolume)
+TEST(FluidObjectTest, TestGetRestVolume)
 {
 	const PhysicsParticleSPtrVector particles{
 		std::make_shared<PhysicsParticle>(Vector3d(1.0f, 0.0f, 0.0f))
 	};
-	particles.back()->setDensity(1.0f);
 	const FluidObject fluid(particles);
-	EXPECT_FLOAT_EQ(1.0f, fluid.getVolume());
+	EXPECT_FLOAT_EQ(1.0f, fluid.getRestVolume());
 }

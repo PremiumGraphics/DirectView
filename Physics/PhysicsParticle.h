@@ -68,6 +68,10 @@ public:
 		return getMass() / density;
 	}
 
+	float getRestVolume() const {
+		return getMass() / getRestDensity();
+	}
+
 	void addForce(const Math::Vector3d& force) { this->force += force; }
 
 	void setForce( const Math::Vector3d& force ) { this->force = force; }
@@ -78,7 +82,7 @@ public:
 
 	void addDensity(const float density) { this->density += density; }
 
-	void setDensity(const float density) { this->density = density; }
+	float getRestDensity() const { return constant.getRestDensity(); }
 
 	void init() {
 		density = 0.0;

@@ -15,7 +15,7 @@
 namespace Crystal {
 	namespace Particle {
 
-class ParticleObjectBuilder : private UnCopyable {
+class ParticleObjectBuilder final : private UnCopyable {
 public:
 	ParticleObjectBuilder() : ParticleObjectBuilder( 1.0f ) {}
 

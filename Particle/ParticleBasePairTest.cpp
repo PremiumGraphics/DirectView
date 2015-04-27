@@ -15,24 +15,24 @@ TEST(ParticleBasePairTest, TestConstruct)
 
 TEST(ParticleBasePairTest, TestConstructByTwoParticles)
 {
-	const ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>();
-	const ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>();
+	const auto particle1 = std::make_shared<ParticleBase>();
+	const auto particle2 = std::make_shared<ParticleBase>();
 	const ParticleBasePair pair( particle1, particle2 );
 	EXPECT_TRUE( pair.isValid() );
 }
 
 TEST(ParticleBasePairTest, TestGetDistance)
 {
-	const ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>( Vector3d( 0.0, 0.0, 0.0 ) );
-	const ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>( Vector3d( 1.0, 0.0, 0.0 ) );
+	const auto particle1 = std::make_shared<ParticleBase>( Vector3d( 0.0, 0.0, 0.0 ) );
+	const auto particle2 = std::make_shared<ParticleBase>( Vector3d( 1.0, 0.0, 0.0 ) );
 	const ParticleBasePair pair(particle1, particle2);
 	EXPECT_FLOAT_EQ( 1.0f, pair.getDistance() );
 }
 
 TEST(ParticleBasePairTest, TestIsNeighbor)
 {
-	const ParticleBaseSPtr particle1 = std::make_shared<ParticleBase>(Vector3d(0.0, 0.0, 0.0));
-	const ParticleBaseSPtr particle2 = std::make_shared<ParticleBase>(Vector3d(1.0, 0.0, 0.0));
+	const auto particle1 = std::make_shared<ParticleBase>(Vector3d(0.0, 0.0, 0.0));
+	const auto particle2 = std::make_shared<ParticleBase>(Vector3d(1.0, 0.0, 0.0));
 	const ParticleBasePair pair(particle1, particle2);
 	EXPECT_FALSE( pair.isNeighbor() );
 

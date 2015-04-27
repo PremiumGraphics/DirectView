@@ -10,7 +10,7 @@
 namespace Crystal {
 	namespace Particle {
 
-class ParticleFindAlgo : private UnCopyable {
+class ParticleFindAlgo final : private UnCopyable {
 public:
 
 	std::vector<ParticleBasePair> findPairs(const std::list<ParticleBaseSPtr>& particles) const;

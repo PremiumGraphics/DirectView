@@ -9,7 +9,9 @@ namespace Crystal {
 class ParticleBasePair
 {
 public:
-	ParticleBasePair()
+	ParticleBasePair() :
+		particle1( nullptr ),
+		particle2( nullptr )
 	{}
 
 	ParticleBasePair(const ParticleBaseSPtr& particle1, const ParticleBaseSPtr& particle2) :
@@ -23,26 +25,13 @@ public:
 
 	ParticleBaseSPtr getParticle2() const { return particle2; }
 
-	bool isValid() const {
-		return
-			(particle1 != nullptr) &&
-			(particle2 != nullptr) &&
-			(particle1 != particle2 );
-	}
+	bool isValid() const;
 
-	Math::Vector3d getDistanceVector() const {
-		return Math::Vector3d(particle1->getPosition() - particle2->getPosition());
-	}
+	Math::Vector3d getDistanceVector() const;
 
-	float getDistance() const {
-		return particle1->getPosition().getDistance(particle2->getPosition());
-	}
+	float getDistance() const;
 
-	bool isNeighbor() const {
-		const float threshold = particle1->getRadius() + particle2->getRadius();
-		return getDistance() < threshold;
-	}
-
+	bool isNeighbor() const;
 
 private:
 	ParticleBaseSPtr particle1;

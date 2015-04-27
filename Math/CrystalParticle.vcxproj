@@ -30,6 +30,7 @@
     <ClCompile Include="..\Particle\ParticleObject.cpp" />
     <ClCompile Include="..\Particle\ParticleObjectBuilder.cpp" />
     <ClCompile Include="..\Particle\Voxel.cpp" />
+    <ClCompile Include="ParticleBasePair.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}</ProjectGuid>

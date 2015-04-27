@@ -37,7 +37,7 @@ public:
 
 	float getMass() const;
 
-	float getVolume() const;
+	float getRestVolume() const;
 
 	void clear() {
 		particles.clear();

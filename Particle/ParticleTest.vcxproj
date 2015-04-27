@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CollisionFindAlgoTest.cpp" />
     <ClCompile Include="ParticleBaseBuilderTest.cpp" />
     <ClCompile Include="ParticleBasePairTest.cpp" />
     <ClCompile Include="ParticleBaseTest.cpp" />
     <ClCompile Include="ParticleBooleanAlgoTest.cpp" />
+    <ClCompile Include="ParticleFindAlgoTest.cpp" />
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="Space3dTest.cpp" />
