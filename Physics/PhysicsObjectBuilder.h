@@ -8,7 +8,7 @@
 namespace Crystal {
 	namespace Physics {
 
-class PhysicsObjectBuilder : private UnCopyable
+class PhysicsObjectBuilder final : private UnCopyable
 {
 public:
 	PhysicsObjectBuilder() :
@@ -17,7 +17,9 @@ public:
 		divideLength( 1.0f )
 	{}
 
-	PhysicsObjectSPtr create(const Math::Box& box);
+	~PhysicsObjectBuilder() = default;
+
+	PhysicsObjectSPtr create(const Math::Box& box, const PhysicsObject::Type& type);
 
 private:
 	float divideLength;

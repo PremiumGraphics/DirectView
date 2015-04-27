@@ -10,6 +10,11 @@ namespace Crystal {
 
 class PhysicsObject {
 public:
+	enum class Type {
+		Fluid,
+		Rigid,
+	};
+
 	PhysicsObject() {};
 
 	PhysicsObject(const PhysicsParticleSPtrVector& particles ) :
@@ -22,15 +27,11 @@ public:
 		coordinators( coordinators )
 	{}
 
-	~PhysicsObject() {
+	virtual ~PhysicsObject() {
 		clear();
 	}
 
-	void coordinate() const {
-		for( const auto& coordinator : coordinators ) {
-			coordinator->coordinate( particles );
-		}
-	}
+	void coordinate() const;
 
 	PhysicsParticleSPtrVector getParticles() const { return particles; }
 

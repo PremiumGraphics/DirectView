@@ -11,7 +11,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-ParticlePairVector search1(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared){
+ParticlePairVector PhysicsParticleFindAlgo::search1(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared){
 	ParticlePairVector pairs;
 	for( PhysicsParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
 		const int gridID = (*xIter)->getGridID();
@@ -89,7 +89,7 @@ void PhysicsParticleFindAlgo::createPairs(PhysicsParticleSPtrVector particles, c
 
 	#pragma omp parallel for
 	for( int i = 0; i < threads; ++i ) {
-		eachPairs[i] = ::search1( particles, iters[i], iters[i+1], effectLength * effectLength );
+		eachPairs[i] = search1( particles, iters[i], iters[i+1], effectLength * effectLength );
 	}
 
 	for( size_t i = 0; i < eachPairs.size(); ++i ) {

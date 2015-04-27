@@ -11,6 +11,7 @@
     <ClInclude Include="ParticleBuilder.h" />
     <ClInclude Include="PhysicsParticle.h" />
     <ClInclude Include="PhysicsParticlePair.h" />
+    <ClInclude Include="FluidObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHSolver.cpp" />
@@ -22,5 +23,6 @@
     <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="PhysicsParticle.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="FluidObject.cpp" />
   </ItemGroup>
 </Project>

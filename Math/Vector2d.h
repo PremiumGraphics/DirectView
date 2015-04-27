@@ -12,7 +12,7 @@ namespace Crystal{
 //class Matrix3d;
 
 template< typename T >
-class Vector2d
+class Vector2d final
 {
 public:
 	

@@ -11,3 +11,10 @@ float PhysicsObject::getMass() const
 	}
 	return weight;
 }
+
+void PhysicsObject::coordinate() const
+{
+	for (const auto& coordinator : coordinators) {
+		coordinator->coordinate(particles);
+	}
+}

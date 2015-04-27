@@ -9,7 +9,7 @@ using namespace Crystal::IO;
 
 PhysicsObjectSPtr PhysicsModel::create(const Box& box)
 {
-	const PhysicsObjectSPtr& object = builder.create(box);
+	const PhysicsObjectSPtr& object = builder.create(box, PhysicsObject::Type::Fluid);
 	objects.push_back(object);
 	return object;
 }

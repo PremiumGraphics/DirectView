@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="BoundaryCoordinatorTest.cpp" />
     <ClCompile Include="CoordinatorTest.cpp" />
+    <ClCompile Include="FluidObjectTest.cpp" />
     <ClCompile Include="NeighborSearchAlgoTest.cpp" />
     <ClCompile Include="ParticleBuilderTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />

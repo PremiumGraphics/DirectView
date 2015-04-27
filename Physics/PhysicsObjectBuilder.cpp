@@ -7,7 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-PhysicsObjectSPtr PhysicsObjectBuilder::create(const Box& box)
+PhysicsObjectSPtr PhysicsObjectBuilder::create(const Box& box, const PhysicsObject::Type& type)
 {
 	PhysicsParticle::Constant constant;
 	PhysicsParticleSPtrVector particles;

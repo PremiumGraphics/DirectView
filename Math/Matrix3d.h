@@ -10,7 +10,7 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Matrix3d 
+class Matrix3d final
 {
 public:
 	Matrix3d(void) :
@@ -30,8 +30,7 @@ public:
 	{
 	}
 
-	~Matrix3d()
-	{};
+	~Matrix3d() = default;
 
 	void setIdentity() { *this = Identity();  }
 

@@ -11,7 +11,7 @@ namespace Crystal{
 
 class Box;
 
-class Vector3d
+class Vector3d final
 {
 public:
 	
@@ -20,6 +20,8 @@ public:
 	Vector3d(float x, float y, float z);
 
 	Vector3d(const Vector3d& start, const Vector3d& end);
+
+	~Vector3d() = default;
 
 	static Vector3d Zero() { return Vector3d( 0.0f, 0.0f, 0.0f ); }
 

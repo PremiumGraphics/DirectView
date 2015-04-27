@@ -24,6 +24,7 @@ public:
 private:
 	ParticlePairVector pairs;
 
+	ParticlePairVector search1(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared);
 };
 
 	}

@@ -31,7 +31,7 @@ Vector3d getAverageVelosity(const PhysicsParticleSPtrVector& particles)
 
 float RigidCoordinator::getWeight(const PhysicsParticleSPtrVector& particles)
 {
-	auto weight = 0.0;
+	auto weight = 0.0f;
 	for( const PhysicsParticleSPtr& particle : particles ) {
 		weight += particle->getMass();
 	}
