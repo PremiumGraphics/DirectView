@@ -17,6 +17,7 @@
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="PhysicsObjectBuilderTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
+    <ClCompile Include="PhysicsParticleTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>

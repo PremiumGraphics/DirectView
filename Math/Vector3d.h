@@ -29,35 +29,17 @@ public:
 
 	static Vector3d UnitZ() { return Vector3d( 0.0f, 0.0f, 1.0f ); }
 
-	float getLengthSquared() const {
-		return x * x + y * y + z * z;
-	}
+	float getLengthSquared() const;
 
-	float getLength() const {
-		return ::sqrt( getLengthSquared() );
-	}
-	
-	float getDistance( const Vector3d& rhs ) const {
-		return ::sqrt( getDistanceSquared( rhs ) );
-	}
+	float getLength() const;
 
-	float getDistanceSquared( const Vector3d& rhs ) const {
-		return pow( x - rhs.x, 2 ) + pow( y - rhs.y, 2 ) + pow( z - rhs.z, 2 );
-	}
+	float getDistance(const Vector3d& rhs) const;
 
-	Vector3d scale( const float factor ) {
-		x *= factor;
-		y *= factor;
-		z *= factor;
-		return *this;
-	}
+	float getDistanceSquared(const Vector3d& rhs) const;
 
-	Vector3d scale( const float xFactor, const float yFactor, const float zFactor ) {
-		x *= xFactor;
-		y *= yFactor;
-		z *= zFactor;
-		return *this;
-	}
+	Vector3d scale(const float factor);
+
+	Vector3d scale(const float xFactor, const float yFactor, const float zFactor);
 
 	Vector3d getScaled( const float factor ) const;
 
@@ -148,14 +130,7 @@ public:
 
 	std::vector< float > toArray() const { return std::vector < float > { x, y, z }; }
 
-	static std::vector< float > toArray(const std::vector<Vector3d>& vectors) {
-		std::vector< float > values;
-		for (const Math::Vector3d& v : vectors) {
-			const std::vector<float>& vs = v.toArray();
-			values.insert(values.end(), vs.begin(), vs.end());
-		}
-		return values;
-	}
+	static std::vector< float > toArray(const std::vector<Vector3d>& vectors);
 
 private:
 	float x;

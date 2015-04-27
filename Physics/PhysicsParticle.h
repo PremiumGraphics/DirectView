@@ -23,27 +23,38 @@ public:
 	{
 		float pressureCoe;
 		float viscosityCoe;
-		float restDensity;
+
+		float getDiameter() const { return diameter; }
+
+		float getRestDensity() const { return restDensity; }
+
+		Constant() :
+			pressureCoe( 1.0f ),
+			viscosityCoe( 0.0 ),
+			restDensity( 1.0f ),
+			diameter( 1.0f )
+		{}
+
+	private:
 		float diameter;
+		float restDensity;
 	};
 	
-	PhysicsParticle::PhysicsParticle(const Constant& constant, const Math::Vector3d& center) :
+	PhysicsParticle()
+	{
+	}
+
+	PhysicsParticle(const Constant& constant, const Math::Vector3d& center) :
 	constant( constant ),
 	center( center )
 	{
 	}
 
-	float getDensityRatio() const {
-		return density / constant.restDensity;
-	}
+	float getDensityRatio() const;
 
-	float getPressure() const {
-		return constant.pressureCoe * ( std::pow( getDensityRatio(), 1 ) - 1.0f );
-	}
+	float getPressure() const;
 
-	float getMass() const {
-		return constant.restDensity * std::pow( constant.diameter, 3 );
-	}
+	float getMass() const;
 
 	float getVolume() const {
 		return getMass() / density;

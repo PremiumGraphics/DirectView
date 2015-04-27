@@ -20,5 +20,6 @@
     <ClCompile Include="PhysicsObjectBuilder.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="Coordinator.cpp" />
+    <ClCompile Include="PhysicsParticle.cpp" />
   </ItemGroup>
 </Project>
