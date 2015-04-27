@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundaryCoordinator.cpp" />
+    <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="NeighborSearcher.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="PhysicsObjectBuilder.cpp" />

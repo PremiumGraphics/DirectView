@@ -113,7 +113,7 @@ private:
 
 using PhysicsParticleSPtr = std::shared_ptr < PhysicsParticle > ;
 
-//using ParticleSPtrList = std::list < ParticleSPtr > ;
+using PhysicsParticleSPtrList = std::list < PhysicsParticleSPtr > ;
 
 using PhysicsParticleSPtrVector = std::vector < PhysicsParticleSPtr > ;
 

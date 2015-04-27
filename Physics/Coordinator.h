@@ -7,10 +7,12 @@
 
 #include "../Math/Vector3d.h"
 
+#include "../Util/UnCopyable.h"
+
 namespace Crystal{
 	namespace Physics{
 
-class Coordinator
+class Coordinator : private UnCopyable
 {
 public:
 	Coordinator(){};
@@ -25,20 +27,22 @@ protected:
 
 typedef std::vector<Coordinator*> CoordinatorVector;
 
-class StaticIntegrator : public Coordinator
+class StaticIntegrator final : public Coordinator
 {
 public:
-	void coordinate( const PhysicsParticleSPtrVector& particles){}
+	virtual void coordinate( const PhysicsParticleSPtrVector& particles) override
+	{}
 };
 
-class EulerIntegrator : public Coordinator
+class EulerIntegrator final : public Coordinator
 {
 public:
 	EulerIntegrator(const float timeStep) :
 		timeStep( timeStep )
 	{
 	}
-	void coordinate( const PhysicsParticleSPtrVector& particles ) {
+	
+	virtual void coordinate( const PhysicsParticleSPtrVector& particles ) override {
 		for( const PhysicsParticleSPtr& particle : particles ) {
 			Math::Vector3d accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
 			particle->addVelocity( accelaration * timeStep );
@@ -51,7 +55,7 @@ private:
 };
 
 
-class ExternalForceCoordinator : public Coordinator
+class ExternalForceCoordinator final : public Coordinator
 {
 public:
 	ExternalForceCoordinator(const Math::Vector3d& force, const float timeStep) :
@@ -59,11 +63,7 @@ public:
 		timeStep( timeStep )
 	{}
 
-	void coordinate( const std::list<PhysicsParticleSPtr>& particles ) {
-		for( const PhysicsParticleSPtr& particle : particles ) {
-			particle->addForce( force * particle->getDensity() );
-		}
-	}
+	virtual void coordinate(const PhysicsParticleSPtrVector& particles) override;
 
 	Math::Vector3d getForce() const { return force; }
 

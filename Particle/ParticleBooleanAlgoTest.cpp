@@ -10,10 +10,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateUnion)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset(0.5f));
+	const auto& lhs = builder.build(b1.getInnerOffset(0.5f));
 
 	const Box b2(Vector3d(10.0f, 0.0f, 0.0f), Vector3d(20.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
+	const auto& rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const ParticleBaseSPtrList& actual = algo.createUnion(*lhs, *rhs);
@@ -25,10 +25,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateIntersection)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset(0.5f));
+	const auto& lhs = builder.build(b1.getInnerOffset(0.5f));
 
 	const Box b2(Vector3d(1.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
+	const auto& rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const ParticleBaseSPtrList& actual = algo.createIntersection(*lhs, *rhs);
@@ -40,10 +40,10 @@ TEST(ParticleBooleanAlgoTest, TestCreateDiff)
 {
 	ParticleObjectBuilder builder(1.0f);
 	const Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr lhs = builder.build(b1.getInnerOffset(0.5f));
+	const auto& lhs = builder.build(b1.getInnerOffset(0.5f));
 
 	const Box b2(Vector3d(1.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
-	ParticleObjectSPtr rhs = builder.build(b2.getInnerOffset(0.5f));
+	const auto& rhs = builder.build(b2.getInnerOffset(0.5f));
 
 	ParticleBooleanAlgo algo;
 	const ParticleBaseSPtrList& actual = algo.createDiff(*lhs, *rhs);
