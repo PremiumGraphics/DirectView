@@ -9,27 +9,29 @@
 
 #include "../Util/UnCopyable.h"
 
+#include <memory>
+
 namespace Crystal{
 	namespace Physics{
 
 class Coordinator : private UnCopyable
 {
 public:
-	Coordinator(){};
+	Coordinator()
+	{};
 
 	virtual ~Coordinator(){}
 
 	virtual void coordinate( const PhysicsParticleSPtrVector& particles ) = 0;
-
-protected:
-	float timeStep;
 };
 
-typedef std::vector<Coordinator*> CoordinatorVector;
+using CoordinatorSPtr = std::shared_ptr < Coordinator > ;
+using CoordinatorSPtrVector = std::vector<CoordinatorSPtr>;
 
 class StaticIntegrator final : public Coordinator
 {
 public:
+
 	virtual void coordinate( const PhysicsParticleSPtrVector& particles) override
 	{}
 };
@@ -42,16 +44,12 @@ public:
 	{
 	}
 	
-	virtual void coordinate( const PhysicsParticleSPtrVector& particles ) override {
-		for( const PhysicsParticleSPtr& particle : particles ) {
-			Math::Vector3d accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
-			particle->addVelocity( accelaration * timeStep );
-			particle->addCenter( particle->getVelocity() * timeStep );
-		}
-	}
+	virtual void coordinate(const PhysicsParticleSPtrVector& particles) override;
+
+	float getTimeStep() const { return timeStep; }
 
 private:
-	float timeStep;
+	const float timeStep;
 };
 
 
@@ -69,9 +67,11 @@ public:
 
 	void addForce( const Math::Vector3d& force ) { this->force += force; }
 
+	float getTimeStep() const { return timeStep; }
+
 private:
 	Math::Vector3d force;
-	float timeStep;
+	const float timeStep;
 };
 
 	}

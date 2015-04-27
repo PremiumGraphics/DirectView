@@ -17,7 +17,7 @@ public:
 	{}
 
 
-	PhysicsObject( const PhysicsParticleSPtrVector& particles, const CoordinatorVector& coordinators ) :
+	PhysicsObject( const PhysicsParticleSPtrVector& particles, const CoordinatorSPtrVector& coordinators ) :
 		particles( particles ),
 		coordinators( coordinators )
 	{}
@@ -27,7 +27,7 @@ public:
 	}
 
 	void coordinate() const {
-		for( Coordinator* coordinator : coordinators ) {
+		for( const auto& coordinator : coordinators ) {
 			coordinator->coordinate( particles );
 		}
 	}
@@ -35,9 +35,6 @@ public:
 	PhysicsParticleSPtrVector getParticles() const { return particles; }
 
 	void clear() {
-		for( Coordinator* coordinator : coordinators ) {
-			delete coordinator;
-		}
 		particles.clear();
 		coordinators.clear();
 	}
@@ -48,12 +45,12 @@ public:
 
 private:
 	PhysicsParticleSPtrVector particles;
-	CoordinatorVector coordinators;
+	CoordinatorSPtrVector coordinators;
 	std::string name;
 };
 
 using PhysicsObjectSPtr = std::shared_ptr < PhysicsObject > ;
-
+using PhysicsObjectSPtrVector = std::vector < PhysicsObjectSPtr > ;
 
 
 /*
@@ -82,7 +79,7 @@ void PhysicsObjectCollection::coordinate() const
 	}
 }
 */
-typedef std::vector< PhysicsObject* > PhysicsObjectVector;
+//typedef std::vector< PhysicsObject* > PhysicsObjectVector;
 
 
 	}

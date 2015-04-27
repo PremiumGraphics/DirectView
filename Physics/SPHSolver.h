@@ -10,10 +10,10 @@ namespace Crystal{
 class SPHSolver
 {
 public:
-	void solve(const PhysicsObjectVector& objects, const float effectLength );
+	void solve(const PhysicsObjectSPtrVector& objects, const float effectLength );
 
 private:
-	PhysicsParticleSPtrVector getParticles( const PhysicsObjectVector& objects );
+	PhysicsParticleSPtrVector getParticles( const PhysicsObjectSPtrVector& objects );
 
 	float getPoly6Kernel( const float distance, const float effectLength );
 
