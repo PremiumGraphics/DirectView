@@ -18,6 +18,25 @@ DisplayList::DisplayList(Polygon* polygon)
 	add(polygon);
 }
 
+DisplayList::DisplayList(const Vector3dVector& poss)
+{
+	vertices = Math::Vector3d::toArray(poss);
+}
+
+DisplayList::DisplayList(const Vector3dVector& poss, const Vector3dVector& norms)
+{
+	vertices = Math::Vector3d::toArray(poss);
+	normals = Math::Vector3d::toArray(norms);
+}
+
+DisplayList::DisplayList(const Vector3dVector& poss, const Vector3dVector& norms, const Vector3dVector& texs)
+{
+	vertices = Math::Vector3d::toArray(poss);
+	normals = Math::Vector3d::toArray(norms);
+	texCoords = Math::Vector3d::toArray(texs);
+}
+
+
 void DisplayList::clear()
 {
 	vertices.clear();
@@ -41,13 +60,13 @@ void DisplayList::add(Vertex* v)
 
 void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 {
-	const std::vector<float>& vs = toArray( getPositions( *f ));
+	const std::vector<float>& vs = Vector3d::toArray( getPositions( *f ));
 	vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
-	const std::vector<float>& ns = toArray( getNormals( *f ) );
+	const std::vector<float>& ns = Vector3d::toArray( getNormals( *f ) );
 	normals.insert(normals.end(), ns.begin(), ns.end());
 
-	const std::vector<float>& ts = toArray(f->getTexCoords());
+	const std::vector<float>& ts = Vector3d::toArray(f->getTexCoords());
 	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
 	std::vector<unsigned int> vids;

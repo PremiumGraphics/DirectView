@@ -141,9 +141,10 @@ private:
 	T alpha;
 };
 
-typedef std::vector< ColorRGBA< float > > ColorVector;
+template< typename T >
+using ColorVector = std::vector< ColorRGBA< T > >;
 
-static std::vector<float> toArray4( const ColorVector& colors ) {
+static std::vector<float> toArray4( const ColorVector<float>& colors ) {
 	std::vector< float > result;
 	for( size_t i = 0; i < colors.size(); ++i ) {
 		const std::vector<float>& color = colors[i].toArray4();

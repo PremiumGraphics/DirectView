@@ -159,7 +159,7 @@ void View::setRenderingBlocks()
 			continue;
 		}
 		const Vector3dVector& vertices = object->getVertices();
-		this->positions = toArray( vertices );
+		this->positions = Vector3d::toArray(vertices);
 		vertexValues.resize( vertices.size(), 0.5  );
 		cellValues.resize( object->getCells().size(), 0.5 );
 		
@@ -188,7 +188,7 @@ void View::setRenderingBlocks()
 					min = std::min<float>( min, v.getLength() );
 					max = std::max<float>( max, v.getLength() );
 				}
-				this->vectors = toArray( vectors );
+				this->vectors = Vector3d::toArray( vectors );
 			}
 		}
 
@@ -207,7 +207,7 @@ void View::setRenderingBlocks()
 				isCell = true;
 			}
 			else {
-				cellCenters = toArray( centers );
+				cellCenters = Vector3d::toArray(centers);
 				ColorRGBAMap<float>* map = object->getColorMap( attr->getLookupTableName() );
 				texColors = map->getColors();
 				const Vector3dVector& vectors = attr->toVector3ds();
@@ -217,7 +217,7 @@ void View::setRenderingBlocks()
 					min = std::min<float>( min, v.getLength() );
 					max = std::max<float>( max, v.getLength() );
 				}			
-				this->vectors = toArray( vectors );
+				this->vectors = Vector3d::toArray(vectors);
 			}
 		}
 	}

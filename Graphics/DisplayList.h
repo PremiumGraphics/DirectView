@@ -27,20 +27,11 @@ public:
 
 	DisplayList(Polygon* polygon);
 
-	DisplayList(const Math::Vector3dVector& poss) {
-		vertices = Math::toArray(poss);
-	}
+	DisplayList(const Math::Vector3dVector& poss);
 
-	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms) {
-		vertices = Math::toArray(poss);
-		normals = Math::toArray(norms);
-	}
+	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms);
 
-	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms, const Math::Vector3dVector& texs) {
-		vertices = Math::toArray(poss);
-		normals = Math::toArray(norms);
-		texCoords = Math::toArray(texs);
-	}
+	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms, const Math::Vector3dVector& texs);
 
 	void clear();
 

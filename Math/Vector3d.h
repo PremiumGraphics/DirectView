@@ -148,6 +148,15 @@ public:
 
 	std::vector< float > toArray() const { return std::vector < float > { x, y, z }; }
 
+	static std::vector< float > toArray(const std::vector<Vector3d>& vectors) {
+		std::vector< float > values;
+		for (const Math::Vector3d& v : vectors) {
+			const std::vector<float>& vs = v.toArray();
+			values.insert(values.end(), vs.begin(), vs.end());
+		}
+		return values;
+	}
+
 private:
 	float x;
 	float y;
@@ -159,15 +168,6 @@ using Vector3dVector = std::vector < Vector3d > ;
 static Vector3d operator*( float factor, const Vector3d& rhs ) { return rhs.getScaled( factor ); }
 
 static Vector3d operator/( float factor, const Vector3d& rhs ) { return rhs.getScaled( 1.0f / factor ); }
-
-static std::vector< float > toArray( const std::vector<Vector3d>& vectors) {
-	std::vector< float > values;
-	for( const Math::Vector3d& v : vectors ) {
-		const std::vector<float>& vs = v.toArray();
-		values.insert( values.end(), vs.begin(), vs.end() );
-	}
-	return values;
-}
 
 
 	}

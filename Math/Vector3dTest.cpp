@@ -81,7 +81,7 @@ TEST( Vector3dTest, TestToArray )
 		Vector3d(1.0f, 2.0f, 3.0f),
 		Vector3d(4.0f, 5.0f, 6.0f)
 	};
-	const auto& actual = toArray( vectors );
+	const auto& actual = Vector3d::toArray( vectors );
 	const std::vector<float> expected{ 1.0f, 2.0, 3.0f, 4.0, 5.0f, 6.0f };
 
 	EXPECT_EQ( expected, actual );
