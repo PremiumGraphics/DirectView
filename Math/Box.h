@@ -32,11 +32,11 @@ public:
 
 	void add(const Box& b);
 	
-	float Box::getVolume() const;
+	float getVolume() const;
 	
-	Vector3d Box::getMax() const;
+	Vector3d getMax() const;
 	
-	Vector3d Box::getMin() const;
+	Vector3d getMin() const;
 
 	bool isInterior(const Vector3d &point) const;
 	

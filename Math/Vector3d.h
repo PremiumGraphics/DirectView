@@ -15,19 +15,11 @@ class Vector3d
 {
 public:
 	
-	Vector3d( void ) :
-		x( 0.0 ), y( 0.0 ), z( 0.0 )
-	{}
+	Vector3d(void);
 
-	Vector3d( float x, float y, float z ) :
-		x( x), y( y), z( z)
-	{}
+	Vector3d(float x, float y, float z);
 
-	Vector3d( const Vector3d& start, const Vector3d& end ) :
-		x( end.x - start.x ),
-		y( end.y - start.y ),
-		z( end.z - start.z )
-	{}
+	Vector3d(const Vector3d& start, const Vector3d& end);
 
 	static Vector3d Zero() { return Vector3d( 0.0f, 0.0f, 0.0f ); }
 
@@ -162,7 +154,7 @@ private:
 	float z;
 };
 
-typedef std::vector< Vector3d > Vector3dVector;
+using Vector3dVector = std::vector < Vector3d > ;
 
 static Vector3d operator*( float factor, const Vector3d& rhs ) { return rhs.getScaled( factor ); }
 

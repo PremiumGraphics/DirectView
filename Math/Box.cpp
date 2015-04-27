@@ -9,11 +9,9 @@
 
 using namespace Crystal::Math;
 
-Box::Box() :
-	maxX( 1.0), minX( 0.0),
-	maxY( 1.0), minY( 0.0),
-	maxZ( 1.0), minZ( 0.0)
-{}
+Box::Box() : Box( Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f) )
+{
+}
 
 Box::Box(const Vector3d& pointX, const Vector3d& pointY) :
 	maxX( (pointX.getX() > pointY.getX() ) ? pointX.getX() : pointY.getX() ),

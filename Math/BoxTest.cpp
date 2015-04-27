@@ -7,7 +7,15 @@ using namespace Crystal::Math;
 TEST( BoxTest, TestConstruct )
 {
 	Box b;
-	EXPECT_EQ( b.getVolume(), 1.0f );
+	EXPECT_EQ( Vector3d(0.0f, 0.0f, 0.0f), b.getMin() );
+	EXPECT_EQ( Vector3d(1.0f, 1.0f, 1.0f), b.getMax() );
+}
+
+TEST(BoxTest, TestConstrutByVectors)
+{
+	Box b(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(4.0f, 5.0f, 6.0f));
+	EXPECT_EQ(Vector3d(1.0f, 2.0f, 3.0f), b.getMin());
+	EXPECT_EQ(Vector3d(4.0f, 5.0f, 6.0f), b.getMax());
 }
 
 TEST( BoxTest, TestGetVolume )
@@ -24,7 +32,7 @@ TEST( BoxTest, TestGetLength )
 
 }
 
-TEST( BoxTest, TestOffset )
+TEST( BoxTest, TestOuterOffset )
 {
 	Box b;
 	b.outerOffset( 1.0f );
