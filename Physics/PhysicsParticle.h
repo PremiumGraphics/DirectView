@@ -44,6 +44,10 @@ public:
 	{
 	}
 
+	PhysicsParticle( const Math::Vector3d& center ) :
+		center( center )
+	{}
+
 	PhysicsParticle(const Constant& constant, const Math::Vector3d& center) :
 	constant( constant ),
 	center( center )
