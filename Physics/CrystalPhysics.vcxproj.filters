@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="SPHSolver.h" />
-    <ClInclude Include="NeighborSearcher.h" />
     <ClInclude Include="Coordinator.h" />
     <ClInclude Include="BoundaryCoordinator.h" />
     <ClInclude Include="RigidCoordinator.h" />
@@ -12,10 +11,10 @@
     <ClInclude Include="PhysicsParticle.h" />
     <ClInclude Include="PhysicsParticlePair.h" />
     <ClInclude Include="FluidObject.h" />
+    <ClInclude Include="PhysicsParticleFindAlgo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHSolver.cpp" />
-    <ClCompile Include="NeighborSearcher.cpp" />
     <ClCompile Include="BoundaryCoordinator.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="PhysicsObjectBuilder.cpp" />
@@ -24,5 +23,6 @@
     <ClCompile Include="PhysicsParticle.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="FluidObject.cpp" />
+    <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
   </ItemGroup>
 </Project>

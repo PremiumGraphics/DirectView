@@ -11,6 +11,11 @@ public:
 	FluidObject()
 	{}
 
+	FluidObject(const PhysicsParticleSPtrVector& particles) :
+		PhysicsObject(particles) 
+	{}
+
+
 	virtual ~FluidObject() = default;
 
 };

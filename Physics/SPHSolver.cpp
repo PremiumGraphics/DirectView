@@ -1,6 +1,6 @@
 #include "SPHSolver.h"
 
-#include "NeighborSearcher.h"
+#include "PhysicsParticleFindAlgo.h"
 
 #include "Coordinator.h"
 

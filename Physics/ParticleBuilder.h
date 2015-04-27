@@ -3,6 +3,8 @@
 
 #include "PhysicsParticle.h"
 
+#include "../Util/UnCopyable.h"
+
 namespace Crystal {
 	namespace Math {
 		class Box;
@@ -14,12 +16,18 @@ namespace Crystal {
 	}
 	namespace Physics {
 
-class ParticleBuilder {
+class ParticleBuilder final : private UnCopyable {
 public:
 	ParticleBuilder() :
 		nextId(0),
 		divideLength( 1.0f )
 	{}
+
+	~ParticleBuilder() = default;
+
+	unsigned int getNextId() const { return nextId; }
+
+	float getDivideLength() const { return divideLength; }
 
 	PhysicsParticleSPtr create(const Crystal::Particle::ParticleBase& origin);
 
@@ -28,6 +36,8 @@ public:
 	PhysicsParticleSPtrVector create(const Math::Sphere& sphere);
 
 	PhysicsParticleSPtrVector create(const Math::Cylinder& cylinder);
+
+	PhysicsParticleSPtrVector create(const Math::Vector3dVector& positions);
 
 private:
 	unsigned int nextId;

@@ -37,6 +37,8 @@ public:
 
 	float getMass() const;
 
+	float getVolume() const;
+
 	void clear() {
 		particles.clear();
 		coordinators.clear();

@@ -5,11 +5,20 @@ using namespace Crystal::Physics;
 
 float PhysicsObject::getMass() const
 {
-	auto weight = 0.0;
-	for (const PhysicsParticleSPtr& particle : particles) {
+	auto weight = 0.0f;
+	for (const auto& particle : particles) {
 		weight += particle->getMass();
 	}
 	return weight;
+}
+
+float PhysicsObject::getVolume() const
+{
+	auto volume = 0.0f;
+	for (const auto& particle : particles) {
+		volume += particle->getVolume();
+	}
+	return volume;
 }
 
 void PhysicsObject::coordinate() const

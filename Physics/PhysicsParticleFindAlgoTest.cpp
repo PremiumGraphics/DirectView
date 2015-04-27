@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "NeighborSearcher.h"
+#include "PhysicsParticleFindAlgo.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

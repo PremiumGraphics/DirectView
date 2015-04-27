@@ -15,7 +15,7 @@ namespace Crystal{
 	namespace Physics{
 		class Coordinator;
 		
-class PhysicsParticle : private UnCopyable
+class PhysicsParticle final : private UnCopyable
 {
 public:
 	
@@ -24,9 +24,13 @@ public:
 		float pressureCoe;
 		float viscosityCoe;
 
+		void setDiameter(const float d) { this->diameter = d; }
+
 		float getDiameter() const { return diameter; }
 
 		float getRestDensity() const { return restDensity; }
+
+		float getVolume() const { return std::pow(diameter, 3); }
 
 		Constant() :
 			pressureCoe( 1.0f ),
@@ -73,6 +77,8 @@ public:
 	float getDensity() const { return density; }
 
 	void addDensity(const float density) { this->density += density; }
+
+	void setDensity(const float density) { this->density = density; }
 
 	void init() {
 		density = 0.0;

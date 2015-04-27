@@ -7,8 +7,7 @@ using namespace Crystal::Physics;
  
 TEST( BoundaryCoordinatorTest, Test )
 {
-	PhysicsParticle::Constant constant;
-	const PhysicsParticleSPtr particle = std::make_shared<PhysicsParticle>( constant, Vector3d( 0.0, 0.0, 0.0 ) );
+	const PhysicsParticleSPtr particle = std::make_shared<PhysicsParticle>( Vector3d( 0.0, 0.0, 0.0 ) );
 	const PhysicsParticleSPtrVector particles{ particle };
 
 	BoundaryCoordinator coordinator( Box::Unit(), 1.0f);

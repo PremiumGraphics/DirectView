@@ -14,11 +14,11 @@
     <ClCompile Include="BoundaryCoordinatorTest.cpp" />
     <ClCompile Include="CoordinatorTest.cpp" />
     <ClCompile Include="FluidObjectTest.cpp" />
-    <ClCompile Include="NeighborSearchAlgoTest.cpp" />
     <ClCompile Include="ParticleBuilderTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="PhysicsObjectBuilderTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
+    <ClCompile Include="PhysicsParticleFindAlgoTest.cpp" />
     <ClCompile Include="PhysicsParticleTest.cpp" />
     <ClCompile Include="RigidCoordinatorTest.cpp" />
   </ItemGroup>

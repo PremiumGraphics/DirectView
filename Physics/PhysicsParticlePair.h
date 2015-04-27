@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Physics {
 
-class PhysicsParticlePair
+class PhysicsParticlePair final
 {
 public:
 	PhysicsParticlePair() :

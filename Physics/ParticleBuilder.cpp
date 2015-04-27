@@ -48,18 +48,26 @@ PhysicsParticleSPtrVector ParticleBuilder::create(const Sphere& s)
 
 PhysicsParticleSPtrVector ParticleBuilder::create(const Cylinder& cylinder)
 {
-	PhysicsParticleSPtrVector particles;
-	Box box = cylinder.getBoundingBox();
+	const Box& box = cylinder.getBoundingBox();
+	Vector3dVector positions;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d v(x, y, z);
 				if (cylinder.isInner(v)) {
-					particles.push_back(std::make_shared<PhysicsParticle>(constant, Vector3d(x, y, z)));
+					positions.push_back(v);
 				}
 			}
 		}
 	}
-	return particles;
+	return create( positions );
+}
 
+PhysicsParticleSPtrVector ParticleBuilder::create(const Vector3dVector& positions)
+{
+	PhysicsParticleSPtrVector particles;
+	for (const Vector3d& p : positions) {
+		particles.push_back(std::make_shared<PhysicsParticle>(constant, p) );
+	}
+	return particles;
 }

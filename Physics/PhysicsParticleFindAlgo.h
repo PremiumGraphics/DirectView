@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_PHYSICS_NEIGHBOR_SEARCHER_H__
-#define __CRYSTAL_PHYSICS_NEIGHBOR_SEARCHER_H__
+#ifndef __CRYSTAL_PHYSICS_PARTICLE_FIND_ALGO_H__
+#define __CRYSTAL_PHYSICS_PARTICLE_FIND_ALGO_H__
 
 #include "PhysicsParticle.h"
 #include "PhysicsParticlePair.h"
@@ -25,6 +25,8 @@ private:
 	ParticlePairVector pairs;
 
 	ParticlePairVector search1(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared);
+
+	ParticlePairVector search2(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared);
 };
 
 	}

@@ -1,4 +1,4 @@
-#include "NeighborSearcher.h"
+#include "PhysicsParticleFindAlgo.h"
 
 #include "../Math/Vector3d.h"
 
@@ -30,7 +30,7 @@ ParticlePairVector PhysicsParticleFindAlgo::search1(const PhysicsParticleSPtrVec
 	return pairs;
 }
 
-ParticlePairVector search2(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared)
+ParticlePairVector PhysicsParticleFindAlgo::search2(const PhysicsParticleSPtrVector& particles, PhysicsParticleSPtrVector::const_iterator startIter, PhysicsParticleSPtrVector::const_iterator endIter, const float effectLengthSquared)
 {
 	ParticlePairVector pairs;
 

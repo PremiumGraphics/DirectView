@@ -9,6 +9,13 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+TEST(ParticleBuilderTest, TestConstruct)
+{
+	ParticleBuilder builder;
+	EXPECT_EQ(0, builder.getNextId());
+	EXPECT_EQ(1.0f, builder.getDivideLength());
+}
+
 TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder;
