@@ -153,6 +153,7 @@
     <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="NeighborSearcher.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsObjectBuilder.cpp" />
     <ClCompile Include="PhysicsParticle.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />

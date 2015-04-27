@@ -25,7 +25,9 @@ void SPHSolver::solve(const PhysicsObjectSPtrVector& objects, const float effect
 		particle->init();
 	}
 
-	const ParticlePairVector& pairs = NeighborSearcher::createPairs( particles, effectLength );
+	PhysicsParticleFindAlgo algo;
+	algo.createPairs(particles, effectLength);
+	const ParticlePairVector& pairs = algo.getPairs();
 		
 	#pragma omp parallel for
 	for( int i = 0; i < static_cast<int>( pairs.size() ); ++i ) {

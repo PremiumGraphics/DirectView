@@ -64,10 +64,10 @@ ParticlePairVector search2(const PhysicsParticleSPtrVector& particles, PhysicsPa
 	return pairs;
 }
 
-ParticlePairVector NeighborSearcher::createPairs(PhysicsParticleSPtrVector particles, const float effectLength)
+void PhysicsParticleFindAlgo::createPairs(PhysicsParticleSPtrVector particles, const float effectLength)
 {
 	if( particles.empty() ) {
-		return ParticlePairVector();
+		return;
 	}
 
 	for( const PhysicsParticleSPtr& particle : particles ) {
@@ -92,7 +92,6 @@ ParticlePairVector NeighborSearcher::createPairs(PhysicsParticleSPtrVector parti
 		eachPairs[i] = ::search1( particles, iters[i], iters[i+1], effectLength * effectLength );
 	}
 
-	ParticlePairVector pairs;
 	for( size_t i = 0; i < eachPairs.size(); ++i ) {
 		pairs.insert( pairs.end(), eachPairs[i].begin(), eachPairs[i].end() );
 	}
@@ -105,6 +104,4 @@ ParticlePairVector NeighborSearcher::createPairs(PhysicsParticleSPtrVector parti
 	for( size_t i = 0; i < eachPairs.size(); ++i ) {
 		pairs.insert( pairs.end(), eachPairs[i].begin(), eachPairs[i].end() );
 	}
-
-	return pairs;
 }

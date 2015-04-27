@@ -29,9 +29,9 @@ Vector3d getAverageVelosity(const PhysicsParticleSPtrVector& particles)
 	return averageVelosity / static_cast<float>(particles.size());
 }
 
-float getWeight(const PhysicsParticleSPtrVector& particles)
+float RigidCoordinator::getWeight(const PhysicsParticleSPtrVector& particles)
 {
-	float weight = 0.0;
+	auto weight = 0.0;
 	for( const PhysicsParticleSPtr& particle : particles ) {
 		weight += particle->getMass();
 	}
@@ -40,7 +40,7 @@ float getWeight(const PhysicsParticleSPtrVector& particles)
 
 #include <iostream>
 
-void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles, const float proceedTime)
+void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 {
 	const Math::Vector3d& objectCenter = getCenter( particles );
 	const Math::Vector3d& velocityAverage = getAverageVelosity( particles );

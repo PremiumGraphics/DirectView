@@ -14,14 +14,19 @@ public:
 
 	~RigidCoordinator(void){};
 
-	void coordinate(const PhysicsParticleSPtrVector& particles, const float proceedTime);
+	virtual void coordinate(const PhysicsParticleSPtrVector& particles) override;
+
+	void setTimeStep(const float timeStep) { this->proceedTime = timeStep; }
 
 private:
 	Math::Vector3d angleVelosity;
+	float proceedTime;
 
 	void convertToFluidForce(const PhysicsParticleSPtrVector& particles);
 
 	void getAngleVelosity( const Math::Vector3d& I, const Math::Vector3d& N, const float proceedTime );
+
+	float getWeight(const PhysicsParticleSPtrVector& particles);
 };
 
 	}

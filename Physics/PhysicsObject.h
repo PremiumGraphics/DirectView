@@ -34,19 +34,16 @@ public:
 
 	PhysicsParticleSPtrVector getParticles() const { return particles; }
 
+	float getMass() const;
+
 	void clear() {
 		particles.clear();
 		coordinators.clear();
 	}
 
-	void setName( const std::string& name ) { this->name = name; }
-
-	std::string getName() const { return name; }
-
 private:
 	PhysicsParticleSPtrVector particles;
 	CoordinatorSPtrVector coordinators;
-	std::string name;
 };
 
 using PhysicsObjectSPtr = std::shared_ptr < PhysicsObject > ;

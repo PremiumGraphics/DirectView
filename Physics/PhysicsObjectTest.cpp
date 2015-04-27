@@ -12,3 +12,9 @@ TEST( PhysicsObjectTest, Test )
 	//Particle::Constant constant;
 	//Particle particle( constant, Vector3d( 0.0, 0.0, 0.0 ) );
 }
+
+TEST(PhysicsObjectTest, TestGetMass)
+{
+	PhysicsObject object;
+	EXPECT_EQ(0.0f, object.getMass());
+}
