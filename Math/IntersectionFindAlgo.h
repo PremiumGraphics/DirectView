@@ -49,7 +49,6 @@ public:
 private:
 	float x;
 	float z;
-
 };
 
 class IntersectionFindAlgo

@@ -52,10 +52,22 @@ bool IntersectionFindAlgo::hasIntersections(const ScanLineX& sline, const std::v
 {
 
 }
+*/
 
+bool sortAlgo(const Vector3d& lhs, const Vector3d& rhs)
+{
+	return lhs.getX() < rhs.getX();
+}
 
 std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const
 {
+	Vector3dVector intersections;
+	for (const auto& b : boxes) {
+		const auto& is = sline.getIntersections(b);
+		intersections.insert( intersections.end(), is.begin(), is.end());
+	}
+	std::sort(intersections.begin(), intersections.end(), sortAlgo);
+	intersections.erase(std::unique(intersections.begin(), intersections.end()), intersections.end());
 
+	return intersections;
 }
-*/
