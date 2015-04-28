@@ -1,10 +1,13 @@
 #ifndef __CRYSTAL_PARTICLE_PARTICLE_TOPOLOGY_H__
 #define __CRYSTAL_PARTICLE_PARTICLE_TOPOLOGY_H__
 
-#include "ParticleBase.h"
+#include <memory>
 
+/*
 namespace Crystal {
 	namespace Particle {
+		class ParticleBase;
+		using ParticleBaseSPtr = std::shared_ptr < ParticleBase > ;
 
 class ParticleTopology
 {
@@ -56,8 +59,7 @@ private:
 	ParticleBaseSPtr wplus;
 	ParticleBaseSPtr wminus;
 };
-
 	}
 }
-
+*/
 #endif

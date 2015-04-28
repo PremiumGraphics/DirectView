@@ -42,3 +42,14 @@ TEST(ParticleBaseBuilderTest, TestCreateCylinder)
 	const ParticleBaseSPtrList& particles = builder.create(c);
 	EXPECT_FALSE( particles.empty() );
 }
+
+TEST(ParticleTopologyBuilderTest, TestBuild)
+{
+	ParticleTopologyBuilder builder;
+	const auto p1 = std::make_shared<ParticleBase>();
+	const auto p2 = std::make_shared<ParticleBase>();
+	builder.build1d( std::initializer_list<ParticleBaseSPtr>{p1,p2} );
+	//builder.getTopologies()
+	EXPECT_EQ(p2, p1->getUplus());
+	EXPECT_EQ(p1, p2->getUminus());
+}

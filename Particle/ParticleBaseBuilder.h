@@ -4,6 +4,7 @@
 #include <list>
 
 #include "ParticleBase.h"
+#include "ParticleTopology.h"
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
@@ -36,6 +37,14 @@ private:
 	float divideLength;
 	float density;
 	unsigned int nextId;
+};
+
+class ParticleTopologyBuilder : private UnCopyable {
+public:
+	ParticleTopologyBuilder(){}
+
+	void build1d(const ParticleBaseSPtrList& particles);
+
 };
 
 	}
