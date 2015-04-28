@@ -9,6 +9,9 @@
 #include <list>
 
 namespace Crystal {
+	namespace Math {
+		class Box;
+	}
 	namespace Particle {
 
 class ParticleBase : private UnCopyable {
@@ -21,13 +24,9 @@ public:
 
 	ParticleBase(const float diameter, const Math::Vector3d& position, const unsigned int id) : ParticleBase( diameter, position, 1.0f, id ) {}
 
-	ParticleBase(const float diameter, const Math::Vector3d& position, const float density, const unsigned int id) :
-		diameter(diameter),
-		position(position),
-		density(density),
-		id(id)
-	{}
+	ParticleBase(const float diameter, const Math::Vector3d& position, const float density, const unsigned int id);
 
+	virtual ~ParticleBase() = default;
 
 	float getRadius() const { return diameter * 0.5f; }
 
@@ -44,6 +43,8 @@ public:
 	float getMass() const { return getDensity() * getVolume(); }
 
 	unsigned int getId() const { return id; }
+
+	Math::Box toBox() const;
 
 private:
 	float diameter;

@@ -2,6 +2,8 @@
 
 #include "ParticleBase.h"
 
+#include "../Math/Box.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Particle;
 
@@ -44,4 +46,12 @@ TEST(ParticleBaseTest, TestGetVolume)
 {
 	ParticleBase particle(10.0f);
 	EXPECT_FLOAT_EQ(1000.0f, particle.getVolume());
+}
+
+TEST(ParticleBaseTest, TestToBox)
+{
+	ParticleBase p(2.0f);
+	const auto box = p.toBox();
+	EXPECT_EQ( Vector3d(-1.0f, -1.0f, -1.0f), box.getMin() );
+	EXPECT_EQ( Vector3d(1.0f, 1.0f, 1.0f), box.getMax() );
 }

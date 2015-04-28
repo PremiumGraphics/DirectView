@@ -17,5 +17,6 @@
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="BazierCurveTest.cpp" />
+    <ClCompile Include="IntersectionFindAlgoTest.cpp" />
   </ItemGroup>
 </Project>

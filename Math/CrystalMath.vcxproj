@@ -85,6 +85,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="ScanLineX.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tolerances.h" />
     <ClInclude Include="Triangle.h" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="ScanLineX.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />
   </ItemGroup>
