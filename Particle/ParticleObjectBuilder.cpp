@@ -25,20 +25,23 @@ ParticleObjectSPtr ParticleObjectBuilder::build()
 ParticleObjectSPtr ParticleObjectBuilder::build(const Box& box)
 {
 	ParticleBaseBuilder pBuilder(divideLength);
-	return build( pBuilder.create(box) );
+	pBuilder.create(box);
+	return build( pBuilder.getParticles() );
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Sphere& s)
 {
 	ParticleBaseBuilder pBuilder(divideLength);
-	return build( pBuilder.create(s) );
+	pBuilder.create(s);
+	return build( pBuilder.getParticles() );
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const Cylinder& c)
 {
 	//ParticleObjectSPtr object = std::make_shared<ParticleObject>(nextObjectId++);
 	ParticleBaseBuilder pBuilder(divideLength);
-	return build( pBuilder.create(c));
+	pBuilder.create(c);
+	return build( pBuilder.getParticles());
 }
 
 ParticleObjectSPtr ParticleObjectBuilder::build(const std::list<ParticleBaseSPtr>& particles)

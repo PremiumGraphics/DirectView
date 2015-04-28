@@ -4,7 +4,6 @@
 #include <list>
 
 #include "ParticleBase.h"
-#include "ParticleTopology.h"
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
@@ -27,24 +26,20 @@ public:
 
 	float getDensity() const { return density; }
 
-	ParticleBaseSPtrList create(const Math::Box& box);
+	void create(const Math::Box& box);
 
-	ParticleBaseSPtrList create(const Math::Sphere& sphere);
+	void create(const Math::Sphere& sphere);
 
-	ParticleBaseSPtrList create(const Math::Cylinder& cylinder);
+	void create(const Math::Cylinder& cylinder);
+
+	ParticleBaseSPtrList getParticles() const { return particles; }
 
 private:
 	float divideLength;
 	float density;
 	unsigned int nextId;
-};
-
-class ParticleTopologyBuilder : private UnCopyable {
-public:
-	ParticleTopologyBuilder(){}
-
-	void build1d(const ParticleBaseSPtrList& particles);
-
+	ParticleBaseSPtrList particles;
+	std::vector< ParticleBaseSPtr > slicez;
 };
 
 	}

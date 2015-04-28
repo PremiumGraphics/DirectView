@@ -7,13 +7,19 @@
 
 #include <list>
 
+#include <map>
+
 namespace Crystal {
 	namespace Particle {
+
+using ParticleBaseMap = std::multimap < ParticleBaseSPtr, ParticleBaseSPtr > ;
 
 class ParticleFindAlgo final : private UnCopyable {
 public:
 
 	std::vector<ParticleBasePair> findPairs(const std::list<ParticleBaseSPtr>& particles) const;
+
+	ParticleBaseMap buildMap(const std::list<ParticleBaseSPtr>& particles) const;
 private:
 	
 };

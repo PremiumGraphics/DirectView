@@ -13,11 +13,6 @@ namespace Crystal {
 		class Box;
 	}
 	namespace Particle {
-		class ParticleBase;
-
-		using ParticleBaseSPtr = std::shared_ptr < ParticleBase >;
-		using ParticleBaseSPtrList = std::list < ParticleBaseSPtr >;
-
 
 class ParticleBase : private UnCopyable {
 public:
@@ -52,46 +47,15 @@ public:
 	Math::Box toBox() const;
 
 
-	void setUplus(const ParticleBaseSPtr& p){ this->uplus = p; }
-
-	void setUMinus(const ParticleBaseSPtr& p){ this->uminus = p; }
-
-	ParticleBaseSPtr getUplus() const { return uplus; }
-
-	ParticleBaseSPtr getUminus() const { return uminus; }
-
-	void setVplus(const ParticleBaseSPtr& p){ this->vplus = p; }
-
-	void setVMinus(const ParticleBaseSPtr& p){ this->vminus = p; }
-
-	ParticleBaseSPtr getVplus() const { return vplus; }
-
-	ParticleBaseSPtr getVminus() const { return vminus; }
-
-	void setWplus(const ParticleBaseSPtr& p){ this->wplus = p; }
-
-	void setWMinus(const ParticleBaseSPtr& p){ this->wminus = p; }
-
-	ParticleBaseSPtr getWplus() const { return wplus; }
-
-	ParticleBaseSPtr getWminus() const { return wminus; }
-
-
 private:
 	float diameter;
 	float density;
 	Math::Vector3d position;
 	unsigned int id;
-
-	ParticleBaseSPtr uplus;
-	ParticleBaseSPtr uminus;
-	ParticleBaseSPtr vplus;
-	ParticleBaseSPtr vminus;
-	ParticleBaseSPtr wplus;
-	ParticleBaseSPtr wminus;
-
 };
 
+using ParticleBaseSPtr = std::shared_ptr < ParticleBase >;
+using ParticleBaseSPtrList = std::list < ParticleBaseSPtr >;
 
 	}
 }

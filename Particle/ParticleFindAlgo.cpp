@@ -23,3 +23,18 @@ std::vector<ParticleBasePair> ParticleFindAlgo::findPairs(const std::list<Partic
 
 	return pairs;
 }
+
+
+ParticleBaseMap ParticleFindAlgo::buildMap(const std::list<ParticleBaseSPtr>& particles) const
+{
+	ParticleBaseMap map;
+	const auto& pairs = findPairs(particles);
+
+	for (const auto& pair : pairs) {
+		const auto& p1 = pair.getParticle1();
+		const auto& p2 = pair.getParticle2();
+		map.insert(std::make_pair(p1, p2));
+	}
+	return map;
+
+}
