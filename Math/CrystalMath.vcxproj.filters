@@ -46,7 +46,7 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
-    <ClCompile Include="IntersectionFindAlgp.cpp" />
+    <ClCompile Include="IntersectionFindAlgo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

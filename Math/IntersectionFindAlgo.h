@@ -55,9 +55,9 @@ private:
 class IntersectionFindAlgo
 {
 public:
-	bool hasIntersections(const ScanLineX& sline, const Box& box) const;
+	bool hasIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const;
 
-	std::vector<Vector3d> getIntersections(const ScanLineX& sline, const Box& box) const;
+	std::vector<Vector3d> getIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const;
 
 };
 	}

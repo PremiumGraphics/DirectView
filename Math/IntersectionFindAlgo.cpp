@@ -46,3 +46,16 @@ std::vector<Vector3d> ScanLineY::getIntersections(const Box& box) const
 	return intersections;
 
 }
+
+/*
+bool IntersectionFindAlgo::hasIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const
+{
+
+}
+
+
+std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const
+{
+
+}
+*/

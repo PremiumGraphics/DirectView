@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
-    <ClCompile Include="IntersectionFindAlgp.cpp" />
+    <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />
