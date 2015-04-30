@@ -54,11 +54,6 @@ bool IntersectionFindAlgo::hasIntersections(const ScanLineX& sline, const std::v
 }
 */
 
-bool sortAlgo(const Vector3d& lhs, const Vector3d& rhs)
-{
-	return lhs.getX() < rhs.getX();
-}
-
 std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const
 {
 	Vector3dVector intersections;
@@ -66,7 +61,11 @@ std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sl
 		const auto& is = sline.getIntersections(b);
 		intersections.insert( intersections.end(), is.begin(), is.end());
 	}
-	std::sort(intersections.begin(), intersections.end(), sortAlgo);
+	std::sort
+		(
+		intersections.begin(), intersections.end(), 
+		[](const Vector3d& lhs, const Vector3d& rhs) { return lhs.getX() < rhs.getX(); }
+		);
 
 	Vector3dVector::iterator iter = intersections.begin();
 	
@@ -75,18 +74,14 @@ std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sl
 		if (iter == intersections.end()) {
 			break;
 		}
-		Vector3d found = *iter;
-		iter = intersections.erase(
-			std::remove( intersections.begin(), intersections.end(), found ),
+
+		auto found = *iter;
+		iter = intersections.erase
+			(
+			std::remove(intersections.begin(), intersections.end(), found),
 			intersections.end()
 			);
 	}
 
-	/*
-	while (iter != intersections.end() ) {
-		iter = intersections.erase(iter);
-		iter = std::adjacent_find(intersections.begin(), intersections.end());
-	}
-	*/
 	return intersections;
 }
