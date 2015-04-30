@@ -97,3 +97,21 @@ TEST(InterSectionFindAlgoTest, TestGetIntersections)
 	EXPECT_EQ(Vector3d(-0.5, 0.0, 0.0), actual[0]);
 	EXPECT_EQ(Vector3d(1.5, 0.0, 0.0), actual[1]);
 }
+
+
+TEST(InterSectionFindAlgoTest, TestGetIntersectionsByTwoBoxes)
+{
+	ScanLineX sline(0.0, 0.0);
+	std::vector<Box> boxes{
+		Box(Vector3d(-0.5, -0.5, -0.5), Vector3d(0.5, 0.5, 0.5)),
+		Box(Vector3d(0.5, -0.5, -0.5), Vector3d(1.5, 0.5, 0.5)),
+		Box(Vector3d(1.5, -0.5, -0.5), Vector3d(2.5, 0.5, 0.5))
+	};
+
+	IntersectionFindAlgo algo;
+	const auto& actual = algo.getIntersections(sline, boxes);
+	EXPECT_EQ(2, actual.size());
+	EXPECT_EQ(Vector3d(-0.5, 0.0, 0.0), actual[0]);
+	EXPECT_EQ(Vector3d(2.5, 0.0, 0.0), actual[1]);
+
+}
