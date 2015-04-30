@@ -67,7 +67,19 @@ std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sl
 		intersections.insert( intersections.end(), is.begin(), is.end());
 	}
 	std::sort(intersections.begin(), intersections.end(), sortAlgo);
-	intersections.erase(std::unique(intersections.begin(), intersections.end()), intersections.end());
 
+	//Vector3dVector::iterator iter = intersections.begin();
+	
+	Vector3dVector::iterator begin = std::adjacent_find(intersections.begin(), intersections.end());
+	Vector3dVector::iterator end = std::adjacent_find(begin+1, intersections.end()) -1;
+
+	intersections.erase(begin, end);
+
+	/*
+	while (iter != intersections.end() ) {
+		iter = intersections.erase(iter);
+		iter = std::adjacent_find(intersections.begin(), intersections.end());
+	}
+	*/
 	return intersections;
 }

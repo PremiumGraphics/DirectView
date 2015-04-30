@@ -33,5 +33,4 @@ TEST(ParticleFindAlgoTest, TestFindMap)
 	EXPECT_TRUE(iter != map.end());
 	EXPECT_EQ(p2, iter->first);
 	EXPECT_EQ(p1, iter->second );
-
 }

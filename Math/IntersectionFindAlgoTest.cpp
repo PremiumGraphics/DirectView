@@ -93,8 +93,7 @@ TEST(InterSectionFindAlgoTest, TestGetIntersections)
 
 	IntersectionFindAlgo algo;
 	const auto& actual = algo.getIntersections(sline, boxes);
-	EXPECT_EQ(3, actual.size());
+	EXPECT_EQ(2, actual.size());
 	EXPECT_EQ(Vector3d(-0.5, 0.0, 0.0), actual[0]);
-	EXPECT_EQ(Vector3d(0.5, 0.0, 0.0), actual[1]);
-	EXPECT_EQ(Vector3d(1.5, 0.0, 0.0), actual[2]);
+	EXPECT_EQ(Vector3d(1.5, 0.0, 0.0), actual[1]);
 }
