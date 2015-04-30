@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BazierCurveTest.cpp" />
+    <ClCompile Include="Bitmap1dTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />

@@ -36,6 +36,7 @@
     <ClInclude Include="BazierCurve.h" />
     <ClInclude Include="CSG.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
+    <ClInclude Include="Bitmap1d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

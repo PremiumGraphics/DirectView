@@ -59,6 +59,21 @@ public:
 	std::vector<Vector3d> getIntersections(const ScanLineX& sline, const std::vector<Box>& boxes) const;
 
 };
+
+class BoxBooleanAlgo
+{
+public:
+	std::vector<Box> createUnion(const ScanLineX& sline, const std::vector<Box>& boxes) const;
+};
+
+/*
+class Slice
+{
+	
+private:
+	std::vector< std::vector< float > > slice;
+};
+*/
 	}
 }
 

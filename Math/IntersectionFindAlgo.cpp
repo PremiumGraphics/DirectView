@@ -85,3 +85,14 @@ std::vector<Vector3d> IntersectionFindAlgo::getIntersections(const ScanLineX& sl
 
 	return intersections;
 }
+
+/*
+std::vector<Box> BoxBooleanAlgo::createUnion(const ScanLineX& sline, const std::vector<Box>& boxes) const
+{
+	IntersectionFindAlgo algo;
+	const auto& intersections = algo.getIntersections(sline, boxes);
+	for (const auto& i : intersections) {
+		;
+	}
+}
+*/
