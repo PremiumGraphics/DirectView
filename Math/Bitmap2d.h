@@ -17,11 +17,23 @@ public:
 		bmp1ds(dim)
 	{}
 
+	void set() {
+		for (auto& b : bmp1ds) {
+			b.set();
+		}
+	}
+
 	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
 
 	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
 
-	size_t size() const { return bmp1ds.size(); }
+	size_t size() const {
+		auto s = 0;
+		for (const auto& b : bmp1ds) {
+			s += b.size();
+		}
+		return s;
+	}
 
 	size_t count() const {
 		auto howMany = 0;
@@ -29,6 +41,10 @@ public:
 			howMany += b.count();
 		}
 		return howMany;
+	}
+
+	bool all() const {
+		return count() == size();
 	}
 
 	bool none() const {
@@ -50,43 +66,6 @@ public:
 
 private:
 	std::vector< Bitmap1d<N> > bmp1ds;
-};
-
-template<size_t N>
-class Bitmap3d
-{
-public:
-	Bitmap3d()
-	{}
-
-	Bitmap3d(const size_t dim, const size_t size2d) :
-		bmp2ds(dim, size2d)
-	{}
-
-	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(x,y); }
-
-	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[z].reset(x,y); }
-
-	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
-
-	Bitmap2d<N> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
-
-	size_t size() const { return bmp2ds.size(); }
-
-	/*
-	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
-
-	void reest(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
-
-	std::vector< Bitmap1d<N> > get1ds() const { return bmp1ds; }
-
-	Bitmap1d<N> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
-
-	void add1d(const Bitmap1d& bmp) { bmp1ds.push_back(bmp); }
-	*/
-
-private:
-	std::vector< Bitmap2d<N> > bmp2ds;
 };
 
 	}

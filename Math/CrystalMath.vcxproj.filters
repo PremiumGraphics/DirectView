@@ -38,6 +38,7 @@
     <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Bitmap1d.h" />
     <ClInclude Include="Bitmap2d.h" />
+    <ClInclude Include="Bitmap3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

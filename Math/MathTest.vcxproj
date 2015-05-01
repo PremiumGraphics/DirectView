@@ -14,6 +14,7 @@
     <ClCompile Include="BazierCurveTest.cpp" />
     <ClCompile Include="Bitmap1dTest.cpp" />
     <ClCompile Include="Bitmap2dTest.cpp" />
+    <ClCompile Include="Bitmap3dTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
