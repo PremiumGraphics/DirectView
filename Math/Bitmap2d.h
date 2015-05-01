@@ -23,6 +23,25 @@ public:
 
 	size_t size() const { return bmp1ds.size(); }
 
+	size_t count() const {
+		auto howMany = 0;
+		for (const auto& b : bmp1ds) {
+			howMany += b.count();
+		}
+		return howMany;
+	}
+
+	bool none() const {
+		for (const auto& b : bmp1ds) {
+			if (!b.none() ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//bool all() const { return count() == size(); }
+
 	std::vector< Bitmap1d<N> > get1ds() const { return bmp1ds; }
 
 	Bitmap1d<N> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
