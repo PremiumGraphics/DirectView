@@ -17,16 +17,16 @@ TEST(Bitmap2dTest, TestSize)
 	EXPECT_EQ( Bitmap2d<2>(2).size(), 4);
 }
 
-TEST(Bitmap2dTest, TestSize1d)
+TEST(Bitmap2dTest, TestSizeX)
 {
-	EXPECT_EQ(Bitmap2d<1>(2).size1d(), 1);
-	EXPECT_EQ(Bitmap2d<2>(4).size1d(), 2);
+	EXPECT_EQ(Bitmap2d<1>(2).sizex(), 1);
+	EXPECT_EQ(Bitmap2d<2>(4).sizex(), 2);
 }
 
-TEST(Bitmap2dTest, TestSize2d)
+TEST(Bitmap2dTest, TestSizeY)
 {
-	EXPECT_EQ(Bitmap2d<1>(2).size2d(), 2);
-	EXPECT_EQ(Bitmap2d<2>(4).size2d(), 4);
+	EXPECT_EQ(Bitmap2d<1>(2).sizey(), 2);
+	EXPECT_EQ(Bitmap2d<2>(4).sizey(), 4);
 }
 
 TEST(Bitmap2dTest, TestSet)

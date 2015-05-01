@@ -17,11 +17,15 @@ public:
 		bmp2ds(size2d, dim)
 	{}
 
-	size_t size2d() const {
-		return bmp2ds.front().size2d();
+	size_t sizex() const {
+		return bmp2ds.front().sizex();
 	}
 
-	size_t size3d() const {
+	size_t sizey() const {
+		return bmp2ds.front().sizey();
+	}
+
+	size_t sizez() const {
 		return bmp2ds.size();
 	}
 

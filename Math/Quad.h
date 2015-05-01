@@ -1,41 +1,47 @@
 #ifndef __CRYSTAL_MATH_QUAD_H__
 #define __CRYSTAL_MATH_QUAD_H__
 
-#include "Triangle.h"
-
-#include "Vector3d.h"
+#include "Vector2d.h"
 
 #include <vector>
 
 namespace Crystal {
 	namespace Math {
 
-class Quad {
+class Quad final {
 public:
-	Quad() :
-		lengthX( 1.0f ),
-		lengthY( 1.0f )
+	Quad() : Quad( 1.0f, 1.0f )
 	{};
 
-	Quad( const float lengthX, const float lengthY ) :
-		lengthX( lengthX ), lengthY( lengthY )
-	{
-	}
+	Quad(const Vector2d<float>& v1, const Vector2d<float>& v2) :
+		Quad(v2.getX() - v1.getX(), v2.getY() - v1.getX(), (v1 * 0.5) + (v2 * 0.5) )
+	{};
 
-	void setCenter( const Vector3d& center ) { this->center = center; }
+	Quad(const float lengthX, const float lengthY) : Quad(lengthX, lengthY, Vector2d<float>(0.0f, 0.0f))
+	{}
+
+	Quad(const float lengthX, const float lengthY, const Vector2d<float>& center) :
+		lengthX(lengthX),
+		lengthY(lengthY),
+		center( center )
+	{}
+
+	void setCenter( const Vector2d<float>& center ) { this->center = center; }
 
 	void setLengthX( const float& length ) { this->lengthX = length; }
 
 	void setLengthY( const float& length ) { this->lengthY = length; }
 
-	Vector3d getCenter() const { return center; }
+	Vector2d<float> getCenter() const { return center; }
 
 	float getLengthX() const { return lengthX; }
 
 	float getLengthY() const { return lengthY; }
 
+	float getArea() const { return lengthX * lengthY; }
+
 private:
-	Vector3d center;
+	Vector2d<float> center;
 
 	float lengthX;
 	float lengthY;

@@ -33,11 +33,11 @@ public:
 
 	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
 
-	size_t size1d() const {
+	size_t sizex() const {
 		return bmp1ds.front().size();
 	}
 
-	size_t size2d() const {
+	size_t sizey() const {
 		return bmp1ds.size();
 	}
 

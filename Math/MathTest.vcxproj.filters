@@ -21,5 +21,6 @@
     <ClCompile Include="Bitmap1dTest.cpp" />
     <ClCompile Include="Bitmap2dTest.cpp" />
     <ClCompile Include="Bitmap3dTest.cpp" />
+    <ClCompile Include="BitmapConverterTest.cpp" />
   </ItemGroup>
 </Project>

@@ -14,14 +14,19 @@ TEST(Bitmap3dTest, TestSize)
 	EXPECT_EQ(Bitmap3d<2>(2, 2).size(), 8);
 }
 
-TEST(Bitmap3dTest, TestSize2d)
+TEST(Bitmap3dTest, TestSizeX)
 {
-	EXPECT_EQ(Bitmap3d<1>(2, 4).size2d(), 2);
+	EXPECT_EQ(Bitmap3d<1>(2, 4).sizex(), 1);
 }
 
-TEST(Bitmap3dTest, TestSize3d)
+TEST(Bitmap3dTest, TestSizeY)
 {
-	EXPECT_EQ(Bitmap3d<1>(2, 4).size3d(), 4);
+	EXPECT_EQ(Bitmap3d<1>(2, 4).sizey(), 2);
+}
+
+TEST(Bitmap3dTest, TestSizeZ)
+{
+	EXPECT_EQ(Bitmap3d<1>(2, 4).sizez(), 4);
 }
 
 TEST(Bitmap3dTest, TestSet)
