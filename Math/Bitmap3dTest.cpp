@@ -14,6 +14,16 @@ TEST(Bitmap3dTest, TestSize)
 	EXPECT_EQ(Bitmap3d<2>(2, 2).size(), 8);
 }
 
+TEST(Bitmap3dTest, TestSize2d)
+{
+	EXPECT_EQ(Bitmap3d<1>(2, 4).size2d(), 2);
+}
+
+TEST(Bitmap3dTest, TestSize3d)
+{
+	EXPECT_EQ(Bitmap3d<1>(2, 4).size3d(), 4);
+}
+
 TEST(Bitmap3dTest, TestSet)
 {
 	Bitmap3d<1> bitmap(1, 1);

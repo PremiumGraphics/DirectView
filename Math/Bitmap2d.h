@@ -23,9 +23,23 @@ public:
 		}
 	}
 
+	void reset() {
+		for (auto& b : bmp1ds) {
+			b.reset();
+		}
+	}
+
 	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
 
 	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
+
+	size_t size1d() const {
+		return bmp1ds.front().size();
+	}
+
+	size_t size2d() const {
+		return bmp1ds.size();
+	}
 
 	size_t size() const {
 		auto s = 0;

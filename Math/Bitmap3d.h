@@ -14,8 +14,16 @@ public:
 	{}
 
 	Bitmap3d(const size_t dim, const size_t size2d) :
-		bmp2ds(dim, size2d)
+		bmp2ds(size2d, dim)
 	{}
+
+	size_t size2d() const {
+		return bmp2ds.front().size2d();
+	}
+
+	size_t size3d() const {
+		return bmp2ds.size();
+	}
 
 	size_t size() const {
 		auto s = 0;
@@ -24,7 +32,6 @@ public:
 		}
 		return s;
 	}
-
 
 	size_t count() const {
 		auto howMany = 0;

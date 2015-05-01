@@ -17,12 +17,24 @@ TEST(Bitmap2dTest, TestSize)
 	EXPECT_EQ( Bitmap2d<2>(2).size(), 4);
 }
 
+TEST(Bitmap2dTest, TestSize1d)
+{
+	EXPECT_EQ(Bitmap2d<1>(2).size1d(), 1);
+	EXPECT_EQ(Bitmap2d<2>(4).size1d(), 2);
+}
+
+TEST(Bitmap2dTest, TestSize2d)
+{
+	EXPECT_EQ(Bitmap2d<1>(2).size2d(), 2);
+	EXPECT_EQ(Bitmap2d<2>(4).size2d(), 4);
+}
+
 TEST(Bitmap2dTest, TestSet)
 {
 	Bitmap2d<1> bitmap(1);
+	EXPECT_FALSE(bitmap[0][0]);
 	bitmap.set(0, 0);
-
-	EXPECT_TRUE(bitmap[0][0]);
+	EXPECT_TRUE( bitmap[0][0]);
 }
 
 TEST(Bitmap2dTest, TestSetAll)
@@ -44,6 +56,7 @@ TEST(Bitmap2dTest, TestReset)
 	EXPECT_FALSE(bitmap[0][0]);
 }
 
+
 TEST(Bitmap2dTest, TestAll)
 {
 	Bitmap2d<2> bitmap(2);
@@ -60,7 +73,24 @@ TEST(Bitmap2dTest, TestAll)
 TEST(Bitmap2dTest, TestNone)
 {
 	Bitmap2d<2> bitmap(2);
-	EXPECT_TRUE( bitmap.none());
+	bitmap.set();
+
+	EXPECT_FALSE( bitmap.none());
+	bitmap.reset(0, 0);
+	EXPECT_FALSE( bitmap.none());
+	bitmap.reset(0, 1);
+	EXPECT_FALSE( bitmap.none());
+	bitmap.reset(1, 0);
+	EXPECT_FALSE( bitmap.none());
+	bitmap.reset(1, 1);
+	EXPECT_TRUE(  bitmap.none());
+}
+
+TEST(Bitmap2dTest, TestResetAll)
+{
+	Bitmap2d<2> bitmap(2);
 	bitmap.set(0, 0);
-	EXPECT_FALSE(bitmap.none());
+	bitmap.reset();
+
+	EXPECT_TRUE(bitmap.none());
 }
