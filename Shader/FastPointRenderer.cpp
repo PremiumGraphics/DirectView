@@ -23,6 +23,7 @@ namespace {
 	GLuint valueLocation = 1;
 	GLuint texture;
 }
+
 static std::stringstream getVertexSource()
 {
 	std::stringstream stream;

@@ -5,6 +5,8 @@
 #include "Bitmap3d.h"
 #include "Vector2d.h"
 
+#include "Space3d.h"
+
 namespace Crystal {
 	namespace Math {
 
@@ -40,7 +42,8 @@ public:
 	}
 
 	template<size_t N, size_t N2, size_t N3>
-	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N2, N3>& bmp) {
+	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N2, N3>& bmp, const Space3d& space) {
+		auto start = space.getStart();
 		std::vector<Box> boxes;
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
@@ -48,7 +51,7 @@ public:
 					if (bmp[x][y][z]) {
 						const Vector3d v1(x * size, y * size, z * size);
 						const Vector3d v2((x + 1)*size, (y + 1)*size, (z + 1)*size);
-						Box box(v1, v2);
+						Box box(start + v1, start + v2);
 						boxes.push_back(box);
 					}
 				}

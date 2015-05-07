@@ -6,8 +6,8 @@ using namespace Crystal::Math;
 
 TEST(Space3dTest, TestConstruct)
 {
-	Space3d space( 1.0f );
-	EXPECT_FLOAT_EQ( 1.0f, space.getMinSize());
+	Space3d space(1,1,1);
+	EXPECT_EQ(Vector3d(1.0f, 1.0f, 1.0f), space.getSizes());
 	//space.setMinSize(1.0f);
 	//space.
 }
@@ -28,8 +28,7 @@ TEST(Space3dTest, TestGetEnd)
 
 TEST(Space3dTest, TestGetHashedIndex)
 {
-	Space3d space(1.0f);
-	EXPECT_EQ(1.0f, space.getMinSize());
+	Space3d space(1,1,1);
 
 	const std::vector<int>& actual = space.getHashedIndex(Vector3d(1.5f, 0.0f, 0.0f));
 	const std::vector<int> expected{ 1, 0, 0 };

@@ -13,14 +13,12 @@ public:
 		resx( resx ),
 		resy( resy ),
 		resz( resz ),
-		size( 1.0f )
+		sizes(Vector3d(1.0f, 1.0f, 1.0f))
 	{}
 
-	explicit Space3d(const float size) :size( size)
-	{
-	}
+	Space3d(unsigned int resx, unsigned int resy, unsigned int resz) : Space3d(Vector3d::Zero(), resx, resy, resz){}
 
-	float getMinSize() const { return size; }
+	Vector3d getSizes() const { return sizes; }
 
 	Vector3d getStart() const;
 
@@ -35,17 +33,17 @@ public:
 	Box getBoundingBox() const;
 
 	std::vector<int> getHashedIndex(const Vector3d& point) {
-		const float effectLength = size;
-		int gridx = static_cast<int>(point.getX() / effectLength);
-		int gridy = static_cast<int>(point.getY() / effectLength);
-		int gridz = static_cast<int>(point.getZ() / effectLength);
+		const auto gridx = static_cast<int>(point.getX() / sizes.getX());
+		const auto gridy = static_cast<int>(point.getY() / sizes.getY());
+		const auto gridz = static_cast<int>(point.getZ() / sizes.getZ());
 		return std::vector < int > {gridx, gridy, gridz};
 	}
 
 private:
 	Vector3dVector positions;
-	float size;
+	
 	Vector3d start;
+	Vector3d sizes;
 	unsigned int resx;
 	unsigned int resy;
 	unsigned int resz;

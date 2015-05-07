@@ -84,10 +84,12 @@
   <ItemGroup>
     <ClCompile Include="PointRendererTest.cpp" />
     <ClCompile Include="RendererTest.cpp" />
+    <ClCompile Include="Scene2dRendererTest.cpp" />
     <ClCompile Include="WireFrameRendererTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PointRendererTest.h" />
+    <ClInclude Include="Scene2dRendererTest.h" />
     <ClInclude Include="WireFrameRendererTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

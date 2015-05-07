@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include "WireFrameRendererTest.h"
+#include "Scene2dRendererTest.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -16,6 +17,8 @@ using namespace Crystal::Shader;
 
 int main(void)
 {
-	WireFrameRendererTest test;
+	//WireFrameRendererTest test;
+	Scene2dRendererTest test;
+
 	return test.test();
 }

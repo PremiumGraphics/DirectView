@@ -1,7 +1,7 @@
-#include "WireFrameRendererTest.h"
+#include "Scene2dRendererTest.h"
 
 
-#include "../Shader/WireFrameRenderer.h"
+#include "../Shader/Space2dRenderer.h"
 
 #include "../ThirdParty/glfw-3.1.1/include/GLFW/glfw3.h"
 
@@ -16,7 +16,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 
-int WireFrameRendererTest::test(void)
+int Scene2dRendererTest::test(void)
 {
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
@@ -31,14 +31,14 @@ int WireFrameRendererTest::test(void)
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 
-	WireFrameRenderer renderer;
+	Space2dRenderer renderer;
 	renderer.build();
 
 	int n = 0;
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &n);
-	std::cout << "max texture units = "  << n << std::endl;
+	std::cout << "max texture units = " << n << std::endl;
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &n);
-	std::cout << "max texture size = " <<  n << std::endl;
+	std::cout << "max texture size = " << n << std::endl;
 	glGetIntegerv(GL_MAX_3D_TEXTURE_SIZE, &n);
 	std::cout << "max 3d texture size = " << n << std::endl;
 
@@ -47,11 +47,7 @@ int WireFrameRendererTest::test(void)
 	positions.push_back(Vector3d(0.0, 0.0, -5.0));
 	positions.push_back(Vector3d(1.0, 0.0, -5.0));
 	positions.push_back(Vector3d(1.0, 1.0, -5.0));
-	DisplayList list(positions);
-	std::vector<float> colors{ 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f };
-	const std::vector< std::vector< unsigned int > > ids = { { 0, 1, 2 } };
-	list.setIds(ids);
-	list.setColors(colors);
+	//DisplayList list(positions);
 
 	while (!glfwWindowShouldClose(window)) {
 		int width, height;
@@ -65,7 +61,7 @@ int WireFrameRendererTest::test(void)
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 
-		renderer.render(width, height, camera, list);
+		renderer.render(width, height, &camera, Vector3d::toArray(positions));
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

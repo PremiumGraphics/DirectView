@@ -4,9 +4,11 @@
     <ClCompile Include="RendererTest.cpp" />
     <ClCompile Include="PointRendererTest.cpp" />
     <ClCompile Include="WireFrameRendererTest.cpp" />
+    <ClCompile Include="Scene2dRendererTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PointRendererTest.h" />
     <ClInclude Include="WireFrameRendererTest.h" />
+    <ClInclude Include="Scene2dRendererTest.h" />
   </ItemGroup>
 </Project>

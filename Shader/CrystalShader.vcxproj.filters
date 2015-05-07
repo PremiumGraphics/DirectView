@@ -7,6 +7,8 @@
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="FastPointRenderer.cpp" />
+    <ClCompile Include="Space3dRenderer.cpp" />
+    <ClCompile Include="Space2dRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WireFrameRenderer.h" />
@@ -15,5 +17,7 @@
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="FastPointRenderer.h" />
+    <ClInclude Include="Space3dRenderer.h" />
+    <ClInclude Include="Space2dRenderer.h" />
   </ItemGroup>
 </Project>

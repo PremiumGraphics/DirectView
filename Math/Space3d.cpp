@@ -11,9 +11,9 @@ Vector3d Space3d::getStart() const
 
 Vector3d Space3d::getEnd() const
 {
-	const auto x = start.getX() + resx * size;
-	const auto y = start.getY() + resy * size;
-	const auto z = start.getZ() + resz * size;
+	const auto x = start.getX() + resx * sizes.getX();
+	const auto y = start.getY() + resy * sizes.getY();
+	const auto z = start.getZ() + resz * sizes.getZ();
 	return Vector3d(x, y, z);
 }
 
