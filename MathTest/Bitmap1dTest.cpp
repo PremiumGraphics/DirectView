@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Bitmap1d.h"
+#include "../Math/Bitmap1d.h"
 
 using namespace Crystal::Math;
 

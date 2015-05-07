@@ -87,7 +87,7 @@ TEST( Vector3dTest, TestToArray )
 	EXPECT_EQ( expected, actual );
 }
 
-#include "Matrix3d.h"
+#include "../Math/Matrix3d.h"
 
 TEST(Vector3dTest, TestRotateX)
 {

@@ -2,7 +2,7 @@
 
 #include "../Math/Quad.h"
 
-#include "Bitmap3dConverter.h"
+#include "../Math/Bitmap3dConverter.h"
 
 using namespace Crystal::Math;
 

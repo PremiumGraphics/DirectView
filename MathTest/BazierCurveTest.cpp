@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "BazierCurve.h"
+#include "../Math/BazierCurve.h"
 
 using namespace Crystal::Math;
 
