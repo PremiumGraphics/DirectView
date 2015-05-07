@@ -19,7 +19,6 @@
     <ClCompile Include="ParticleObjectBuilderTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTopologyTest.cpp" />
-    <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="VoxelTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

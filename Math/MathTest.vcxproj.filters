@@ -22,5 +22,6 @@
     <ClCompile Include="Bitmap2dTest.cpp" />
     <ClCompile Include="Bitmap3dTest.cpp" />
     <ClCompile Include="BitmapConverterTest.cpp" />
+    <ClCompile Include="Space3dTest.cpp" />
   </ItemGroup>
 </Project>

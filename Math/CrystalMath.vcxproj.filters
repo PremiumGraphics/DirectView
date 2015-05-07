@@ -40,6 +40,7 @@
     <ClInclude Include="Bitmap2d.h" />
     <ClInclude Include="Bitmap3d.h" />
     <ClInclude Include="Bitmap3dConverter.h" />
+    <ClInclude Include="Space3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Bitmap3dConverter.cpp" />
+    <ClCompile Include="Space3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

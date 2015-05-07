@@ -28,6 +28,7 @@
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="TolerancesTest.cpp" />
     <ClCompile Include="Vector2dTest.cpp" />

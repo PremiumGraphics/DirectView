@@ -12,6 +12,20 @@ TEST(Space3dTest, TestConstruct)
 	//space.
 }
 
+TEST(Space3dTest, TestConstructByOrigin)
+{
+	Space3d s( Vector3d( 1.0f, 2.0f, 3.0f), 10, 20, 30 );
+	EXPECT_EQ( 10, s.getResX());
+	EXPECT_EQ( 20, s.getResY());
+	EXPECT_EQ( 30, s.getResZ());
+}
+
+TEST(Space3dTest, TestGetEnd)
+{
+	Space3d s(Vector3d(1.0f, 2.0f, 3.0f), 10, 20, 30);
+	EXPECT_EQ(Vector3d(11.0f, 22.0f, 33.0f), s.getEnd());
+}
+
 TEST(Space3dTest, TestGetHashedIndex)
 {
 	Space3d space(1.0f);
