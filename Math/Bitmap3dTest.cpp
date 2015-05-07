@@ -31,10 +31,14 @@ TEST(Bitmap3dTest, TestSizeZ)
 
 TEST(Bitmap3dTest, TestSet)
 {
-	Bitmap3d<1> bitmap(1, 1);
+	Bitmap3d<2> bitmap(2, 2);
 	bitmap.set(0, 0, 0);
 
 	EXPECT_TRUE(bitmap[0][0][0]);
+
+	bitmap.set(0, 1, 0);
+	EXPECT_TRUE(bitmap[0][1][0]);
+
 }
 
 TEST(Bitmap3dTest, TestReset)

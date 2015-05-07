@@ -8,13 +8,13 @@
 namespace Crystal {
 	namespace Math {
 
-class Bitmap3dConverter {
+class BitmapConverter {
 public:
-	Bitmap3dConverter() :
+	BitmapConverter() :
 		size(1.0f)
 	{}
 
-	Bitmap3dConverter(const float size) :
+	BitmapConverter(const float size) :
 		size(size)
 	{}
 

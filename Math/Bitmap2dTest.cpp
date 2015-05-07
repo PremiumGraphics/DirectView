@@ -31,10 +31,12 @@ TEST(Bitmap2dTest, TestSizeY)
 
 TEST(Bitmap2dTest, TestSet)
 {
-	Bitmap2d<1> bitmap(1);
+	Bitmap2d<2> bitmap(2);
 	EXPECT_FALSE(bitmap[0][0]);
 	bitmap.set(0, 0);
 	EXPECT_TRUE( bitmap[0][0]);
+	bitmap.set(0, 1);
+	EXPECT_TRUE( bitmap[0][1]);
 }
 
 TEST(Bitmap2dTest, TestSetAll)

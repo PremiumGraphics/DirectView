@@ -46,9 +46,9 @@ public:
 	}
 
 
-	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(x, y); }
+	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[x].set(y, z); }
 
-	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[z].reset(x, y); }
+	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[x].reset(y, z); }
 
 	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
 

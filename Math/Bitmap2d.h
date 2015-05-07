@@ -3,6 +3,8 @@
 
 #include "Bitmap1d.h"
 
+#include <algorithm>
+
 namespace Crystal {
 	namespace Math {
 
@@ -58,10 +60,21 @@ public:
 	}
 
 	bool all() const {
-		return count() == size();
+		//return count() == size();
+		return std::all_of
+		(
+			bmp1ds.begin(), bmp1ds.end(),
+			[](const Bitmap1d<N>& b) { return b.all(); }
+		);
 	}
 
 	bool none() const {
+		/*
+		return std::none_of(
+			bmp1ds.begin(), bmp1ds.end(),
+			[](const Bitmap1d<N>& b) {  return b.none(); }
+		);
+		*/
 		for (const auto& b : bmp1ds) {
 			if (!b.none() ) {
 				return false;
