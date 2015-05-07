@@ -8,7 +8,7 @@
 namespace Crystal {
 	namespace Math {
 
-template<size_t N, size_t N3>
+template<size_t N, size_t N2, size_t N3>
 class Bitmap3d
 {
 public:
@@ -55,7 +55,7 @@ public:
 
 	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
 
-	Bitmap2d<N> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
+	Bitmap2d<N,N2> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
 
 
 	/*
@@ -71,7 +71,7 @@ public:
 	*/
 
 private:
-	std::array< Bitmap2d<N>, N3 > bmp2ds;
+	std::array< Bitmap2d<N,N2>, N3 > bmp2ds;
 };
 
 	}

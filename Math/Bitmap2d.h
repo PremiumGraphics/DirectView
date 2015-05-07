@@ -5,18 +5,16 @@
 
 #include <algorithm>
 
+#include <array>
+
 namespace Crystal {
 	namespace Math {
 
-template<size_t N>
+template<size_t N1, size_t N2>
 class Bitmap2d
 {
 public:
 	Bitmap2d()
-	{}
-
-	Bitmap2d(const size_t dim) :
-		bmp1ds(dim)
 	{}
 
 	void set() {
@@ -35,22 +33,12 @@ public:
 
 	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
 
-	size_t sizex() const {
-		return bmp1ds.front().size();
-	}
+	size_t sizex() const { return N1; }
 
-	size_t sizey() const {
-		return bmp1ds.size();
-	}
+	size_t sizey() const { return N2; }
 
-	size_t size() const {
-		auto s = 0;
-		for (const auto& b : bmp1ds) {
-			s += b.size();
-		}
-		return s;
-	}
-
+	size_t size() const { return N1 * N2; }
+	
 	size_t count() const {
 		auto howMany = 0;
 		for (const auto& b : bmp1ds) {
@@ -60,12 +48,14 @@ public:
 	}
 
 	bool all() const {
-		//return count() == size();
+		return count() == size();
+		/*
 		return std::all_of
 		(
 			bmp1ds.begin(), bmp1ds.end(),
 			[](const Bitmap1d<N>& b) { return b.all(); }
 		);
+		*/
 	}
 
 	bool none() const {
@@ -85,14 +75,14 @@ public:
 
 	//bool all() const { return count() == size(); }
 
-	std::vector< Bitmap1d<N> > get1ds() const { return bmp1ds; }
+	//Bitmap1d<N> get1ds() const { return bmp1ds; }
 
-	Bitmap1d<N> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
+	Bitmap1d<N1> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
 
-	void add1d(const Bitmap1d<N>& bmp) { bmp1ds.push_back(bmp); }
+	//void add1d(const Bitmap1d<N1>& bmp) { bmp1ds.push_back(bmp); }
 
 private:
-	std::vector< Bitmap1d<N> > bmp1ds;
+	std::array< Bitmap1d<N1>, N2 > bmp1ds;
 };
 
 	}

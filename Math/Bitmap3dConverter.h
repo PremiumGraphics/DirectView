@@ -23,8 +23,8 @@ public:
 	std::vector<Line> Bitmap3dConverter::toQuads(const Bitmap2d<N>& bmp)
 	*/
 
-	template<size_t N>
-	std::vector<Quad> toQuads(const Bitmap2d<N>& bmp) {
+	template<size_t N, size_t N2>
+	std::vector<Quad> toQuads(const Bitmap2d<N, N2>& bmp) {
 		std::vector<Quad> quads;
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
@@ -39,8 +39,8 @@ public:
 		return quads;
 	}
 
-	template<size_t N, size_t N3>
-	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N3>& bmp) {
+	template<size_t N, size_t N2, size_t N3>
+	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N2, N3>& bmp) {
 		std::vector<Box> boxes;
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {

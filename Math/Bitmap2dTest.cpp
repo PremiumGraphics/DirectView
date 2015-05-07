@@ -7,31 +7,49 @@ using namespace Crystal::Math;
 
 TEST(Bitmap2dTest, TestConstruct)
 {
-	const Bitmap2d<1> bitmap(1);
-	EXPECT_EQ(bitmap.get1ds().size(), 1);
+	const Bitmap2d<1,1> bitmap;
 }
 
 TEST(Bitmap2dTest, TestSize)
 {
-	EXPECT_EQ( Bitmap2d<1>(1).size(), 1);
-	EXPECT_EQ( Bitmap2d<2>(2).size(), 4);
+	{
+		const Bitmap2d<1, 1> bitmap;
+		EXPECT_EQ(bitmap.size(), 1);
+	}
+	{
+		const Bitmap2d<2, 2> bitmap;
+		EXPECT_EQ(bitmap.size(), 4);
+	}
 }
 
 TEST(Bitmap2dTest, TestSizeX)
 {
-	EXPECT_EQ(Bitmap2d<1>(2).sizex(), 1);
-	EXPECT_EQ(Bitmap2d<2>(4).sizex(), 2);
+	{
+		const Bitmap2d<1, 2> bitmap;
+		EXPECT_EQ(bitmap.sizex(), 1);
+	}
+	{
+		const Bitmap2d<2, 4> bitmap;
+		EXPECT_EQ(bitmap.sizex(), 2);
+	}
 }
 
 TEST(Bitmap2dTest, TestSizeY)
 {
-	EXPECT_EQ(Bitmap2d<1>(2).sizey(), 2);
-	EXPECT_EQ(Bitmap2d<2>(4).sizey(), 4);
+	{
+		const Bitmap2d<1, 2> bitmap;
+		EXPECT_EQ(bitmap.sizey(), 2);
+	}
+
+	{
+		const Bitmap2d<2, 4> bitmap;
+		EXPECT_EQ(bitmap.sizey(), 4);
+	}
 }
 
 TEST(Bitmap2dTest, TestSet)
 {
-	Bitmap2d<2> bitmap(2);
+	Bitmap2d<2,2> bitmap;
 	EXPECT_FALSE(bitmap[0][0]);
 	bitmap.set(0, 0);
 	EXPECT_TRUE( bitmap[0][0]);
@@ -41,7 +59,7 @@ TEST(Bitmap2dTest, TestSet)
 
 TEST(Bitmap2dTest, TestSetAll)
 {
-	Bitmap2d<2> bitmap(1);
+	Bitmap2d<2, 1> bitmap;
 	bitmap.set();
 
 	EXPECT_TRUE(bitmap[0][0]);
@@ -51,7 +69,7 @@ TEST(Bitmap2dTest, TestSetAll)
 
 TEST(Bitmap2dTest, TestReset)
 {
-	Bitmap2d<1> bitmap(1);
+	Bitmap2d<1,1> bitmap;
 	bitmap.set(0, 0);
 	bitmap.reset(0, 0);
 
@@ -61,7 +79,7 @@ TEST(Bitmap2dTest, TestReset)
 
 TEST(Bitmap2dTest, TestAll)
 {
-	Bitmap2d<2> bitmap(2);
+	Bitmap2d<2,2> bitmap;
 	bitmap.set(0, 0);
 	EXPECT_FALSE(bitmap.all());
 	bitmap.set(0, 1);
@@ -69,12 +87,12 @@ TEST(Bitmap2dTest, TestAll)
 	bitmap.set(1, 0);
 	EXPECT_FALSE(bitmap.all());
 	bitmap.set(1, 1);
-	EXPECT_TRUE(bitmap.all());
+	EXPECT_TRUE( bitmap.all());
 }
 
 TEST(Bitmap2dTest, TestNone)
 {
-	Bitmap2d<2> bitmap(2);
+	Bitmap2d<2,2> bitmap;
 	bitmap.set();
 
 	EXPECT_FALSE( bitmap.none());
@@ -90,7 +108,7 @@ TEST(Bitmap2dTest, TestNone)
 
 TEST(Bitmap2dTest, TestResetAll)
 {
-	Bitmap2d<2> bitmap(2);
+	Bitmap2d<2,2> bitmap;
 	bitmap.set(0, 0);
 	bitmap.reset();
 
