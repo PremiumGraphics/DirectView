@@ -40,6 +40,17 @@ public:
 
 	float getArea() const { return lengthX * lengthY; }
 
+	bool equals(const Quad& rhs) const {
+		return
+			center == rhs.getCenter() &&
+			Tolerances::isEqualStrictly( lengthX, rhs.lengthX ) &&
+			Tolerances::isEqualStrictly( lengthY, rhs.lengthY );
+	}
+
+	bool operator==(const Quad& rhs) const {
+		return equals(rhs);
+	}
+
 private:
 	Vector2d<float> center;
 

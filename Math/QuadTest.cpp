@@ -46,3 +46,13 @@ TEST(QuadTest, TestGetArea)
 	const Quad q( v1, v2 );
 	EXPECT_FLOAT_EQ(10.0f, q.getArea());
 }
+
+TEST(QuadTest, TestEquals)
+{
+	const Vector2d<float> v1(0.0f, 0.0f);
+	const Vector2d<float> v2(2.0f, 5.0f);
+	const Quad q1(v1, v2);
+	const Quad q2(2.0f, 5.0f, Vector2d<float>(1.0f, 2.5f));
+
+	EXPECT_TRUE( q1.equals( q2 ) );
+}
