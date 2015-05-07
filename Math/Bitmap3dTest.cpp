@@ -56,3 +56,20 @@ TEST(Bitmap3dTest, TestReset)
 
 	EXPECT_FALSE(bitmap[0][0][0]);
 }
+
+TEST(Bitmap3dTest, TestToString)
+{
+	Bitmap3d<2, 2, 2> bitmap;
+
+	EXPECT_EQ( "00000000", bitmap.toString() );
+}
+
+TEST(Bitmap3dTest, TestEquals)
+{
+	Bitmap3d<2, 2, 2> bmp1;
+	Bitmap3d<2, 2, 2> bmp2;
+
+	EXPECT_TRUE(bmp1.equals(bmp2));
+	bmp1.set(0, 0, 0);
+	EXPECT_FALSE(bmp1.equals(bmp2));
+}

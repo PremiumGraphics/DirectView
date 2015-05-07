@@ -7,7 +7,7 @@
 namespace Crystal {
 	namespace Math {
 
-class Space2d {
+class Space2d final {
 public:
 	Space2d(const Vector2d<float>& start, unsigned int resx, unsigned int resy ) :
 		start(start),

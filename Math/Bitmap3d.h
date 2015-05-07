@@ -8,8 +8,8 @@
 namespace Crystal {
 	namespace Math {
 
-template<size_t N, size_t N2, size_t N3>
-class Bitmap3d
+template<size_t N1, size_t N2, size_t N3>
+class Bitmap3d final
 {
 public:
 	Bitmap3d()
@@ -55,8 +55,27 @@ public:
 
 	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
 
-	Bitmap2d<N,N2> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
+	Bitmap2d<N1,N2> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
 
+	std::string toString() const {
+		std::string str;
+		for (const auto& b : bmp2ds) {
+			str += b.toString();
+		}
+		return str;
+	}
+
+	bool equals(const Bitmap3d<N1,N2,N3>& rhs) const {
+		return bmp2ds == rhs.bmp2ds;
+	}
+
+	bool operator==(const Bitmap3d<N1, N2, N3>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Bitmap3d<N1, N2, N3>& rhs) const {
+		return !equals(rhs);
+	}
 
 	/*
 	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
@@ -71,7 +90,7 @@ public:
 	*/
 
 private:
-	std::array< Bitmap2d<N,N2>, N3 > bmp2ds;
+	std::array< Bitmap2d<N1,N2>, N3 > bmp2ds;
 };
 
 	}

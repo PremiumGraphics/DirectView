@@ -11,7 +11,7 @@ namespace Crystal {
 	namespace Math {
 
 template<size_t N1, size_t N2>
-class Bitmap2d
+class Bitmap2d final
 {
 public:
 	Bitmap2d()
@@ -30,6 +30,8 @@ public:
 	}
 
 	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
+
+	void set(const unsigned int x, const Bitmap1d<N1>& b) { bmp1ds[x] = b; }
 
 	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
 
@@ -80,6 +82,48 @@ public:
 	Bitmap1d<N1> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
 
 	//void add1d(const Bitmap1d<N1>& bmp) { bmp1ds.push_back(bmp); }
+
+	bool equals(const Bitmap2d<N1, N2>& rhs) const {
+		return bmp1ds == rhs.bmp1ds;
+	}
+
+	bool operator==(const Bitmap2d<N1, N2>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Bitmap2d<N1, N2>& rhs) const {
+		return !equals(rhs);
+	}
+
+	Bitmap2d<N1, N2>& operator^=(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < N1; ++i) {
+			bmp1ds[i] ^= rhs[i];
+		}
+		return (*this);
+	}
+
+	Bitmap2d<N1, N2>& operator|=(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < N1; ++i) {
+			bmp1ds[i] |= rhs[i];
+		}
+		return (*this);
+	}
+
+	Bitmap2d<N1,N2>& operator&=(const Bitmap2d<N1,N2>& rhs) {
+		for (size_t i = 0; i < N1; ++i) {
+			bmp1ds[i] &= rhs[i];
+		}
+		return (*this);
+	}
+
+	std::string toString() const {
+		std::string str;
+		for (const auto& b : bmp1ds) {
+			str += b.to_string();
+		}
+		return str;
+	}
+
 
 private:
 	std::array< Bitmap1d<N1>, N2 > bmp1ds;

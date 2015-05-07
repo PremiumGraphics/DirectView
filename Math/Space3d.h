@@ -6,7 +6,8 @@
 namespace Crystal {
 	namespace Math {
 
-class Space3d {
+class Space3d final
+{
 public:
 	Space3d(const Vector3d& start, unsigned int resx, unsigned int resy, unsigned int resz ) :
 		start( start ),

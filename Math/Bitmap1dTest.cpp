@@ -19,6 +19,14 @@ TEST(Bitmap1dTest, TestConstructByString)
 	EXPECT_FALSE(bitmap[1]);
 }
 
+TEST(Bitmap1d_Test, TestConstructByString)
+{
+	Bitmap1d_<4> bitmap("1001");
+	EXPECT_TRUE(bitmap[0]);
+	EXPECT_FALSE(bitmap[1]);
+
+}
+
 TEST(Bitmap1dTest, TestConstructByLong)
 {
 	Bitmap1d<4> bitmap(8);
@@ -70,9 +78,8 @@ TEST(Bitmap1dTest, TestFlip)
 	bitmap.flip(0);
 	EXPECT_EQ("0001", bitmap.to_string());
 	bitmap.flip();
-	EXPECT_EQ("1110",bitmap.to_string());
+	EXPECT_EQ("1110", bitmap.to_string());
 }
-
 
 TEST(Bitmap1dTest, TestOperatorAnd)
 {

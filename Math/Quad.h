@@ -51,6 +51,10 @@ public:
 		return equals(rhs);
 	}
 
+	bool operator!=(const Quad& rhs) const {
+		return !equals(rhs);
+	}
+
 private:
 	Vector2d<float> center;
 

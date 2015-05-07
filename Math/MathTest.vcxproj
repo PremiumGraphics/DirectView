@@ -20,6 +20,7 @@
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="EdgeDetectionAlgoTest.cpp" />
     <ClCompile Include="IntersectionFindAlgoTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
