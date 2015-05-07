@@ -3,19 +3,22 @@
 
 #include "Bitmap2d.h"
 
+#include <array>
+
 namespace Crystal {
 	namespace Math {
 
-template<size_t N>
+template<size_t N, size_t N3>
 class Bitmap3d
 {
 public:
 	Bitmap3d()
 	{}
 
-	Bitmap3d(const size_t dim, const size_t size2d) :
-		bmp2ds(size2d, dim)
-	{}
+	Bitmap3d(const size_t size2d)
+	{
+		bmp2ds.fill(size2d);
+	}
 
 	size_t sizex() const {
 		return bmp2ds.front().sizex();
@@ -68,7 +71,7 @@ public:
 	*/
 
 private:
-	std::vector< Bitmap2d<N> > bmp2ds;
+	std::array< Bitmap2d<N>, N3 > bmp2ds;
 };
 
 	}

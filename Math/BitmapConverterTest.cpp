@@ -28,7 +28,7 @@ TEST(BitmapConverterTest, TestToQuads)
 TEST(BitmapConverterTest, TestToBoxesEmpty)
 {
 	{
-		Bitmap3d<2> bmp(2, 2);
+		Bitmap3d<2,2> bmp(2);
 		BitmapConverter converter;
 		const auto& boxes = converter.toBoxes(bmp);
 		EXPECT_TRUE(boxes.empty());
@@ -37,7 +37,7 @@ TEST(BitmapConverterTest, TestToBoxesEmpty)
 
 TEST(BitmapConverterTest, TestToOneBox)
 {
-	Bitmap3d<2> bmp(2,2);
+	Bitmap3d<2,2> bmp(2);
 	bmp.set(0, 0, 0);
 	BitmapConverter converter;
 	const auto& boxes = converter.toBoxes(bmp);
@@ -47,7 +47,7 @@ TEST(BitmapConverterTest, TestToOneBox)
 
 TEST(BitmapConverterTest, TestToTwoBoxes)
 {
-	Bitmap3d<2> bmp(2, 2);
+	Bitmap3d<2,2> bmp(2);
 	bmp.set(0, 0, 0);
 	bmp.set(1, 0, 0);
 	BitmapConverter converter;

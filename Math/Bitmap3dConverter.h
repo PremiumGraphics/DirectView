@@ -39,8 +39,8 @@ public:
 		return quads;
 	}
 
-	template<size_t N>
-	std::vector<Math::Box> toBoxes(const Bitmap3d<N>& bmp) {
+	template<size_t N, size_t N3>
+	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N3>& bmp) {
 		std::vector<Box> boxes;
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
