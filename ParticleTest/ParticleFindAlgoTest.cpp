@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "ParticleFindAlgo.h"
-#include "ParticleBaseBuilder.h"
+#include "../Particle/ParticleFindAlgo.h"
+#include "../Particle/ParticleBaseBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Particle;

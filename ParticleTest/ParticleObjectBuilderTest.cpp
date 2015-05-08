@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "ParticleObjectBuilder.h"
 #include "../Math/Cylinder.h"
+#include "../Particle/ParticleObjectBuilder.h"
 
 #include <memory>
 

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "ParticleBase.h"
+#include "../Particle/ParticleBase.h"
 
 #include "../Math/Box.h"
 
