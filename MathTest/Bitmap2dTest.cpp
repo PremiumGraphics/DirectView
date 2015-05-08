@@ -10,6 +10,11 @@ TEST(Bitmap2dTest, TestConstruct)
 	const Bitmap2d<1,1> bitmap;
 }
 
+TEST(Bitmap2dTest, TestConstructByBitmap1ds)
+{
+	const Bitmap2d<1, 1> bitmap( std::array < Bitmap1d<1>, 1 >() );
+}
+
 
 TEST(Bitmap2dTest, TestSize)
 {
@@ -38,7 +43,7 @@ TEST(Bitmap2dTest, TestSizeX)
 TEST(Bitmap2dTest, TestSizeY)
 {
 	{
-		const Bitmap2d<1, 2> bitmap;
+		Bitmap2d<1, 2> bitmap;
 		EXPECT_EQ(bitmap.sizey(), 2);
 	}
 
@@ -121,7 +126,7 @@ TEST(Bitmap2dTest, TestAll)
 
 TEST(Bitmap2dTest, TestNone)
 {
-	Bitmap2d<2,2> bitmap;
+	Bitmap2d<2, 2> bitmap;
 	bitmap.set();
 
 	EXPECT_FALSE( bitmap.none());

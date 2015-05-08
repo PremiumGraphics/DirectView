@@ -14,7 +14,12 @@ template<size_t N1, size_t N2>
 class Bitmap2d final
 {
 public:
-	Bitmap2d()
+	Bitmap2d() = default;
+
+	~Bitmap2d() = default;
+
+	explicit Bitmap2d(const std::array< Bitmap1d<N1>, N2>& b) :
+		bmp1ds(b)
 	{}
 
 	void set() {
@@ -123,7 +128,6 @@ public:
 		}
 		return str;
 	}
-
 
 private:
 	std::array< Bitmap1d<N1>, N2 > bmp1ds;
