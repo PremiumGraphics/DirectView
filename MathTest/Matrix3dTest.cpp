@@ -22,46 +22,36 @@ TYPED_TEST( Matrix3dTest, TestConstruct )
 
 TYPED_TEST( Matrix3dTest, TestRotateX )
 {
-	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateX(0.0f));
+	EXPECT_EQ
+		(
+		Matrix3d<TypeParam>::Identity(),
+		Matrix3d<TypeParam>::RotateX(0.0f)
+		);
 
-	{
-		const Matrix3d<double> expected(
-			1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, -1.0f,
-			0.0f, 1.0f, 0.0f
-			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateX(90.0 / 180.0 * Tolerances::getPrecisePI());
+	EXPECT_EQ
+		(
+		Matrix3d<double>( 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f ),
+		Matrix3d<double>::RotateX(90.0 / 180.0 * Tolerances::getPrecisePI())
+		);
 
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ
+		(
+		Matrix3d<double>( 1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0 ),
+		Matrix3d<double>::RotateX(180.0 / 180.0 * Tolerances::getPrecisePI())
+		);
 
-	{
-		const Matrix3d<double> expected(
-			1.0, 0.0, 0.0,
-			0.0, -1.0, 0.0,
-			0.0, 0.0, -1.0
-			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateX(180.0 / 180.0 * Tolerances::getPrecisePI());
 
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ
+		(
+		Matrix3d<double>( 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.0, 0.0 ),
+		Matrix3d<double>::RotateX(270.0 / 180.0 * Tolerances::getPrecisePI() )
+		);
 
-	{
-		const Matrix3d<double> expected(
-			1.0, 0.0, 0.0,
-			0.0, 0.0, 1.0,
-			0.0, -1.0, 0.0
-			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateX(270.0 / 180.0 * Tolerances::getPrecisePI());
-
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		const Matrix3d<double> expected = Matrix3d<double>::Identity();
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateX(360.0 / 180.0 * Tolerances::getPrecisePI());
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ
+		(
+		Matrix3d<double>::Identity(),
+		Matrix3d<double>::RotateX(360.0 / 180.0 * Tolerances::getPrecisePI() )
+		);
 }
 
 TYPED_TEST( Matrix3dTest, TestRotateY )
@@ -74,7 +64,7 @@ TYPED_TEST( Matrix3dTest, TestRotateY )
 			0.0f, 1.0f, 0.0f,
 			-1.0f, 0.0f, 0.0f
 			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateY(90.0 / 180.0 * Tolerances::getPrecisePI());
+		const auto& actual = Matrix3d<double>::RotateY(90.0 / 180.0 * Tolerances::getPrecisePI());
 
 		EXPECT_EQ(expected, actual);
 	}
@@ -85,7 +75,7 @@ TYPED_TEST( Matrix3dTest, TestRotateY )
 			0.0f, 1.0f, 0.0f,
 			0.0f, 0.0f, -1.0f
 			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateY(180.0 / 180.0 * Tolerances::getPrecisePI());
+		const auto& actual = Matrix3d<double>::RotateY(180.0 / 180.0 * Tolerances::getPrecisePI());
 
 		EXPECT_EQ(expected, actual);
 	}
@@ -96,7 +86,7 @@ TYPED_TEST( Matrix3dTest, TestRotateY )
 			0.0f, 1.0f, 0.0f,
 			1.0f, 0.0f, 0.0f
 			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateY(270.0 / 180.0 * Tolerances::getPrecisePI());
+		const auto& actual = Matrix3d<double>::RotateY(270.0 / 180.0 * Tolerances::getPrecisePI());
 
 		EXPECT_EQ(expected, actual);
 	}
@@ -176,37 +166,19 @@ TYPED_TEST( Matrix3dTest, TestScale )
 
 TEST(Matrix3dTest, TestDeterminantFloat)
 {
-	{
-		Matrix3d<float> m;
-		m.setIdentity();
-
-		EXPECT_FLOAT_EQ(1.0, m.getDeterminant());
-	}
-
-	{
-		Matrix3d<float> m = Matrix3d<float>::Zero();
-		EXPECT_FLOAT_EQ(0.0, m.getDeterminant());
-	}
+	EXPECT_FLOAT_EQ(0.0f, Matrix3d<float>::Zero().getDeterminant());
+	EXPECT_FLOAT_EQ(1.0f, Matrix3d<float>::Identity().getDeterminant());
 }
 
 TEST(Matrix3dTest, TestDeterminantDouble)
 {
-	{
-		Matrix3d<double> m;
-		m.setIdentity();
-
-		EXPECT_DOUBLE_EQ(1.0, m.getDeterminant());
-	}
-
-	{
-		Matrix3d<double> m = Matrix3d<double>::Zero();
-		EXPECT_DOUBLE_EQ(0.0, m.getDeterminant());
-	}
+	EXPECT_DOUBLE_EQ(0.0, Matrix3d<double>::Zero().getDeterminant());
+	EXPECT_DOUBLE_EQ(1.0, Matrix3d<double>::Identity().getDeterminant());
 }
 
 TYPED_TEST(Matrix3dTest, TestInverse)
 {
-	Matrix3d<TypeParam> m = Matrix3d<TypeParam>::Identity();
-	Matrix3d<TypeParam> i = m.getInverse();
+	const auto m = Matrix3d<TypeParam>::Identity();
+	const auto i = m.getInverse();
 	EXPECT_EQ( Matrix3d<TypeParam>::Identity(), i );
 }

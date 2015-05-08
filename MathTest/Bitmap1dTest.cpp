@@ -102,7 +102,8 @@ TEST(Bitmap1dTest, TestAny)
 
 TEST(Bitmap1dTest, TestNone)
 {
-	EXPECT_FALSE(Bitmap1d<4>("0010").none());
-	EXPECT_TRUE( Bitmap1d<4>("0000").none());
+	EXPECT_TRUE( Bitmap1d<2>("00").none());
+	EXPECT_FALSE(Bitmap1d<2>("01").none());
+	EXPECT_FALSE(Bitmap1d<2>("10").none());
+	EXPECT_FALSE(Bitmap1d<2>("11").none());
 }
-
