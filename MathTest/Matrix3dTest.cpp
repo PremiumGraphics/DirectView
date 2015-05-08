@@ -174,20 +174,33 @@ TYPED_TEST( Matrix3dTest, TestScale )
 	EXPECT_EQ( expected, m );
 }
 
-TYPED_TEST(Matrix3dTest, TestDeterminant)
+TEST(Matrix3dTest, TestDeterminantFloat)
 {
 	{
-		Matrix3d<TypeParam> m;
+		Matrix3d<float> m;
 		m.setIdentity();
 
 		EXPECT_FLOAT_EQ(1.0, m.getDeterminant());
 	}
 
 	{
-		Matrix3d<TypeParam> m;
-		m = Matrix3d<TypeParam>::Zero();
-
+		Matrix3d<float> m = Matrix3d<float>::Zero();
 		EXPECT_FLOAT_EQ(0.0, m.getDeterminant());
+	}
+}
+
+TEST(Matrix3dTest, TestDeterminantDouble)
+{
+	{
+		Matrix3d<double> m;
+		m.setIdentity();
+
+		EXPECT_DOUBLE_EQ(1.0, m.getDeterminant());
+	}
+
+	{
+		Matrix3d<double> m = Matrix3d<double>::Zero();
+		EXPECT_DOUBLE_EQ(0.0, m.getDeterminant());
 	}
 }
 

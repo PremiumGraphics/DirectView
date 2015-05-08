@@ -4,7 +4,7 @@
 namespace Crystal {
 	namespace Math {
 
-
+		/*
 class BernsteinBasicFunc{
 public:
 	float getBinomialCoefficient(const int n, const int k){
@@ -27,6 +27,7 @@ private:
 	//float k;
 
 };
+*/
 
 class BazierCurve {
 

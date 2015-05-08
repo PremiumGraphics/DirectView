@@ -13,8 +13,10 @@ TEST(EdgeDetectionAlgoTest, Test1d)
 	EXPECT_EQ( expected, actual );
 }
 
+/*
 TEST(EdgeDetectionAlgoTest, Test2d)
 {
 	EdgeDetectionAlgo algo;
 	Bitmap2d<4, 4> bmp;
 }
+*/

@@ -4,6 +4,7 @@
 
 using namespace Crystal::Math;
 
+/*
 TEST(BazierCurveTest, TestBinomialCoefficient)
 {
 	BernsteinBasicFunc bb;
@@ -17,3 +18,4 @@ TEST(BazierCurveTest, Test)
 	const float actual = bb.get(1, 1, 1.0f);
 	EXPECT_FLOAT_EQ(1.0f, actual);
 }
+*/
