@@ -22,6 +22,7 @@
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="EdgeDetectionAlgoTest.cpp" />
     <ClCompile Include="Grid1dTest.cpp" />
+    <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="IntersectionFindAlgoTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MathTest.cpp" />

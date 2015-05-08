@@ -12,6 +12,10 @@ class Grid2d final
 public:
 	Grid2d() = default;
 
+	Grid2d(const T v) {
+		values.fill(v);
+	}
+
 	~Grid2d() = default;
 
 	size_t size() const { return N1 * N2; }
@@ -21,23 +25,23 @@ public:
 	size_t sizey() const { return N2; }
 
 	T get(size_t i, size_t j) const {
-		return colors[i][j];
+		return values[i][j];
 	}
 
 	Grid1d<N1, T> get(size_t i) const {
-		return colors[i];
+		return values[i];
 	}
 
 	void set(const size_t i, const size_t j, const T& c) {
-		colors[i].set(j, c);
+		values[i].set(j, c);
 	}
 
-	void set(const size_t i, const Grid2d<N1,N2,T>& image1d) {
-		colors[i] = image1d;
+	void set(const size_t i, const Grid2d<N1,N2,T>& values1d) {
+		values[i] = values1d;
 	}
 
 	Grid1d<N1, T> operator[](size_t i) const {
-		return colors[i];
+		return values[i];
 	}
 
 	Grid1d<N1, T>& operator[](const size_t i) {
