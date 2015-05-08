@@ -1,13 +1,16 @@
 #ifndef __CRYSTAL_GRAPHICS_IMAGE_2D_H__
 #define __CRYSTAL_GRAPHICS_IMAGE_2D_H__
 
-#include "Image1d.h"
+#include "../Math/Grid2d.h"
 
 namespace Crystal {
 	namespace Graphics {
 
 template< size_t N1, size_t N2, class T = ColorRGBA<float> >
-class Image2d final
+using Image2d = Math::Grid2d < N1, N2, T >;
+
+
+/*class Image2d final
 {
 public:
 	Image2d() = default;
@@ -59,7 +62,7 @@ public:
 private:
 	std::array< Image1d<N1,T>, N2 > colors;
 };
-
+*/
 
 	}
 }

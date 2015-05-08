@@ -7,6 +7,7 @@ namespace Crystal {
 	namespace Math {
 
 template< size_t N, class T >
+
 class Grid1d final
 {
 public:

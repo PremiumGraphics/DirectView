@@ -44,6 +44,7 @@
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="EdgeDetectionAlgo.h" />
     <ClInclude Include="Grid1d.h" />
+    <ClInclude Include="Grid2d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
