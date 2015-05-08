@@ -66,7 +66,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShaderTest", "Shader\Render
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2} = {9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "PhysicsTest\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
 	EndProjectSection

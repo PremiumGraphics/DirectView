@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
  
-#include "Coordinator.h"
+#include "../Physics/Coordinator.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

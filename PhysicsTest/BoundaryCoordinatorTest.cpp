@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
  
-#include "BoundaryCoordinator.h"
+#include "../Physics/BoundaryCoordinator.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

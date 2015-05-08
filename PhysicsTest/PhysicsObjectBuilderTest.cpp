@@ -2,7 +2,7 @@
 
 #include "../Math/Box.h"
 
-#include "PhysicsObjectBuilder.h"
+#include "../Physics/PhysicsObjectBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

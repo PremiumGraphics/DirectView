@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "FluidObject.h"
+#include "../Physics/FluidObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

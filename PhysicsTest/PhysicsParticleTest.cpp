@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "PhysicsParticle.h"
+#include "../Physics/PhysicsParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

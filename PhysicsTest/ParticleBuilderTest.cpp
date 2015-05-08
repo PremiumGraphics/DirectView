@@ -4,7 +4,7 @@
 #include "../Math/Sphere.h"
 #include "../Math/Cylinder.h"
 
-#include "ParticleBuilder.h"
+#include "../Physics/ParticleBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
