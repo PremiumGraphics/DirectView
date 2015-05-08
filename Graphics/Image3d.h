@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_GRAPHICS_IMAGE_3D_H__
 #define __CRYSTAL_GRAPHICS_IMAGE_3D_H__
 
+#include "Image2d.h"
+
 namespace Crystal {
 	namespace Graphics {
 

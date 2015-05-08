@@ -8,7 +8,7 @@ using namespace Crystal::Graphics;
 
 TEST(Image1dTest, TestConstruct)
 {
-	const Image1d<2> image;
+	const Image1d<2, ColorRGBA<float> > image;
 	EXPECT_EQ(2, image.size());
 	EXPECT_EQ(ColorRGBA<float>::Black(), image[0]);
 	EXPECT_EQ(ColorRGBA<float>::Black(), image[1]);

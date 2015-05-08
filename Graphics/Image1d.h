@@ -8,13 +8,13 @@
 namespace Crystal {
 	namespace Graphics {
 
-template< size_t N >
+template< size_t N, class T = ColorRGBA<float> >
 class Image1d final
 {
 public:
 	Image1d() = default;
 
-	Image1d(const ColorRGBA<float>& c) {
+	Image1d(const T& c) {
 		colors.fill(c);
 	}
 
@@ -22,19 +22,19 @@ public:
 
 	size_t size() const { return N; }
 
-	ColorRGBA<float> operator[](size_t i) const {
+	T operator[](size_t i) const {
 		return colors[i];
 	}
 
-	ColorRGBA<float>& operator[](size_t i) {
+	T& operator[](size_t i) {
 		return colors[i];
 	}
 
-	ColorRGBA<float> get(const size_t i) {
+	T get(const size_t i) {
 		return colors[i];
 	}
 
-	void set(const size_t i, const ColorRGBA<float>& c) {
+	void set(const size_t i, const T& c) {
 		colors[i] = c;
 	}
 
@@ -51,7 +51,7 @@ public:
 	}
 
 private:
-	std::array< ColorRGBA<float>, N > colors;
+	std::array< T, N > colors;
 };
 
 	}
