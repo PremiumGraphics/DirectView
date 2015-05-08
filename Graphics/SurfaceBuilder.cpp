@@ -18,13 +18,13 @@ Polygon* SurfaceBuilder::build(const ParticleObject& object)
 Vector3dVector SurfaceBuilder::findEdges(const ImageRGBA<float>& image)
 {
 	Vector3dVector edges;
-	const float threshold = 0.5f;
-	for (int y = 0; y < image.getHeight(); ++y) {
+	const auto threshold = 0.5f;
+	for (auto y = 0; y < image.getHeight(); ++y) {
 		//int count = 0;
-		for (int x = 0; x < image.getWidth(); ++x) {
-			const ColorRGBA<float>& color = image.getColor(x, y);
+		for (auto x = 0; x < image.getWidth(); ++x) {
+			const auto& color = image.getColor(x, y);
 			if (color.getAlpha() > threshold) {
-				edges.push_back( Vector3d(x, y, 0.0) );
+				edges.push_back( Vector3d(x * 1.0f, y * 1.0f, 0.0f) );
 				continue;
 			}
 		}

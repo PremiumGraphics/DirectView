@@ -19,8 +19,9 @@ Vector3dVector Face::getTexCoords() const
 Vector3d Face::getCenter() const
 {
 	Vector3d center;
+	const float size = static_cast<float>(getVertices().size());
 	for (VertexSPtr v : getVertices()) {
-		center += v->getPosition() / getVertices().size();
+		center += v->getPosition() / size;
 	}
 	return center;
 }
