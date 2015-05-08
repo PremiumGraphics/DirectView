@@ -13,11 +13,15 @@ public:
 	Bitmap1d()
 	{}
 
-	Bitmap1d(const std::bitset<N>& b) :
+	explicit Bitmap1d(const long v) :
+		bits(v)
+	{}
+
+	explicit Bitmap1d(const std::bitset<N>& b) :
 		bits(b)
 	{}
 
-	Bitmap1d(const std::string& str) :
+	explicit Bitmap1d(const std::string& str) :
 		bits(str)
 	{}
 

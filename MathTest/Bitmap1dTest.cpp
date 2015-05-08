@@ -20,9 +20,10 @@ TEST(Bitmap1dTest, TestConstructByString)
 
 TEST(Bitmap1dTest, TestConstructByLong)
 {
-	Bitmap1d<4> bitmap(8);
-	Bitmap1d<4> expected("1000");
-	EXPECT_EQ(bitmap, expected);
+	EXPECT_EQ( Bitmap1d<2>("00"), Bitmap1d<2>(0) );
+	EXPECT_EQ( Bitmap1d<2>("01"), Bitmap1d<2>(1) );
+	EXPECT_EQ( Bitmap1d<2>("10"), Bitmap1d<2>(2) );
+	EXPECT_EQ( Bitmap1d<2>("11"), Bitmap1d<2>(3) );
 }
 
 TEST(Bitmap1dTest, TestSet)
@@ -52,8 +53,10 @@ TEST(Bitmap1dTest, TestResetAll)
 
 TEST(Bitmap1dTest, TestCount)
 {
-	EXPECT_EQ( 0, Bitmap1d<4>("0000").count());
-	EXPECT_EQ( 2, Bitmap1d<4>("1001").count() );
+	EXPECT_EQ( 0, Bitmap1d<2>("00").count() );
+	EXPECT_EQ( 1, Bitmap1d<2>("01").count() );
+	EXPECT_EQ( 1, Bitmap1d<2>("10").count() );
+	EXPECT_EQ( 2, Bitmap1d<2>("11").count() );
 }
 
 TEST(Bitmap1dTest, TestFlip)
@@ -81,23 +84,20 @@ TEST(Bitmap1dTest, TestOperatorOr)
 	EXPECT_EQ("1111", lhs.toString());
 }
 
-TEST(Bitmap1dTest, TestOperatorNot)
-{
-	Bitmap1d<4> bitmap;
-	const auto actual = bitmap.flip();
-	EXPECT_EQ("1111", actual.toString());
-}
-
 TEST(Bitmap1dTest, TestAll)
 {
-	EXPECT_FALSE(Bitmap1d<4>("0010").all());
-	EXPECT_TRUE( Bitmap1d<4>("1111").all());
+	EXPECT_FALSE(Bitmap1d<2>("00").all());
+	EXPECT_FALSE(Bitmap1d<2>("01").all());
+	EXPECT_FALSE(Bitmap1d<2>("10").all());
+	EXPECT_TRUE( Bitmap1d<2>("11").all());
 }
 
 TEST(Bitmap1dTest, TestAny)
 {
-	EXPECT_TRUE( Bitmap1d<4>("0010").any());
-	EXPECT_FALSE(Bitmap1d<4>("0000").any());
+	EXPECT_FALSE(Bitmap1d<2>("00").any());
+	EXPECT_TRUE( Bitmap1d<2>("01").any());
+	EXPECT_TRUE( Bitmap1d<2>("10").any());
+	EXPECT_TRUE( Bitmap1d<2>("11").any());
 }
 
 TEST(Bitmap1dTest, TestNone)
