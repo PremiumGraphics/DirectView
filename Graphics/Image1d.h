@@ -4,11 +4,14 @@
 #include <array>
 
 #include "ColorRGBA.h"
+#include "../Math/Grid1d.h"
 
 namespace Crystal {
 	namespace Graphics {
 
 template< size_t N, class T = ColorRGBA<float> >
+using Image1d = Math::Grid1d < N, T > ;
+/*
 class Image1d final
 {
 public:
@@ -53,6 +56,7 @@ public:
 private:
 	std::array< T, N > colors;
 };
+*/
 
 	}
 }

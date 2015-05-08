@@ -43,6 +43,7 @@
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="EdgeDetectionAlgo.h" />
+    <ClInclude Include="Grid1d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

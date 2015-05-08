@@ -25,5 +25,6 @@
     <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="EdgeDetectionAlgoTest.cpp" />
     <ClCompile Include="Space2dTest.cpp" />
+    <ClCompile Include="Grid1dTest.cpp" />
   </ItemGroup>
 </Project>
