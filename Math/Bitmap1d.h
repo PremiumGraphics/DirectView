@@ -7,20 +7,17 @@ namespace Crystal {
 	namespace Math {
 
 template<size_t N>
-using Bitmap1d = std::bitset <N> ;
-
-template<size_t N>
-class Bitmap1d_ final
+class Bitmap1d final
 {
 public:
-	Bitmap1d_()
+	Bitmap1d()
 	{}
 
-	Bitmap1d_(const Bitmap1d<N>& b) :
+	Bitmap1d(const std::bitset<N>& b) :
 		bits(b)
 	{}
 
-	Bitmap1d_(const std::string& str) :
+	Bitmap1d(const std::string& str) :
 		bits(str)
 	{}
 
@@ -28,29 +25,34 @@ public:
 		return bits.count();
 	}
 
-	Bitmap1d_<N>& set( const size_t i) {
+	Bitmap1d<N>& set( const size_t i) {
 		bits.set(i);
 		return *(this);
 	}
 
-	Bitmap1d_<N>& set() {
+	Bitmap1d<N>& set() {
 		bits.set();
 		return (*this);
 	}
 
-	Bitmap1d_<N>& reset(const size_t i) {
+	Bitmap1d<N>& reset(const size_t i) {
 		bits.reset(i);
 		return *(this);
 	}
 
-	Bitmap1d_<N>& reset() {
+	Bitmap1d<N>& reset() {
 		bits.reset();
 		return *(this);
 	}
 
 	bool operator[](const size_t i) const { return bits[i]; }
 
-	Bitmap1d_<N>& operator&=(const Bitmap1d_<N>& rhs) {
+	Bitmap1d<N>& operator|=(const Bitmap1d<N>& rhs) {
+		bits |= rhs.bits;
+		return *(this);
+	}
+	
+	Bitmap1d<N>& operator&=(const Bitmap1d<N>& rhs) {
 		bits &= rhs.bits;
 		return (*this);
 	}
@@ -63,12 +65,12 @@ public:
 
 	bool none() const { return bits.none(); }
 
-	Bitmap1d_<N> flip( const size_t i) {
+	Bitmap1d<N> flip( const size_t i) {
 		bits.flip(i);
 		return (*this);
 	}
 
-	Bitmap1d_<N> flip() {
+	Bitmap1d<N>& flip() {
 		bits.flip();
 		return (*this);
 	}
@@ -77,14 +79,13 @@ public:
 		return bits.to_string();
 	}
 
-	bool operator==(const Bitmap1d_<N>& rhs) const {
+	bool operator==(const Bitmap1d<N>& rhs) const {
 		return bits == rhs.bits;
 	}
 
-	bool operator!=(const Bitmap1d_<N>& rhs) const {
+	bool operator!=(const Bitmap1d<N>& rhs) const {
 		return bits != rhs.bits;
 	}
-
 
 private:
 	std::bitset<N> bits;

@@ -29,11 +29,11 @@ public:
 		}
 	}
 
-	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
+	void set(const unsigned int x, const unsigned int y) { bmp1ds[x].set(y); }
 
 	void set(const unsigned int x, const Bitmap1d<N1>& b) { bmp1ds[x] = b; }
 
-	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
+	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x].reset(y); }
 
 	size_t sizex() const { return N1; }
 
@@ -119,7 +119,7 @@ public:
 	std::string toString() const {
 		std::string str;
 		for (const auto& b : bmp1ds) {
-			str += b.to_string();
+			str += b.toString();
 		}
 		return str;
 	}
