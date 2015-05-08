@@ -6,7 +6,7 @@
 #include "Frame.h"
 
 //#include "../Shader/PointRenderer.h"
-#include "ParticleRenderer.h"
+#include "../Shader/ParticleRenderer.h"
 #include "../Graphics/ParticleDisplayList.h"
 
 namespace Crystal {

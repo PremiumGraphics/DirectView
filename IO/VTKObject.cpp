@@ -58,8 +58,8 @@ ColorRGBAMap<float>* VTKObject::createDefaultColorMap()
 {
 	Graphics::ColorRGBAMap<float>* map = new Graphics::ColorRGBAMap<float>( 0.0, 1.0, 360 );
 	map->setName( "default" );
-	for( int i = 0; i < 360; ++i ) {
-		Graphics::ColorHSV hsv( i, 1.0, 1.0 );
+	for( auto i = 0; i < 360; ++i ) {
+		Graphics::ColorHSV hsv( i * 1.0f, 1.0f, 1.0f );
 		const ColorRGB<float>& color = ColorConverter::toRGB( hsv );
 		ColorRGBA<float> colora( color.getRed(), color.getGreen(), color.getBlue(), 1.0 );
 		map->setColor( i, colora );
@@ -76,8 +76,9 @@ Vector3dVector VTKObject::getCellCenters() const
 		Vector3d center;
 		const ConnectionVector& connections = cell->getConnections();
 		for( const Connection& c : connections ) {
+			const float size = static_cast<float>(c.size());
 			for( unsigned int i : c ) {
-				center += vertices[i].getScaled( 1.0 / c.size() );
+				center += vertices[i].getScaled( 1.0f / size );
 			}
 		}
 		centers.push_back( center );
