@@ -36,5 +36,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="ParticleDisplayList.h" />
+    <ClInclude Include="Image1d.h" />
   </ItemGroup>
 </Project>
