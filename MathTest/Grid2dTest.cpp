@@ -15,19 +15,14 @@ TEST(Grid2dTest, TestConstruct)
 	EXPECT_EQ(0.0f, grid[1][0]);
 }
 
-/*
-TEST(Image2dTest, TestGetSet)
+TEST(Grid2dTest, TestGetSet)
 {
-	Image2d<2, 2> image;
-	EXPECT_EQ(ColorRGBA<float>::Black(), image[0][0]);
+	Grid2d<2, 2, float> grid(0.0f);
 
-	image.set(0, 0, ColorRGBA<float>::White());
-	EXPECT_EQ(ColorRGBA<float>::White(), image[0][0]);
+	grid[0][0] = 100.0f;
+	EXPECT_EQ( 100.0f, grid[0][0]);
 
-	image[0][1] = ColorRGBA<float>::Black();
-	EXPECT_EQ(ColorRGBA<float>::Black(), image[0][1]);
 }
-*/
 
 TEST(Grid2dTest, TestEquals)
 {

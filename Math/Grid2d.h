@@ -40,7 +40,7 @@ public:
 		values[i] = values1d;
 	}
 
-	Grid1d<N1, T> operator[](size_t i) const {
+	const Grid1d<N1, T> operator[](size_t i) const {
 		return values[i];
 	}
 

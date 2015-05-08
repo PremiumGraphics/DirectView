@@ -21,7 +21,7 @@ public:
 
 	size_t size() const { return N; }
 
-	T operator[](size_t i) const {
+	const T operator[](size_t i) const {
 		return values[i];
 	}
 

@@ -1,12 +1,15 @@
 #ifndef __CRYSTAL_GRAPHICS_IMAGE_3D_H__
 #define __CRYSTAL_GRAPHICS_IMAGE_3D_H__
 
-#include "Image2d.h"
+#include "../Math/Grid3d.h"
+#include "ColorRGBA.h"
 
 namespace Crystal {
 	namespace Graphics {
 
 template< size_t N1, size_t N2, size_t N3 >
+using Image3d = Math::Grid3d < N1, N2, N3, ColorRGBA<float> > ;
+/*
 class Image3d final
 {
 public:
@@ -54,7 +57,7 @@ public:
 private:
 	std::array< Image2d<N1, N2>, N3 > colors;
 };
-
+*/
 	}
 }
 

@@ -85,6 +85,7 @@
     <ClInclude Include="EdgeDetectionAlgo.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
+    <ClInclude Include="Grid3d.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Matrix2d.h" />
