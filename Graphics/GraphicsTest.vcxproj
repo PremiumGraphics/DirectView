@@ -31,6 +31,9 @@
     <ClCompile Include="SurfaceBuilderTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Image2dTest.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{237CD933-92AB-4D20-A554-78F84819FE5D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

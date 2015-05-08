@@ -37,5 +37,7 @@
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="ParticleDisplayList.h" />
     <ClInclude Include="Image1d.h" />
+    <ClInclude Include="Image2d.h" />
+    <ClInclude Include="Image3d.h" />
   </ItemGroup>
 </Project>

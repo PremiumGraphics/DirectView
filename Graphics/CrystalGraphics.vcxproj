@@ -110,6 +110,8 @@
     <ClInclude Include="GLee.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Image1d.h" />
+    <ClInclude Include="Image2d.h" />
+    <ClInclude Include="Image3d.h" />
     <ClInclude Include="ImageRGB.h" />
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
