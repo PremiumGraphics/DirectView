@@ -31,7 +31,7 @@ public:
 		const auto sizey = space.getSizes().getY();
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
-				if (bmp[x][y]) {
+				if (bmp.get(x,y)) {
 					const Vector2d<float> v1(x * sizex, y * sizey);
 					const Vector2d<float> v2((x + 1) * sizex, (y + 1) * sizey);
 					Quad q(v1, v2);
@@ -52,7 +52,7 @@ public:
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				for (size_t z = 0; z < bmp.sizez(); ++z) {
-					if (bmp[x][y][z]) {
+					if (bmp.get(x,y,z) ) {
 						const Vector3d v1(x * sizex, y * sizey, z * sizez);
 						const Vector3d v2((x + 1)*sizex, (y + 1)*sizey, (z + 1)*sizez);
 						Box box(start + v1, start + v2);

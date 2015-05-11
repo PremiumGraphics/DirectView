@@ -59,11 +59,15 @@ public:
 
 	//void set(const size_t x, const size_t y, const size_t z) { bmp2ds[x].set(y, z); }
 
-	void set_(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(y, x); }
+	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(x, y); }
 
-	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[x].reset(y, z); }
+	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[z].reset(x, y); }
+
+	bool get(const size_t x, const size_t y, const size_t z) const { return bmp2ds[z].get(x, y); }
 
 	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
+
+	//bool get(const size_t x, const size_t y, const size_t z) { return bmp2ds[z].get(y,x) }
 
 	Bitmap2d<N1, N2>& operator[](const std::size_t pos) { return bmp2ds[pos]; }
 

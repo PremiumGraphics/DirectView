@@ -68,15 +68,15 @@ TEST(Bitmap3dTest, TestSizeZ)
 TEST(Bitmap3dTest, TestSet)
 {
 	Bitmap3d<1, 2, 4> bitmap;
-	bitmap.set_(0, 0, 0);
+	bitmap.set(0, 0, 0);
 
-	EXPECT_TRUE(bitmap[0][0][0]);
+	EXPECT_TRUE(bitmap.get(0,0,0));
 
-	bitmap.set_(0, 1, 0);
-	EXPECT_TRUE(bitmap[0][1][0]);
+	bitmap.set(0, 1, 0);
+	EXPECT_TRUE(bitmap.get(0,1,0));
 
-	bitmap.set_(0, 1, 1);
-	EXPECT_TRUE(bitmap[1][1][0]);
+	bitmap.set(0, 1, 1);
+	EXPECT_TRUE(bitmap.get(0,1,1));
 }
 
 TEST(Bitmap3dTest, TestReset)
@@ -84,7 +84,7 @@ TEST(Bitmap3dTest, TestReset)
 	Bitmap3d<2, 2, 2> bitmap;
 	bitmap.reset(0, 0, 0);
 
-	EXPECT_FALSE(bitmap[0][0][0]);
+	EXPECT_FALSE(bitmap.get(0,0,0) );
 }
 
 /*
@@ -118,21 +118,21 @@ TEST(Bitmap3dTest, TestToString_)
 {
 	Bitmap3d<1, 2, 4> bitmap;
 	EXPECT_EQ("00000000", bitmap.toString());
-	bitmap.set_(0, 0, 0);
+	bitmap.set(0, 0, 0);
 	EXPECT_EQ("10000000", bitmap.toString());
-	bitmap.set_(0, 0, 1);
+	bitmap.set(0, 0, 1);
 	EXPECT_EQ("10100000", bitmap.toString());
-	bitmap.set_(0, 0, 2);
+	bitmap.set(0, 0, 2);
 	EXPECT_EQ("10101000", bitmap.toString());
-	bitmap.set_(0, 0, 3);
+	bitmap.set(0, 0, 3);
 	EXPECT_EQ("10101010", bitmap.toString());
-	bitmap.set_(0, 1, 0);
+	bitmap.set(0, 1, 0);
 	EXPECT_EQ("11101010", bitmap.toString());
-	bitmap.set_(0, 1, 1);
+	bitmap.set(0, 1, 1);
 	EXPECT_EQ("11111010", bitmap.toString());
-	bitmap.set_(0, 1, 2);
+	bitmap.set(0, 1, 2);
 	EXPECT_EQ("11111110", bitmap.toString());
-	bitmap.set_(0, 1, 3);
+	bitmap.set(0, 1, 3);
 	EXPECT_EQ("11111111", bitmap.toString());
 
 
@@ -151,6 +151,6 @@ TEST(Bitmap3dTest, TestEquals)
 	Bitmap3d<2, 2, 2> bmp2;
 
 	EXPECT_TRUE(bmp1.equals(bmp2));
-	bmp1.set_(0, 0, 0);
+	bmp1.set(0, 0, 0);
 	EXPECT_FALSE(bmp1.equals(bmp2));
 }

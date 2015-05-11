@@ -42,11 +42,13 @@ public:
 		}
 	}
 
-	void set(const unsigned int x, const unsigned int y) { bmp1ds[x].set(y); }
+	void set(const unsigned int x, const unsigned int y) { bmp1ds[y].set(x); }
 
 	void set(const unsigned int x, const Bitmap1d<N1>& b) { bmp1ds[x] = b; }
 
-	void reset(const unsigned int x, const unsigned int y) { bmp1ds[x].reset(y); }
+	bool get(const unsigned int x, const unsigned int y) const { return bmp1ds[y][x]; }
+
+	void reset(const unsigned int x, const unsigned int y) { bmp1ds[y].reset(x); }
 
 	size_t sizex() const { return N1; }
 
@@ -88,17 +90,12 @@ public:
 		return true;
 	}
 
-	//bool all() const { return count() == size(); }
 
-	//Bitmap1d<N> get1ds() const { return bmp1ds; }
-
-
+	/*
 	Bitmap1d<N1>& operator[](const std::size_t pos) { return bmp1ds[pos]; }
 
 	Bitmap1d<N1> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
-
-
-	//void add1d(const Bitmap1d<N1>& bmp) { bmp1ds.push_back(bmp); }
+	*/
 
 	bool equals(const Bitmap2d<N1, N2>& rhs) const {
 		return bmp1ds == rhs.bmp1ds;
@@ -112,6 +109,7 @@ public:
 		return !equals(rhs);
 	}
 
+	/*
 	Bitmap2d<N1, N2>& operator^=(const Bitmap2d<N1, N2>& rhs) {
 		for (size_t i = 0; i < N1; ++i) {
 			bmp1ds[i] ^= rhs[i];
@@ -132,6 +130,7 @@ public:
 		}
 		return (*this);
 	}
+	*/
 
 	std::string toString() const {
 		std::string str;
