@@ -19,6 +19,11 @@ public:
 		bmp2ds.fill(size2d);
 	}
 
+	explicit Bitmap3d(const std::array< Bitmap2d<N1, N2>, N3 >& bmps) :
+		bmp2ds( bmps )
+	{
+	}
+
 	explicit Bitmap3d(const std::array<std::string, N3>& strs) {
 		byStrings(strs);
 	}
@@ -119,7 +124,7 @@ public:
 	*/
 
 private:
-	std::array< Bitmap2d<N1,N2>, N3 > bmp2ds;
+	Bitmap2dArray<N1, N2, N3> bmp2ds;
 };
 
 	}

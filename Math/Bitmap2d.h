@@ -18,7 +18,7 @@ public:
 
 	~Bitmap2d() = default;
 
-	explicit Bitmap2d(const std::array< Bitmap1d<N1>, N2>& b) :
+	explicit Bitmap2d(const Bitmap1dArray<N1,N2>& b) :
 		bmp1ds(b)
 	{}
 
@@ -159,9 +159,11 @@ public:
 	}
 
 private:
-	std::array< Bitmap1d<N1>, N2 > bmp1ds;
+	Bitmap1dArray< N1, N2 > bmp1ds;
 };
 
+template<size_t N1, size_t N2, size_t N3>
+using Bitmap2dArray = std::array < Bitmap2d<N1, N2>, N3 > ;
 	}
 }
 

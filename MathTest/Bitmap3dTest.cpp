@@ -9,6 +9,11 @@ TEST(Bitmap3dTest, TestConstruct)
 	Bitmap3d<1, 1, 1> bitmap;
 	EXPECT_EQ( bitmap.size(), 1);
 }
+/*
+TEST(Bitmap3dTest, TestByBitmap2ds)
+{
+}
+*/
 
 TEST(Bitmap3dTest, TestByStrings)
 {
@@ -62,7 +67,7 @@ TEST(Bitmap3dTest, TestSizeZ)
 
 TEST(Bitmap3dTest, TestSet)
 {
-	Bitmap3d<2, 2, 2> bitmap;
+	Bitmap3d<1, 2, 4> bitmap;
 	bitmap.set(0, 0, 0);
 
 	EXPECT_TRUE(bitmap[0][0][0]);
@@ -70,6 +75,8 @@ TEST(Bitmap3dTest, TestSet)
 	bitmap.set(0, 1, 0);
 	EXPECT_TRUE(bitmap[0][1][0]);
 
+	bitmap.set(1, 1, 0);
+	EXPECT_TRUE(bitmap[1][1][0]);
 }
 
 TEST(Bitmap3dTest, TestReset)
@@ -83,8 +90,14 @@ TEST(Bitmap3dTest, TestReset)
 TEST(Bitmap3dTest, TestToString)
 {
 	Bitmap3d<2, 2, 2> bitmap;
-
-	EXPECT_EQ( "00000000", bitmap.toString() );
+	EXPECT_EQ("00000000", bitmap.toString());
+	bitmap.set(0, 0, 1);
+	EXPECT_EQ("10000000", bitmap.toString());
+	bitmap.set(0, 1, 0);
+	EXPECT_EQ("10010000", bitmap.toString());
+	bitmap.set(1, 0, 0);
+	const auto str = bitmap.toString();
+//	EXPECT_EQ("10010010", );
 }
 
 TEST(Bitmap3dTest, TestEquals)

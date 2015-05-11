@@ -79,12 +79,11 @@ TEST(Bitmap2dTest, TestSizeY)
 
 TEST(Bitmap2dTest, TestSet)
 {
-	Bitmap2d<2,2> bitmap;
-	EXPECT_FALSE(bitmap[0][0]);
+	Bitmap2d<1,2> bitmap;
 	bitmap.set(0, 0);
 	EXPECT_TRUE( bitmap[0][0]);
-	bitmap.set(0, 1);
-	EXPECT_TRUE( bitmap[0][1]);
+	bitmap.set(1, 0);
+	EXPECT_TRUE( bitmap[1][0]);
 }
 
 TEST(Bitmap2dTest, TestSetAll)
@@ -121,8 +120,11 @@ TEST(Bitmap2dTest, TestToString)
 	EXPECT_EQ("0100", bitmap.toString());
 	bitmap.set(0, 1);
 	EXPECT_EQ("1100", bitmap.toString());
+	bitmap.set(1, 0);
+	EXPECT_EQ("1101", bitmap.toString());
+	bitmap.set(1, 1);
+	EXPECT_EQ("1111", bitmap.toString());
 }
-
 
 TEST(Bitmap2dTest, TestEquals)
 {

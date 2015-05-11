@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_BITMAP_1D_H__
 
 #include <bitset>
+#include <array>
 
 namespace Crystal {
 	namespace Math {
@@ -101,6 +102,9 @@ public:
 private:
 	std::bitset<N> bits;
 };
+
+template<size_t N1, size_t N2>
+using Bitmap1dArray = std::array < Bitmap1d<N1>, N2 > ;
 	}
 }
 
