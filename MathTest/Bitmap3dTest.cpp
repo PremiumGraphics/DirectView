@@ -114,7 +114,7 @@ TEST(Bitmap3dTest, TestToString)
 }
 */
 
-TEST(Bitmap3dTest, TestToString_)
+TEST(Bitmap3dTest, TestToString)
 {
 	Bitmap3d<1, 2, 4> bitmap;
 	EXPECT_EQ("00000000", bitmap.toString());
@@ -154,3 +154,12 @@ TEST(Bitmap3dTest, TestEquals)
 	bmp1.set(0, 0, 0);
 	EXPECT_FALSE(bmp1.equals(bmp2));
 }
+
+/*
+TEST(Bitmap3dTest, TestAnd)
+{
+	using Bitmap124 = Bitmap3d < 1, 2, 4 > ;
+
+	EXPECT_TRUE(Bitmap124("00000000").and(Bitmap124("00000000") ), Bitmap124("00000000"));
+}
+*/

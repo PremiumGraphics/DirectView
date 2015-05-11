@@ -108,6 +108,13 @@ public:
 		return (*this);
 	}
 
+	Bitmap2d<N1, N2>& xor(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].xor(rhs.bmp1ds[i]);
+		}
+		return (*this);
+	}
+
 	Bitmap2d<N1, N2> not() const {
 		Bitmap1dArray<N1, N2> bs = bmp1ds;
 		for (size_t i = 0; i < bmp1ds.size(); ++i ) {

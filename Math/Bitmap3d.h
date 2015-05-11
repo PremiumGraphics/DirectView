@@ -97,10 +97,10 @@ public:
 	void byString(const std::string& str) {
 		assert(str.size() == this->size());
 		for (size_t i = 0; i < N2; ++i) {
-			const size_t start = i * N1;
+			const size_t start = i * N;
 			const size_t end = (i + 1) * N1;
 			const auto s = str.substr(start, end);
-			bmp1ds[i] = Bitmap1d<N1>(s);
+			bmp1ds[i] = Bitmap2d<N1,N2>(s);
 		}
 	}
 	*/
@@ -117,16 +117,34 @@ public:
 		}
 	}
 
+	Bitmap3d<N1, N2, N3>& and(const Bitmap3d<N1, N2, N3>& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp1ds[i].and(rhs.bmp2ds[i]);
+		}
+		return (*this);
+	}
 	/*
-	void set(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = true; }
+	Bitmap2d<N1, N2>& or(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].or(rhs.bmp1ds[i]);
+		}
+		return (*this);
+	}
 
-	void reest(const unsigned int x, const unsigned int y) { bmp1ds[x][y] = false; }
+	Bitmap2d<N1, N2>& xor(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].xor(rhs.bmp1ds[i]);
+		}
+		return (*this);
+	}
 
-	std::vector< Bitmap1d<N> > get1ds() const { return bmp1ds; }
-
-	Bitmap1d<N> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
-
-	void add1d(const Bitmap1d& bmp) { bmp1ds.push_back(bmp); }
+	Bitmap2d<N1, N2> not() const {
+		Bitmap1dArray<N1, N2> bs = bmp1ds;
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bs[i] = bmp1ds[i].not();
+		}
+		return Bitmap2d<N1, N2>(bs);
+	}
 	*/
 
 private:
