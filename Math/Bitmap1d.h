@@ -54,14 +54,23 @@ public:
 
 	bool operator[](const size_t i) const { return bits[i]; }
 
+	Bitmap1d<N>& and(const Bitmap1d<N>& rhs) {
+		bits &= rhs.bits;
+		return (*this);
+	}
+
 	Bitmap1d<N>& or(const Bitmap1d<N>& rhs) {
 		bits |= rhs.bits;
 		return *(this);
 	}
 
-	Bitmap1d<N>& and(const Bitmap1d<N>& rhs) {
-		bits &= rhs.bits;
+	Bitmap1d<N>& xor(const Bitmap1d<N>& rhs) {
+		bits ^= rhs.bits;
 		return (*this);
+	}
+
+	Bitmap1d<N> not() const {
+		return Bitmap1d<N>( ~bits );
 	}
 
 	size_t size() const { return bits.size(); }

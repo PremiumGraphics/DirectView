@@ -18,6 +18,10 @@ public:
 
 	~Bitmap2d() = default;
 
+	explicit Bitmap2d(const long l)
+	{}
+
+
 	explicit Bitmap2d(const Bitmap1dArray<N1,N2>& b) :
 		bmp1ds(b)
 	{}
@@ -90,6 +94,27 @@ public:
 		return true;
 	}
 
+	Bitmap2d<N1, N2>& and( const Bitmap2d<N1,N2>& rhs) {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].and( rhs.bmp1ds[i] );
+		}
+		return (*this);
+	}
+
+	Bitmap2d<N1, N2>& or(const Bitmap2d<N1, N2>& rhs) {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].or(rhs.bmp1ds[i]);
+		}
+		return (*this);
+	}
+
+	Bitmap2d<N1, N2> not() const {
+		Bitmap1dArray<N1, N2> bs = bmp1ds;
+		for (size_t i = 0; i < bmp1ds.size(); ++i ) {
+			bs[i] = bmp1ds[i].not();
+		}
+		return Bitmap2d<N1, N2>(bs);
+	}
 
 	/*
 	Bitmap1d<N1>& operator[](const std::size_t pos) { return bmp1ds[pos]; }

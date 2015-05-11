@@ -4,6 +4,8 @@
 
 using namespace Crystal::Math;
 
+
+
 TEST(Bitmap1dTest, TestConstruct)
 {
 	Bitmap1d<1> bitmap;
@@ -111,6 +113,37 @@ TEST(Bitmap1dTest, TestOr)
 	EXPECT_EQ( Bitmap1d<2>("11").or(Bitmap1d<2>("01")), Bitmap1d<2>("11"));
 	EXPECT_EQ( Bitmap1d<2>("11").or(Bitmap1d<2>("10")), Bitmap1d<2>("11"));
 	EXPECT_EQ( Bitmap1d<2>("11").or(Bitmap1d<2>("11")), Bitmap1d<2>("11"));
+}
+
+TEST(Bitmap1dTest, TestXor)
+{
+	EXPECT_EQ( Bitmap1d<2>("00").xor(Bitmap1d<2>("00")), Bitmap1d<2>("00"));
+	EXPECT_EQ( Bitmap1d<2>("00").xor(Bitmap1d<2>("01")), Bitmap1d<2>("01"));
+	EXPECT_EQ( Bitmap1d<2>("00").xor(Bitmap1d<2>("10")), Bitmap1d<2>("10"));
+	EXPECT_EQ( Bitmap1d<2>("00").xor(Bitmap1d<2>("11")), Bitmap1d<2>("11"));
+
+	EXPECT_EQ( Bitmap1d<2>("01").xor(Bitmap1d<2>("00")), Bitmap1d<2>("01"));
+	EXPECT_EQ( Bitmap1d<2>("01").xor(Bitmap1d<2>("01")), Bitmap1d<2>("00"));
+	EXPECT_EQ( Bitmap1d<2>("01").xor(Bitmap1d<2>("10")), Bitmap1d<2>("11"));
+	EXPECT_EQ( Bitmap1d<2>("01").xor(Bitmap1d<2>("11")), Bitmap1d<2>("10"));
+
+	EXPECT_EQ( Bitmap1d<2>("10").xor(Bitmap1d<2>("00")), Bitmap1d<2>("10"));
+	EXPECT_EQ( Bitmap1d<2>("10").xor(Bitmap1d<2>("01")), Bitmap1d<2>("11"));
+	EXPECT_EQ( Bitmap1d<2>("10").xor(Bitmap1d<2>("10")), Bitmap1d<2>("00"));
+	EXPECT_EQ( Bitmap1d<2>("10").xor(Bitmap1d<2>("11")), Bitmap1d<2>("01"));
+
+	EXPECT_EQ( Bitmap1d<2>("11").xor(Bitmap1d<2>("00")), Bitmap1d<2>("11"));
+	EXPECT_EQ( Bitmap1d<2>("11").xor(Bitmap1d<2>("01")), Bitmap1d<2>("10"));
+	EXPECT_EQ( Bitmap1d<2>("11").xor(Bitmap1d<2>("10")), Bitmap1d<2>("01"));
+	EXPECT_EQ( Bitmap1d<2>("11").xor(Bitmap1d<2>("11")), Bitmap1d<2>("00"));
+}
+
+TEST(Bitmap1dTest, TestNot)
+{
+	EXPECT_EQ( Bitmap1d<2>("00").not(), Bitmap1d<2>("11") );
+	EXPECT_EQ( Bitmap1d<2>("01").not(), Bitmap1d<2>("10") );
+	EXPECT_EQ( Bitmap1d<2>("10").not(), Bitmap1d<2>("01") );
+	EXPECT_EQ( Bitmap1d<2>("11").not(), Bitmap1d<2>("00") );
 }
 
 TEST(Bitmap1dTest, TestAll)

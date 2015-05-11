@@ -23,7 +23,13 @@ TEST(Bitmap2dTest, TestByString)
 	EXPECT_TRUE( bitmap.get(0,0) );
 	EXPECT_TRUE( bitmap.get(0,1) );
 	EXPECT_FALSE(bitmap.get(1,0) );
-	EXPECT_TRUE( bitmap.get(1,1) );
+	EXPECT_TRUE(bitmap.get(1, 1));
+
+	using Bitmap2x2 = Bitmap2d < 2, 2 > ;
+	{
+		EXPECT_EQ(Bitmap2x2(0) ,Bitmap2x2(0));
+	}
+
 }
 
 TEST(Bitmap2dTest, TestByStrings)
@@ -183,34 +189,63 @@ TEST(Bitmap2dTest, TestNone)
 	EXPECT_TRUE(  bitmap.none());
 }
 
-/*
-TEST(Bitmap2dTest, TestOperatorOr)
+
+TEST(Bitmap2dTest, TestAnd)
 {
-	Bitmap2d<2, 2> bmp1;
-	bmp1.set(0, 0);
-	bmp1.set(0, 1);
+	using Bitmap1x2 = Bitmap2d < 1, 2 >;
+	
+	EXPECT_EQ(Bitmap1x2("00").and( Bitmap1x2("00") ), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("00").and( Bitmap1x2("01") ), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("00").and( Bitmap1x2("10") ), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("00").and( Bitmap1x2("11") ), Bitmap1x2("00"));
 
-	Bitmap2d<2, 2> bmp2;
-	bmp2.set(0, 0);
+	EXPECT_EQ(Bitmap1x2("01").and(Bitmap1x2("00")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("01").and(Bitmap1x2("01")), Bitmap1x2("01"));
+	EXPECT_EQ(Bitmap1x2("01").and(Bitmap1x2("10")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("01").and(Bitmap1x2("11")), Bitmap1x2("01"));
 
-	bmp1 |= bmp2;
-	EXPECT_TRUE( bmp1.get(0,0) );
-	EXPECT_TRUE( bmp1.get(0,1) );
+	EXPECT_EQ(Bitmap1x2("10").and(Bitmap1x2("00")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("10").and(Bitmap1x2("01")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("10").and(Bitmap1x2("10")), Bitmap1x2("10"));
+	EXPECT_EQ(Bitmap1x2("10").and(Bitmap1x2("11")), Bitmap1x2("10"));
+
+	EXPECT_EQ(Bitmap1x2("11").and(Bitmap1x2("00")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("11").and(Bitmap1x2("01")), Bitmap1x2("01"));
+	EXPECT_EQ(Bitmap1x2("11").and(Bitmap1x2("10")), Bitmap1x2("10"));
+	EXPECT_EQ(Bitmap1x2("11").and(Bitmap1x2("11")), Bitmap1x2("11"));
 }
-*/
 
-/*
-TEST(Bitmap2dTest, TestOperatorAnd)
+TEST(Bitmap2dTest, TestOr)
 {
-	Bitmap2d<2, 2> bmp1;
-	bmp1.set(0, 0);
-	bmp1.set(0, 1);
+	using Bitmap1x2 = Bitmap2d < 1, 2 > ;
 
-	Bitmap2d<2, 2> bmp2;
-	bmp2.set(0, 0);
+	EXPECT_EQ(Bitmap1x2("00").or(Bitmap1x2("00")), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap1x2("00").or(Bitmap1x2("01")), Bitmap1x2("01"));
+	EXPECT_EQ(Bitmap1x2("00").or(Bitmap1x2("10")), Bitmap1x2("10"));
+	EXPECT_EQ(Bitmap1x2("00").or(Bitmap1x2("11")), Bitmap1x2("11"));
 
-	bmp1 &= bmp2;
-	EXPECT_TRUE( bmp1.get(0,0));
-	EXPECT_FALSE(bmp1.get(0,1));
+	EXPECT_EQ(Bitmap1x2("01").or(Bitmap1x2("00")), Bitmap1x2("01"));
+	EXPECT_EQ(Bitmap1x2("01").or(Bitmap1x2("01")), Bitmap1x2("01"));
+	EXPECT_EQ(Bitmap1x2("01").or(Bitmap1x2("10")), Bitmap1x2("11"));
+	EXPECT_EQ(Bitmap1x2("01").or(Bitmap1x2("11")), Bitmap1x2("11"));
+
+	EXPECT_EQ(Bitmap1x2("10").or(Bitmap1x2("00")), Bitmap1x2("10"));
+	EXPECT_EQ(Bitmap1x2("10").or(Bitmap1x2("01")), Bitmap1x2("11"));
+	EXPECT_EQ(Bitmap1x2("10").or(Bitmap1x2("10")), Bitmap1x2("10"));
+	EXPECT_EQ(Bitmap1x2("10").or(Bitmap1x2("11")), Bitmap1x2("11"));
+
+	EXPECT_EQ(Bitmap1x2("11").or(Bitmap1x2("00")), Bitmap1x2("11"));
+	EXPECT_EQ(Bitmap1x2("11").or(Bitmap1x2("01")), Bitmap1x2("11"));
+	EXPECT_EQ(Bitmap1x2("11").or(Bitmap1x2("10")), Bitmap1x2("11"));
+	EXPECT_EQ(Bitmap1x2("11").or(Bitmap1x2("11")), Bitmap1x2("11"));
 }
-*/
+
+TEST(Bitmap2dTest, TestNot)
+{
+	using Bitmap1x2 = Bitmap2d < 1, 2 >;
+	
+	EXPECT_EQ( Bitmap1x2("00").not(), Bitmap1x2("11"));
+	EXPECT_EQ( Bitmap1x2("01").not(), Bitmap1x2("10"));
+	EXPECT_EQ( Bitmap1x2("10").not(), Bitmap1x2("01"));
+	EXPECT_EQ( Bitmap1x2("11").not(), Bitmap1x2("00"));
+}
