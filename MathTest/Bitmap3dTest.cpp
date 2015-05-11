@@ -10,6 +10,29 @@ TEST(Bitmap3dTest, TestConstruct)
 	EXPECT_EQ( bitmap.size(), 1);
 }
 
+TEST(Bitmap3dTest, TestByStrings)
+{
+	Bitmap3d<2, 2, 2> bitmap;
+	const std::array < std::string, 2 > strs =
+	{
+		"0000",
+		"0011"
+	};
+	bitmap.byStrings(strs);
+	
+	const Bitmap2d<2, 2> expected1("0000");
+	const Bitmap2d<2, 2> expected2("0011");
+
+	EXPECT_EQ( expected1, bitmap[0]);
+	EXPECT_EQ( expected2, bitmap[1]);
+}
+
+/*
+TEST(Bitmap3dTest, TestByStrings2)
+{
+}
+*/
+
 TEST(Bitmap3dTest, TestSize)
 {
 	Bitmap3d<2, 2, 2> bitmap;

@@ -22,6 +22,14 @@ public:
 		bmp1ds(b)
 	{}
 
+	explicit Bitmap2d(const std::string& str) {
+		byString(str);
+	}
+
+	explicit Bitmap2d(const std::array<std::string, N2>& strs) {
+		byStrings(strs);
+	}
+
 	void set() {
 		for (auto& b : bmp1ds) {
 			b.set();
@@ -84,7 +92,11 @@ public:
 
 	//Bitmap1d<N> get1ds() const { return bmp1ds; }
 
+
+	Bitmap1d<N1>& operator[](const std::size_t pos) { return bmp1ds[pos]; }
+
 	Bitmap1d<N1> operator[](const std::size_t pos) const { return bmp1ds[pos]; }
+
 
 	//void add1d(const Bitmap1d<N1>& bmp) { bmp1ds.push_back(bmp); }
 
@@ -127,6 +139,23 @@ public:
 			str += b.toString();
 		}
 		return str;
+	}
+
+	void byString(const std::string& str) {
+		assert(str.size() == this->size());
+		std::array< std::string, N2 > strs;
+		for (size_t i = 0; i < N2; ++i) {
+			const size_t start = i * N1;
+			const size_t end = (i + 1) * N1;
+			strs[i] = str.substr( start, end );
+		}
+		byStrings(strs);
+	}
+
+	void byStrings(const std::array<std::string, N2>& strs) {
+		for (size_t i = 0; i < N2; ++i) {
+			bmp1ds[i] = Bitmap1d<N1>(strs[i]);
+		}
 	}
 
 private:

@@ -15,9 +15,12 @@ public:
 	Bitmap3d()
 	{}
 
-	Bitmap3d(const size_t size2d)
-	{
+	explicit Bitmap3d(const size_t size2d) {
 		bmp2ds.fill(size2d);
+	}
+
+	explicit Bitmap3d(const std::array<std::string, N3>& strs) {
+		byStrings(strs);
 	}
 
 	size_t sizex() const {
@@ -55,6 +58,8 @@ public:
 
 	//std::vector< Bitmap2d<N> > get2ds() const { return bmp2ds; }
 
+	Bitmap2d<N1, N2>& operator[](const std::size_t pos) { return bmp2ds[pos]; }
+
 	Bitmap2d<N1,N2> operator[](const std::size_t pos) const { return bmp2ds[pos]; }
 
 	std::string toString() const {
@@ -75,6 +80,30 @@ public:
 
 	bool operator!=(const Bitmap3d<N1, N2, N3>& rhs) const {
 		return !equals(rhs);
+	}
+
+	/*
+	void byString(const std::string& str) {
+		assert(str.size() == this->size());
+		for (size_t i = 0; i < N2; ++i) {
+			const size_t start = i * N1;
+			const size_t end = (i + 1) * N1;
+			const auto s = str.substr(start, end);
+			bmp1ds[i] = Bitmap1d<N1>(s);
+		}
+	}
+	*/
+
+	void byStrings(const std::array< std::array<std::string, N2>, N3 >& strs) {
+		for (size_t i = 0; i < N3; ++i) {
+			bmp2ds[i] = Bitmap2d<N1, N2>(strs[i]);
+		}
+	}
+	
+	void byStrings(const std::array<std::string, N3>& strs) {
+		for (size_t i = 0; i < N3; ++i) {
+			bmp2ds[i] = Bitmap2d<N1,N2>(strs[i]);
+		}
 	}
 
 	/*

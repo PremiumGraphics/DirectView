@@ -49,6 +49,8 @@ public:
 		return *(this);
 	}
 
+	bool operator[](const size_t i) { return bits[i]; }
+
 	bool operator[](const size_t i) const { return bits[i]; }
 
 	Bitmap1d<N>& operator|=(const Bitmap1d<N>& rhs) {
@@ -89,6 +91,11 @@ public:
 
 	bool operator!=(const Bitmap1d<N>& rhs) const {
 		return bits != rhs.bits;
+	}
+
+	Bitmap1d<N>& operator=(const Bitmap1d<N>& rhs) {
+		bits = rhs.bits;
+		return *this;
 	}
 
 private:

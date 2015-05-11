@@ -12,9 +12,33 @@ TEST(Bitmap2dTest, TestConstruct)
 
 TEST(Bitmap2dTest, TestConstructByBitmap1ds)
 {
-	const Bitmap2d<1, 1> bitmap( std::array < Bitmap1d<1>, 1 >() );
+	const std::array< Bitmap1d<1>, 1 > bmp1ds;
+	const Bitmap2d<1, 1> bitmap( bmp1ds );
 }
 
+TEST(Bitmap2dTest, TestByString)
+{
+	Bitmap2d<2, 2> bitmap;
+	bitmap.byString("0111");
+	EXPECT_TRUE( bitmap[0][0]);
+	EXPECT_FALSE(bitmap[0][1]);
+	EXPECT_TRUE( bitmap[1][0]);
+	EXPECT_TRUE( bitmap[1][1]);
+}
+
+TEST(Bitmap2dTest, TestByStrings)
+{
+	const std::array< std::string, 2 > strs = {
+		"01",
+		"11"
+	};
+	Bitmap2d<2, 2> bitmap;
+	bitmap.byStrings(strs);
+	EXPECT_TRUE( bitmap[0][0]);
+	EXPECT_FALSE(bitmap[0][1]);
+	EXPECT_TRUE( bitmap[1][0]);
+	EXPECT_TRUE( bitmap[1][1]);
+}
 
 TEST(Bitmap2dTest, TestSize)
 {
