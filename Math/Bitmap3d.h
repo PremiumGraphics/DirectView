@@ -57,7 +57,9 @@ public:
 	}
 
 
-	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[x].set(y, z); }
+	//void set(const size_t x, const size_t y, const size_t z) { bmp2ds[x].set(y, z); }
+
+	void set_(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(y, x); }
 
 	void reset(const size_t x, const size_t y, const size_t z) { bmp2ds[x].reset(y, z); }
 

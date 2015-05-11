@@ -112,6 +112,16 @@ TEST(Bitmap2dTest, TestReset)
 	EXPECT_FALSE(bitmap[0][0]);
 }
 
+TEST(Bitmap2dTest, TestResetAll)
+{
+	Bitmap2d<1, 2> bitmap;
+	bitmap.set();
+	bitmap.reset();
+
+	EXPECT_FALSE(bitmap[0][0]);
+	EXPECT_FALSE(bitmap[1][0]);
+}
+
 TEST(Bitmap2dTest, TestToString)
 {
 	Bitmap2d<2, 2> bitmap;
@@ -132,8 +142,10 @@ TEST(Bitmap2dTest, TestEquals)
 	Bitmap2d<1, 1> bmp2;
 
 	EXPECT_TRUE( bmp1.equals(bmp2) );
+	EXPECT_EQ( bmp1, bmp2 );
 	bmp1.set(0, 0);
 	EXPECT_FALSE(bmp1.equals(bmp2));
+	EXPECT_NE( bmp1, bmp2 );
 }
 
 
@@ -164,15 +176,6 @@ TEST(Bitmap2dTest, TestNone)
 	EXPECT_FALSE( bitmap.none());
 	bitmap.reset(1, 1);
 	EXPECT_TRUE(  bitmap.none());
-}
-
-TEST(Bitmap2dTest, TestResetAll)
-{
-	Bitmap2d<2,2> bitmap;
-	bitmap.set(0, 0);
-	bitmap.reset();
-
-	EXPECT_TRUE(bitmap.none());
 }
 
 TEST(Bitmap2dTest, TestOperatorOr)

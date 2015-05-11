@@ -41,7 +41,7 @@ TEST(BitmapConverterTest, TestToBoxesEmpty)
 TEST(BitmapConverterTest, TestToOneBox)
 {
 	Bitmap3d<2,2,2> bmp;
-	bmp.set(0, 0, 0);
+	bmp.set_(0, 0, 0);
 	Space3d space(2, 2, 2);
 	BitmapConverter converter;
 	const auto& boxes = converter.toBoxes(bmp, space);
@@ -52,8 +52,8 @@ TEST(BitmapConverterTest, TestToOneBox)
 TEST(BitmapConverterTest, TestToTwoBoxes)
 {
 	Bitmap3d<2,2,2> bmp;
-	bmp.set(0, 0, 0);
-	bmp.set(1, 0, 0);
+	bmp.set_(0, 0, 0);
+	bmp.set_(0, 0, 1);
 	Space3d space(2, 2, 2);
 	BitmapConverter converter;
 	const auto& boxes = converter.toBoxes(bmp, space);
