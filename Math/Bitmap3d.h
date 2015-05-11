@@ -24,6 +24,10 @@ public:
 	{
 	}
 
+	explicit Bitmap3d(const std::string& str) {
+		byString(str);
+	}
+
 	explicit Bitmap3d(const std::array<std::string, N3>& strs) {
 		byStrings(strs);
 	}
@@ -93,17 +97,16 @@ public:
 		return !equals(rhs);
 	}
 
-	/*
 	void byString(const std::string& str) {
 		assert(str.size() == this->size());
-		for (size_t i = 0; i < N2; ++i) {
-			const size_t start = i * N;
-			const size_t end = (i + 1) * N1;
-			const auto s = str.substr(start, end);
-			bmp1ds[i] = Bitmap2d<N1,N2>(s);
+		std::array< std::string, N3 > strs;
+		for (size_t i = 0; i < N3; ++i) {
+			const size_t start = i * N1 * N2;
+			const size_t len = N1 * N2;
+			strs[i] = str.substr(start, len);
 		}
+		byStrings(strs);
 	}
-	*/
 
 	void byStrings(const std::array< std::array<std::string, N2>, N3 >& strs) {
 		for (size_t i = 0; i < N3; ++i) {
@@ -119,18 +122,19 @@ public:
 
 	Bitmap3d<N1, N2, N3>& and(const Bitmap3d<N1, N2, N3>& rhs) {
 		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bmp1ds[i].and(rhs.bmp2ds[i]);
-		}
-		return (*this);
-	}
-	/*
-	Bitmap2d<N1, N2>& or(const Bitmap2d<N1, N2>& rhs) {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].or(rhs.bmp1ds[i]);
+			bmp2ds[i].and(rhs.bmp2ds[i]);
 		}
 		return (*this);
 	}
 
+	Bitmap3d<N1, N2, N3>& or(const Bitmap3d<N1, N2, N3>& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].or(rhs.bmp2ds[i]);
+		}
+		return (*this);
+	}
+
+	/*
 	Bitmap2d<N1, N2>& xor(const Bitmap2d<N1, N2>& rhs) {
 		for (size_t i = 0; i < bmp1ds.size(); ++i) {
 			bmp1ds[i].xor(rhs.bmp1ds[i]);

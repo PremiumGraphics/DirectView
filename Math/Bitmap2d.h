@@ -177,8 +177,8 @@ public:
 		std::array< std::string, N2 > strs;
 		for (size_t i = 0; i < N2; ++i) {
 			const size_t start = i * N1;
-			const size_t end = (i + 1) * N1;
-			strs[i] = str.substr( start, end );
+			const size_t len = N1;
+			strs[i] = str.substr( start, len );
 		}
 		byStrings(strs);
 	}

@@ -32,6 +32,26 @@ TEST(Bitmap3dTest, TestByStrings)
 	EXPECT_EQ( expected2, bitmap[1]);
 }
 
+TEST(Bitmap3dTest, TestByString)
+{
+	{
+		Bitmap3d<2, 2, 2> bitmap("00000011");
+
+		const Bitmap2d<2, 2> expected1("0000");
+		const Bitmap2d<2, 2> expected2("0011");
+
+		EXPECT_EQ(expected1, bitmap[0]);
+		EXPECT_EQ(expected2, bitmap[1]);
+	}
+
+	using Bitmap124 = Bitmap3d < 1, 2, 4 > ;
+	{
+		Bitmap124 bitmap("00000011");
+
+	}
+}
+
+
 /*
 TEST(Bitmap3dTest, TestByStrings2)
 {
@@ -155,11 +175,43 @@ TEST(Bitmap3dTest, TestEquals)
 	EXPECT_FALSE(bmp1.equals(bmp2));
 }
 
-/*
 TEST(Bitmap3dTest, TestAnd)
 {
-	using Bitmap124 = Bitmap3d < 1, 2, 4 > ;
+	using Bitmap112 = Bitmap3d < 1, 1, 2 > ;
 
-	EXPECT_TRUE(Bitmap124("00000000").and(Bitmap124("00000000") ), Bitmap124("00000000"));
+	EXPECT_EQ( Bitmap112("00").and(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("00").and(Bitmap112("01")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("00").and(Bitmap112("10")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("00").and(Bitmap112("11")), Bitmap112("00"));
+
+	EXPECT_EQ( Bitmap112("01").and(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("01").and(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ( Bitmap112("01").and(Bitmap112("10")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("01").and(Bitmap112("11")), Bitmap112("01"));
+
+	EXPECT_EQ( Bitmap112("10").and(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("10").and(Bitmap112("01")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("10").and(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ( Bitmap112("10").and(Bitmap112("11")), Bitmap112("10"));
+
+	EXPECT_EQ( Bitmap112("11").and(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("11").and(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ( Bitmap112("11").and(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ( Bitmap112("11").and(Bitmap112("11")), Bitmap112("11"));
 }
-*/
+
+TEST(Bitmap3dTest, TestOr)
+{
+	using Bitmap112 = Bitmap3d < 1, 1, 2 > ;
+
+	EXPECT_EQ(Bitmap112("00").or(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ(Bitmap112("00").or(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("00").or(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ(Bitmap112("00").or(Bitmap112("11")), Bitmap112("11"));
+
+	EXPECT_EQ(Bitmap112("01").or(Bitmap112("00")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("01").or(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("01").or(Bitmap112("10")), Bitmap112("11"));
+	EXPECT_EQ(Bitmap112("01").or(Bitmap112("11")), Bitmap112("11"));
+
+}
