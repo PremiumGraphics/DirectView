@@ -175,6 +175,16 @@ TEST(Bitmap3dTest, TestEquals)
 	EXPECT_FALSE(bmp1.equals(bmp2));
 }
 
+TEST(Bitmap3dTest, TestNot)
+{
+	using Bitmap112 = Bitmap3d < 1, 1, 2 > ;
+
+	EXPECT_EQ(Bitmap112("00").not(), Bitmap112("11"));
+	EXPECT_EQ(Bitmap112("01").not(), Bitmap112("10"));
+	EXPECT_EQ(Bitmap112("10").not(), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("11").not(), Bitmap112("00"));
+}
+
 TEST(Bitmap3dTest, TestAnd)
 {
 	using Bitmap112 = Bitmap3d < 1, 1, 2 > ;
@@ -204,14 +214,48 @@ TEST(Bitmap3dTest, TestOr)
 {
 	using Bitmap112 = Bitmap3d < 1, 1, 2 > ;
 
-	EXPECT_EQ(Bitmap112("00").or(Bitmap112("00")), Bitmap112("00"));
-	EXPECT_EQ(Bitmap112("00").or(Bitmap112("01")), Bitmap112("01"));
-	EXPECT_EQ(Bitmap112("00").or(Bitmap112("10")), Bitmap112("10"));
-	EXPECT_EQ(Bitmap112("00").or(Bitmap112("11")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("00").or(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ( Bitmap112("00").or(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ( Bitmap112("00").or(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ( Bitmap112("00").or(Bitmap112("11")), Bitmap112("11"));
 
-	EXPECT_EQ(Bitmap112("01").or(Bitmap112("00")), Bitmap112("01"));
-	EXPECT_EQ(Bitmap112("01").or(Bitmap112("01")), Bitmap112("01"));
-	EXPECT_EQ(Bitmap112("01").or(Bitmap112("10")), Bitmap112("11"));
-	EXPECT_EQ(Bitmap112("01").or(Bitmap112("11")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("01").or(Bitmap112("00")), Bitmap112("01"));
+	EXPECT_EQ( Bitmap112("01").or(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ( Bitmap112("01").or(Bitmap112("10")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("01").or(Bitmap112("11")), Bitmap112("11"));
 
+	EXPECT_EQ( Bitmap112("10").or(Bitmap112("00")), Bitmap112("10"));
+	EXPECT_EQ( Bitmap112("10").or(Bitmap112("01")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("10").or(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ( Bitmap112("10").or(Bitmap112("11")), Bitmap112("11"));
+
+	EXPECT_EQ( Bitmap112("11").or(Bitmap112("00")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("11").or(Bitmap112("01")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("11").or(Bitmap112("10")), Bitmap112("11"));
+	EXPECT_EQ( Bitmap112("11").or(Bitmap112("11")), Bitmap112("11"));
+}
+
+TEST(Bitmap3dTest, TestXor)
+{
+	using Bitmap112 = Bitmap3d < 1, 1, 2 >;
+
+	EXPECT_EQ(Bitmap112("00").xor(Bitmap112("00")), Bitmap112("00"));
+	EXPECT_EQ(Bitmap112("00").xor(Bitmap112("01")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("00").xor(Bitmap112("10")), Bitmap112("10"));
+	EXPECT_EQ(Bitmap112("00").xor(Bitmap112("11")), Bitmap112("11"));
+
+	EXPECT_EQ(Bitmap112("01").xor(Bitmap112("00")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("01").xor(Bitmap112("01")), Bitmap112("00"));
+	EXPECT_EQ(Bitmap112("01").xor(Bitmap112("10")), Bitmap112("11"));
+	EXPECT_EQ(Bitmap112("01").xor(Bitmap112("11")), Bitmap112("10"));
+
+	EXPECT_EQ(Bitmap112("10").xor(Bitmap112("00")), Bitmap112("10"));
+	EXPECT_EQ(Bitmap112("10").xor(Bitmap112("01")), Bitmap112("11"));
+	EXPECT_EQ(Bitmap112("10").xor(Bitmap112("10")), Bitmap112("00"));
+	EXPECT_EQ(Bitmap112("10").xor(Bitmap112("11")), Bitmap112("01"));
+
+	EXPECT_EQ(Bitmap112("11").xor(Bitmap112("00")), Bitmap112("11"));
+	EXPECT_EQ(Bitmap112("11").xor(Bitmap112("01")), Bitmap112("10"));
+	EXPECT_EQ(Bitmap112("11").xor(Bitmap112("10")), Bitmap112("01"));
+	EXPECT_EQ(Bitmap112("11").xor(Bitmap112("11")), Bitmap112("00"));
 }

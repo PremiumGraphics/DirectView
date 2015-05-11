@@ -116,7 +116,7 @@ public:
 	}
 
 	Bitmap2d<N1, N2> not() const {
-		Bitmap1dArray<N1, N2> bs = bmp1ds;
+		Bitmap1dArray<N1, N2> bs;
 		for (size_t i = 0; i < bmp1ds.size(); ++i ) {
 			bs[i] = bmp1ds[i].not();
 		}
@@ -140,29 +140,6 @@ public:
 	bool operator!=(const Bitmap2d<N1, N2>& rhs) const {
 		return !equals(rhs);
 	}
-
-	/*
-	Bitmap2d<N1, N2>& operator^=(const Bitmap2d<N1, N2>& rhs) {
-		for (size_t i = 0; i < N1; ++i) {
-			bmp1ds[i] ^= rhs[i];
-		}
-		return (*this);
-	}
-
-	Bitmap2d<N1, N2>& operator|=(const Bitmap2d<N1, N2>& rhs) {
-		for (size_t i = 0; i < N1; ++i) {
-			bmp1ds[i] |= rhs[i];
-		}
-		return (*this);
-	}
-
-	Bitmap2d<N1,N2>& operator&=(const Bitmap2d<N1,N2>& rhs) {
-		for (size_t i = 0; i < N1; ++i) {
-			bmp1ds[i] &= rhs[i];
-		}
-		return (*this);
-	}
-	*/
 
 	std::string toString() const {
 		std::string str;

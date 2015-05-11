@@ -134,22 +134,20 @@ public:
 		return (*this);
 	}
 
-	/*
-	Bitmap2d<N1, N2>& xor(const Bitmap2d<N1, N2>& rhs) {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].xor(rhs.bmp1ds[i]);
+	Bitmap3d<N1, N2, N3>& xor(const Bitmap3d<N1, N2, N3>& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].xor(rhs.bmp2ds[i]);
 		}
 		return (*this);
 	}
 
-	Bitmap2d<N1, N2> not() const {
-		Bitmap1dArray<N1, N2> bs = bmp1ds;
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bs[i] = bmp1ds[i].not();
+	Bitmap3d<N1, N2, N3> not() const {
+		Bitmap2dArray<N1, N2, N3> bs;
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bs[i] = bmp2ds[i].not();
 		}
-		return Bitmap2d<N1, N2>(bs);
+		return Bitmap3d<N1, N2, N3>(bs);
 	}
-	*/
 
 private:
 	Bitmap2dArray<N1, N2, N3> bmp2ds;
