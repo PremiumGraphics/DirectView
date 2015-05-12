@@ -165,8 +165,9 @@ TEST(Bitmap1dTest, TestIsNone)
 
 TEST(Bitmap1dTest, TestGetEdge)
 {
-	Bitmap1d<4> bmp("1110");
-	Bitmap1d<4> actual = bmp.getEdge();
-	Bitmap1d<4> expected("0010");
-	EXPECT_EQ(expected, actual);
+	EXPECT_EQ( Bitmap4("0000"), Bitmap4("0000").getEdge() );
+	EXPECT_EQ( Bitmap4("0010"), Bitmap4("0001").getEdge() );
+
+	EXPECT_EQ( Bitmap4("1010"), Bitmap4("0110").getEdge() );
+	EXPECT_EQ( Bitmap4("0010"), Bitmap4("1110").getEdge() );
 }

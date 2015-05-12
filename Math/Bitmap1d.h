@@ -101,7 +101,7 @@ public:
 	Bitmap1d<N> getEdge() const {
 		Bitmap1d<N> dest;
 		for (size_t i = 1; i < bits.size(); ++i){
-			if (!bits[i - 1] && bits[i]) {
+			if ( bits[i - 1] != bits[i]) {
 				dest.set(i);
 			}
 		}
@@ -114,6 +114,10 @@ private:
 
 template<size_t N1, size_t N2>
 using Bitmap1dArray = std::array < Bitmap1d<N1>, N2 > ;
+
+using Bitmap1 = Bitmap1d < 1 >;
+using Bitmap2 = Bitmap1d < 2 >;
+using Bitmap4 = Bitmap1d < 4 >;
 	}
 }
 

@@ -174,8 +174,6 @@ TEST(Bitmap3dTest, TestEquals)
 
 TEST(Bitmap3dTest, TestNot)
 {
-	using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 > ;
-
 	EXPECT_EQ(Bitmap1x1x2("00").not(), Bitmap1x1x2("11"));
 	EXPECT_EQ(Bitmap1x1x2("01").not(), Bitmap1x1x2("10"));
 	EXPECT_EQ(Bitmap1x1x2("10").not(), Bitmap1x1x2("01"));
@@ -184,8 +182,6 @@ TEST(Bitmap3dTest, TestNot)
 
 TEST(Bitmap3dTest, TestAnd)
 {
-	using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 > ;
-
 	EXPECT_EQ( Bitmap1x1x2("00").and(Bitmap1x1x2("00")), Bitmap1x1x2("00"));
 	EXPECT_EQ( Bitmap1x1x2("00").and(Bitmap1x1x2("01")), Bitmap1x1x2("00"));
 	EXPECT_EQ( Bitmap1x1x2("00").and(Bitmap1x1x2("10")), Bitmap1x1x2("00"));
@@ -234,8 +230,6 @@ TEST(Bitmap3dTest, TestOr)
 
 TEST(Bitmap3dTest, TestXor)
 {
-	using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 >;
-
 	EXPECT_EQ(Bitmap1x1x2("00").xor(Bitmap1x1x2("00")), Bitmap1x1x2("00"));
 	EXPECT_EQ(Bitmap1x1x2("00").xor(Bitmap1x1x2("01")), Bitmap1x1x2("01"));
 	EXPECT_EQ(Bitmap1x1x2("00").xor(Bitmap1x1x2("10")), Bitmap1x1x2("10"));
