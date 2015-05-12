@@ -68,15 +68,8 @@ public:
 		return howMany;
 	}
 
-	bool all() const {
+	bool isAll() const {
 		return count() == size();
-		/*
-		return std::all_of
-		(
-			bmp1ds.begin(), bmp1ds.end(),
-			[](const Bitmap1d<N>& b) { return b.all(); }
-		);
-		*/
 	}
 
 	bool none() const {
@@ -165,6 +158,19 @@ public:
 			bmp1ds[i] = Bitmap1d<N1>(strs[i]);
 		}
 	}
+
+	Bitmap2d<N1, N2> getEdges() const {
+		Bitmap2d<N1, N2 > dest;
+		for (size_t x = 0; x < bmp1ds.sizex(); ++x) {
+			for (size_t y = 1; y < bmp1ds.sizey(); ++y){
+				if (!bmp1ds[x][y - 1] && bmp1ds[x][y]) {
+					dest.set(x, y);
+				}
+			}
+		}
+		return dest;
+	}
+
 
 private:
 	Bitmap1dArray< N1, N2 > bmp1ds;

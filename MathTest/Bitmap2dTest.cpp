@@ -111,21 +111,10 @@ TEST(Bitmap2dTest, TestResetAll)
 
 TEST(Bitmap2dTest, TestToString)
 {
-	Bitmap2d<1, 2> bitmap;
-	EXPECT_EQ("00", bitmap.toString());
-	bitmap.set(0, 0);
-	EXPECT_EQ("10", bitmap.toString());
-	bitmap.set(0, 1);
-	EXPECT_EQ("11", bitmap.toString());
-
-	/*
-	bitmap.set(0, 1);
-	EXPECT_EQ("1100", bitmap.toString());
-	bitmap.set(1, 0);
-	EXPECT_EQ("1101", bitmap.toString());
-	bitmap.set(1, 1);
-	EXPECT_EQ("1111", bitmap.toString());
-	*/
+	EXPECT_EQ( "00", Bitmap1x2("00").toString() );
+	EXPECT_EQ( "01", Bitmap1x2("01").toString() );
+	EXPECT_EQ( "10", Bitmap1x2("10").toString() );
+	EXPECT_EQ( "11", Bitmap1x2("11").toString() );
 }
 
 TEST(Bitmap2dTest, TestEquals)
@@ -141,17 +130,12 @@ TEST(Bitmap2dTest, TestEquals)
 }
 
 
-TEST(Bitmap2dTest, TestAll)
+TEST(Bitmap2dTest, TestIsAll)
 {
-	Bitmap2d<2,2> bitmap;
-	bitmap.set(0, 0);
-	EXPECT_FALSE(bitmap.all());
-	bitmap.set(0, 1);
-	EXPECT_FALSE(bitmap.all());
-	bitmap.set(1, 0);
-	EXPECT_FALSE(bitmap.all());
-	bitmap.set(1, 1);
-	EXPECT_TRUE( bitmap.all());
+	EXPECT_FALSE(Bitmap1x2("00").isAll());
+	EXPECT_FALSE(Bitmap1x2("01").isAll());
+	EXPECT_FALSE(Bitmap1x2("10").isAll());
+	EXPECT_TRUE( Bitmap1x2("11").isAll());
 }
 
 TEST(Bitmap2dTest, TestNone)
@@ -241,3 +225,13 @@ TEST(Bitmap2dTest, TestXor)
 	EXPECT_EQ( Bitmap1x2("10").xor(Bitmap1x2("10")), Bitmap1x2("00") );
 	EXPECT_EQ( Bitmap1x2("10").xor(Bitmap1x2("11")), Bitmap1x2("01") );
 }
+
+/*
+TEST(Bitmap2dTest, TestGetEdges)
+{
+	const Bitmap2x2 expected("01100011");
+	const Bitmap2x2 actual("10010011");
+
+	EXPECT_EQ( Bitmap2x2("01100011"), Bitmap2x2("0100") );
+}
+*/

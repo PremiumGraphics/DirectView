@@ -141,6 +141,10 @@ private:
 	Bitmap2dArray<N1, N2, N3> bmp2ds;
 };
 
+using Bitmap1x1x1 = Bitmap3d < 1, 1, 1 >;
+using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 >;
+using Bitmap1x2x4 = Bitmap3d < 1, 2, 4 >;
+
 	}
 }
 
