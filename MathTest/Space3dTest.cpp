@@ -34,3 +34,28 @@ TEST(Space3dTest, TestGetHashedIndex)
 	const std::vector<int> expected{ 1, 0, 0 };
 	EXPECT_EQ(expected, actual);
 }
+
+TEST(Space3dTest, TestToBoxesEmpty)
+{
+	EXPECT_TRUE(Space3d(2, 2, 2).toBoxes(Bitmap2x2x2()).empty());
+
+	{
+		Bitmap3d<2, 2, 2> bmp;
+		bmp.set(0, 0, 0);
+		Space3d space(2, 2, 2);
+		const auto& boxes = space.toBoxes(bmp);
+		EXPECT_EQ(1, boxes.size());
+		EXPECT_EQ(Vector3d(0.5f, 0.5f, 0.5f), boxes.front().getCenter());
+	}
+
+	{
+		Bitmap3d<2, 2, 2> bmp;
+		bmp.set(0, 0, 0);
+		bmp.set(1, 0, 0);
+		Space3d space(2, 2, 2);
+		const auto& boxes = space.toBoxes(bmp);
+		EXPECT_EQ(2, boxes.size());
+		EXPECT_EQ(Vector3d(0.5f, 0.5f, 0.5f), boxes[0].getCenter());
+		EXPECT_EQ(Vector3d(1.5f, 0.5f, 0.5f), boxes[1].getCenter());
+	}
+}

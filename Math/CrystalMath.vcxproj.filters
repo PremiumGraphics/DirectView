@@ -38,7 +38,6 @@
     <ClInclude Include="Bitmap1d.h" />
     <ClInclude Include="Bitmap2d.h" />
     <ClInclude Include="Bitmap3d.h" />
-    <ClInclude Include="Bitmap3dConverter.h" />
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Grid1d.h" />
@@ -56,7 +55,6 @@
     </ClCompile>
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
-    <ClCompile Include="Bitmap3dConverter.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Space2d.cpp" />
   </ItemGroup>

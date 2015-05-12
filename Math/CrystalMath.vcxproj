@@ -75,7 +75,6 @@
     <ClInclude Include="Bitmap1d.h" />
     <ClInclude Include="Bitmap2d.h" />
     <ClInclude Include="Bitmap3d.h" />
-    <ClInclude Include="Bitmap3dConverter.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
@@ -102,7 +101,6 @@
     <ClInclude Include="Vector3d.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bitmap3dConverter.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Quaternion.cpp" />

@@ -21,15 +21,21 @@ public:
 
 	Vector2d<float> getSizes() const { return sizes; }
 
-	Vector2d<float> getStart() const;
+	Vector2d<float> getStart() const { return start; }
 
-	Vector2d<float> getEnd() const;
+	Vector2d<float> getEnd() const {
+		const auto x = start.getX() + resx * sizes.getX();
+		const auto y = start.getY() + resy * sizes.getY();
+		return Vector2d<float>(x, y);
+	}
 
 	unsigned int getResX() const { return resx; }
 
 	unsigned int getResY() const { return resy; }
 
-	Quad getBoundingQuad() const;
+	Quad getBoundingQuad() const {
+		return Quad(getStart(), getEnd());
+	}
 
 	template<size_t N, size_t N2>
 	std::vector<Quad> toQuads(const Bitmap2d<N, N2>& bmp ) {

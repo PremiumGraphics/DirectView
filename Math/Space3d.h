@@ -2,6 +2,8 @@
 #define __CRYSTAL_MATH_SPACE_3D_H__
 
 #include "../Math/Vector3d.h"
+#include "../Math/Bitmap3d.h"
+#include "../Math/Box.h"
 
 namespace Crystal {
 	namespace Math {
@@ -39,6 +41,29 @@ public:
 		const auto gridz = static_cast<int>(point.getZ() / sizes.getZ());
 		return std::vector < int > {gridx, gridy, gridz};
 	}
+
+	template<size_t N, size_t N2, size_t N3>
+	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N2, N3>& bmp) {
+		const auto start = getStart();
+		const auto sizex = getSizes().getX();
+		const auto sizey = getSizes().getY();
+		const auto sizez = getSizes().getZ();
+		std::vector<Box> boxes;
+		for (size_t x = 0; x < bmp.sizex(); ++x) {
+			for (size_t y = 0; y < bmp.sizey(); ++y) {
+				for (size_t z = 0; z < bmp.sizez(); ++z) {
+					if (bmp.get(x, y, z)) {
+						const Vector3d v1(x * sizex, y * sizey, z * sizez);
+						const Vector3d v2((x + 1)*sizex, (y + 1)*sizey, (z + 1)*sizez);
+						Box box(start + v1, start + v2);
+						boxes.push_back(box);
+					}
+				}
+			}
+		}
+		return boxes;
+	}
+
 
 private:
 	Vector3dVector positions;

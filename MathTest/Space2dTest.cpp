@@ -4,10 +4,9 @@
 
 using namespace Crystal::Math;
 
-TEST(Space2dTest, TestConstruct)
+TEST(Space2dTest, TestGetSize)
 {
-	const Space2d space(1, 1);
-	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), space.getSizes());
+	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), Space2d(1,1).getSizes());
 }
 
 TEST(Space2dTest, TestConstructByOrigin)
@@ -39,10 +38,8 @@ TEST(Space2dTest, TestGetBoundingQuad)
 
 TEST(Space2dTest, TestToQuads)
 {
-	{
-		Bitmap2d<2, 2> bmp;
-		Space2d space(2, 2);
-		const std::vector<Quad>& quads = space.toQuads(bmp);
+	{		
+		const std::vector<Quad>& quads = Space2d(2, 2).toQuads( Bitmap2x2() );
 		EXPECT_TRUE(quads.empty());
 	}
 
