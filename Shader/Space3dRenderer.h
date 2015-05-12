@@ -20,7 +20,7 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const Math::Space3d& space);
+	void render(const int width, const int height, const Graphics::Camera<float>* camera, const std::vector<float>& positions, const Math::Space3d<2,2,2>& space);
 
 private:
 	Graphics::ShaderObject shader;

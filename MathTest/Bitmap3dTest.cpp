@@ -102,7 +102,7 @@ TEST(Bitmap3dTest, TestReset)
 
 TEST(Bitmap3dTest, TestToString)
 {
-	Bitmap3d<1, 2, 4> bitmap;
+	Bitmap1x2x4 bitmap;
 	EXPECT_EQ("00000000", bitmap.toString());
 	bitmap.set(0, 0, 0);
 	EXPECT_EQ("10000000", bitmap.toString());
@@ -135,12 +135,8 @@ TEST(Bitmap3dTest, TestToString)
 
 TEST(Bitmap3dTest, TestEquals)
 {
-	Bitmap3d<2, 2, 2> bmp1;
-	Bitmap3d<2, 2, 2> bmp2;
-
-	EXPECT_TRUE(bmp1.equals(bmp2));
-	bmp1.set(0, 0, 0);
-	EXPECT_FALSE(bmp1.equals(bmp2));
+	EXPECT_TRUE( Bitmap2x2x2().equals( Bitmap2x2x2() ) );
+	EXPECT_EQ( Bitmap2x2x2(), Bitmap2x2x2() );
 }
 
 TEST(Bitmap3dTest, TestNot)

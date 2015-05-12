@@ -8,32 +8,39 @@
 namespace Crystal {
 	namespace Math {
 
+template<size_t N1, size_t N2, size_t N3>
 class Space3d final
 {
 public:
-	Space3d(const Vector3d& start, unsigned int resx, unsigned int resy, unsigned int resz ) :
+	Space3d() : Space3d(Vector3d::Zero()){}
+
+	explicit Space3d(const Vector3d& start ) :
 		start( start ),
-		resx( resx ),
-		resy( resy ),
-		resz( resz ),
 		sizes(Vector3d(1.0f, 1.0f, 1.0f))
 	{}
 
-	Space3d(unsigned int resx, unsigned int resy, unsigned int resz) : Space3d(Vector3d::Zero(), resx, resy, resz){}
-
 	Vector3d getSizes() const { return sizes; }
 
-	Vector3d getStart() const;
+	Vector3d getStart() const {
+		return start;
+	}
 
-	Vector3d getEnd() const;
+	Vector3d getEnd() const {
+		const auto x = start.getX() + getResX() * sizes.getX();
+		const auto y = start.getY() + getResY() * sizes.getY();
+		const auto z = start.getZ() + getResZ() * sizes.getZ();
+		return Vector3d(x, y, z);
+	}
 
-	unsigned int getResX() const { return resx; }
+	unsigned int getResX() const { return N1; }
 
-	unsigned int getResY() const { return resy; }
+	unsigned int getResY() const { return N2; }
 
-	unsigned int getResZ() const { return resz; }
+	unsigned int getResZ() const { return N3; }
 
-	Box getBoundingBox() const;
+	Box getBoundingBox() const {
+		return Box(start, getEnd());
+	}
 
 	std::vector<int> getHashedIndex(const Vector3d& point) {
 		const auto gridx = static_cast<int>(point.getX() / sizes.getX());
@@ -42,8 +49,7 @@ public:
 		return std::vector < int > {gridx, gridy, gridz};
 	}
 
-	template<size_t N, size_t N2, size_t N3>
-	std::vector<Math::Box> toBoxes(const Bitmap3d<N, N2, N3>& bmp) {
+	std::vector<Math::Box> toBoxes(const Bitmap3d<N1, N2, N3>& bmp) {
 		const auto start = getStart();
 		const auto sizex = getSizes().getX();
 		const auto sizey = getSizes().getY();
@@ -70,9 +76,6 @@ private:
 	
 	Vector3d start;
 	Vector3d sizes;
-	unsigned int resx;
-	unsigned int resy;
-	unsigned int resz;
 };
 
 	}

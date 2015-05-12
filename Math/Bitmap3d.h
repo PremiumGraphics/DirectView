@@ -82,6 +82,10 @@ public:
 		return str;
 	}
 
+	bool isAll() const {
+		return count() == size();
+	}
+
 	bool equals(const Bitmap3d<N1,N2,N3>& rhs) const {
 		return bmp2ds == rhs.bmp2ds;
 	}
