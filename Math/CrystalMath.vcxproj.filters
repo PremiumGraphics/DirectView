@@ -56,7 +56,6 @@
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Space3d.cpp" />
-    <ClCompile Include="Space2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
