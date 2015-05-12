@@ -6,26 +6,6 @@
 
 using namespace Crystal::Math;
 
-TEST(BitmapConverterTest, TestToQuads)
-{
-	{
-		Bitmap2d<2,2> bmp;
-		BitmapConverter converter;
-		Space2d space(2, 2);
-		const std::vector<Quad>& quads = converter.toQuads(bmp, space);
-		EXPECT_TRUE(quads.empty());
-	}
-
-	{
-		Bitmap2d<2, 2> bmp;
-		bmp.set(0, 0);
-		BitmapConverter converter;
-		Space2d space(2, 2);
-		const std::vector<Quad>& quads = converter.toQuads(bmp, space);
-		EXPECT_EQ(1, quads.size());
-		EXPECT_EQ(Vector2d<float>(0.5f, 0.5f), quads.front().getCenter());
-	}
-}
 
 TEST(BitmapConverterTest, TestToBoxesEmpty)
 {

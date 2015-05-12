@@ -3,6 +3,7 @@
 
 #include "../Math/Quad.h"
 #include "../Math/Vector2d.h"
+#include "../Math/Bitmap2d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -29,6 +30,25 @@ public:
 	unsigned int getResY() const { return resy; }
 
 	Quad getBoundingQuad() const;
+
+	template<size_t N, size_t N2>
+	std::vector<Quad> toQuads(const Bitmap2d<N, N2>& bmp ) {
+		std::vector<Quad> quads;
+		const auto sizex = sizes.getX();
+		const auto sizey = sizes.getY();
+		for (size_t x = 0; x < bmp.sizex(); ++x) {
+			for (size_t y = 0; y < bmp.sizey(); ++y) {
+				if (bmp.get(x, y)) {
+					const Vector2d<float> v1(x * sizex, y * sizey);
+					const Vector2d<float> v2((x + 1) * sizex, (y + 1) * sizey);
+					Quad q(v1, v2);
+					quads.push_back(q);
+				}
+			}
+		}
+		return quads;
+	}
+
 
 private:
 

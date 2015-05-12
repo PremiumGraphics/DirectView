@@ -43,12 +43,6 @@ TEST(Bitmap3dTest, TestByString)
 		EXPECT_EQ(expected1, bitmap[0]);
 		EXPECT_EQ(expected2, bitmap[1]);
 	}
-
-	using Bitmap124 = Bitmap3d < 1, 2, 4 > ;
-	{
-		Bitmap124 bitmap("00000011");
-
-	}
 }
 
 
@@ -60,8 +54,10 @@ TEST(Bitmap3dTest, TestByStrings2)
 
 TEST(Bitmap3dTest, TestSize)
 {
-	EXPECT_EQ( Bitmap1x1x1().size(), 1);
-	EXPECT_EQ( Bitmap2x2x2().size(), 8);
+	EXPECT_EQ( Bitmap1x1x1().size(), 1 );
+	EXPECT_EQ( Bitmap1x1x2().size(), 2 );
+	EXPECT_EQ( Bitmap1x2x4().size(), 8 );
+	EXPECT_EQ( Bitmap2x2x2().size(), 8 );
 }
 
 TEST(Bitmap3dTest, TestSizeX)

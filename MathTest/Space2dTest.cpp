@@ -37,6 +37,26 @@ TEST(Space2dTest, TestGetBoundingQuad)
 	EXPECT_EQ(expected, actual);
 }
 
+TEST(Space2dTest, TestToQuads)
+{
+	{
+		Bitmap2d<2, 2> bmp;
+		Space2d space(2, 2);
+		const std::vector<Quad>& quads = space.toQuads(bmp);
+		EXPECT_TRUE(quads.empty());
+	}
+
+	{
+		Bitmap2d<2, 2> bmp;
+		bmp.set(0, 0);
+		Space2d space(2, 2);
+		const std::vector<Quad>& quads = space.toQuads(bmp);
+		EXPECT_EQ(1, quads.size());
+		EXPECT_EQ(Vector2d<float>(0.5f, 0.5f), quads.front().getCenter());
+	}
+}
+
+
 /*
 TEST(Space3dTest, TestGetHashedIndex)
 {
