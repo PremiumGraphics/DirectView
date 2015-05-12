@@ -167,7 +167,12 @@ TEST(Bitmap1dTest, TestGetEdge)
 {
 	EXPECT_EQ( Bitmap4("0000"), Bitmap4("0000").getEdge() );
 	EXPECT_EQ( Bitmap4("0010"), Bitmap4("0001").getEdge() );
-
+	EXPECT_EQ( Bitmap4("0110"), Bitmap4("0010").getEdge() );
+	EXPECT_EQ( Bitmap4("0100"), Bitmap4("0011").getEdge() );
+	EXPECT_EQ( Bitmap4("1100"), Bitmap4("0100").getEdge() );
 	EXPECT_EQ( Bitmap4("1010"), Bitmap4("0110").getEdge() );
+	EXPECT_EQ( Bitmap4("1000"), Bitmap4("0111").getEdge() );
+	EXPECT_EQ( Bitmap4("1000"), Bitmap4("1000").getEdge() );
 	EXPECT_EQ( Bitmap4("0010"), Bitmap4("1110").getEdge() );
+	EXPECT_EQ( Bitmap4("0000"), Bitmap4("1111").getEdge() );
 }

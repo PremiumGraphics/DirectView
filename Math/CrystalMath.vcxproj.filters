@@ -42,10 +42,10 @@
     <ClInclude Include="Bitmap3dConverter.h" />
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Space2d.h" />
-    <ClInclude Include="EdgeDetectionAlgo.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Grid3d.h" />
+    <ClInclude Include="Space1d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
