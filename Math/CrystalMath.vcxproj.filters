@@ -33,7 +33,6 @@
       <Filter>Primitive3d</Filter>
     </ClInclude>
     <ClInclude Include="Line.h" />
-    <ClInclude Include="BazierCurve.h" />
     <ClInclude Include="CSG.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Bitmap1d.h" />

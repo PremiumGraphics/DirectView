@@ -54,6 +54,8 @@ public:
 
 	bool operator[](const size_t i) const { return bits[i]; }
 
+	bool get(const size_t i) const { return bits[i]; }
+
 	Bitmap1d<N>& and(const Bitmap1d<N>& rhs) {
 		bits &= rhs.bits;
 		return (*this);
@@ -118,6 +120,15 @@ using Bitmap1dArray = std::array < Bitmap1d<N1>, N2 > ;
 using Bitmap1 = Bitmap1d < 1 >;
 using Bitmap2 = Bitmap1d < 2 >;
 using Bitmap4 = Bitmap1d < 4 >;
+using Bitmap8 = Bitmap1d < 8 >;
+using Bitmap16 = Bitmap1d < 16 >;
+using Bitmap32 = Bitmap1d < 32 >;
+using Bitmap64 = Bitmap1d < 64 >;
+using Bitmap128 = Bitmap1d < 128 >;
+using Bitmap256 = Bitmap1d < 256 >;
+using Bitmap512 = Bitmap1d < 512 >;
+using Bitmap1024 = Bitmap1d < 1024 >;
+
 	}
 }
 

@@ -4,13 +4,27 @@
 
 using namespace Crystal::Math;
 
-
-
-TEST(Bitmap1dTest, TestConstruct)
+TEST(Bitmap1dTest, TestSize)
 {
-	Bitmap1d<1> bitmap;
-	EXPECT_EQ(1, bitmap.size());
-	EXPECT_FALSE(bitmap[0]);
+	EXPECT_EQ(1, Bitmap1().size());
+	EXPECT_EQ(2, Bitmap2().size());
+	EXPECT_EQ(4, Bitmap4().size());
+}
+
+TEST(Bitmap1dTest, TestGet)
+{
+	EXPECT_FALSE( Bitmap1d<1>().get(0) );
+}
+
+TEST(Bitmap1dTest, TestSet)
+{
+	EXPECT_TRUE( Bitmap1d<1>().set(0).get(0) );
+}
+
+TEST(Bitmap1dTest, TestSetAll)
+{
+	EXPECT_TRUE(Bitmap1d<2>().set().get(0));
+	EXPECT_TRUE(Bitmap1d<2>().set().get(1));
 }
 
 TEST(Bitmap1dTest, TestConstructByString)
@@ -26,23 +40,6 @@ TEST(Bitmap1dTest, TestConstructByLong)
 	EXPECT_EQ( Bitmap1d<2>("01"), Bitmap1d<2>(1) );
 	EXPECT_EQ( Bitmap1d<2>("10"), Bitmap1d<2>(2) );
 	EXPECT_EQ( Bitmap1d<2>("11"), Bitmap1d<2>(3) );
-}
-
-TEST(Bitmap1dTest, TestSet)
-{
-	Bitmap1d<2> bitmap;
-	bitmap.set(0);
-	EXPECT_TRUE(bitmap[0]);
-	bitmap.set(1);
-	EXPECT_TRUE(bitmap[1]);
-}
-
-TEST(Bitmap1dTest, TestSetAll)
-{
-	Bitmap1d<2> bitmap;
-	bitmap.set();
-	EXPECT_TRUE(bitmap[0]);
-	EXPECT_TRUE(bitmap[1]);
 }
 
 TEST(Bitmap1dTest, TestResetAll)

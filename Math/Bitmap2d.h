@@ -72,7 +72,7 @@ public:
 		return count() == size();
 	}
 
-	bool none() const {
+	bool isNone() const {
 		/*
 		return std::none_of(
 			bmp1ds.begin(), bmp1ds.end(),

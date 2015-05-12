@@ -60,8 +60,8 @@ TEST(Bitmap3dTest, TestByStrings2)
 
 TEST(Bitmap3dTest, TestSize)
 {
-	Bitmap3d<2, 2, 2> bitmap;
- 	EXPECT_EQ( bitmap.size(), 8);
+	EXPECT_EQ( Bitmap1x1x1().size(), 1);
+	EXPECT_EQ( Bitmap2x2x2().size(), 8);
 }
 
 TEST(Bitmap3dTest, TestSizeX)

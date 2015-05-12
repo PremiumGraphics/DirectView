@@ -54,6 +54,15 @@ public:
 		return howMany;
 	}
 
+	bool isNone() const {
+		for (const auto& b : bmp2ds) {
+			if (!b.isNone()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	void set(const size_t x, const size_t y, const size_t z) { bmp2ds[z].set(x, y); }
 
@@ -144,6 +153,7 @@ private:
 using Bitmap1x1x1 = Bitmap3d < 1, 1, 1 >;
 using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 >;
 using Bitmap1x2x4 = Bitmap3d < 1, 2, 4 >;
+using Bitmap2x2x2 = Bitmap3d < 2, 2, 2 >;
 
 	}
 }

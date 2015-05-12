@@ -138,20 +138,12 @@ TEST(Bitmap2dTest, TestIsAll)
 	EXPECT_TRUE( Bitmap1x2("11").isAll());
 }
 
-TEST(Bitmap2dTest, TestNone)
+TEST(Bitmap2dTest, TestIsNone)
 {
-	Bitmap2d<2, 2> bitmap;
-	bitmap.set();
-
-	EXPECT_FALSE( bitmap.none());
-	bitmap.reset(0, 0);
-	EXPECT_FALSE( bitmap.none());
-	bitmap.reset(0, 1);
-	EXPECT_FALSE( bitmap.none());
-	bitmap.reset(1, 0);
-	EXPECT_FALSE( bitmap.none());
-	bitmap.reset(1, 1);
-	EXPECT_TRUE(  bitmap.none());
+	EXPECT_TRUE ( Bitmap2x2("0000").isNone() );
+	EXPECT_FALSE( Bitmap2x2("0001").isNone() );
+	EXPECT_FALSE( Bitmap2x2("0010").isNone() );
+	EXPECT_FALSE( Bitmap2x2("0100").isNone() );
 }
 
 TEST(Bitmap2dTest, TestNot)
