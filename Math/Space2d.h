@@ -8,37 +8,36 @@
 namespace Crystal {
 	namespace Math {
 
+template<size_t N1, size_t N2>
 class Space2d final {
 public:
-	Space2d(const Vector2d<float>& start, unsigned int resx, unsigned int resy ) :
+	Space2d(const Vector2d<float>& start ) :
 		start(start),
-		resx(resx),
-		resy(resy),
 		sizes(Vector2d<float>(1.0f, 1.0f ))
 	{}
 
-	Space2d(unsigned int resx, unsigned int resy) : Space2d(Vector2d<float>::Zero(), resx, resy){}
+	Space2d() : Space2d(Vector2d<float>::Zero())
+	{}
 
 	Vector2d<float> getSizes() const { return sizes; }
 
 	Vector2d<float> getStart() const { return start; }
 
 	Vector2d<float> getEnd() const {
-		const auto x = start.getX() + resx * sizes.getX();
-		const auto y = start.getY() + resy * sizes.getY();
+		const auto x = start.getX() + getResX() * sizes.getX();
+		const auto y = start.getY() + getResY() * sizes.getY();
 		return Vector2d<float>(x, y);
 	}
 
-	unsigned int getResX() const { return resx; }
+	unsigned int getResX() const { return N1; }
 
-	unsigned int getResY() const { return resy; }
+	unsigned int getResY() const { return N2; }
 
 	Quad getBoundingQuad() const {
 		return Quad(getStart(), getEnd());
 	}
 
-	template<size_t N, size_t N2>
-	std::vector<Quad> toQuads(const Bitmap2d<N, N2>& bmp ) {
+	std::vector<Quad> toQuads(const Bitmap2d<N1, N2>& bmp ) {
 		std::vector<Quad> quads;
 		const auto sizex = sizes.getX();
 		const auto sizey = sizes.getY();
@@ -57,12 +56,11 @@ public:
 
 
 private:
-
 	Vector2d<float> start;
 	Vector2d<float> sizes;
-	unsigned int resx;
-	unsigned int resy;
 };
+
+using Space1x1 = Space2d < 1, 1 > ;
 
 	}
 }

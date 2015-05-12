@@ -6,31 +6,31 @@ using namespace Crystal::Math;
 
 TEST(Space2dTest, TestGetSize)
 {
-	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), Space2d(1,1).getSizes());
+	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), Space1x1().getSizes());
 }
 
 TEST(Space2dTest, TestConstructByOrigin)
 {
-	const Space2d s(Vector2d<float>(1.0f, 2.0f), 10, 20);
+	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(10, s.getResX());
 	EXPECT_EQ(20, s.getResY());
 }
 
 TEST(Space2dTest, TestGetStart)
 {
-	const Space2d s(Vector2d<float>(1.0f, 2.0f), 10, 20);
+	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(Vector2d<float>(1.0f, 2.0f), s.getStart());
 }
 
 TEST(Space2dTest, TestGetEnd)
 {
-	const Space2d s(Vector2d<float>(1.0f, 2.0f), 10, 20);
+	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(Vector2d<float>(11.0f, 22.0f), s.getEnd());
 }
 
 TEST(Space2dTest, TestGetBoundingQuad)
 {
-	const Space2d s(Vector2d<float>(1.0f, 2.0f), 10, 20);
+	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	const Quad expected(Vector2d<float>(1.0f, 2.0f), Vector2d<float>(11.0f, 22.0f));
 	const auto& actual = s.getBoundingQuad();
 	EXPECT_EQ(expected, actual);
@@ -39,14 +39,14 @@ TEST(Space2dTest, TestGetBoundingQuad)
 TEST(Space2dTest, TestToQuads)
 {
 	{		
-		const std::vector<Quad>& quads = Space2d(2, 2).toQuads( Bitmap2x2() );
+		const std::vector<Quad>& quads = Space2d<2, 2>().toQuads(Bitmap2x2());
 		EXPECT_TRUE(quads.empty());
 	}
 
 	{
 		Bitmap2d<2, 2> bmp;
 		bmp.set(0, 0);
-		Space2d space(2, 2);
+		Space2d<2, 2> space;
 		const std::vector<Quad>& quads = space.toQuads(bmp);
 		EXPECT_EQ(1, quads.size());
 		EXPECT_EQ(Vector2d<float>(0.5f, 0.5f), quads.front().getCenter());
