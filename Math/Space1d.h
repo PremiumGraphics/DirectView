@@ -45,6 +45,8 @@ public:
 
 	float getLength() const { return length; }
 
+	float getTotalLength() const { return length * bmp.count(); }
+
 	unsigned int getRes() const { return N; }
 
 	float getSize() const { return length / static_cast<float>(N); }

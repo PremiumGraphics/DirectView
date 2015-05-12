@@ -41,3 +41,11 @@ TEST(Space1dTest, TestToPoints)
 		EXPECT_EQ( expected, actual );
 	}
 }
+
+TEST(Space1dTest, TestGetTotalLength)
+{
+	EXPECT_EQ(0.0f, Space1d<2>(Bitmap1d<2>("00")).getTotalLength());
+	EXPECT_EQ(1.0f, Space1d<2>(Bitmap1d<2>("01")).getTotalLength());
+	EXPECT_EQ(1.0f, Space1d<2>(Bitmap1d<2>("10")).getTotalLength());
+	EXPECT_EQ(2.0f, Space1d<2>(Bitmap1d<2>("11")).getTotalLength());
+}

@@ -160,6 +160,14 @@ TEST(Bitmap1dTest, TestIsNone)
 	EXPECT_FALSE(Bitmap1d<2>("11").isNone());
 }
 
+TEST(Bitmap1dTest, TestOperatorLeftShirt)
+{
+	EXPECT_EQ( Bitmap2("00"), Bitmap2("00") <<= 1 );
+	EXPECT_EQ( Bitmap2("10"), Bitmap2("01") <<= 1 );
+	EXPECT_EQ( Bitmap2("00"), Bitmap2("10") <<= 1 );
+	EXPECT_EQ( Bitmap2("10"), Bitmap2("11") <<= 1 );
+}
+
 TEST(Bitmap1dTest, TestGetEdge)
 {
 	EXPECT_EQ( Bitmap4("0000"), Bitmap4("0000").getEdge() );

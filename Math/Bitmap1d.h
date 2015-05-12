@@ -56,6 +56,11 @@ public:
 
 	bool get(const size_t i) const { return bits[i]; }
 
+	Bitmap1d<N>& operator<<=(const size_t size) {
+		bits <<= size;
+		return (*this);
+	}
+
 	Bitmap1d<N>& and(const Bitmap1d<N>& rhs) {
 		bits &= rhs.bits;
 		return (*this);
