@@ -87,7 +87,7 @@ public:
 		);
 		*/
 		for (const auto& b : bmp1ds) {
-			if (!b.none() ) {
+			if (!b.isNone() ) {
 				return false;
 			}
 		}
@@ -172,6 +172,12 @@ private:
 
 template<size_t N1, size_t N2, size_t N3>
 using Bitmap2dArray = std::array < Bitmap2d<N1, N2>, N3 > ;
+
+
+using Bitmap1x1 = Bitmap2d < 1, 1 >;
+using Bitmap1x2 = Bitmap2d < 1, 2 >;
+using Bitmap2x1 = Bitmap2d < 2, 1 >;
+using Bitmap2x2 = Bitmap2d < 2, 2 >;
 	}
 }
 

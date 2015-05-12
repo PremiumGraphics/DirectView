@@ -75,21 +75,11 @@ public:
 
 	size_t size() const { return bits.size(); }
 
-	bool all() const { return bits.all(); }
+	bool isAll() const { return bits.all(); }
 
-	bool any() const { return bits.any(); }
+	bool isAny() const { return bits.any(); }
 
-	bool none() const { return bits.none(); }
-
-	Bitmap1d<N> flip( const size_t i) {
-		bits.flip(i);
-		return (*this);
-	}
-
-	Bitmap1d<N>& flip() {
-		bits.flip();
-		return (*this);
-	}
+	bool isNone() const { return bits.none(); }
 
 	std::string toString() const {
 		return bits.to_string();
@@ -106,6 +96,16 @@ public:
 	Bitmap1d<N>& operator=(const Bitmap1d<N>& rhs) {
 		bits = rhs.bits;
 		return *this;
+	}
+
+	Bitmap1d<N> getEdge() const {
+		Bitmap1d<N> dest;
+		for (size_t i = 1; i < bits.size(); ++i){
+			if (!bits[i - 1] && bits[i]) {
+				dest.set(i);
+			}
+		}
+		return dest;
 	}
 
 private:

@@ -9,16 +9,6 @@ namespace Crystal {
 
 class EdgeDetectionAlgo {
 public:
-	template< size_t N >
-	Bitmap1d<N> detect(const Bitmap1d<N>& bmp) {
-		Bitmap1d<N> dest;
-		for (size_t i = 1; i < bmp.size(); ++i ){
-			if ( !bmp[i - 1] && bmp[i]) {
-				dest.set(i);
-			}
-		}
-		return dest;
-	}
 
 	template< size_t N1, size_t N2 >
 	Bitmap2d<N1, N2> detect(const Bitmap2d<N1, N2>& bmp) {
