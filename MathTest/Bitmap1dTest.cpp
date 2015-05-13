@@ -181,3 +181,10 @@ TEST(Bitmap1dTest, TestGetEdge)
 	EXPECT_EQ( Bitmap4("0010"), Bitmap4("1110").getEdge() );
 	EXPECT_EQ( Bitmap4("0000"), Bitmap4("1111").getEdge() );
 }
+
+TEST(Bitmap1dTest, TestSubdiv)
+{
+	EXPECT_EQ( Bitmap2("00"), Bitmap1("0").subdiv() );
+	EXPECT_EQ( Bitmap2("11"), Bitmap1("1").subdiv());
+
+}

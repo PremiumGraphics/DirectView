@@ -24,8 +24,24 @@ public:
 
 	static float getPI() { return 3.14159265359f; }
 
+	static float getTwoPI() { return 2.0f * getPI(); }
+
 	static double getPrecisePI() { return 3.141592653589793238462643383279; }
 };
+
+/*
+template<typename T>
+class Tolerance
+{
+
+};
+
+template<>
+class Tolerance<float>
+{
+
+};
+*/
 
 	}
 }

@@ -115,6 +115,15 @@ public:
 		return dest;
 	}
 
+	Bitmap1d<N*2> subdiv() const {
+		std::bitset<N * 2> dest;
+		for (size_t i = 0; i < bits.size(); ++i) {
+			dest[i*2] = bits[i];
+			dest[i*2+1] = bits[i];
+		}
+		return Bitmap1d<N * 2>(dest);
+	}
+
 private:
 	std::bitset<N> bits;
 };

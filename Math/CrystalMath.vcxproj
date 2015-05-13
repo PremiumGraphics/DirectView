@@ -80,6 +80,7 @@
     <ClInclude Include="Cone.h" />
     <ClInclude Include="CSG.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Ellipse.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Grid3d.h" />
