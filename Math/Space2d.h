@@ -39,6 +39,11 @@ public:
 
 	unsigned int getResY() const { return N2; }
 
+	Space2d<N1, N2>& move(const Vector2d<float>& v) {
+		start += v;
+		return (*this);
+	}
+
 	Quad getBoundingQuad() const {
 		return Quad(getStart(), getEnd());
 	}
@@ -60,6 +65,19 @@ public:
 		return quads;
 	}
 
+	bool equals(const Space2d<N1, N2>& rhs) const {
+		return
+			(start == rhs.start) &&
+			(sizes == rhs.sizes);
+	}
+
+	bool operator==(const Space2d<N1, N2>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Space2d<N1, N2>& rhs) const {
+		return !equals(rhs);
+	}
 
 private:
 	Vector2d<float> start;

@@ -359,7 +359,7 @@ TEST( VTKFileTest, TestStructuredGridData )
 	for( int z = 0 ; z < grid.getDimZ() ; ++z ) {
 		for ( int y = 0 ; y < grid.getDimY() ; ++y ) {
 			for ( int x = 0 ; x < grid.getDimZ() ; ++x ) {
-				values.push_back(x + 2*y + 3*z);
+				values.push_back(x  + 2.0f*y + 3.0f*z);
 			}
 		}
 	}

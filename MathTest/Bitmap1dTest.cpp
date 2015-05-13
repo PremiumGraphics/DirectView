@@ -19,10 +19,6 @@ TEST(Bitmap1dTest, TestGet)
 TEST(Bitmap1dTest, TestSet)
 {
 	EXPECT_TRUE( Bitmap1d<1>().set(0).get(0) );
-}
-
-TEST(Bitmap1dTest, TestSetAll)
-{
 	EXPECT_TRUE(Bitmap1d<2>().set().get(0));
 	EXPECT_TRUE(Bitmap1d<2>().set().get(1));
 }
@@ -40,6 +36,19 @@ TEST(Bitmap1dTest, TestConstructByLong)
 	EXPECT_EQ( Bitmap1d<2>("01"), Bitmap1d<2>(1) );
 	EXPECT_EQ( Bitmap1d<2>("10"), Bitmap1d<2>(2) );
 	EXPECT_EQ( Bitmap1d<2>("11"), Bitmap1d<2>(3) );
+}
+
+TEST(Bitmap1dTest, TestConstructByTwoBitmaps)
+{
+	EXPECT_EQ( Bitmap2("00"), Bitmap2( Bitmap1("0"), Bitmap1("0") ) );
+	EXPECT_EQ( Bitmap2("01"), Bitmap2( Bitmap1("0"), Bitmap1("1") ) );
+	EXPECT_EQ( Bitmap2("10"), Bitmap2( Bitmap1("1"), Bitmap1("0") ) );
+	EXPECT_EQ( Bitmap2("11"), Bitmap2( Bitmap1("1"), Bitmap1("1") ) );
+
+	EXPECT_EQ( Bitmap4("0000"), Bitmap4(Bitmap2("00"), Bitmap2("00") ) );
+	EXPECT_EQ( Bitmap4("0001"), Bitmap4(Bitmap2("00"), Bitmap2("01") ) );
+
+	EXPECT_EQ( Bitmap4("0100"), Bitmap4(Bitmap2("01"), Bitmap2("00") ) );
 }
 
 TEST(Bitmap1dTest, TestResetAll)
@@ -185,6 +194,9 @@ TEST(Bitmap1dTest, TestGetEdge)
 TEST(Bitmap1dTest, TestSubdiv)
 {
 	EXPECT_EQ( Bitmap2("00"), Bitmap1("0").subdiv() );
-	EXPECT_EQ( Bitmap2("11"), Bitmap1("1").subdiv());
+	EXPECT_EQ( Bitmap2("11"), Bitmap1("1").subdiv() );
+
+	EXPECT_EQ( Bitmap4("0011"), Bitmap2("01").subdiv() );
+	EXPECT_EQ( Bitmap4("1100"), Bitmap2("10").subdiv());
 
 }

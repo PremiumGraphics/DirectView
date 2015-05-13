@@ -9,23 +9,38 @@ TEST(Space2dTest, TestGetSize)
 	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), Space1x1().getSizes());
 }
 
-TEST(Space2dTest, TestConstructByOrigin)
+TEST(Space2dTest, TestEquals)
 {
-	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
-	EXPECT_EQ(10, s.getResX());
-	EXPECT_EQ(20, s.getResY());
+	EXPECT_EQ(Space1x1(), Space1x1());
+	EXPECT_NE(Space1x1(Vector2d<float>(1.0f, 1.0f)), Space1x1());
+}
+
+TEST(Space2dTest, TestGetResX)
+{
+	EXPECT_EQ(2, Space2x2().getResX());
+	EXPECT_EQ(4, Space4x2().getResX());
+
+//	EXPECT_EQ(20, s.getResY());
 }
 
 TEST(Space2dTest, TestGetStart)
 {
 	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(Vector2d<float>(1.0f, 2.0f), s.getStart());
+	EXPECT_EQ(Vector2d<float>(0.0f, 0.0f), Space2x2().getStart());
 }
 
 TEST(Space2dTest, TestGetEnd)
 {
 	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(Vector2d<float>(11.0f, 22.0f), s.getEnd());
+}
+
+TEST(Space2dTest, TestMove)
+{
+	Space2x2 s(Vector2d<float>(1.0f, 2.0f));
+	 //s.move(Vector2d<float>(10.0f, 10.0f));
+
 }
 
 TEST(Space2dTest, TestGetBoundingQuad)

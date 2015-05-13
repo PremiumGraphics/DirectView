@@ -159,7 +159,7 @@ public:
 		}
 	}
 
-	Bitmap2d<N1, N2> getEdges() const {
+	Bitmap2d<N1, N2> getEdgesx() const {
 		Bitmap2d<N1, N2 > dest;
 		for (size_t x = 0; x < bmp1ds.sizex(); ++x) {
 			for (size_t y = 1; y < bmp1ds.sizey(); ++y){
@@ -171,6 +171,26 @@ public:
 		return dest;
 	}
 
+	Bitmap2d<N1, N2> getEdgesy() const {
+		Bitmap2d<N1, N2 > dest;
+		for (size_t y = 0; y < bmp1ds.sizey(); ++y){
+			for (size_t x = 1; x < bmp1ds.sizex(); ++x) {
+				if (!bmp1ds[x-1][y] && bmp1ds[x][y]) {
+					dest.set(x, y);
+				}
+			}
+		}
+		return dest;
+	}
+
+
+	Bitmap2d<N1 * 2, N2> subdivx() const {
+		Bitmap1dArray< N1 * 2, N2 > dest;
+		for (size_t i = 0; i < bmp1ds.size(); ++i ) {
+			dest[i] = bmp1ds[i].subdiv();
+		}
+		return Bitmap2d<N1 * 2, N2>(dest);
+	}
 
 private:
 	Bitmap1dArray< N1, N2 > bmp1ds;

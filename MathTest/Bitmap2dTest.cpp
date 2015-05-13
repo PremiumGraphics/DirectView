@@ -209,6 +209,11 @@ TEST(Bitmap2dTest, TestXor)
 	EXPECT_EQ( Bitmap1x2("10").xor(Bitmap1x2("11")), Bitmap1x2("01") );
 }
 
+TEST(Bitmap2dTest, TestSubdivX)
+{
+	EXPECT_EQ( Bitmap2x1("00"), Bitmap1x1("0").subdivx() );
+}
+
 /*
 TEST(Bitmap2dTest, TestGetEdges)
 {

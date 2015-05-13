@@ -26,6 +26,17 @@ public:
 		bits(str)
 	{}
 
+	explicit Bitmap1d(const Bitmap1d<N/2>& b1, const Bitmap1d<N/2>& b2)
+	{
+		for (size_t i = 0; i < b2.size(); ++i) {
+			bits[i] = b2.get(i);
+		}
+		const auto size = b2.size();
+		for (size_t i = 0; i < b1.size(); ++i) {
+			bits[size + i] = b1.get(i);
+		}
+	}
+
 	size_t count() const {
 		return bits.count();
 	}

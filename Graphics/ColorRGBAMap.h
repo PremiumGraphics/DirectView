@@ -169,7 +169,7 @@ public:
 		const float ratio = range.getNormalized( v );
 
 		Graphics::ColorRGBA<T> c1 = getColorFromIndex( index1 ).getScaled( ratio );
-		Graphics::ColorRGBA<T> c2 = getColorFromIndex( index2 ).getScaled( 1.0 - ratio );
+		Graphics::ColorRGBA<T> c2 = getColorFromIndex( index2 ).getScaled( 1.0f - ratio );
 		return c1 + c2;
 	}
 
@@ -204,7 +204,7 @@ public:
 
 	std::vector< ColorRGBA<T> > getColors() const {
 		std::vector< ColorRGBA<T> > colors;
-		for( int i = 0; i < reds.size(); ++i ) {
+		for( size_t i = 0; i < reds.size(); ++i ) {
 			colors.push_back( ColorRGBA<T>( reds[i], greens[i], blues[i], alphas[i] ) );
 		}
 		return colors;
