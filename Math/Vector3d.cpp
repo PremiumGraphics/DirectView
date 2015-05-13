@@ -65,7 +65,7 @@ Vector3d Vector3d::getScaled( const float factor ) const
 
 bool Vector3d::isZero() const
 {
-	return Tolerances::isEqualLoosely( getLength() );
+	return Tolerancef::isEqualLoosely( getLength() );
 }
 
 Vector3d Vector3d::normalize()

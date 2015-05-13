@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_MATRIX_2D_H__
 
 
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 #include "Vector2d.h"
 
@@ -68,10 +68,10 @@ public:
 
 	bool equals( const Matrix2d& rhs ) const {
 		return
-			Tolerances::isEqualStrictly( x00, rhs.x00 ) &&
-			Tolerances::isEqualStrictly( x01, rhs.x01 ) &&
-			Tolerances::isEqualStrictly( x10, rhs.x10 ) &&
-			Tolerances::isEqualStrictly( x11, rhs.x11 );
+			Tolerance<T>::isEqualStrictly( x00, rhs.x00 ) &&
+			Tolerance<T>::isEqualStrictly( x01, rhs.x01 ) &&
+			Tolerance<T>::isEqualStrictly( x10, rhs.x10 ) &&
+			Tolerance<T>::isEqualStrictly( x11, rhs.x11 );
 	}
 
 	T getDeterminant() const {
@@ -80,13 +80,13 @@ public:
 
 	bool hasInverse() const {
 		const T denominator = getDeterminant();
-		return !Tolerances::isEqualStrictly( denominator, 0.0 );
+		return !Tolerance<T>::isEqualStrictly( denominator, 0.0 );
 	}
 
 	Matrix2d getInverse() const {
 		assert( hasInverse() );
 		const T denominator = getDeterminant();
-		//assert( !Tolerances::isEqualStrictly( denominator ) );
+		//assert( !Tolerancef::isEqualStrictly( denominator ) );
 	
 		const T xx00 = x11 / denominator;
 		const T xx01 = -x01 / denominator;

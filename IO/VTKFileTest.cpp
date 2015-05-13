@@ -276,8 +276,8 @@ std::vector< Vector3d > createTornado2d( const Vector3d& center )
 {
 	std::vector< Vector3d > vectors;
 	for( float angle = 0; angle < 360.0; angle += 10.0 ) {
-		const float x = ::sin( angle * Tolerances::getPI() / 180.0f );
-		const float y = ::cos( angle * Tolerances::getPI() / 180.0f );
+		const float x = ::sin( angle * Tolerancef::getPI() / 180.0f );
+		const float y = ::cos( angle * Tolerancef::getPI() / 180.0f );
 		Vector3d vector( x, y, 0.0 );
 		vector += center;
 		vectors.push_back( vector );

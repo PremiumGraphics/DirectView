@@ -28,7 +28,7 @@ public:
 
 	float getRadius() const { return radius; }
 
-	float getArea() const { return radius * radius * Tolerances::getPI(); }
+	float getArea() const { return radius * radius * Tolerancef::getPI(); }
 
 	float getDiameter() const { return radius * 2.0f; }
 
@@ -38,7 +38,7 @@ public:
 		Vector3dVector points;
 
 		for( float angle = 0.0f; angle < 360.0f; angle += divideAngle ) {
-			const float angle1 = angle / 180.0f * Tolerances::getPI();
+			const float angle1 = angle / 180.0f * Tolerancef::getPI();
 			Vector3d pos = center;
 			pos += Vector3d( radius * ::sin( angle1 ), 0.0f, radius * ::cos( angle1 ) );
 			points.push_back( pos );
@@ -58,7 +58,7 @@ public:
 	}
 
 	bool isShrinked() const {
-		return Tolerances::isEqualLoosely( radius, 0.0f );
+		return Tolerancef::isEqualLoosely( radius, 0.0f );
 	}
 
 	bool isValid() const {
@@ -67,7 +67,7 @@ public:
 
 	bool equals( const Circle& rhs ) const {
 		return
-			Tolerances::isEqualLoosely( radius, rhs.radius ) &&
+			Tolerancef::isEqualLoosely( radius, rhs.radius ) &&
 			radius == rhs.radius;
 	}
 

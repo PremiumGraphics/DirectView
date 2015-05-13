@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_ELLIPSE_H__
 #define __CRYSTAL_MATH_ELLIPSE_H__
 
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 #include "Vector2d.h"
 
@@ -36,11 +36,11 @@ public:
 
 	Vector2d<float> getRadii() const { return radii; }
 
-	T getArea() const { return Tolerances::getPI() * getXRadius() * getYRadius(); }
+	T getArea() const { return Tolerancef::getPI() * getXRadius() * getYRadius(); }
 
-	bool isCircle() const { return Tolerances::isEqualStrictly(radii.getX(), radii.getY()); }
+	bool isCircle() const { return Tolerancef::isEqualStrictly(radii.getX(), radii.getY()); }
 
-	bool isShrinked() const { return Tolerances::isEqualStrictly(getArea(), 0.0); }
+	bool isShrinked() const { return Tolerancef::isEqualStrictly(getArea(), 0.0); }
 
 private:
 	Vector2d<T> radii;

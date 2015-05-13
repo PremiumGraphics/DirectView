@@ -2,7 +2,7 @@
 
 #include "../Math/Matrix3d.h"
 
-#include "../Math/Tolerances.h"
+#include "../Math/Tolerance.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Quaternion.h"
 
@@ -77,7 +77,7 @@ void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 
 	getAngleVelosity( inertiaMoment , torque, proceedTime );
 
-	if( Math::Tolerances::isEqualStrictly( angleVelosity.getLength() ) ) {
+	if( Math::Tolerancef::isEqualStrictly( angleVelosity.getLength() ) ) {
 		for (const PhysicsParticleSPtr& p : particles) {
 			p->addCenter(objectCenter);
 		}

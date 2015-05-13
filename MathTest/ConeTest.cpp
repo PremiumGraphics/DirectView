@@ -26,5 +26,5 @@ TEST(ConeTest, TestVolume)
 {
 	Cone cone;
 	const float actual = cone.getVolume();
-	EXPECT_FLOAT_EQ(Tolerances::getPI() / 3.0f, actual);
+	EXPECT_FLOAT_EQ(Tolerancef::getPI() / 3.0f, actual);
 }

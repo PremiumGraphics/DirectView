@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <vector>
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 namespace Crystal{
 	namespace Math{
@@ -81,11 +81,11 @@ public:
 	}
 
 	bool isNormalized() const {
-		return Tolerances::isEqualLoosely( getLength(), 1.0 );
+		return Tolerance<T>::isEqualLoosely( getLength(), 1.0 );
 	}
 
 	bool equals( const Vector2d&rhs ) const {
-		return Tolerances::isEqualLoosely( getDistanceSquared( rhs ) );
+		return Tolerance<T>::isEqualLoosely( getDistanceSquared( rhs ) );
 	}
 
 	bool operator==( const Vector2d& rhs ) const {

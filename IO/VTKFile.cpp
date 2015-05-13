@@ -85,7 +85,7 @@ float getGauss2d( const float _x, const float _y, const float centerX, const flo
 	const float y = _y - centerY;
 
 	const float power = - ( x * x + y * y ) / ( 2.0f * tau * tau ) ;
-	return 1.0f / ( 2.0f * Tolerances::getPI() * tau * tau ) * ::exp( power );
+	return 1.0f / ( 2.0f * Tolerancef::getPI() * tau * tau ) * ::exp( power );
 }
 
 void VTKFile::setDiffuseData()
@@ -189,7 +189,7 @@ void VTKFile::setCylinderData()
 	std::vector< Vector3d > positions;
 	for( int i = 0 ; i < 10; ++i ) {
 		for( int j = 0; j < 360; j += 36 ) {
-			Vector3d pos( ::sin( j / 180.0f * Tolerances::getPI() ), ::cos( j / 180.0f * Tolerances::getPI() ), i );
+			Vector3d pos( ::sin( j / 180.0f * Tolerancef::getPI() ), ::cos( j / 180.0f * Tolerancef::getPI() ), i );
 			positions.push_back( pos );
 		}
 	}

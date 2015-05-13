@@ -97,10 +97,10 @@ PolygonSPtr PolygonBuilder::build(const Sphere& sphere,const unsigned int uDivid
 		std::vector<unsigned int> vertexIds;
 		for (unsigned int k = 0; k < vDivideNumber; ++k) {
 			const float vAngle = 180.0f / vDivideNumber * k;
-			const float vRadius = vAngle * Tolerances::getPI() / 180.0f;
+			const float vRadius = vAngle * Tolerancef::getPI() / 180.0f;
 
 			const float uAngle = 360.0f / uDivideNumber * i;
-			const float rad = uAngle *Tolerances::getPI() / 180.0f;
+			const float rad = uAngle *Tolerancef::getPI() / 180.0f;
 			VertexSPtr v( new Vertex(Vector3d(std::sin(rad), std::cos(rad), 0.0f) * vRadius, i) );
 			vertices.push_back(v);
 			vertexIds.push_back(i);
@@ -137,7 +137,7 @@ PolygonSPtr PolygonBuilder::build(const unsigned int divideNumber, const Cone& c
 
 	for (unsigned int i = 0; i < divideNumber; ++i) {
 		const float angle = 360.0f / divideNumber * i;
-		const float rad = angle *Tolerances::getPI() / 180.0f;
+		const float rad = angle *Tolerancef::getPI() / 180.0f;
 		const VertexSPtr v(new Vertex(Vector3d(std::sin(rad), 0.0f, std::cos(rad) ), i));
 		vertices.push_back(v);
 	}

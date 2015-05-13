@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_MATH_TOLERANCE_H__
 #define __CRYSTAL_MATH_TOLERANCE_H__
 
+#include <cmath>
+
 namespace Crystal {
 	namespace Math {
 
@@ -59,6 +61,8 @@ public:
 	static double getTwoPI() { return 2.0 * getPI(); }
 
 };
+
+using Tolerancef = Tolerance < float >;
 
 
 /*

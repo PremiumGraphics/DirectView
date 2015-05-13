@@ -97,7 +97,6 @@
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tolerance.h" />
-    <ClInclude Include="Tolerances.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3d.h" />

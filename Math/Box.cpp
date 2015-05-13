@@ -146,10 +146,10 @@ bool Box::isShirinked() const
 bool Box::equals(const Box& rhs) const
 {
 	return
-		Tolerances::isEqualLoosely( minX, rhs.minX ) &&
-		Tolerances::isEqualLoosely( minY, rhs.minY ) &&
-		Tolerances::isEqualLoosely( minZ, rhs.minZ ) &&
-		Tolerances::isEqualLoosely( maxX, rhs.maxX ) &&
-		Tolerances::isEqualLoosely( maxY, rhs.maxY ) &&
-		Tolerances::isEqualLoosely( maxZ, rhs.maxZ );
+		Tolerancef::isEqualLoosely( minX, rhs.minX ) &&
+		Tolerancef::isEqualLoosely( minY, rhs.minY ) &&
+		Tolerancef::isEqualLoosely( minZ, rhs.minZ ) &&
+		Tolerancef::isEqualLoosely( maxX, rhs.maxX ) &&
+		Tolerancef::isEqualLoosely( maxY, rhs.maxY ) &&
+		Tolerancef::isEqualLoosely( maxZ, rhs.maxZ );
 }

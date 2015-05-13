@@ -46,8 +46,8 @@ TYPED_TEST(EllipseTest, TestIsCircle)
 TYPED_TEST(EllipseTest, TestGetArea)
 {
 	using T = TypeParam;
-	EXPECT_FLOAT_EQ( Tolerances::getPI(), Ellipse<T>(1.0f, 1.0f).getArea() );
-	EXPECT_FLOAT_EQ( Tolerances::getTwoPI(), Ellipse<T>(2.0f, 1.0f).getArea());
+	EXPECT_FLOAT_EQ( Tolerancef::getPI(), Ellipse<T>(1.0f, 1.0f).getArea() );
+	EXPECT_FLOAT_EQ( Tolerancef::getTwoPI(), Ellipse<T>(2.0f, 1.0f).getArea());
 }
 
 TYPED_TEST(EllipseTest, TestIsShrinked)

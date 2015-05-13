@@ -68,34 +68,34 @@ PhysicsParticleSPtrVector SPHSolver::getParticles( const PhysicsObjectSPtrVector
 
 float SPHSolver::getPoly6Kernel( const float distance, const float effectLength )
 {
-	const auto poly6Constant = 315.0f / (64.0f * Tolerances::getPI() * pow( effectLength, 9 ) );
+	const auto poly6Constant = 315.0f / (64.0f * Tolerancef::getPI() * pow( effectLength, 9 ) );
 	return poly6Constant * pow( effectLength * effectLength - distance * distance, 3 );
 }
 
 Vector3d SPHSolver::getPoly6KernelGradient( const Vector3d& distanceVector, const float effectLength )
 {
 	const auto distance = distanceVector.getLength();
-	const auto poly6ConstantGradient = 945.0f / ( 32.0f * Tolerances::getPI() * pow( effectLength, 9 ) );
+	const auto poly6ConstantGradient = 945.0f / ( 32.0f * Tolerancef::getPI() * pow( effectLength, 9 ) );
 	const auto factor = poly6ConstantGradient * pow( effectLength * effectLength - distance * distance, 2 );
 	return distanceVector * factor;
 }
 
 float SPHSolver::getPoly6KernelLaplacian(const float distance, const float effectLength )
 {
-	const auto poly6ConstantLaplacian = 945.0f / ( 32.0f * Tolerances::getPI() * pow(effectLength, 9 ) );
+	const auto poly6ConstantLaplacian = 945.0f / ( 32.0f * Tolerancef::getPI() * pow(effectLength, 9 ) );
 	return poly6ConstantLaplacian * ( effectLength * effectLength - distance * distance ) 
 		* ( 42.0f * distance * distance - 18.0f * effectLength * effectLength );
 }
 
 Vector3d SPHSolver::getSpikyKernelGradient(const Vector3d &distanceVector, const float effectLength )
 {
-	const auto constant = 45.0f / ( Tolerances::getPI() * pow(effectLength, 6 ) );
+	const auto constant = 45.0f / ( Tolerancef::getPI() * pow(effectLength, 6 ) );
 	const auto distance = distanceVector.getLength();
 	return distanceVector * constant * pow ( effectLength - distance, 2 ) / distance;
 }
 
 float SPHSolver::getViscosityKernelLaplacian(const float distance, const float effectLength )
 {
-	const auto constant = 45.0f / ( Tolerances::getPI() * pow(effectLength, 6) );
+	const auto constant = 45.0f / ( Tolerancef::getPI() * pow(effectLength, 6) );
 	return (effectLength - distance ) * constant;
 }

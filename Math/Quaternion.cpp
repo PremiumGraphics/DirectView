@@ -1,7 +1,7 @@
 #include "Quaternion.h"
 
 #include "Matrix3d.h"
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 #include <cassert>
 
@@ -74,7 +74,7 @@ Quaternion& Quaternion::normalize()
 	
 bool Quaternion::isNormalized() const
 {
-	return Tolerances::isEqualStrictly( getNorm(), 1.0 );
+	return Tolerancef::isEqualStrictly( getNorm(), 1.0 );
 }
 
 void Quaternion::getMult( const Quaternion& q1, const Quaternion& q2 )

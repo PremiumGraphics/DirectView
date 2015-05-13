@@ -46,8 +46,8 @@ TEST(Vector3dTest, TestGetLengthSquared)
 	const auto actual = v.getLengthSquared();
 	const auto expected = 3.0f;
 	EXPECT_FLOAT_EQ( expected, actual);
-	EXPECT_TRUE( Tolerances::isEqualLoosely(expected, actual) );
-	EXPECT_TRUE( Tolerances::isEqualStrictly(expected, actual) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely(expected, actual) );
+	EXPECT_TRUE( Tolerancef::isEqualStrictly(expected, actual) );
 }
 
 
@@ -56,8 +56,8 @@ TEST( Vector3dTest, TestGetLength )
 	const Vector3d v( 1.0, 1.0, 1.0 );
 	const auto actual = v.getLength();
 	const auto expected = std::sqrt(3.0f);
-	EXPECT_TRUE( Tolerances::isEqualLoosely( expected, actual ) );
-	EXPECT_TRUE( Tolerances::isEqualStrictly( expected, actual ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely( expected, actual ) );
+	EXPECT_TRUE( Tolerancef::isEqualStrictly( expected, actual ) );
 }
 
 TEST( Vector3dTest, TestInnerProduct )
@@ -71,8 +71,8 @@ TEST( Vector3dTest, TestGetDistance )
 {
 	const Vector3d v0( 1.0f, 1.0f, 1.0f );
 	const Vector3d v1( 2.0f, 2.0f, 2.0f );
-	EXPECT_TRUE( Tolerances::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
-	EXPECT_TRUE( Tolerances::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
 }
 
 TEST( Vector3dTest, TestToArray )

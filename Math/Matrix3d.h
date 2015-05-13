@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_MATRIX_3D_H__
 #define __CRYSTAL_MATH_MATRIX_3D_H__
 
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 #include <vector>
 #include <cassert>

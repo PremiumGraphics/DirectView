@@ -53,7 +53,7 @@ public:
 	virtual Vector3d getCenter() const { return center; }
 
 	float getVolume() const {
-		return radius * radius * Tolerances::getPI() * height;
+		return radius * radius * Tolerancef::getPI() * height;
 	}
 
 	void setRadius(const float r) { this->radius = r; }

@@ -21,7 +21,7 @@ TEST(BoxTest, TestConstrutByVectors)
 TEST( BoxTest, TestGetVolume )
 {
 	Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 1.0f, 2.0f, 3.0f ) );
-	EXPECT_TRUE( Tolerances::isEqualLoosely( b.getVolume(), 6.0f ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely( b.getVolume(), 6.0f ) );
 }
 
 TEST( BoxTest, TestGetLength )

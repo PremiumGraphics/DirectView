@@ -112,11 +112,11 @@ TEST(PolygonBuilderTest, TestBuildTriangle)
 		0
 		);
 	const Vertex v1(
-		Vector3d(std::sin(120.0f * Tolerances::getPI() / 180.0f), std::cos(120.0f * Tolerances::getPI() / 180.0f), 0.0),
+		Vector3d(std::sin(120.0f * Tolerancef::getPI() / 180.0f), std::cos(120.0f * Tolerancef::getPI() / 180.0f), 0.0),
 		Vector3d(0.0, 0.0, 1.0),
 		1);
 	const Vertex v2(
-		Vector3d(std::sin(240.0f * Tolerances::getPI() / 180.0f), std::cos(240.0f * Tolerances::getPI() / 180.0f), 0.0),
+		Vector3d(std::sin(240.0f * Tolerancef::getPI() / 180.0f), std::cos(240.0f * Tolerancef::getPI() / 180.0f), 0.0),
 		Vector3d(0.0, 0.0, 1.0),
 		2);
 

@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_MATRIX_4D_H__
 #define __CRYSTAL_MATH_MATRIX_4D_H__
 
-#include "Tolerances.h"
+#include "Tolerance.h"
 
 #include <vector>
 
@@ -121,7 +121,7 @@ public:
 
 	bool equals( const Matrix4d& rhs ) const {
 		for( int i = 0; i < 16; ++i ) {
-			if( !Tolerances::isEqualLoosely( x[i], rhs.x[i] ) ) {
+			if( !Tolerancef::isEqualLoosely( x[i], rhs.x[i] ) ) {
 				return false;
 			}
 		}

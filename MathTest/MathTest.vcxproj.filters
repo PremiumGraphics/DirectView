@@ -4,7 +4,6 @@
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
-    <ClCompile Include="TolerancesTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />

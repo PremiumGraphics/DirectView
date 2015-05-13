@@ -43,8 +43,8 @@ public:
 	bool equals(const Quad& rhs) const {
 		return
 			center == rhs.getCenter() &&
-			Tolerances::isEqualStrictly( lengthX, rhs.lengthX ) &&
-			Tolerances::isEqualStrictly( lengthY, rhs.lengthY );
+			Tolerancef::isEqualStrictly( lengthX, rhs.lengthX ) &&
+			Tolerancef::isEqualStrictly( lengthY, rhs.lengthY );
 	}
 
 	bool operator==(const Quad& rhs) const {

@@ -34,13 +34,13 @@ TEST(CircleTest, TestArea)
 	{
 		Circle c;
 		const float actual = c.getArea();
-		EXPECT_FLOAT_EQ(Tolerances::getPI(), actual);
+		EXPECT_FLOAT_EQ(Tolerancef::getPI(), actual);
 	}
 
 	{
 		Circle c(2.0);
 		const float actual = c.getArea();
-		const float expected = Tolerances::getPI() * 4.0f;
+		const float expected = Tolerancef::getPI() * 4.0f;
 		EXPECT_FLOAT_EQ( expected, actual);
 	}
 }

@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <vector>
-#include "Tolerances.h"
+#include "Tolerance.h"
 #include "Matrix3d.h"
 
 namespace Crystal{
@@ -50,11 +50,11 @@ public:
 	Vector3d getNormalized() const;
 
 	bool isNormalized() const {
-		return Tolerances::isEqualLoosely( getLength(), 1.0 );
+		return Tolerancef::isEqualLoosely( getLength(), 1.0 );
 	}
 
 	bool equals( const Vector3d &rhs ) const {
-		return Tolerances::isEqualLoosely( getDistanceSquared( rhs ) );
+		return Tolerancef::isEqualLoosely( getDistanceSquared( rhs ) );
 	}
 
 	bool isZero() const;
