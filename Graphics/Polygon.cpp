@@ -11,7 +11,7 @@ using namespace Crystal::Graphics;
 void Polygon::rotateX(const double angle)
 {
 	move(-1.0 *center);
-	const Matrix3d<double>& m = Matrix3d<double>::RotateX(angle * Tolerances::getPrecisePI() / 180.0);
+	const Matrix3d<double>& m = Matrix3d<double>::RotateX(angle * Tolerance<double>::getPI() / 180.0);
 	for (const VertexSPtr& v : vertices) {
 		v->rotate(m);
 	}
@@ -21,7 +21,7 @@ void Polygon::rotateX(const double angle)
 void Polygon::rotateY(const double angle)
 {
 	move(-1.0 *center);
-	const Matrix3d<double>& m = Matrix3d<double>::RotateY(angle * Tolerances::getPrecisePI() / 180.0);
+	const Matrix3d<double>& m = Matrix3d<double>::RotateY(angle * Tolerance<double>::getPI() / 180.0);
 	for (const VertexSPtr v : vertices) {
 		v->rotate(m);
 	}
@@ -31,7 +31,7 @@ void Polygon::rotateY(const double angle)
 void Polygon::rotateZ(const double angle)
 {
 	move(-1.0 *center);
-	const Matrix3d<double>& m = Matrix3d<double>::RotateZ(angle * Tolerances::getPrecisePI()/ 180.0);
+	const Matrix3d<double>& m = Matrix3d<double>::RotateZ(angle * Tolerance<double>::getPI() / 180.0);
 	for (const VertexSPtr& v : vertices) {
 		v->rotate(m);
 	}

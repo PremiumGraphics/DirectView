@@ -91,15 +91,15 @@ public:
 
 	bool equals( const Matrix3d& rhs ) const {
 		return
-			Tolerances::isEqualLoosely( x00, rhs.x00 ) &&
-			Tolerances::isEqualLoosely( x01, rhs.x01 ) &&
-			Tolerances::isEqualLoosely( x02, rhs.x02 ) &&
-			Tolerances::isEqualLoosely( x10, rhs.x10 ) &&
-			Tolerances::isEqualLoosely( x11, rhs.x11 ) &&
-			Tolerances::isEqualLoosely( x12, rhs.x12 ) &&
-			Tolerances::isEqualLoosely( x20, rhs.x20 ) &&
-			Tolerances::isEqualLoosely( x21, rhs.x21 ) &&
-			Tolerances::isEqualLoosely( x22, rhs.x22 );
+			Tolerance<T>::isEqualLoosely( x00, rhs.x00 ) &&
+			Tolerance<T>::isEqualLoosely(x01, rhs.x01) &&
+			Tolerance<T>::isEqualLoosely(x02, rhs.x02) &&
+			Tolerance<T>::isEqualLoosely(x10, rhs.x10) &&
+			Tolerance<T>::isEqualLoosely( x11, rhs.x11 ) &&
+			Tolerance<T>::isEqualLoosely( x12, rhs.x12 ) &&
+			Tolerance<T>::isEqualLoosely( x20, rhs.x20 ) &&
+			Tolerance<T>::isEqualLoosely( x21, rhs.x21 ) &&
+			Tolerance<T>::isEqualLoosely( x22, rhs.x22 );
 	}
 
 	T getDeterminant() const {
@@ -114,7 +114,7 @@ public:
 
 	Matrix3d getInverse() const {
 		const T denominator = getDeterminant();
-		assert(!Tolerances::isEqualStrictly(denominator));
+		assert(!Tolerance<T>::isEqualStrictly(denominator));
 
 		const T i00 = x11 * x22 - x12 * x21;
 		const T i01 = x21 * x02 - x22 * x01;

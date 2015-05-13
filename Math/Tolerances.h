@@ -3,9 +3,13 @@
 
 #include <cmath>
 
+#include "Tolerance.h"
+
 namespace Crystal{
 	namespace Math{
 
+using Tolerances = Tolerance < float > ;
+		/*
 class Tolerances
 {
 public:
@@ -28,7 +32,7 @@ public:
 
 	static double getPrecisePI() { return 3.141592653589793238462643383279; }
 };
-
+*/
 /*
 template<typename T>
 class Tolerance
