@@ -45,6 +45,7 @@
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Space1d.h" />
     <ClInclude Include="Ellipse.h" />
+    <ClInclude Include="Tolerance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

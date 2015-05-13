@@ -21,7 +21,6 @@ public:
 	explicit Bitmap2d(const long l)
 	{}
 
-
 	explicit Bitmap2d(const Bitmap1dArray<N1,N2>& b) :
 		bmp1ds(b)
 	{}
@@ -161,9 +160,9 @@ public:
 
 	Bitmap2d<N1, N2> getEdgesx() const {
 		Bitmap2d<N1, N2 > dest;
-		for (size_t x = 0; x < bmp1ds.sizex(); ++x) {
-			for (size_t y = 1; y < bmp1ds.sizey(); ++y){
-				if (!bmp1ds[x][y - 1] && bmp1ds[x][y]) {
+		for (size_t x = 0; x < sizex(); ++x) {
+			for (size_t y = 1; y < sizey(); ++y){
+				if ( bmp1ds[x][y - 1] != bmp1ds[x][y]) {
 					dest.set(x, y);
 				}
 			}
@@ -173,9 +172,9 @@ public:
 
 	Bitmap2d<N1, N2> getEdgesy() const {
 		Bitmap2d<N1, N2 > dest;
-		for (size_t y = 0; y < bmp1ds.sizey(); ++y){
-			for (size_t x = 1; x < bmp1ds.sizex(); ++x) {
-				if (!bmp1ds[x-1][y] && bmp1ds[x][y]) {
+		for (size_t y = 0; y < sizey(); ++y){
+			for (size_t x = 1; x < sizex(); ++x) {
+				if ( bmp1ds[x-1][y] != bmp1ds[x][y]) {
 					dest.set(x, y);
 				}
 			}

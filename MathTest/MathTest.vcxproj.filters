@@ -27,5 +27,6 @@
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Space1dTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
+    <ClCompile Include="ToleranceTest.cpp" />
   </ItemGroup>
 </Project>

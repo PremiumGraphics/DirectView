@@ -214,12 +214,26 @@ TEST(Bitmap2dTest, TestSubdivX)
 	EXPECT_EQ( Bitmap2x1("00"), Bitmap1x1("0").subdivx() );
 }
 
-/*
-TEST(Bitmap2dTest, TestGetEdges)
+TEST(Bitmap2dTest, TestGetEdgesX)
 {
-	const Bitmap2x2 expected("01100011");
-	const Bitmap2x2 actual("10010011");
+	{
+		Bitmap1dArray<2, 2> bmps = {
+			Bitmap1d<2>("00"),
+			Bitmap1d<2>("00")
+		};
+		Bitmap2d<2, 2> b(bmps);
+		const auto actual = b.getEdgesx();
+		EXPECT_EQ(Bitmap2x2("0000"), actual);
+	}
 
-	EXPECT_EQ( Bitmap2x2("01100011"), Bitmap2x2("0100") );
+	{
+		Bitmap1dArray<2, 2> bmps = {
+			Bitmap1d<2>("01"),
+			Bitmap1d<2>("00")
+		};
+		Bitmap2d<2, 2> b(bmps);
+		const auto actual = b.getEdgesx();
+		EXPECT_EQ(Bitmap2x2("0001"), actual);
+	}
+
 }
-*/
