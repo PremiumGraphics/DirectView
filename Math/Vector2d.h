@@ -8,9 +8,6 @@
 namespace Crystal{
 	namespace Math{
 
-//class Box;
-//class Matrix3d;
-
 template< typename T >
 class Vector2d final
 {
@@ -156,9 +153,6 @@ private:
 	T x;
 	T y;
 };
-
-
-//typedef std::vector< Vector2d<typename T> > Vector2dVector;
 
 
 template< typename T >

@@ -28,6 +28,8 @@
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
+    <ClCompile Include="Position1dTest.cpp" />
+    <ClCompile Include="Position2dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="Space1dTest.cpp" />

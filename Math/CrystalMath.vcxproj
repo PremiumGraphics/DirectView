@@ -89,6 +89,8 @@
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />
+    <ClInclude Include="Position1d.h" />
+    <ClInclude Include="Position2d.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />

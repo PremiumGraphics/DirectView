@@ -12,17 +12,13 @@ template<size_t N1, size_t N2>
 class Space2d final {
 public:
 
-	Space2d() : Space2d(Vector2d<float>::Zero())
-	{}
+	Space2d() : Space2d(Vector2d<float>::Zero()) {}
 
-	Space2d(const Vector2d<float>& start ) :
-		start(start),
-		sizes(Vector2d<float>(1.0f, 1.0f ))
-	{}
+	explicit Space2d(const Vector2d<float>& start) : Space2d(start, Vector2d<float>(1.0f, 1.0f)) {}
 
 	Space2d(const Vector2d<float>& start, const Vector2d<float>& sizes) :
 		start(start),
-		sizes(sizers)
+		sizes(sizes)
 	{}
 
 	Vector2d<float> getStart() const { return start; }
