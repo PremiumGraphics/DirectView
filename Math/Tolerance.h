@@ -5,21 +5,12 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Tolerance
+class Tolerance : final
 {
-public:
-	static T getLooseTolerance() {
-		static_assert(false);
-	}
-
-	static T getStrictTolerance() {
-		static_assert(false);
-	}
-
 };
 
 template<>
-class Tolerance < float >
+class Tolerance < float > final
 {
 public:
 	static float getLooseTolerance() {
@@ -29,10 +20,22 @@ public:
 	static float getStrictTolerance() {
 		return 1.0e-18f;
 	}
+
+	static bool isEqualLoosely(const float x) { return ::fabs(x) < getLooseTolerance(); }
+
+	static bool isEqualLoosely(const float x, const float y) { return ::fabs(x - y) < getLooseTolerance(); }
+
+	static bool isEqualStrictly(const float x) { return ::fabs(x) < getStrictTolerance(); }
+
+	static bool isEqualStrictly(const float x, const float y) { return ::fabs(x - y) < getStrictTolerance(); }
+
+	static float getPI() { return 3.14159265359f; }
+
+	static float getTwoPI() { return 2.0f * getPI(); }
 };
 
 template<>
-class Tolerance < double >
+class Tolerance < double > final
 {
 public:
 	static double getLooseTolerance() {
@@ -42,8 +45,37 @@ public:
 	static double getStrictTolerance() {
 		return 1.0e-18;
 	}
+
+	static bool isEqualLoosely(const double x) { return ::fabs(x) < getLooseTolerance(); }
+
+	static bool isEqualLoosely(const double x, const double y) { return ::fabs(x - y) < getLooseTolerance(); }
+
+	static bool isEqualStrictly(const double x) { return ::fabs(x) < getStrictTolerance(); }
+
+	static bool isEqualStrictly(const double x, const double y) { return ::fabs(x - y) < getStrictTolerance(); }
+
+	static double getPI() { return 3.141592653589793238462643383279; }
+
+	static double getTwoPI() { return 2.0 * getPI(); }
+
 };
 
+
+/*
+static bool isEqualLoosely(double x) { return ::fabs(x) < getLooseTolerance(); }
+
+static bool isEqualLoosely(double x, double y) { return ::fabs(x - y) < getLooseTolerance(); }
+
+static bool isEqualStrictly(double x) { return ::fabs(x) < getStrictTolerance(); }
+
+static bool isEqualStrictly(double x, double y) { return ::fabs(x - y) < getStrictTolerance(); }
+
+static float getPI() { return 3.14159265359f; }
+
+static float getTwoPI() { return 2.0f * getPI(); }
+
+static double getPrecisePI() { return 3.141592653589793238462643383279; }
+*/
 
 	}
 }
