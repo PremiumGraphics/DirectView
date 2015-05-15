@@ -41,7 +41,7 @@ public:
 		return *(this);
 	}
 
-	float getStart() const { return start.get(); }
+	Position1d<float> getStart() const { return start; }
 
 	float getEnd() const { return start.get() + length; }
 
@@ -53,8 +53,8 @@ public:
 
 	float getSize() const { return length / static_cast<float>(N); }
 
-	std::vector< float > toPositions() const {
-		std::vector< float > positions;
+	std::vector< Position1d<float> > toPositions() const {
+		std::vector< Position1d<float> > positions;
 		for (size_t i = 0; i < bmp.size(); ++i) {
 			if (bmp[i]) {
 				const auto pos = getStart() + getSize() * i + getSize() * 0.5f;
@@ -73,6 +73,12 @@ public:
 		const auto& line2 = rhs.getBoundingLine();
 		return line1.hasInersection(line2);
 	}
+
+	/*
+	unsigned float getDiff( const Space1d& rhs) const {
+		return start.get() - rhs.getStart();
+	}
+	*/
 
 private:
 	Position1d<float> start;

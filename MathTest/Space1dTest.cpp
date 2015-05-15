@@ -6,8 +6,8 @@ using namespace Crystal::Math;
 
 TEST(Space1dTest, TestGetStart)
 {
-	EXPECT_EQ(0.0f, Space1d<1>().getStart());
-	EXPECT_EQ(1.0f, Space1d<1>( Position1d<float>( 1.0f ), 2.0f).getStart());
+	EXPECT_EQ( Position1d<float>( 0.0f ), Space1d<1>().getStart());
+	EXPECT_EQ(Position1d<float>(1.0f), Space1d<1>(Position1d<float>(1.0f), 2.0f).getStart());
 }
 
 TEST(Space1dTest, TestGetEnd)
@@ -38,12 +38,19 @@ TEST(Space1dTest, TestGetSize)
 TEST(Space1dTest, TestToPoints)
 {
 	EXPECT_TRUE(Space1d<2>(Bitmap1d<2>("00")).toPositions().empty());
-	EXPECT_EQ(std::vector < float > {0.25f}, Space1d<2>(Bitmap1d<2>("01")).toPositions());
-	EXPECT_EQ(std::vector < float > {0.75f}, Space1d<2>(Bitmap1d<2>("10")).toPositions());
 
 	{
-		const std::vector<float> expected = { 0.25f, 0.75f };
-		const std::vector<float> actual = Space1d<2>(Bitmap1d<2>("11")).toPositions();
+		const std::vector< Position1d<float> > expected = { Position1d<float>(0.25f) };
+		EXPECT_EQ(expected, Space1d<2>(Bitmap1d<2>("01")).toPositions());
+	}
+	{
+		const std::vector< Position1d<float> > expected = { Position1d<float>(0.75f) };
+		EXPECT_EQ( expected, Space1d<2>(Bitmap1d<2>("10")).toPositions());
+
+	}
+	{
+		const std::vector< Position1d<float> > expected = { Position1d < float > {0.25f}, Position1d < float > {0.75f} };
+		const auto actual = Space1d<2>(Bitmap1d<2>("11")).toPositions();
 		EXPECT_EQ( expected, actual );
 	}
 }

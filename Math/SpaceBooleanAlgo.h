@@ -17,10 +17,18 @@ public:
 
 	bool isValidPair(const Space1d<N1>& lhs, const Space1d<N1>& rhs) const
 	{
-		return (lhs.getRes() == rhs.getRes()); //&&
-			//lhs.get
-			//;
+		return
+			(lhs.getLength() == rhs.getLength()) &&
+			lhs.hasIntersection(rhs);
 	}
+
+	/*
+	Space1d<N1> createUnion(const Space1d<N1> lhs, const Space1d<N1> rhs) const
+	{
+		assert( isValidPair(lhs, rhs) );
+		lhs.
+	}
+	*/
 
 	/*
 	bool isValidPair(const Space3d<N1, N2, N3>& lhs, const Space3d<N1, N2, N3>& rhs) const
