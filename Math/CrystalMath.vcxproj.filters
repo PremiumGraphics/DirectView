@@ -50,6 +50,7 @@
     <ClInclude Include="Position3d.h" />
     <ClInclude Include="SpaceBooleanAlgo.h" />
     <ClInclude Include="Line1d.h" />
+    <ClInclude Include="Vector1d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_MATH_LINE_1D_H__
 #define __CRYSTAL_MATH_LINE_1D_H__
 
+#include "Vector1d.h"
+
 namespace Crystal {
 	namespace Math {
 
@@ -15,7 +17,7 @@ public:
 
 	~Line1d() = default;
 
-	Line1d(const T start) :
+	explicit Line1d(const T start) :
 		start(start),
 		length(1.0f)
 	{}
@@ -39,6 +41,13 @@ public:
 
 	T getEnd() const { return start + length; }
 
+	Line1d& move(const T v) {
+		start += v;
+		return (*this);
+	}
+
+	void sacle(const T s) { length *= s; }
+
 	bool equals(const Line1d<T>& rhs) const {
 		return 
 			start == rhs.start &&
@@ -52,6 +61,14 @@ public:
 	bool operator!=(const Line1d<T>& rhs) const {
 		return !equals(rhs);
 	}
+
+	/*
+	bool hasIntersection(const Line1d<T>& rhs) const {
+		return
+			const auto diff = Vector1d<T>(start, rhs.start()).getLength();
+			
+	}
+	*/
 
 
 private:

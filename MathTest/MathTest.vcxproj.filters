@@ -31,5 +31,6 @@
     <ClCompile Include="Position1dTest.cpp" />
     <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="Line1dTest.cpp" />
+    <ClCompile Include="Vector1dTest.cpp" />
   </ItemGroup>
 </Project>

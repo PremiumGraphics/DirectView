@@ -7,19 +7,19 @@ using namespace Crystal::Math;
 TEST(Space1dTest, TestGetStart)
 {
 	EXPECT_EQ(0.0f, Space1d<1>().getStart());
-	EXPECT_EQ(1.0f, Space1d<1>(1.0f, 2.0f).getStart());
+	EXPECT_EQ(1.0f, Space1d<1>( Position1d<float>( 1.0f ), 2.0f).getStart());
 }
 
 TEST(Space1dTest, TestGetEnd)
 {
 	EXPECT_EQ(1.0f, Space1d<1>().getEnd());
-	EXPECT_EQ(3.0f, Space1d<1>(1.0f, 2.0f).getEnd());
+	EXPECT_EQ(3.0f, Space1d<1>( Position1d<float>(1.0f), 2.0f).getEnd());
 }
 
 TEST(Space1dTest, TestGetLength)
 {
 	EXPECT_EQ(1.0f, Space1d<1>().getLength());
-	EXPECT_EQ(2.0f, Space1d<1>(1.0f, 2.0f).getLength());
+	EXPECT_EQ(2.0f, Space1d<1>(Position1d<float>(1.0f), 2.0f).getLength());
 }
 
 TEST(Space1dTest, TestGetBoundingLine)
