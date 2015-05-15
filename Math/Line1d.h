@@ -22,17 +22,15 @@ public:
 		length(1.0f)
 	{}
 
-	explicit Line1d(const Position1d<T>& start, const Position1d<T>& end) :
+	Line1d(const Position1d<T>& start, const T length) :
+		start(start),
+		length(length)
+	{}
+
+	Line1d(const Position1d<T>& start, const Position1d<T>& end) :
 		start(start),
 		length(end.get()-start.get())
 	{}
-
-
-	explicit Line1d(const std::array<Position1d<T>, 2>& positions) :
-		start(positions[0]),
-		end( positions[1] - positions[0])
-	{
-	}
 
 	Line1d(const T start, const T length) :
 		start(start),
@@ -55,10 +53,15 @@ public:
 		return Line1d( start.get() + v, length );
 	}
 
-	Line1d& sacle(const T s) {
+	Line1d& scale(const T s) const {
 		length *= s;
 		return (*this);
 	}
+
+	Line1d scale(const T s) {
+		return Line1d( getStart(), length * s);
+	}
+
 
 	bool equals(const Line1d<T>& rhs) const {
 		return 
@@ -74,20 +77,15 @@ public:
 		return !equals(rhs);
 	}
 
+	T getDistance(const Line1d<T>& rhs) const {
+		return getEnd() - rhs.getStart();
+	}
+
 	bool hasIntersection(const Line1d<T>& rhs) const {
 		if (getEnd() < rhs.getStart() || getStart() > rhs.getEnd()) {
 			return false;
 			//return rhs.hasIntersection( *this );
 		}
-		/*
-		if (start < rhs.start) {
-			return getEnd() < rhs.getEnd();
-		}
-		else {
-			return getEnd() > rhs.getEnd();
-
-		}
-		*/
 
 		if (getStart() < rhs.getStart()) {
 			const auto diff = start.get() - rhs.start.get();//Vector1d<T>(start, rhs.start()).getLength();
@@ -95,7 +93,7 @@ public:
 			return moved.getEnd() < rhs.getEnd();
 		}
 		else {
-			rhs.hasIntersection(*this);
+			return rhs.hasIntersection(*this);
 		}
 	}
 

@@ -85,8 +85,8 @@
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
-    <ClInclude Include="Line.h" />
     <ClInclude Include="Line1d.h" />
+    <ClInclude Include="Line3d.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />

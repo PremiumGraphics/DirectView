@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Math/Line.h"
+#include "../Math/Line3d.h"
 
 using namespace Crystal::Math;
 

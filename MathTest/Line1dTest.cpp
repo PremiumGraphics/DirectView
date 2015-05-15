@@ -47,6 +47,14 @@ TYPED_TEST(Line1dTest, TestMove)
 	EXPECT_EQ( Line1d<T>(11.0f, 1.0f), Line1d<T>(10.0f).move(1.0f) );
 }
 
+TYPED_TEST(Line1dTest, TestScale)
+{
+	using T = TypeParam;
+	EXPECT_EQ(Line1d<T>(0.0f, 10.0f), Line1d<T>().scale(10.0f));
+	EXPECT_EQ(Line1d<T>(5.0f, 100.0f), Line1d<T>(5.0, 10.0).scale(10.0f));
+
+}
+
 TYPED_TEST(Line1dTest, TestHasIntersection)
 {
 	using T = TypeParam;

@@ -14,7 +14,6 @@
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
-    <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="IntersectionFindAlgoTest.cpp" />
     <ClCompile Include="Bitmap1dTest.cpp" />
     <ClCompile Include="Bitmap2dTest.cpp" />
@@ -32,5 +31,6 @@
     <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="Line1dTest.cpp" />
     <ClCompile Include="Vector1dTest.cpp" />
+    <ClCompile Include="Line3dTest.cpp" />
   </ItemGroup>
 </Project>
