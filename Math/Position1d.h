@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <array>
 #include "Tolerance.h"
 
 namespace Crystal{
@@ -30,6 +31,15 @@ public:
 	}
 	*/
 
+	Position1d& operator+=(const T& rhs) {
+		v += rhs;
+		return (*this);
+	}
+
+	Position1d operator+(const T& rhs) const {
+		return Position1d(v + rhs);
+	}
+
 	bool equals(const Position1d<T>&rhs) const {
 		return Tolerance<T>::isEqualLoosely(v,rhs.v);
 	}
@@ -42,11 +52,22 @@ public:
 		return !equals(rhs);
 	}
 
+	bool operator<(const Position1d<T>& rhs) const {
+		return v < rhs.v;
+	}
+
+	bool operator>(const Position1d<T>& rhs) const {
+		return v > rhs.v;
+	}
+
+
 	T get() const { return v; }
 
 private:
 	T v;
 };
+
+
 
 	}
 }

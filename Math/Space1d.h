@@ -68,13 +68,11 @@ public:
 		return Line1d<float>(getStart(), getLength());
 	}
 
-	/*
 	bool hasIntersection(const Space1d<N>& rhs) {
-		const auto min = std::min<float>(getStart(), rhs.getStart());
-		const auto max = std::max<float>(getEnd(), rhs.getEnd());
-		return max - min < length;
+		const auto& line1 = getBoundingLine();
+		const auto& line2 = rhs.getBoundingLine();
+		return line1.hasInersection(line2);
 	}
-	*/
 
 private:
 	Position1d<float> start;
