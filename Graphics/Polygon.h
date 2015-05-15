@@ -7,6 +7,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
 #include "Vertex.h"
 #include "Face.h"
 #include "Material.h"

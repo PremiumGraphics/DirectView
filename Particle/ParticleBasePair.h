@@ -1,6 +1,7 @@
 #ifndef __CRYSTAL_PARTICLE_PARTICLE_BASE_PAIR_H__
 #define __CRYSTAL_PARTICLE_PARTICLE_BASE_PAIR_H__
 
+#include "../Math/Vector3d.h"
 #include "../Particle/ParticleBase.h"
 
 namespace Crystal {

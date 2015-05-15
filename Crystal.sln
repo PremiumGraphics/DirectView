@@ -69,6 +69,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "PhysicsTest\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
+		{76ABEF24-A77D-4981-8EA0-D73E8752D050} = {76ABEF24-A77D-4981-8EA0-D73E8752D050}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleStudio", "ParticleStudio\ParticleStudio.vcxproj", "{64EF35B5-9344-4992-8DB1-24901990D4D4}"

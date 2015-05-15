@@ -1,6 +1,7 @@
 #include "BoundaryCoordinator.h"
 
 #include "../Math/Box.h"
+#include "../Math/Vector3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <array>
 #include "Tolerance.h"
 
 namespace Crystal{
@@ -13,7 +14,7 @@ class Vector2d final
 {
 public:
 	
-	Vector2d::Vector2d(void) :
+	Vector2d(void) :
 		x( 0.0 ), y( 0.0 )
 	{}
 
@@ -127,12 +128,6 @@ public:
 
 	Vector2d operator/=( const T factor ) { return scale( 1.0f / factor ); }
 
-	/*
-	Vector3d getMult(const Matrix2d& matrix) const;
-	
-	const Vector3d Vector3d::operator*( const Matrix3d& rhs ) const;
-	*/
-
 public:
 	T getX() const { return x; }
 
@@ -142,8 +137,8 @@ public:
 
 	void setY( const T y ) { this->y = y; }
 
-	std::vector<T> toArray() const {
-		std::vector<T> val(2);
+	std::array<T, 2> toArray() const {
+		std::array<T, 2> val;
 		val[0] = x;
 		val[1] = y;
 		return val;

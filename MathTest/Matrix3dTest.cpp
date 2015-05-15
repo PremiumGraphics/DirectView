@@ -83,18 +83,16 @@ TYPED_TEST( Matrix3dTest, TestRotateZ )
 		Matrix3d<T>::RotateZ( Tolerance<T>::getHalfPI() ) );
 
 	EXPECT_EQ(
-		Matrix3d<double>(-1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0),
-		Matrix3d<double>::RotateZ( Tolerance<double>::getPI() ) );
+		Matrix3d<T>(-1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0),
+		Matrix3d<T>::RotateZ( Tolerance<T>::getPI() ) );
 
 	EXPECT_EQ(
-		Matrix3d<double>( 0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ),
-		Matrix3d<double>::RotateZ(270.0 / 180.0 * Tolerance<double>::getPI()));
+		Matrix3d<T>( 0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ),
+		Matrix3d<T>::RotateZ( 270.0 / 180.0 * Tolerance<T>::getPI()));
 
-	{
-		const Matrix3d<double> expected = Matrix3d<double>::Identity();
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ( Tolerance<double>::getTwoPI());
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ(
+		Matrix3d<T>::Identity(),
+		Matrix3d<double>::RotateZ( Tolerance<double>::getTwoPI()) );
 }
 
 TYPED_TEST( Matrix3dTest, TestScale )

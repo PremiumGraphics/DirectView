@@ -9,21 +9,6 @@
 using namespace Crystal::Math;
 
 
-Vector3d Vector3d::normalize()
-{
-	const float length = getLength();
-	x /= length;
-	y /= length;
-	z /= length;
-	return *this;
-}
-
-Vector3d Vector3d::getNormalized() const
-{
-	Vector3d vector = *(this);
-	return vector.normalize();
-}
-
 
 void Vector3d::rotate(const Matrix3d<double>& matrix)
 {

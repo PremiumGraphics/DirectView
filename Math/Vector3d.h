@@ -70,9 +70,18 @@ public:
 		return Vector3d(x * factor, y * factor, z * factor);
 	}
 
-	Vector3d normalize();
+	Vector3d normalize() {
+		const float length = getLength();
+		x /= length;
+		y /= length;
+		z /= length;
+		return *this;
+	}
 
-	Vector3d getNormalized() const;
+	Vector3d getNormalized() const {
+		Vector3d vector = *(this);
+		return vector.normalize();
+	}
 
 	bool isNormalized() const {
 		return Tolerancef::isEqualLoosely( getLength(), 1.0 );
