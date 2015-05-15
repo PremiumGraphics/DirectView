@@ -88,9 +88,15 @@ public:
 
 		}
 		*/
-		const auto diff = start.get() - rhs.start.get();//Vector1d<T>(start, rhs.start()).getLength();
-		const auto moved = rhs.move(diff);
-		return moved.getEnd() < rhs.getEnd();
+
+		if (getStart() < rhs.getStart()) {
+			const auto diff = start.get() - rhs.start.get();//Vector1d<T>(start, rhs.start()).getLength();
+			const auto moved = rhs.move(diff);
+			return moved.getEnd() < rhs.getEnd();
+		}
+		else {
+			rhs.hasIntersection(*this);
+		}
 	}
 
 private:
