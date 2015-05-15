@@ -8,65 +8,6 @@
 
 using namespace Crystal::Math;
 
-Vector3d::Vector3d(void) : Vector3d( 0.0f, 0.0f, 0.0f)
-{}
-
-Vector3d::Vector3d(float x, float y, float z) :
-x(x), y(y), z(z)
-{}
-
-Vector3d::Vector3d(const Vector3d& start, const Vector3d& end) :
-x(end.x - start.x),
-y(end.y - start.y),
-z(end.z - start.z)
-{}
-
-float Vector3d::getLengthSquared() const
-{
-	return x * x + y * y + z * z;
-}
-
-float Vector3d::getLength() const
-{
-	return ::sqrt(getLengthSquared());
-}
-
-
-float Vector3d::getDistance(const Vector3d& rhs) const
-{
-	return ::sqrt(getDistanceSquared(rhs));
-}
-
-float Vector3d::getDistanceSquared(const Vector3d& rhs) const
-{
-	return pow(x - rhs.x, 2) + pow(y - rhs.y, 2) + pow(z - rhs.z, 2);
-}
-
-Vector3d Vector3d::scale(const float factor)
-{
-	x *= factor;
-	y *= factor;
-	z *= factor;
-	return *this;
-}
-
-Vector3d Vector3d::scale(const float xFactor, const float yFactor, const float zFactor)
-{
-	x *= xFactor;
-	y *= yFactor;
-	z *= zFactor;
-	return *this;
-}
-
-Vector3d Vector3d::getScaled( const float factor ) const
-{
-	return Vector3d( x * factor, y * factor, z * factor );
-}
-
-bool Vector3d::isZero() const
-{
-	return Tolerancef::isEqualLoosely( getLength() );
-}
 
 Vector3d Vector3d::normalize()
 {

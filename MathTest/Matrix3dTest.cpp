@@ -28,7 +28,7 @@ TYPED_TEST( Matrix3dTest, TestRotateX )
 
 	EXPECT_EQ(
 		Matrix3d<double>( 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f ),
-		Matrix3d<double>::RotateX(90.0 / 180.0 * Tolerance<double>::getPI()) );
+		Matrix3d<double>::RotateX( Tolerance<double>::getHalfPI()) );
 
 	EXPECT_EQ(
 		Matrix3d<double>( 1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0 ),
@@ -41,7 +41,7 @@ TYPED_TEST( Matrix3dTest, TestRotateX )
 
 	EXPECT_EQ(
 		Matrix3d<double>::Identity(),
-		Matrix3d<double>::RotateX(360.0 / 180.0 * Tolerance<double>::getPI()));
+		Matrix3d<double>::RotateX( Tolerance<double>::getTwoPI()));
 }
 
 TYPED_TEST( Matrix3dTest, TestRotateY )
@@ -52,11 +52,11 @@ TYPED_TEST( Matrix3dTest, TestRotateY )
 
 	EXPECT_EQ(
 		Matrix3d<double>(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f),
-		Matrix3d<double>::RotateY(90.0 / 180.0 * Tolerance<double>::getPI()));
+		Matrix3d<double>::RotateY( Tolerance<double>::getHalfPI()));
 
 	EXPECT_EQ(
 		Matrix3d<double>(-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f),
-		Matrix3d<double>::RotateY(180.0 / 180.0 * Tolerance<double>::getPI()));
+		Matrix3d<double>::RotateY( Tolerance<double>::getPI()));
 
 	EXPECT_EQ(
 		Matrix3d<double>( 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f ),
@@ -65,34 +65,23 @@ TYPED_TEST( Matrix3dTest, TestRotateY )
 
 	EXPECT_EQ(
 		Matrix3d<double>::Identity(),
-		Matrix3d<double>::RotateY(360.0 / 180.0 * Tolerance<double>::getPI()));
+		Matrix3d<double>::RotateY( Tolerance<double>::getTwoPI()));
 }
 
 TYPED_TEST( Matrix3dTest, TestRotateZ )
 {
-	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), Matrix3d<TypeParam>::RotateZ(0.0f));
+	EXPECT_EQ(
+		Matrix3d<TypeParam>::Identity(),
+		Matrix3d<TypeParam>::RotateZ(0.0f)
+);
 
-	{
-		const Matrix3d<double> expected(
-			0.0f, -1.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f
-			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(90.0 / 180.0 * Tolerance<double>::getPI());
+	EXPECT_EQ(
+		Matrix3d<double>( 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f ),
+		Matrix3d<double>::RotateZ( Tolerance<double>::getHalfPI() ) );
 
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		const Matrix3d<double> expected(
-			-1.0, 0.0, 0.0,
-			0.0, -1.0, 0.0,
-			0.0, 0.0, 1.0
-			);
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(180.0 / 180.0 * Tolerance<double>::getPI());
-
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ(
+		Matrix3d<double>(-1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0),
+		Matrix3d<double>::RotateZ( Tolerance<double>::getPI() ) );
 
 	{
 		const Matrix3d<double> expected(
@@ -107,7 +96,7 @@ TYPED_TEST( Matrix3dTest, TestRotateZ )
 
 	{
 		const Matrix3d<double> expected = Matrix3d<double>::Identity();
-		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ(360.0 / 180.0 * Tolerance<double>::getPI());
+		const Matrix3d<double>& actual = Matrix3d<double>::RotateZ( Tolerance<double>::getTwoPI());
 		EXPECT_EQ(expected, actual);
 	}
 }

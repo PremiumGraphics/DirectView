@@ -10,7 +10,7 @@
 namespace Crystal {
 	namespace Math {
 
-template< size_t N >
+template< size_t N, typename T >
 class Space1d final {
 public:
 	Space1d() :
@@ -25,36 +25,36 @@ public:
 	{}
 
 
-	Space1d(const Position1d<float>& start, const float length) :
+	Space1d(const Position1d<T>& start, const T length) :
 		start(start),
 		length(length)
 	{}
 
-	Space1d(const Position1d<float>& start, const float length, const Bitmap1d<N>& bmp) :
+	Space1d(const Position1d<T>& start, const T length, const Bitmap1d<N>& bmp) :
 		start(start),
 		length(length),
 		bmp(bmp)
 	{}
 
-	Space1d<N>& setBmp(const Bitmap1d<N>& bmp) {
+	Space1d<N, T>& setBmp(const Bitmap1d<N>& bmp) {
 		this->bmp = bmp;
 		return *(this);
 	}
 
-	Position1d<float> getStart() const { return start; }
+	Position1d<T> getStart() const { return start; }
 
-	float getEnd() const { return start.get() + length; }
+	T getEnd() const { return start.get() + length; }
 
-	float getLength() const { return length; }
+	T getLength() const { return length; }
 
-	float getTotalLength() const { return length * bmp.count(); }
+	T getTotalLength() const { return length * bmp.count(); }
 
 	unsigned int getRes() const { return N; }
 
-	float getSize() const { return length / static_cast<float>(N); }
+	T getSize() const { return length / static_cast<T>(N); }
 
-	std::vector< Position1d<float> > toPositions() const {
-		std::vector< Position1d<float> > positions;
+	Position1dVector<T> toPositions() const {
+		Position1dVector<T> positions;
 		for (size_t i = 0; i < bmp.size(); ++i) {
 			if (bmp[i]) {
 				const auto pos = getStart() + getSize() * i + getSize() * 0.5f;
@@ -64,11 +64,11 @@ public:
 		return positions;
 	}
 
-	Line1d<float> getBoundingLine() const {
-		return Line1d<float>(getStart(), getLength());
+	Line1d<T> getBoundingLine() const {
+		return Line1d<T>(getStart(), getLength());
 	}
 
-	bool hasIntersection(const Space1d<N>& rhs) {
+	bool hasIntersection(const Space1d<N,T>& rhs) {
 		const auto& line1 = getBoundingLine();
 		const auto& line2 = rhs.getBoundingLine();
 		return line1.hasInersection(line2);
@@ -81,8 +81,8 @@ public:
 	*/
 
 private:
-	Position1d<float> start;
-	float length;
+	Position1d<T> start;
+	T length;
 	Bitmap1d<N> bmp;
 };
 

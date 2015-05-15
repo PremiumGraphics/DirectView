@@ -31,6 +31,8 @@ public:
 
 	static bool isEqualStrictly(const float x, const float y) { return ::fabs(x - y) < getStrictTolerance(); }
 
+	static float getHalfPI() { return 0.5f * getPI(); }
+
 	static float getPI() { return 3.14159265359f; }
 
 	static float getTwoPI() { return 2.0f * getPI(); }
@@ -55,6 +57,8 @@ public:
 	static bool isEqualStrictly(const double x) { return ::fabs(x) < getStrictTolerance(); }
 
 	static bool isEqualStrictly(const double x, const double y) { return ::fabs(x - y) < getStrictTolerance(); }
+
+	static double getHalfPI() { return 0.5 * getPI(); }
 
 	static double getPI() { return 3.141592653589793238462643383279; }
 

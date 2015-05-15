@@ -31,13 +31,26 @@ public:
 	}
 	*/
 
-	Position1d& operator+=(const T& rhs) {
+	Position1d& move(const T& rhs) {
 		v += rhs;
-		return (*this);
+		return *(this);
+	}
+
+	Position1d& operator+=(const T& rhs) {
+		return move(rhs);
 	}
 
 	Position1d operator+(const T& rhs) const {
 		return Position1d(v + rhs);
+	}
+
+	Position1d& operator-=(const T& rhs) {
+		v -= rhs;
+		return (*this);
+	}
+
+	Position1d operator-(const T& rhs) const {
+		return Position1d(v - rhs);
 	}
 
 	bool equals(const Position1d<T>&rhs) const {
@@ -67,7 +80,8 @@ private:
 	T v;
 };
 
-
+template<typename T>
+using Position1dVector = std::vector < Position1d<T> > ;
 
 	}
 }

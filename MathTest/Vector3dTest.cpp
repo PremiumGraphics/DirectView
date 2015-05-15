@@ -4,20 +4,15 @@
 
 using namespace Crystal::Math;
 
-TEST(Vector3dTest, TestConstruct)
+TEST(Vector3dTest, TestGet)
 {
-	const Vector3d v;
-	EXPECT_EQ(0.0f, v.getX());
-	EXPECT_EQ(0.0f, v.getY());
-	EXPECT_EQ(0.0f, v.getZ());
-}
+	EXPECT_EQ(0.0f, Vector3d().getX());
+	EXPECT_EQ(0.0f, Vector3d().getY());
+	EXPECT_EQ(0.0f, Vector3d().getZ());
 
-TEST(Vector3dTest, TestConstrcutByXYZ)
-{
-	const Vector3d v(1.0f, 2.0f, 3.0f);
-	EXPECT_EQ(1.0f, v.getX());
-	EXPECT_EQ(2.0f, v.getY());
-	EXPECT_EQ(3.0f, v.getZ());
+	EXPECT_EQ(1.0f, Vector3d(1.0f, 2.0f, 3.0f).getX() );
+	EXPECT_EQ(2.0f, Vector3d(1.0f, 2.0f, 3.0f).getY() );
+	EXPECT_EQ(3.0f, Vector3d(1.0f, 2.0f, 3.0f).getZ() );
 }
 
 TEST( Vector3dTest, TestEquals )
@@ -35,9 +30,8 @@ TEST( Vector3dTest, TestEquals )
 
 TEST( Vector3dTest, TestScale )
 {
-	const Vector3d v( 1.0f, 1.0f, 1.0f );
-	const Vector3d& scaled = v.getScaled( 2.0f );
-	EXPECT_EQ( scaled, Vector3d( 2.0f, 2.0f, 2.0f ) );
+	EXPECT_EQ(Vector3d(2.0f, 2.0f, 2.0f), Vector3d(1.0f, 1.0f, 1.0f).scale(2.0f));
+	EXPECT_EQ(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(0.5f, 1.0f, 1.5f).scale(2.0f));
 }
 
 TEST(Vector3dTest, TestGetLengthSquared)
@@ -72,7 +66,7 @@ TEST( Vector3dTest, TestGetDistance )
 	const Vector3d v0( 1.0f, 1.0f, 1.0f );
 	const Vector3d v1( 2.0f, 2.0f, 2.0f );
 	EXPECT_TRUE( Tolerancef::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
-	EXPECT_TRUE( Tolerancef::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely( v1.getDistance( v0 ), std::sqrt( 3.0f ) ) );
 }
 
 TEST( Vector3dTest, TestToArray )

@@ -4,61 +4,67 @@
 
 using namespace Crystal::Math;
 
+using Space1df = Space1d<1,float>;
+using Space1df2 = Space1d<2, float>;
+
+
 TEST(Space1dTest, TestGetStart)
 {
-	EXPECT_EQ( Position1d<float>( 0.0f ), Space1d<1>().getStart());
-	EXPECT_EQ(Position1d<float>(1.0f), Space1d<1>(Position1d<float>(1.0f), 2.0f).getStart());
+	EXPECT_EQ( Position1d<float>( 0.0f ), Space1df().getStart());
+	EXPECT_EQ( Position1d<float>(1.0f), Space1df(Position1d<float>(1.0f), 2.0f).getStart());
 }
 
 TEST(Space1dTest, TestGetEnd)
 {
-	EXPECT_EQ(1.0f, Space1d<1>().getEnd());
-	EXPECT_EQ(3.0f, Space1d<1>( Position1d<float>(1.0f), 2.0f).getEnd());
+	EXPECT_EQ(1.0f, Space1df().getEnd());
+	EXPECT_EQ(3.0f, Space1df( Position1d<float>(1.0f), 2.0f).getEnd());
 }
 
 TEST(Space1dTest, TestGetLength)
 {
-	EXPECT_EQ(1.0f, Space1d<1>().getLength());
-	EXPECT_EQ(2.0f, Space1d<1>(Position1d<float>(1.0f), 2.0f).getLength());
+	EXPECT_EQ(1.0f, Space1df().getLength());
+	EXPECT_EQ(2.0f, Space1df(Position1d<float>(1.0f), 2.0f).getLength());
 }
 
 TEST(Space1dTest, TestGetBoundingLine)
 {
-	EXPECT_EQ(Line1d<float>(0.0f, 1.0f), Space1d<1>().getBoundingLine());
+	EXPECT_EQ(Line1d<float>(0.0f, 1.0f), Space1df().getBoundingLine());
 }
 
 
 TEST(Space1dTest, TestGetSize)
 {
-	EXPECT_EQ(1.0f, Space1d<1>().getSize());
+	EXPECT_EQ(1.0f, Space1df().getSize());
 	//EXPECT_EQ(2.0f, Space1d<1>(1.0f, 2.0f).getLength());
 }
 
 
 TEST(Space1dTest, TestToPoints)
 {
-	EXPECT_TRUE(Space1d<2>(Bitmap1d<2>("00")).toPositions().empty());
+	EXPECT_TRUE( Space1df2(Bitmap2("00")).toPositions().empty());
 
 	{
-		const std::vector< Position1d<float> > expected = { Position1d<float>(0.25f) };
-		EXPECT_EQ(expected, Space1d<2>(Bitmap1d<2>("01")).toPositions());
+		const Position1dVector<float> expected = { Position1d<float>(0.25f) };
+		const auto actual = Space1df2(Bitmap1d<2>("01")).toPositions();
+		EXPECT_EQ(expected, actual);
 	}
 	{
-		const std::vector< Position1d<float> > expected = { Position1d<float>(0.75f) };
-		EXPECT_EQ( expected, Space1d<2>(Bitmap1d<2>("10")).toPositions());
+		const Position1dVector<float> expected = { Position1d<float>(0.75f) };
+		const auto actual = Space1df2(Bitmap1d<2>("10")).toPositions();
+		EXPECT_EQ( expected, actual );
 
 	}
 	{
-		const std::vector< Position1d<float> > expected = { Position1d < float > {0.25f}, Position1d < float > {0.75f} };
-		const auto actual = Space1d<2>(Bitmap1d<2>("11")).toPositions();
+		const Position1dVector<float> expected = { Position1d < float > {0.25f}, Position1d < float > {0.75f} };
+		const auto actual = Space1df2(Bitmap1d<2>("11")).toPositions();
 		EXPECT_EQ( expected, actual );
 	}
 }
 
 TEST(Space1dTest, TestGetTotalLength)
 {
-	EXPECT_EQ(0.0f, Space1d<2>(Bitmap1d<2>("00")).getTotalLength());
-	EXPECT_EQ(1.0f, Space1d<2>(Bitmap1d<2>("01")).getTotalLength());
-	EXPECT_EQ(1.0f, Space1d<2>(Bitmap1d<2>("10")).getTotalLength());
-	EXPECT_EQ(2.0f, Space1d<2>(Bitmap1d<2>("11")).getTotalLength());
+	EXPECT_EQ(0.0f, Space1df2(Bitmap1d<2>("00")).getTotalLength());
+	EXPECT_EQ(1.0f, Space1df2(Bitmap1d<2>("01")).getTotalLength());
+	EXPECT_EQ(1.0f, Space1df2(Bitmap1d<2>("10")).getTotalLength());
+	EXPECT_EQ(2.0f, Space1df2(Bitmap1d<2>("11")).getTotalLength());
 }
