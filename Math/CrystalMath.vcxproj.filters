@@ -47,6 +47,9 @@
     <ClInclude Include="Tolerance.h" />
     <ClInclude Include="Position2d.h" />
     <ClInclude Include="Position1d.h" />
+    <ClInclude Include="Position3d.h" />
+    <ClInclude Include="SpaceBooleanAlgo.h" />
+    <ClInclude Include="Line1d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

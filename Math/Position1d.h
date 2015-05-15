@@ -5,8 +5,6 @@
 #include <vector>
 #include "Tolerance.h"
 
-#include "Position1d.h"
-
 namespace Crystal{
 	namespace Math{
 
@@ -33,7 +31,7 @@ public:
 	*/
 
 	bool equals(const Position1d<T>&rhs) const {
-		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
+		return Tolerance<T>::isEqualLoosely(v,rhs.v);
 	}
 
 	bool operator==(const Position1d<T>& rhs) const {
@@ -43,6 +41,8 @@ public:
 	bool operator!=(const Position1d<T>& rhs) const {
 		return !equals(rhs);
 	}
+
+	T get() const { return v; }
 
 private:
 	T v;

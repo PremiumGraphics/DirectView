@@ -23,6 +23,7 @@
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="IntersectionFindAlgoTest.cpp" />
+    <ClCompile Include="Line1dTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="Position1dTest.cpp" />
     <ClCompile Include="Position2dTest.cpp" />
+    <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="Space1dTest.cpp" />

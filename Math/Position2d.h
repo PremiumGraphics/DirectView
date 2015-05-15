@@ -46,15 +46,15 @@ public:
 		return !equals(rhs);
 	}
 
+	Position2d<T> operator+(const Vector2d<T>& rhs) const {
+		return Position2d<T>(getX() + rhs.x, getY() + rhs.y);
+	}
+
+	Position2d<T> operator-(const Vector2d<T>& rhs) const {
+		return Position2d<T>(getX() - rhs.x, getY() - rhs.y);
+	}
+
 	/*
-	Vector2d operator+(const Vector2d& rhs) const {
-		return Vector2d<T>(x + rhs.x, y + rhs.y);
-	}
-
-	Vector2d operator-(const Vector2d& rhs) const {
-		return Vector2d(x - rhs.x, y - rhs.y);
-	}
-
 	Vector2d operator+=(const Vector2d& rhs) {
 		x += rhs.x;
 		y += rhs.y;
@@ -67,29 +67,16 @@ public:
 		return *this;
 	}
 
-	Vector2d operator*(const T factor) const {
-		Vector2d<T> vector(*this);
-		return vector.scale(factor);
-	}
-
-	Vector2d operator/(const T factor) const {
-		Vector2d<T> vector(*this);
-		return vector.scale(1.0f / factor);
-	}
-
-	Vector2d operator*=(const T factor) { return scale(factor); }
-
-	Vector2d operator/=(const T factor) { return scale(1.0f / factor); }
 	*/
 
 public:
-	T getX() const { return x; }
+	T getX() const { return v.getX(); }
 
-	T getY() const { return y; }
+	T getY() const { return v.getY(); }
 
-	void setX(const T x) { this->x = x; }
+	//void setX(const T x) { this->x = x; }
 
-	void setY(const T y) { this->y = y; }
+	//void setY(const T y) { this->y = y; }
 
 	std::vector<T> toArray() const { return{ x, y }; }
 

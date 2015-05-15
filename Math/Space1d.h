@@ -3,7 +3,8 @@
 
 #include <vector>
 
-#include "../Math/Bitmap1d.h"
+#include "Bitmap1d.h"
+#include "Line1d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -61,6 +62,18 @@ public:
 		}
 		return positions;
 	}
+
+	Line1d<float> getBoundingLine() const {
+		return Line1d<float>(getStart(), getLength());
+	}
+
+	/*
+	bool hasIntersection(const Space1d<N>& rhs) {
+		const auto min = std::min<float>(getStart(), rhs.getStart());
+		const auto max = std::max<float>(getEnd(), rhs.getEnd());
+		return max - min < length;
+	}
+	*/
 
 private:
 	float start;
