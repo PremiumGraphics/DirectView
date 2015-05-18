@@ -2,49 +2,47 @@
 #define __CRYSTAL_MATH_QUAD_H__
 
 #include "Vector2d.h"
+#include "Position2d.h"
 
 #include <vector>
 
 namespace Crystal {
 	namespace Math {
 
+template<typename T>
 class Quad final {
 public:
-	Quad() : Quad( 1.0f, 1.0f )
+	Quad() : Quad( Vector2d<T>( 1.0f, 1.0f ) )
 	{};
 
-	Quad(const Vector2d<float>& v1, const Vector2d<float>& v2) :
-		Quad(v2.getX() - v1.getX(), v2.getY() - v1.getX(), (v1 * 0.5) + (v2 * 0.5) )
-	{};
+	Quad(const Position2d<T>& v1, const Position2d<T>& v2)
+		//Quad( Vector2d<float>(v2.getX() - v1.getX(), v2.getY() - v1.getX() ), (v1.get * 0.5) + (v2 * 0.5) )
+	{
+		center = Position2d<T>(v1.getX() * 0.5f + v2.getX() * 0.5f, v1.getY() * 0.5f + v2.getY() * 0.5f);
+		length = Vector2d<T>( v2.getX() - v1.getX(), v2.getY() - v1.getY() );
 
-	Quad(const float lengthX, const float lengthY) : Quad(lengthX, lengthY, Vector2d<float>(0.0f, 0.0f))
+	};
+
+	Quad(const Vector2d<T>& length) : Quad(length, Position2d<T>(0.0f, 0.0f))
 	{}
 
-	Quad(const float lengthX, const float lengthY, const Vector2d<float>& center) :
-		lengthX(lengthX),
-		lengthY(lengthY),
+	Quad(const Vector2d<T>& length, const Position2d<T>& center) :
+		length( length ),
 		center( center )
 	{}
 
-	void setCenter( const Vector2d<float>& center ) { this->center = center; }
+	Position2d<T> getCenter() const { return center; }
 
-	void setLengthX( const float& length ) { this->lengthX = length; }
+	T getLengthX() const { return length.getX(); }
 
-	void setLengthY( const float& length ) { this->lengthY = length; }
+	T getLengthY() const { return length.getY(); }
 
-	Vector2d<float> getCenter() const { return center; }
-
-	float getLengthX() const { return lengthX; }
-
-	float getLengthY() const { return lengthY; }
-
-	float getArea() const { return lengthX * lengthY; }
+	T getArea() const { return getLengthX() * getLengthY(); }
 
 	bool equals(const Quad& rhs) const {
 		return
 			center == rhs.getCenter() &&
-			Tolerancef::isEqualStrictly( lengthX, rhs.lengthX ) &&
-			Tolerancef::isEqualStrictly( lengthY, rhs.lengthY );
+			length == rhs.length;
 	}
 
 	bool operator==(const Quad& rhs) const {
@@ -57,21 +55,20 @@ public:
 
 	bool hasIntersection(const Quad& rhs) const {
 		const auto distx = std::fabs(center.getX() - rhs.getCenter().getX());
-		const auto lx = lengthX * 0.5 + rhs.getLengthX() * 0.5;
+		const auto lx = length.getX() * 0.5 + rhs.getLengthX() * 0.5;
 
 		const auto disty = std::fabs(center.getY() - rhs.getCenter().getY());
-		const auto ly = lengthY * 0.5 + rhs.getLengthY() * 0.5;
+		const auto ly = length.getY() * 0.5 + rhs.getLengthY() * 0.5;
 		return (distx < lx && disty < ly);
 	}
 
 private:
-	Vector2d<float> center;
-
-	float lengthX;
-	float lengthY;
+	Position2d<T> center;
+	Vector2d<T> length;
 };
 
-typedef std::vector< Quad > QuadVector;
+template<typename T>
+using QuadVector = std::vector< Quad<T> >;
 
 	}
 }

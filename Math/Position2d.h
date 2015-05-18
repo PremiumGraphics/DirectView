@@ -23,7 +23,7 @@ public:
 	{}
 
 	explicit Position2d(const Vector2d<T>& v) :
-		v(x,y)
+		v(v)
 	{}
 
 	T getDistance(const Position2d<T>& rhs) const {

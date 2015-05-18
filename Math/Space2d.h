@@ -21,12 +21,12 @@ public:
 		sizes(sizes)
 	{}
 
-	Vector2d<float> getStart() const { return start; }
+	Position2d<float> getStart() const { return start; }
 
-	Vector2d<float> getEnd() const {
+	Position2d<float> getEnd() const {
 		const auto x = start.getX() + getResX() * sizes.getX();
 		const auto y = start.getY() + getResY() * sizes.getY();
-		return Vector2d<float>(x, y);
+		return Position2d<float>(x, y);
 	}
 
 	Vector2d<float> getSizes() const { return sizes; }
@@ -40,20 +40,20 @@ public:
 		return (*this);
 	}
 
-	Quad getBoundingQuad() const {
+	Quad<float> getBoundingQuad() const {
 		return Quad(getStart(), getEnd());
 	}
 
-	std::vector<Quad> toQuads(const Bitmap2d<N1, N2>& bmp ) {
-		std::vector<Quad> quads;
+	std::vector<Quad<float> > toQuads(const Bitmap2d<N1, N2>& bmp ) {
+		std::vector<Quad<float> > quads;
 		const auto sizex = sizes.getX();
 		const auto sizey = sizes.getY();
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				if (bmp.get(x, y)) {
-					const Vector2d<float> v1(x * sizex, y * sizey);
-					const Vector2d<float> v2((x + 1) * sizex, (y + 1) * sizey);
-					Quad q(v1, v2);
+					const Position2d<float> v1(x * sizex, y * sizey);
+					const Position2d<float> v2((x + 1) * sizex, (y + 1) * sizey);
+					Quad<float> q(v1, v2);
 					quads.push_back(q);
 				}
 			}
@@ -76,7 +76,7 @@ public:
 	}
 
 private:
-	Vector2d<float> start;
+	Position2d<float> start;
 	Vector2d<float> sizes;
 };
 

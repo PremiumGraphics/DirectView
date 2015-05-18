@@ -11,8 +11,6 @@
 namespace Crystal{
 	namespace Math{
 
-class Quad;
-
 class Box : public Primitive
 {
 public:
