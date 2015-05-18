@@ -13,7 +13,5 @@ TEST(LineTest, TestConstruct)
 
 TEST(LineTest, TestGetDistance)
 {
-	Line3d<float> line;
-	const float length = line.getLength();
-	EXPECT_FLOAT_EQ(1.0f, length);
+	EXPECT_FLOAT_EQ(1.0f, Line3d<float>().getLength());
 }

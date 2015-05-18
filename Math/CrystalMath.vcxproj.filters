@@ -8,9 +8,6 @@
     <ClInclude Include="Sphere.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="Cylinder.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
@@ -47,12 +44,10 @@
     <ClInclude Include="Line3d.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Primitive3d</Filter>
-    </ClCompile>
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Box.cpp" />
   </ItemGroup>

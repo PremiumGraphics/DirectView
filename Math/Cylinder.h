@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_MATH_CYLINDER_H__
 #define __CRYSTAL_MATH_CYLINDER_H__
 
-#include "Primitive.h"
-
 #include "Vector3d.h"
 
 #include "Triangle.h"
@@ -16,7 +14,7 @@ namespace Crystal {
 	namespace Math {
 		class Box;
 
-class Cylinder : public Primitive
+class Cylinder final
 {
 public:
 	Cylinder() :
@@ -42,8 +40,6 @@ public:
 		const Vector3d pos2(center.getX() + radius, center.getY() + height * 0.5f, center.getZ() + radius);
 		return Math::Box(pos1, pos2);
 	}
-
-	virtual Type getType() const { return Primitive::Cylinder; }
 
 	virtual Vector3dVector toPoints(const float divideLength ) const {
 		assert( false );

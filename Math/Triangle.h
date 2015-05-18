@@ -4,25 +4,32 @@
 #include <vector>
 #include <cassert>
 
+#include "Position3d.h"
 #include "Vector3d.h"
 
 namespace Crystal {
 	namespace Math {
 
-class Triangle
+template<typename T>
+class Triangle final
 {
 public:
 	Triangle()
 	{}
 
-	Triangle( const Vector3d& v0, const Vector3d& v1, const Vector3d& v2) :
+	Triangle( const Position3d<T>& v0, const Position3d<T>& v1, const Position3d<T>& v2) :
 		v0( v0 ),
 		v1( v1 ),
 		v2( v2 )
 	{
 	}
 
-	Vector3d getNormal() const;
+	/*
+	Vector3d getNormal() const {
+		const Vector3d v01(v0, v1);
+		const Vector3d v02(v0, v2);
+		return v01.getOuterProduct(v02).getNormalized();
+	}
 
 	bool isCCW() const {
 		assert( isValid() );
@@ -34,32 +41,36 @@ public:
 		return !isCCW();
 	}
 
-	Vector3d getCenter() const;
+	Vector3d getCenter() const {
+		return (v0 + v1 + v2) / 3.0f;
+	}
+	*/
 
 	bool isValid() const {
 		return ( v0 != v1 ) && ( v1 != v2 ) && ( v0 != v2 );
 	}
 
-	Vector3d getv0() const { return v0; }
+	Position3d<T> getv0() const { return v0; }
 
-	Vector3d getv1() const { return v1; }
+	Position3d<T> getv1() const { return v1; }
 
-	Vector3d getv2() const { return v2; }
+	Position3d<T> getv2() const { return v2; }
 
-	void setv0( const Vector3d& v ) { this->v0 = v; }
+	void setv0( const Position3d<T>& v ) { this->v0 = v; }
 
-	void setv1( const Vector3d& v ) { this->v1 = v; }
+	void setv1( const Position3d<T>& v ) { this->v1 = v; }
 
-	void setv2( const Vector3d& v ) { this->v2 = v; }
+	void setv2( const Position3d<T>& v ) { this->v2 = v; }
 
 private:
-	Vector3d v0;
-	Vector3d v1;
-	Vector3d v2;
+	Position3d<T> v0;
+	Position3d<T> v1;
+	Position3d<T> v2;
 
 };
 
-typedef std::vector< Triangle > TriangleVector;
+template<typename T>
+using TriangleVector = std::vector< Triangle<T> >;
 
 	}
 }
