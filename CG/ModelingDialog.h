@@ -31,10 +31,10 @@ namespace Crystal{
 		class QuadConfigDialog : public wxDialog
 		{
 		public:
-			QuadConfigDialog(wxWindow* parent, const Math::Quad& q);
+			QuadConfigDialog(wxWindow* parent, const Math::Quad<float>& q);
 
-			Math::Quad get(){
-				return Math::Quad();
+			Math::Quad<float> get(){
+				return Math::Quad<float>();
 			}
 
 		private:

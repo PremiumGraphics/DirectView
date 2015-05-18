@@ -41,7 +41,7 @@ public:
 	}
 
 	Quad<float> getBoundingQuad() const {
-		return Quad(getStart(), getEnd());
+		return Quad<float>(getStart(), getEnd());
 	}
 
 	std::vector<Quad<float> > toQuads(const Bitmap2d<N1, N2>& bmp ) {
@@ -73,6 +73,12 @@ public:
 
 	bool operator!=(const Space2d<N1, N2>& rhs) const {
 		return !equals(rhs);
+	}
+
+	bool hasIntersection(const Space2d<N1, N2>& rhs) const {
+		const auto& q1 = this->getBoundingQuad();
+		const auto& q2 = rhs.getBoundingQuad();
+		return q1.hasIntersection( q2 );
 	}
 
 private:

@@ -47,7 +47,7 @@ public:
 		return p;
 	}
 
-	PolygonSPtr build(const Math::Quad& quad);
+	PolygonSPtr build(const Math::Quad<float>& quad);
 
 	PolygonSPtr build(const Math::Box& box);
 

@@ -70,6 +70,12 @@ TEST(Space2dTest, TestToQuads)
 	}
 }
 
+TEST(Space2dTest, TestHasIntersection)
+{
+	Space2d<2, 2> space1;
+	Space2d<2, 2> space2;
+	EXPECT_TRUE( space1.hasIntersection(space2) );
+}
 
 /*
 TEST(Space3dTest, TestGetHashedIndex)

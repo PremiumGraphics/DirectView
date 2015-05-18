@@ -28,9 +28,6 @@
     <ClInclude Include="Circle.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="CSG.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Bitmap1d.h" />
@@ -51,6 +48,7 @@
     <ClInclude Include="Line1d.h" />
     <ClInclude Include="Vector1d.h" />
     <ClInclude Include="Line3d.h" />
+    <ClInclude Include="Quad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

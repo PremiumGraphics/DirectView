@@ -8,7 +8,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-PolygonSPtr PolygonBuilder::build(const Quad& quad)
+PolygonSPtr PolygonBuilder::build(const Quad<float>& quad)
 {
 	FaceSPtrVector faces;
 

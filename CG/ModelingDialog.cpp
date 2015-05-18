@@ -29,7 +29,7 @@ Triangle TriangleConfigDialog::get() const
 	return Triangle();
 }
 
-QuadConfigDialog::QuadConfigDialog(wxWindow* parent, const Quad& q) :
+QuadConfigDialog::QuadConfigDialog(wxWindow* parent, const Quad<float>& q) :
 wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));

@@ -10,7 +10,7 @@ using namespace Crystal::Graphics;
 TEST(PolygonBuilderTest, TestBuildQuad)
 {
 	PolygonBuilder builder;
-	const Quad q;
+	const Quad<float> q;
 	PolygonSPtr p(builder.build(q) );
 
 	EXPECT_EQ(1, builder.getPolygons().size());

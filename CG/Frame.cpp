@@ -681,7 +681,7 @@ void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
 {
-	const Quad q;
+	const Quad<float> q;
 	PolygonSPtr p = model.getPolygonBuilder().build(q);
 	//p->setName("Quad");
 	w.getPolygonTree()->build();

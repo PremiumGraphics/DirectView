@@ -168,7 +168,7 @@ private:
 
 private:
 	Math::Triangle triangle;
-	Math::Quad quad;
+	Math::Quad<float> quad;
 	Math::Circle circle;
 	Math::Sphere sphere;
 	Math::Box box;

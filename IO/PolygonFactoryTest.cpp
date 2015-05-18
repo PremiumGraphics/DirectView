@@ -38,7 +38,7 @@ TEST(PolygonFactoryTest, TestCreateFromObj)
 
 
 	PolygonBuilder bb;
-	const Quad q;
+	const Quad<float> q;
 	PolygonSPtr p = bb.build(q);
 
 	EXPECT_EQ(1, polygons.size());
