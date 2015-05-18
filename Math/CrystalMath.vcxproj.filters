@@ -60,7 +60,6 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
   </ItemGroup>
   <ItemGroup>

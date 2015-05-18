@@ -92,9 +92,9 @@ public:
 	bool equals( const Matrix3d& rhs ) const {
 		return
 			Tolerance<T>::isEqualLoosely( x00, rhs.x00 ) &&
-			Tolerance<T>::isEqualLoosely(x01, rhs.x01) &&
-			Tolerance<T>::isEqualLoosely(x02, rhs.x02) &&
-			Tolerance<T>::isEqualLoosely(x10, rhs.x10) &&
+			Tolerance<T>::isEqualLoosely( x01, rhs.x01 ) &&
+			Tolerance<T>::isEqualLoosely( x02, rhs.x02 ) &&
+			Tolerance<T>::isEqualLoosely( x10, rhs.x10 ) &&
 			Tolerance<T>::isEqualLoosely( x11, rhs.x11 ) &&
 			Tolerance<T>::isEqualLoosely( x12, rhs.x12 ) &&
 			Tolerance<T>::isEqualLoosely( x20, rhs.x20 ) &&
