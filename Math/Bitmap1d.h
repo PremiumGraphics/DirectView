@@ -67,6 +67,11 @@ public:
 
 	bool get(const size_t i) const { return bits[i]; }
 
+	Bitmap1d<N>& movex(const size_t size) {
+		bits <<= size;
+		return (*this);
+	}
+
 	Bitmap1d<N>& operator<<=(const size_t size) {
 		bits <<= size;
 		return (*this);

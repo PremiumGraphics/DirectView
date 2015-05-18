@@ -99,7 +99,7 @@ TEST(PolygonBuilderTest, TestCreateCircle)
 TEST(PolygonBuilderTest, TestBuildTriangle)
 {
 	PolygonBuilder builder;
-	const Triangle triangle;
+	const Triangle<float> triangle;
 	PolygonSPtr p(builder.build(triangle));
 
 	EXPECT_EQ(1, builder.getPolygons().size());

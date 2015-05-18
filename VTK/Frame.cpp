@@ -447,8 +447,8 @@ void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 	
 	for( IO::VTKObject* object : factory.getSelectedObjects() ) {
 		const Box& bb = object->getBoundingBox();
-		const Vector3d& center = bb.getCenter();
-		camera.setPos( -1.0 * center );
+		const Position3d<float>& center = bb.getCenter();
+		//camera.setPos( -1.0 * center );
 		const float minZ = bb.getMinZ();
 		//camera.pos.setZ( camera.pos.getZ() - minZ );
 	}

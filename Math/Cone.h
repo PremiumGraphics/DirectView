@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_MATH_CONE_H__
 #define __CRYSTAL_MATH_CONE_H__
 
-#include "Primitive.h"
-
 #include "Vector3d.h"
 
 #include "Box.h"
@@ -14,7 +12,7 @@ namespace Crystal {
 	namespace Math {
 		class Box;
 
-class Cone : public Primitive
+class Cone final
 {
 public:
 	Cone() :
@@ -34,20 +32,7 @@ public:
 		assert( false );
 	}
 
-	virtual Math::Box getBoundingBox() const
-	{
-		assert( false );
-		return Math::Box();
-	}
-
-	virtual Type getType() const { return Primitive::Cone; }
-
-	virtual Vector3dVector toPoints(const float divideLength ) const {
-		assert( false );
-		return Vector3dVector();
-	}
-
-	virtual Vector3d getCenter() const { return center; }
+	Vector3d getCenter() const { return center; }
 
 	void setRadius(const float r) { this->radius = r; }
 
@@ -57,7 +42,7 @@ public:
 
 	float getHeight() const { return height; }
 
-	virtual bool isValid() const {
+	bool isValid() const {
 		return ( height > 0.0f ) && ( radius > 0.0f ) ;
 	}
 

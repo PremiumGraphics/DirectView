@@ -4,17 +4,6 @@
 
 using namespace Crystal::Math;
 
-TEST(Bitmap3dTest, TestConstruct)
-{
-	Bitmap3d<1, 1, 1> bitmap;
-	EXPECT_EQ( bitmap.size(), 1);
-}
-/*
-TEST(Bitmap3dTest, TestByBitmap2ds)
-{
-}
-*/
-
 TEST(Bitmap3dTest, TestByStrings)
 {
 	Bitmap3d<2, 2, 2> bitmap;
@@ -121,7 +110,8 @@ TEST(Bitmap3dTest, TestToString)
 	bitmap.set(0, 1, 3);
 	EXPECT_EQ("11111111", bitmap.toString());
 
-	EXPECT_EQ( "10000000", Bitmap1x2x4("10000000").toString());
+	EXPECT_EQ( "10111111", Bitmap1x2x4("10111111").toString() );
+	EXPECT_EQ( "10000000", Bitmap1x2x4("10000000").toString() );
 	EXPECT_EQ( "11111111", Bitmap1x2x4("11111111").toString() );
 
 	//	bitmap.set(0, 1, 0);
@@ -214,4 +204,12 @@ TEST(Bitmap3dTest, TestXor)
 	EXPECT_EQ(Bitmap1x1x2("11").xor(Bitmap1x1x2("01")), Bitmap1x1x2("10"));
 	EXPECT_EQ(Bitmap1x1x2("11").xor(Bitmap1x1x2("10")), Bitmap1x1x2("01"));
 	EXPECT_EQ(Bitmap1x1x2("11").xor(Bitmap1x1x2("11")), Bitmap1x1x2("00"));
+}
+
+TEST(Bitmap3dTest, TestMoveX)
+{
+	EXPECT_EQ(Bitmap2x2x2("10101010"), Bitmap2x2x2("01010101").movex(1));
+	EXPECT_EQ(Bitmap2x2x2("00000000"), Bitmap2x2x2("01010101").movex(2));
+
+	//EXPECT_EQ(Bitmap2x2x2("1010"), Bitmap2x2x2("1101").movex(1));
 }

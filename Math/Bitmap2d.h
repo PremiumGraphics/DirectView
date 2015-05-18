@@ -6,6 +6,7 @@
 #include <algorithm>
 
 #include <array>
+#include <queue>
 
 namespace Crystal {
 	namespace Math {
@@ -189,6 +190,23 @@ public:
 			dest[i] = bmp1ds[i].subdiv();
 		}
 		return Bitmap2d<N1 * 2, N2>(dest);
+	}
+
+	Bitmap2d& movex(const size_t size) {
+		for (Bitmap1d<N1>& b : bmp1ds) {
+			b.movex(size);
+		}
+		return *this;
+	}
+
+	Bitmap2d& movey(const size_t size) {
+		Bitmap1dArray<N1,N2> src = bmp1ds;
+		Bitmap1dArray<N1,N2> dest;
+		for (size_t i = 0; i < N2-size; ++i) {
+			dest[i + size] = src[i];
+		}
+		bmp1ds = dest;
+		return (*this);
 	}
 
 private:

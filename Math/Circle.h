@@ -2,14 +2,14 @@
 #define __CRYSTAL_MATH_CIRCLE_H__
 
 #include "Vector3d.h"
-#include "Matrix3d.h"
+#include "Tolerance.h"
 
 #include <cassert>
 
 namespace Crystal {
 	namespace Math {
 
-class Circle {
+class Circle final {
 public:
 	Circle() :
 		radius( 1.0f ),

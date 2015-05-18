@@ -4,14 +4,6 @@
 
 using namespace Crystal::Math;
  
-TEST( CircleTest, TestConstruct )
-{
-	Circle c;
-	EXPECT_EQ( 1.0f, c.getRadius() );
-	EXPECT_TRUE( c.isValid() );
-	EXPECT_FALSE( c.isShrinked() );
-}
-
 TEST( CircleTest, TestToPoints )
 {
 	Circle c;
@@ -29,24 +21,30 @@ TEST( CircleTest, TestOffset )
 	EXPECT_EQ( 6.0f, c.getRadius() );
 }
 
-TEST(CircleTest, TestArea)
+TEST(CirlceTest, TestIsValid)
 {
-	{
-		Circle c;
-		const float actual = c.getArea();
-		EXPECT_FLOAT_EQ(Tolerancef::getPI(), actual);
-	}
-
-	{
-		Circle c(2.0);
-		const float actual = c.getArea();
-		const float expected = Tolerancef::getPI() * 4.0f;
-		EXPECT_FLOAT_EQ( expected, actual);
-	}
+	EXPECT_TRUE(Circle().isValid());
 }
 
-TEST(CircleTest, TestDiameter)
+TEST(CircleTest, TestIsShrinked)
 {
-	Circle c;
-	EXPECT_FLOAT_EQ(2.0f, c.getDiameter());
+	EXPECT_FALSE(Circle().isShrinked());
+}
+
+TEST(CircleTest, TestArea)
+{
+	EXPECT_FLOAT_EQ(Tolerancef::getPI(), Circle().getArea());
+	EXPECT_FLOAT_EQ(Tolerancef::getPI() * 4.0f, Circle(2.0f).getArea() );
+}
+
+TEST(CircleTest, TestGetRadius)
+{
+	EXPECT_FLOAT_EQ(1.0f, Circle().getRadius());
+	EXPECT_FLOAT_EQ(2.0f, Circle(2.0f).getRadius());
+}
+
+TEST(CircleTest, TestGetDiameter)
+{
+	EXPECT_FLOAT_EQ(2.0f, Circle().getDiameter());
+	EXPECT_FLOAT_EQ(4.0f, Circle(2.0f).getDiameter());
 }

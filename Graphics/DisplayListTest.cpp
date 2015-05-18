@@ -86,7 +86,7 @@ TEST(DisplayListTest, TestAddPolygon)
 	}
 
 	list.clear();
-	Triangle t;
+	Triangle<float> t;
 	p = builder.build(t);
 	Material m1(1);
 	p->setMaterial(&m1);

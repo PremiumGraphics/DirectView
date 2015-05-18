@@ -93,7 +93,6 @@
     <ClInclude Include="Position1d.h" />
     <ClInclude Include="Position2d.h" />
     <ClInclude Include="Position3d.h" />
-    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space1d.h" />

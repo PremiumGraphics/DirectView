@@ -150,6 +150,14 @@ public:
 		return Bitmap3d<N1, N2, N3>(bs);
 	}
 
+	Bitmap3d& movex(const size_t size) {
+		for (Bitmap2d<N1,N2>& b : bmp2ds) {
+			b.movex(size);
+		}
+		return *this;
+	}
+
+
 private:
 	Bitmap2dArray<N1, N2, N3> bmp2ds;
 };

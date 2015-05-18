@@ -53,7 +53,7 @@ public:
 
 	PolygonSPtr build(const Math::Circle& circle, const unsigned int divideNumber);
 
-	PolygonSPtr build(const Math::Triangle& t);
+	PolygonSPtr build(const Math::Triangle<float>& t);
 
 	PolygonSPtr build(const unsigned int divideNuber, const Math::Cylinder& c);
 

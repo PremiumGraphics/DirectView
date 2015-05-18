@@ -59,7 +59,7 @@ PolygonSPtr PolygonBuilder::build(const Circle& circle, const unsigned int divid
 	return polygon;
 }
 
-PolygonSPtr PolygonBuilder::build(const Triangle& triangle)
+PolygonSPtr PolygonBuilder::build(const Triangle<float>& triangle)
 {
 	Circle c;
 	return build(c, 3);

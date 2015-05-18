@@ -16,9 +16,9 @@ namespace Crystal{
 		class TriangleConfigDialog : public wxDialog
 		{
 		public:
-			TriangleConfigDialog(wxWindow* parent, const Math::Triangle& t);
+			TriangleConfigDialog(wxWindow* parent, const Math::Triangle<float>& t);
 
-			Math::Triangle get() const;
+			Math::Triangle<float> get() const;
 
 		private:
 			wxSpinCtrlDouble* xSize;

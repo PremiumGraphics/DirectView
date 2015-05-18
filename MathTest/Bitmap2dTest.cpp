@@ -237,3 +237,24 @@ TEST(Bitmap2dTest, TestGetEdgesX)
 	}
 
 }
+
+TEST(Bitmap2dTest, TestMoveX)
+{
+	EXPECT_EQ(Bitmap2x2("1010"), Bitmap2x2("0101").movex(1));
+	EXPECT_EQ(Bitmap2x2("1010"), Bitmap2x2("1101").movex(1));
+
+	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2("1010").movex(1));
+	EXPECT_EQ(Bitmap2x2("0010"), Bitmap2x2("0001").movex(1));
+
+	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2("0101").movex(2));
+}
+
+TEST(Bitmap2dTest, TestMoveY)
+{
+	EXPECT_EQ(Bitmap2x2("0001"), Bitmap2x2("0101").movey(1));
+	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2("0001").movey(1));
+	EXPECT_EQ(Bitmap2x2("0011"), Bitmap2x2("1100").movey(1));
+
+
+	//EXPECT_EQ(Bitmap2x2("1100"), Bitmap2x2("0011").movey(1));
+}

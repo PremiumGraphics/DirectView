@@ -2,26 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="Primitive.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
-    <ClInclude Include="Cone.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
-    <ClInclude Include="Circle.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="CSG.h" />
     <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Bitmap1d.h" />
@@ -45,15 +30,14 @@
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Cone.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Box.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Primitive3d">
-      <UniqueIdentifier>{248802b3-2b63-4a43-b982-6729c57b41e6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

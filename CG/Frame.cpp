@@ -664,7 +664,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
 {
-	const Triangle t;
+	const Triangle<float> t;
 	PolygonSPtr p = model.getPolygonBuilder().build(t);
 	//p->setName("Triangle");
 	w.getPolygonTree()->build();

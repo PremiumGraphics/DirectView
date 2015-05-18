@@ -5,7 +5,7 @@ using namespace Crystal::Math;
 using namespace Crystal::CG;
 
 
-TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent, const Triangle& triangle) :
+TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent, const Triangle<float>& triangle) :
 wxDialog(parent, wxID_ANY, "TriangleConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
@@ -24,9 +24,9 @@ wxDialog(parent, wxID_ANY, "TriangleConfig", wxDefaultPosition, wxSize(500, 500)
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 }
 
-Triangle TriangleConfigDialog::get() const
+Triangle<float> TriangleConfigDialog::get() const
 {
-	return Triangle();
+	return Triangle<float>();
 }
 
 QuadConfigDialog::QuadConfigDialog(wxWindow* parent, const Quad<float>& q) :

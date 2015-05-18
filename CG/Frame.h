@@ -167,7 +167,7 @@ private:
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
 private:
-	Math::Triangle triangle;
+	Math::Triangle<float> triangle;
 	Math::Quad<float> quad;
 	Math::Circle circle;
 	Math::Sphere sphere;

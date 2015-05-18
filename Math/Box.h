@@ -15,15 +15,38 @@ class Box final
 {
 public:
 	
-	Box();
+	Box() : Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f))
+	{
+	}
 
-	Box(const Vector3d& pointX, const Vector3d& pointY);
 
-	static Box Unit();
+	Box(const Vector3d& pointX, const Vector3d& pointY) :
+		maxX(std::max<float>(pointX.getX(), pointY.getX())),
+		minX(std::min<float>(pointX.getX(), pointY.getX())),
+		maxY(std::max<float>(pointX.getY(), pointY.getY())),
+		minY(std::min<float>(pointX.getY(), pointY.getY())),
+		maxZ(std::max<float>(pointX.getZ(), pointY.getZ())),
+		minZ(std::min<float>(pointX.getZ(), pointY.getZ()))
+	{
+		assert(isValid());
+	}
+
+
+	static Box Unit() {
+		return Box();
+	}
 
 	Box getBoundingBox() const { return *this; }
 
-	void add(const Vector3d& v);
+	void add(const Vector3d& v) {
+		minX = std::min<float>(minX, v.getX());
+		minY = std::min<float>(minY, v.getY());
+		minZ = std::min<float>(minZ, v.getZ());
+
+		maxX = std::max<float>(maxX, v.getX());
+		maxY = std::max<float>(maxY, v.getY());
+		maxZ = std::max<float>(maxZ, v.getZ());
+	}
 
 	void add(const Box& b) {
 		minX = std::min<float>(minX, b.getMinX());
@@ -35,7 +58,9 @@ public:
 		maxZ = std::max<float>(maxZ, b.getMaxZ());
 	}
 	
-	float getVolume() const;
+	float getVolume() const {
+		return (maxX - minX) * (maxY - minY) * (maxZ - minZ);
+	}
 	
 	Position3d<float> getMax() const {
 		return Position3d<float>(maxX, maxY, maxZ);
@@ -54,9 +79,16 @@ public:
 	}
 
 
-	bool isInterior(const Vector3d &point) const;
+	bool isInterior(const Vector3d &point) const {
+		const bool xIsInterior = (minX < point.getX() && point.getX() < maxX);
+		const bool yIsInterior = (minY < point.getY() && point.getY() < maxY);
+		const bool zIsInterior = (minZ < point.getZ() && point.getZ() < maxZ);
+		return xIsInterior && yIsInterior && zIsInterior;
+	}
 	
-	bool isExterior(const Vector3d &point) const;
+	bool isExterior(const Vector3d &point) const {
+		return !isInterior(point);
+	}
 	
 	void outerOffset(const float offsetLength);
 	
@@ -84,12 +116,15 @@ public:
 		return Vector3d(maxX - minX, maxY - minY, maxZ - minZ);
 	}
 
-	virtual bool isValid() const {
+	bool isValid() const {
 		return
 			(minX <= maxX) && (minY <= maxY) && (minZ <= maxZ);
 	}
 
-	virtual bool isShirinked() const;
+	bool isShirinked() const{
+		return
+			(minX == maxX) && (minY == maxY) && (minZ == maxZ);
+	}
 
 	bool equals(const Box& rhs) const {
 		return

@@ -18,8 +18,7 @@ TEST(BoxTest, TestGetMax)
 
 TEST( BoxTest, TestGetVolume )
 {
-	Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 1.0f, 2.0f, 3.0f ) );
-	EXPECT_TRUE( Tolerancef::isEqualLoosely( b.getVolume(), 6.0f ) );
+	EXPECT_TRUE( Tolerancef::isEqualLoosely(6.0f, Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 2.0f, 3.0f) ).getVolume()) );
 }
 
 TEST( BoxTest, TestGetLength )
@@ -36,34 +35,20 @@ TEST( BoxTest, TestOuterOffset )
 
 TEST( BoxTest, TestIsShrinked )
 {
-	{
-		Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 0.0f, 0.0f, 0.0f ) );
-		EXPECT_TRUE( b.isShirinked() );
-	}
-
-	{
-		Box b( Vector3d( 0.0f, 0.0, 0.0f ), Vector3d( 1.0f, 1.0f, 1.0f ) );
-		EXPECT_FALSE( b.isShirinked() );
-	}
+	EXPECT_TRUE( Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 0.0f, 0.0f)).isShirinked());
+	EXPECT_FALSE(Box(Vector3d(0.0f, 0.0, 0.0f), Vector3d(1.0f, 1.0f, 1.0f)).isShirinked());
 }
 
 TEST( BoxTest, TestIsValid )
 {
-	{
-		Box b( Vector3d( 0.0f, 0.0f, 0.0f ), Vector3d( 0.0f, 0.0f, 0.0f ) );
-		EXPECT_TRUE( b.isValid() );
-	}
-
-	{
-		Box b( Vector3d( 0.0f, 0.0, 0.0f ), Vector3d( 1.0f, 1.0f, 1.0f ) );
-		EXPECT_TRUE( b.isValid() );
-	}
+	EXPECT_TRUE( Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 0.0f, 0.0f)).isValid() );
+	EXPECT_TRUE( Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f)).isValid() );
 }
 
 TEST(BoxTest, TestHasIntersection)
 {
-	Box b1( Vector3d(0.0f, 0.0f, 0.0f), Vector3d( 1.0f, 1.0f, 1.0f ) );
-	Box b2(Vector3d(2.0f, 2.0f, 2.0f), Vector3d(4.0f, 4.0f, 4.0f));
+	Box b1( Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f) );
+	Box b2( Vector3d(2.0f, 2.0f, 2.0f), Vector3d(4.0f, 4.0f, 4.0f) );
 
 	EXPECT_FALSE(b1.hasIntersection(b2));
 }
