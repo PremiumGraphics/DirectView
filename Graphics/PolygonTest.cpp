@@ -74,8 +74,8 @@ TEST(PolygonTest, TestBoundingBox)
 	};
 	p.setVertices(vertices);
 	Box box = p.getBoundingBox();
-	EXPECT_EQ(box.getMin(), Vector3d(0.0f, 0.0f, 0.0f));
-	EXPECT_EQ(box.getMax(), Vector3d(1.0f, 0.0f, 1.0f));
+	EXPECT_EQ(box.getMin(), Position3d<float>(0.0f, 0.0f, 0.0f));
+	EXPECT_EQ(box.getMax(), Position3d<float>(1.0f, 0.0f, 1.0f));
 }
 
 /*

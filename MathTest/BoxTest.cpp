@@ -4,18 +4,16 @@
 
 using namespace Crystal::Math;
  
-TEST( BoxTest, TestConstruct )
+TEST( BoxTest, TestGetMin )
 {
-	Box b;
-	EXPECT_EQ( Vector3d(0.0f, 0.0f, 0.0f), b.getMin() );
-	EXPECT_EQ( Vector3d(1.0f, 1.0f, 1.0f), b.getMax() );
+	EXPECT_EQ( Position3d<float>(0.0f, 0.0f, 0.0f), Box().getMin() );
+	EXPECT_EQ( Position3d<float>(1.0f, 2.0f, 3.0f), Box(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(4.0f, 5.0f, 6.0f)).getMin());
 }
 
-TEST(BoxTest, TestConstrutByVectors)
+TEST(BoxTest, TestGetMax)
 {
-	Box b(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(4.0f, 5.0f, 6.0f));
-	EXPECT_EQ(Vector3d(1.0f, 2.0f, 3.0f), b.getMin());
-	EXPECT_EQ(Vector3d(4.0f, 5.0f, 6.0f), b.getMax());
+	EXPECT_EQ( Position3d<float>(1.0f, 1.0f, 1.0f), Box().getMax());
+	EXPECT_EQ( Position3d<float>(4.0f, 5.0f, 6.0f), Box(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(4.0f, 5.0f, 6.0f)).getMax());
 }
 
 TEST( BoxTest, TestGetVolume )
@@ -26,10 +24,7 @@ TEST( BoxTest, TestGetVolume )
 
 TEST( BoxTest, TestGetLength )
 {
-	Box b( Vector3d( 1.0f, 1.0f, 1.0f ), Vector3d( 1.0f, 2.0f, 3.0f ) );
-	const Vector3d& lengths = b.getLength();
-	EXPECT_EQ( lengths, Vector3d( 0.0, 1.0, 2.0 ) );
-
+	EXPECT_EQ( Vector3d(0.0, 1.0, 2.0), Box(Vector3d(1.0f, 1.0f, 1.0f), Vector3d(1.0f, 2.0f, 3.0f)).getLength() );
 }
 
 TEST( BoxTest, TestOuterOffset )
@@ -63,4 +58,12 @@ TEST( BoxTest, TestIsValid )
 		Box b( Vector3d( 0.0f, 0.0, 0.0f ), Vector3d( 1.0f, 1.0f, 1.0f ) );
 		EXPECT_TRUE( b.isValid() );
 	}
+}
+
+TEST(BoxTest, TestHasIntersection)
+{
+	Box b1( Vector3d(0.0f, 0.0f, 0.0f), Vector3d( 1.0f, 1.0f, 1.0f ) );
+	Box b2(Vector3d(2.0f, 2.0f, 2.0f), Vector3d(4.0f, 4.0f, 4.0f));
+
+	EXPECT_FALSE(b1.hasIntersection(b2));
 }

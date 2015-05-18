@@ -52,6 +52,6 @@ TEST(ParticleBaseTest, TestToBox)
 {
 	ParticleBase p(2.0f);
 	const auto box = p.toBox();
-	EXPECT_EQ( Vector3d(-1.0f, -1.0f, -1.0f), box.getMin() );
-	EXPECT_EQ( Vector3d(1.0f, 1.0f, 1.0f), box.getMax() );
+	EXPECT_EQ( Position3d<float>(-1.0f, -1.0f, -1.0f), box.getMin() );
+	EXPECT_EQ( Position3d<float>(1.0f, 1.0f, 1.0f), box.getMax() );
 }

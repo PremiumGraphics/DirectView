@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="Box.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
@@ -49,16 +46,15 @@
     <ClInclude Include="Vector1d.h" />
     <ClInclude Include="Line3d.h" />
     <ClInclude Include="Quad.h" />
+    <ClInclude Include="Box.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Box.cpp">
-      <Filter>Primitive3d</Filter>
-    </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="IntersectionFindAlgo.cpp" />
+    <ClCompile Include="Box.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

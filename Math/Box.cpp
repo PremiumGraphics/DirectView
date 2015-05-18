@@ -40,35 +40,11 @@ void Box::add(const Vector3d& v)
 	maxZ = std::max( maxZ, v.getZ() );
 }
 
-void Box::add(const Box& b)
-{
-	minX = std::min( minX, b.getMinX() );
-	minY = std::min( minY, b.getMinY() );
-	minZ = std::min( minZ, b.getMinZ() );
 
-	maxX = std::max( maxX, b.getMaxX() );
-	maxY = std::max( maxY, b.getMaxY() );
-	maxZ = std::max( maxZ, b.getMaxZ() );
-}
-
-Vector3d Box::getCenter() const
-{
-	return Vector3d( (getMin() + getMax()).scale( 0.5 ) );
-}
 	
 float Box::getVolume() const
 {
 	return (maxX - minX) * (maxY - minY) * (maxZ - minZ);
-}
-	
-Vector3d Box::getMax() const
-{
-	return Vector3d( maxX, maxY, maxZ );
-}
-	
-Vector3d Box::getMin() const
-{
-	return Vector3d( minX, minY, minZ );
 }
 
 bool Box::isInterior(const Vector3d &point) const
@@ -130,26 +106,8 @@ Vector3d Box::getLength() const {
 	return Vector3d( maxX - minX, maxY - minY, maxZ - minZ );
 }
 
-bool Box::isValid() const
-{
-	// èkëﬁÇµÇƒÇ¢ÇƒÇ‡ë√ìñÇ∆âºíËÅD
-	return 
-		( minX <= maxX ) && ( minY <= maxY ) && ( minZ <= maxZ );
-}
-
 bool Box::isShirinked() const
 {
 	return
 		( minX == maxX ) && ( minY == maxY ) && ( minZ == maxZ );
-}
-
-bool Box::equals(const Box& rhs) const
-{
-	return
-		Tolerancef::isEqualLoosely( minX, rhs.minX ) &&
-		Tolerancef::isEqualLoosely( minY, rhs.minY ) &&
-		Tolerancef::isEqualLoosely( minZ, rhs.minZ ) &&
-		Tolerancef::isEqualLoosely( maxX, rhs.maxX ) &&
-		Tolerancef::isEqualLoosely( maxY, rhs.maxY ) &&
-		Tolerancef::isEqualLoosely( maxZ, rhs.maxZ );
 }

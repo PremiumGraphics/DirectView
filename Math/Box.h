@@ -4,9 +4,11 @@
 #include "Primitive.h"
 
 #include "Vector3d.h"
+#include "Position3d.h"
 
 #include <vector>
 #include <string>
+#include <algorithm>
 
 namespace Crystal{
 	namespace Math{
@@ -23,19 +25,39 @@ public:
 
 	virtual Type getType() const { return Primitive::Box; }
 
-	virtual Vector3d getCenter() const;
+	virtual Vector3d getCenter() const
+	{
+		return Vector3d(
+			(minX + maxX) * 0.5f,
+			(minY + maxY) * 0.5f,
+			(minZ + maxZ) * 0.5f
+			);
+	}
+
 
 	virtual Box getBoundingBox() const { return *this; }
 
 	void add(const Vector3d& v);
 
-	void add(const Box& b);
+	void add(const Box& b) {
+		minX = std::min<float>(minX, b.getMinX());
+		minY = std::min<float>(minY, b.getMinY());
+		minZ = std::min<float>(minZ, b.getMinZ());
+
+		maxX = std::max<float>(maxX, b.getMaxX());
+		maxY = std::max<float>(maxY, b.getMaxY());
+		maxZ = std::max<float>(maxZ, b.getMaxZ());
+	}
 	
 	float getVolume() const;
 	
-	Vector3d getMax() const;
+	Position3d<float> getMax() const {
+		return Position3d<float>(maxX, maxY, maxZ);
+	}
 	
-	Vector3d getMin() const;
+	Position3d<float> getMin() const {
+		return Position3d<float>(minX, minY, minZ);
+	}
 
 	bool isInterior(const Vector3d &point) const;
 	
@@ -65,15 +87,42 @@ public:
 
 	Vector3d getLength() const;
 
-	virtual bool isValid() const;
+	virtual bool isValid() const {
+		return
+			(minX <= maxX) && (minY <= maxY) && (minZ <= maxZ);
+	}
 
 	virtual bool isShirinked() const;
 
-	bool equals(const Box& rhs) const;
+	bool equals(const Box& rhs) const {
+		return
+			Tolerancef::isEqualLoosely(minX, rhs.minX) &&
+			Tolerancef::isEqualLoosely(minY, rhs.minY) &&
+			Tolerancef::isEqualLoosely(minZ, rhs.minZ) &&
+			Tolerancef::isEqualLoosely(maxX, rhs.maxX) &&
+			Tolerancef::isEqualLoosely(maxY, rhs.maxY) &&
+			Tolerancef::isEqualLoosely(maxZ, rhs.maxZ);
+	}
 
 	bool operator==( const Box& rhs ) const { return equals( rhs ); }
 
 	bool operator!=( const Box& rhs ) const { return !equals( rhs ); }
+
+	bool hasIntersection(const Box& rhs) const {
+		const auto distx = fabs(maxX - minX);
+		if ( distx < getLength().getX() ) {
+			return true;
+		}
+		const auto disty = fabs(maxY - minY);
+		if  (disty < getLength().getY() ) {
+			return true;
+		}
+		const auto distz = fabs(maxZ - minZ);
+		if ( distz < getLength().getZ() ) {
+			return true;
+		}
+		return false;
+	}
 
 private:
 	float maxX;
