@@ -44,6 +44,8 @@ public:
 
 	Position1d<T> getEnd() const { return start + length; }
 
+	Position1d<T> getCenter() const { return start + length * T(0.5); }
+
 	Line1d& move(const T v) {
 		start += v;
 		return (*this);
@@ -77,24 +79,13 @@ public:
 		return !equals(rhs);
 	}
 
-	T getDistance(const Line1d<T>& rhs) const {
-		return getEnd() - rhs.getStart();
+	T getLength(const Line1d<T>& rhs) const {
+		return ::fabs( getEnd() - rhs.getStart() );
 	}
 
 	bool hasIntersection(const Line1d<T>& rhs) const {
-		if (getEnd() < rhs.getStart() || getStart() > rhs.getEnd()) {
-			return false;
-			//return rhs.hasIntersection( *this );
-		}
-
-		if (getStart() < rhs.getStart()) {
-			const auto diff = start.get() - rhs.start.get();//Vector1d<T>(start, rhs.start()).getLength();
-			const auto moved = rhs.move(diff);
-			return moved.getEnd() < rhs.getEnd();
-		}
-		else {
-			return rhs.hasIntersection(*this);
-		}
+		const auto dist = getCenter().getDistance(rhs.getCenter());
+		return ( dist <  getLength() * T(0.5) + rhs.getLength() * T(0.5) );
 	}
 
 private:
