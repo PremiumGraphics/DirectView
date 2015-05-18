@@ -55,6 +55,15 @@ public:
 		return !equals(rhs);
 	}
 
+	bool hasIntersection(const Quad& rhs) const {
+		const auto distx = std::fabs(center.getX() - rhs.getCenter().getX());
+		const auto lx = lengthX * 0.5 + rhs.getLengthX() * 0.5;
+
+		const auto disty = std::fabs(center.getY() - rhs.getCenter().getY());
+		const auto ly = lengthY * 0.5 + rhs.getLengthY() * 0.5;
+		return (distx < lx && disty < ly);
+	}
+
 private:
 	Vector2d<float> center;
 

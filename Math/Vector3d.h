@@ -152,15 +152,7 @@ public:
 	Vector3d_ operator/=( const T factor ) { return scale( 1.0 / factor ); }
 
 	void rotate(const Matrix3d<T>& matrix) {
-		*(this) = getRotated(matrix);
-	}
-
-	Vector3d_ getRotated(const Matrix3d<T>& matrix) const {
-		const auto x = matrix.getX00() * this->x + matrix.getX01() * this->y + matrix.getX02() * this->z;
-		const auto y = matrix.getX10() * this->x + matrix.getX11() * this->y + matrix.getX12() * this->z;
-		const auto z = matrix.getX20() * this->x + matrix.getX21() * this->y + matrix.getX22() * this->z;
-
-		return Vector3d_( x, y, z );
+		*(this) = getMult(matrix);
 	}
 
 	Vector3d_ getMult(const Matrix3d<T>& matrix) const {

@@ -69,3 +69,13 @@ TEST(QuadTest, TestEquals)
 		EXPECT_NE(q1, q2);
 	}
 }
+
+TEST(QuadTest, TestHasIntersection)
+{
+	const Vector2d<float> v1(0.0f, 0.0f);
+	const Vector2d<float> v2(2.0f, 5.0f);
+
+	const Quad q1(v1, v2);
+	const Quad q2(v1, v2);
+	EXPECT_TRUE(q1.hasIntersection(q2));
+}
