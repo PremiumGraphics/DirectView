@@ -46,7 +46,7 @@ TEST(Space3dTest, TestToBoxesEmpty)
 		Space3d<2,2,2> space;
 		const auto& boxes = space.toBoxes(bmp);
 		EXPECT_EQ(1, boxes.size());
-		EXPECT_EQ(Vector3d(0.5f, 0.5f, 0.5f), boxes.front().getCenter());
+		EXPECT_EQ( Position3d<float>(0.5f, 0.5f, 0.5f), boxes.front().getCenter());
 	}
 
 	{
@@ -56,7 +56,7 @@ TEST(Space3dTest, TestToBoxesEmpty)
 		Space3d<2,2,2> space;
 		const auto& boxes = space.toBoxes(bmp);
 		EXPECT_EQ(2, boxes.size());
-		EXPECT_EQ(Vector3d(0.5f, 0.5f, 0.5f), boxes[0].getCenter());
-		EXPECT_EQ(Vector3d(1.5f, 0.5f, 0.5f), boxes[1].getCenter());
+		EXPECT_EQ( Position3d<float>(0.5f, 0.5f, 0.5f), boxes[0].getCenter());
+		EXPECT_EQ( Position3d<float>(1.5f, 0.5f, 0.5f), boxes[1].getCenter());
 	}
 }

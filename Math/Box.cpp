@@ -102,9 +102,6 @@ Vector3dVector Box::toPoints( const float divideLength ) const
 	return points;
 }
 
-Vector3d Box::getLength() const {
-	return Vector3d( maxX - minX, maxY - minY, maxZ - minZ );
-}
 
 bool Box::isShirinked() const
 {

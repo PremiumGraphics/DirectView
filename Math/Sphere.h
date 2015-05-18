@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_MATH_SPHERE_H__
 #define __CRYSTAL_MATH_SPHERE_H__
 
-#include "Primitive.h"
-
 #include "Vector3d.h"
 
 #include "Box.h"
@@ -15,7 +13,7 @@ namespace Crystal {
 	namespace Math {
 		class Box;
 
-class Sphere : public Primitive
+class Sphere final
 {
 public:
 	Sphere() :
@@ -29,7 +27,7 @@ public:
 	{}
 
 	Sphere( const Math::Box& boundingBox ) {
-		center = boundingBox.getCenter();
+		center = Vector3d( boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ() );
 		const Vector3d& length = boundingBox.getLength();
 		radius = std::min<float>( std::min<float>( length.getX(), length.getY() ), length.getZ() ) * 0.5f;
 	}
@@ -38,14 +36,12 @@ public:
 		return Sphere( Vector3d::Zero(), 1.0f );
 	}
 
-	virtual Math::Box getBoundingBox() const {
+	Math::Box getBoundingBox() const {
 		Math::Box box( center, center );
 		return box.getOuterOffset( radius );
 	}
 
-	virtual Type getType() const { return Primitive::Sphere; }
-
-	virtual Vector3dVector toPoints(const float divideLength ) const {
+	Vector3dVector toPoints(const float divideLength ) const {
 		Vector3dVector points;
 
 		Math::Box box( center, center );
@@ -65,7 +61,7 @@ public:
 	}
 
 
-	virtual Vector3d getCenter() const { return center; }
+	Vector3d getCenter() const { return center; }
 
 	float getRadius() const { return radius; }
 

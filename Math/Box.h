@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_MATH_BOX_H__
 #define __CRYSTAL_MATH_BOX_H__
 
-#include "Primitive.h"
-
 #include "Vector3d.h"
 #include "Position3d.h"
 
@@ -13,7 +11,7 @@
 namespace Crystal{
 	namespace Math{
 
-class Box : public Primitive
+class Box final
 {
 public:
 	
@@ -23,19 +21,7 @@ public:
 
 	static Box Unit();
 
-	virtual Type getType() const { return Primitive::Box; }
-
-	virtual Vector3d getCenter() const
-	{
-		return Vector3d(
-			(minX + maxX) * 0.5f,
-			(minY + maxY) * 0.5f,
-			(minZ + maxZ) * 0.5f
-			);
-	}
-
-
-	virtual Box getBoundingBox() const { return *this; }
+	Box getBoundingBox() const { return *this; }
 
 	void add(const Vector3d& v);
 
@@ -58,6 +44,15 @@ public:
 	Position3d<float> getMin() const {
 		return Position3d<float>(minX, minY, minZ);
 	}
+
+	Position3d<float> getCenter() const {
+		return Position3d<float>(
+			(minX + maxX) * 0.5f,
+			(minY + maxY) * 0.5f,
+			(minZ + maxZ) * 0.5f
+			);
+	}
+
 
 	bool isInterior(const Vector3d &point) const;
 	
@@ -85,7 +80,9 @@ public:
 
 	float getMinZ() const { return minZ; }
 
-	Vector3d getLength() const;
+	Vector3d getLength() const {
+		return Vector3d(maxX - minX, maxY - minY, maxZ - minZ);
+	}
 
 	virtual bool isValid() const {
 		return
