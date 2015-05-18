@@ -9,161 +9,162 @@
 namespace Crystal{
 	namespace Math{
 
-class Vector3d final
+template<typename T>
+class Vector3d_ final
 {
 public:
 	
-	Vector3d(void) : Vector3d(0.0f, 0.0f, 0.0f)
+	Vector3d_(void) : Vector3d_(0.0f, 0.0f, 0.0f)
 	{}
 
-	Vector3d(float x, float y, float z) :
+	Vector3d_(T x, T y, T z) :
 		x(x), y(y), z(z)
 	{}
 
-	Vector3d(const Vector3d& start, const Vector3d& end) :
+	Vector3d_(const Vector3d_& start, const Vector3d_& end) :
 		x(end.x - start.x),
 		y(end.y - start.y),
 		z(end.z - start.z)
 	{}
 
-	~Vector3d() = default;
+	~Vector3d_() = default;
 
-	static Vector3d Zero() { return Vector3d( 0.0f, 0.0f, 0.0f ); }
+	static Vector3d_ Zero() { return Vector3d_( 0.0f, 0.0f, 0.0f ); }
 
-	static Vector3d UnitX() { return Vector3d( 1.0f, 0.0f, 0.0f ); }
+	static Vector3d_ UnitX() { return Vector3d_( 1.0f, 0.0f, 0.0f ); }
 
-	static Vector3d UnitY() { return Vector3d( 0.0f, 1.0f, 0.0f ); }
+	static Vector3d_ UnitY() { return Vector3d_( 0.0f, 1.0f, 0.0f ); }
 
-	static Vector3d UnitZ() { return Vector3d( 0.0f, 0.0f, 1.0f ); }
+	static Vector3d_ UnitZ() { return Vector3d_( 0.0f, 0.0f, 1.0f ); }
 
-	float getLengthSquared() const {
+	T getLengthSquared() const {
 		return x * x + y * y + z * z;
 	}
 
-	float getLength() const {
+	T getLength() const {
 		return ::sqrt( getLengthSquared() );
 	}
 
-	float getDistance(const Vector3d& rhs) const {
+	T getDistance(const Vector3d_& rhs) const {
 		return ::sqrt(getDistanceSquared(rhs));
 	}
 
-	float getDistanceSquared(const Vector3d& rhs) const {
+	T getDistanceSquared(const Vector3d_& rhs) const {
 		return pow(x - rhs.x, 2) + pow(y - rhs.y, 2) + pow(z - rhs.z, 2);
 	}
 
-	Vector3d& scale(const float factor) {
+	Vector3d_& scale(const T factor) {
 		x *= factor;
 		y *= factor;
 		z *= factor;
 		return *this;
 	}
 
-	Vector3d& scale(const float xFactor, const float yFactor, const float zFactor) {
+	Vector3d_& scale(const T xFactor, const T yFactor, const T zFactor) {
 		x *= xFactor;
 		y *= yFactor;
 		z *= zFactor;
 		return *this;
 	}
 
-	Vector3d getScaled(const float factor) const {
-		return Vector3d(x * factor, y * factor, z * factor);
+	Vector3d_ getScaled(const T factor) const {
+		return Vector3d_(x * factor, y * factor, z * factor);
 	}
 
-	Vector3d normalize() {
-		const float length = getLength();
+	Vector3d_ normalize() {
+		const auto length = getLength();
 		x /= length;
 		y /= length;
 		z /= length;
 		return *this;
 	}
 
-	Vector3d getNormalized() const {
-		Vector3d vector = *(this);
+	Vector3d_ getNormalized() const {
+		Vector3d_ vector = *(this);
 		return vector.normalize();
 	}
 
 	bool isNormalized() const {
-		return Tolerancef::isEqualLoosely( getLength(), 1.0 );
+		return Tolerance<T>::isEqualLoosely( getLength(), 1.0 );
 	}
 
-	bool equals( const Vector3d &rhs ) const {
-		return Tolerancef::isEqualLoosely( getDistanceSquared( rhs ) );
+	bool equals( const Vector3d_&rhs ) const {
+		return Tolerance<T>::isEqualLoosely( getDistanceSquared( rhs ) );
 	}
 
 	bool isZero() const {
 		return equals( Zero() );
 	}
 
-	bool operator==( const Vector3d& rhs ) const {
+	bool operator==( const Vector3d_& rhs ) const {
 		return equals( rhs );
 	}
 
-	bool operator!=(const Vector3d& rhs) const {
+	bool operator!=(const Vector3d_& rhs) const {
 		return !equals( rhs );
 	}
 
-	Vector3d operator+(const Vector3d& rhs) const {
-		return Vector3d( x + rhs.x, y + rhs.y, z + rhs.z );
+	Vector3d_ operator+(const Vector3d_& rhs) const {
+		return Vector3d_( x + rhs.x, y + rhs.y, z + rhs.z );
 	}
 
-	Vector3d operator-(const Vector3d& rhs) const {
-		return Vector3d( x - rhs.x, y - rhs.y, z - rhs.z );
+	Vector3d_ operator-(const Vector3d_& rhs) const {
+		return Vector3d_( x - rhs.x, y - rhs.y, z - rhs.z );
 	}
 
-	Vector3d operator+=( const Vector3d& rhs ) {
+	Vector3d_ operator+=( const Vector3d_& rhs ) {
 		x += rhs.x;
 		y += rhs.y;
 		z += rhs.z;
 		return *this;
 	}
 
-	Vector3d operator-=(const Vector3d& rhs) {
+	Vector3d_ operator-=(const Vector3d_& rhs) {
 		x -= rhs.x;
 		y -= rhs.y;
 		z -= rhs.z;
 		return *this;
 	}
 
-	Vector3d operator*(const float factor) const {
-		Vector3d vector(*this);
+	Vector3d_ operator*(const float factor) const {
+		Vector3d_ vector(*this);
 		return vector.scale(factor);
 	}
 
-	Vector3d operator/(const float factor) const {
-		Vector3d vector(*this);
+	Vector3d_ operator/(const float factor) const {
+		Vector3d_ vector(*this);
 		return vector.scale(1.0f / factor);
 	}
 
-	float getInnerProduct(const Vector3d& rhs) const {
+	T getInnerProduct(const Vector3d_& rhs) const {
 		return x * rhs.x + y * rhs.y + z * rhs.z;
 	}
 
-	Vector3d getOuterProduct(const Vector3d& rhs) const {
-		return Vector3d(
+	Vector3d_ getOuterProduct(const Vector3d_& rhs) const {
+		return Vector3d_(
 			y * rhs.z - z * rhs.y,
 			-( x * rhs.z - z * rhs.x ),
 			x * rhs.y - y * rhs.x );
 	}
 	
-	Vector3d operator*=( const float factor ) { return scale( factor ); }
+	Vector3d_ operator*=( const T factor ) { return scale( factor ); }
 
-	Vector3d operator/=( const float factor ) { return scale( 1.0f / factor ); }
+	Vector3d_ operator/=( const T factor ) { return scale( 1.0 / factor ); }
 
-	void rotate(const Matrix3d<double>& matrix) {
+	void rotate(const Matrix3d<T>& matrix) {
 		*(this) = getRotated(matrix);
 	}
 
-	Vector3d getRotated(const Matrix3d<double>& matrix) const {
+	Vector3d_ getRotated(const Matrix3d<T>& matrix) const {
 		const auto x = matrix.getX00() * this->x + matrix.getX01() * this->y + matrix.getX02() * this->z;
 		const auto y = matrix.getX10() * this->x + matrix.getX11() * this->y + matrix.getX12() * this->z;
 		const auto z = matrix.getX20() * this->x + matrix.getX21() * this->y + matrix.getX22() * this->z;
 
-		return Vector3d(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
+		return Vector3d_( x, y, z );
 	}
 
-	Vector3d getMult(const Matrix3d<float>& matrix) const {
-		return Vector3d
+	Vector3d_ getMult(const Matrix3d<T>& matrix) const {
+		return Vector3d_
 			(
 			x * matrix.getX00() + y * matrix.getX10() + z * matrix.getX20(),
 			x * matrix.getX01() + y * matrix.getX11() + z * matrix.getX21(),
@@ -171,46 +172,50 @@ public:
 			);
 	}
 	
-	const Vector3d Vector3d::operator*( const Matrix3d<float>& rhs ) const {
+	const Vector3d_ operator*( const Matrix3d<T>& rhs ) const {
 		return getMult(rhs);
 	}
 
 
 public:
-	float getX() const { return x; }
+	T getX() const { return x; }
 
-	float getY() const { return y; }
+	T getY() const { return y; }
 
-	float getZ() const { return z; }
+	T getZ() const { return z; }
 
-	void setX( const float x ) { this->x = x; }
+	void setX( const T x ) { this->x = x; }
 
-	void setY( const float y ) { this->y = y; }
+	void setY( const T y ) { this->y = y; }
 
-	void setZ( const float z ) { this->z = z; }
+	void setZ( const T z ) { this->z = z; }
 
-	void set( const float x, const float y, const float z ) {
+	void set( const T x, const T y, const T z ) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
 	}
 
-	std::vector< float > toArray() const { return std::vector < float > { x, y, z }; }
+	std::vector< T > toArray() const { return std::vector < T > { x, y, z }; }
 
-	static std::vector< float > toArray(const std::vector<Vector3d>& vectors) {
-		std::vector< float > values;
-		for (const Math::Vector3d& v : vectors) {
-			const std::vector<float>& vs = v.toArray();
+	static std::vector< T > toArray(const std::vector<Vector3d_>& vectors) {
+		std::vector< T > values;
+		for (const Math::Vector3d_<T>& v : vectors) {
+			const std::vector<T>& vs = v.toArray();
 			values.insert(values.end(), vs.begin(), vs.end());
 		}
 		return values;
 	}
 
 private:
-	float x;
-	float y;
-	float z;
+	T x;
+	T y;
+	T z;
 };
+
+using Vector3d = Vector3d_ < float > ;
+
+using Vector3dd = Vector3d_ < double > ;
 
 using Vector3dVector = std::vector < Vector3d > ;
 

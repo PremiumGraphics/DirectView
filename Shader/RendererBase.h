@@ -5,9 +5,6 @@
 #include "../Graphics/DisplayList.h"
 
 namespace Crystal {
-	namespace Math {
-		class Vector3d;
-	}
 	namespace Shader {
 
 class RendererBase {

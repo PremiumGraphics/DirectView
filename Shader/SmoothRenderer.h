@@ -12,9 +12,6 @@
 #include "../Graphics/Material.h"
 
 namespace Crystal {
-	namespace Math {
-		class Vector3d;
-	}
 	namespace Graphics {
 
 class SmoothRenderer {

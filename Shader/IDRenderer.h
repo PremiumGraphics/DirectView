@@ -12,9 +12,6 @@
 #include "RendererBase.h"
 
 namespace Crystal {
-	namespace Math {
-		class Vector3d;
-	}
 	namespace Shader {
 
 class IDRenderer : public RendererBase {

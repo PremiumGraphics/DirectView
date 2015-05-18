@@ -3,13 +3,14 @@
 
 #include "Primitive.h"
 
+#include "Vector3d.h"
+
 #include <vector>
 #include <string>
 
 namespace Crystal{
 	namespace Math{
 
-class Vector3d;
 class Quad;
 
 class Box : public Primitive

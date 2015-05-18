@@ -74,7 +74,7 @@ public:
 		return !equals(rhs);
 	}
 
-	void rotate(const Math::Matrix3d<double>& matrix) {
+	void rotate(const Math::Matrix3d<float>& matrix) {
 		position.rotate(matrix);
 	}
 

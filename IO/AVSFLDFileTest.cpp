@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
- 
+
 #include "AVSFLDFile.h"
 
 using namespace Crystal::Math;

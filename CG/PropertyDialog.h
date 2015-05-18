@@ -8,9 +8,11 @@
 #include "../Graphics/Polygon.h"
 #include "../Graphics/Light.h"
 
+
 namespace Crystal{
 	namespace CG{
 
+		/*
 class VertexPropertyDialog : public wxDialog {
 public:
 	VertexPropertyDialog(wxWindow* parent, const Graphics::VertexSPtr& vertex);
@@ -46,6 +48,7 @@ private:
 
 	Graphics::VertexSPtr vertex;
 };
+*/
 
 class FacePropertyDialog : public wxDialog {
 public:

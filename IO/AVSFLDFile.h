@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_IO_FLD_FILE_H__
 #define __CRYSTAL_IO_FLD_FILE_H__
 
-#include "../Math/Vector3d.h"
+//#include "../Math/Vector3d.h"
 #include "../Math/Box.h"
 
 #include "Helper.h"

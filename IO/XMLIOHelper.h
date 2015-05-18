@@ -3,13 +3,12 @@
 
 #include "tinyxml2.h"
 
+#include "../Math/Vector3d.h"
+
 #include "../Graphics/ColorRGB.h"
 #include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
-	namespace Math {
-		class Vector3d;
-	}
 	namespace CG {
 
 class XMLIOHelper {

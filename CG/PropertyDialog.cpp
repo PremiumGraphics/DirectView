@@ -5,6 +5,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 
+/*
 VertexPropertyDialog::VertexPropertyDialog(wxWindow* parent, const VertexSPtr& vertex) :
 wxDialog(parent, wxID_ANY, "VertexProperty", wxDefaultPosition, wxSize(500, 500)),
 vertex( vertex )
@@ -91,6 +92,7 @@ void VertexPropertyDialog::setTexCoord(const Vector3d& texCoord)
 	texCoordY->SetValue(texCoord.getY());
 	texCoordZ->SetValue(texCoord.getZ());
 }
+*/
 
 FacePropertyDialog::FacePropertyDialog(wxWindow* parent, const Face& f) :
 wxDialog(parent, wxID_ANY, "FaceProperty", wxDefaultPosition, wxSize(500, 500))

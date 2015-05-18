@@ -4,9 +4,10 @@
 #include <vector>
 #include <array>
 
+#include "Vector3d.h"
+
 namespace Crystal {
 	namespace Math {
-		class Vector3d;
 		class Box;
 
 class ScanLineX {
