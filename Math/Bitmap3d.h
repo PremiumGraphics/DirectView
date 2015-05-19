@@ -157,6 +157,35 @@ public:
 		return *this;
 	}
 
+	Bitmap3d& movedy(const size_t size) {
+		for (Bitmap2d<N1,N2>& b: bmp2ds) {
+			b.movey(size);
+		}
+		return (*this);
+	}
+
+	/*
+	Bitmap3d& movey(const size_t size) {
+		*this = movedy(size);
+		return (*this);
+	}
+	*/
+
+	Bitmap3d movedz(const size_t size) const {
+		Bitmap2dArray<N1, N2, N3> dest;
+		for (size_t i = 0; i < N3 - size; ++i) {
+			dest[i + size] = bmp2ds[i];
+		}
+		return Bitmap3d(dest);
+
+	}
+
+	Bitmap3d& movez(const size_t size) {
+		*this = movedz(size);
+		return (*this);
+	}
+
+
 
 private:
 	Bitmap2dArray<N1, N2, N3> bmp2ds;

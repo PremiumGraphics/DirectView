@@ -199,13 +199,17 @@ public:
 		return *this;
 	}
 
-	Bitmap2d& movey(const size_t size) {
-		Bitmap1dArray<N1,N2> src = bmp1ds;
-		Bitmap1dArray<N1,N2> dest;
-		for (size_t i = 0; i < N2-size; ++i) {
-			dest[i + size] = src[i];
+	Bitmap2d movedy(const size_t size) const {
+		Bitmap1dArray<N1, N2> dest;
+		for (size_t i = 0; i < N2 - size; ++i) {
+			dest[i + size] = bmp1ds[i];
 		}
-		bmp1ds = dest;
+		return Bitmap2d(dest);
+
+	}
+
+	Bitmap2d& movey(const size_t size) {
+		*this = movedy(size);
 		return (*this);
 	}
 

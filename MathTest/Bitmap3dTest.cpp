@@ -209,7 +209,39 @@ TEST(Bitmap3dTest, TestXor)
 TEST(Bitmap3dTest, TestMoveX)
 {
 	EXPECT_EQ(Bitmap2x2x2("10101010"), Bitmap2x2x2("01010101").movex(1));
+	EXPECT_EQ(Bitmap2x2x2("10101010"), Bitmap2x2x2("11111111").movex(1));
+
 	EXPECT_EQ(Bitmap2x2x2("00000000"), Bitmap2x2x2("01010101").movex(2));
 
 	//EXPECT_EQ(Bitmap2x2x2("1010"), Bitmap2x2x2("1101").movex(1));
+}
+
+TEST(Bitmap3dTest, TestMoveY)
+{
+	using Bitmap1x2x1 = Bitmap3d < 1, 2, 1 > ;
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("00").movedy(1));
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("01").movedy(1));
+	EXPECT_EQ(Bitmap1x2x1("01"), Bitmap1x2x1("10").movedy(1));
+	EXPECT_EQ(Bitmap1x2x1("01"), Bitmap1x2x1("11").movedy(1));
+
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("00").movedy(2));
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("01").movedy(2));
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("10").movedy(2));
+	EXPECT_EQ(Bitmap1x2x1("00"), Bitmap1x2x1("11").movedy(2));
+
+}
+
+TEST(Bitmap3dTest, TestMoveZ)
+{
+	using Bitmap1x1x2 = Bitmap3d < 1, 1, 2 >;
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("00").movedz(1));
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("01").movedz(1));
+	EXPECT_EQ(Bitmap1x1x2("01"), Bitmap1x1x2("10").movedz(1));
+	EXPECT_EQ(Bitmap1x1x2("01"), Bitmap1x1x2("11").movedz(1));
+
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("00").movedz(2));
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("01").movedz(2));
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("10").movedz(2));
+	EXPECT_EQ(Bitmap1x1x2("00"), Bitmap1x1x2("11").movedz(2));
+
 }
