@@ -108,7 +108,6 @@
     <ClInclude Include="Vector3d.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Box.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
     <ClCompile Include="Quaternion.cpp" />
   </ItemGroup>

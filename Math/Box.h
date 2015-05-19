@@ -114,15 +114,43 @@ public:
 		return !isInterior(point);
 	}
 	
-	void outerOffset(const float offsetLength);
+	void outerOffset(const float offsetLength) {
+		const auto x = getMinX() - offsetLength;
+		const auto y = getMinY() - offsetLength;
+		const auto z = getMinZ() - offsetLength;
+		start = Position3d<float>(x, y, z);
+		maxX += offsetLength;
+		maxY += offsetLength;
+		maxZ += offsetLength;
+		assert(isValid());
+	}
 	
-	Box getOuterOffset(const float offsetLength) const;
+	Box getOuterOffset(const float offsetLength) const {
+		Box box = *this;
+		box.outerOffset(offsetLength);
+		return box;
+	}
 
-	void innerOffset(const float offsetLength);
+	void innerOffset(const float offsetLength) {
+		outerOffset(-offsetLength);
+		assert(isValid());
+	}
 
-	Box getInnerOffset(const float offsetLength) const;
+	Box getInnerOffset(const float offsetLength) const {
+		return getOuterOffset(-offsetLength);
+	}
 
-	Vector3dVector toPoints( const float divideLength ) const;
+	Vector3dVector toPoints(const float divideLength) const {
+		Vector3dVector points;
+		for (float x = getMinX(); x <= maxX; x += divideLength) {
+			for (float y = getMinY(); y <= maxY; y += divideLength) {
+				for (float z = getMinZ(); z <= maxZ; z += divideLength) {
+					points.push_back(Vector3d(x, y, z));
+				}
+			}
+		}
+		return points;
+	}
 
 	float getMaxX() const { return maxX; }
 

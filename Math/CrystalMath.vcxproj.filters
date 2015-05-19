@@ -39,6 +39,5 @@
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
-    <ClCompile Include="Box.cpp" />
   </ItemGroup>
 </Project>
