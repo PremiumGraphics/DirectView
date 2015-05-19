@@ -4,35 +4,54 @@
 
 using namespace Crystal::Math;
 
-TEST(Space2dTest, TestGetSize)
+template<class T>
+class Space2dTest : public testing::Test {
+};
+
+typedef ::testing::Types<float, double> TestTypes;
+
+TYPED_TEST_CASE(Space2dTest, TestTypes);
+
+TYPED_TEST(Space2dTest, TestGetSize)
 {
-	EXPECT_EQ( Vector2d<float>(1.0f, 1.0f), Space1x1().getSizes());
+	using T = TypeParam;
+	EXPECT_EQ( Vector2d<T>(1.0f, 1.0f), Space1x1<T>().getSizes() );
+	EXPECT_EQ( Vector2d<T>(1.0f, 1.0f), Space1x1<T>().getSizes() );
+
 }
 
-TEST(Space2dTest, TestEquals)
+TYPED_TEST(Space2dTest, TestEquals)
 {
-	EXPECT_EQ(Space1x1(), Space1x1());
-	EXPECT_NE(Space1x1(Position2d<float>(1.0f, 1.0f)), Space1x1());
+	using T = TypeParam;
+
+	EXPECT_EQ( Space1x1<T>(), Space1x1<T>());
+	EXPECT_NE( Space1x1<T>( Quad<T>( Position2d<T>(1.0f, 1.0f) )), Space1x1<T>() );
 }
 
-TEST(Space2dTest, TestGetResX)
+TYPED_TEST(Space2dTest, TestGetResX)
 {
-	EXPECT_EQ(2, Space2x2().getResX());
-	EXPECT_EQ(4, Space4x2().getResX());
+	using T = TypeParam;
+
+	EXPECT_EQ(2, Space2x2<T>().getResX());
+	EXPECT_EQ(4, Space4x2<T>().getResX());
 
 //	EXPECT_EQ(20, s.getResY());
 }
 
-TEST(Space2dTest, TestGetStart)
+TYPED_TEST(Space2dTest, TestGetStart)
 {
-	EXPECT_EQ( Position2d<float>(0.0f, 0.0f), Space2x2().getStart());
-	EXPECT_EQ( Position2d<float>(1.0f, 2.0f), Space2x2(Position2d<float>(1.0f, 2.0f)).getStart() );
+	using T = TypeParam;
+
+	EXPECT_EQ( Position2d<T>(0.0f, 0.0f), Space2x2<T>().getStart());
+	EXPECT_EQ( Position2d<T>(1.0f, 2.0f), Space2x2<T>( Quad<T>( Position2d<T>(1.0f, 2.0f )) ).getStart() );
 }
 
-TEST(Space2dTest, TestGetEnd)
+TYPED_TEST(Space2dTest, TestGetEnd)
 {
-	EXPECT_EQ(Position2d<float>(1.0f, 1.0f), Space2x2().getEnd());
-	EXPECT_EQ(Position2d<float>(2.0f, 3.0f), Space2x2(Position2d<float>(1.0f, 2.0f)).getEnd() );
+	using T = TypeParam;
+
+	EXPECT_EQ( Position2d<T>(1.0f, 1.0f), Space2x2<T>().getEnd());
+	EXPECT_EQ( Position2d<T>(2.0f, 3.0f), Space2x2<T>( Quad<T>( Position2d<T>(1.0f, 2.0f) ) ).getEnd() );
 }
 
 /*
@@ -54,9 +73,11 @@ TEST(Space2dTest, TestGetBoundingQuad)
 }
 */
 
-TEST(Space2dTest, TestToBoundaryPositions)
+TYPED_TEST(Space2dTest, TestToBoundaryPositions)
 {
-	EXPECT_TRUE(Space2x2( Quad<float>(), Bitmap2x2() ).toBoundaryPositions().empty());
+	using T = TypeParam;
+
+	EXPECT_TRUE(Space2x2<T>( Quad<T>(), Bitmap2x2() ).toBoundaryPositions().empty());
 
 	/*
 	{
@@ -70,12 +91,11 @@ TEST(Space2dTest, TestToBoundaryPositions)
 	*/
 }
 
-TEST(Space2dTest, TestToQuads)
+TYPED_TEST(Space2dTest, TestToQuads)
 {
-	{		
-		const std::vector<Quad<float> >& quads = Space2d<2, 2>( Quad<float>(), Bitmap2x2()).toQuads();
-		EXPECT_TRUE(quads.empty());
-	}
+	using T = TypeParam;
+
+	EXPECT_TRUE( Space2x2<T>( Quad<T>(), Bitmap2x2() ).toDividedQuads().empty() );
 
 	/*
 	{
@@ -89,11 +109,11 @@ TEST(Space2dTest, TestToQuads)
 	*/
 }
 
-TEST(Space2dTest, TestHasIntersection)
+TYPED_TEST(Space2dTest, TestHasIntersection)
 {
-	Space2d<2, 2> space1;
-	Space2d<2, 2> space2;
-	EXPECT_TRUE( space1.hasIntersection(space2) );
+	using T = TypeParam;
+
+	EXPECT_TRUE( Space2x2<T>().hasIntersection(Space2x2<T>() ) );
 }
 
 /*

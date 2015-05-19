@@ -9,36 +9,29 @@
 namespace Crystal {
 	namespace Math {
 
-template<size_t N1, size_t N2>
+template<size_t N1, size_t N2, typename T>
 class Space2d final {
 public:
 
-	Space2d() : Space2d(Position2d<float>(0.0f, 0.0f))
-	{}
+	Space2d() {}
 
-	explicit Space2d(const Position2d<float>& start) : Space2d(start, Vector2d<float>(1.0f, 1.0f)) {}
-
-	Space2d(const Position2d<float>& start, const Vector2d<float>& sizes) :
-		quad(Quad<float>(start, sizes) )
-	{}
-
-	Space2d(const Quad<float>& quad) :
+	explicit Space2d(const Quad<T>& quad) :
 		quad(quad)
 	{}
 
-	Space2d(const Quad<float>& quad, const Bitmap2d<N1,N2>& bmp) :
+	Space2d(const Quad<T>& quad, const Bitmap2d<N1,N2>& bmp) :
 		quad(quad),
 		bmp( bmp )
 	{}
 
 
-	Position2d<float> getStart() const { return quad.getStart(); }
+	Position2d<T> getStart() const { return quad.getStart(); }
 
-	Position2d<float> getCenter() const { return quad.getCenter(); }
+	Position2d<T> getCenter() const { return quad.getCenter(); }
 
-	Position2d<float> getEnd() const { return quad.getEnd(); }
+	Position2d<T> getEnd() const { return quad.getEnd(); }
 
-	Vector2d<float> getSizes() const { return quad.getLength(); }
+	Vector2d<T> getSizes() const { return quad.getLength(); }
 
 	unsigned int getResX() const { return N1; }
 
@@ -51,20 +44,24 @@ public:
 	}
 	*/
 
-	Quad<float> getBoundingQuad() const {
+	Quad<T> getBoundingQuad() const {
 		return quad;
 	}
 
-	std::vector<Quad<float> > toQuads() {
-		std::vector<Quad<float> > quads;
+	Bitmap2d<N1, N2> getBitmap() const {
+		return bmp;
+	}
+
+	std::vector<Quad<T> > toDividedQuads() {
+		std::vector<Quad<T> > quads;
 		const auto sizex = getSizes().getX();
 		const auto sizey = getSizes().getY();
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				if (bmp.get(x, y)) {
-					const Position2d<float> v1(x * sizex, y * sizey);
-					const Position2d<float> v2((x + 1) * sizex, (y + 1) * sizey);
-					Quad<float> q(v1, v2);
+					const Position2d<T> v1(x * sizex, y * sizey);
+					const Position2d<T> v2((x + 1) * sizex, (y + 1) * sizey);
+					Quad<T> q(v1, v2);
 					quads.push_back(q);
 				}
 			}
@@ -79,61 +76,67 @@ public:
 	}
 	*/
 
-	Position2dVector<float> toBoundaryPositions() const {
-		Position2dVector<float> positions;
+	Position2dVector<T> toBoundaryPositions() const {
+		Position2dVector<T> positions;
 		for (size_t i = 1; i < bmp.sizex(); ++i) {
 			for (size_t j = 1; j < bmp.sizey(); ++j) {
 				if (bmp.get(i - 1,j) != bmp.get(i,j) ) {
 					const auto posx = getStart().getX() + getSizes().getX() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
-					positions.push_back( Position2d<float>(posx, posy ) );
+					positions.push_back( Position2d<T>(posx, posy ) );
 				}
 				if (bmp.get(i,j - 1) != bmp.get(i,j)) {
 					const auto posx = getStart().getX() + getSizes().getX() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
-					positions.push_back(Position2d<float>(posx, posy));
+					positions.push_back(Position2d<T>(posx, posy));
 				}
 			}
 		}
 		return positions;
 	}
 
-	bool equals(const Space2d<N1, N2>& rhs) const {
+	bool equals(const Space2d<N1, N2, T>& rhs) const {
 		return
 			(getBoundingQuad() == rhs.getBoundingQuad()) &&
 			(bmp == rhs.bmp );
 	}
 
-	bool operator==(const Space2d<N1, N2>& rhs) const {
+	bool operator==(const Space2d<N1, N2, T>& rhs) const {
 		return equals(rhs);
 	}
 
-	bool operator!=(const Space2d<N1, N2>& rhs) const {
+	bool operator!=(const Space2d<N1, N2, T>& rhs) const {
 		return !equals(rhs);
 	}
 
-	bool hasIntersection(const Space2d<N1, N2>& rhs) const {
+	bool hasIntersection(const Space2d<N1, N2, T>& rhs) const {
 		const auto& q1 = this->getBoundingQuad();
 		const auto& q2 = rhs.getBoundingQuad();
 		return q1.hasIntersection( q2 );
 	}
 
 private:
-	Quad<float> quad;
+	Quad<T> quad;
 	Bitmap2d<N1, N2> bmp;
 };
 
-using Space1x1 = Space2d < 1, 1 >;
-using Space2x1 = Space2d < 2, 1 >;
-using Space2x2 = Space2d < 2, 2 >;
-using Space2x4 = Space2d < 2, 4 >;
-using Space4x2 = Space2d < 4, 2 >;
+template<typename T>
+using Space1x1 = Space2d < 1, 1, T >;
+template<typename T>
+using Space2x1 = Space2d < 2, 1, T >;
+template<typename T>
+using Space2x2 = Space2d < 2, 2, T >;
+template<typename T>
+using Space2x4 = Space2d < 2, 4, T >;
+template<typename T>
+using Space4x2 = Space2d < 4, 2, T >;
 
-using Space128x128 = Space2d < 256, 256 >;
-using Space256x256 = Space2d < 256, 256 >;
-using Space512x512 = Space2d < 512, 512 >;
-using Space1024x1024 = Space2d < 1024, 1024 >;
-
+/*
+using Space128x128 = Space2d < 256, 256, float >;
+using Space256x256 = Space2d < 256, 256, float >;
+using Space512x512 = Space2d < 512, 512, float >;
+using Space1024x1024 = Space2d < 1024, 1024, float >;
+*/
 	}
 }
 

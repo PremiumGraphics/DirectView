@@ -200,9 +200,9 @@ public:
 		const auto maxy = std::min<float>(this->getEnd().getY(), rhs.getEnd().getY());
 		const auto maxz = std::min<float>(this->getEnd().getZ(), rhs.getEnd().getZ());
 
-		Position3d<float> min(minx, miny, minz);
-		Position3d<float> max(maxx, maxy, maxz);
-		return Box(min, max);
+		const Position3d<float> min_(minx, miny, minz);
+		const Position3d<float> max_(maxx, maxy, maxz);
+		return Box(min_, max_);
 	}
 
 
