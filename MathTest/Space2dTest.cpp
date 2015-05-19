@@ -25,15 +25,14 @@ TEST(Space2dTest, TestGetResX)
 
 TEST(Space2dTest, TestGetStart)
 {
-	const Space2d<10, 20> s(Position2d<float>(1.0f, 2.0f) );
-	EXPECT_EQ(Position2d<float>(1.0f, 2.0f), s.getStart());
-	EXPECT_EQ(Position2d<float>(0.0f, 0.0f), Space2x2().getStart());
+	EXPECT_EQ( Position2d<float>(0.0f, 0.0f), Space2x2().getStart());
+	EXPECT_EQ( Position2d<float>(1.0f, 2.0f), Space2x2(Position2d<float>(1.0f, 2.0f)).getStart() );
 }
 
 TEST(Space2dTest, TestGetEnd)
 {
-	const Space2d<10, 20> s(Position2d<float>(1.0f, 2.0f) );
-	EXPECT_EQ(Position2d<float>(2.0f, 3.0f), s.getEnd());
+	EXPECT_EQ(Position2d<float>(1.0f, 1.0f), Space2x2().getEnd());
+	EXPECT_EQ(Position2d<float>(2.0f, 3.0f), Space2x2(Position2d<float>(1.0f, 2.0f)).getEnd() );
 }
 
 /*
@@ -57,7 +56,7 @@ TEST(Space2dTest, TestGetBoundingQuad)
 
 TEST(Space2dTest, TestToBoundaryPositions)
 {
-	EXPECT_TRUE(Space2x2().toBoundaryPositions(Bitmap2x2()).empty());
+	EXPECT_TRUE(Space2x2( Quad<float>(), Bitmap2x2() ).toBoundaryPositions().empty());
 
 	/*
 	{
@@ -74,18 +73,20 @@ TEST(Space2dTest, TestToBoundaryPositions)
 TEST(Space2dTest, TestToQuads)
 {
 	{		
-		const std::vector<Quad<float> >& quads = Space2d<2, 2>().toQuads(Bitmap2x2());
+		const std::vector<Quad<float> >& quads = Space2d<2, 2>( Quad<float>(), Bitmap2x2()).toQuads();
 		EXPECT_TRUE(quads.empty());
 	}
 
+	/*
 	{
 		Bitmap2d<2, 2> bmp;
 		bmp.set(0, 0);
-		Space2d<2, 2> space;
+		Space2d<2, 2> space( Bitmap2x2() );
 		const std::vector<Quad<float> >& quads = space.toQuads(bmp);
 		EXPECT_EQ(1, quads.size());
 		EXPECT_EQ(Position2d<float>(0.5f, 0.5f), quads.front().getCenter());
 	}
+	*/
 }
 
 TEST(Space2dTest, TestHasIntersection)
