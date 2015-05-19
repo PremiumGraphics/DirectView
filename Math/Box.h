@@ -165,8 +165,8 @@ public:
 
 	T getMinZ() const { return start.getZ(); }
 
-	Vector3d getLength() const {
-		return Vector3d(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
+	Vector3d_<T> getLength() const {
+		return Vector3d_<T>(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
 	}
 
 	bool isValid() const {
@@ -182,32 +182,15 @@ public:
 	bool equals(const Box_& rhs) const {
 		return
 			start == rhs.getStart() &&
-			Tolerancef::isEqualLoosely(maxX, rhs.maxX) &&
-			Tolerancef::isEqualLoosely(maxY, rhs.maxY) &&
-			Tolerancef::isEqualLoosely(maxZ, rhs.maxZ);
+			Tolerance<T>::isEqualLoosely(maxX, rhs.maxX) &&
+			Tolerance<T>::isEqualLoosely(maxY, rhs.maxY) &&
+			Tolerance<T>::isEqualLoosely(maxZ, rhs.maxZ);
 	}
 
 	bool operator==( const Box_& rhs ) const { return equals( rhs ); }
 
 	bool operator!=( const Box_& rhs ) const { return !equals( rhs ); }
 
-	/*
-	bool hasIntersection(const Box_& rhs) const {
-		const auto distx = fabs(maxX - minX);
-		if ( distx < getLength().getX() ) {
-			return true;
-		}
-		const auto disty = fabs(maxY - minY);
-		if  (disty < getLength().getY() ) {
-			return true;
-		}
-		const auto distz = fabs(maxZ - minZ);
-		if ( distz < getLength().getZ() ) {
-			return true;
-		}
-		return false;
-	}
-	*/
 	bool hasIntersection(const Box_& rhs) const {
 		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
 		const auto lx = getLength().getX() * 0.5 + rhs.getLength().getX() * 0.5;

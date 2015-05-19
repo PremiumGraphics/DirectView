@@ -85,7 +85,7 @@ public:
 	std::vector<T> toArray() const { return{ x, y, z }; }
 
 private:
-	Vector3d v;
+	Vector3d_<T> v;
 };
 
 
