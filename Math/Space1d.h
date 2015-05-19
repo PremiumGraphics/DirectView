@@ -64,6 +64,17 @@ public:
 		return positions;
 	}
 
+	Position1dVector<T> toBoundaryPositions() const {
+		Position1dVector<T> positions;
+		for (size_t i = 1; i < bmp.size(); ++i) {
+			if ( bmp[i-1] != bmp[i]) {
+				const auto pos = getStart() + getSize() * i;
+				positions.push_back(pos);
+			}
+		}
+		return positions;
+	}
+
 	Line1d<T> getBoundingLine() const {
 		return Line1d<T>(getStart(), getLength());
 	}

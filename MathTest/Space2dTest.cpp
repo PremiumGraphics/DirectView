@@ -6,13 +6,13 @@ using namespace Crystal::Math;
 
 TEST(Space2dTest, TestGetSize)
 {
-	EXPECT_EQ(Vector2d<float>(1.0f, 1.0f), Space1x1().getSizes());
+	EXPECT_EQ( Vector2d<float>(1.0f, 1.0f), Space1x1().getSizes());
 }
 
 TEST(Space2dTest, TestEquals)
 {
 	EXPECT_EQ(Space1x1(), Space1x1());
-	EXPECT_NE(Space1x1(Vector2d<float>(1.0f, 1.0f)), Space1x1());
+	EXPECT_NE(Space1x1(Position2d<float>(1.0f, 1.0f)), Space1x1());
 }
 
 TEST(Space2dTest, TestGetResX)
@@ -25,23 +25,25 @@ TEST(Space2dTest, TestGetResX)
 
 TEST(Space2dTest, TestGetStart)
 {
-	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
+	const Space2d<10, 20> s(Position2d<float>(1.0f, 2.0f) );
 	EXPECT_EQ(Position2d<float>(1.0f, 2.0f), s.getStart());
 	EXPECT_EQ(Position2d<float>(0.0f, 0.0f), Space2x2().getStart());
 }
 
 TEST(Space2dTest, TestGetEnd)
 {
-	const Space2d<10, 20> s(Vector2d<float>(1.0f, 2.0f) );
-	EXPECT_EQ(Position2d<float>(11.0f, 22.0f), s.getEnd());
+	const Space2d<10, 20> s(Position2d<float>(1.0f, 2.0f) );
+	EXPECT_EQ(Position2d<float>(2.0f, 3.0f), s.getEnd());
 }
 
+/*
 TEST(Space2dTest, TestMove)
 {
 	Space2x2 s(Vector2d<float>(1.0f, 2.0f));
 	 //s.move(Vector2d<float>(10.0f, 10.0f));
 
 }
+*/
 
 /*
 TEST(Space2dTest, TestGetBoundingQuad)
@@ -52,6 +54,22 @@ TEST(Space2dTest, TestGetBoundingQuad)
 	EXPECT_EQ(expected, actual);
 }
 */
+
+TEST(Space2dTest, TestToBoundaryPositions)
+{
+	EXPECT_TRUE(Space2x2().toBoundaryPositions(Bitmap2x2()).empty());
+
+	/*
+	{
+		const auto actual = Space2x2().toBoundaryPositions(Bitmap2x2("0001"));
+		const Position2dVector < float > expected{
+			Position2d<float>(0.5, 0.0),
+			Position2d<float>(0.0, 0.5)
+		};
+		EXPECT_EQ(expected, actual);
+	}
+	*/
+}
 
 TEST(Space2dTest, TestToQuads)
 {

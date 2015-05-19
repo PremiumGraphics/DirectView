@@ -84,6 +84,8 @@ private:
 	Vector2d<T> v;
 };
 
+template<typename T>
+using Position2dVector = std::vector < Position2d<T> >;
 
 	}
 }

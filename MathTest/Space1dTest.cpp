@@ -61,6 +61,19 @@ TEST(Space1dTest, TestToPoints)
 	}
 }
 
+TEST(Space1dTest, TestToBoundaryPositions)
+{
+	EXPECT_TRUE(Space1df2(Bitmap2("00")).toBoundaryPositions().empty());
+	EXPECT_TRUE(Space1df2(Bitmap2("11")).toBoundaryPositions().empty());
+
+	{
+		const Position1dVector<float> expected = { Position1d<float>(0.5f) };
+
+		EXPECT_EQ(expected, Space1df2(Bitmap2("01")).toBoundaryPositions() );
+		EXPECT_EQ(expected, Space1df2(Bitmap2("10")).toBoundaryPositions() );
+	}
+}
+
 TEST(Space1dTest, TestGetTotalLength)
 {
 	EXPECT_EQ(0.0f, Space1df2(Bitmap1d<2>("00")).getTotalLength());

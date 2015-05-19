@@ -4,6 +4,7 @@
 #include "../Math/Quad.h"
 #include "../Math/Vector2d.h"
 #include "../Math/Bitmap2d.h"
+#include "../Math/Space1d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -12,42 +13,40 @@ template<size_t N1, size_t N2>
 class Space2d final {
 public:
 
-	Space2d() : Space2d(Vector2d<float>::Zero()) {}
-
-	explicit Space2d(const Vector2d<float>& start) : Space2d(start, Vector2d<float>(1.0f, 1.0f)) {}
-
-	Space2d(const Vector2d<float>& start, const Vector2d<float>& sizes) :
-		start(start),
-		sizes(sizes)
+	Space2d() : Space2d(Position2d<float>(0.0f, 0.0f))
 	{}
 
-	Position2d<float> getStart() const { return start; }
+	explicit Space2d(const Position2d<float>& start) : Space2d(start, Vector2d<float>(1.0f, 1.0f)) {}
 
-	Position2d<float> getEnd() const {
-		const auto x = start.getX() + getResX() * sizes.getX();
-		const auto y = start.getY() + getResY() * sizes.getY();
-		return Position2d<float>(x, y);
-	}
+	Space2d(const Position2d<float>& start, const Vector2d<float>& sizes) :
+		bb(Quad<float>(start, sizes) )
+	{}
 
-	Vector2d<float> getSizes() const { return sizes; }
+	Position2d<float> getStart() const { return bb.getStart(); }
+
+	Position2d<float> getEnd() const { return bb.getEnd(); }
+
+	Vector2d<float> getSizes() const { return bb.getLength(); }
 
 	unsigned int getResX() const { return N1; }
 
 	unsigned int getResY() const { return N2; }
 
+	/*
 	Space2d<N1, N2>& move(const Vector2d<float>& v) {
 		start += v;
 		return (*this);
 	}
+	*/
 
 	Quad<float> getBoundingQuad() const {
-		return Quad<float>(getStart(), getEnd());
+		return bb;
 	}
 
 	std::vector<Quad<float> > toQuads(const Bitmap2d<N1, N2>& bmp ) {
 		std::vector<Quad<float> > quads;
-		const auto sizex = sizes.getX();
-		const auto sizey = sizes.getY();
+		const auto sizex = getSizes().getX();
+		const auto sizey = getSizes().getY();
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				if (bmp.get(x, y)) {
@@ -61,10 +60,35 @@ public:
 		return quads;
 	}
 
+	/*
+	Space1d<float> toSpace1ds() const {
+		Space1d<float> space1ds;
+		for ( size_t i )
+	}
+	*/
+
+	Position2dVector<float> toBoundaryPositions(const Bitmap2d<N1, N2>& bmp) const {
+		Position2dVector<float> positions;
+		for (size_t i = 1; i < bmp.sizex(); ++i) {
+			for (size_t j = 1; j < bmp.sizey(); ++j) {
+				if (bmp.get(i - 1,j) != bmp.get(i,j) ) {
+					const auto posx = getStart().getX() + getSizes().getX() * i;
+					const auto posy = getStart().getY() + getSizes().getY() * j;
+					positions.push_back( Position2d<float>(posx, posy ) );
+				}
+				if (bmp.get(i,j - 1) != bmp.get(i,j)) {
+					const auto posx = getStart().getX() + getSizes().getX() * i;
+					const auto posy = getStart().getY() + getSizes().getY() * j;
+					positions.push_back(Position2d<float>(posx, posy));
+				}
+			}
+		}
+		return positions;
+	}
+
 	bool equals(const Space2d<N1, N2>& rhs) const {
 		return
-			(start == rhs.start) &&
-			(sizes == rhs.sizes);
+			bb == rhs.bb;
 	}
 
 	bool operator==(const Space2d<N1, N2>& rhs) const {
@@ -82,8 +106,7 @@ public:
 	}
 
 private:
-	Position2d<float> start;
-	Vector2d<float> sizes;
+	Quad<float> bb;
 };
 
 using Space1x1 = Space2d < 1, 1 >;
