@@ -21,24 +21,28 @@ public:
 
 	Box(const Position3d<float>& pointX, const Position3d<float>& pointY) :
 		maxX(std::max<float>(pointX.getX(), pointY.getX())),
-		minX(std::min<float>(pointX.getX(), pointY.getX())),
 		maxY(std::max<float>(pointX.getY(), pointY.getY())),
-		minY(std::min<float>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<float>(pointX.getZ(), pointY.getZ())),
-		minZ(std::min<float>(pointX.getZ(), pointY.getZ()))
+		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
 	{
+		const auto x = std::min<float>(pointX.getX(), pointY.getX());
+		const auto y = std::min<float>(pointX.getY(), pointY.getY());
+		const auto z = std::min<float>(pointX.getZ(), pointY.getZ());
+		this->start = Position3d<float>(x, y, z);
+
 		assert(isValid());
 	}
 
 
 	Box(const Vector3d& pointX, const Vector3d& pointY) :
 		maxX(std::max<float>(pointX.getX(), pointY.getX())),
-		minX(std::min<float>(pointX.getX(), pointY.getX())),
 		maxY(std::max<float>(pointX.getY(), pointY.getY())),
-		minY(std::min<float>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<float>(pointX.getZ(), pointY.getZ())),
-		minZ(std::min<float>(pointX.getZ(), pointY.getZ()))
+		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
 	{
+		const auto x = std::min<float>(pointX.getX(), pointY.getX());
+		const auto y = std::min<float>(pointX.getY(), pointY.getY());
+		const auto z = std::min<float>(pointX.getZ(), pointY.getZ());
+		this->start = Position3d<float>(x, y, z);
+
 		assert(isValid());
 	}
 
@@ -50,9 +54,10 @@ public:
 	Box getBoundingBox() const { return *this; }
 
 	void add(const Vector3d& v) {
-		minX = std::min<float>(minX, v.getX());
-		minY = std::min<float>(minY, v.getY());
-		minZ = std::min<float>(minZ, v.getZ());
+		const auto x = std::min<float>( getMinX(), v.getX());
+		const auto y = std::min<float>( getMinY(), v.getY());
+		const auto z = std::min<float>( getMinZ(), v.getZ());
+		start = Position3d <float>(x, y, z);
 
 		maxX = std::max<float>(maxX, v.getX());
 		maxY = std::max<float>(maxY, v.getY());
@@ -60,9 +65,9 @@ public:
 	}
 
 	void add(const Box& b) {
-		minX = std::min<float>(minX, b.getMinX());
-		minY = std::min<float>(minY, b.getMinY());
-		minZ = std::min<float>(minZ, b.getMinZ());
+		const auto x = std::min<float>( getMinX(), b.getMinX());
+		const auto y = std::min<float>( getMinY(), b.getMinY());
+		const auto z = std::min<float>( getMinZ(), b.getMinZ());
 
 		maxX = std::max<float>(maxX, b.getMaxX());
 		maxY = std::max<float>(maxY, b.getMaxY());
@@ -70,7 +75,7 @@ public:
 	}
 	
 	float getVolume() const {
-		return (maxX - minX) * (maxY - minY) * (maxZ - minZ);
+		return (maxX - getMinX()) * (maxY - getMinY()) * (maxZ - getMinZ());
 	}
 	
 	Position3d<float> getMax() const {
@@ -78,7 +83,7 @@ public:
 	}
 	
 	Position3d<float> getMin() const {
-		return Position3d<float>(minX, minY, minZ);
+		return Position3d<float>(getMinX(), getMinY(), getMinZ());
 	}
 
 	Position3d<float> getStart() const {
@@ -91,17 +96,17 @@ public:
 
 	Position3d<float> getCenter() const {
 		return Position3d<float>(
-			(minX + maxX) * 0.5f,
-			(minY + maxY) * 0.5f,
-			(minZ + maxZ) * 0.5f
+			(getMinX() + maxX) * 0.5f,
+			(getMinY() + maxY) * 0.5f,
+			(getMinZ() + maxZ) * 0.5f
 			);
 	}
 
 
 	bool isInterior(const Vector3d &point) const {
-		const bool xIsInterior = (minX < point.getX() && point.getX() < maxX);
-		const bool yIsInterior = (minY < point.getY() && point.getY() < maxY);
-		const bool zIsInterior = (minZ < point.getZ() && point.getZ() < maxZ);
+		const bool xIsInterior = (getMinX() < point.getX() && point.getX() < maxX);
+		const bool yIsInterior = (getMinY() < point.getY() && point.getY() < maxY);
+		const bool zIsInterior = (getMinZ() < point.getZ() && point.getZ() < maxZ);
 		return xIsInterior && yIsInterior && zIsInterior;
 	}
 	
@@ -121,35 +126,33 @@ public:
 
 	float getMaxX() const { return maxX; }
 
-	float getMinX() const { return minX; }
+	float getMinX() const { return start.getX(); }
 
 	float getMaxY() const { return maxY; }
 
-	float getMinY() const { return minY; }
+	float getMinY() const { return start.getY(); }
 
 	float getMaxZ() const { return maxZ; }
 
-	float getMinZ() const { return minZ; }
+	float getMinZ() const { return start.getZ(); }
 
 	Vector3d getLength() const {
-		return Vector3d(maxX - minX, maxY - minY, maxZ - minZ);
+		return Vector3d(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
 	}
 
 	bool isValid() const {
 		return
-			(minX <= maxX) && (minY <= maxY) && (minZ <= maxZ);
+			(getMinX() <= maxX) && (getMinY() <= maxY) && (getMinZ() <= maxZ);
 	}
 
 	bool isShirinked() const{
 		return
-			(minX == maxX) && (minY == maxY) && (minZ == maxZ);
+			(getMinX() == maxX) && (getMinY() == maxY) && (getMinZ() == maxZ);
 	}
 
 	bool equals(const Box& rhs) const {
 		return
-			Tolerancef::isEqualLoosely(minX, rhs.minX) &&
-			Tolerancef::isEqualLoosely(minY, rhs.minY) &&
-			Tolerancef::isEqualLoosely(minZ, rhs.minZ) &&
+			start == rhs.getStart() &&
 			Tolerancef::isEqualLoosely(maxX, rhs.maxX) &&
 			Tolerancef::isEqualLoosely(maxY, rhs.maxY) &&
 			Tolerancef::isEqualLoosely(maxZ, rhs.maxZ);
@@ -208,11 +211,12 @@ public:
 
 private:
 	float maxX;
-	float minX;
+	//float minX;
 	float maxY;
-	float minY;
+	//float minY;
 	float maxZ;
-	float minZ;
+//	float minZ;
+	Position3d<float> start;
 };
 
 	}

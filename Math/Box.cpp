@@ -13,9 +13,10 @@ using namespace Crystal::Math;
 	
 void Box::outerOffset(const float offsetLength)
 {
-	minX -= offsetLength;
-	minY -= offsetLength;
-	minZ -= offsetLength;
+	const auto x = getMinX() - offsetLength;
+	const auto y = getMinY() - offsetLength;
+	const auto z = getMinZ() - offsetLength;
+	start = Position3d<float>(x, y, z);
 	maxX += offsetLength;
 	maxY += offsetLength;
 	maxZ += offsetLength;
@@ -43,9 +44,9 @@ Box Box::getInnerOffset(const float offsetLength) const
 Vector3dVector Box::toPoints( const float divideLength ) const
 {
 	Vector3dVector points;
-	for( float x = minX; x <= maxX; x+= divideLength ) {
-		for( float y = minY; y <= maxY; y += divideLength ) {
-			for( float z = minZ; z <= maxZ; z += divideLength ) {
+	for( float x = getMinX(); x <= maxX; x+= divideLength ) {
+		for( float y = getMinY(); y <= maxY; y += divideLength ) {
+			for( float z = getMinZ(); z <= maxZ; z += divideLength ) {
 				points.push_back( Vector3d( x, y, z ) );
 			}
 		}
