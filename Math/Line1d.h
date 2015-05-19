@@ -3,6 +3,8 @@
 
 #include "Position1d.h"
 
+#include <cassert>
+
 namespace Crystal {
 	namespace Math {
 
@@ -86,6 +88,13 @@ public:
 	bool hasIntersection(const Line1d<T>& rhs) const {
 		const auto dist = getCenter().getDistance(rhs.getCenter());
 		return ( dist <  getLength() * T(0.5) + rhs.getLength() * T(0.5) );
+	}
+
+	Line1d<T> getOverlapped(const Line1d<T>& rhs) const {
+		assert(hasIntersection(rhs));
+		const auto min = std::max<T>( this->getStart().get(), rhs.getStart().get());
+		const auto max = std::min<T>( this->getEnd().get(), rhs.getEnd().get() );
+		return Line1d( Position1d<T>( min ), Position1d<T>( max) );
 	}
 
 private:

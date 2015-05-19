@@ -79,5 +79,16 @@ TYPED_TEST(Line1dTest, TestHasIntersection)
 	}
 
 	//EXPECT_TRUE( Line1d<T>(0.0f, 1.0f).hasIntersection(Line1d<T>(1.0f, 1.0f)));
+}
 
+TYPED_TEST(Line1dTest, TestGetOverlapped)
+{
+	using T = TypeParam;
+	{
+		const Line1d<T> line1(Position1d<T>(0.0), Position1d<T>(10.0));
+		const Line1d<T> line2(Position1d<T>(5.0), Position1d<T>(10.0));
+		const Line1d<T> actual = line1.getOverlapped(line2);
+		const Line1d<T> expected(Position1d<T>(5.0), Position1d<T>(10.0));
+		EXPECT_EQ(expected, actual);
+	}
 }
