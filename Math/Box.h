@@ -20,29 +20,29 @@ public:
 	{
 	}
 
-	Box_(const Position3d<float>& pointX, const Position3d<float>& pointY) :
-		maxX(std::max<float>(pointX.getX(), pointY.getX())),
-		maxY(std::max<float>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
+	Box_(const Position3d<T>& pointX, const Position3d<T>& pointY) :
+		maxX(std::max<T>(pointX.getX(), pointY.getX())),
+		maxY(std::max<T>(pointX.getY(), pointY.getY())),
+		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
 	{
-		const auto x = std::min<float>(pointX.getX(), pointY.getX());
-		const auto y = std::min<float>(pointX.getY(), pointY.getY());
-		const auto z = std::min<float>(pointX.getZ(), pointY.getZ());
-		this->start = Position3d<float>(x, y, z);
+		const auto x = std::min<T>(pointX.getX(), pointY.getX());
+		const auto y = std::min<T>(pointX.getY(), pointY.getY());
+		const auto z = std::min<T>(pointX.getZ(), pointY.getZ());
+		this->start = Position3d<T>(x, y, z);
 
 		assert(isValid());
 	}
 
 
 	Box_(const Vector3d& pointX, const Vector3d& pointY) :
-		maxX(std::max<float>(pointX.getX(), pointY.getX())),
-		maxY(std::max<float>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
+		maxX(std::max<T>(pointX.getX(), pointY.getX())),
+		maxY(std::max<T>(pointX.getY(), pointY.getY())),
+		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
 	{
-		const auto x = std::min<float>(pointX.getX(), pointY.getX());
-		const auto y = std::min<float>(pointX.getY(), pointY.getY());
-		const auto z = std::min<float>(pointX.getZ(), pointY.getZ());
-		this->start = Position3d<float>(x, y, z);
+		const auto x = std::min<T>(pointX.getX(), pointY.getX());
+		const auto y = std::min<T>(pointX.getY(), pointY.getY());
+		const auto z = std::min<T>(pointX.getZ(), pointY.getZ());
+		this->start = Position3d<T>(x, y, z);
 
 		assert(isValid());
 	}
@@ -55,48 +55,48 @@ public:
 	Box_ getBoundingBox() const { return *this; }
 
 	void add(const Vector3d& v) {
-		const auto x = std::min<float>( getMinX(), v.getX());
-		const auto y = std::min<float>( getMinY(), v.getY());
-		const auto z = std::min<float>( getMinZ(), v.getZ());
-		start = Position3d <float>(x, y, z);
+		const auto x = std::min<T>( getMinX(), v.getX());
+		const auto y = std::min<T>( getMinY(), v.getY());
+		const auto z = std::min<T>( getMinZ(), v.getZ());
+		start = Position3d <T>(x, y, z);
 
-		maxX = std::max<float>(maxX, v.getX());
-		maxY = std::max<float>(maxY, v.getY());
-		maxZ = std::max<float>(maxZ, v.getZ());
+		maxX = std::max<T>(maxX, v.getX());
+		maxY = std::max<T>(maxY, v.getY());
+		maxZ = std::max<T>(maxZ, v.getZ());
 	}
 
 	void add(const Box_& b) {
-		const auto x = std::min<float>( getMinX(), b.getMinX());
-		const auto y = std::min<float>( getMinY(), b.getMinY());
-		const auto z = std::min<float>( getMinZ(), b.getMinZ());
+		const auto x = std::min<T>( getMinX(), b.getMinX());
+		const auto y = std::min<T>( getMinY(), b.getMinY());
+		const auto z = std::min<T>( getMinZ(), b.getMinZ());
 
-		maxX = std::max<float>(maxX, b.getMaxX());
-		maxY = std::max<float>(maxY, b.getMaxY());
-		maxZ = std::max<float>(maxZ, b.getMaxZ());
+		maxX = std::max<T>(maxX, b.getMaxX());
+		maxY = std::max<T>(maxY, b.getMaxY());
+		maxZ = std::max<T>(maxZ, b.getMaxZ());
 	}
 	
-	float getVolume() const {
+	T getVolume() const {
 		return (maxX - getMinX()) * (maxY - getMinY()) * (maxZ - getMinZ());
 	}
 	
-	Position3d<float> getMax() const {
-		return Position3d<float>(maxX, maxY, maxZ);
+	Position3d<T> getMax() const {
+		return Position3d<T>(maxX, maxY, maxZ);
 	}
 	
-	Position3d<float> getMin() const {
-		return Position3d<float>(getMinX(), getMinY(), getMinZ());
+	Position3d<T> getMin() const {
+		return Position3d<T>(getMinX(), getMinY(), getMinZ());
 	}
 
-	Position3d<float> getStart() const {
+	Position3d<T> getStart() const {
 		return getMin();
 	}
 
-	Position3d<float> getEnd() const {
+	Position3d<T> getEnd() const {
 		return getMax();
 	}
 
-	Position3d<float> getCenter() const {
-		return Position3d<float>(
+	Position3d<T> getCenter() const {
+		return Position3d<T>(
 			(getMinX() + maxX) * 0.5f,
 			(getMinY() + maxY) * 0.5f,
 			(getMinZ() + maxZ) * 0.5f
@@ -115,37 +115,37 @@ public:
 		return !isInterior(point);
 	}
 	
-	void outerOffset(const float offsetLength) {
+	void outerOffset(const T offsetLength) {
 		const auto x = getMinX() - offsetLength;
 		const auto y = getMinY() - offsetLength;
 		const auto z = getMinZ() - offsetLength;
-		start = Position3d<float>(x, y, z);
+		start = Position3d<T>(x, y, z);
 		maxX += offsetLength;
 		maxY += offsetLength;
 		maxZ += offsetLength;
 		assert(isValid());
 	}
 	
-	Box_ getOuterOffset(const float offsetLength) const {
+	Box_ getOuterOffset(const T offsetLength) const {
 		Box_ box = *this;
 		box.outerOffset(offsetLength);
 		return box;
 	}
 
-	void innerOffset(const float offsetLength) {
+	void innerOffset(const T offsetLength) {
 		outerOffset(-offsetLength);
 		assert(isValid());
 	}
 
-	Box_ getInnerOffset(const float offsetLength) const {
+	Box_ getInnerOffset(const T offsetLength) const {
 		return getOuterOffset(-offsetLength);
 	}
 
-	Vector3dVector toPoints(const float divideLength) const {
+	Vector3dVector toPoints(const T divideLength) const {
 		Vector3dVector points;
-		for (float x = getMinX(); x <= maxX; x += divideLength) {
-			for (float y = getMinY(); y <= maxY; y += divideLength) {
-				for (float z = getMinZ(); z <= maxZ; z += divideLength) {
+		for (T x = getMinX(); x <= maxX; x += divideLength) {
+			for (T y = getMinY(); y <= maxY; y += divideLength) {
+				for (T z = getMinZ(); z <= maxZ; z += divideLength) {
 					points.push_back(Vector3d(x, y, z));
 				}
 			}
@@ -153,17 +153,17 @@ public:
 		return points;
 	}
 
-	float getMaxX() const { return maxX; }
+	T getMaxX() const { return maxX; }
 
-	float getMinX() const { return start.getX(); }
+	T getMinX() const { return start.getX(); }
 
-	float getMaxY() const { return maxY; }
+	T getMaxY() const { return maxY; }
 
-	float getMinY() const { return start.getY(); }
+	T getMinY() const { return start.getY(); }
 
-	float getMaxZ() const { return maxZ; }
+	T getMaxZ() const { return maxZ; }
 
-	float getMinZ() const { return start.getZ(); }
+	T getMinZ() const { return start.getZ(); }
 
 	Vector3d getLength() const {
 		return Vector3d(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
@@ -224,28 +224,28 @@ public:
 
 	Box_ getOverlapped(const Box_& rhs) const {
 		assert(hasIntersection(rhs));
-		const auto minx = std::max<float>(this->getStart().getX(), rhs.getStart().getX());
-		const auto miny = std::max<float>(this->getStart().getY(), rhs.getStart().getY());
-		const auto minz = std::max<float>(this->getStart().getZ(), rhs.getStart().getZ());
+		const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
+		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
+		const auto minz = std::max<T>(this->getStart().getZ(), rhs.getStart().getZ());
 
-		const auto maxx = std::min<float>(this->getEnd().getX(), rhs.getEnd().getX());
-		const auto maxy = std::min<float>(this->getEnd().getY(), rhs.getEnd().getY());
-		const auto maxz = std::min<float>(this->getEnd().getZ(), rhs.getEnd().getZ());
+		const auto maxx = std::min<T>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
+		const auto maxz = std::min<T>(this->getEnd().getZ(), rhs.getEnd().getZ());
 
-		const Position3d<float> min_(minx, miny, minz);
-		const Position3d<float> max_(maxx, maxy, maxz);
+		const Position3d<T> min_(minx, miny, minz);
+		const Position3d<T> max_(maxx, maxy, maxz);
 		return Box_(min_, max_);
 	}
 
 
 private:
-	float maxX;
-	//float minX;
-	float maxY;
-	//float minY;
-	float maxZ;
-//	float minZ;
-	Position3d<float> start;
+	T maxX;
+	//T minX;
+	T maxY;
+	//T minY;
+	T maxZ;
+//	T minZ;
+	Position3d<T> start;
 };
 
 using Box = Box_ < float > ;
