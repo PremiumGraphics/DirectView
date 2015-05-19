@@ -8,9 +8,6 @@
 #include <vector>
 
 namespace Crystal{
-	namespace Math{
-		class Box;
-	}
 	namespace Physics{
 
 class BoundaryCoordinator : public Coordinator

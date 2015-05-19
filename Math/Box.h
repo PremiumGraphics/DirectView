@@ -11,15 +11,16 @@
 namespace Crystal{
 	namespace Math{
 
-class Box final
+template<typename T>
+class Box_ final
 {
 public:
 	
-	Box() : Box(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f))
+	Box_() : Box_(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f))
 	{
 	}
 
-	Box(const Position3d<float>& pointX, const Position3d<float>& pointY) :
+	Box_(const Position3d<float>& pointX, const Position3d<float>& pointY) :
 		maxX(std::max<float>(pointX.getX(), pointY.getX())),
 		maxY(std::max<float>(pointX.getY(), pointY.getY())),
 		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
@@ -33,7 +34,7 @@ public:
 	}
 
 
-	Box(const Vector3d& pointX, const Vector3d& pointY) :
+	Box_(const Vector3d& pointX, const Vector3d& pointY) :
 		maxX(std::max<float>(pointX.getX(), pointY.getX())),
 		maxY(std::max<float>(pointX.getY(), pointY.getY())),
 		maxZ(std::max<float>(pointX.getZ(), pointY.getZ()))
@@ -47,11 +48,11 @@ public:
 	}
 
 
-	static Box Unit() {
-		return Box();
+	static Box_ Unit() {
+		return Box_();
 	}
 
-	Box getBoundingBox() const { return *this; }
+	Box_ getBoundingBox() const { return *this; }
 
 	void add(const Vector3d& v) {
 		const auto x = std::min<float>( getMinX(), v.getX());
@@ -64,7 +65,7 @@ public:
 		maxZ = std::max<float>(maxZ, v.getZ());
 	}
 
-	void add(const Box& b) {
+	void add(const Box_& b) {
 		const auto x = std::min<float>( getMinX(), b.getMinX());
 		const auto y = std::min<float>( getMinY(), b.getMinY());
 		const auto z = std::min<float>( getMinZ(), b.getMinZ());
@@ -125,8 +126,8 @@ public:
 		assert(isValid());
 	}
 	
-	Box getOuterOffset(const float offsetLength) const {
-		Box box = *this;
+	Box_ getOuterOffset(const float offsetLength) const {
+		Box_ box = *this;
 		box.outerOffset(offsetLength);
 		return box;
 	}
@@ -136,7 +137,7 @@ public:
 		assert(isValid());
 	}
 
-	Box getInnerOffset(const float offsetLength) const {
+	Box_ getInnerOffset(const float offsetLength) const {
 		return getOuterOffset(-offsetLength);
 	}
 
@@ -178,7 +179,7 @@ public:
 			(getMinX() == maxX) && (getMinY() == maxY) && (getMinZ() == maxZ);
 	}
 
-	bool equals(const Box& rhs) const {
+	bool equals(const Box_& rhs) const {
 		return
 			start == rhs.getStart() &&
 			Tolerancef::isEqualLoosely(maxX, rhs.maxX) &&
@@ -186,12 +187,12 @@ public:
 			Tolerancef::isEqualLoosely(maxZ, rhs.maxZ);
 	}
 
-	bool operator==( const Box& rhs ) const { return equals( rhs ); }
+	bool operator==( const Box_& rhs ) const { return equals( rhs ); }
 
-	bool operator!=( const Box& rhs ) const { return !equals( rhs ); }
+	bool operator!=( const Box_& rhs ) const { return !equals( rhs ); }
 
 	/*
-	bool hasIntersection(const Box& rhs) const {
+	bool hasIntersection(const Box_& rhs) const {
 		const auto distx = fabs(maxX - minX);
 		if ( distx < getLength().getX() ) {
 			return true;
@@ -207,7 +208,7 @@ public:
 		return false;
 	}
 	*/
-	bool hasIntersection(const Box& rhs) const {
+	bool hasIntersection(const Box_& rhs) const {
 		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
 		const auto lx = getLength().getX() * 0.5 + rhs.getLength().getX() * 0.5;
 
@@ -221,7 +222,7 @@ public:
 	}
 
 
-	Box getOverlapped(const Box& rhs) const {
+	Box_ getOverlapped(const Box_& rhs) const {
 		assert(hasIntersection(rhs));
 		const auto minx = std::max<float>(this->getStart().getX(), rhs.getStart().getX());
 		const auto miny = std::max<float>(this->getStart().getY(), rhs.getStart().getY());
@@ -233,7 +234,7 @@ public:
 
 		const Position3d<float> min_(minx, miny, minz);
 		const Position3d<float> max_(maxx, maxy, maxz);
-		return Box(min_, max_);
+		return Box_(min_, max_);
 	}
 
 
@@ -246,6 +247,8 @@ private:
 //	float minZ;
 	Position3d<float> start;
 };
+
+using Box = Box_ < float > ;
 
 	}
 }

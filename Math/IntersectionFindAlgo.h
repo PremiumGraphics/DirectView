@@ -5,10 +5,10 @@
 #include <array>
 
 #include "Vector3d.h"
+#include "Box.h"
 
 namespace Crystal {
 	namespace Math {
-		class Box;
 
 class ScanLineX {
 public:

@@ -4,14 +4,12 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
 
 #include <memory>
 #include <list>
 
 namespace Crystal {
-	namespace Math {
-		class Box;
-	}
 	namespace Particle {
 
 class ParticleBase : private UnCopyable {

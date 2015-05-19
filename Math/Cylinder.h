@@ -12,7 +12,6 @@
 
 namespace Crystal {
 	namespace Math {
-		class Box;
 
 class Cylinder final
 {

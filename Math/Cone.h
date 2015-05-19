@@ -10,7 +10,6 @@
 
 namespace Crystal {
 	namespace Math {
-		class Box;
 
 class Cone final
 {

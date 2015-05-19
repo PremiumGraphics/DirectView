@@ -7,7 +7,6 @@
 
 namespace Crystal {
 	namespace Math {
-		class Box;
 		class Sphere;
 		class Cylinder;
 	}

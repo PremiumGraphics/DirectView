@@ -6,7 +6,6 @@
 
 namespace Crystal {
 	namespace Math {
-		class Box;
 		class Cylinder;
 	}
 	namespace IO {
