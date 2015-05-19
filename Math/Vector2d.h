@@ -9,6 +9,7 @@
 namespace Crystal{
 	namespace Math{
 
+
 template< typename T >
 class Vector2d final
 {

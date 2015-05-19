@@ -52,3 +52,12 @@ TEST(BoxTest, TestHasIntersection)
 
 	EXPECT_FALSE(b1.hasIntersection(b2));
 }
+
+TEST(BoxTest, TestGetOverlapped)
+{
+	Box b1(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f));
+	Box b2(Vector3d(0.5f, 0.5f, 0.5f), Vector3d(2.0f, 2.0f, 2.0f));
+	const Box expected(Vector3d(0.5f, 0.5f, 0.5f), Vector3d(1.0f, 1.0f, 1.0f));
+	const auto actual = b1.getOverlapped(b2);
+	EXPECT_EQ(expected, actual);
+}

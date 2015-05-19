@@ -34,6 +34,7 @@
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Quaternion.cpp" />

@@ -49,6 +49,8 @@ public:
 
 	T getLengthY() const { return length.getY(); }
 
+	Vector2d<T> getLength() const { return length; }
+
 	T getArea() const { return getLengthX() * getLengthY(); }
 
 	bool equals(const Quad& rhs) const {
@@ -74,17 +76,18 @@ public:
 		return (distx < lx && disty < ly);
 	}
 
-	/*
 	Quad<T> getOverlapped(const Quad<T>& rhs) const {
 		assert( hasIntersection(rhs));
-		const auto minx = std::max<T>(this->getStart().(), rhs.getStart().get());
-		const auto miny = std::max<T>(this->getStar)
+		const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
+		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
 
-		const auto maxx = std::min<T>(this->getEnd().get(), rhs.getEnd().get());
-		Position2d<T>(minx), Position1d<T>(maxx));
+		const auto maxx = std::min<T>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
+
+		Position2d<T> min(minx, miny);
+		Position2d<T> max(maxx, maxy);
+		return Quad<T>(min, max);
 	}
-	*/
-
 
 private:
 	Position2d<T> start;

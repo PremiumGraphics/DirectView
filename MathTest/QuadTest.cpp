@@ -21,6 +21,13 @@ TYPED_TEST(QuadTest, TestGetStart)
 	EXPECT_EQ( Position2d<T>(1.0, 2.0), Quad<T>(Position2d<T>(1.0f, 2.0), Vector2d<T>(1.0, 1.0)).getStart());
 }
 
+TYPED_TEST(QuadTest, TestGetEnd)
+{
+	using T = TypeParam;
+	EXPECT_EQ(Position2d<T>(1.0, 1.0), Quad<T>().getEnd());
+	EXPECT_EQ(Position2d<T>(2.0, 3.0), Quad<T>(Position2d<T>(1.0f, 2.0), Vector2d<T>(1.0, 1.0)).getEnd());
+}
+
 TYPED_TEST( QuadTest, TestGetLengthX )
 {
 	using T = TypeParam;
@@ -41,17 +48,7 @@ TYPED_TEST(QuadTest, TestGetCenter)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Position2d<T>(6.0f, 7.5f), Quad<T>(Position2d<T>(5.0f, 6.0f), Vector2d<T>(2.0f, 3.0f)).getCenter());
-}
-
-TYPED_TEST(QuadTest, TestConstructByTwoVector2ds)
-{
-	using T = TypeParam;
-	const Position2d<T> v1(0.0f, 0.0f);
-	const Position2d<T> v2(2.0f, 3.0f);
-	const Quad<T> q( v1, v2 );
-	EXPECT_EQ(2.0f, q.getLengthX());
-	EXPECT_EQ(3.0f, q.getLengthY());
-	EXPECT_EQ( Position2d<T>(1.0f, 1.5f), q.getCenter() );
+	EXPECT_EQ(Position2d<T>(1.0f, 1.5f), Quad<T>(Position2d<T>(0.0, 0.0), Position2d<T>(2.0, 3.0)).getCenter());
 }
 
 TYPED_TEST(QuadTest, TestGetArea)
@@ -95,4 +92,15 @@ TYPED_TEST(QuadTest, TestHasIntersection)
 	const Quad<T> q1(v1, v2);
 	const Quad<T> q2(v1, v2);
 	EXPECT_TRUE(q1.hasIntersection(q2));
+}
+
+TYPED_TEST(QuadTest, TestGetOverlapped)
+{
+	using T = TypeParam;
+	const Quad<T> q1(Position2d<T>(0.0, 0.0), Position2d<T>(1.0, 1.0));
+	const Quad<T> q2(Position2d<T>(0.5, 0.5), Position2d<T>(2.0, 2.0));
+
+	const Quad<T> actual = q1.getOverlapped(q2);
+	const Quad<T> expected(Position2d<T>(0.5, 0.5), Position2d<T>(1.0, 1.0));
+	EXPECT_EQ(expected, actual);
 }

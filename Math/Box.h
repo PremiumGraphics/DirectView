@@ -19,6 +19,17 @@ public:
 	{
 	}
 
+	Box(const Position3d<float>& pointX, const Position3d<float>& pointY) :
+		maxX(std::max<float>(pointX.getX(), pointY.getX())),
+		minX(std::min<float>(pointX.getX(), pointY.getX())),
+		maxY(std::max<float>(pointX.getY(), pointY.getY())),
+		minY(std::min<float>(pointX.getY(), pointY.getY())),
+		maxZ(std::max<float>(pointX.getZ(), pointY.getZ())),
+		minZ(std::min<float>(pointX.getZ(), pointY.getZ()))
+	{
+		assert(isValid());
+	}
+
 
 	Box(const Vector3d& pointX, const Vector3d& pointY) :
 		maxX(std::max<float>(pointX.getX(), pointY.getX())),
@@ -68,6 +79,14 @@ public:
 	
 	Position3d<float> getMin() const {
 		return Position3d<float>(minX, minY, minZ);
+	}
+
+	Position3d<float> getStart() const {
+		return getMin();
+	}
+
+	Position3d<float> getEnd() const {
+		return getMax();
 	}
 
 	Position3d<float> getCenter() const {
@@ -140,6 +159,7 @@ public:
 
 	bool operator!=( const Box& rhs ) const { return !equals( rhs ); }
 
+	/*
 	bool hasIntersection(const Box& rhs) const {
 		const auto distx = fabs(maxX - minX);
 		if ( distx < getLength().getX() ) {
@@ -155,6 +175,36 @@ public:
 		}
 		return false;
 	}
+	*/
+	bool hasIntersection(const Box& rhs) const {
+		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
+		const auto lx = getLength().getX() * 0.5 + rhs.getLength().getX() * 0.5;
+
+		const auto disty = std::fabs(getCenter().getY() - rhs.getCenter().getY());
+		const auto ly = getLength().getY() * 0.5 + rhs.getLength().getY() * 0.5;
+
+		const auto distz = std::fabs(getCenter().getZ() - rhs.getCenter().getZ());
+		const auto lz = getLength().getZ() * 0.5 + rhs.getLength().getZ() * 0.5;
+
+		return (distx < lx && disty < ly && distz < lz);
+	}
+
+
+	Box getOverlapped(const Box& rhs) const {
+		assert(hasIntersection(rhs));
+		const auto minx = std::max<float>(this->getStart().getX(), rhs.getStart().getX());
+		const auto miny = std::max<float>(this->getStart().getY(), rhs.getStart().getY());
+		const auto minz = std::max<float>(this->getStart().getZ(), rhs.getStart().getZ());
+
+		const auto maxx = std::min<float>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxy = std::min<float>(this->getEnd().getY(), rhs.getEnd().getY());
+		const auto maxz = std::min<float>(this->getEnd().getZ(), rhs.getEnd().getZ());
+
+		Position3d<float> min(minx, miny, minz);
+		Position3d<float> max(maxx, maxy, maxz);
+		return Box(min, max);
+	}
+
 
 private:
 	float maxX;
