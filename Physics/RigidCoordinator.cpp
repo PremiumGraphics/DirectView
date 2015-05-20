@@ -93,7 +93,7 @@ void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 		return;
 	}
 
-	Math::Quaternion quaternion( angleVelosity.getNormalized(), rotateAngle );
+	Math::Quaternion<float> quaternion( angleVelosity.getNormalized(), rotateAngle );
 	const Math::Matrix3d<float>& rotateMatrix = quaternion.toMatrix();
 /*	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		(*iter)->variable.center.rotate( rotateMatrix );

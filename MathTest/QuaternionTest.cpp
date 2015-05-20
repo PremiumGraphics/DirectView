@@ -8,5 +8,5 @@ using namespace Crystal::Math;
  
 TEST( QuaternionTest, TestConstruct )
 {
-	Quaternion q;
+	Quaternion<float> q;
 }
