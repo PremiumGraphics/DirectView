@@ -12,7 +12,6 @@
 
 
 #include "../Graphics/Material.h"
-#include "../IO/PolygonFactory.h"
 
 
 #include <memory>
@@ -99,44 +98,6 @@ private:
 	MaterialProperty* property;
 
 	std::map< wxTreeItemId, Graphics::Material* > map;
-};
-
-class PolygonGroupProperty;
-
-class PolygonTree : public wxTreeCtrl
-{
-public:
-	PolygonTree
-		(
-		wxWindow *parent,
-		const wxPoint& pos,
-		const wxSize& size,
-		PolygonProperty* property,
-		Graphics::PolygonBuilder& builder
-		);
-
-	~PolygonTree();
-
-	void build();
-
-	void OnItemActivated(wxTreeEvent& event);
-
-private:
-	void OnItemStateClick(wxTreeEvent& event);
-
-	void OnMenu(wxTreeEvent& event);
-
-	void OnAdd(wxMenuEvent&);
-
-	void OnDelete(wxMenuEvent&);
-
-	void OnClear(wxMenuEvent&);
-
-	PolygonProperty* property;
-
-	Graphics::PolygonBuilder& builder;
-
-	std::map< wxTreeItemId, Graphics::Polygon* > map;
 };
 
 	}

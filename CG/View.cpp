@@ -122,8 +122,6 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
-		model.setSelectedVertex( r );
-		model.setSelectedFace( g );
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -158,49 +156,6 @@ void View::OnMouse( wxMouseEvent& event )
 				Vector3d lpos = l->getPos();
 				lpos += pos;
 				l->setPos(lpos);
-			}
-		}
-		else if( mode == POLYGON_SCALE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			const Vector3d scale = Vector3d(1.0, 1.0, 1.0) + pos.getScaled( 0.01f );// = pos.getScaled(0.99f);
-			for( const PolygonSPtr& p : polygons ) {
-				p->scale(scale);
-			}
-		}
-		else if( mode == POLYGON_TRANSLATE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			for( const PolygonSPtr& p : polygons ) {
-				if (p->isSelected) {
-					p->move(pos);
-				}
-				//p->rotate( matrix );
-			}
-		}
-		else if( mode == POLYGON_ROTATE ) {
-			Graphics::PolygonSPtrList& polygons = model.getPolygons();
-			for( const PolygonSPtr& p : polygons) {
-				if (p->isSelected) {
-					p->rotateZ(pos.getX());
-					p->rotateY(pos.getY());
-				}
-			}
-		}
-		else if (mode == POLYGON_ROTATE_X) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for ( const PolygonSPtr& p : polygons) {
-				p->rotateX(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Y) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateY(pos.getX());
-			}
-		}
-		else if (mode == POLYGON_ROTATE_Z) {
-			PolygonSPtrList& polygons = model.getPolygons();
-			for (const PolygonSPtr& p : polygons) {
-				p->rotateZ(pos.getX());
 			}
 		}
 		else {
@@ -246,9 +201,6 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 		surfaceRenderer.render(width, height, c, dispListSelected);
 	}
-	else if (renderingMode == RENDERING_MODE::PHONG) {
-		smoothRenderer.render(width, height, c, dispList, model.getLights(), model.getMaterials() );
-	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.render(width, height, c, dispList );
 	}
@@ -280,6 +232,7 @@ void View::build()
 
 void View::buildDisplayList()
 {
+	/*
 	dispList.clear();
 	dispListSelected.clear();
 	const PolygonSPtrList& polygons = model.getPolygons();
@@ -290,4 +243,5 @@ void View::buildDisplayList()
 	for (const FaceSPtr& f : faces) {
 		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
 	}
+	*/
 }

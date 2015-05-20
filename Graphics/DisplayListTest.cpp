@@ -3,7 +3,6 @@
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Material.h"
 #include "../Graphics/Polygon.h"
-#include "../Graphics/PolygonBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -49,56 +48,6 @@ TEST(DisplayListTest, TestAddFace)
 
 	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
 	EXPECT_EQ( expected, list.getFaceIds());
-}
-
-TEST(DisplayListTest, TestAddPolygon)
-{
-	//FaceBuilderSPtr fBuilder( new FaceBuilder() );
-	PolygonBuilder builder;
-	const Quad<float> q;
-	PolygonSPtr p = builder.build(q);
-	Material m0(0);
-	p->setMaterial(&m0);
-
-	DisplayList list;
-	list.add( p.get() );
-
-	{
-		const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
-		EXPECT_EQ(1, list.getIds().size());
-		EXPECT_EQ(expected, list.getPolygonIds());
-	}
-
-	{
-		const std::vector<unsigned int> expected{ 0, 1, 2, 3 };
-		EXPECT_EQ( expected, list.getVertexIds() );
-	}
-
-
-	{
-		const std::vector<float> expected{
-			0.0, 0.0, 0.0,
-			0.0, 0.0, 0.0,
-			0.0, 0.0, 0.0,
-			0.0, 0.0, 0.0
-		};
-		EXPECT_EQ(expected, list.getColors() );
-	}
-
-	list.clear();
-	Triangle<float> t;
-	p = builder.build(t);
-	Material m1(1);
-	p->setMaterial(&m1);
-
-	list.add(p.get());
-
-	{
-		const std::vector<unsigned int> expected{ 0, 1, 2, 3, 4, 5, 6 };
-		EXPECT_EQ( expected, list.getVertexIds() );
-	}
-
-
 }
 
 /*

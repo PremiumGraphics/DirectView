@@ -6,7 +6,6 @@
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="VolumeTest.cpp" />
-    <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="PhysicsModelTest.cpp" />
   </ItemGroup>

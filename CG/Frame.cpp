@@ -6,7 +6,6 @@
 
 #include "Tree.h"
 #include "PropertyDialog.h"
-#include "../Graphics/PolygonBuilder.h"
 
 #include "ModelingDialog.h"
 
@@ -40,10 +39,7 @@ enum {
 
 	ID_OFF_SCREEN_CONFIG,
 
-	ID_CREATE_TRIANGLE,
 	ID_CREATE_SPHERE,
-	ID_CREATE_QUAD,
-	ID_CREATE_CIRCLE,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
@@ -87,12 +83,8 @@ public:
 
 void Widgets::build(Frame* parent, Model& model)
 {
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getMaterials());
-	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
 	lightProperty = new LightProperty(parent, wxSize(300, 100));
 
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, model.getPolygonBuilder());
-	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder().getMaterialBuilder());
 	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
 }
 
@@ -180,20 +172,19 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	modelingBar->AddHybridButton(ID_CREATE_TRIANGLE, "Triangle", wxImage("../Resource/triangle.png"));
-	modelingBar->AddHybridButton(ID_CREATE_QUAD, "Quad", wxImage("../Resource/quad.png"));
-	modelingBar->AddHybridButton(ID_CREATE_CIRCLE, "Circle", wxImage("../Resource/circle.png"));
 	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
+	/*
 	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangle));
 	Connect(ID_CREATE_TRIANGLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateTriangleConfig));
 	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuad));
 	Connect(ID_CREATE_QUAD,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateQuadConfig));
 	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircle));
 	Connect(ID_CREATE_CIRCLE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCircleConfig));
+	*/
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
@@ -249,12 +240,8 @@ Frame::Frame()
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
 	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
-	rSizer->Add(w.getPolygonTree(), 0, wxEXPAND);
-	rSizer->Add( w.getMaterialTree(), 0, wxEXPAND );
 	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
 
-	rSizer->Add(w.getPolygonProperty(), 0, wxEXPAND);
-	rSizer->Add( w.getMaterialProperty(), 0, wxEXPAND );
 	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
 
 	hSizer->Add( rSizer, 0, wxEXPAND );
@@ -376,7 +363,7 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 
 void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::POLYGON_ROTATE );
+//	view->setMode( View::POLYGON_ROTATE );
 }
 
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
@@ -408,8 +395,6 @@ void Frame::OnPick(wxRibbonButtonBarEvent&)
 }
 */
 
-
-#include "../IO/PolygonFactory.h"
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
 {
@@ -463,8 +448,8 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 			return;
 		}
 
-		PolygonFactory factory( model.getPolygonBuilder() );
-		PolygonSPtrList g = factory.create(file);
+		//PolygonFactory factory( model.getPolygonBuilder() );
+		//PolygonSPtrList g = factory.create(file);
 		view->Refresh();
 
 		w.refresh();
@@ -568,12 +553,12 @@ void Frame::OnLocale( wxCommandEvent& )
 
 void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::POLYGON_TRANSLATE );
+	//view->setMode( View::POLYGON_TRANSLATE );
 }
 
 void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
 {
-	view->setMode( View::POLYGON_SCALE );
+	//view->setMode( View::POLYGON_SCALE );
 }
 
 void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
@@ -584,8 +569,8 @@ void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
 
 void Frame::OnPhong( wxRibbonButtonBarEvent& )
 {
-	view->setRenderingMode( View::RENDERING_MODE::PHONG );
-	view->Refresh();
+//	view->setRenderingMode( View::RENDERING_MODE::PHONG );
+//	view->Refresh();
 }
 
 void Frame::OnFlat( wxRibbonButtonBarEvent& )
@@ -661,67 +646,9 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-
-void Frame::OnCreateTriangle(wxRibbonButtonBarEvent& e)
-{
-	const Triangle<float> t;
-	PolygonSPtr p = model.getPolygonBuilder().build(t);
-	//p->setName("Triangle");
-	w.getPolygonTree()->build();
-	view->Refresh();
-}
-
-void Frame::OnCreateTriangleConfig(wxRibbonButtonBarEvent& e)
-{
-	TriangleConfigDialog dialog(this, triangle);
-	if (dialog.ShowModal() == wxID_OK) {
-		triangle = dialog.get();
-	}
-}
-
-void Frame::OnCreateQuad(wxRibbonButtonBarEvent& e)
-{
-	const Quad<float> q;
-	PolygonSPtr p = model.getPolygonBuilder().build(q);
-	//p->setName("Quad");
-	w.getPolygonTree()->build();
-	view->Refresh();
-
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->buildQuad();
-	//polygon->setName("Quad");
-	//w.getPolygonTree()->build();
-}
-
-void Frame::OnCreateQuadConfig(wxRibbonButtonBarEvent& e)
-{
-	QuadConfigDialog dialog(this, quad);
-	if (dialog.ShowModal() == wxID_OK) {
-		quad = dialog.get();
-	}
-}
-
-void Frame::OnCreateCircle(wxRibbonButtonBarEvent& e)
-{
-	PolygonSPtr p = model.getPolygonBuilder().build(circle, 180);
-	w.refresh();
-
-	//p->setName("Circle");
-	view->Refresh();
-}
-
-void Frame::OnCreateCircleConfig(wxRibbonButtonBarEvent& e)
-{
-	CircleConfigDialog dialog(this, circle);
-	//dialog.setConfig(modelings.circleConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		circle = dialog.get();
-		//modelings.circleConfig = dialog.getConfig();
-	}
-}
-
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder().build(sphere, 30, 30);
+	//model.getPolygonBuilder().build(sphere, 30, 30);
 	view->Refresh();
 	/*
 	const PolygonSPtr& polygon = model.getPolygonBuilder()->buildSphere(modelings.sphereConfig.getUDivideNumber(), modelings.sphereConfig.getVDivideNumber());
@@ -759,7 +686,7 @@ void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box b;
-	model.getPolygonBuilder().build(b);
+	//model.getPolygonBuilder().build(b);
 	w.refresh();
 	view->Refresh();
 }
@@ -774,7 +701,7 @@ void Frame::OnCreateBoxConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonBuilder().build(10, cone);
+	//model.getPolygonBuilder().build(10, cone);
 	w.refresh();
 	view->Refresh();
 }

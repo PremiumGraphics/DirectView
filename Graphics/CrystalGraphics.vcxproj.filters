@@ -6,7 +6,6 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="Polygon.cpp" />
-    <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
@@ -26,7 +25,6 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="Polygon.h" />
-    <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />

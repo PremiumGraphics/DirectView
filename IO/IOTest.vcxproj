@@ -16,7 +16,6 @@
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="PhysicsModelTest.cpp" />
-    <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="STLFileTest.cpp" />
     <ClCompile Include="VolumeTest.cpp" />
   </ItemGroup>

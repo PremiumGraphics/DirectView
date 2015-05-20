@@ -24,7 +24,6 @@
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PhysicsModel.cpp" />
-    <ClCompile Include="PolygonFactory.cpp" />
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Volume.cpp" />
@@ -37,7 +36,6 @@
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="PhysicsModel.h" />
-    <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Volume.h" />

@@ -44,30 +44,16 @@ public:
 	void build(Frame* parent, Model& model);
 
 	void refresh() {
-		polygonTree->build();
-		materialTree->build();
 		lightTree->build();
 	}
 
-	PolygonTree* getPolygonTree() const { return polygonTree; }
-
-	MaterialTree* getMaterialTree() const { return materialTree; }
-
 	LightTree* getLightTree() const { return lightTree; }
-
-	PolygonProperty* getPolygonProperty() const { return polygonProperty; }
-
-	MaterialProperty* getMaterialProperty() const { return materialProperty; }
 
 	LightProperty* getLightProperty() const { return lightProperty; }
 
 private:
-	PolygonTree* polygonTree;
-	MaterialTree* materialTree;
 	LightTree* lightTree;
 
-	PolygonProperty* polygonProperty;
-	MaterialProperty* materialProperty;
 	LightProperty* lightProperty;
 };
 
@@ -138,17 +124,6 @@ private:
 
 	void clear();
 
-	void OnCreateQuad(wxRibbonButtonBarEvent& e);
-
-	void OnCreateQuadConfig(wxRibbonButtonBarEvent& e);
-
-	void OnCreateTriangle(wxRibbonButtonBarEvent& e);
-
-	void OnCreateTriangleConfig(wxRibbonButtonBarEvent& e);
-
-	void OnCreateCircle(wxRibbonButtonBarEvent& e);
-
-	void OnCreateCircleConfig(wxRibbonButtonBarEvent& e);
 
 	void OnCreateSphere(wxRibbonButtonBarEvent& e);
 
