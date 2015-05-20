@@ -8,7 +8,6 @@
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="CSG.h" />
-    <ClInclude Include="IntersectionFindAlgo.h" />
     <ClInclude Include="Bitmap1d.h" />
     <ClInclude Include="Bitmap2d.h" />
     <ClInclude Include="Bitmap3d.h" />
@@ -35,8 +34,5 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Vector.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="IntersectionFindAlgo.cpp" />
   </ItemGroup>
 </Project>
