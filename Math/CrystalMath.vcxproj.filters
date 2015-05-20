@@ -37,7 +37,6 @@
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="IntersectionFindAlgo.cpp" />
   </ItemGroup>
 </Project>
