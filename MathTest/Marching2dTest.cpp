@@ -6,6 +6,6 @@ using namespace Crystal::Math;
 
 TEST(Marching2dTest, Test)
 {
-	Marching2d march;
+	Marching2d<float> march;
 	march.march(Space2x2<float>());
 }

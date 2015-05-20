@@ -25,24 +25,18 @@ public:
 
 	Line2d(const Position2d<T>& start, const Vector2d<T>& vector) :
 		start(start),
-		length(length)
+		vector(vector)
 	{}
 
-	/*
-	Line1d(const Position1d<T>& start, const Position1d<T>& end) :
-		start(start),
-		length(end.get()-start.get())
-	{}
-
-	Line1d(const T start, const T length) :
-		start(start),
-		length(length)
-	{}
-	*/
+	Line2d(const Position2d<T>& start, const Position2d<T>& end) :
+		start( start)
+	{
+		vector = Vector2d<T>(end.getX() - start.getX(), end.getY() - start.getY() );
+	}
 
 	Position2d<T> getStart() const { return start; }
 
-	//T getLength() const { return length; }
+	T getLength() const { return vector.getLength(); }
 
 	Position2d<T> getEnd() const { return start + vector; }
 
