@@ -12,5 +12,6 @@ TEST(DyanmicsBitmapTest, TestConstructByBitmap1ds)
 		std::bitset<32> bits;
 		std::vector < std::bitset<32 > >  bitv{ bits };
 		DynamicBitmap<1> bmp(bitv);
+		EXPECT_EQ(1, bmp.getSize());
 	}
 }

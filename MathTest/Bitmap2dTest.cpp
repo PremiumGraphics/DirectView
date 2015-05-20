@@ -43,6 +43,28 @@ TEST(Bitmap2dTest, TestSize)
 	EXPECT_EQ( 4, Bitmap2x2().size() );
 }
 
+TEST(Bitmap2dTest, TestByValues)
+{
+	const std::array<unsigned long, 2 > v = { 0, 0 };
+	EXPECT_EQ( Bitmap2x2("0000"), Bitmap2x2().byValues(v) );
+}
+
+TEST(Bitmap2dTest, TestByValue)
+{
+	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2().byValue(0));
+	EXPECT_EQ(Bitmap2x2("0100"), Bitmap2x2().byValue(1));
+	EXPECT_EQ(Bitmap2x2("1000"), Bitmap2x2().byValue(2));
+	EXPECT_EQ(Bitmap2x2("1100"), Bitmap2x2().byValue(3));
+
+	EXPECT_EQ(Bitmap2x2("0001"), Bitmap2x2().byValue(4));
+	EXPECT_EQ(Bitmap2x2("0101"), Bitmap2x2().byValue(5));
+	EXPECT_EQ(Bitmap2x2("1001"), Bitmap2x2().byValue(6));
+
+
+	EXPECT_TRUE(Bitmap2x2().byValue(1).get(0, 0));
+}
+
+
 TEST(Bitmap2dTest, TestSizeX)
 {
 	EXPECT_EQ( 1, Bitmap1x1().sizex() );

@@ -14,16 +14,16 @@ public:
 	Bitmap1d()
 	{}
 
-	explicit Bitmap1d(const long v) :
-		bits(v)
-	{}
-
 	explicit Bitmap1d(const std::bitset<N>& b) :
 		bits(b)
 	{}
 
 	explicit Bitmap1d(const std::string& str) :
 		bits(str)
+	{}
+
+	explicit Bitmap1d(const unsigned long v) :
+		bits(v)
 	{}
 
 	explicit Bitmap1d(const Bitmap1d<N/2>& b1, const Bitmap1d<N/2>& b2)
@@ -138,6 +138,10 @@ public:
 			dest[i*2+1] = bits[i];
 		}
 		return Bitmap1d<N * 2>(dest);
+	}
+
+	unsigned long toULong() const {
+		return bits.to_ulong();
 	}
 
 private:

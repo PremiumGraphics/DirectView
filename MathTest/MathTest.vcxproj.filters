@@ -33,6 +33,7 @@
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="DynamicBitmapTest.cpp" />
+    <ClCompile Include="Marching2dTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap1d.h" />
@@ -69,5 +70,6 @@
     <ClInclude Include="..\Math\Vector2d.h" />
     <ClInclude Include="..\Math\Vector3d.h" />
     <ClInclude Include="..\Math\DynamicBitmap.h" />
+    <ClInclude Include="..\Math\Marching2d.h" />
   </ItemGroup>
 </Project>

@@ -19,8 +19,24 @@ TEST(Bitmap1dTest, TestGet)
 TEST(Bitmap1dTest, TestSet)
 {
 	EXPECT_TRUE( Bitmap1d<1>().set(0).get(0) );
-	EXPECT_TRUE(Bitmap1d<2>().set().get(0));
-	EXPECT_TRUE(Bitmap1d<2>().set().get(1));
+	EXPECT_TRUE( Bitmap1d<2>().set().get(0));
+	EXPECT_TRUE( Bitmap1d<2>().set().get(1));
+}
+
+TEST(Bitmap1dTest, TestToULong)
+{
+	EXPECT_EQ( 0, Bitmap1d<2>("00").toULong());
+	EXPECT_EQ( 1, Bitmap1d<2>("01").toULong());
+	EXPECT_EQ( 2, Bitmap1d<2>("10").toULong());
+	EXPECT_EQ( 3, Bitmap1d<2>("11").toULong());
+}
+
+TEST(Bitmap1dTest, TestToString)
+{
+	EXPECT_EQ("00", Bitmap1d<2>("00").toString());
+	EXPECT_EQ("01", Bitmap1d<2>("01").toString());
+	EXPECT_EQ("10", Bitmap1d<2>("10").toString());
+	EXPECT_EQ("11", Bitmap1d<2>("11").toString());
 }
 
 TEST(Bitmap1dTest, TestConstructByString)

@@ -159,6 +159,29 @@ public:
 		}
 	}
 
+	/*
+	unsigned long toULong() const {
+		return 
+	}
+	*/
+
+	Bitmap2d<N1, N2>& byValue(unsigned long value) {
+		std::array < unsigned long, N2 > values;
+		for (size_t i = 0; i < N2; ++i) {
+			values[i] = value;
+			value >>= N1;
+		}
+		return byValues(values);
+	}
+
+
+	Bitmap2d<N1, N2>& byValues(const std::array<unsigned long, N2>& values) {
+		for (size_t i = 0; i < N2; ++i) {
+			bmp1ds[i] = Bitmap1d<N1>(values[i]);
+		}
+		return (*this);
+	}
+
 	Bitmap2d<N1, N2> getEdgesx() const {
 		Bitmap2d<N1, N2 > dest;
 		for (size_t x = 0; x < sizex(); ++x) {

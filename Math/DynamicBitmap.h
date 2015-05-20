@@ -26,6 +26,7 @@ public:
 
 	~DynamicBitmap() = default;
 
+	size_t getSize() const { return bits.size(); }
 
 private:
 	std::vector< std::bitset<BITS_PER_BLOCK> > bits;
