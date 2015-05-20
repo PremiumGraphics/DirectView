@@ -43,7 +43,6 @@
     <ClCompile Include="Vector1dTest.cpp" />
     <ClCompile Include="Vector2dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
-    <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap1d.h" />
