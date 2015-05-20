@@ -7,8 +7,8 @@ using namespace Crystal::Math;
 TEST(LineTest, TestConstruct)
 {
 	Line3d<float> line;
-	EXPECT_EQ(Vector3d(0.0f, 0.0f, 0.0f), line.getStart());
-	EXPECT_EQ(Vector3d(1.0f, 0.0f, 0.0f), line.getEnd());
+	EXPECT_EQ( Position3d<float>(0.0f, 0.0f, 0.0f), line.getStart());
+	EXPECT_EQ( Position3d<float>(1.0f, 0.0f, 0.0f), line.getEnd());
 }
 
 TEST(LineTest, TestGetDistance)

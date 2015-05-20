@@ -139,6 +139,9 @@ TEST(Bitmap2dTest, TestToULong)
 	EXPECT_EQ( 0, Bitmap2x2("0000").toULong());
 	EXPECT_EQ( 1, Bitmap2x2("0001").toULong());
 	EXPECT_EQ( 2, Bitmap2x2("0010").toULong());
+	//EXPECT_EQ( 3, Bitmap2x2("0100").toULong());
+	//EXPECT_EQ( 4, Bitmap2x2("0101").toULong());
+	//EXPECT_EQ( 8, Bitmap2x2("1000").toULong());
 }
 
 

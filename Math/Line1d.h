@@ -13,48 +13,48 @@ class Line1d final
 {
 public:
 	Line1d() :
-		start(0.0f),
+		origin(0.0f),
 		length(1.0f)
 	{}
 
 	~Line1d() = default;
 
-	explicit Line1d(const T start) :
-		start(start),
+	explicit Line1d(const Position1d<T>& start) :
+		origin(start),
 		length(1.0f)
 	{}
 
 	Line1d(const Position1d<T>& start, const T length) :
-		start(start),
+		origin(start),
 		length(length)
 	{}
 
 	Line1d(const Position1d<T>& start, const Position1d<T>& end) :
-		start(start),
+		origin(start),
 		length(end.get()-start.get())
 	{}
 
 	Line1d(const T start, const T length) :
-		start(start),
+		origin(start),
 		length(length)
 	{}
 
 
-	Position1d<T> getStart() const { return start; }
+	Position1d<T> getStart() const { return origin; }
 
 	T getLength() const { return length; }
 
-	Position1d<T> getEnd() const { return start + length; }
+	Position1d<T> getEnd() const { return getStart() + length; }
 
-	Position1d<T> getCenter() const { return start + length * T(0.5); }
+	Position1d<T> getCenter() const { return getStart() + length * T(0.5); }
 
 	Line1d& move(const T v) {
-		start += v;
+		origin += v;
 		return (*this);
 	}
 
 	Line1d move(const T& v) const {
-		return Line1d( start.get() + v, length );
+		return Line1d( getStart().get() + v, length );
 	}
 
 	Line1d& scale(const T s) const {
@@ -69,7 +69,7 @@ public:
 
 	bool equals(const Line1d<T>& rhs) const {
 		return 
-			start == rhs.start &&
+			origin == rhs.origin &&
 			length == rhs.length;
 	}
 
@@ -98,7 +98,7 @@ public:
 	}
 
 private:
-	Position1d<T> start;
+	Position1d<T> origin;
 	T length;
 };
 	}

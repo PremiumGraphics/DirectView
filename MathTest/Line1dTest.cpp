@@ -17,8 +17,8 @@ TYPED_TEST(Line1dTest, TestGetStart)
 {
 	using T = TypeParam;
 	EXPECT_EQ( Position1d<T>( 0.0 ), Line1d<T>().getStart());
-	EXPECT_EQ( Position1d<T>( 1.0 ), Line1d<T>(1.0f).getStart());
-	EXPECT_EQ( Position1d<T>( 0.0 ), Line1d<T>( Position1d<T>(0.0), Position1d<T>(1.0f) ).getStart());
+	EXPECT_EQ( Position1d<T>( 1.0 ), Line1d<T>( Position1d<T>(1.0)).getStart());
+	EXPECT_EQ( Position1d<T>( 0.0 ), Line1d<T>( Position1d<T>(0.0), Position1d<T>(1.0) ).getStart());
 }
 
 TYPED_TEST(Line1dTest, TestGetCenter)
@@ -49,7 +49,7 @@ TYPED_TEST(Line1dTest, TestMove)
 {
 	using T = TypeParam;
 	EXPECT_EQ( Line1d<T>(1.0f, 1.0f), Line1d<T>().move(1.0f) );
-	EXPECT_EQ( Line1d<T>(11.0f, 1.0f), Line1d<T>(10.0f).move(1.0f) );
+	EXPECT_EQ( Line1d<T>(11.0f, 1.0f), Line1d<T>( Position1d<T>(10.0f) ).move(1.0f) );
 }
 
 TYPED_TEST(Line1dTest, TestScale)
