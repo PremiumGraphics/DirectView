@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AVSCell.cpp" />
-    <ClCompile Include="AVSFLDFile.cpp" />
-    <ClCompile Include="AVSUCDFile.cpp" />
     <ClCompile Include="CGSFile.cpp" />
     <ClCompile Include="ColorRGBAMapIO.cpp" />
     <ClCompile Include="DXFFile.cpp" />
@@ -32,20 +29,9 @@
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Volume.cpp" />
-    <ClCompile Include="VTKAttributePart.cpp" />
-    <ClCompile Include="VTKCell.cpp" />
-    <ClCompile Include="VTKFile.cpp" />
-    <ClCompile Include="VTKGeometryPart.cpp" />
-    <ClCompile Include="VTKObject.cpp" />
-    <ClCompile Include="VTKObjectFactory.cpp" />
-    <ClCompile Include="VTKPoints.cpp" />
-    <ClCompile Include="VTKType.cpp" />
     <ClCompile Include="XMLIOHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AVSCell.h" />
-    <ClInclude Include="AVSFLDFile.h" />
-    <ClInclude Include="AVSUCDFile.h" />
     <ClInclude Include="CGSFile.h" />
     <ClInclude Include="ColorRGBAMapIO.h" />
     <ClInclude Include="DXFFile.h" />
@@ -57,16 +43,6 @@
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Volume.h" />
-    <ClInclude Include="VTKAttribute.h" />
-    <ClInclude Include="VTKAttributePart.h" />
-    <ClInclude Include="VTKCell.h" />
-    <ClInclude Include="VTKConnection.h" />
-    <ClInclude Include="VTKFile.h" />
-    <ClInclude Include="VTKGeometryPart.h" />
-    <ClInclude Include="VTKObject.h" />
-    <ClInclude Include="VTKObjectFactory.h" />
-    <ClInclude Include="VTKPoints.h" />
-    <ClInclude Include="VTKType.h" />
     <ClInclude Include="XMLIOHelper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
