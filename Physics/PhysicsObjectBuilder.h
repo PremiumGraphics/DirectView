@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Math/Box.h"
+#include "../Math/Vector3d.h"
 
 #include "PhysicsParticle.h"
 #include "PhysicsObject.h"
@@ -22,7 +23,19 @@ public:
 
 	~PhysicsObjectBuilder() = default;
 
-	PhysicsObjectSPtr create(const Math::Box& box, const PhysicsObject::Type& type);
+	PhysicsObjectSPtr create(const Math::Box& box, const PhysicsObject::Type& type) {
+		PhysicsParticle::Constant constant;
+		PhysicsParticleSPtrVector particles;
+		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
+			for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
+				for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
+					particles.push_back(std::make_shared<PhysicsParticle>(constant, Math::Vector3d(x, y, z)));
+					//object->add(p);
+				}
+			}
+		}
+		return std::make_shared<PhysicsObject>(particles);
+	}
 
 private:
 	float divideLength;

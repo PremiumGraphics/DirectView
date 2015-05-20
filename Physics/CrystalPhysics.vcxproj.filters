@@ -17,7 +17,6 @@
     <ClCompile Include="SPHSolver.cpp" />
     <ClCompile Include="BoundaryCoordinator.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
-    <ClCompile Include="PhysicsObjectBuilder.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
   </ItemGroup>
