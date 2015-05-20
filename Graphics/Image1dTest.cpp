@@ -1,8 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Graphics/Image1d.h"
-#include "../Graphics/Image2d.h"
-#include "../Graphics/Image3d.h"
+#include "../Graphics/Image.h"
 
 using namespace Crystal::Graphics;
 

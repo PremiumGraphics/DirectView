@@ -152,6 +152,7 @@ static std::vector<float> toArray4( const ColorVector<float>& colors ) {
 	}
 	return result;
 }
+
 	}
 }
 
