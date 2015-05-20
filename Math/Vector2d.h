@@ -1,17 +1,11 @@
 #ifndef __CRSYTAL_MATH_VECTOR_2D_H__
 #define __CRSYTAL_MATH_VECTOR_2D_H__
 
-#include <cmath>
-#include <vector>
-#include <array>
-#include "Tolerance.h"
 
 #include "Vector.h"
 
 namespace Crystal{
 	namespace Math{
-
-
 
 template<typename T>
 using Vector2d = Vector<T,2>;

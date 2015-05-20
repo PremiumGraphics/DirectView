@@ -22,6 +22,9 @@ public:
 
 	void march(const Space2d<2, 2, float>& space) {
 		const auto& bmp = space.getBitmap();
+		if (bmp == table[0]) {
+			;
+		}
 		/*if (bmp.get(0, 0)) {
 
 		}*/
@@ -29,18 +32,18 @@ public:
 
 	std::vector<Line2d> getLines() const { return lines;  }
 
-	std::array< Bitmap2x2, 16 > getTables() const { return tables; }
+	std::array< Bitmap2x2, 16 > getTables() const { return table; }
 
 	void buildTable() {
 		for (size_t i = 0; i < 16; ++i) {
-			tables[i] = Bitmap2x2(i);
+			table[i] = Bitmap2x2(i);
 		}
 	}
 
 private:
 	std::vector<Line2d> lines;
 
-	std::array< Bitmap2x2, 16 > tables;
+	std::array< Bitmap2x2, 16 > table;
 };
 	}
 }

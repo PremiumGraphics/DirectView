@@ -1,7 +1,10 @@
 #ifndef __CRYSTAL_MATH_VECTOR_H__
 #define __CRYSTAL_MATH_VECTOR_H__
 
+#include <cmath>
+#include <vector>
 #include <array>
+#include "Tolerance.h"
 
 namespace Crystal {
 	namespace Math {
@@ -48,6 +51,7 @@ public:
 	{
 		v = { x, y };
 	}
+
 
 	Vector(const Vector& start, const Vector& end)
 	{
