@@ -56,11 +56,17 @@ public:
 	{
 	}
 
-	float getDensityRatio() const;
+	float getDensityRatio() const {
+		return density / constant.getRestDensity();
+	}
 
-	float getPressure() const;
+	float getPressure() const {
+		return constant.pressureCoe * (std::pow(getDensityRatio(), 1) - 1.0f);
+	}
 
-	float getMass() const;
+	float getMass() const {
+		return constant.getRestDensity() * std::pow(constant.getDiameter(), 3);
+	}
 
 	float getVolume() const {
 		return getMass() / density;

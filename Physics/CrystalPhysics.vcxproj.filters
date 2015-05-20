@@ -19,10 +19,6 @@
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="PhysicsObjectBuilder.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
-    <ClCompile Include="Coordinator.cpp" />
-    <ClCompile Include="PhysicsParticle.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="FluidObject.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
   </ItemGroup>
 </Project>

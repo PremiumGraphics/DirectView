@@ -151,12 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundaryCoordinator.cpp" />
-    <ClCompile Include="Coordinator.cpp" />
-    <ClCompile Include="FluidObject.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsObjectBuilder.cpp" />
-    <ClCompile Include="PhysicsParticle.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="SPHSolver.cpp" />

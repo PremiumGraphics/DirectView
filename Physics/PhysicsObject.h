@@ -31,18 +31,35 @@ public:
 		clear();
 	}
 
-	void coordinate() const;
+	void coordinate() const {
+		for (const auto& coordinator : coordinators) {
+			coordinator->coordinate(particles);
+		}
+	}
 
 	PhysicsParticleSPtrVector getParticles() const { return particles; }
 
-	float getMass() const;
+	float getMass() const {
+		auto weight = 0.0f;
+		for (const auto& particle : particles) {
+			weight += particle->getMass();
+		}
+		return weight;
+	}
 
-	float getRestVolume() const;
+	float getRestVolume() const {
+		auto volume = 0.0f;
+		for (const auto& particle : particles) {
+			volume += particle->getRestVolume();
+		}
+		return volume;
+	}
 
 	void clear() {
 		particles.clear();
 		coordinators.clear();
 	}
+
 
 private:
 	PhysicsParticleSPtrVector particles;
