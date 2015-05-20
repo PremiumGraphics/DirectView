@@ -18,6 +18,7 @@
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="Grid1dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\CSG.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
+    <ClInclude Include="..\Math\DynamicBitmap.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
     <ClInclude Include="..\Math\Grid1d.h" />
     <ClInclude Include="..\Math\Grid2d.h" />
