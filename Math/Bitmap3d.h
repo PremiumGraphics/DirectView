@@ -3,7 +3,7 @@
 
 #include "Bitmap2d.h"
 
-#include <array>
+#include <vector>
 
 namespace Crystal {
 	namespace Math {
@@ -12,14 +12,17 @@ template<size_t N1, size_t N2, size_t N3>
 class Bitmap3d final
 {
 public:
-	Bitmap3d()
+	Bitmap3d() :
+		bmp2ds(N3)
 	{}
 
-	explicit Bitmap3d(const size_t size2d) {
+	explicit Bitmap3d(const size_t size2d) :
+		bmp2ds(N3)
+	{
 		bmp2ds.fill(size2d);
 	}
 
-	explicit Bitmap3d(const std::array< Bitmap2d<N1, N2>, N3 >& bmps) :
+	explicit Bitmap3d(const std::vector< Bitmap2d<N1, N2> >& bmps) :
 		bmp2ds( bmps )
 	{
 	}
@@ -99,7 +102,7 @@ public:
 	}
 
 	void byString(const std::string& str) {
-		assert(str.size() == this->size());
+		//assert(str.size() == this->size());
 		std::array< std::string, N3 > strs;
 		for (size_t i = 0; i < N3; ++i) {
 			const size_t start = i * N1 * N2;
@@ -110,12 +113,14 @@ public:
 	}
 
 	void byStrings(const std::array< std::array<std::string, N2>, N3 >& strs) {
+		bmp2ds.resize(N3);
 		for (size_t i = 0; i < N3; ++i) {
 			bmp2ds[i] = Bitmap2d<N1, N2>(strs[i]);
 		}
 	}
 	
 	void byStrings(const std::array<std::string, N3>& strs) {
+		bmp2ds.resize(N3);
 		for (size_t i = 0; i < N3; ++i) {
 			bmp2ds[i] = Bitmap2d<N1,N2>(strs[i]);
 		}
@@ -143,7 +148,7 @@ public:
 	}
 
 	Bitmap3d<N1, N2, N3> not() const {
-		Bitmap2dArray<N1, N2, N3> bs;
+		std::vector< Bitmap2d<N1,N2> > bs(N3);
 		for (size_t i = 0; i < bmp2ds.size(); ++i) {
 			bs[i] = bmp2ds[i].not();
 		}
@@ -172,7 +177,7 @@ public:
 	*/
 
 	Bitmap3d movedz(const size_t size) const {
-		Bitmap2dArray<N1, N2, N3> dest;
+		std::vector< Bitmap2d<N1,N2> > dest(N3);
 		for (size_t i = 0; i < N3 - size; ++i) {
 			dest[i + size] = bmp2ds[i];
 		}
@@ -188,7 +193,7 @@ public:
 
 
 private:
-	Bitmap2dArray<N1, N2, N3> bmp2ds;
+	std::vector< Bitmap2d<N1, N2 > > bmp2ds;
 };
 
 using Bitmap1x1x1 = Bitmap3d < 1, 1, 1 >;

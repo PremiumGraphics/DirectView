@@ -4,7 +4,6 @@
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="STLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
-    <ClCompile Include="ColorRGBAMapIOTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="VolumeTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
