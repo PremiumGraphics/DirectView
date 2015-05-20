@@ -4,16 +4,9 @@
 #include "../Math/Sphere.h"
 #include "../Math/Cylinder.h"
 
-#include "../Particle/ParticleBase.h"
-
 using namespace Crystal::Math;
-using namespace Crystal::Particle;
 using namespace Crystal::Physics;
 
-PhysicsParticleSPtr ParticleBuilder::create(const ParticleBase& origin)
-{
-	return std::make_shared<PhysicsParticle>(constant, origin.getPosition());
-}
 
 PhysicsParticleSPtrVector ParticleBuilder::create(const Box& box)
 {

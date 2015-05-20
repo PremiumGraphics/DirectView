@@ -25,7 +25,6 @@
     <ClCompile Include="CGSFile.cpp" />
     <ClCompile Include="ColorRGBAMapIO.cpp" />
     <ClCompile Include="DXFFile.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PhysicsModel.cpp" />
@@ -51,7 +50,6 @@
     <ClInclude Include="ColorRGBAMapIO.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="PhysicsModel.h" />

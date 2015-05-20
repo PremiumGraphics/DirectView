@@ -3,15 +3,14 @@
 
 #include "PhysicsParticle.h"
 
+#include "../Math/Box.h"
+
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {
 	namespace Math {
 		class Sphere;
 		class Cylinder;
-	}
-	namespace Particle {
-		class ParticleBase;
 	}
 	namespace Physics {
 
@@ -27,8 +26,6 @@ public:
 	unsigned int getNextId() const { return nextId; }
 
 	float getDivideLength() const { return divideLength; }
-
-	PhysicsParticleSPtr create(const Crystal::Particle::ParticleBase& origin);
 
 	PhysicsParticleSPtrVector create(const Math::Box& box);
 

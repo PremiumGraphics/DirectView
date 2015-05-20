@@ -76,7 +76,6 @@
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
-    <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="Space2dRenderer.cpp" />
@@ -87,7 +86,6 @@
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
-    <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="Space2dRenderer.h" />

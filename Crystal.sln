@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Physics\CrystalPhysics.vcxproj", "{4DA5021F-0C06-476A-8387-6F744042D459}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE} = {AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\CrystalGraphics.vcxproj", "{3DB61408-BFAA-4587-A3E3-135662D2C7A1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -59,23 +56,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "PhysicsTest\
 	ProjectSection(ProjectDependencies) = postProject
 		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleStudio", "ParticleStudio\ParticleStudio.vcxproj", "{64EF35B5-9344-4992-8DB1-24901990D4D4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3DB61408-BFAA-4587-A3E3-135662D2C7A1} = {3DB61408-BFAA-4587-A3E3-135662D2C7A1}
-		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
-		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2} = {9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}
-		{028C3897-F00D-4265-B059-BC79B022A0A0} = {028C3897-F00D-4265-B059-BC79B022A0A0}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleTest", "ParticleTest\ParticleTest.vcxproj", "{14FE38C3-1015-4C13-ABED-A459F29E6A93}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE} = {AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Particle", "Particle\CrystalParticle.vcxproj", "{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsUI", "PhysicsUI\PhysicsUI.vcxproj", "{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,54 +205,6 @@ Global
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|Win32.ActiveCfg = Release|Win32
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|Win32.Build.0 = Release|Win32
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|x64.ActiveCfg = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|Win32.Build.0 = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Debug|x64.ActiveCfg = Debug|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Any CPU.ActiveCfg = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Win32.ActiveCfg = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|Win32.Build.0 = Release|Win32
-		{64EF35B5-9344-4992-8DB1-24901990D4D4}.Release|x64.ActiveCfg = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Win32.ActiveCfg = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|Win32.Build.0 = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Debug|x64.ActiveCfg = Debug|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Any CPU.ActiveCfg = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Win32.ActiveCfg = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|Win32.Build.0 = Release|Win32
-		{14FE38C3-1015-4C13-ABED-A459F29E6A93}.Release|x64.ActiveCfg = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|Win32.ActiveCfg = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|Win32.Build.0 = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Debug|x64.ActiveCfg = Debug|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|Any CPU.ActiveCfg = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|Win32.ActiveCfg = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|Win32.Build.0 = Release|Win32
-		{AA1447C3-73C7-40C6-96E7-B8FDE96C14BE}.Release|x64.ActiveCfg = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|Win32.Build.0 = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Debug|x64.ActiveCfg = Debug|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|Any CPU.ActiveCfg = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|Win32.ActiveCfg = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|Win32.Build.0 = Release|Win32
-		{DC1DD4CA-035C-42D9-B9D0-7562AB0707E1}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,8 +7,6 @@
 
 #include "../Math/Vector3d.h"
 
-#include "../Particle/ParticleBase.h"
-
 #include "../Util/UnCopyable.h"
 
 namespace Crystal{
