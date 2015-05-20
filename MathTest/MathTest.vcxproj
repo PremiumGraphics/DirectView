@@ -43,6 +43,41 @@
     <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Math\Bitmap1d.h" />
+    <ClInclude Include="..\Math\Bitmap2d.h" />
+    <ClInclude Include="..\Math\Bitmap3d.h" />
+    <ClInclude Include="..\Math\Box.h" />
+    <ClInclude Include="..\Math\Circle.h" />
+    <ClInclude Include="..\Math\Cone.h" />
+    <ClInclude Include="..\Math\CSG.h" />
+    <ClInclude Include="..\Math\Cylinder.h" />
+    <ClInclude Include="..\Math\Ellipse.h" />
+    <ClInclude Include="..\Math\Grid1d.h" />
+    <ClInclude Include="..\Math\Grid2d.h" />
+    <ClInclude Include="..\Math\Grid3d.h" />
+    <ClInclude Include="..\Math\Line1d.h" />
+    <ClInclude Include="..\Math\Line3d.h" />
+    <ClInclude Include="..\Math\Matrix2d.h" />
+    <ClInclude Include="..\Math\Matrix3d.h" />
+    <ClInclude Include="..\Math\Matrix4d.h" />
+    <ClInclude Include="..\Math\Position1d.h" />
+    <ClInclude Include="..\Math\Position2d.h" />
+    <ClInclude Include="..\Math\Position3d.h" />
+    <ClInclude Include="..\Math\Quad.h" />
+    <ClInclude Include="..\Math\Quaternion.h" />
+    <ClInclude Include="..\Math\Space1d.h" />
+    <ClInclude Include="..\Math\Space2d.h" />
+    <ClInclude Include="..\Math\Space3d.h" />
+    <ClInclude Include="..\Math\SpaceBooleanAlgo.h" />
+    <ClInclude Include="..\Math\Sphere.h" />
+    <ClInclude Include="..\Math\Tolerance.h" />
+    <ClInclude Include="..\Math\Triangle.h" />
+    <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="..\Math\Vector1d.h" />
+    <ClInclude Include="..\Math\Vector2d.h" />
+    <ClInclude Include="..\Math\Vector3d.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
