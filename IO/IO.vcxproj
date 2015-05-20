@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CGSFile.cpp" />
     <ClCompile Include="DXFFile.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
@@ -30,7 +29,6 @@
     <ClCompile Include="XMLIOHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CGSFile.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="MTLFile.h" />

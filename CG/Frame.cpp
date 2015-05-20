@@ -299,8 +299,6 @@ void Frame::OnAbout( wxRibbonButtonBarEvent& )
 	wxMessageBox(AppInfo::getProductName() + " " + AppInfo::getVersionStr() + "\n" + "Release" + AppInfo::getReleaseDateStr());
 }
 
-#include "../IO/CGSFile.h"
-
 void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 {
 	const wxString& filename = wxFileSelector
@@ -317,8 +315,9 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 		return;
 	}
 
-	CGSFile file;
-	const bool isOk = file.save( filename.ToStdString() );
+
+	//CGSFile file;
+	const bool isOk = false;//file.save( filename.ToStdString() );
 	if( isOk ) {
 		wxMessageBox( wxT("ï€ë∂ÇµÇ‹ÇµÇΩÅB") );
 	}

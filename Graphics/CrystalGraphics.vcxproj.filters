@@ -3,8 +3,6 @@
   <ItemGroup>
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="GLee.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
@@ -29,7 +27,6 @@
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="DisplayList.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="Image.h" />
   </ItemGroup>
 </Project>

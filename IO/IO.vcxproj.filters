@@ -5,7 +5,6 @@
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="Volume.cpp" />
-    <ClCompile Include="CGSFile.cpp" />
     <ClCompile Include="XMLIOHelper.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="DXFFile.cpp" />
@@ -17,7 +16,6 @@
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="Volume.h" />
-    <ClInclude Include="CGSFile.h" />
     <ClInclude Include="XMLIOHelper.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="DXFFile.h" />
