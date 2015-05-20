@@ -39,7 +39,8 @@ TEST(Bitmap3dTest, TestByValue)
 	EXPECT_EQ( Bitmap2x2x2("00000000"), Bitmap2x2x2().byValue(0) );
 	EXPECT_EQ( Bitmap2x2x2("01000000"), Bitmap2x2x2().byValue(1) );
 	EXPECT_EQ( Bitmap2x2x2("10000000"), Bitmap2x2x2().byValue(2) );
-	EXPECT_EQ( Bitmap2x2x2("11000000"), Bitmap2x2x2().byValue(3));
+	EXPECT_EQ( Bitmap2x2x2("11000000"), Bitmap2x2x2().byValue(3) );
+	EXPECT_EQ( Bitmap2x2x2("00010000"), Bitmap2x2x2().byValue(4) );
 
 }
 
@@ -94,7 +95,6 @@ TEST(Bitmap3dTest, TestReset)
 TEST(Bitmap3dTest, TestToString)
 {
 	Bitmap1x2x4 bitmap;
-	EXPECT_EQ("00000000", bitmap.toString());
 	bitmap.set(0, 0, 0);
 	EXPECT_EQ("10000000", bitmap.toString());
 	bitmap.set(0, 0, 1);
@@ -112,6 +112,7 @@ TEST(Bitmap3dTest, TestToString)
 	bitmap.set(0, 1, 3);
 	EXPECT_EQ("11111111", bitmap.toString());
 
+	EXPECT_EQ( "00000000", Bitmap1x2x4("00000000").toString() );
 	EXPECT_EQ( "10111111", Bitmap1x2x4("10111111").toString() );
 	EXPECT_EQ( "10000000", Bitmap1x2x4("10000000").toString() );
 	EXPECT_EQ( "11111111", Bitmap1x2x4("11111111").toString() );
@@ -124,6 +125,10 @@ TEST(Bitmap3dTest, TestToString)
 	//EXPECT_EQ("10010100", bitmap.toString());
 }
 
+TEST(Bitmap3dTest, TestToULong)
+{
+	EXPECT_EQ( 0, Bitmap1x2x4("00000000").toULong() );
+}
 
 TEST(Bitmap3dTest, TestEquals)
 {

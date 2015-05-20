@@ -207,6 +207,14 @@ public:
 		return (*this);
 	}
 
+	unsigned long toULong() const {
+		unsigned long v = 0;
+		for (const auto& b : bmp2ds) {
+			v += b.toULong();
+		}
+		return v;
+	}
+
 
 private:
 	std::vector< Bitmap2d<N1, N2 > > bmp2ds;

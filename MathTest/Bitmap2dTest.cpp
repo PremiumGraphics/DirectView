@@ -134,6 +134,14 @@ TEST(Bitmap2dTest, TestToString)
 	EXPECT_EQ( "0011", Bitmap2x2("0011").toString() );
 }
 
+TEST(Bitmap2dTest, TestToULong)
+{
+	EXPECT_EQ( 0, Bitmap2x2("0000").toULong());
+	EXPECT_EQ( 1, Bitmap2x2("0001").toULong());
+	EXPECT_EQ( 2, Bitmap2x2("0010").toULong());
+}
+
+
 TEST(Bitmap2dTest, TestEquals)
 {
 	EXPECT_TRUE( Bitmap1x1().equals( Bitmap1x1() ) );

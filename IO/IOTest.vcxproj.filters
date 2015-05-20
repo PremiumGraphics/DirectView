@@ -7,6 +7,5 @@
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="VolumeTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
-    <ClCompile Include="PhysicsModelTest.cpp" />
   </ItemGroup>
 </Project>

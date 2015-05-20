@@ -238,6 +238,15 @@ public:
 		return (*this);
 	}
 
+	unsigned long toULong() const {
+		unsigned long v = 0;
+		for (const Bitmap1d<N1>& b : bmp1ds) {
+			v += b.toULong();
+		}
+		return v;
+	}
+
+
 private:
 	Bitmap1dArray< N1, N2 > bmp1ds;
 };

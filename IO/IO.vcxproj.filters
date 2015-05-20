@@ -8,7 +8,6 @@
     <ClCompile Include="XMLIOHelper.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="DXFFile.cpp" />
-    <ClCompile Include="PhysicsModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h" />
@@ -19,6 +18,5 @@
     <ClInclude Include="XMLIOHelper.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="DXFFile.h" />
-    <ClInclude Include="PhysicsModel.h" />
   </ItemGroup>
 </Project>
