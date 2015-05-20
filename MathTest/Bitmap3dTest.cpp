@@ -34,12 +34,14 @@ TEST(Bitmap3dTest, TestByString)
 	}
 }
 
-
-/*
-TEST(Bitmap3dTest, TestByStrings2)
+TEST(Bitmap3dTest, TestByValue)
 {
+	EXPECT_EQ( Bitmap2x2x2("00000000"), Bitmap2x2x2().byValue(0) );
+	EXPECT_EQ( Bitmap2x2x2("01000000"), Bitmap2x2x2().byValue(1) );
+	EXPECT_EQ( Bitmap2x2x2("10000000"), Bitmap2x2x2().byValue(2) );
+	EXPECT_EQ( Bitmap2x2x2("11000000"), Bitmap2x2x2().byValue(3));
+
 }
-*/
 
 TEST(Bitmap3dTest, TestSize)
 {

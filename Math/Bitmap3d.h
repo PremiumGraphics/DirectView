@@ -190,6 +190,22 @@ public:
 		return (*this);
 	}
 
+	Bitmap3d<N1, N2, N3>& byValue(unsigned long value) {
+		std::array < unsigned long, N3 > values;
+		for (size_t i = 0; i < N3; ++i) {
+			values[i] = value;
+			value >>= N1 * N2;
+		}
+		return byValues(values);
+	}
+
+
+	Bitmap3d<N1, N2, N3>& byValues(const std::array<unsigned long, N3>& values) {
+		for (size_t i = 0; i < N3; ++i) {
+			bmp2ds[i] = Bitmap2d<N1,N2>(values[i]);
+		}
+		return (*this);
+	}
 
 
 private:

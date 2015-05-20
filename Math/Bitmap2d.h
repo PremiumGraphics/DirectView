@@ -20,7 +20,9 @@ public:
 	~Bitmap2d() = default;
 
 	explicit Bitmap2d(const long l)
-	{}
+	{
+		byValue(l);
+	}
 
 	explicit Bitmap2d(const Bitmap1dArray<N1,N2>& b) :
 		bmp1ds(b)

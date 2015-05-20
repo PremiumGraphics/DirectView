@@ -72,5 +72,6 @@
     <ClInclude Include="..\Math\DynamicBitmap.h" />
     <ClInclude Include="..\Math\Marching2d.h" />
     <ClInclude Include="..\Math\Line2d.h" />
+    <ClInclude Include="..\Math\Marching3d.h" />
   </ItemGroup>
 </Project>
