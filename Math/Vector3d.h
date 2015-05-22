@@ -14,7 +14,7 @@ class Vector3d_ final
 {
 public:
 	
-	Vector3d_(void) : Vector3d_(0.0f, 0.0f, 0.0f)
+	Vector3d_(void) : Vector3d_(0, 0, 0)
 	{}
 
 	Vector3d_(T x, T y, T z) :
@@ -29,15 +29,22 @@ public:
 
 	~Vector3d_() = default;
 
-	static Vector3d_ Zero() { return Vector3d_( 0.0f, 0.0f, 0.0f ); }
+	static Vector3d_ Zero() { return Vector3d_( 0, 0, 0 ); }
 
-	static Vector3d_ UnitX() { return Vector3d_( 1.0f, 0.0f, 0.0f ); }
+	static Vector3d_ UnitX() { return Vector3d_( 1, 0, 0 ); }
 
-	static Vector3d_ UnitY() { return Vector3d_( 0.0f, 1.0f, 0.0f ); }
+	static Vector3d_ UnitY() { return Vector3d_( 0, 1, 0 ); }
 
-	static Vector3d_ UnitZ() { return Vector3d_( 0.0f, 0.0f, 1.0f ); }
+	static Vector3d_ UnitZ() { return Vector3d_( 0, 0, 1 ); }
 
-	static Vector3d_ UnitXYZ() { return Vector3d_( T(1.0) / std::sqrt(T(3.0)), T(1.0) / std::sqrt(T(3.0)), T(1.0) / std::sqrt(T(3.0))); }
+	static Vector3d_ UnitXYZ() { return Vector3d_( T(1.0) / std::sqrt(T(3)), T(1.0) / std::sqrt(T(3.0)), T(1.0) / std::sqrt(T(3.0))); }
+
+	static Vector3d_ UnitXY() { return Vector3d_(T(1.0) / std::sqrt(T(2)), T(1.0) / std::sqrt(T(2)), 0); }
+
+	static Vector3d_ UnitXZ() { return Vector3d_(T(1.0) / std::sqrt(T(2)),0, T(1.0) / std::sqrt(T(2))); }
+
+	static Vector3d_ UnitYZ() { return Vector3d_(0, T(1.0) / std::sqrt(T(2)), T(1.0) / std::sqrt(T(2))); }
+
 
 	T getLengthSquared() const {
 		return x * x + y * y + z * z;

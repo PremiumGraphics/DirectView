@@ -38,42 +38,58 @@ TYPED_TEST( Vector3dTest, TestEquals )
 
 TYPED_TEST( Vector3dTest, TestScale )
 {
-	EXPECT_EQ(Vector3d(2.0f, 2.0f, 2.0f), Vector3d(1.0f, 1.0f, 1.0f).scale(2.0f));
+	using T = TypeParam;
+
+	EXPECT_EQ(Vector3d_<T>(2, 2, 2), Vector3d_<T>(1, 1, 1).scale(2));
 	EXPECT_EQ(Vector3d(1.0f, 2.0f, 3.0f), Vector3d(0.5f, 1.0f, 1.5f).scale(2.0f));
 }
 
 TYPED_TEST(Vector3dTest, TestGetLengthSquared)
 {
-	const Vector3d v(1.0, 1.0, 1.0);
-	const auto actual = v.getLengthSquared();
-	const auto expected = 3.0f;
-	EXPECT_FLOAT_EQ( expected, actual);
-	EXPECT_TRUE( Tolerancef::isEqualLoosely(expected, actual) );
-	EXPECT_TRUE( Tolerancef::isEqualStrictly(expected, actual) );
+	using T = TypeParam;
+
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( 3, Vector3d_<T>(1,1,1).getLengthSquared() ) );
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(3, Vector3d_<T>(1,1,1).getLengthSquared() ) );
+
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(14, Vector3d_<T>(1, 2, 3).getLengthSquared()));
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(14, Vector3d_<T>(1, 2, 3).getLengthSquared()));
 }
 
 TYPED_TEST( Vector3dTest, TestGetLength )
 {
-	const Vector3d v( 1.0, 1.0, 1.0 );
-	const auto actual = v.getLength();
-	const auto expected = std::sqrt(3.0f);
-	EXPECT_TRUE( Tolerancef::isEqualLoosely( expected, actual ) );
-	EXPECT_TRUE( Tolerancef::isEqualStrictly( expected, actual ) );
+	using T = TypeParam;
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( std::sqrt( T(3) ), Vector3d_<T>(1,1,1).getLength() ) );
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(std::sqrt( T(3) ), Vector3d_<T>(1,1,1).getLength() ) );
+
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( std::sqrt( T(14) ) , Vector3d_<T>(1, 2, 3).getLength()));
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly( std::sqrt( T(14) ), Vector3d_<T>(1, 2, 3).getLength()));
+
 }
 
 TYPED_TEST( Vector3dTest, TestInnerProduct )
 {
-	const Vector3d v1( 2.0, 2.0, 2.0 );
-	const Vector3d v2( 1.0, 1.0, 2.0 );
-	EXPECT_EQ( 8.0, v1.getInnerProduct( v2 ) );
+	using T = TypeParam;
+	EXPECT_EQ( 0, Vector3d_<T>(0, 0, 0).getInnerProduct(Vector3d_<T>(1, 1, 2) ) );
+	EXPECT_EQ( 8, Vector3d_<T>(2, 2, 2).getInnerProduct(Vector3d_<T>(1, 1, 2) ) );
 }
- 
+
+TYPED_TEST(Vector3dTest, TestOuterProduct)
+{
+	using T = TypeParam;
+	EXPECT_EQ( Vector3d_<T>(0,0,0), Vector3d_<T>(0, 0, 0).getOuterProduct(Vector3d_<T>(1, 1, 2)));
+	EXPECT_EQ( Vector3d_<T>::UnitZ(), Vector3d_<T>::UnitX().getOuterProduct(Vector3d_<T>::UnitY() ) );
+	EXPECT_EQ( Vector3d_<T>::UnitX(), Vector3d_<T>::UnitY().getOuterProduct(Vector3d_<T>::UnitZ() ) );
+	EXPECT_EQ( Vector3d_<T>::UnitY(), Vector3d_<T>::UnitZ().getOuterProduct(Vector3d_<T>::UnitX() ) );
+
+}
+
 TYPED_TEST( Vector3dTest, TestGetDistance )
 {
-	const Vector3d v0( 1.0f, 1.0f, 1.0f );
-	const Vector3d v1( 2.0f, 2.0f, 2.0f );
-	EXPECT_TRUE( Tolerancef::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( 3.0f ) ) );
-	EXPECT_TRUE( Tolerancef::isEqualLoosely( v1.getDistance( v0 ), std::sqrt( 3.0f ) ) );
+	using T = TypeParam;
+	const Vector3d_<T> v0( 1, 1, 1 );
+	const Vector3d_<T> v1( 2, 2, 2 );
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( v0.getDistance( v1 ), std::sqrt( T(3) ) ) );
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( v1.getDistance( v0 ), std::sqrt( T(3) ) ) );
 }
 
 TYPED_TEST( Vector3dTest, TestToArray )
@@ -91,11 +107,12 @@ TYPED_TEST( Vector3dTest, TestToArray )
 TYPED_TEST(Vector3dTest, TestGetNormalized)
 {
 	EXPECT_EQ(Vector3d_<float>::UnitXYZ(), Vector3d_<float>(1.0f, 1.0f, 1.0f).getNormalized());
+	EXPECT_EQ(Vector3d_<float>::UnitXY(), Vector3d_<float>(1, 1, 0).getNormalized());
 }
 
 TYPED_TEST(Vector3dTest, TestRotateX)
 {
-	const Matrix3d<double> m = Matrix3d<double>::RotateX(180.0 * Tolerance<double>::getPI() / 180.0);
+	const Matrix3d<double> m = Matrix3d<double>::RotateX( Tolerance<double>::getPI());
 	Vector3d_<double> v = Vector3d_<double>(0.0f, 0.0, 1.0);
 	v.rotate(m);
 	Vector3d_<double> expected(0.0f, 0.0, -1.0);
@@ -104,7 +121,7 @@ TYPED_TEST(Vector3dTest, TestRotateX)
 
 TYPED_TEST(Vector3dTest, TestRotateY)
 {
-	const Matrix3d<double> m = Matrix3d<double>::RotateY(180.0 * Tolerance<double>::getPI() / 180.0);
+	const Matrix3d<double> m = Matrix3d<double>::RotateY( Tolerance<double>::getPI() );
 	Vector3d_<double> v = Vector3d_<double>(1.0f, 0.0, 0.0);
 	v.rotate(m);
 	Vector3d_<double> expected(-1.0f, 0.0, 0.0);

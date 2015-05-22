@@ -72,16 +72,16 @@ public:
 			Position3d<T>(0.5, 0.5, 0.0)
 			),
 			Triangle<T>(
-			Position3d<T>(0.0, 0.5, 0.0),
-			Position3d<T>(1.5, 0.5, 0.0),
-			Position3d<T>(0.5, 0.0, 0.5)
+			Position3d<T>(1.0, 0.5, 0.0),
+			Position3d<T>(0.0, 0.0, 0.5),
+			Position3d<T>(1.0, 0.0, 0.5)
 			)
 		};
 		triTable[3] = {
 			Triangle<T>(
 			Position3d<T>(0.0, 0.5, 0.0),
-			Position3d<T>(0.5, 0.0, 0.0),
-			Position3d<T>(0.0, 0.0, 0.5f)
+			Position3d<T>(0.0, 0.0, 0.5),
+			Position3d<T>(0.5, 0.0, 0.0)
 			),
 			Triangle<T>()
 		};
@@ -93,8 +93,8 @@ public:
 		triTable[5] = {
 			Triangle<T>(
 				Position3d<T>(0.0, 0.5, 0.0),
-				Position3d<T>(1.0, 0.5, 0.0),
-				Position3d<T>(1.0, 0.5, 1.0)
+				Position3d<T>(1.0, 0.5, 1.0),
+				Position3d<T>(1.0, 0.5, 0.0)
 				),
 			Triangle<T>(
 				Position3d<T>(0.0, 0.5, 0.0),
