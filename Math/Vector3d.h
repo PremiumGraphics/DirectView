@@ -37,6 +37,8 @@ public:
 
 	static Vector3d_ UnitZ() { return Vector3d_( 0.0f, 0.0f, 1.0f ); }
 
+	static Vector3d_ UnitXYZ() { return Vector3d_( T(1.0) / std::sqrt(T(3.0)), T(1.0) / std::sqrt(T(3.0)), T(1.0) / std::sqrt(T(3.0))); }
+
 	T getLengthSquared() const {
 		return x * x + y * y + z * z;
 	}

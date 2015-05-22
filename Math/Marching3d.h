@@ -68,8 +68,8 @@ public:
 		triTable[2] = {
 			Triangle<T>(
 			Position3d<T>(0.0, 0.5, 0.0),
-			Position3d<T>(0.5, 0.5, 0.0),
-			Position3d<T>(0.5, 0.0, 0.5)
+			Position3d<T>(0.0, 0.0, 0.5),
+			Position3d<T>(0.5, 0.5, 0.0)
 			),
 			Triangle<T>(
 			Position3d<T>(0.0, 0.5, 0.0),
