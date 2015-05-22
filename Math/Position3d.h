@@ -46,15 +46,21 @@ public:
 		return !equals(rhs);
 	}
 
-	/*
-	Position3d<T> operator+(const Vector3d<T>& rhs) const {
-		return Position3d<T>(getX() + rhs.x, getY() + rhs.y);
+	Vector3d_<T> diff(const Position3d<T>& rhs) const {
+		return Vector3d_<T>(
+			rhs.getX() - getX(),
+			rhs.getY() - getY(),
+			rhs.getZ() - getZ()
+			);
 	}
 
-	Position3d<T> operator-(const Vector3d<T>& rhs) const {
-		return Position3d<T>(getX() - rhs.x, getY() - rhs.y);
+	Position3d<T> operator+(const Vector3d_<T>& rhs) const {
+		return Position3d<T>(getX() + rhs.getX(), getY() + rhs.getY(), getZ() + rhs.getZ() );
 	}
-	*/
+
+	Position3d<T> operator-(const Vector3d_<T>& rhs) const {
+		return Position3d<T>(getX() - rhs.getX(), getY() - rhs.getY(), getZ() - rhs.getZ() );
+	}
 
 	/*
 	Vector2d operator+=(const Vector2d& rhs) {

@@ -28,8 +28,8 @@ public:
 	}
 
 	Vector3d_<T> getNormal() const {
-		const Vector3d_<T> v01(v0, v1);
-		const Vector3d_<T> v02(v0, v2);
+		const Vector3d_<T> v01 = v0.diff(v1);
+		const Vector3d_<T> v02 = v0.diff(v2);
 		return v01.getOuterProduct(v02).getNormalized();
 	}
 
