@@ -16,13 +16,13 @@ public:
 		buildTable();
 	}
 
-	void march(const Space3d<2, 2, 2, T>& space) {
+	void march(const Space3d<2, 2, 2>& space) {
 		const auto& bmp = space.getBitmap();
-		if (bmp == table[0]) {
+		if (bmp == triTable[0]) {
 		}
-		else if (bmp == table[1]) {
+		else if (bmp == triTable[1]) {
 		}
-		else if (bmp == table[2]) {
+		else if (bmp == triTable[2]) {
 		}
 		/*if (bmp.get(0, 0)) {
 
@@ -31,22 +31,120 @@ public:
 
 	std::array< Bitmap2x2x2, 16 > getTables() const { return table; }
 
-	//std::array< std::vector< Line2d<T> >, 16 > getLineTable() const { return lineTable; }
+	std::array< std::vector< Triangle<T> >, 16 > getTriTable() const { return triTable; }
 
-	/*
 	void buildTable() {
 		for (size_t i = 0; i < 16; ++i) {
 			table[i] = Bitmap2x2x2(i);
 		}
 
+		/*
 		const Position2d<T> left(0.0, 0.5f);
 		const Position2d<T> right(1.0f, 0.5f);
 
 		const Position2d<T> bottom(0.5, 0.0f);
 		const Position2d<T> top(0.5, 1.0f);
+		*/
+		/*
+		const std::array< Position3d<T>, 3 > positions =
+		{
+			Position3d<T>(0.0, 0.5, 0.0),
+			Position3d<T>(1.0, 0.5, 0.0),
+			Position3d<T>(1.0
+		}
+		*/
+		const Position3d<T> right(1.0, 0.5, 0.0);
 
-		lineTable[0] = {};
-		lineTable[1] = { Line2d<T>(left, bottom) };
+		const Position3d<T> bottom(0.5, 0.0, 0.0);
+
+		triTable[0] = {};
+		triTable[1] = {
+			Triangle<T>(
+			Position3d<T>( 0.0, 0.5, 0.0),
+			Position3d<T>( 0.5, 0.0, 0.0 ),
+			Position3d<T>(0.0, 0.0, 0.5f)
+			)
+		};
+		triTable[2] = {
+			Triangle<T>(
+			Position3d<T>(0.0, 0.5, 0.0),
+			Position3d<T>(0.5, 0.5, 0.0),
+			Position3d<T>(0.5, 0.0, 0.5)
+			),
+			Triangle<T>(
+			Position3d<T>(0.0, 0.5, 0.0),
+			Position3d<T>(1.5, 0.5, 0.0),
+			Position3d<T>(0.5, 0.0, 0.5)
+			)
+		};
+		triTable[3] = {
+			Triangle<T>(
+			Position3d<T>(0.0, 0.5, 0.0),
+			Position3d<T>(0.5, 0.0, 0.0),
+			Position3d<T>(0.0, 0.0, 0.5f)
+			),
+			Triangle<T>()
+		};
+		triTable[4] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+		triTable[5] = {
+			Triangle<T>(
+				Position3d<T>(0.0, 0.5, 0.0),
+				Position3d<T>(1.0, 0.5, 0.0),
+				Position3d<T>(1.0, 0.5, 1.0)
+				),
+			Triangle<T>(
+				Position3d<T>(0.0, 0.5, 0.0),
+				Position3d<T>(0.0, 0.5, 1.0),
+				Position3d<T>(1.0, 0.5, 1.0)
+				)
+		};
+		triTable[6] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+		triTable[7] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+
+
+		triTable[10] = {
+			Triangle<T>(),
+			Triangle<T>()
+		};
+
+		triTable[12] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+
+		triTable[13] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+
+
+		triTable[14] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+
+
+
+		/*
 		lineTable[2] = { Line2d<T>(bottom, right) };
 		lineTable[3] = { Line2d<T>(left, right) };
 		lineTable[4] = { Line2d<T>(top, right) };
@@ -61,13 +159,13 @@ public:
 		lineTable[13] = lineTable[2];
 		lineTable[14] = lineTable[1];
 		lineTable[15] = lineTable[0];
+		*/
 	}
-	*/
 
 private:
 	//std::vector<Line2d<T> > lines;
 
-	std::array< Bitmap2x2, 16 > table;
+	std::array< Bitmap2x2x2, 16 > table;
 
 	std::array< std::vector< Triangle<T> >, 16 > triTable;
 };

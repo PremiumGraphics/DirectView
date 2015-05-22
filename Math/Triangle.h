@@ -14,7 +14,10 @@ template<typename T>
 class Triangle final
 {
 public:
-	Triangle()
+	Triangle() :
+		v0(Position3d<T>(0.0, 0.0, 0.0)),
+		v1(Position3d<T>(1.0, 0.0, 0.0)),
+		v2(Position3d<T>(0.0, 1.0, 0.0))
 	{}
 
 	Triangle( const Position3d<T>& v0, const Position3d<T>& v1, const Position3d<T>& v2) :
@@ -24,10 +27,9 @@ public:
 	{
 	}
 
-	/*
-	Vector3d getNormal() const {
-		const Vector3d v01(v0, v1);
-		const Vector3d v02(v0, v2);
+	Vector3d_<T> getNormal() const {
+		const Vector3d_<T> v01(v0, v1);
+		const Vector3d_<T> v02(v0, v2);
 		return v01.getOuterProduct(v02).getNormalized();
 	}
 
@@ -41,10 +43,9 @@ public:
 		return !isCCW();
 	}
 
-	Vector3d getCenter() const {
-		return (v0 + v1 + v2) / 3.0f;
+	Vector3d_<T> getCenter() const {
+		return (v0 + v1 + v2) / T(3);
 	}
-	*/
 
 	bool isValid() const {
 		return ( v0 != v1 ) && ( v1 != v2 ) && ( v0 != v2 );

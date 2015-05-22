@@ -34,6 +34,8 @@
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Line2dTest.cpp" />
+    <ClCompile Include="Marching3dTest.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap1d.h" />

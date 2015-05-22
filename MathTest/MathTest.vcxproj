@@ -27,6 +27,7 @@
     <ClCompile Include="Line2dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
+    <ClCompile Include="Marching3dTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="Vector1dTest.cpp" />
     <ClCompile Include="Vector2dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
