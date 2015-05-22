@@ -117,8 +117,18 @@ public:
 
 
 		triTable[10] = {
-			Triangle<T>(),
-			Triangle<T>()
+			Triangle<T>(
+			Position3d<T>(0.0, 0.5, 0.0),
+			Position3d<T>(0.0, 0.0, 0.5),
+			Position3d<T>(0.5, 0.0, 0.0)
+			)
+			,
+			Triangle<T>(
+			Position3d<T>(0.5,1.0,1.0),
+			Position3d<T>(1.0,1.0,0.5),
+			Position3d<T>(1.0, 0.5, 1.0)
+
+			)
 		};
 
 		triTable[12] = {
