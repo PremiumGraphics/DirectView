@@ -4,14 +4,54 @@
 
 using namespace Crystal::Math;
 
-TEST(TriangleTest, TestGet)
+template<class T>
+class TriangleTest : public testing::Test {
+};
+
+typedef ::testing::Types<float, double> TestTypes;
+
+TYPED_TEST_CASE(TriangleTest, TestTypes);
+
+
+TYPED_TEST(TriangleTest, TestGet)
 {
-	EXPECT_EQ(Position3d<float>(0.0, 0.0, 0.0), Triangle<float>().getv0());
-	EXPECT_EQ(Position3d<float>(1.0, 0.0, 0.0), Triangle<float>().getv1());
-	EXPECT_EQ(Position3d<float>(0.0, 1.0, 0.0), Triangle<float>().getv2());
+	using T = TypeParam;
+	EXPECT_EQ(Position3d<T>(0.0, 0.0, 0.0), Triangle<T>().getv0());
+	EXPECT_EQ(Position3d<T>(1.0, 0.0, 0.0), Triangle<T>().getv1());
+	EXPECT_EQ(Position3d<T>(0.0, 1.0, 0.0), Triangle<T>().getv2());
 }
 
-TEST(TriangleTest, TestIsCCW)
+TYPED_TEST(TriangleTest, TestGetArea)
 {
-	EXPECT_TRUE( Triangle<float>().isCCW() );
+	using T = TypeParam;
+	EXPECT_EQ( 0.5, Triangle<T>().getArea() );
+}
+
+/*
+TYPED_TEST(TriangleTest, TestIsShrinked)
+{
+	using T = TypeParam;
+	EXPECT_FALSE(Triangle<T>().isShrinked() );
+}
+*/
+
+TYPED_TEST(TriangleTest, TestGetNormal)
+{
+	using T = TypeParam;
+	EXPECT_EQ(Vector3d_<T>::UnitZ(), Triangle<T>::UnitXY().getNormal());
+	EXPECT_EQ(Vector3d_<T>::UnitY(), Triangle<T>::UnitXZ().getNormal());
+	EXPECT_EQ(Vector3d_<T>::UnitX(), Triangle<T>::UnitYZ().getNormal());
+
+	const auto actual = Triangle<T>(
+		Position3d<T>(0,0,0),
+		Position3d<T>(1,0,0),
+		Position3d<T>(1,0,1)
+		).getNormal();
+	EXPECT_EQ(Vector3d_<T>(0.0, -1.0, 0.0), actual);
+}
+
+TYPED_TEST(TriangleTest, TestIsCCW)
+{
+	using T = TypeParam;
+	EXPECT_TRUE( Triangle<T>().isCCW() );
 }

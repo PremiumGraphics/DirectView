@@ -27,10 +27,41 @@ public:
 	{
 	}
 
+	static Triangle<T> UnitXY() {
+		return Triangle<T>(
+			Position3d<T>(0.0, 0.0, 0.0),
+			Position3d<T>(1.0, 0.0, 0.0),
+			Position3d<T>(0.0, 1.0, 0.0)
+		);
+	}
+
+	static Triangle<T> UnitXZ() {
+		return Triangle<T>(
+			Position3d<T>(0.0, 0.0, 0.0),
+			Position3d<T>(0.0, 0.0, 1.0),
+			Position3d<T>(1.0, 0.0, 0.0)
+			);
+	}
+
+	static Triangle<T> UnitYZ() {
+		return Triangle<T>(
+			Position3d<T>(0.0, 0.0, 0.0),
+			Position3d<T>(0.0, 1.0, 0.0),
+			Position3d<T>(0.0, 0.0, 1.0)
+			);
+	}
+
+
 	Vector3d_<T> getNormal() const {
 		const Vector3d_<T> v01 = v0.diff(v1);
-		const Vector3d_<T> v02 = v0.diff(v2);
+		const Vector3d_<T> v02 = v1.diff(v2);
 		return v01.getOuterProduct(v02).getNormalized();
+	}
+
+	T getArea() const {
+		const Vector3d_<T> v01 = v0.diff(v1);
+		const Vector3d_<T> v02 = v1.diff(v2);
+		return v01.getOuterProduct(v02).getLength() * T(0.5);
 	}
 
 	bool isCCW() const {
@@ -50,6 +81,12 @@ public:
 	bool isValid() const {
 		return ( v0 != v1 ) && ( v1 != v2 ) && ( v0 != v2 );
 	}
+
+	/*
+	bool isShrinekd() const {
+		return Tolerance<T>::isEqualLoosely( get)
+	}
+	*/
 
 	Position3d<T> getv0() const { return v0; }
 

@@ -60,9 +60,9 @@ public:
 		triTable[0] = {};
 		triTable[1] = {
 			Triangle<T>(
-			Position3d<T>( 0.0, 0.5, 0.0),
-			Position3d<T>( 0.5, 0.0, 0.0 ),
-			Position3d<T>(0.0, 0.0, 0.5f)
+			Position3d<T>( 0.0, 0.5, 0.0 ),
+			Position3d<T>( 0.0, 0.0, 0.5 ),
+			Position3d<T>( 0.5, 0.0, 0.0 )
 			)
 		};
 		triTable[2] = {
