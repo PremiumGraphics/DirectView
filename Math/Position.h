@@ -3,9 +3,10 @@
 
 #include <cmath>
 #include <vector>
+#include <array>
+#include <numeric>
 #include "Tolerance.h"
 
-#include "Vector.h"
 
 namespace Crystal {
 	namespace Math{
@@ -14,25 +15,26 @@ template< typename T, size_t DIM >
 class Position final
 {
 public:
-
 	Position(void)
-	{}
+	{
+		v.fill(0);
+	}
 
 	explicit Position(const std::array<T, DIM>& v) :
 		v(v)
 	{}
 
-	explicit Position(const Vector2d<T>& v) :
-		v(v)
-	{}
-
 	T getDistance(const Position& rhs) const {
-		return v.getDistance(rhs.v);
+		return ::sqrt(getDistanceSquared(rhs));
 	}
 
 	T getDistanceSquared(const Position& rhs) const {
-		return v.getDistanceSquared(rhs.v);
+		const auto func1 = [](const T v1, const T v2) { return v1 + v2; };
+		const auto func2 = [](const T v1, const T v2) { return std::pow(v1 - v2, 2); };
+		return std::inner_product(v.begin(), v.end(), rhs.v.begin(), T(0), func1, func2);
 	}
+
+
 
 	bool equals(const Position&rhs) const {
 		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
@@ -71,15 +73,14 @@ public:
 	*/
 
 public:
+	T get(const size_t i) const { return v[i]; }
 
-	T get(const size_t i) const { return v.get(i); }
-
-	void set(const size_t i, const T& v) { this->v.set(i,v); }
+	void set(const size_t i, const T& v) { this->v[i] = v; }
 
 	std::vector<T> toArray() const { return{ x, y }; }
 
 private:
-	Vector<T, DIM> v;
+	std::array<T, DIM> v;
 };
 
 template<typename T>

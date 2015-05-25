@@ -31,23 +31,13 @@ public:
 		}
 	}
 
-	T getLengthSquared() const {
-		auto func = [](const T v1, const T v2) { return v1 + v2 * v2; };
-		return std::accumulate(v.begin(), v.end(), T(0), func );
-	}
-
 	T getLength() const {
 		return ::sqrt(getLengthSquared());
 	}
 
-	T getDistance(const Vector& rhs) const {
-		return ::sqrt(getDistanceSquared(rhs));
-	}
-
-	T getDistanceSquared(const Vector& rhs) const {
-		auto func1 = [](const T v1, const T v2) { return v1 + v2; };
-		auto func2 = [](const T v1, const T v2) { return std::pow(v1 - v2, 2); };
-		return std::inner_product(v.begin(), v.end(), rhs.v.begin(), T(0), func1, func2);
+	T getLengthSquared() const {
+		const auto func = [](const T v1, const T v2) { return v1 + v2 * v2; };
+		return std::accumulate(v.begin(), v.end(), T(0), func);
 	}
 
 	T getInnerProduct(const Vector& rhs) const {
@@ -93,7 +83,12 @@ public:
 	}
 
 	bool equals(const Vector&rhs) const {
-		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
+		for (size_t i = 0; i < DIM; ++i) {
+			if (!Tolerance<T>::isEqualLoosely(v[i], rhs.v[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	bool operator==(const Vector& rhs) const {

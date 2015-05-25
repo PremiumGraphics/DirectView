@@ -18,6 +18,13 @@ TYPED_TEST(PositionTest, TestGetDistance)
 	using T = TypeParam;
 	EXPECT_EQ( 0, Position1d<T>().getDistance(Position1d<T>()));
 	EXPECT_EQ( 1, Position1d<T>({ 0 }).getDistance(Position1d<T>({ 1 })));
+
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(std::sqrt(T(2)), Position2d<T>({ 1, 1 }).getDistance(Position2d<T>({ 2, 2 }))));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(std::sqrt(T(2)), Position2d<T>({ 2, 2 }).getDistance(Position2d<T>({ 1, 1 }))));
+
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(std::sqrt(T(3)), Position3d_<T>({ 1, 1, 1 }).getDistance(Position3d_<T>({ 2, 2, 2 }))));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(std::sqrt(T(3)), Position3d_<T>({ 2, 2, 2 }).getDistance(Position3d_<T>({ 1, 1, 1 }))));
+
 }
 
 TYPED_TEST(PositionTest, TestEquals)
@@ -51,5 +58,13 @@ TYPED_TEST(PositionTest, TestGet)
 TYPED_TEST(PositionTest, TestGetDistanceSquared)
 {
 	using T = TypeParam;
-	EXPECT_EQ( 0, Position2d<T>().getDistanceSquared(Position2d<T>()));
+
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(2, Position2d<T>({ 1, 1 }).getDistanceSquared(Position2d<T>({ 2, 2 }))));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(2, Position2d<T>({ 2, 2 }).getDistanceSquared(Position2d<T>({ 1, 1 }))));
+
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(3, Position3d_<T>({ 1, 1, 1 }).getDistanceSquared(Position3d_<T>({ 2, 2, 2 }))));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(3, Position3d_<T>({ 2, 2, 2 }).getDistanceSquared(Position3d_<T>({ 1, 1, 1 }))));
+
+
+	//EXPECT_TRUE(expected, v1.getDistance(v0));
 }
