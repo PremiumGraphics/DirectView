@@ -77,7 +77,7 @@ TEST(Image2dTest, TestEquals)
 
 TEST(Image3dTest, TestConstruct)
 {
-	const Image3d<1, 2, 4> image;
+	const Image3d<1, 2> image(4);
 	EXPECT_EQ(1, image.sizex());
 	EXPECT_EQ(2, image.sizey());
 	EXPECT_EQ(4, image.sizez());
@@ -90,7 +90,7 @@ TEST(Image3dTest, TestConstruct)
 
 TEST(Image3dTest, TestOperatorGetSet)
 {
-	Image3d<2, 2, 2> image;
+	Image3d<2, 2> image(2);
 	EXPECT_EQ(ColorRGBA<float>::Black(), image[0][0][0]);
 
 	image.set(0, 0, 0, ColorRGBA<float>::White());
@@ -99,8 +99,8 @@ TEST(Image3dTest, TestOperatorGetSet)
 
 TEST(Image3dTest, TestEquals)
 {
-	Image3d<2, 2, 2> image1;
-	Image3d<2, 2, 2> image2;
+	Image3d<2, 2> image1(2);
+	Image3d<2, 2> image2(2);
 
 	EXPECT_TRUE(image1.equals(image2));
 	EXPECT_EQ(image1, image2);

@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 
 TEST(Grid3dTest, TestConstruct)
 {
-	const Grid3d<1, 2, 4, float > grid( 0.0f );
+	const Grid3d<1, 2, float > grid( 0.0f, 4 );
 	EXPECT_EQ(1, grid.sizex());
 	EXPECT_EQ(2, grid.sizey());
 	EXPECT_EQ(4, grid.sizez());
@@ -23,15 +23,15 @@ TEST(Grid3dTest, TestConstruct)
 
 TEST(Grid3dTest, TestGetSet)
 {
-	Grid3d<1, 2, 4, float > grid(0.0f);
+	Grid3d<1, 2, float > grid(0.0f, 4);
 	grid[0][0][0] = 10.0f;
 	EXPECT_EQ(10.0f, grid[0][0][0]);
 }
 
 TEST(Grid3dTest, TestEquals)
 {
-	Grid3d<1, 2, 4, float > grid1(0.0f);
-	const Grid3d<1, 2, 4, float > grid2(0.0f);
+	Grid3d<1, 2, float > grid1(0.0f, 4);
+	const Grid3d<1, 2, float > grid2(0.0f, 4);
 	EXPECT_TRUE(grid1.equals(grid2));
 	EXPECT_EQ(grid1, grid2);
 

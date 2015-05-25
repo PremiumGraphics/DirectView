@@ -19,8 +19,8 @@ namespace Crystal {
 		using Image2d = Math::Grid2d < N1, N2, T >;
 
 
-		template< size_t N1, size_t N2, size_t N3 >
-		using Image3d = Math::Grid3d < N1, N2, N3, ColorRGBA<float> >;
+		template< size_t N1, size_t N2 >
+		using Image3d = Math::Grid3d < N1, N2, ColorRGBA<float> >;
 
 
 	}

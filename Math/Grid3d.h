@@ -6,25 +6,30 @@
 namespace Crystal {
 	namespace Math {
 
-template< size_t N1, size_t N2, size_t N3, class T >
+template< size_t N1, size_t N2, class T >
 class Grid3d final
 {
 public:
-	Grid3d() = default;
+	Grid3d(const size_t size) {
+		values.resize(size);
+	}
 
-	Grid3d(const T v) {
-		values.fill(v);
+	Grid3d(const T v, const size_t size)
+	{
+		for (size_t i = 0; i < size; ++i) {
+			values.push_back(v);
+		}
 	}
 
 	~Grid3d() = default;
 
-	size_t size() const { return N1 * N2 * N3; }
+	size_t size() const { return N1 * N2 * sizez(); }
 
 	size_t sizex() const { return N1; }
 
 	size_t sizey() const { return N2; }
 
-	size_t sizez() const { return N3; }
+	size_t sizez() const { return values.size(); }
 
 	T get(size_t i, size_t j, size_t k) const {
 		return values[i][j][k];
@@ -42,21 +47,21 @@ public:
 		return values[i];
 	}
 
-	bool equals(const Grid3d<N1, N2, N3, T>& rhs) const {
+	bool equals(const Grid3d<N1, N2, T>& rhs) const {
 		return values == rhs.values;
 	}
 
-	bool operator==(const Grid3d<N1, N2, N3,T>& rhs) const {
+	bool operator==(const Grid3d<N1, N2, T>& rhs) const {
 		return equals(rhs);
 	}
 
-	bool operator!=(const Grid3d<N1, N2, N3,T>& rhs) const {
+	bool operator!=(const Grid3d<N1, N2, T>& rhs) const {
 		return !equals(rhs);
 	}
 
 
 private:
-	std::array< Grid2d<N1, N2, T>, N3 > values;
+	std::vector< Grid2d<N1, N2, T> > values;
 };
 
 }
