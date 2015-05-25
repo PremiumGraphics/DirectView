@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <array>
+#include <numeric>
 #include "Tolerance.h"
 
 namespace Crystal {
@@ -31,11 +32,8 @@ public:
 	}
 
 	T getLengthSquared() const {
-		T ls = 0;
-		for (auto x : v) {
-			ls += x * x;
-		}
-		return ls;
+		auto func = [](const T v1, const T v2) { return v1 + v2 * v2; };
+		return std::accumulate(v.begin(), v.end(), T(0), func );
 	}
 
 	T getLength() const {
@@ -47,11 +45,13 @@ public:
 	}
 
 	T getDistanceSquared(const Vector& rhs) const {
-		T ls = 0;
-		for (size_t i = 0; i < DIM; ++i) {
-			ls += pow(v[i] - rhs.v[i], 2);
-		}
-		return ls;
+		auto func1 = [](const T v1, const T v2) { return v1 + v2; };
+		auto func2 = [](const T v1, const T v2) { return std::pow(v1 - v2, 2); };
+		return std::inner_product(v.begin(), v.end(), rhs.v.begin(), T(0), func1, func2);
+	}
+
+	T getInnerProduct(const Vector& rhs) const {
+		return std::inner_product(v.begin(), v.end(), rhs.v.begin(), T(0));
 	}
 
 	Vector scale(const T factor) {
