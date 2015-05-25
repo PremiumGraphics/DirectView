@@ -59,8 +59,8 @@ public:
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				if (bmp.get(x, y)) {
-					const Position2d<T> v1(x * sizex, y * sizey);
-					const Position2d<T> v2((x + 1) * sizex, (y + 1) * sizey);
+					const Position2d<T> v1({ x * sizex, y * sizey });
+					const Position2d<T> v2({ (x + 1) * sizex, (y + 1) * sizey });
 					Quad<T> q(v1, v2);
 					quads.push_back(q);
 				}
@@ -83,12 +83,12 @@ public:
 				if (bmp.get(i - 1,j) != bmp.get(i,j) ) {
 					const auto posx = getStart().getX() + getSizes().getX() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
-					positions.push_back( Position2d<T>(posx, posy ) );
+					positions.push_back(Position2d<T>({ posx, posy }));
 				}
 				if (bmp.get(i,j - 1) != bmp.get(i,j)) {
 					const auto posx = getStart().getX() + getSizes().getX() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
-					positions.push_back(Position2d<T>(posx, posy));
+					positions.push_back(Position2d<T>({ posx, posy }));
 				}
 			}
 		}

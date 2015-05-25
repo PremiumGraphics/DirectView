@@ -25,7 +25,7 @@ TYPED_TEST(Space2dTest, TestEquals)
 	using T = TypeParam;
 
 	EXPECT_EQ( Space1x1<T>(), Space1x1<T>());
-	EXPECT_NE( Space1x1<T>( Quad<T>( Position2d<T>(1.0f, 1.0f) )), Space1x1<T>() );
+	EXPECT_NE(Space1x1<T>(Quad<T>(Position2d<T>({ 1.0f, 1.0f }))), Space1x1<T>());
 }
 
 TYPED_TEST(Space2dTest, TestGetResX)
@@ -42,16 +42,16 @@ TYPED_TEST(Space2dTest, TestGetStart)
 {
 	using T = TypeParam;
 
-	EXPECT_EQ( Position2d<T>(0.0f, 0.0f), Space2x2<T>().getStart());
-	EXPECT_EQ( Position2d<T>(1.0f, 2.0f), Space2x2<T>( Quad<T>( Position2d<T>(1.0f, 2.0f )) ).getStart() );
+	EXPECT_EQ(Position2d<T>({ 0.0f, 0.0f }), Space2x2<T>().getStart());
+	EXPECT_EQ(Position2d<T>({ 1.0f, 2.0f }), Space2x2<T>(Quad<T>(Position2d<T>({ 1.0f, 2.0f }))).getStart());
 }
 
 TYPED_TEST(Space2dTest, TestGetEnd)
 {
 	using T = TypeParam;
 
-	EXPECT_EQ( Position2d<T>(1.0f, 1.0f), Space2x2<T>().getEnd());
-	EXPECT_EQ( Position2d<T>(2.0f, 3.0f), Space2x2<T>( Quad<T>( Position2d<T>(1.0f, 2.0f) ) ).getEnd() );
+	EXPECT_EQ(Position2d<T>({ 1.0f, 1.0f }), Space2x2<T>().getEnd());
+	EXPECT_EQ(Position2d<T>({ 2.0f, 3.0f }), Space2x2<T>(Quad<T>(Position2d<T>({ 1.0f, 2.0f }))).getEnd());
 }
 
 /*

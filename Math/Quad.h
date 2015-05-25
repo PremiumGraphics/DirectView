@@ -27,7 +27,7 @@ public:
 	{
 	};
 
-	Quad(const Vector2d<T>& length) : Quad(Position2d<T>(0.0f, 0.0f),length)
+	Quad(const Vector2d<T>& length) : Quad(Position2d<T>({ 0, 0 }), length)
 	{}
 
 	Quad( const Position2d<T>& start,const Vector2d<T>& length) :
@@ -42,13 +42,13 @@ public:
 	Position2d<T> getEnd() const {
 		const auto x = start.getX() + length.getX();
 		const auto y = start.getY() + length.getY();
-		return Position2d<T>(x, y);
+		return Position2d<T>({ x, y });
 	}
 
 	Position2d<T> getCenter() const {
 		const auto x = start.getX() + length.getX() * T(0.5);
 		const auto y = start.getY() + length.getY() * T(0.5);
-		return Position2d<T>(x, y);
+		return Position2d<T>({ x, y });
 	}
 
 	T getLengthX() const { return length.getX(); }
@@ -90,8 +90,8 @@ public:
 		const auto maxx = std::min<T>(this->getEnd().getX(), rhs.getEnd().getX());
 		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
 
-		Position2d<T> min(minx, miny);
-		Position2d<T> max(maxx, maxy);
+		Position2d<T> min({ minx, miny });
+		Position2d<T> max({ maxx, maxy });
 		return Quad<T>(min, max);
 	}
 

@@ -18,8 +18,8 @@ public:
 	Position(void)
 	{}
 
-	Position(const T x, const T y) :
-		v({ x, y })
+	explicit Position(const std::array<T,DIM>& v) :
+		v(v)
 	{}
 
 	explicit Position(const Vector2d<T>& v) :

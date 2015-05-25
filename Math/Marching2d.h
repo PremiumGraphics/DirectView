@@ -40,11 +40,11 @@ public:
 			table[i] = Bitmap2x2(i);
 		}
 
-		const Position2d<T> left(0.0, 0.5f);
-		const Position2d<T> right(1.0f, 0.5f);
+		const Position2d<T> left({ 0.0, 0.5f });
+		const Position2d<T> right({ 1.0f, 0.5f });
 
-		const Position2d<T> bottom(0.5, 0.0f);
-		const Position2d<T> top(0.5, 1.0f);
+		const Position2d<T> bottom({ 0.5, 0.0f });
+		const Position2d<T> top({ 0.5, 1.0f });
 
 		/*
 		std::array <
