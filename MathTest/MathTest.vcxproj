@@ -82,8 +82,6 @@
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
-    <ClInclude Include="..\Math\Vector1d.h" />
-    <ClInclude Include="..\Math\Vector2d.h" />
     <ClInclude Include="..\Math\Vector3d.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

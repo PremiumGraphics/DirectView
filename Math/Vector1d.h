@@ -1,9 +1,12 @@
 #ifndef __CRYSTAL_MATH_VECTOR_1D_H__
 #define __CRYSTAL_MATH_VECTOR_1D_H__
 
+#include "Vector.h"
+
 namespace Crystal {
 	namespace Math {
 
+		/*
 template< typename T >
 class Vector1d final
 {
@@ -21,6 +24,9 @@ public:
 private:
 	T v;
 };
+*/
+
+
 	}
 }
 

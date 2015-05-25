@@ -9,33 +9,6 @@
 namespace Crystal {
 	namespace Math {
 
-		/*
-template< typename T, size_t DIM >
-class Vector final
-{
-public:
-	Vector()
-	{
-		v.fill(0);
-	}
-
-	template<size_t I>
-	void set(const T v) {
-		static_assert(I < DIM);
-		this->v = v;
-	}
-
-	template<size_t I>
-	T get() const {
-		//static_assert(I < DIM);
-		return v[I];
-	}
-
-public:
-	std::array< T, DIM > v;
-};
-*/
-
 
 template< typename T, size_t DIM >
 class Vector final
@@ -47,17 +20,25 @@ public:
 		v.fill(0);
 	}
 
+	Vector(const T x) {
+		v = { x };
+	}
+
 	Vector(const T x, const T y)
 	{
 		v = { x, y };
 	}
+
+	Vector(const T x, const T y, const T z)
+	{
+		v = { x, y, z };
+	}
 	
 	Vector(const Vector& start, const Vector& end)
 	{
-		v = {
-			end.getX() - start.getX(),
-			end.getY() - start.getY()
-		};
+		for (size_t i = 0; i < DIM; ++i) {
+			v[i] = end.v[i] - start.v[i];
+		}
 	}
 
 	static Vector Zero() { return Vector(0, 0); }
@@ -184,6 +165,19 @@ public:
 private:
 	std::array<T, DIM> v;
 };
+
+template<typename T>
+using Vector1d = Vector<T, 1>;
+
+template<typename T>
+using Vector2d = Vector<T, 2>;
+
+template< typename T >
+static Vector2d<T> operator*(float factor, const Vector2d<T>& rhs) { return rhs.getScaled(factor); }
+
+template< typename T >
+static Vector2d<T> operator/(float factor, const Vector2d<T>& rhs) { return rhs.getScaled(1.0f / factor); }
+
 
 	}
 }

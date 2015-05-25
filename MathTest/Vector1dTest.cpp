@@ -15,7 +15,7 @@ TYPED_TEST_CASE(Vector1dTest, TestTypes);
 TYPED_TEST(Vector1dTest, TestGetLength)
 {
 	EXPECT_EQ( 0.0, Vector1d<TypeParam>(0.0).getLength() );
-	EXPECT_EQ( 4.0, Vector1d<TypeParam>(1.0, 5.0).getLength());
+	EXPECT_EQ( 4.0, Vector1d<TypeParam>(1.0, Vector1d<TypeParam>(5.0) ).getLength());
 
 }
 
