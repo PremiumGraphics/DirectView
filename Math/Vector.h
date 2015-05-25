@@ -139,18 +139,10 @@ public:
 	Vector operator/=(const T factor) { return scale(1.0f / factor); }
 
 public:
-
-	template<size_t I>
-	void set(const T v) { this->v[I] = v; }
-
 	void set(const int i, const T v) { this->v[i] = v; }
 
 	T get(const int i)  const { return this->v[i]; }
 
-
-	void setX(const T x) { this->v[0] = x; }
-
-	void setY(const T y) { this->v[1] = y; }
 
 	std::array<T, DIM> toArray() const { return v; }
 

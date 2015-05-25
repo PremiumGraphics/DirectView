@@ -15,25 +15,25 @@ template< size_t N, typename T >
 class Space1d final {
 public:
 	Space1d() :
-		start({ 0 }),
-		length({ 1 } )
+		origin({ 0 }),
+		vector({ 1 } )
 	{}
 
 	Space1d(const Bitmap1d<N>& bmp) :
-		start({ 0 }),
-		length({ 1 }),
+		origin({ 0 }),
+		vector({ 1 }),
 		bmp( bmp )
 	{}
 
 
 	Space1d(const Position1d<T>& start, const Vector<T,1>& length) :
-		start(start),
-		length(length)
+		origin(start),
+		vector(length)
 	{}
 
 	Space1d(const Position1d<T>& start, const T length, const Bitmap1d<N>& bmp) :
-		start(start),
-		length(length),
+		origin(start),
+		vector(length),
 		bmp(bmp)
 	{}
 
@@ -42,17 +42,17 @@ public:
 		return *(this);
 	}
 
-	Position1d<T> getStart() const { return start; }
+	Position1d<T> getStart() const { return origin; }
 
-	T getEnd() const { return start.get(0) + length.get(0); }
+	T getEnd() const { return origin.get(0) + vector.get(0); }
 
-	Vector<T,1> getLength() const { return length; }
+	Vector<T,1> getLength() const { return vector; }
 
-	T getTotalLength() const { return length.get(0) * bmp.count(); }
+	T getTotalLength() const { return vector.get(0) * bmp.count(); }
 
 	unsigned int getRes() const { return N; }
 
-	T getSize() const { return length.get(0) / static_cast<T>(N); }
+	T getSize() const { return vector.get(0) / static_cast<T>(N); }
 
 	Position1dVector<T> toPositions() const {
 		Position1dVector<T> positions;
@@ -93,8 +93,8 @@ public:
 	*/
 
 private:
-	Position1d<T> start;
-	Vector<T,1> length;
+	Position1d<T> origin;
+	Vector<T,1> vector;
 	Bitmap1d<N> bmp;
 };
 

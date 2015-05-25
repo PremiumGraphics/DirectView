@@ -37,7 +37,6 @@
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Circle.h" />
     <ClInclude Include="..\Math\Cone.h" />
-    <ClInclude Include="..\Math\CSG.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />

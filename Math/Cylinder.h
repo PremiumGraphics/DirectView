@@ -34,18 +34,13 @@ public:
 		assert( false );
 	}
 
-	virtual Math::Box getBoundingBox() const {
+	Math::Box getBoundingBox() const {
 		const Vector3d pos1(center.getX() - radius, center.getY() - height * 0.5f, center.getZ() - radius);
 		const Vector3d pos2(center.getX() + radius, center.getY() + height * 0.5f, center.getZ() + radius);
 		return Math::Box(pos1, pos2);
 	}
 
-	virtual Vector3dVector toPoints(const float divideLength ) const {
-		assert( false );
-		return Vector3dVector();
-	}
-
-	virtual Vector3d getCenter() const { return center; }
+	Vector3d getCenter() const { return center; }
 
 	float getVolume() const {
 		return radius * radius * Tolerancef::getPI() * height;
@@ -64,24 +59,8 @@ public:
 	}
 
 	void outerOffset(const float offsetLength) {};
-	
-	/*
-	Sphere getOuterOffset(const float offsetLength) const {
-		Sphere sphere = *this;
-		sphere.radius += offsetLength;
-		assert( sphere.isValid() );
-		return sphere;
-	}*/
 
 	virtual void innerOffset(const float offsetLength) {};
-
-	/*Sphere getInnerOffset(const float offsetLength) const {
-		Sphere sphere = *this;
-		sphere.radius -= offsetLength;
-		assert( sphere.isValid() );
-		return sphere;
-	}
-	*/
 
 	bool isInner(const Math::Vector3d& point) const
 	{
