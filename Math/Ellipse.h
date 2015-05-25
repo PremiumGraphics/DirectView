@@ -14,10 +14,10 @@ template<typename T>
 class Ellipse final
 {
 public:
-	Ellipse() : Ellipse( Vector2d<T>(1.0f, 1.0f) )
+	Ellipse() : Ellipse(Vector2d<T>({ 1.0f, 1.0f }))
 	{}
 
-	explicit Ellipse( const T x, const T y) : Ellipse(Vector2d<T>(x, y))
+	explicit Ellipse(const T x, const T y) : Ellipse(Vector2d<T>({ x, y }))
 	{}
 
 	Ellipse(const Vector2d<T> radii) :

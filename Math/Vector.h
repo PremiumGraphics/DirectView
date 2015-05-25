@@ -20,10 +20,11 @@ public:
 		v.fill(0);
 	}
 
-	Vector(const T x) {
+	explicit Vector(const T x) {
 		v = { x };
 	}
 
+	/*
 	Vector(const T x, const T y)
 	{
 		v = { x, y };
@@ -33,6 +34,9 @@ public:
 	{
 		v = { x, y, z };
 	}
+	*/
+	Vector(const std::array< T, DIM >& v) : v( v )
+	{}
 	
 	Vector(const Vector& start, const Vector& end)
 	{
@@ -79,14 +83,18 @@ public:
 	}
 
 	Vector scale(const Vector factor) {
-		for (size_t i = 0 i < DIM; ++i) {
+		for (size_t i = 0; i < DIM; ++i) {
 			v[i] *= factor[i];
 		}
 		return *this;
 	}
 
 	Vector getScaled(const T factor) const {
-		return Vector(getX() * factor, getY() * factor);
+		auto dest = v;
+		for (size_t i = 0; i < DIM; ++i) {
+			dest[i] *= factor;
+		}
+		return Vector(dest);
 	}
 
 	Vector normalize() {

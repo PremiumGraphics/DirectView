@@ -15,8 +15,8 @@ TYPED_TEST_CASE(Space2dTest, TestTypes);
 TYPED_TEST(Space2dTest, TestGetSize)
 {
 	using T = TypeParam;
-	EXPECT_EQ( Vector2d<T>(1.0f, 1.0f), Space1x1<T>().getSizes() );
-	EXPECT_EQ( Vector2d<T>(1.0f, 1.0f), Space1x1<T>().getSizes() );
+	EXPECT_EQ(Vector2d<T>({ 1.0f, 1.0f }), Space1x1<T>().getSizes());
+	EXPECT_EQ(Vector2d<T>({ 1.0f, 1.0f }), Space1x1<T>().getSizes());
 
 }
 

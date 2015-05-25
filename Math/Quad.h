@@ -12,18 +12,18 @@ namespace Crystal {
 template<typename T>
 class Quad final {
 public:
-	Quad() : Quad( Vector2d<T>( 1.0f, 1.0f ) )
+	Quad() : Quad(Vector2d<T>({ 1.0f, 1.0f }))
 	{};
 
 	Quad(const Position2d<T>& start) :
 		start(start),
-		length( 1.0, 1.0)
+		length({ 1, 1 })
 	{}
 
 
 	Quad(const Position2d<T>& v1, const Position2d<T>& v2) :
 		start( v1 ),
-		length(v2.getX() - v1.getX(), v2.getY() - v1.getY())
+		length({ v2.getX() - v1.getX(), v2.getY() - v1.getY() })
 	{
 	};
 

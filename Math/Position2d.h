@@ -19,7 +19,7 @@ public:
 	{}
 
 	Position2d(const T x, const T y) :
-		v(x,y)
+		v({ x, y })
 	{}
 
 	explicit Position2d(const Vector2d<T>& v) :
