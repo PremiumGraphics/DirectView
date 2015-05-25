@@ -17,46 +17,45 @@ class Matrix2d
 {
 public:
 	Matrix2d(void) : 
-		x00( 1.0), x01( 0.0),
-		x10( 0.0), x11( 1.0)
-	{}
+		Matrix2d(1, 0, 0, 1)
+	{
+	}
 	
 	Matrix2d(
 		const T x00, const T x01, 
 		const T x10, const T x11
-		) : x00( x00), x01( x01),
-		x10( x10), x11( x11)
-	{}
+		) 
+	{
+		x[0][0] = x00;
+		x[0][1] = x01;
+		x[1][0] = x10;
+		x[1][1] = x11;
+
+	}
 
 	~Matrix2d()
 	{};
 
 	void setIdentity() {
-		x00 = 1.0; x01 = 0.0;
-		x10 = 0.0; x11 = 1.0;
+		x[0][0] = 1;
+		x[0][1] = 0;
+		x[1][0] = 0;
+		x[1][1] = 1;
 	}
 
 	void setRotate( const T angle ) {
-		x00 =  ::cos( angle );
-		x01 = -::sin( angle );
-		x10 =  ::sin( angle );
-		x11 =  ::cos( angle );
+		x[0][0] =  ::cos( angle );
+		x[0][1] = -::sin( angle );
+		x[1][0] =  ::sin( angle );
+		x[1][1] =  ::cos( angle );
 	}
 
 	static Matrix2d Identity() {
-		return Matrix2d
-		(
-		1.0f, 0.0f,
-		0.0f, 1.0f
-		);
+		return Matrix2d( 1, 0, 0, 1 );
 	}
 
 	static Matrix2d<T> Zero() {
-		return Matrix2d
-		(
-		0.0f, 0.0f,
-		0.0f, 0.0f
-		);
+		return Matrix2d( 0, 0, 0, 0 );
 	}
 
 	static Matrix2d Rotate( const T angle )
@@ -68,14 +67,14 @@ public:
 
 	bool equals( const Matrix2d& rhs ) const {
 		return
-			Tolerance<T>::isEqualStrictly( x00, rhs.x00 ) &&
-			Tolerance<T>::isEqualStrictly( x01, rhs.x01 ) &&
-			Tolerance<T>::isEqualStrictly( x10, rhs.x10 ) &&
-			Tolerance<T>::isEqualStrictly( x11, rhs.x11 );
+			Tolerance<T>::isEqualStrictly( x[0][0], rhs.x[0][0] ) &&
+			Tolerance<T>::isEqualStrictly( x[0][1], rhs.x[0][1] ) &&
+			Tolerance<T>::isEqualStrictly( x[1][0], rhs.x[1][0] ) &&
+			Tolerance<T>::isEqualStrictly( x[1][1], rhs.x[1][1] );
 	}
 
 	T getDeterminant() const {
-		return x00 * x11 - x10 * x01;
+		return x[0][0] * x[1][1] - x[1][0] * x[0][1];
 	}
 
 	bool hasInverse() const {
@@ -88,10 +87,10 @@ public:
 		const T denominator = getDeterminant();
 		//assert( !Tolerancef::isEqualStrictly( denominator ) );
 	
-		const T xx00 = x11 / denominator;
-		const T xx01 = -x01 / denominator;
-		const T xx10 = -x10 / denominator;
-		const T xx11 = x00 / denominator;
+		const T xx00 = x[1][1] / denominator;
+		const T xx01 = -x[0][1] / denominator;
+		const T xx10 = -x[1][0] / denominator;
+		const T xx11 = x[0][0] / denominator;
 
 		return Matrix2d<T>( xx00, xx01, xx10, xx11 );
 	}
@@ -103,16 +102,18 @@ public:
 	Matrix2d getProduct( const Matrix2d& rhs ) const {
 		return Matrix2d
 			( 
-				x00 * rhs.x00 + x01 * rhs.x10,
-				x00 * rhs.x01 + x01 * rhs.x11,
-				x10 * rhs.x00 + x11 * rhs.x10,
-				x10 * rhs.x01 + x11 * rhs.x11
+				getX00() * rhs.getX00() + getX01() * rhs.getX10(),
+				getX00() * rhs.getX01() + getX01() * rhs.getX11(),
+				getX10() * rhs.getX00() + getX11() * rhs.getX10(),
+				getX10() * rhs.getX01() + getX11() * rhs.getX11()
 			);
 	}
 
 	Matrix2d scale( const T factor ) {
-		x00 *= factor; x01 *= factor;
-		x10 *= factor; x11 *= factor;
+		x[0][0] *= factor;
+		x[0][1] *= factor;
+		x[1][0] *= factor;
+		x[1][1] *= factor;
 		return *this;
 	}
 
@@ -122,10 +123,10 @@ public:
 	}
 
 	Matrix2d add( const Matrix2d& rhs ) {
-		x00 += rhs.x00;
-		x01 += rhs.x01;
-		x10 += rhs.x10;
-		x11 += rhs.x11;
+		x[0][0] += rhs.x[0][0];
+		x[0][1] += rhs.x[0][1];
+		x[1][0] += rhs.x[1][0];
+		x[1][1] += rhs.x[1][1];
 		return *this;
 	}
 
@@ -166,24 +167,25 @@ public:
 		return product( rhs);
 	}
 
-	T getX00() const { return x00; }
+	T getX00() const { return x[0][0]; }
 
-	T getX01() const { return x01; }
+	T getX01() const { return x[0][1]; }
 
-	T getX10() const { return x10; }
+	T getX10() const { return x[1][0]; }
 
-	T getX11() const { return x11; }
+	T getX11() const { return x[1][1]; }
 
 	std::vector< T > toArray2x2() const {
 		std::vector< T > val(4);
-		val[0] = x00; val[1] = x01; 
-		val[2] = x10; val[3] = x11;
+		val[0] = getX00(); val[1] = getX01(); 
+		val[2] = getX10(); val[3] = getX11();
 		return val;
 	}
 
 private:
-	T x00, x01;
-	T x10, x11;
+	//T x00, x01;
+	//T x10, x11;
+	std::array<  std::array< T, 2 >, 2 > x;
 };
 
 	}
