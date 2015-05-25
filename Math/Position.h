@@ -70,9 +70,11 @@ public:
 	*/
 
 public:
-	T getX() const { return v.getX(); }
 
-	T getY() const { return v.getY(); }
+	T getY() const { return get<1>(); }
+
+	template<size_t I>
+	T get() const { return v.get<I>(); }
 
 	//void setX(const T x) { this->x = x; }
 

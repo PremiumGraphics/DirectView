@@ -23,7 +23,7 @@ public:
 
 	Quad(const Position2d<T>& v1, const Position2d<T>& v2) :
 		start( v1 ),
-		length({ v2.getX() - v1.getX(), v2.getY() - v1.getY() })
+		length({ v2.get<0>() - v1.get<0>(), v2.getY() - v1.getY() })
 	{
 	};
 
@@ -40,18 +40,18 @@ public:
 	}
 
 	Position2d<T> getEnd() const {
-		const auto x = start.getX() + length.getX();
+		const auto x = start.get<0>() + length.get<0>();
 		const auto y = start.getY() + length.getY();
 		return Position2d<T>({ x, y });
 	}
 
 	Position2d<T> getCenter() const {
-		const auto x = start.getX() + length.getX() * T(0.5);
+		const auto x = start.get<0>() + length.get<0>() * T(0.5);
 		const auto y = start.getY() + length.getY() * T(0.5);
 		return Position2d<T>({ x, y });
 	}
 
-	T getLengthX() const { return length.getX(); }
+	T getLengthX() const { return length.get<0>(); }
 
 	T getLengthY() const { return length.getY(); }
 
@@ -74,8 +74,8 @@ public:
 	}
 
 	bool hasIntersection(const Quad& rhs) const {
-		const auto distx = std::fabs( getCenter().getX() - rhs.getCenter().getX());
-		const auto lx = length.getX() * 0.5 + rhs.getLengthX() * 0.5;
+		const auto distx = std::fabs( getCenter().get<0>() - rhs.getCenter().get<0>());
+		const auto lx = length.get<0>() * 0.5 + rhs.getLengthX() * 0.5;
 
 		const auto disty = std::fabs( getCenter().getY() - rhs.getCenter().getY());
 		const auto ly = length.getY() * 0.5 + rhs.getLengthY() * 0.5;
@@ -84,10 +84,10 @@ public:
 
 	Quad<T> getOverlapped(const Quad<T>& rhs) const {
 		assert( hasIntersection(rhs));
-		const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
+		const auto minx = std::max<T>(this->getStart().get<0>(), rhs.getStart().get<0>());
 		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
 
-		const auto maxx = std::min<T>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxx = std::min<T>(this->getEnd().get<0>(), rhs.getEnd().get<0>());
 		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
 
 		Position2d<T> min({ minx, miny });

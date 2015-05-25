@@ -24,13 +24,13 @@ public:
 		radii( radii )
 	{}
 
-	T getXRadius() const { return radii.getX(); }
+	T getXRadius() const { return radii.get<0>(); }
 
 	T getYRadius() const { return radii.getY(); }
 
 	//T getOblateness() const { return }
 
-	T getMajor() const { return std::max<T>( radii.getX(), radii.getY() ); }
+	T getMajor() const { return std::max<T>( radii.get<0>(), radii.getY() ); }
 
 	T getMinor() const { return std::min<T>( radii.getX(), radii.getY() ); }
 
@@ -38,7 +38,7 @@ public:
 
 	T getArea() const { return Tolerancef::getPI() * getXRadius() * getYRadius(); }
 
-	bool isCircle() const { return Tolerancef::isEqualStrictly(radii.getX(), radii.getY()); }
+	bool isCircle() const { return Tolerancef::isEqualStrictly(radii.get<0>(), radii.getY()); }
 
 	bool isShrinked() const { return Tolerancef::isEqualStrictly(getArea(), 0.0); }
 

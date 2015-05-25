@@ -160,9 +160,11 @@ public:
 	Vector operator/=(const T factor) { return scale(1.0f / factor); }
 
 public:
-	T getX() const { return v[0]; }
 
 	T getY() const { return v[1]; }
+
+	template<size_t I>
+	T get() const { return v[I]; }
 
 	void setX(const T x) { this->v[0] = x; }
 

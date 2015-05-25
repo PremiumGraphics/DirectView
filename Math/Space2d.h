@@ -54,7 +54,7 @@ public:
 
 	std::vector<Quad<T> > toDividedQuads() {
 		std::vector<Quad<T> > quads;
-		const auto sizex = getSizes().getX();
+		const auto sizex = getSizes().get<0>();
 		const auto sizey = getSizes().getY();
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
@@ -81,12 +81,12 @@ public:
 		for (size_t i = 1; i < bmp.sizex(); ++i) {
 			for (size_t j = 1; j < bmp.sizey(); ++j) {
 				if (bmp.get(i - 1,j) != bmp.get(i,j) ) {
-					const auto posx = getStart().getX() + getSizes().getX() * i;
+					const auto posx = getStart().get<0>() + getSizes().get<0>() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
 					positions.push_back(Position2d<T>({ posx, posy }));
 				}
 				if (bmp.get(i,j - 1) != bmp.get(i,j)) {
-					const auto posx = getStart().getX() + getSizes().getX() * i;
+					const auto posx = getStart().get<0>() + getSizes().get<0>() * i;
 					const auto posy = getStart().getY() + getSizes().getY() * j;
 					positions.push_back(Position2d<T>({ posx, posy }));
 				}

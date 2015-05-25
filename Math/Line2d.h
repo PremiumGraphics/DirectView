@@ -31,7 +31,7 @@ public:
 	Line2d(const Position2d<T>& start, const Position2d<T>& end) :
 		start( start)
 	{
-		vector = Vector2d<T>({ end.getX() - start.getX(), end.getY() - start.getY() });
+		vector = Vector2d<T>({ end.get<0>() - start.get<0>(), end.getY() - start.getY() });
 	}
 
 	Position2d<T> getStart() const { return start; }

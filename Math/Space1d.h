@@ -43,7 +43,7 @@ public:
 
 	Position1d<T> getStart() const { return start; }
 
-	T getEnd() const { return start.getX() + length; }
+	T getEnd() const { return start.get<0>() + length; }
 
 	T getLength() const { return length; }
 
@@ -57,7 +57,7 @@ public:
 		Position1dVector<T> positions;
 		for (size_t i = 0; i < bmp.size(); ++i) {
 			if (bmp[i]) {
-				const Position1d<T> pos({ getStart().getX() + getSize() * i + getSize() * 0.5f });
+				const Position1d<T> pos({ getStart().get<0>() + getSize() * i + getSize() * 0.5f });
 				positions.push_back(pos);
 			}
 		}
@@ -68,7 +68,7 @@ public:
 		Position1dVector<T> positions;
 		for (size_t i = 1; i < bmp.size(); ++i) {
 			if ( bmp[i-1] != bmp[i]) {
-				const Position1d<T> pos({ getStart().getX() + getSize() * i });
+				const Position1d<T> pos({ getStart().get<0>() + getSize() * i });
 				positions.push_back(pos);
 			}
 		}

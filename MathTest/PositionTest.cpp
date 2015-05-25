@@ -28,8 +28,8 @@ TEST(Position1dTest, TestMove)
 
 TEST(Position2dTest, TestGetX)
 {
-	EXPECT_EQ(0.0f, Position2d<float>().getX());
-	EXPECT_EQ(1.0f, Position2d<float>({ 1.0f, 2.0f }).getX());
+	EXPECT_EQ(0.0f, Position2d<float>().get<0>());
+	EXPECT_EQ(1.0f, Position2d<float>({ 1.0f, 2.0f }).get<0>());
 }
 
 TEST(Position2dTest, TestGetY)
