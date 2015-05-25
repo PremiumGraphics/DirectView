@@ -51,13 +51,9 @@ public:
 		return Position2d<T>({ x, y });
 	}
 
-	T getLengthX() const { return length.get<0>(); }
-
-	T getLengthY() const { return length.getY(); }
-
 	Vector2d<T> getLength() const { return length; }
 
-	T getArea() const { return getLengthX() * getLengthY(); }
+	T getArea() const { return getLength().get_(0) * getLength().get_(1); }
 
 	bool equals(const Quad& rhs) const {
 		return
@@ -75,10 +71,10 @@ public:
 
 	bool hasIntersection(const Quad& rhs) const {
 		const auto distx = std::fabs( getCenter().get<0>() - rhs.getCenter().get<0>());
-		const auto lx = length.get<0>() * 0.5 + rhs.getLengthX() * 0.5;
+		const auto lx = length.get<0>() * 0.5 + rhs.getLength().get_(0) * 0.5;
 
 		const auto disty = std::fabs( getCenter().get<1>() - rhs.getCenter().get<1>());
-		const auto ly = length.getY() * 0.5 + rhs.getLengthY() * 0.5;
+		const auto ly = length.get_(1) * 0.5 + rhs.getLength().get_(1) * 0.5;
 		return (distx < lx && disty < ly);
 	}
 

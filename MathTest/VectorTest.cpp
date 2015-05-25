@@ -20,13 +20,19 @@ TYPED_TEST(VectorTest, ScaleTest)
 
 TYPED_TEST(VectorTest, TestGetLength)
 {
-	EXPECT_EQ(0.0, Vector1d<TypeParam>(0.0).getLength());
+	using T = TypeParam;
+	EXPECT_EQ( 0, Vector1d<T>({ 0 }).getLength());
 
-	const auto actual = Vector2d<TypeParam>({ 1.0f, 1.0f }).getLength();
-	const auto expected = std::sqrt(TypeParam(2));
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(std::sqrt(TypeParam(2)), Vector2d<TypeParam>({ 1, 1 }).getLength() ) );
 
-	EXPECT_TRUE( Tolerance<TypeParam>::isEqualLoosely( actual, expected ) );
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(3, Vector3d__<T>({ 1, 1, 1 }).getLengthSquared()));
+	EXPECT_TRUE(Tolerance<T>::isEqualStrictly(3, Vector3d__<T>({ 1, 1, 1 }).getLengthSquared()));
+
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(14, Vector3d__<T>({ 1, 2, 3 }).getLengthSquared()));
+	EXPECT_TRUE(Tolerance<T>::isEqualStrictly(14, Vector3d__<T>({ 1, 2, 3 }).getLengthSquared()));
 }
+
+
 
 TYPED_TEST(VectorTest, TestGetLengthSquared)
 {

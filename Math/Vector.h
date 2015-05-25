@@ -20,21 +20,6 @@ public:
 		v.fill(0);
 	}
 
-	explicit Vector(const T x) {
-		v = { x };
-	}
-
-	/*
-	Vector(const T x, const T y)
-	{
-		v = { x, y };
-	}
-
-	Vector(const T x, const T y, const T z)
-	{
-		v = { x, y, z };
-	}
-	*/
 	Vector(const std::array< T, DIM >& v) : v( v )
 	{}
 	
@@ -44,12 +29,6 @@ public:
 			v[i] = end.v[i] - start.v[i];
 		}
 	}
-
-	static Vector Zero() { return Vector(0, 0); }
-
-	static Vector UnitX() { return Vector(1, 0); }
-
-	static Vector UnitY() { return Vector(0, 1); }
 
 	T getLengthSquared() const {
 		T ls = 0;
@@ -161,8 +140,6 @@ public:
 
 public:
 
-	T getY() const { return v[1]; }
-
 	template<size_t I>
 	T get() const { return v[I]; }
 
@@ -189,6 +166,9 @@ using Vector1d = Vector<T, 1>;
 
 template<typename T>
 using Vector2d = Vector<T, 2>;
+
+template<typename T>
+using Vector3d__ = Vector < T, 3 > ;
 
 template< typename T >
 static Vector2d<T> operator*(float factor, const Vector2d<T>& rhs) { return rhs.getScaled(factor); }

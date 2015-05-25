@@ -31,17 +31,17 @@ TYPED_TEST(QuadTest, TestGetEnd)
 TYPED_TEST( QuadTest, TestGetLengthX )
 {
 	using T = TypeParam;
-	EXPECT_EQ( 1.0f, Quad<T>().getLengthX() );
-	EXPECT_EQ(2.0f, Quad<T>(Position2d<T>({ 5, 6 } ), Vector2d<T>({ 2.0f, 3.0f })).getLengthX());
-	EXPECT_EQ(2.0f, Quad<T>(Vector2d<T>({ 2.0f, 3.0f })).getLengthX());
+	EXPECT_EQ( 1.0f, Quad<T>().getLength().get_(0) );
+	EXPECT_EQ(2.0f, Quad<T>(Position2d<T>({ 5, 6 } ), Vector2d<T>({ 2.0f, 3.0f })).getLength().get_(0));
+	EXPECT_EQ(2.0f, Quad<T>(Vector2d<T>({ 2.0f, 3.0f })).getLength().get_(0));
 }
 
 TYPED_TEST(QuadTest, TestGetLengthY )
 {
 	using T = TypeParam;
-	EXPECT_EQ( 1.0f, Quad<T>().getLengthY() );
-	EXPECT_EQ(3.0f, Quad<T>(Position2d<T>({ 5, 6 }), Vector2d<T>({ 2.0f, 3.0f })).getLengthY());
-	EXPECT_EQ(3.0f, Quad<T>(Vector2d<T>({ 2.0f, 3.0f })).getLengthY());
+	EXPECT_EQ( 1.0f, Quad<T>().getLength().get_(1) );
+	EXPECT_EQ(3.0f, Quad<T>(Position2d<T>({ 5, 6 }), Vector2d<T>({ 2.0f, 3.0f })).getLength().get_(1));
+	EXPECT_EQ(3.0f, Quad<T>(Vector2d<T>({ 2.0f, 3.0f })).getLength().get_(1));
 }
 
 TYPED_TEST(QuadTest, TestGetCenter)

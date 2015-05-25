@@ -55,7 +55,7 @@ public:
 	std::vector<Quad<T> > toDividedQuads() {
 		std::vector<Quad<T> > quads;
 		const auto sizex = getSizes().get<0>();
-		const auto sizey = getSizes().getY();
+		const auto sizey = getSizes().get_(1);
 		for (size_t x = 0; x < bmp.sizex(); ++x) {
 			for (size_t y = 0; y < bmp.sizey(); ++y) {
 				if (bmp.get(x, y)) {

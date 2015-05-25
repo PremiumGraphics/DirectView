@@ -34,7 +34,7 @@ TYPED_TEST(Line1dTest, TestGetEnd)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Position1d<T>({ 1 }), Line1d<T>(Position1d<T>({ 0 }), Vector1d<T>({ 1 })).getEnd());
-	EXPECT_EQ(Position1d<T>({ 11 }), Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>( 10.0f )).getEnd());
+	EXPECT_EQ(Position1d<T>({ 11 }), Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>({ 10 })).getEnd());
 	EXPECT_EQ(Position1d<T>({ 3 }), Line1d<T>(Position1d<T>({ 2 }), Position1d<T>({ 3 })).getEnd());
 }
 
@@ -42,7 +42,7 @@ TYPED_TEST(Line1dTest, TestGetLength)
 {
 	using T = TypeParam;
 	EXPECT_EQ(1.0, Line1d<T>(Position1d<T>({ 0 }), Vector1d<T>({ 1 })).getLength());
-	EXPECT_EQ(10.0, Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>( 10.0f )).getLength());
+	EXPECT_EQ(10.0, Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>({ 10 })).getLength());
 	EXPECT_EQ(1.0, Line1d<T>(Position1d<T>({ 2 }), Position1d<T>({ 3 })).getLength());
 
 }
