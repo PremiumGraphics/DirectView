@@ -12,16 +12,16 @@
 namespace Crystal {
 	namespace Math {
 
-template< typename T >
-class Matrix2d
+template< typename T, size_t DIM >
+class Matrix
 {
 public:
-	Matrix2d(void) : 
-		Matrix2d(1, 0, 0, 1)
+	Matrix(void) : 
+		Matrix(1, 0, 0, 1)
 	{
 	}
 	
-	Matrix2d(
+	Matrix(
 		const T x00, const T x01, 
 		const T x10, const T x11
 		) 
@@ -33,7 +33,7 @@ public:
 
 	}
 
-	~Matrix2d()
+	~Matrix()
 	{};
 
 	void setIdentity() {
@@ -50,22 +50,22 @@ public:
 		x[1][1] =  ::cos( angle );
 	}
 
-	static Matrix2d Identity() {
-		return Matrix2d( 1, 0, 0, 1 );
+	static Matrix Identity() {
+		return Matrix( 1, 0, 0, 1 );
 	}
 
-	static Matrix2d<T> Zero() {
-		return Matrix2d( 0, 0, 0, 0 );
+	static Matrix<T,DIM> Zero() {
+		return Matrix( 0, 0, 0, 0 );
 	}
 
-	static Matrix2d Rotate( const T angle )
+	static Matrix Rotate( const T angle )
 	{
-		Matrix2d matrix;
+		Matrix matrix;
 		matrix.setRotate( angle );
 		return matrix;
 	}
 
-	bool equals( const Matrix2d& rhs ) const {
+	bool equals( const Matrix& rhs ) const {
 		return
 			Tolerance<T>::isEqualStrictly( x[0][0], rhs.x[0][0] ) &&
 			Tolerance<T>::isEqualStrictly( x[0][1], rhs.x[0][1] ) &&
@@ -82,7 +82,7 @@ public:
 		return !Tolerance<T>::isEqualStrictly( denominator, 0.0 );
 	}
 
-	Matrix2d getInverse() const {
+	Matrix getInverse() const {
 		assert( hasInverse() );
 		const T denominator = getDeterminant();
 		//assert( !Tolerancef::isEqualStrictly( denominator ) );
@@ -92,15 +92,15 @@ public:
 		const T xx10 = -x[1][0] / denominator;
 		const T xx11 = x[0][0] / denominator;
 
-		return Matrix2d<T>( xx00, xx01, xx10, xx11 );
+		return Matrix( xx00, xx01, xx10, xx11 );
 	}
 
-	Matrix2d<T> product( const Matrix2d<T>& rhs ) {
+	Matrix<T,DIM> product( const Matrix& rhs ) {
 		return *this = getProduct(rhs);
 	}
 
-	Matrix2d getProduct( const Matrix2d& rhs ) const {
-		return Matrix2d
+	Matrix<T,DIM> getProduct( const Matrix& rhs ) const {
+		return Matrix
 			( 
 				getX00() * rhs.getX00() + getX01() * rhs.getX10(),
 				getX00() * rhs.getX01() + getX01() * rhs.getX11(),
@@ -109,61 +109,63 @@ public:
 			);
 	}
 
-	Matrix2d scale( const T factor ) {
-		x[0][0] *= factor;
-		x[0][1] *= factor;
-		x[1][0] *= factor;
-		x[1][1] *= factor;
+	Matrix scale( const T factor ) {
+		for (auto i = 0; i < 2; ++i) {
+			for (auto j = 0; j < 2; ++j) {
+				x[i][j] *= factor;
+			}
+		}
 		return *this;
 	}
 
-	Matrix2d getScaled( const T factor ) const {
-		Matrix2d matrix = *this;
+	Matrix getScaled( const T factor ) const {
+		Matrix matrix = *this;
 		return matrix.scale( factor);
 	}
 
-	Matrix2d add( const Matrix2d& rhs ) {
-		x[0][0] += rhs.x[0][0];
-		x[0][1] += rhs.x[0][1];
-		x[1][0] += rhs.x[1][0];
-		x[1][1] += rhs.x[1][1];
+	Matrix add( const Matrix& rhs ) {
+		for (auto i = 0; i < DIM; ++i) {
+			for (auto j = 0; j < DIM; ++j) {
+				x[i][j] += factor;
+			}
+		}
 		return *this;
 	}
 
-	Matrix2d getAdd( const Matrix2d& rhs ) const {
-		Matrix2d matrix = *this;
+	Matrix getAdd( const Matrix& rhs ) const {
+		Matrix matrix = *this;
 		return matrix.add( rhs);
 	}
 
-	bool operator==( const Matrix2d& rhs ) const {
+	bool operator==( const Matrix& rhs ) const {
 		return equals( rhs );
 	}
 
-	bool operator!=( const Matrix2d& rhs ) const {
+	bool operator!=( const Matrix& rhs ) const {
 		return !equals( rhs );
 	}
 
-	Matrix2d operator+( const Matrix2d& rhs ) const {
+	Matrix operator+( const Matrix& rhs ) const {
 		return getAdd( rhs);
 	}
 
-	const Matrix2d operator+=(const Matrix2d& rhs ) {
+	const Matrix operator+=(const Matrix& rhs ) {
 		return add( rhs );
 	}
 
-	Matrix2d operator-( const Matrix2d& rhs ) const {
+	Matrix operator-( const Matrix& rhs ) const {
 		return getAdd( rhs.getScaled( -1.0) );
 	}
 
-	const Matrix2d<T> operator-=( const Matrix2d<T>& rhs ) {
+	const Matrix operator-=( const Matrix& rhs ) {
 		return add( rhs.getScaled( -1.0) );
 	}
 
-	Matrix2d operator*( const Matrix2d& rhs ) const {
+	Matrix operator*( const Matrix& rhs ) const {
 		return getProduct( rhs);
 	}
 	
-	const Matrix2d operator*=( const Matrix2d& rhs ) {
+	const Matrix operator*=( const Matrix& rhs ) {
 		return product( rhs);
 	}
 
@@ -185,9 +187,11 @@ public:
 private:
 	//T x00, x01;
 	//T x10, x11;
-	std::array<  std::array< T, 2 >, 2 > x;
+	std::array<  std::array< T, DIM >, DIM > x;
 };
 
+template<typename T>
+using Matrix2d = Matrix < T, 2 > ;
 	}
 }
 

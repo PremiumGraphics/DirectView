@@ -122,7 +122,18 @@ public:
 			Triangle<T>(),
 			Triangle<T>()
 		};
-
+		triTable[8] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
+		triTable[9] = {
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>(),
+			Triangle<T>()
+		};
 
 		triTable[10] = {
 			Triangle<T>(
@@ -138,18 +149,43 @@ public:
 
 			)
 		};
-
-		triTable[12] = {
+		triTable[11] = {
 			Triangle<T>(),
 			Triangle<T>(),
 			Triangle<T>()
 		};
 
-		triTable[13] = {
-			Triangle<T>(),
-			Triangle<T>(),
+		triTable[12] = {
+			Triangle<T>(
+			Position3d<T>(0.0,1.0,0.5),
+			Position3d<T>(0.0,0.5,0.0),
+			Position3d<T>(0.5,1.0,0.0)
+			),
 			Triangle<T>(),
 			Triangle<T>()
+		};
+
+		triTable[13] = {
+			Triangle<T>(
+			Position3d<T>(0.0, 1.0, 0.5),
+			Position3d<T>(0.0, 0.0, 0.5),
+			Position3d<T>(0.5, 0.0, 0.0)
+			),
+			Triangle<T>(
+			Position3d<T>(0.0, 1.0, 0.5),
+			Position3d<T>(0.5, 0.0, 0.0),
+			Position3d<T>(0.5, 1.0, 0.0)
+			),
+			Triangle<T>(
+			Position3d<T>(0.5, 1.0, 1.0),
+			Position3d<T>(1.0, 0.0, 0.5),
+			Position3d<T>(0.5, 0.0, 1.0)
+			),
+			Triangle<T>(
+			Position3d<T>(0.5, 1.0, 1.0),
+			Position3d<T>(1.0, 1.0, 0.5),
+			Position3d<T>(1.0, 0.0, 0.5)
+			)
 		};
 
 
