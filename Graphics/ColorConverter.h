@@ -12,7 +12,7 @@ namespace Crystal {
 
 class ColorConverter {
 public:
-	static ColorRGB<float> toRGB(const ColorHSV& hsv) {
+	static ColorRGB<float> toRGB(const ColorHSV<float>& hsv) {
 		const float h = hsv.getH();
 		const float s = hsv.getS();
 		const float v = hsv.getV();
@@ -50,7 +50,7 @@ public:
 		}
 	}
 
-	static ColorHSV toHSV(const ColorRGB<float>& rgb) {
+	static ColorHSV<float> toHSV(const ColorRGB<float>& rgb) {
 		const float r = rgb.getRed();
 		const float g = rgb.getGreen();
 		const float b = rgb.getBlue();
@@ -63,23 +63,23 @@ public:
 
 		if (min == max) {
 			const float h = 0.0;
-			return ColorHSV(h, s, v);
+			return ColorHSV<float>(h, s, v);
 		}
 		else if (min == b) {
 			const float h = 60.0f * (g - r) / (max - min) + 60.0f;
-			return ColorHSV(h, s, v);
+			return ColorHSV<float>(h, s, v);
 		}
 		else if (min == r) {
 			const float h = 60.0f * (b - g) / (max - min) + 180.0f;
-			return ColorHSV(h, s, v);
+			return ColorHSV<float>(h, s, v);
 		}
 		else if (min == g) {
 			const float h = 60.0f * (r - b) / (max - min) + 300.0f;
-			return ColorHSV(h, s, v);
+			return ColorHSV<float>(h, s, v);
 		}
 		else {
 			assert(false);
-			return ColorHSV();
+			return ColorHSV<float>();
 		}
 
 	}

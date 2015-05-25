@@ -7,6 +7,7 @@
 namespace Crystal {
 	namespace Graphics {
 
+template<typename T>
 class ColorHSV {
 public:
 
@@ -29,17 +30,17 @@ public:
 	*/
 
 
-	float getH() const { return h; }
+	T getH() const { return h; }
 
-	float getS() const { return s; }
+	T getS() const { return s; }
 
-	float getV() const { return v; }
+	T getV() const { return v; }
 
-	void setH( const float h ) { this->h = h; }
+	void setH( const T h ) { this->h = h; }
 
-	void setS( const float s ) { this->s = s; }
+	void setS( const T s ) { this->s = s; }
 
-	void setV( const float v ) { this->v = v; }
+	void setV( const T v ) { this->v = v; }
 
 	bool operator==( const ColorHSV& rhs ) const {
 		return
@@ -49,9 +50,9 @@ public:
 	}
 	
 private:
-	float h;
-	float s;
-	float v;
+	T h;
+	T s;
+	T v;
 };
 	}
 }
