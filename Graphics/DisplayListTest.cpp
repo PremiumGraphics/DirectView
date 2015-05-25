@@ -38,18 +38,6 @@ TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 	EXPECT_EQ(expected, actual);
 }
 
-TEST(DisplayListTest, TestAddFace)
-{
-	FaceBuilderSPtr builder( new FaceBuilder() );
-	FaceSPtr f = builder->buildQuad();
-
-	DisplayList list;
-	list.add(f.get(), ColorRGBA<float>::Black());
-
-	const std::vector<unsigned int> expected{ 0, 0, 0, 0 };
-	EXPECT_EQ( expected, list.getFaceIds());
-}
-
 /*
 TEST(FaceTest, TestGetPositions)
 {
