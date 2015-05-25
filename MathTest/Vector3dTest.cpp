@@ -104,12 +104,6 @@ TYPED_TEST( Vector3dTest, TestToArray )
 	EXPECT_EQ( expected, actual );
 }
 
-TYPED_TEST(Vector3dTest, TestGetNormalized)
-{
-	EXPECT_EQ(Vector3d_<float>::UnitXYZ(), Vector3d_<float>(1.0f, 1.0f, 1.0f).getNormalized());
-	EXPECT_EQ(Vector3d_<float>::UnitXY(), Vector3d_<float>(1, 1, 0).getNormalized());
-}
-
 TYPED_TEST(Vector3dTest, TestRotateX)
 {
 	const Matrix3d<double> m = Matrix3d<double>::RotateX( Tolerance<double>::getPI());
