@@ -30,6 +30,7 @@ TEST(Marching3dTest, Test)
 	EXPECT_EQ(Vector3d_<float>(0,1,1).getNormalized(), table[2].back().getNormal());
 	EXPECT_EQ(Vector3d_<float>(1,1,1).getNormalized(), table[3].front().getNormal());
 	EXPECT_EQ(Vector3d_<float>(-1, -1, 1).getNormalized(), table[3].back().getNormal() );
+	//EXPECT_EQ(Vector3d_<float>(-1,))
 
 	EXPECT_EQ(Vector3d_<float>::UnitY(), table[5][0].getNormal());
 	EXPECT_EQ(Vector3d_<float>::UnitY(), table[5][1].getNormal());

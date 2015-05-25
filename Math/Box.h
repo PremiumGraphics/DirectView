@@ -223,11 +223,8 @@ public:
 
 private:
 	T maxX;
-	//T minX;
 	T maxY;
-	//T minY;
 	T maxZ;
-//	T minZ;
 	Position3d<T> start;
 };
 

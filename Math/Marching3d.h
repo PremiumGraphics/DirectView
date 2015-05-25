@@ -18,11 +18,17 @@ public:
 
 	void march(const Space3d<2, 2, 2>& space) {
 		const auto& bmp = space.getBitmap();
-		if (bmp == triTable[0]) {
+		const auto& scale = space.getSizes();
+		if (bmp == table[0]) {
+			const auto t = triTable[0];
 		}
-		else if (bmp == triTable[1]) {
+		else if (bmp == table[1]) {
+			const auto t = triTable[1];
+
 		}
-		else if (bmp == triTable[2]) {
+		else if (bmp == table[2]) {
+			const auto t = triTable[2];
+
 		}
 		/*if (bmp.get(0, 0)) {
 
@@ -90,7 +96,11 @@ public:
 			)
 		};
 		triTable[4] = {
-			Triangle<T>(),
+			Triangle<T>(
+			Position3d<T>(1.0,0.5,0.0),
+			Position3d<T>(0.5,0.0,0.0),
+			Position3d<T>(0.0,0.0,0.5)
+			),
 			Triangle<T>(),
 			Triangle<T>()
 		};
