@@ -37,7 +37,7 @@ public:
 		start( start)
 	{
 		for (size_t i = 0; i < DIM; ++i)  {
-			vector.set(i, end.get_(i) - start.get_(i));
+			vector.set(i, end.get(i) - start.get(i));
 		}
 	}
 
@@ -48,7 +48,7 @@ public:
 	Position<T,DIM> getEnd() const {
 		Position<T,DIM> end;
 		for (size_t i = 0; i < DIM; ++i) {
-			end.set(i, start.get_(i) + vector.get_(i));
+			end.set(i, start.get(i) + vector.get(i));
 		}
 		return end;
 	}

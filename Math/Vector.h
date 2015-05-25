@@ -141,14 +141,11 @@ public:
 public:
 
 	template<size_t I>
-	T get() const { return v[I]; }
-
-	template<size_t I>
 	void set(const T v) { this->v[I] = v; }
 
 	void set(const int i, const T v) { this->v[i] = v; }
 
-	T get_(const int i)  const { return this->v[i]; }
+	T get(const int i)  const { return this->v[i]; }
 
 
 	void setX(const T x) { this->v[0] = x; }

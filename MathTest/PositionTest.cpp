@@ -42,10 +42,10 @@ TYPED_TEST(PositionTest, TestGet)
 {
 	using T = TypeParam;
 
-	EXPECT_EQ( 0, Position2d<T>().get<0>());
-	EXPECT_EQ( 1, Position2d<T>({ 1, 2 }).get<0>());
-	EXPECT_EQ( 0, Position2d<T>().get<1>());
-	EXPECT_EQ( 2, Position2d<T>({ 1, 2 }).get<1>());
+	EXPECT_EQ( 0, Position2d<T>().get(0));
+	EXPECT_EQ( 1, Position2d<T>({ 1, 2 }).get(0));
+	EXPECT_EQ( 0, Position2d<T>().get(1));
+	EXPECT_EQ( 2, Position2d<T>({ 1, 2 }).get(1));
 }
 
 TYPED_TEST(PositionTest, TestGetDistanceSquared)

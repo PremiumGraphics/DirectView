@@ -71,10 +71,8 @@ public:
 	*/
 
 public:
-	template<size_t I>
-	T get() const { return v.get<I>(); }
 
-	T get_(const size_t i) const { return v.get_(i); }
+	T get(const size_t i) const { return v.get(i); }
 
 	void set(const size_t i, const T& v) { this->v.set(i,v); }
 
