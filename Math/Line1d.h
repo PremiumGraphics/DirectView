@@ -13,7 +13,7 @@ class Line1d final
 {
 public:
 	Line1d() :
-		origin(0.0f),
+		origin({ 0 }),
 		length(1.0f)
 	{}
 
@@ -31,12 +31,7 @@ public:
 
 	Line1d(const Position1d<T>& start, const Position1d<T>& end) :
 		origin(start),
-		length(end.get()-start.get())
-	{}
-
-	Line1d(const T start, const T length) :
-		origin(start),
-		length(length)
+		length(end.getX()-start.getX())
 	{}
 
 
@@ -44,9 +39,9 @@ public:
 
 	T getLength() const { return length; }
 
-	Position1d<T> getEnd() const { return getStart() + length; }
+	Position1d<T> getEnd() const { return Position1d<T>({ getStart().getX() + length }); }
 
-	Position1d<T> getCenter() const { return getStart() + length * T(0.5); }
+	Position1d<T> getCenter() const { return Position1d<T>({ getStart().getX() + length * T(0.5) }); }
 
 	Line1d& move(const T v) {
 		origin += v;
@@ -92,9 +87,9 @@ public:
 
 	Line1d<T> getOverlapped(const Line1d<T>& rhs) const {
 		assert(hasIntersection(rhs));
-		const auto min = std::max<T>( this->getStart().get(), rhs.getStart().get());
-		const auto max = std::min<T>( this->getEnd().get(), rhs.getEnd().get() );
-		return Line1d( Position1d<T>( min ), Position1d<T>( max) );
+		const auto min = std::max<T>( this->getStart().getX(), rhs.getStart().getX());
+		const auto max = std::min<T>( this->getEnd().getX(), rhs.getEnd().getX() );
+		return Line1d(Position1d<T>({ min }), Position1d<T>({ max }));
 	}
 
 private:

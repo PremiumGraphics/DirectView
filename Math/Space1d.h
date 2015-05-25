@@ -14,12 +14,12 @@ template< size_t N, typename T >
 class Space1d final {
 public:
 	Space1d() :
-		start(0.0f),
+		start({ 0 }),
 		length(1.0f)
 	{}
 
 	Space1d(const Bitmap1d<N>& bmp) :
-		start(0.0f),
+		start({ 0 }),
 		length(1.0f),
 		bmp( bmp )
 	{}
@@ -43,7 +43,7 @@ public:
 
 	Position1d<T> getStart() const { return start; }
 
-	T getEnd() const { return start.get() + length; }
+	T getEnd() const { return start.getX() + length; }
 
 	T getLength() const { return length; }
 
@@ -57,7 +57,7 @@ public:
 		Position1dVector<T> positions;
 		for (size_t i = 0; i < bmp.size(); ++i) {
 			if (bmp[i]) {
-				const auto pos = getStart() + getSize() * i + getSize() * 0.5f;
+				const Position1d<T> pos({ getStart().getX() + getSize() * i + getSize() * 0.5f });
 				positions.push_back(pos);
 			}
 		}
@@ -68,7 +68,7 @@ public:
 		Position1dVector<T> positions;
 		for (size_t i = 1; i < bmp.size(); ++i) {
 			if ( bmp[i-1] != bmp[i]) {
-				const auto pos = getStart() + getSize() * i;
+				const Position1d<T> pos({ getStart().getX() + getSize() * i });
 				positions.push_back(pos);
 			}
 		}

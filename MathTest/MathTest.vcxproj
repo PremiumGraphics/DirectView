@@ -68,6 +68,7 @@
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />
+    <ClInclude Include="..\Math\Position.h" />
     <ClInclude Include="..\Math\Position1d.h" />
     <ClInclude Include="..\Math\Position2d.h" />
     <ClInclude Include="..\Math\Position3d.h" />
