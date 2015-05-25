@@ -51,8 +51,7 @@ public:
 	{
 		v = { x, y };
 	}
-
-
+	
 	Vector(const Vector& start, const Vector& end)
 	{
 		v = {
@@ -61,11 +60,11 @@ public:
 		};
 	}
 
-	static Vector Zero() { return Vector(0.0f, 0.0f); }
+	static Vector Zero() { return Vector(0, 0); }
 
-	static Vector UnitX() { return Vector(1.0f, 0.0f); }
+	static Vector UnitX() { return Vector(1, 0); }
 
-	static Vector UnitY() { return Vector(0.0f, 1.0f); }
+	static Vector UnitY() { return Vector(0, 1); }
 
 	T getLengthSquared() const {
 		T ls = 0;

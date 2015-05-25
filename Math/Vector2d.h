@@ -7,6 +7,7 @@
 namespace Crystal{
 	namespace Math{
 
+
 template<typename T>
 using Vector2d = Vector<T,2>;
 
