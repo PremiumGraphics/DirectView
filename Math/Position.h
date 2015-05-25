@@ -46,8 +46,9 @@ public:
 		return !equals(rhs);
 	}
 
+	/*
 	Position operator+(const Vector<T,DIM>& rhs) const {
-		return Position(get<0>() + rhs.x, get<1>() + rhs.y);
+		return Position(get<0>() + rhs.get<0>(), get<1>() + rhs.get<1>());
 	}
 
 	Position operator-(const Vector<T,DIM>& rhs) const {
@@ -72,6 +73,10 @@ public:
 public:
 	template<size_t I>
 	T get() const { return v.get<I>(); }
+
+	T get_(const size_t i) const { return v.get_(i); }
+
+	void set(const size_t i, const T& v) { this->v.set(i,v); }
 
 	std::vector<T> toArray() const { return{ x, y }; }
 

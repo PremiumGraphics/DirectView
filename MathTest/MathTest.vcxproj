@@ -24,7 +24,6 @@
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Line1dTest.cpp" />
-    <ClCompile Include="Line2dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
@@ -59,8 +58,7 @@
     <ClInclude Include="..\Math\Grid1d.h" />
     <ClInclude Include="..\Math\Grid2d.h" />
     <ClInclude Include="..\Math\Grid3d.h" />
-    <ClInclude Include="..\Math\Line1d.h" />
-    <ClInclude Include="..\Math\Line2d.h" />
+    <ClInclude Include="..\Math\Line.h" />
     <ClInclude Include="..\Math\Line3d.h" />
     <ClInclude Include="..\Math\Marching2d.h" />
     <ClInclude Include="..\Math\Marching3d.h" />

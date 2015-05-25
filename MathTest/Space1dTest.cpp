@@ -26,10 +26,12 @@ TEST(Space1dTest, TestGetLength)
 	EXPECT_EQ(2.0f, Space1df(Position1d<float>({ 1.0f }), 2.0f).getLength());
 }
 
+/*
 TEST(Space1dTest, TestGetBoundingLine)
 {
 	EXPECT_EQ(Line1d<float>(Position1d<float>({ 0.0f }), 1.0f), Space1df().getBoundingLine());
 }
+*/
 
 TEST(Space1dTest, TestGetSize)
 {

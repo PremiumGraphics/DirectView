@@ -5,6 +5,7 @@
 
 #include <cassert>
 
+/*
 namespace Crystal {
 	namespace Math {
 
@@ -98,5 +99,5 @@ private:
 };
 	}
 }
-
+*/
 #endif

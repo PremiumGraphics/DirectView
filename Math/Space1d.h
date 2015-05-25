@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Bitmap1d.h"
-#include "Line1d.h"
+#include "Line.h"
 #include "Position.h"
 
 namespace Crystal {

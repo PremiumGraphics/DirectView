@@ -29,7 +29,6 @@
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
-    <ClCompile Include="Line2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
@@ -48,7 +47,6 @@
     <ClInclude Include="..\Math\Grid1d.h" />
     <ClInclude Include="..\Math\Grid2d.h" />
     <ClInclude Include="..\Math\Grid3d.h" />
-    <ClInclude Include="..\Math\Line1d.h" />
     <ClInclude Include="..\Math\Line3d.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
@@ -67,8 +65,8 @@
     <ClInclude Include="..\Math\Vector3d.h" />
     <ClInclude Include="..\Math\DynamicBitmap.h" />
     <ClInclude Include="..\Math\Marching2d.h" />
-    <ClInclude Include="..\Math\Line2d.h" />
     <ClInclude Include="..\Math\Marching3d.h" />
     <ClInclude Include="..\Math\Position.h" />
+    <ClInclude Include="..\Math\Line.h" />
   </ItemGroup>
 </Project>
