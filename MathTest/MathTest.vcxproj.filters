@@ -8,7 +8,6 @@
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
-    <ClCompile Include="Vector2dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
@@ -29,13 +28,13 @@
     <ClCompile Include="Position1dTest.cpp" />
     <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="Line1dTest.cpp" />
-    <ClCompile Include="Vector1dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Line2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap1d.h" />
