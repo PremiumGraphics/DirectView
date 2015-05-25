@@ -93,36 +93,6 @@ private:
 typedef std::shared_ptr< Vertex > VertexSPtr;
 typedef std::vector< VertexSPtr > VertexSPtrVector;
 
-class VertexBuilder {
-public:
-	VertexBuilder() :
-		nextId( 0 )
-	{}
-
-	~VertexBuilder() {
-	}
-
-	VertexSPtr build(const Math::Vector3d& position);
-
-	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal);
-
-	VertexSPtr build(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord);
-
-	VertexSPtrVector buildVerticesFromPositions(const Math::Vector3dVector& positions);
-
-	VertexSPtrVector buildVerticesFromPositionsAndNormals(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals);
-
-	VertexSPtrVector buildVerticesFromPositionsNormalsTexCoords(const Math::Vector3dVector& positions, const Math::Vector3dVector& normals, const Math::Vector3dVector& texCoords);
-
-	VertexSPtrVector getVertices() const { return vertices; }
-
-private:
-	VertexSPtrVector vertices;
-	unsigned int nextId;
-};
-
-typedef std::shared_ptr< VertexBuilder > VertexBuilderSPtr;
-
 static bool VerticesAreSame(const VertexSPtrVector& lhs, const VertexSPtrVector& rhs)
 {
 	if (lhs.size() != rhs.size()) {

@@ -83,44 +83,6 @@ private:
 typedef std::vector< HalfEdgeSPtr > HalfEdgeVector;
 typedef std::list< HalfEdgeSPtr > HalfEdgeSPtrList;
 
-class HalfEdgeBuilder
-{
-public:
-
-	HalfEdgeBuilder() :
-		vBuilder( new VertexBuilder()),
-		nextId(0)
-	{}
-
-	HalfEdgeBuilder(const VertexBuilderSPtr& vBuilder) :
-		nextId(0),
-		vBuilder( vBuilder ),
-		face( nullptr )
-	{}
-
-	FaceSPtr getFace() const { return face; }
-
-	void setFace(const FaceSPtr& f) { this->face = f; }
-
-	HalfEdgeSPtr build(const VertexSPtr& start, const VertexSPtr& end )
-	{
-		return HalfEdgeSPtr( new HalfEdge(start, end, nextId++, face ));
-	}
-
-	HalfEdgeSPtrList buildOpenFromVertices(const VertexSPtrVector& vv);
-
-	HalfEdgeSPtrList buildClosedFromVertices(const VertexSPtrVector& vv);
-
-	VertexBuilderSPtr getVertexBuilder() const { return vBuilder; }
-
-	HalfEdgeSPtr insert(const HalfEdgeSPtr& edge, const VertexSPtr& v);
-
-
-private:
-	VertexBuilderSPtr vBuilder;
-	unsigned int nextId;
-	FaceSPtr face;
-};
 
 	}
 }

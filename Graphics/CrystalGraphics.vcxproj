@@ -88,10 +88,8 @@
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="GLee.cpp" />
-    <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
-    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

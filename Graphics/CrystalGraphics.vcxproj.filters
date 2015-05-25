@@ -4,10 +4,8 @@
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="Polygon.cpp" />
-    <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="DisplayList.cpp" />
     <ClCompile Include="Face.cpp" />
-    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />
