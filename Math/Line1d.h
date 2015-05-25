@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_LINE_1D_H__
 #define __CRYSTAL_MATH_LINE_1D_H__
 
-#include "Position1d.h"
+#include "Position.h"
 
 #include <cassert>
 

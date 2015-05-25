@@ -33,7 +33,6 @@
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="Position1dTest.cpp" />
-    <ClCompile Include="Position2dTest.cpp" />
     <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
@@ -69,8 +68,6 @@
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />
     <ClInclude Include="..\Math\Position.h" />
-    <ClInclude Include="..\Math\Position1d.h" />
-    <ClInclude Include="..\Math\Position2d.h" />
     <ClInclude Include="..\Math\Position3d.h" />
     <ClInclude Include="..\Math\Quad.h" />
     <ClInclude Include="..\Math\Quaternion.h" />

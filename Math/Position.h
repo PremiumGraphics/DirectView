@@ -84,6 +84,20 @@ private:
 	Vector<T, DIM> v;
 };
 
+template<typename T>
+using Position1d = Position < T, 1 >;
+
+
+template<typename T>
+using Position1dVector = std::vector < Position1d<T> >;
+
+template<typename T>
+using Position2d = Position < T, 2 >;
+
+template<typename T>
+using Position2dVector = std::vector < Position2d<T> >;
+
+
 	}
 }
 

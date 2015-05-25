@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_QUAD_H__
 
 #include "Vector.h"
-#include "Position2d.h"
+#include "Position.h"
 
 #include <vector>
 
