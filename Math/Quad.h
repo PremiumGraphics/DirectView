@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_QUAD_H__
 #define __CRYSTAL_MATH_QUAD_H__
 
-#include "Vector2d.h"
+#include "Vector.h"
 #include "Position2d.h"
 
 #include <vector>

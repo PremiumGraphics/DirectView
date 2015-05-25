@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_LINE_2D_H__
 
 #include "Position2d.h"
-#include "Vector2d.h"
+#include "Vector.h"
 
 #include <cassert>
 

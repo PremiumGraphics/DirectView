@@ -5,53 +5,53 @@
 #include <vector>
 #include "Tolerance.h"
 
-#include "Vector2d.h"
+#include "Vector.h"
 
 namespace Crystal{
 	namespace Math{
 
-template< typename T >
-class Position2d final
+template< typename T, size_t DIM >
+class Position final
 {
 public:
 
-	Position2d(void)
+	Position(void)
 	{}
 
-	Position2d(const T x, const T y) :
+	Position(const T x, const T y) :
 		v({ x, y })
 	{}
 
-	explicit Position2d(const Vector2d<T>& v) :
+	explicit Position(const Vector2d<T>& v) :
 		v(v)
 	{}
 
-	T getDistance(const Position2d<T>& rhs) const {
+	T getDistance(const Position& rhs) const {
 		return v.getDistance(rhs.v);
 	}
 
-	T getDistanceSquared(const Position2d<T>& rhs) const {
+	T getDistanceSquared(const Position& rhs) const {
 		return v.getDistanceSquared(rhs.v);
 	}
 
-	bool equals(const Position2d<T>&rhs) const {
+	bool equals(const Position&rhs) const {
 		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
 	}
 
-	bool operator==(const Position2d<T>& rhs) const {
+	bool operator==(const Position& rhs) const {
 		return equals(rhs);
 	}
 
-	bool operator!=(const Position2d<T>& rhs) const {
+	bool operator!=(const Position& rhs) const {
 		return !equals(rhs);
 	}
 
-	Position2d<T> operator+(const Vector2d<T>& rhs) const {
-		return Position2d<T>(getX() + rhs.x, getY() + rhs.y);
+	Position operator+(const Vector2d<T>& rhs) const {
+		return Position(getX() + rhs.x, getY() + rhs.y);
 	}
 
-	Position2d<T> operator-(const Vector2d<T>& rhs) const {
-		return Position2d<T>(getX() - rhs.x, getY() - rhs.y);
+	Position operator-(const Vector2d<T>& rhs) const {
+		return Position(getX() - rhs.x, getY() - rhs.y);
 	}
 
 	/*
@@ -81,8 +81,11 @@ public:
 	std::vector<T> toArray() const { return{ x, y }; }
 
 private:
-	Vector2d<T> v;
+	Vector<T, DIM> v;
 };
+
+template<typename T>
+using Position2d = Position < T, 2 > ;
 
 template<typename T>
 using Position2dVector = std::vector < Position2d<T> >;

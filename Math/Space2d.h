@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_SPACE_2D_H__
 
 #include "../Math/Quad.h"
-#include "../Math/Vector2d.h"
+#include "../Math/Vector.h"
 #include "../Math/Bitmap2d.h"
 #include "../Math/Space1d.h"
 
