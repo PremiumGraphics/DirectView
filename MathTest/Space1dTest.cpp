@@ -11,19 +11,19 @@ using Space1df2 = Space1d<2, float>;
 TEST(Space1dTest, TestGetStart)
 {
 	EXPECT_EQ(Position1d<float>({ 0.0 }), Space1df().getStart());
-	EXPECT_EQ(Position1d<float>({ 1.0 }), Space1df(Position1d<float>({ 1.0f }), 2.0f).getStart());
+	EXPECT_EQ(Position1d<float>({ 1.0 }), Space1df(Position1d<float>({ 1.0f }), Vector1d<float>({ 2 }) ).getStart());
 }
 
 TEST(Space1dTest, TestGetEnd)
 {
 	EXPECT_EQ(1.0f, Space1df().getEnd());
-	EXPECT_EQ(3.0f, Space1df(Position1d<float>({ 1.0f }), 2.0f).getEnd());
+	EXPECT_EQ(3.0f, Space1df(Position1d<float>({ 1.0f }), Vector1d < float >({2})).getEnd() );
 }
 
 TEST(Space1dTest, TestGetLength)
 {
-	EXPECT_EQ(1.0f, Space1df().getLength());
-	EXPECT_EQ(2.0f, Space1df(Position1d<float>({ 1.0f }), 2.0f).getLength());
+	EXPECT_EQ(Vector1d<float>({ 1 }), Space1df().getLength());
+	EXPECT_EQ( Vector1d < float >({2}), Space1df( Position1d<float>({ 1.0f }), Vector1d < float >({ 2 })).getLength() );
 }
 
 /*
