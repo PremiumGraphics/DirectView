@@ -14,7 +14,12 @@ class Line final
 {
 public:
 	Line()
-	{}
+	{
+		for (size_t i = 0; i < DIM; ++i)  {
+			start.set(i, 0);
+		}
+
+	}
 
 	~Line() = default;
 
@@ -79,6 +84,9 @@ template<typename T>
 using Line1d = Line < T, 1 > ;
 template<typename T>
 using Line2d = Line < T, 2 > ;
+template<typename T>
+using Line3d = Line < T, 3 >;
+
 	}
 }
 

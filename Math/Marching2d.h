@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_MARCHING_2D_H__
 
 #include "Space2d.h"
-#include "Line2d.h"
+#include "Line.h"
 
 namespace Crystal {
 	namespace Math {

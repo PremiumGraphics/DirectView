@@ -5,20 +5,25 @@
 using namespace Crystal::Math;
 
 template<class T>
-class Line1dTest : public testing::Test {
+class LineTest : public testing::Test {
 };
 
 typedef ::testing::Types<float, double> TestTypes;
 
-TYPED_TEST_CASE(Line1dTest, TestTypes);
+TYPED_TEST_CASE(LineTest, TestTypes);
 
 
-TYPED_TEST(Line1dTest, TestGetStart)
+TYPED_TEST(LineTest, TestGetStart)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Position1d<T>({ 0.0 }), Line1d<T>().getStart());
 	EXPECT_EQ(Position1d<T>({ 1.0 }), Line1d<T>(Position1d<T>({ 1.0 })).getStart());
 	EXPECT_EQ(Position1d<T>({ 0.0 }), Line1d<T>(Position1d<T>({ 0.0 }), Position1d<T>({ 1.0 })).getStart());
+
+	EXPECT_EQ(Position2d<T>({ 0.0f, 0.0f }), Line2d<T>().getStart());
+	EXPECT_EQ(Position2d<T>({ 1.0f, 0.0f }), Line2d<T>(Position2d<T>({ 1.0f, 0.0f })).getStart());
+	EXPECT_EQ(Position3d_<T>({ 0.0f, 0.0f, 0.0f }), Line3d<T>().getStart());
+
 }
 
 /*
@@ -30,7 +35,7 @@ TYPED_TEST(Line1dTest, TestGetCenter)
 }
 */
 
-TYPED_TEST(Line1dTest, TestGetEnd)
+TYPED_TEST(LineTest, TestGetEnd)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Position1d<T>({ 1 }), Line1d<T>(Position1d<T>({ 0 }), Vector1d<T>({ 1 })).getEnd());
@@ -38,12 +43,13 @@ TYPED_TEST(Line1dTest, TestGetEnd)
 	EXPECT_EQ(Position1d<T>({ 3 }), Line1d<T>(Position1d<T>({ 2 }), Position1d<T>({ 3 })).getEnd());
 }
 
-TYPED_TEST(Line1dTest, TestGetLength)
+TYPED_TEST(LineTest, TestGetLength)
 {
 	using T = TypeParam;
-	EXPECT_EQ(1.0, Line1d<T>(Position1d<T>({ 0 }), Vector1d<T>({ 1 })).getLength());
-	EXPECT_EQ(10.0, Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>({ 10 })).getLength());
-	EXPECT_EQ(1.0, Line1d<T>(Position1d<T>({ 2 }), Position1d<T>({ 3 })).getLength());
+	EXPECT_EQ(1, Line1d<T>(Position1d<T>({ 0 }), Vector1d<T>({ 1 })).getLength());
+	EXPECT_EQ(10, Line1d<T>(Position1d<T>({ 1 }), Vector1d<T>({ 10 })).getLength());
+	EXPECT_EQ(1, Line1d<T>(Position1d<T>({ 2 }), Position1d<T>({ 3 })).getLength());
+	EXPECT_EQ(0, Line3d<T>().getLength());
 
 }
 
@@ -97,9 +103,3 @@ TYPED_TEST(Line1dTest, TestGetOverlapped)
 }
 */
 
-
-TEST(Line2dTest, TestGetStart)
-{
-	EXPECT_EQ(Position2d<float>({ 0.0f, 0.0f }), Line2d<float>().getStart());
-	EXPECT_EQ(Position2d<float>({ 1.0f, 0.0f }), Line2d<float>(Position2d<float>({ 1.0f, 0.0f })).getStart());
-}

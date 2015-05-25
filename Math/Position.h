@@ -97,6 +97,9 @@ using Position2d = Position < T, 2 >;
 template<typename T>
 using Position2dVector = std::vector < Position2d<T> >;
 
+template<typename T>
+using Position3d_ = Position < T, 3 >;
+
 
 	}
 }

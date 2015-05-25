@@ -26,7 +26,6 @@
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="Position3dTest.cpp" />
     <ClCompile Include="Line1dTest.cpp" />
-    <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
@@ -47,7 +46,6 @@
     <ClInclude Include="..\Math\Grid1d.h" />
     <ClInclude Include="..\Math\Grid2d.h" />
     <ClInclude Include="..\Math\Grid3d.h" />
-    <ClInclude Include="..\Math\Line3d.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />
