@@ -100,10 +100,6 @@ private:
 	std::vector< ColorRGBA< T > > values;
 };
 
-
-typedef std::shared_ptr< ImageRGBA<float> > ImageRGBASPtr;
-
-
 	}
 }
 

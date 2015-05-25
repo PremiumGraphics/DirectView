@@ -18,9 +18,6 @@
     <ClCompile Include="Bitmap3dTest.cpp" />
     <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="Space2dTest.cpp" />
-    <ClCompile Include="Grid1dTest.cpp" />
-    <ClCompile Include="Grid2dTest.cpp" />
-    <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Space1dTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
@@ -43,9 +40,6 @@
     <ClInclude Include="..\Math\CSG.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
-    <ClInclude Include="..\Math\Grid1d.h" />
-    <ClInclude Include="..\Math\Grid2d.h" />
-    <ClInclude Include="..\Math\Grid3d.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />

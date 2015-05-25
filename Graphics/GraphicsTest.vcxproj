@@ -20,7 +20,6 @@
     <ClCompile Include="DisplayListTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
-    <ClCompile Include="Image1dTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
     <ClCompile Include="LightTest.cpp" />

@@ -20,9 +20,6 @@
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
-    <ClCompile Include="Grid1dTest.cpp" />
-    <ClCompile Include="Grid2dTest.cpp" />
-    <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
@@ -54,9 +51,6 @@
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\DynamicBitmap.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
-    <ClInclude Include="..\Math\Grid1d.h" />
-    <ClInclude Include="..\Math\Grid2d.h" />
-    <ClInclude Include="..\Math\Grid3d.h" />
     <ClInclude Include="..\Math\Line.h" />
     <ClInclude Include="..\Math\Marching2d.h" />
     <ClInclude Include="..\Math\Marching3d.h" />
