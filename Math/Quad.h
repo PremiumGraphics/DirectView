@@ -23,7 +23,7 @@ public:
 
 	Quad(const Position2d<T>& v1, const Position2d<T>& v2) :
 		start( v1 ),
-		length({ v2.get<0>() - v1.get<0>(), v2.getY() - v1.getY() })
+		length({ v2.get<0>() - v1.get<0>(), v2.get<1>() - v1.get<1>() })
 	{
 	};
 
@@ -41,13 +41,13 @@ public:
 
 	Position2d<T> getEnd() const {
 		const auto x = start.get<0>() + length.get<0>();
-		const auto y = start.getY() + length.getY();
+		const auto y = start.get<1>() + length.get<1>();
 		return Position2d<T>({ x, y });
 	}
 
 	Position2d<T> getCenter() const {
 		const auto x = start.get<0>() + length.get<0>() * T(0.5);
-		const auto y = start.getY() + length.getY() * T(0.5);
+		const auto y = start.get<1>() + length.get<1>() * T(0.5);
 		return Position2d<T>({ x, y });
 	}
 
@@ -77,7 +77,7 @@ public:
 		const auto distx = std::fabs( getCenter().get<0>() - rhs.getCenter().get<0>());
 		const auto lx = length.get<0>() * 0.5 + rhs.getLengthX() * 0.5;
 
-		const auto disty = std::fabs( getCenter().getY() - rhs.getCenter().getY());
+		const auto disty = std::fabs( getCenter().get<1>() - rhs.getCenter().get<1>());
 		const auto ly = length.getY() * 0.5 + rhs.getLengthY() * 0.5;
 		return (distx < lx && disty < ly);
 	}
@@ -85,10 +85,10 @@ public:
 	Quad<T> getOverlapped(const Quad<T>& rhs) const {
 		assert( hasIntersection(rhs));
 		const auto minx = std::max<T>(this->getStart().get<0>(), rhs.getStart().get<0>());
-		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
+		const auto miny = std::max<T>(this->getStart().get<1>(), rhs.getStart().get<1>());
 
 		const auto maxx = std::min<T>(this->getEnd().get<0>(), rhs.getEnd().get<0>());
-		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
+		const auto maxy = std::min<T>(this->getEnd().get<1>(), rhs.getEnd().get<1>());
 
 		Position2d<T> min({ minx, miny });
 		Position2d<T> max({ maxx, maxy });

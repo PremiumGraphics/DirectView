@@ -46,12 +46,12 @@ public:
 		return !equals(rhs);
 	}
 
-	Position operator+(const Vector2d<T>& rhs) const {
-		return Position(getX() + rhs.x, getY() + rhs.y);
+	Position operator+(const Vector<T,DIM>& rhs) const {
+		return Position(get<0>() + rhs.x, get<1>() + rhs.y);
 	}
 
-	Position operator-(const Vector2d<T>& rhs) const {
-		return Position(getX() - rhs.x, getY() - rhs.y);
+	Position operator-(const Vector<T,DIM>& rhs) const {
+		return Position(get<0>() - rhs.x, get<1>() - rhs.y);
 	}
 
 	/*
@@ -70,15 +70,8 @@ public:
 	*/
 
 public:
-
-	T getY() const { return get<1>(); }
-
 	template<size_t I>
 	T get() const { return v.get<I>(); }
-
-	//void setX(const T x) { this->x = x; }
-
-	//void setY(const T y) { this->y = y; }
 
 	std::vector<T> toArray() const { return{ x, y }; }
 

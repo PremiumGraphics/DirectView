@@ -82,12 +82,12 @@ public:
 			for (size_t j = 1; j < bmp.sizey(); ++j) {
 				if (bmp.get(i - 1,j) != bmp.get(i,j) ) {
 					const auto posx = getStart().get<0>() + getSizes().get<0>() * i;
-					const auto posy = getStart().getY() + getSizes().getY() * j;
+					const auto posy = getStart().get<1>() + getSizes().get<1>() * j;
 					positions.push_back(Position2d<T>({ posx, posy }));
 				}
 				if (bmp.get(i,j - 1) != bmp.get(i,j)) {
 					const auto posx = getStart().get<0>() + getSizes().get<0>() * i;
-					const auto posy = getStart().getY() + getSizes().getY() * j;
+					const auto posy = getStart().get<1>() + getSizes().get<1>() * j;
 					positions.push_back(Position2d<T>({ posx, posy }));
 				}
 			}
