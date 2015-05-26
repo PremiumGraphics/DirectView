@@ -12,7 +12,7 @@ namespace Crystal {
 		using XYZ = Crystal::Math::Vector3d__ < float > ;
 
 class MarchingCube{
-
+public:
 	typedef struct {
 		XYZ p[3];
 	} TRIANGLE;
@@ -22,38 +22,10 @@ class MarchingCube{
 		double val[8];
 	} GRIDCELL;
 
-	/*
-	Linearly interpolate the position where an isosurface cuts
-	an edge between two vertices, each with their own scalar value
-	*/
-	XYZ VertexInterp(double isolevel, XYZ p1, XYZ p2, double valp1, double valp2) {
-		double mu;
-		XYZ p;
+	MarchingCube() = default;
 
-		if (::fabs(isolevel - valp1) < 0.00001)
-			return(p1);
-		if (::fabs(isolevel - valp2) < 0.00001)
-			return(p2);
-		if (::fabs(valp1 - valp2) < 0.00001)
-			return(p1);
-
-		/*
-		mu = (isolevel - valp1) / (valp2 - valp1);
-		p.x = p1.x + mu * (p2.x - p1.x);
-		p.y = p1.y + mu * (p2.y - p1.y);
-		p.z = p1.z + mu * (p2.z - p1.z);
-
-		return(p);
-		*/
-	}
-
-
-	int Polygonise(GRIDCELL grid, double isolevel, TRIANGLE *triangles)
-	{
-		int i, ntriang;
-		XYZ vertlist[12];
-
-		int edgeTable[256] = {
+	void buildTable() {
+		edgeTable = {
 			0x0, 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
 			0x80c, 0x905, 0xa0f, 0xb06, 0xc0a, 0xd03, 0xe09, 0xf00,
 			0x190, 0x99, 0x393, 0x29a, 0x596, 0x49f, 0x795, 0x69c,
@@ -86,7 +58,38 @@ class MarchingCube{
 			0x69c, 0x795, 0x49f, 0x596, 0x29a, 0x393, 0x99, 0x190,
 			0xf00, 0xe09, 0xd03, 0xc0a, 0xb06, 0xa0f, 0x905, 0x80c,
 			0x70c, 0x605, 0x50f, 0x406, 0x30a, 0x203, 0x109, 0x0 };
-		int triTable[256][16] =
+
+	}
+
+	//std::array< std::array < int, 16 >, 256 > triTable;
+
+	/*
+	Linearly interpolate the position where an isosurface cuts
+	an edge between two vertices, each with their own scalar value
+	*/
+	XYZ VertexInterp(double isolevel, Vector3d__<float> p1, XYZ p2, double valp1, double valp2) {
+
+		if (::fabs(isolevel - valp1) < 0.00001)
+			return(p1);
+		if (::fabs(isolevel - valp2) < 0.00001)
+			return(p2);
+		if (::fabs(valp1 - valp2) < 0.00001)
+			return(p1);
+
+		const double mu = (isolevel - valp1) / (valp2 - valp1);
+		const auto x = p1.get(0) + mu * (p2.get(0) - p1.get(0));
+		const auto y = p1.get(1) + mu * (p2.get(1) - p1.get(1));
+		const auto z = p1.get(2) + mu * (p2.get(2) - p1.get(2));
+
+		return Vector3d__ < float > ({x, y, z});
+	}
+
+
+	int Polygonise(GRIDCELL grid, double isolevel, TRIANGLE *triangles)
+	{
+		XYZ vertlist[12];
+
+		static int triTable[256][16] =
 		{ { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 		{ 0, 8, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 		{ 0, 1, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
@@ -355,50 +358,63 @@ class MarchingCube{
 		if (grid.val[7] < isolevel) { cubeindex |= 128; }
 
 		/* Cube is entirely in/out of the surface */
-		if (edgeTable[cubeindex] == 0)
-			return(0);
+		if (edgeTable[cubeindex] == 0) {
+			return 0;
+		}
 
 		/* Find the vertices where the surface intersects the cube */
-		if (edgeTable[cubeindex] & 1)
+		if (edgeTable[cubeindex] & 1) {
 			vertlist[0] =
-			VertexInterp(isolevel, grid.p[0], grid.p[1], grid.val[0], grid.val[1]);
-		if (edgeTable[cubeindex] & 2)
+				VertexInterp(isolevel, grid.p[0], grid.p[1], grid.val[0], grid.val[1]);
+		}
+		if (edgeTable[cubeindex] & 2) {
 			vertlist[1] =
-			VertexInterp(isolevel, grid.p[1], grid.p[2], grid.val[1], grid.val[2]);
-		if (edgeTable[cubeindex] & 4)
+				VertexInterp(isolevel, grid.p[1], grid.p[2], grid.val[1], grid.val[2]);
+		}
+		if (edgeTable[cubeindex] & 4) {
 			vertlist[2] =
-			VertexInterp(isolevel, grid.p[2], grid.p[3], grid.val[2], grid.val[3]);
-		if (edgeTable[cubeindex] & 8)
+				VertexInterp(isolevel, grid.p[2], grid.p[3], grid.val[2], grid.val[3]);
+		}
+		if (edgeTable[cubeindex] & 8) {
 			vertlist[3] =
-			VertexInterp(isolevel, grid.p[3], grid.p[0], grid.val[3], grid.val[0]);
-		if (edgeTable[cubeindex] & 16)
+				VertexInterp(isolevel, grid.p[3], grid.p[0], grid.val[3], grid.val[0]);
+		}
+		if (edgeTable[cubeindex] & 16) {
 			vertlist[4] =
-			VertexInterp(isolevel, grid.p[4], grid.p[5], grid.val[4], grid.val[5]);
-		if (edgeTable[cubeindex] & 32)
+				VertexInterp(isolevel, grid.p[4], grid.p[5], grid.val[4], grid.val[5]);
+		}
+		if (edgeTable[cubeindex] & 32) {
 			vertlist[5] =
-			VertexInterp(isolevel, grid.p[5], grid.p[6], grid.val[5], grid.val[6]);
-		if (edgeTable[cubeindex] & 64)
+				VertexInterp(isolevel, grid.p[5], grid.p[6], grid.val[5], grid.val[6]);
+		}
+		if (edgeTable[cubeindex] & 64) {
 			vertlist[6] =
-			VertexInterp(isolevel, grid.p[6], grid.p[7], grid.val[6], grid.val[7]);
-		if (edgeTable[cubeindex] & 128)
+				VertexInterp(isolevel, grid.p[6], grid.p[7], grid.val[6], grid.val[7]);
+		}
+		if (edgeTable[cubeindex] & 128) {
 			vertlist[7] =
-			VertexInterp(isolevel, grid.p[7], grid.p[4], grid.val[7], grid.val[4]);
-		if (edgeTable[cubeindex] & 256)
+				VertexInterp(isolevel, grid.p[7], grid.p[4], grid.val[7], grid.val[4]);
+		}
+		if (edgeTable[cubeindex] & 256) {
 			vertlist[8] =
-			VertexInterp(isolevel, grid.p[0], grid.p[4], grid.val[0], grid.val[4]);
-		if (edgeTable[cubeindex] & 512)
+				VertexInterp(isolevel, grid.p[0], grid.p[4], grid.val[0], grid.val[4]);
+		}
+		if (edgeTable[cubeindex] & 512) {
 			vertlist[9] =
-			VertexInterp(isolevel, grid.p[1], grid.p[5], grid.val[1], grid.val[5]);
-		if (edgeTable[cubeindex] & 1024)
+				VertexInterp(isolevel, grid.p[1], grid.p[5], grid.val[1], grid.val[5]);
+		}
+		if (edgeTable[cubeindex] & 1024) {
 			vertlist[10] =
-			VertexInterp(isolevel, grid.p[2], grid.p[6], grid.val[2], grid.val[6]);
-		if (edgeTable[cubeindex] & 2048)
+				VertexInterp(isolevel, grid.p[2], grid.p[6], grid.val[2], grid.val[6]);
+		}
+		if (edgeTable[cubeindex] & 2048) {
 			vertlist[11] =
-			VertexInterp(isolevel, grid.p[3], grid.p[7], grid.val[3], grid.val[7]);
+				VertexInterp(isolevel, grid.p[3], grid.p[7], grid.val[3], grid.val[7]);
+		}
 
 		/* Create the triangle */
-		ntriang = 0;
-		for (i = 0; triTable[cubeindex][i] != -1; i += 3) {
+		int ntriang = 0;
+		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			triangles[ntriang].p[0] = vertlist[triTable[cubeindex][i]];
 			triangles[ntriang].p[1] = vertlist[triTable[cubeindex][i + 1]];
 			triangles[ntriang].p[2] = vertlist[triTable[cubeindex][i + 2]];
@@ -407,6 +423,10 @@ class MarchingCube{
 
 		return(ntriang);
 	}
+
+private:
+	std::array< int, 256 > edgeTable;
+
 
 };
 	}
