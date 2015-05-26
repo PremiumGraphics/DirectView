@@ -11,12 +11,12 @@
 namespace Crystal {
 	namespace Math {
 
+template<typename T>
 class MarchingCube{
 public:
 
 	typedef struct {
-		std::array< Position3d<float>, 8 > p;
-		std::array< double, 8 > val;
+		std::array< Position3d<T>, 8 > p;
 	} GRIDCELL;
 
 	MarchingCube() = default;
@@ -24,7 +24,7 @@ public:
 	Linearly interpolate the position where an isosurface cuts
 	an edge between two vertices, each with their own scalar value
 	*/
-	Position3d<float> VertexInterp(double isolevel, Position3d<float> p1, Position3d<float> p2, double valp1, double valp2) {
+	Position3d<T> VertexInterp(double isolevel, const Position3d<T>& p1, const Position3d<T>& p2, const double valp1, const double valp2) {
 
 		if (::fabs(isolevel - valp1) < 0.00001)
 			return(p1);
@@ -33,29 +33,32 @@ public:
 		if (::fabs(valp1 - valp2) < 0.00001)
 			return(p1);
 
-		const double mu = (isolevel - valp1) / (valp2 - valp1);
+		const T mu = (isolevel - valp1) / (valp2 - valp1);
 		const auto x = p1.getX() + mu * (p2.getX() - p1.getX());
 		const auto y = p1.getY() + mu * (p2.getY() - p1.getY());
 		const auto z = p1.getZ() + mu * (p2.getZ() - p1.getZ());
 
-		return Position3d< float > ( x, y, z );
+		return Position3d< T > ( x, y, z );
 	}
 
-
-	std::vector<Triangle<float> > Polygonise(GRIDCELL cell, double isolevel)
-	{
-		Position3d<float> vertlist[12];
-
-
+	int getCubeIndex(const std::array< double, 8 >& val, const double isolevel) const {
 		int cubeindex = 0;
-		if (cell.val[0] < isolevel) { cubeindex |= 1; }
-		if (cell.val[1] < isolevel) { cubeindex |= 2; }
-		if (cell.val[2] < isolevel) { cubeindex |= 4; }
-		if (cell.val[3] < isolevel) { cubeindex |= 8; }
-		if (cell.val[4] < isolevel) { cubeindex |= 16; }
-		if (cell.val[5] < isolevel) { cubeindex |= 32; }
-		if (cell.val[6] < isolevel) { cubeindex |= 64; }
-		if (cell.val[7] < isolevel) { cubeindex |= 128; }
+		if (val[0] < isolevel) { cubeindex |= 1; }
+		if (val[1] < isolevel) { cubeindex |= 2; }
+		if (val[2] < isolevel) { cubeindex |= 4; }
+		if (val[3] < isolevel) { cubeindex |= 8; }
+		if (val[4] < isolevel) { cubeindex |= 16; }
+		if (val[5] < isolevel) { cubeindex |= 32; }
+		if (val[6] < isolevel) { cubeindex |= 64; }
+		if (val[7] < isolevel) { cubeindex |= 128; }
+		return cubeindex;
+	}
+
+	std::vector<Triangle<T> > Polygonise(const GRIDCELL& cell, const std::array< double, 8 >& val, const double isolevel)
+	{
+		Position3d<T> vertlist[12];
+
+		const int cubeindex = getCubeIndex( val, isolevel );
 
 		/* Cube is entirely in/out of the surface */
 		if (edgeTable[cubeindex] == 0) {
@@ -65,61 +68,59 @@ public:
 		/* Find the vertices where the surface intersects the cube */
 		if (edgeTable[cubeindex] & 1) {
 			vertlist[0] =
-				VertexInterp(isolevel, cell.p[0], cell.p[1], cell.val[0], cell.val[1]);
+				VertexInterp(isolevel, cell.p[0], cell.p[1], val[0], val[1]);
 		}
 		if (edgeTable[cubeindex] & 2) {
 			vertlist[1] =
-				VertexInterp(isolevel, cell.p[1], cell.p[2], cell.val[1], cell.val[2]);
+				VertexInterp(isolevel, cell.p[1], cell.p[2], val[1], val[2]);
 		}
 		if (edgeTable[cubeindex] & 4) {
 			vertlist[2] =
-				VertexInterp(isolevel, cell.p[2], cell.p[3], cell.val[2], cell.val[3]);
+				VertexInterp(isolevel, cell.p[2], cell.p[3], val[2], val[3]);
 		}
 		if (edgeTable[cubeindex] & 8) {
 			vertlist[3] =
-				VertexInterp(isolevel, cell.p[3], cell.p[0], cell.val[3], cell.val[0]);
+				VertexInterp(isolevel, cell.p[3], cell.p[0], val[3], val[0]);
 		}
 		if (edgeTable[cubeindex] & 16) {
 			vertlist[4] =
-				VertexInterp(isolevel, cell.p[4], cell.p[5], cell.val[4], cell.val[5]);
+				VertexInterp(isolevel, cell.p[4], cell.p[5], val[4], val[5]);
 		}
 		if (edgeTable[cubeindex] & 32) {
 			vertlist[5] =
-				VertexInterp(isolevel, cell.p[5], cell.p[6], cell.val[5], cell.val[6]);
+				VertexInterp(isolevel, cell.p[5], cell.p[6], val[5], val[6]);
 		}
 		if (edgeTable[cubeindex] & 64) {
 			vertlist[6] =
-				VertexInterp(isolevel, cell.p[6], cell.p[7], cell.val[6], cell.val[7]);
+				VertexInterp(isolevel, cell.p[6], cell.p[7], val[6], val[7]);
 		}
 		if (edgeTable[cubeindex] & 128) {
 			vertlist[7] =
-				VertexInterp(isolevel, cell.p[7], cell.p[4], cell.val[7], cell.val[4]);
+				VertexInterp(isolevel, cell.p[7], cell.p[4], val[7], val[4]);
 		}
 		if (edgeTable[cubeindex] & 256) {
 			vertlist[8] =
-				VertexInterp(isolevel, cell.p[0], cell.p[4], cell.val[0], cell.val[4]);
+				VertexInterp(isolevel, cell.p[0], cell.p[4], val[0], val[4]);
 		}
 		if (edgeTable[cubeindex] & 512) {
 			vertlist[9] =
-				VertexInterp(isolevel, cell.p[1], cell.p[5], cell.val[1], cell.val[5]);
+				VertexInterp(isolevel, cell.p[1], cell.p[5], val[1], val[5]);
 		}
 		if (edgeTable[cubeindex] & 1024) {
 			vertlist[10] =
-				VertexInterp(isolevel, cell.p[2], cell.p[6], cell.val[2], cell.val[6]);
+				VertexInterp(isolevel, cell.p[2], cell.p[6], val[2], val[6]);
 		}
 		if (edgeTable[cubeindex] & 2048) {
 			vertlist[11] =
-				VertexInterp(isolevel, cell.p[3], cell.p[7], cell.val[3], cell.val[7]);
+				VertexInterp(isolevel, cell.p[3], cell.p[7], val[3], val[7]);
 		}
 
-		/* Create the triangle */
-		//int ntriang = 0;
-		std::vector< Triangle<float> > triangles;
+		TriangleVector<float> triangles;
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertlist[triTable[cubeindex][i]];
 			const auto& v2 = vertlist[triTable[cubeindex][i + 1]];
 			const auto& v3 = vertlist[triTable[cubeindex][i + 2]];
-			Triangle<float> t(v1, v2, v3);
+			Triangle<T> t(v1, v2, v3);
 			triangles.push_back(t);
 		}
 
@@ -166,6 +167,7 @@ public:
 			0xf00, 0xe09, 0xd03, 0xc0a, 0xb06, 0xa0f, 0x905, 0x80c,
 			0x70c, 0x605, 0x50f, 0x406, 0x30a, 0x203, 0x109, 0x0 };
 
+		triTable.clear();
 		triTable.push_back({ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 });
 		triTable.push_back({ 0, 8, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 });
 		triTable.push_back({ 0, 1, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 });

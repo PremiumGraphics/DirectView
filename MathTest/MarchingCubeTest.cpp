@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 
 TEST(MarchingCubeTest, TestBuild)
 {
-	MarchingCube mc;
+	MarchingCube<float> mc;
 	mc.buildTable();
 	//mc.Polygonise( )
 	const Position3d<float> v1(0, 0, 0 );
@@ -17,10 +17,10 @@ TEST(MarchingCubeTest, TestBuild)
 
 TEST(MarchingCubeTest, TestMarch)
 {
-	MarchingCube mc;
+	MarchingCube<float> mc;
 	mc.buildTable();
 
-	MarchingCube::GRIDCELL cell;
+	MarchingCube<float>::GRIDCELL cell;
 	cell.p = {
 		Position3d<float>(0, 0, 0),
 		Position3d<float>(1, 0, 0),
@@ -31,16 +31,55 @@ TEST(MarchingCubeTest, TestMarch)
 		Position3d<float>(1, 1, 1),
 		Position3d<float>(0, 1, 1)
 	};
-	cell.val = {
-		0,
-		0,
-		0,
-		0,
-		1,
-		1,
-		1,
-		1,
-	};
-	const auto actual = mc.Polygonise(cell, 0.5);
+	
+	const std::array< double, 8 > vs = { 0, 0, 0, 0, 1, 1, 1, 1 };
+	const auto actual = mc.Polygonise(cell, vs,0.5);
 	EXPECT_EQ(2, actual.size());
+
+	{
+		const auto actual = mc.Polygonise(cell, { 0, 0, 0, 0, 0, 0, 0, 0 }, 0.5);
+		EXPECT_EQ(0, actual.size());
+	}
+
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 0, 0, 0, 0, 0, 0, 0 },0.5);
+		EXPECT_EQ(1, actual.size());
+	}
+
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 1, 0, 0, 0, 0, 0, 0 }, 0.5);
+		EXPECT_EQ(2, actual.size());
+	}
+
+	/*
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 0, 1, 0, 0, 0, 0, 0 }, 0.5);
+		EXPECT_EQ(2, actual.size());
+	}
+	*/
+
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 0, 0, 0, 0, 0, 1, 0 }, 0.5);
+		EXPECT_EQ(2, actual.size());
+	}
+
+	/*
+	{
+		const auto actual = mc.Polygonise(cell, { 0, 1, 0, 1, 0, 0, 1, 0 }, 0.5);
+		EXPECT_EQ(3, actual.size());
+	}
+	*/
+
+
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 0, 0, 1, 0, 1, 1, 0 }, 0.5);
+		EXPECT_EQ(4, actual.size());
+	}
+
+
+	{
+		const auto actual = mc.Polygonise(cell, { 1, 1, 1, 1, 1, 1, 1, 1 }, 0.5);
+		EXPECT_EQ(0, actual.size());
+	}
+
 }
