@@ -11,7 +11,7 @@ TEST(MarchingCubeTest, TestBuild)
 	//mc.Polygonise( )
 	const Position3d<float> v1(0, 0, 0 );
 	const Position3d<float> v2(10, 10, 10);
-	const Position3d<float> actual = mc.VertexInterp(0.5, v1, v2, 0.0, 1.0);
+	const Position3d<float> actual = mc.interpolate(0.5, v1, v2, 0.0, 1.0);
 	EXPECT_EQ( Position3d<float>({ 5, 5, 5 }), actual);
 }
 
