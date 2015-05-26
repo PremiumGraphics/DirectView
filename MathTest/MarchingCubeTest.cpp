@@ -100,18 +100,28 @@ TEST(MarchingCubeTest, TestMarchBits)
 		Position3d<float>(0, 1, 1)
 	};
 
-	EXPECT_EQ(0, mc.build(p, std::bitset<8>( "00000000")).size());
+	EXPECT_EQ(0, mc.build(p, std::bitset<8>( "00000000" ) ).size());
 	EXPECT_EQ(1, mc.build(p, std::bitset<8>( "00000001" ) ).size());
+	EXPECT_EQ(1, mc.build(p, std::bitset<8>( "00000010" ) ).size());
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00000011" ) ).size());
+	EXPECT_EQ(1, mc.build(p, std::bitset<8>( "00000100" ) ).size());
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00000101" ) ).size());
+	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00000110" ) ).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "00000111" ) ).size());
+	EXPECT_EQ(1, mc.build(p, std::bitset<8>( "00001000" ) ).size());
+	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00001001" ) ).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "00001011" ) ).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "00001101" ) ).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "00110010" ) ).size());
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00110011" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "00111010" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "10100101" ) ).size());
-	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "01000011")).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "01000011" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "10110001" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "01101001" ) ).size());
-
-	EXPECT_EQ(0, mc.build(p, std::bitset<8>( "11111111") ).size());
+	EXPECT_EQ(1, mc.build(p, std::bitset<8>( "10000000" ) ).size());
+	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "11000000" ) ).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "11000001" ) ).size());
+	EXPECT_EQ(0, mc.build(p, std::bitset<8>( "11111111" ) ).size());
 
 }
