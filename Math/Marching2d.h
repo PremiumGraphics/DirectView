@@ -1,8 +1,9 @@
 #ifndef __CRYSTAL_MATH_MARCHING_2D_H__
 #define __CRYSTAL_MATH_MARCHING_2D_H__
 
-#include "Space2d.h"
+#include "Space.h"
 #include "Line.h"
+#include "Bitmap2d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -16,7 +17,7 @@ public:
 		buildTable();
 	}
 
-	void march(const Space2d<2, 2, T>& space) {
+	void march(const Space<T,2>& space) {
 		const auto& bmp = space.getBitmap();
 		if (bmp == table[0]) {
 		}

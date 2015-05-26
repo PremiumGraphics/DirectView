@@ -21,7 +21,6 @@
     <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
-    <ClCompile Include="Marching2dTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
@@ -31,9 +30,7 @@
     <ClCompile Include="PositionTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
-    <ClCompile Include="Space1dTest.cpp" />
-    <ClCompile Include="Space2dTest.cpp" />
-    <ClCompile Include="Space3dTest.cpp" />
+    <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
@@ -60,9 +57,7 @@
     <ClInclude Include="..\Math\Position3d.h" />
     <ClInclude Include="..\Math\Quad.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
-    <ClInclude Include="..\Math\Space1d.h" />
-    <ClInclude Include="..\Math\Space2d.h" />
-    <ClInclude Include="..\Math\Space3d.h" />
+    <ClInclude Include="..\Math\Space.h" />
     <ClInclude Include="..\Math\SpaceBooleanAlgo.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />

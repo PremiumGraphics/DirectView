@@ -1,8 +1,9 @@
 #ifndef __CRYSTAL_MATH_MARCHING_3D_H__
 #define __CRYSTAL_MATH_MARCHING_3D_H__
 
-#include "Space3d.h"
+#include "Space.h"
 #include "Triangle.h"
+#include "Bitmap3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -16,8 +17,7 @@ public:
 		buildTable();
 	}
 
-	void march(const Space3d<2, 2, 2>& space) {
-		const auto& bmp = space.getBitmap();
+	void march(const Space<T,3>& space, const Bitmap3d<2,2,2>& bmp) {
 		const auto& scale = space.getSizes();
 		if (bmp == table[0]) {
 			const auto t = triTable[0];
