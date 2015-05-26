@@ -3,7 +3,7 @@
 
 #include "Space.h"
 #include "Triangle.h"
-#include "Bitmap3d.h"
+#include "Bitmap.h"
 
 namespace Crystal {
 	namespace Math {
@@ -17,7 +17,7 @@ public:
 		buildTable();
 	}
 
-	void march(const Space<T,3>& space, const Bitmap3d<2,2,2>& bmp) {
+	void march(const Space<T,3>& space, const Bitmap3d<2>& bmp) {
 		const auto& scale = space.getSizes();
 		if (bmp == table[0]) {
 			const auto t = triTable[0];
@@ -35,14 +35,16 @@ public:
 		}*/
 	}
 
-	std::array< Bitmap2x2x2, 16 > getTables() const { return table; }
+	std::array< Bitmap3d<2>, 16 > getTables() const { return table; }
 
 	std::array< std::vector< Triangle<T> >, 16 > getTriTable() const { return triTable; }
 
 	void buildTable() {
+		/*
 		for (size_t i = 0; i < 16; ++i) {
-			table[i] = Bitmap2x2x2(i);
+			table[i] = Bitmap3d<2>(i);
 		}
+		*/
 
 		/*
 		const Position2d<T> left(0.0, 0.5f);
@@ -229,7 +231,7 @@ public:
 private:
 	//std::vector<Line2d<T> > lines;
 
-	std::array< Bitmap2x2x2, 16 > table;
+	std::array< Bitmap2d<2>, 16 > table;
 
 	std::array< std::vector< Triangle<T> >, 16 > triTable;
 };

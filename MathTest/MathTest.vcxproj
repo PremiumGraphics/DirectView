@@ -11,15 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bitmap1dTest.cpp" />
-    <ClCompile Include="Bitmap2dTest.cpp" />
-    <ClCompile Include="Bitmap3dTest.cpp" />
     <ClCompile Include="BitmapTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
-    <ClCompile Include="DynamicBitmapTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="Marching3dTest.cpp" />
@@ -40,14 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap.h" />
-    <ClInclude Include="..\Math\Bitmap1d.h" />
-    <ClInclude Include="..\Math\Bitmap2d.h" />
-    <ClInclude Include="..\Math\Bitmap3d.h" />
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Circle.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
-    <ClInclude Include="..\Math\DynamicBitmap.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
     <ClInclude Include="..\Math\Line.h" />
     <ClInclude Include="..\Math\Marching2d.h" />
@@ -60,7 +52,6 @@
     <ClInclude Include="..\Math\Quad.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Space.h" />
-    <ClInclude Include="..\Math\SpaceBooleanAlgo.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />

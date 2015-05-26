@@ -1,8 +1,8 @@
-#ifndef __CRYSTAL_MATH_BITMAP_1D_H__
-#define __CRYSTAL_MATH_BITMAP_1D_H__
+#ifndef __CRYSTAL_MATH_BITMAP_H__
+#define __CRYSTAL_MATH_BITMAP_H__
 
 #include <bitset>
-#include <array>
+#include <vector>
 
 namespace Crystal {
 	namespace Math {
@@ -118,6 +118,11 @@ private:
 	std::bitset<SIZE> bits;
 };
 
+template <size_t SIZE >
+using Bitmap2d = std::vector < std::vector< Bitmap<SIZE > > > ;
+
+template< size_t SIZE >
+using Bitmap3d = std::vector < std::vector< Bitmap2d<SIZE> > > ;
 	}
 }
 
