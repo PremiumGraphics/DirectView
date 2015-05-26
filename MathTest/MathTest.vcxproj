@@ -14,6 +14,7 @@
     <ClCompile Include="Bitmap1dTest.cpp" />
     <ClCompile Include="Bitmap2dTest.cpp" />
     <ClCompile Include="Bitmap3dTest.cpp" />
+    <ClCompile Include="BitmapTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\Bitmap1d.h" />
     <ClInclude Include="..\Math\Bitmap2d.h" />
     <ClInclude Include="..\Math\Bitmap3d.h" />

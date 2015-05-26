@@ -26,6 +26,7 @@
     <ClCompile Include="PositionTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
+    <ClCompile Include="BitmapTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap1d.h" />
@@ -54,5 +55,6 @@
     <ClInclude Include="..\Math\Position.h" />
     <ClInclude Include="..\Math\Line.h" />
     <ClInclude Include="..\Math\Space.h" />
+    <ClInclude Include="..\Math\Bitmap.h" />
   </ItemGroup>
 </Project>
