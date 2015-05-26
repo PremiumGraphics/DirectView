@@ -108,6 +108,7 @@ TEST(MarchingCubeTest, TestMarchBits)
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>( "00110011" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "00111010" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "10100101" ) ).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>( "01000011")).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "10110001" ) ).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>( "01101001" ) ).size());
 

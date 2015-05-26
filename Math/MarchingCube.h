@@ -3,9 +3,10 @@
 
 // The lookup tables are from  http://paulbourke.net/geometry/polygonise/
 
-#include "../Math/Vector.h"
-#include "../Math/Triangle.h"
-#include "../Math/Position3d.h"
+#include "Vector.h"
+#include "Triangle.h"
+#include "Position3d.h"
+#include "Space.h"
 #include "../Util/UnCopyable.h"
 #include <bitset>
 
@@ -39,6 +40,41 @@ public:
 		return Position3d< T > ( x, y, z );
 	}
 
+
+
+	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel)
+	{
+		const int cubeindex = getCubeIndex( val, isolevel );
+		const auto vertices = getPositions(cubeindex, p, val, isolevel);
+		return build(cubeindex, vertices);
+	}
+
+
+	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::bitset< 8 >& bit )
+	{
+		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
+		const auto vertices = getPositions( cubeindex, p );
+		return build(cubeindex, vertices);
+	}
+
+
+private:
+	std::array< int, 256 > edgeTable;
+	std::vector< std::array< int, 16 > > triTable;
+
+	TriangleVector<T> build(const int cubeindex, const std::array<Position3d<T>, 12>& vertices) const {
+		TriangleVector<T> triangles;
+		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
+			const auto& v1 = vertices[triTable[cubeindex][i]];
+			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
+			const auto& v3 = vertices[triTable[cubeindex][i + 2]];
+			Triangle<T> t(v1, v2, v3);
+			triangles.push_back(t);
+		}
+
+		return triangles;
+	}
+
 	Position3d<T> getCenter(const Position3d<T>& p1, const Position3d<T>& p2) const {
 		const auto x = p1.getX() + 0.5 * (p2.getX() - p1.getX());
 		const auto y = p1.getY() + 0.5 * (p2.getY() - p1.getY());
@@ -64,40 +100,40 @@ public:
 	std::array< Position3d<T>, 12 > getPositions(const int cubeindex, const std::array< Position3d<T>, 8 > p) const {
 		std::array< Position3d<T>, 12 > vertices;
 		if (edgeTable[cubeindex] & 1) {
-			vertices[0] = getCenter( p[0], p[1] );
+			vertices[0] = getCenter(p[0], p[1]);
 		}
 		if (edgeTable[cubeindex] & 2) {
-			vertices[1] = getCenter( p[1], p[2] );
+			vertices[1] = getCenter(p[1], p[2]);
 		}
 		if (edgeTable[cubeindex] & 4) {
-			vertices[2] = getCenter( p[2], p[3] );
+			vertices[2] = getCenter(p[2], p[3]);
 		}
 		if (edgeTable[cubeindex] & 8) {
-			vertices[3] = getCenter( p[3], p[0] );
+			vertices[3] = getCenter(p[3], p[0]);
 		}
 		if (edgeTable[cubeindex] & 16) {
-			vertices[4] = getCenter( p[4], p[5] );
+			vertices[4] = getCenter(p[4], p[5]);
 		}
 		if (edgeTable[cubeindex] & 32) {
-			vertices[5] = getCenter( p[5], p[6] );
+			vertices[5] = getCenter(p[5], p[6]);
 		}
 		if (edgeTable[cubeindex] & 64) {
-			vertices[6] = getCenter( p[6], p[7] );
+			vertices[6] = getCenter(p[6], p[7]);
 		}
 		if (edgeTable[cubeindex] & 128) {
-			vertices[7] = getCenter( p[7], p[4] );
+			vertices[7] = getCenter(p[7], p[4]);
 		}
 		if (edgeTable[cubeindex] & 256) {
-			vertices[8] = getCenter( p[0], p[4] );
+			vertices[8] = getCenter(p[0], p[4]);
 		}
 		if (edgeTable[cubeindex] & 512) {
-			vertices[9] = getCenter( p[1], p[5] );
+			vertices[9] = getCenter(p[1], p[5]);
 		}
 		if (edgeTable[cubeindex] & 1024) {
-			vertices[10] = getCenter( p[2], p[6] );
+			vertices[10] = getCenter(p[2], p[6]);
 		}
 		if (edgeTable[cubeindex] & 2048) {
-			vertices[11] = getCenter( p[3], p[7] );
+			vertices[11] = getCenter(p[3], p[7]);
 		}
 		return vertices;
 	}
@@ -144,44 +180,6 @@ public:
 		return vertices;
 	}
 
-	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel)
-	{
-		const int cubeindex = getCubeIndex( val, isolevel );
-		const auto vertices = getPositions(cubeindex, p, val, isolevel);
-
-		TriangleVector<float> triangles;
-		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
-			const auto& v1 = vertices[triTable[cubeindex][i]];
-			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
-			const auto& v3 = vertices[triTable[cubeindex][i + 2]];
-			Triangle<T> t(v1, v2, v3);
-			triangles.push_back(t);
-		}
-
-		return triangles;
-	}
-
-	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::bitset< 8 >& bit )
-	{
-		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
-		const auto vertices = getPositions( cubeindex, p );
-
-		TriangleVector<float> triangles;
-		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
-			const auto& v1 = vertices[triTable[cubeindex][i]];
-			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
-			const auto& v3 = vertices[triTable[cubeindex][i + 2]];
-			Triangle<T> t(v1, v2, v3);
-			triangles.push_back(t);
-		}
-
-		return triangles;
-	}
-
-
-private:
-	std::array< int, 256 > edgeTable;
-	std::vector< std::array< int, 16 > > triTable;
 
 public:
 	void buildTable() {
