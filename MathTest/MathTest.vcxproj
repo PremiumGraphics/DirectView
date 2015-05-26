@@ -18,7 +18,7 @@
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
-    <ClCompile Include="Marching3dTest.cpp" />
+    <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
@@ -42,8 +42,7 @@
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Ellipse.h" />
     <ClInclude Include="..\Math\Line.h" />
-    <ClInclude Include="..\Math\Marching2d.h" />
-    <ClInclude Include="..\Math\Marching3d.h" />
+    <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />
