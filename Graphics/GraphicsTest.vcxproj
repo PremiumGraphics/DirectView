@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Polygon.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{237CD933-92AB-4D20-A554-78F84819FE5D}</ProjectGuid>

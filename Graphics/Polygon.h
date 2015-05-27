@@ -31,12 +31,6 @@ public:
 
 	bool isSelected;
 
-	void setName(const std::string& name) { this->name = name; }
-
-	std::string getName() const { return name; }
-
-	void setFaces(const FaceSPtrVector& faces) { this->faces = faces; }
-
 	FaceSPtrVector getFaces() const { return faces; }
 
 	void setMaterial(Material* m) { this->material = m; }
@@ -58,9 +52,9 @@ public:
 	Material* getMaterial() const { return material; }
 
 	void add(const Math::Triangle<float>& t) {
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv0(), 0));
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv1(), 1));
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv2(), 2));
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv0() ));
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv1() ));
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv2() ));
 	}
 
 
@@ -69,7 +63,6 @@ private:
 	VertexSPtrVector<float> vertices;
 	Math::Vector3d<float> center;
 	Material* material;
-	std::string name;
 	unsigned int id;
 };
 

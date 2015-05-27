@@ -12,22 +12,19 @@ namespace Crystal {
 template<typename T>
 class Vertex final {
 public:
-	Vertex(const Math::Vector3d<T>& position, const unsigned int id) :
-		position(position),
-		id(id)
+	Vertex(const Math::Vector3d<T>& position) :
+		position(position)
 	{}
 
-	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const unsigned int id) :
+	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal) :
 		position( position ),
-		normal( normal ),
-		id(id)
+		normal( normal )
 	{}
 
-	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const Math::Vector3d<T>& texCoord, const unsigned int id) :
+	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const Math::Vector3d<T>& texCoord ) :
 		position(position),
 		normal(normal),
-		texCoord( texCoord ),
-		id(id)
+		texCoord( texCoord )
 	{}
 
 	Math::Vector3d<T> getPosition() const { return position; }
@@ -36,29 +33,10 @@ public:
 
 	Math::Vector3d<T> getTexCoord() const { return texCoord; }
 
-	unsigned int getId() const { return id; }
-
-	bool equals(const Vertex& rhs) const {
-		return
-			position == rhs.position &&
-			normal == rhs.normal &&
-			texCoord == rhs.texCoord &&
-			id == rhs.id;
-	}
-
-	bool operator==(const Vertex& rhs) const {
-		return equals(rhs);
-	}
-
-	bool operator!=(const Vertex& rhs) const {
-		return !equals(rhs);
-	}
-
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;
 	Math::Vector3d<T> texCoord;
-	unsigned int id;
 };
 
 template<typename T>

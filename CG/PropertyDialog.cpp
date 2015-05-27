@@ -384,7 +384,6 @@ void PolygonProperty::build(Crystal::Graphics::Polygon* polygon)
 	this->polygon = polygon;
 
 	Clear();
-	Append(new wxStringProperty("Name", wxPG_LABEL, polygon->getName()) );
 
 	Append(new wxIntProperty("Faces", wxPG_LABEL, polygon->getFaces().size()));
 	Append(new wxIntProperty("Vertices", wxPG_LABEL, polygon->getVertices().size()));
