@@ -27,11 +27,6 @@ public:
 	{
 	}
 
-	Cone( const Math::Box& boundingBox )
-	{
-		assert( false );
-	}
-
 	Vector3d<T> getCenter() const { return center; }
 
 	void setRadius(const float r) { this->radius = r; }

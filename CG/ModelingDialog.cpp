@@ -21,36 +21,6 @@ wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
 }
 
-
-BoxConfigDialog::BoxConfigDialog(wxWindow* parent, const Box& box) :
-wxDialog(parent, wxID_ANY, "BoxConfig", wxDefaultPosition, wxSize(500, 500))
-{
-	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
-	xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-	xSize->SetRange(0.0, 10000.0);
-
-	new wxStaticText(this, wxID_ANY, "Y Size", wxPoint(0, 200));
-	ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-	ySize->SetRange(0.0, 10000.0);
-
-	new wxStaticText(this, wxID_ANY, "Z Size", wxPoint(0, 300));
-	zSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-	zSize->SetRange(0.0, 10000.0);
-
-	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-
-	//xSize->SetValue(box.xSize);
-	//ySize->SetValue(box.ySize);
-	//zSize->SetValue(config.zSize);
-
-}
-
-Box BoxConfigDialog::get() const
-{
-	return Box();
-}
-
 CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent, const Cylinder<float>& cylinder) :
 wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500))
 {

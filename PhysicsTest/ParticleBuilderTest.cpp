@@ -21,7 +21,7 @@ TEST(ParticleBuilderTest, TestConstruct)
 TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder;
-	const Box b(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(10.0f, 1.0f, 1.0f));
+	const Box<T> b(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(10.0f, 1.0f, 1.0f));
 	const PhysicsParticleSPtrVector& actual = builder.create(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, actual.size());
 }

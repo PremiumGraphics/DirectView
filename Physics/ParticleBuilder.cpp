@@ -8,7 +8,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 
-PhysicsParticleSPtrVector ParticleBuilder::create(const Box& box)
+PhysicsParticleSPtrVector ParticleBuilder::create(const Box<float>& box)
 {
 	PhysicsParticleSPtrVector particles;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
@@ -25,7 +25,7 @@ PhysicsParticleSPtrVector ParticleBuilder::create(const Box& box)
 PhysicsParticleSPtrVector ParticleBuilder::create(const Sphere<float>& s)
 {
 	PhysicsParticleSPtrVector particles;
-	Math::Box box = s.getBoundingBox();
+	Math::Box<float> box = s.getBoundingBox();
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
@@ -41,7 +41,7 @@ PhysicsParticleSPtrVector ParticleBuilder::create(const Sphere<float>& s)
 
 PhysicsParticleSPtrVector ParticleBuilder::create(const Cylinder<float>& cylinder)
 {
-	const Box& box = cylinder.getBoundingBox();
+	const Box<float>& box = cylinder.getBoundingBox();
 	Vector3dVector<float> positions;
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {

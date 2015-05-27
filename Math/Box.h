@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_BOX_H__
-#define __CRYSTAL_MATH_BOX_H__
+#ifndef __CRYSTAL_MATH_BoxH__
+#define __CRYSTAL_MATH_BoxH__
 
 #include "Vector3d.h"
 
@@ -11,15 +11,15 @@ namespace Crystal{
 	namespace Math{
 
 template<typename T>
-class Box_ final
+class Box final
 {
 public:
 	
-	Box_() : Box_(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f))
+	Box() : Box(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f))
 	{
 	}
 
-	Box_(const Vector3d<T>& pointX, const Vector3d<T>& pointY) :
+	Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY) :
 		maxX(std::max<T>(pointX.getX(), pointY.getX())),
 		maxY(std::max<T>(pointX.getY(), pointY.getY())),
 		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
@@ -32,11 +32,11 @@ public:
 		assert(isValid());
 	}
 
-	static Box_ Unit() {
-		return Box_();
+	static Box Unit() {
+		return Box();
 	}
 
-	Box_ getBoundingBox() const { return *this; }
+	Box getBoundingBox() const { return *this; }
 
 	void add(const Vector3d<T>& v) {
 		const auto x = std::min<T>( getMinX(), v.getX());
@@ -49,7 +49,7 @@ public:
 		maxZ = std::max<T>(maxZ, v.getZ());
 	}
 
-	void add(const Box_& b) {
+	void add(const Box& b) {
 		const auto x = std::min<T>( getMinX(), b.getMinX());
 		const auto y = std::min<T>( getMinY(), b.getMinY());
 		const auto z = std::min<T>( getMinZ(), b.getMinZ());
@@ -110,8 +110,8 @@ public:
 		assert(isValid());
 	}
 	
-	Box_ getOuterOffset(const T offsetLength) const {
-		Box_ box = *this;
+	Box getOuterOffset(const T offsetLength) const {
+		Box box = *this;
 		box.outerOffset(offsetLength);
 		return box;
 	}
@@ -121,7 +121,7 @@ public:
 		assert(isValid());
 	}
 
-	Box_ getInnerOffset(const T offsetLength) const {
+	Box getInnerOffset(const T offsetLength) const {
 		return getOuterOffset(-offsetLength);
 	}
 
@@ -163,7 +163,7 @@ public:
 			(getMinX() == maxX) && (getMinY() == maxY) && (getMinZ() == maxZ);
 	}
 
-	bool equals(const Box_& rhs) const {
+	bool equals(const Box& rhs) const {
 		return
 			start == rhs.getStart() &&
 			Tolerance<T>::isEqualLoosely(maxX, rhs.maxX) &&
@@ -171,11 +171,11 @@ public:
 			Tolerance<T>::isEqualLoosely(maxZ, rhs.maxZ);
 	}
 
-	bool operator==( const Box_& rhs ) const { return equals( rhs ); }
+	bool operator==( const Box& rhs ) const { return equals( rhs ); }
 
-	bool operator!=( const Box_& rhs ) const { return !equals( rhs ); }
+	bool operator!=( const Box& rhs ) const { return !equals( rhs ); }
 
-	bool hasIntersection(const Box_& rhs) const {
+	bool hasIntersection(const Box& rhs) const {
 		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
 		const auto lx = getLength().getX() * 0.5 + rhs.getLength().getX() * 0.5;
 
@@ -189,7 +189,7 @@ public:
 	}
 
 
-	Box_ getOverlapped(const Box_& rhs) const {
+	Box getOverlapped(const Box& rhs) const {
 		assert(hasIntersection(rhs));
 		const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
 		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
@@ -201,7 +201,7 @@ public:
 
 		const Vector3d<T> min_(minx, miny, minz);
 		const Vector3d<T> max_(maxx, maxy, maxz);
-		return Box_(min_, max_);
+		return Box(min_, max_);
 	}
 
 
@@ -211,8 +211,6 @@ private:
 	T maxZ;
 	Vector3d<T> start;
 };
-
-using Box = Box_ < float > ;
 
 	}
 }

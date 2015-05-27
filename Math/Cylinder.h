@@ -30,15 +30,10 @@ public:
 	{
 	}
 
-	Cylinder( const Math::Box& boundingBox )
-	{
-		assert( false );
-	}
-
-	Math::Box getBoundingBox() const {
+	Math::Box<T> getBoundingBox() const {
 		const Vector3d<T> pos1(center.getX() - radius, center.getY() - height * 0.5f, center.getZ() - radius);
 		const Vector3d<T> pos2(center.getX() + radius, center.getY() + height * 0.5f, center.getZ() + radius);
-		return Math::Box(pos1, pos2);
+		return Math::Box<T>(pos1, pos2);
 	}
 
 	Vector3d<T> getCenter() const { return center; }

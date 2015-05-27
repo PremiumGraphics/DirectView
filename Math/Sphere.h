@@ -26,7 +26,7 @@ public:
 		radius( radius )
 	{}
 
-	Sphere( const Math::Box& boundingBox ) {
+	Sphere( const Math::Box<T>& boundingBox ) {
 		center = Vector3d<T>( boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ() );
 		const Vector3d<T>& length = boundingBox.getLength();
 		radius = std::min<float>( std::min<float>( length.getX(), length.getY() ), length.getZ() ) * 0.5f;
@@ -36,8 +36,8 @@ public:
 		return Sphere( Vector3d<float>::Zero(), 1.0f );
 	}
 
-	Math::Box getBoundingBox() const {
-		Math::Box box( center, center );
+	Math::Box<T> getBoundingBox() const {
+		Math::Box<T> box( center, center );
 		return box.getOuterOffset( radius );
 	}
 

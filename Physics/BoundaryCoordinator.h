@@ -13,7 +13,7 @@ namespace Crystal{
 class BoundaryCoordinator : public Coordinator
 {
 public:
-	BoundaryCoordinator(const Math::Box& box, const float timeStep ) :
+	BoundaryCoordinator(const Math::Box<float>& box, const float timeStep ) :
 		box( box ),
 		timeStep( timeStep )
 	{}
@@ -23,7 +23,7 @@ public:
 	virtual void coordinate(const PhysicsParticleSPtrVector& particles);
 
 private:
-	const Math::Box box;
+	const Math::Box<float> box;
 	const float timeStep;
 };
 

@@ -15,7 +15,7 @@ float getForce(const float over, const float timeStep)
 	return -over / timeStep / timeStep; 
 }
 
-Vector3d<float> getForceX(const float x, const Box& box, const float timeStep)
+Vector3d<float> getForceX(const float x, const Box<float>& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( x > box.getMaxX() ) {
@@ -29,7 +29,7 @@ Vector3d<float> getForceX(const float x, const Box& box, const float timeStep)
 	return Vector3d<float>::UnitX() * force;
 }
 
-Vector3d<float> getForceY(const float y, const Box& box, const float timeStep)
+Vector3d<float> getForceY(const float y, const Box<float>& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( y > box.getMaxY() ) {
@@ -42,7 +42,7 @@ Vector3d<float> getForceY(const float y, const Box& box, const float timeStep)
 	return Vector3d<float>::UnitY() * force;
 }
 
-Vector3d<float> getForceZ(const float z, const Box& box, const float timeStep)
+Vector3d<float> getForceZ(const float z, const Box<float>& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( z > box.getMaxZ() ) {
@@ -55,7 +55,7 @@ Vector3d<float> getForceZ(const float z, const Box& box, const float timeStep)
 	return Vector3d<float>::UnitZ() * force;
 }
 
-Vector3d<float> getForce( const Vector3d<float>& center, const float timeStep, const Box& box)
+Vector3d<float> getForce( const Vector3d<float>& center, const float timeStep, const Box<float>& box)
 {
 	Vector3d<float> force = Vector3d<float>::Zero();
 

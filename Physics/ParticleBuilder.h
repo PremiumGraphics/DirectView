@@ -25,7 +25,7 @@ public:
 
 	float getDivideLength() const { return divideLength; }
 
-	PhysicsParticleSPtrVector create(const Math::Box& box);
+	PhysicsParticleSPtrVector create(const Math::Box<float>& box);
 
 	PhysicsParticleSPtrVector create(const Math::Sphere<float>& sphere);
 

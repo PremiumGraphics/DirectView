@@ -133,15 +133,12 @@ private:
 
 	void OnCreateBox(wxRibbonButtonBarEvent& e);
 
-	void OnCreateBoxConfig(wxRibbonButtonBarEvent& e);
-
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
 private:
 	Math::Sphere<float> sphere;
-	Math::Box box;
 	Math::Cylinder<float> cylinder;
 	Math::Cone<float> cone;
 

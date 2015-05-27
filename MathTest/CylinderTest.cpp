@@ -44,7 +44,7 @@ TEST(CylinderTest, TestIsInner)
 TEST(CylinderTest, TestGetBoundingBox)
 {
 	Cylinder<float> c(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 1.0f );
-	const Box& b = c.getBoundingBox();
+	const Box<float>& b = c.getBoundingBox();
 	EXPECT_FLOAT_EQ(-1.0f, b.getMinX());
 	EXPECT_FLOAT_EQ( 1.0f, b.getMaxX());
 }

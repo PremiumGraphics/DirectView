@@ -12,7 +12,7 @@ using T = float;
 TEST(PhysicsObjectBuilderTest, TestBuildBox)
 {
 	PhysicsObjectBuilder builder;
-	const Box b(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(10.0f, 1.0f, 1.0f));
+	const Box<T> b(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(10.0f, 1.0f, 1.0f));
 	const PhysicsObjectSPtr& object = builder.create(b.getInnerOffset(0.5f), PhysicsObject::Type::Fluid );
 	EXPECT_EQ(10, object->getParticles().size());
 }

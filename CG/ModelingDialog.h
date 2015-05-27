@@ -94,23 +94,6 @@ namespace Crystal{
 			wxSpinCtrl* height;
 		};
 
-		class BoxConfigDialog : public wxDialog
-		{
-		public:
-
-			BoxConfigDialog(wxWindow* parent, const Math::Box& box);
-
-			Math::Box get() const;
-
-		private:
-			wxSpinCtrlDouble* xSize;
-			wxSpinCtrlDouble* ySize;
-			wxSpinCtrlDouble* zSize;
-		};
-
-		struct ModelingDialogs {
-			ConeConfigDialog::Config coneConfig;
-		};
 
 	}
 }

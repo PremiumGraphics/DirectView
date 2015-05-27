@@ -49,12 +49,6 @@ public:
 
 	VertexSPtrVector getVertices() const { return vertices; }
 
-	void rotateX(const double angle);
-
-	void rotateY(const double angle);
-
-	void rotateZ(const double angle);
-
 	void move(const Math::Vector3d<float>& vector) {
 		//center += vector;
 		for (const VertexSPtr v : vertices) {
@@ -62,8 +56,6 @@ public:
 		}
 
 	}
-
-	void scale(const Math::Vector3d<float>& scale);
 
 	bool operator==(const Polygon& rhs) const {
 		return
@@ -78,8 +70,6 @@ public:
 	unsigned int getId() const { return id; }
 
 	Material* getMaterial() const { return material; }
-
-	Math::Box getBoundingBox() const;
 
 private:
 	FaceSPtrVector faces;

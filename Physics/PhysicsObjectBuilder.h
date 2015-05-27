@@ -23,7 +23,7 @@ public:
 
 	~PhysicsObjectBuilder() = default;
 
-	PhysicsObjectSPtr create(const Math::Box& box, const PhysicsObject::Type& type) {
+	PhysicsObjectSPtr create(const Math::Box<float>& box, const PhysicsObject::Type& type) {
 		PhysicsParticle<float>::Constant constant;
 		PhysicsParticleSPtrVector particles;
 		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {

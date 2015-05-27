@@ -18,28 +18,6 @@ TEST(PolygonTest, TestConstruct)
 	EXPECT_EQ( nullptr, p.getMaterial() );
 }
 
-TEST(PolygonTest, TestScale)
-{
-	Polygon p(0, nullptr);
-	p.setVertices( { VertexSPtr(new Vertex<T>( Vector3d<T>(1.0, 1.0, 1.0), 0 ) ) } );
-	p.scale(Vector3d<T>(0.1f, 0.01f, 10.0f));
-
-	const VertexSPtrVector expected = { VertexSPtr( new Vertex<T>( Vector3d<T>(0.1f, 0.01f, 10.0f), 0) ) };
-	const VertexSPtrVector& actual = p.getVertices();
-	EXPECT_TRUE( VerticesAreSame( expected, actual ) );
-}
-
-TEST(PolygonTest, TestScaleWithCenter)
-{
-	Polygon p(0, nullptr);
-	p.setVertices({ VertexSPtr(new Vertex<T>( Vector3d<T>(1.0, 1.0, 1.0), 0 )) });
-	p.setCenter(Vector3d<T>(1.0, 1.0, 1.0));
-	p.scale(Vector3d<T>(0.1f, 0.01f, 10.0f));
-
-	const VertexSPtrVector expected = { VertexSPtr( new Vertex<T>(Vector3d<T>(1.0f, 1.0f, 1.0f), 0 ) ) };
-	const VertexSPtrVector& actual = p.getVertices();
-	EXPECT_TRUE(VerticesAreSame(expected, actual));
-}
 
 TEST(PolygonTest, TestMove)
 {
@@ -52,29 +30,4 @@ TEST(PolygonTest, TestMove)
 	const VertexSPtrVector& actual = p.getVertices();
 
 	EXPECT_TRUE(VerticesAreSame(expected, actual));
-}
-
-TEST(PolygonTest, TestRotateX)
-{
-	Polygon p(0, nullptr);
-	p.setVertices({ VertexSPtr(new Vertex<T>(Vector3d<T>(0.0, 0.0, 1.0), 0) ) });
-	p.rotateX(180.0);
-
-	const VertexSPtrVector& actual = p.getVertices();
-
-	const VertexSPtrVector expected{ VertexSPtr(new Vertex<T>( Vector3d<T>(0.0, 0.0, -1.0), 0 )) };
-	EXPECT_TRUE(VerticesAreSame(expected, actual));
-}
-
-TEST(PolygonTest, TestBoundingBox)
-{
-	Polygon p(0, nullptr);
-	const VertexSPtrVector vertices = {
-		VertexSPtr(new Vertex<T>(Vector3d<T>(0.0, 0.0, 0.0), 0)),
-		VertexSPtr(new Vertex<T>(Vector3d<T>(1.0, 0.0, 1.0), 0))
-	};
-	p.setVertices(vertices);
-	Box box = p.getBoundingBox();
-	EXPECT_EQ(box.getMin(), Vector3d<T>(0.0f, 0.0f, 0.0f));
-	EXPECT_EQ(box.getMax(), Vector3d<T>(1.0f, 0.0f, 1.0f));
 }
