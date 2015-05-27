@@ -70,8 +70,8 @@ IDRenderer::Location IDRenderer::getLocations()
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.id = glGetAttribLocation(shader.getId(), "vertexId");
-	location.faceId = glGetAttribLocation(shader.getId(), "faceId");
-	location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
+	//location.faceId = glGetAttribLocation(shader.getId(), "faceId");
+	//location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
 
 	return location;
 }
@@ -86,8 +86,8 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	const std::vector<float>& positions = list.getPositions();
 	const std::vector< std::vector<unsigned int> >& ids = list.getIds();
 	const std::vector<unsigned int>& vertexIds = list.getVertexIds();
-	const std::vector<unsigned int>& faceIds = list.getFaceIds();
-	const std::vector<unsigned int>& polygonIds = list.getPolygonIds();
+	//const std::vector<unsigned int>& faceIds = list.getFaceIds();
+	//const std::vector<unsigned int>& polygonIds = list.getPolygonIds();
 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
@@ -105,8 +105,8 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(vertexIds.front()) );
-	glVertexAttribIPointer(location.faceId, 1, GL_INT, 0, &(faceIds.front()));
-	glVertexAttribIPointer(location.polygonId, 1, GL_INT, 0, &(polygonIds.front()));
+	//glVertexAttribIPointer(location.faceId, 1, GL_INT, 0, &(faceIds.front()));
+	//glVertexAttribIPointer(location.polygonId, 1, GL_INT, 0, &(polygonIds.front()));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

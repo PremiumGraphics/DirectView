@@ -4,7 +4,6 @@
 #include "stdafx.h"
 
 #include "../Graphics/Vertex.h"
-#include "../Graphics/Face.h"
 #include "../Graphics/Polygon.h"
 #include "../Graphics/Light.h"
 
@@ -50,37 +49,6 @@ private:
 };
 */
 
-class FacePropertyDialog : public wxDialog {
-public:
-	FacePropertyDialog(wxWindow* parent, const Graphics::Face& f);
-};
-
-class EdgePropertyDialog : public wxDialog
-{
-public:
-	EdgePropertyDialog(wxWindow* parent, Graphics::HalfEdge& edge);
-
-private:
-	Graphics::HalfEdge& edge;
-
-	wxSpinCtrl* startId;
-
-	wxSpinCtrl* endId;
-};
-
-class PolygonPropertyDialog : public wxDialog
-{
-public:
-	PolygonPropertyDialog(wxWindow* parent, Graphics::Polygon& polygon);
-
-private:
-	Graphics::Polygon& polygon;
-
-	wxSpinCtrl* vertices;
-	wxSpinCtrl* edges;
-	wxSpinCtrl* faces;
-};
-
 class LightProperty : public wxPropertyGrid {
 public:
 	LightProperty(wxWindow* parent, const wxSize& size);
@@ -111,20 +79,6 @@ private:
 
 };
 
-class PolygonProperty : public wxPropertyGrid {
-public:
-	PolygonProperty(wxWindow* parent, const wxSize& size, const std::list<Graphics::Material*>& materials);
-
-	void build(Graphics::Polygon* polygon);
-
-	void OnDoubleClick(wxPropertyGridEvent& event);
-
-	void OnChanged(wxPropertyGridEvent& event);
-
-private:
-	Graphics::Polygon* polygon;
-	const std::list<Graphics::Material*>& materials;
-};
 
 }
 }

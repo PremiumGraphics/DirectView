@@ -12,17 +12,8 @@ using namespace Crystal::Graphics;
 
 using T = float;
 
-TEST(PolygonTest, TestConstruct)
-{
-	Polygon p(0, nullptr);
-	EXPECT_EQ( nullptr, p.getMaterial() );
-}
-
 
 TEST(PolygonTest, TestAddTriangle)
 {
-	Polygon p(0, nullptr);
-	p.add(Triangle<T>());
-
-	EXPECT_EQ(3, p.getVertices().size());
+	EXPECT_EQ(3, Polygon().add(Triangle<T>()).getVertices().size());
 }

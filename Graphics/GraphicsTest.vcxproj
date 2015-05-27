@@ -18,8 +18,6 @@
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ColorRGBTest.cpp" />
     <ClCompile Include="DisplayListTest.cpp" />
-    <ClCompile Include="FaceTest.cpp" />
-    <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
@@ -27,7 +25,6 @@
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>

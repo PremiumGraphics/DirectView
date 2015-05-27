@@ -7,90 +7,50 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Math/Vector3d.h"
-#include "../Math/Box.h"
+#include "../Math/Triangle.h"
 #include "Vertex.h"
-#include "Face.h"
 #include "Material.h"
 
 namespace Crystal {
 	namespace Graphics {
 		class Material;
 
-class Polygon : private UnCopyable {
+class Polygon final : private UnCopyable {
 public:
 
-	Polygon(unsigned int id, Material* m) :
-		id(id),
-		material(m),
-		isSelected( true )
-	{}
+	Polygon() = default;
 
-	~Polygon()
-	{
-	}
-
-	bool isSelected;
-
-	FaceSPtrVector getFaces() const { return faces; }
-
-	void setMaterial(Material* m) { this->material = m; }
-
-	Material* getMaterial() { return material; }
-
-	void setVertices(const VertexSPtrVector<float>& vs) { this->vertices = vs; }
-
-	void addVertices(const VertexSPtrVector<float>& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
+	~Polygon() = default;
 
 	VertexSPtrVector<float> getVertices() const { return vertices; }
 
-	void setCenter(const Math::Vector3d<float>& center) { this->center = center; }
+	Polygon& add(const Math::Triangle<float>& t) {
+		VertexSPtrVector<float> vs;
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv0() ));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv1() ));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv2() ));
 
-	Math::Vector3d<float> getCenter() const { return center; }
+		/*
+		HalfEdgeSPtrList edges;
+		edges.push_back( vs[0]);
+		edges.push_back(vs[1])
+		*/
 
-	unsigned int getId() const { return id; }
+		//faces.push_back( std::make_shared<Face>(vs) );
 
-	Material* getMaterial() const { return material; }
+		vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
-	void add(const Math::Triangle<float>& t) {
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv0() ));
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv1() ));
-		vertices.push_back(std::make_shared<Vertex<float> >(t.getv2() ));
+		return (*this);
 	}
 
 
 private:
-	FaceSPtrVector faces;
 	VertexSPtrVector<float> vertices;
-	Math::Vector3d<float> center;
-	Material* material;
-	unsigned int id;
 };
 
 typedef std::shared_ptr< Polygon > PolygonSPtr;
 typedef std::vector< PolygonSPtr > PolygonSPtrVector;
 typedef std::list< PolygonSPtr > PolygonSPtrList;
-
-/*
-static Graphics::VertexSPtrVector getFaces(const PolygonSPtrVector& polygons) {
-	VertexSPtrVector vertices;
-	for (PolygonSPtr p : polygons) {
-		const VertexSPtrVector& vv = p->getVertices();
-		for ()
-			vertices.push_back(p->getVertices())
-	}
-}
-
-
-/*
-static Graphics::VertexSPtrVector getVertices(const PolygonSPtrVector& polygons ) {
-	VertexSPtrVector vertices;
-	for (PolygonSPtr p : polygons) {
-		const VertexSPtrVector& vv = p->getVertices();
-		for ()
-		vertices.push_back(p->getVertices() )
-	}
-}
-*/
 
 	}
 }

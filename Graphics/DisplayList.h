@@ -8,7 +8,6 @@
 #include "../Math/Triangle.h"
 
 #include "ColorRGBA.h"
-#include "Face.h"
 #include "Polygon.h"
 
 namespace Crystal {
@@ -21,15 +20,9 @@ public:
 	DisplayList()
 	{}
 
-	DisplayList(Face* f, const ColorRGBA<float>& color) {
-		add(f, color);
-	}
-
 	DisplayList(Polygon* polygon) {
 		add(polygon);
 	}
-
-	DisplayList(const Math::Triangle<float>& t);
 
 	DisplayList(const Math::Vector3dVector<float>& poss) {
 		vertices = Math::Vector3d<float>::toArray(poss);
@@ -54,52 +47,11 @@ public:
 
 		ids.clear();
 		vertexIds.clear();
-		faceIds.clear();
-		polygonIds.clear();
 	}
 
 	//void add(Vertex* v);
 
 	void setColors(const std::vector<float>& colors) { this->colors = colors; }
-
-	void add(Face* f, const ColorRGBA<float>& color) {
-		const std::vector<float>& vs = Math::Vector3d<float>::toArray(getPositions(*f));
-		vertices.insert(vertices.end(), vs.begin(), vs.end());
-
-		const std::vector<float>& ns = Math::Vector3d<float>::toArray(getNormals(*f));
-		normals.insert(normals.end(), ns.begin(), ns.end());
-
-		const std::vector<float>& ts = Math::Vector3d<float>::toArray(f->getTexCoords());
-		texCoords.insert(texCoords.end(), ts.begin(), ts.end());
-
-		std::vector<unsigned int> vids;
-		for (const auto& v : f->getVertices()) {
-			vids.push_back(v->getId());
-		}
-
-		vertexIds.insert(vertexIds.end(), vids.begin(), vids.end());
-		ids.push_back(vids);
-
-		const Math::Vector3dVector<float> positions = getPositions(*f);
-		for (size_t i = 0; i < positions.size(); ++i) {
-			faceIds.push_back(f->getId());
-		}
-
-		for (size_t i = 0; i < positions.size(); ++i) {
-			const std::vector<float>& cs = color.toArray3();
-			colors.insert(colors.end(), cs.begin(), cs.end());
-		}
-
-	}
-
-	void add(Polygon* p) {
-		for (std::shared_ptr<Face> f : p->getFaces()) {
-			add(f.get(), p->getMaterial()->getAmbient());
-		}
-		for (size_t i = 0; i < p->getVertices().size(); ++i) {
-			polygonIds.push_back(p->getId());
-		}
-	}
 
 	std::vector< float > getPositions() const { return vertices; }
 
@@ -110,10 +62,6 @@ public:
 	std::vector< float > getColors() const { return colors; }
 
 	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
-
-	std::vector< unsigned int > getFaceIds() const { return faceIds; }
-
-	std::vector< unsigned int > getPolygonIds() const { return polygonIds; }
 
 	void setIds(const std::vector< std::vector< unsigned int > >& ids) { this->ids = ids; }
 
@@ -132,35 +80,7 @@ private:
 	std::vector< T > texCoords;
 	std::vector< T > colors;
 	std::vector< unsigned int > vertexIds;
-	std::vector< unsigned int > faceIds;
-	std::vector< unsigned int > polygonIds;
 	std::vector< std::vector< unsigned int > > ids;
-
-	std::vector<unsigned int> getVertexIds(const Face& f) const;
-
-	Math::Vector3dVector<float> getPositions(const Face& f) const {
-		Math::Vector3dVector<float> positions;
-		const HalfEdgeSPtrList& edges = f.getEdges();
-		for (const HalfEdgeSPtr& e : edges) {
-			positions.push_back(e->getStartPosition());
-			if (e == edges.back() && f.isOpen()) {
-				positions.push_back(e->getEndPosition());
-			}
-		}
-		return positions;
-	}
-
-	Math::Vector3dVector<float> getNormals(const Face& f) const {
-		Math::Vector3dVector<float> normals;
-		const HalfEdgeSPtrList& edges = f.getEdges();
-		for (const HalfEdgeSPtr& e : edges) {
-			normals.push_back(e->getStart()->getNormal());
-			if (e == edges.back() && f.isOpen()) {
-				normals.push_back(e->getEnd()->getNormal());
-			}
-		}
-		return normals;
-	}
 
 };
 
