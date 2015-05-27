@@ -24,8 +24,7 @@ TEST(CylinderTest, TestGetSet)
 
 TEST(CylinderTest, TestVolume)
 {
-	Cylinder<float> c;
-	EXPECT_FLOAT_EQ( Tolerancef::getPI(), c.getVolume() );
+	EXPECT_FLOAT_EQ(Tolerance<float>::getPI(), Cylinder<float>().getVolume());
 }
 
 TEST(CylinderTest, TestIsInner)

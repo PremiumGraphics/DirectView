@@ -15,21 +15,21 @@ TYPED_TEST_CASE(BoxTest, TestTypes);
 TYPED_TEST( BoxTest, TestGetMin )
 {
 	using T = TypeParam;
-	EXPECT_EQ( Vector3d<T>(0.0f, 0.0f, 0.0f), Box<T>().getMin() );
-	EXPECT_EQ( Vector3d<T>(1.0f, 2.0f, 3.0f), Box<T>( Vector3d<T>(1.0f, 2.0f, 3.0f), Vector3d<T>(4.0f, 5.0f, 6.0f)).getMin());
+	EXPECT_EQ( Vector3d<T>(0, 0, 0), Box<T>().getMin() );
+	EXPECT_EQ( Vector3d<T>(1, 2, 3), Box<T>( Vector3d<T>(1, 2, 3), Vector3d<T>(4, 5, 6) ).getMin());
 }
 
 TYPED_TEST(BoxTest, TestGetMax)
 {
 	using T = TypeParam;
-	EXPECT_EQ(Vector3d<T>(1.0f, 1.0f, 1.0f), Box<T>().getMax());
-	EXPECT_EQ(Vector3d<T>(4.0f, 5.0f, 6.0f), Box<T>(Vector3d<T>(1.0f, 2.0f, 3.0f), Vector3d<T>(4.0f, 5.0f, 6.0f)).getMax());
+	EXPECT_EQ(Vector3d<T>(1, 1, 1), Box<T>().getMax());
+	EXPECT_EQ(Vector3d<T>(4, 5, 6), Box<T>(Vector3d<T>(1, 2, 3), Vector3d<T>(4, 5, 6)).getMax());
 }
 
 TYPED_TEST( BoxTest, TestGetVolume )
 {
 	using T = TypeParam;
-	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(6.0f, Box<T>(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 2.0f, 3.0f)).getVolume()));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(6, Box<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 2, 3)).getVolume()));
 }
 
 TYPED_TEST( BoxTest, TestGetLength )
@@ -56,27 +56,24 @@ TYPED_TEST( BoxTest, TestIsValid )
 {
 	using T = TypeParam;
 
-	EXPECT_TRUE(Box<T>(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(0.0f, 0.0f, 0.0f)).isValid());
-	EXPECT_TRUE(Box<T>(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f)).isValid());
+	EXPECT_TRUE(Box<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(0, 0, 0)).isValid());
+	EXPECT_TRUE(Box<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1)).isValid());
 }
 
 TYPED_TEST(BoxTest, TestHasIntersection)
 {
 	using T = TypeParam;
 
-	Box<T> b1(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f));
-	Box<T> b2(Vector3d<T>(2.0f, 2.0f, 2.0f), Vector3d<T>(4.0f, 4.0f, 4.0f));
-
-	EXPECT_FALSE(b1.hasIntersection(b2));
+	EXPECT_FALSE(Box<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1)).hasIntersection(  Box<T>( Vector3d<T>(2, 2, 2), Vector3d<T>(4, 4, 4) ) ));
 }
 
 TYPED_TEST(BoxTest, TestGetOverlapped)
 {
 	using T = TypeParam;
 
-	Box<T> b1(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f));
-	Box<T> b2(Vector3d<T>(0.5f, 0.5f, 0.5f), Vector3d<T>(2.0f, 2.0f, 2.0f));
-	const Box<T> expected(Vector3d<T>(0.5f, 0.5f, 0.5f), Vector3d<T>(1.0f, 1.0f, 1.0f));
+	const Box<T> b1(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2));
+	const Box<T> b2(Vector3d<T>(1, 1, 1), Vector3d<T>(5, 5, 5));
+	const Box<T> expected(Vector3d<T>(1,1,1), Vector3d<T>(2,2,2));
 	const auto actual = b1.getOverlapped(b2);
 	EXPECT_EQ(expected, actual);
 }

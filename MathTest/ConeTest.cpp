@@ -15,16 +15,14 @@ TEST( ConeTest, TestConstruct )
 TEST(ConeTest, TestGetSet)
 {
 	Cone<float> cone;
-	cone.setRadius(50.0f);
-	cone.setHeight(10.0f);
+	cone.setRadius(50);
+	cone.setHeight(10);
 
-	EXPECT_EQ(50.0f, cone.getRadius());
-	EXPECT_EQ(10.0f, cone.getHeight());
+	EXPECT_EQ(50, cone.getRadius());
+	EXPECT_EQ(10, cone.getHeight());
 }
 
 TEST(ConeTest, TestVolume)
 {
-	Cone<float> cone;
-	const float actual = cone.getVolume();
-	EXPECT_FLOAT_EQ(Tolerancef::getPI() / 3.0f, actual);
+	EXPECT_FLOAT_EQ(Tolerancef::getPI() / 3.0f, Cone<float>().getVolume() );
 }

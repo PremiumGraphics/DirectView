@@ -47,7 +47,7 @@ public:
 		vertices.insert(vertices.end(), vs.begin(), vs.end());
 		const auto ns = v.getNormal().toArray();
 		normals.insert(normals.end(), ns.begin(), ns.end());
-		const std::vector<float> cs = ColorRGBA<float>::Black().toArray3();
+		const std::vector<float> cs = v.getColor().toArray3();
 		colors.insert(colors.end(), cs.begin(), cs.end());
 	}
 

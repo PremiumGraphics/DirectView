@@ -116,8 +116,9 @@ TYPED_TEST( Matrix3dTest, TestScale )
 
 TYPED_TEST(Matrix3dTest, TestDeterminantFloat)
 {
-	EXPECT_TRUE( Tolerance<TypeParam>::isEqualStrictly(0.0f, Matrix3d<TypeParam>::Zero().getDeterminant()) );
-	EXPECT_TRUE( Tolerance<TypeParam>::isEqualStrictly(1.0, Matrix3d<TypeParam>::Identity().getDeterminant()));
+	using T = TypeParam;
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(0, Matrix3d<T>::Zero().getDeterminant()) );
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(1, Matrix3d<T>::Identity().getDeterminant()));
 }
 
 TYPED_TEST(Matrix3dTest, TestInverse)

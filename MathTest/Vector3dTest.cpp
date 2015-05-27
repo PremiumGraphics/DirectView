@@ -125,9 +125,9 @@ TYPED_TEST(Vector3dTest, TestRotateY)
 
 TYPED_TEST(Vector3dTest, TestRotateZ)
 {
-	const Matrix3d<double> m = Matrix3d<double>::RotateZ(180.0 * Tolerance<double>::getPI() / 180.0);
-	Vector3d<double> v(1.0f, 0.0, 0.0);
+	const Matrix3d<double> m = Matrix3d<double>::RotateZ( Tolerance<double>::getPI() );
+	Vector3d<double> v(1, 0., 0);
 	v.rotate(m);
-	Vector3d<double> expected(-1.0f, 0.0, 0.0);
+	Vector3d<double> expected(-1, 0, 0);
 	EXPECT_EQ(expected, v);
 };

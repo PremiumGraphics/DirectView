@@ -47,7 +47,7 @@ TYPED_TEST(TriangleTest, TestGetNormal)
 		Vector3d<T>(1,0,0),
 		Vector3d<T>(1,0,1)
 		).getNormal();
-	EXPECT_EQ(Vector3d<T>(0.0, -1.0, 0.0), actual);
+	EXPECT_EQ(Vector3d<T>(0, -1, 0), actual);
 }
 
 TYPED_TEST(TriangleTest, TestIsCCW)
