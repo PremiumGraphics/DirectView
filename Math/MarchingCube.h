@@ -10,6 +10,7 @@
 #include <bitset>
 #include <vector>
 #include <array>
+#include "Bitmap.h"
 
 namespace Crystal {
 	namespace Math {
@@ -23,25 +24,27 @@ public:
 	~MarchingCube() = default;
 
 	Vector3d<T> interpolate(const T isolevel, const Vector3d<T>& p1, const Vector3d<T>& p2, const T valp1, const T valp2) const {
-		if (::fabs(isolevel - valp1) < 0.00001) {
-			return(p1);
-		}
-		if (::fabs(isolevel - valp2) < 0.00001) {
-			return(p2);
-		}
-		if (::fabs(valp1 - valp2) < 0.00001) {
-			return(p1);
-		}
-
 		const T mu = (isolevel - valp1) / (valp2 - valp1);
+		/*
 		const auto x = p1.getX() + mu * (p2.getX() - p1.getX());
 		const auto y = p1.getY() + mu * (p2.getY() - p1.getY());
 		const auto z = p1.getZ() + mu * (p2.getZ() - p1.getZ());
 
 		return Vector3d< T > ( x, y, z );
+		*/
+		return p1 + mu *(p2 - p1);
 	}
 
 
+	/*
+	std::vector<Triangle<T> > build(const Bitmap3d<8>& bmp, const Space3d& space) {
+		for (size_t i = 0; i < bmp.size(); ++i) {
+			for (size_t j = 0; j > bmp[i].size(); ++j) {
+				const b bmp[i]
+			}
+		}
+	}
+	*/
 
 	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::array< T, 8 >& val, const T isolevel)
 	{
