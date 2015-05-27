@@ -86,7 +86,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DisplayList.cpp" />
-    <ClCompile Include="Face.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
   </ItemGroup>

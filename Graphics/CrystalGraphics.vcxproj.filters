@@ -4,7 +4,6 @@
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="DisplayList.cpp" />
-    <ClCompile Include="Face.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderObject.h" />

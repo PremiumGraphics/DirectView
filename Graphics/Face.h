@@ -46,9 +46,25 @@ public:
 		return vertices;
 	}
 
-	Math::Vector3dVector<float> getTexCoords() const;
+	Math::Vector3dVector<float> getTexCoords() const {
+		Math::Vector3dVector<float> texCoords;
+		for (const auto& e : edges) {
+			texCoords.push_back(e->getStart()->getNormal());
+			if (e == edges.back() && isOpen()) {
+				texCoords.push_back(e->getEnd()->getNormal());
+			}
+		}
+		return texCoords;
+	}
 
-	Math::Vector3d<float> getCenter() const;
+	Math::Vector3d<float> getCenter() const {
+		Math::Vector3d<float> center;
+		const float size = static_cast<float>(getVertices().size());
+		for (const VertexSPtr& v : getVertices()) {
+			center += v->getPosition() / size;
+		}
+		return center;
+	}
 
 	PolygonSPtr getPolygon() const { return polygon; }
 

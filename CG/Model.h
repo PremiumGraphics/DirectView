@@ -27,14 +27,13 @@ public:
 
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
-
 private:
 	Graphics::VertexSPtrVector selectedVertex;
 	Graphics::FaceSPtrVector selectedFace;
 
 	Graphics::Camera<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
-
+	Math::TriangleVector<float> triangles;
 };
 
 	}
