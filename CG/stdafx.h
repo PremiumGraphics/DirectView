@@ -1,4 +1,4 @@
-#include "../Graphics/GLee.h"
+#include "../Shader/GLee.h"
 
 #include "wx/wxprec.h"
 

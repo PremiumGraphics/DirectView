@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 
-#include "../Graphics/ShaderObject.h"
+#include "ShaderObject.h"
 #include "../Graphics/Polygon.h"
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Camera.h"

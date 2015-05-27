@@ -4,9 +4,9 @@
 #include <map>
 #include <vector>
 
+#include "../Shader/ShaderObject.h"
 #include "../Math/Matrix4d.h"
 #include "../Graphics/Light.h"
-#include "../Graphics/ShaderObject.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/DisplayList.h"
 #include "../Graphics/Material.h"

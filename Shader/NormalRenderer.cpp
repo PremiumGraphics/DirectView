@@ -5,7 +5,7 @@
 #include "../Math/Vector3d.h"
 
 
-#include "../Graphics/ShaderObject.h"
+#include "ShaderObject.h"
 #include "../Graphics/Camera.h"
 
 #include <sstream>

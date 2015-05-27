@@ -86,8 +86,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DisplayList.cpp" />
-    <ClCompile Include="GLee.cpp" />
-    <ClCompile Include="ShaderObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -98,14 +96,12 @@
     <ClInclude Include="ColorRGBAMap.h" />
     <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Face.h" />
-    <ClInclude Include="GLee.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="ImageRGB.h" />
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Polygon.h" />
-    <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

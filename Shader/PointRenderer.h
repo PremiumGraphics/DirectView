@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_SHADER_POINT_RENDERER_H__
 #define __CRYSTAL_SHADER_POINT_RENDERER_H__
 
-#include "../Graphics/ShaderObject.h"
+#include "ShaderObject.h"
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"

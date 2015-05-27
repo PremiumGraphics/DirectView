@@ -4,9 +4,8 @@
 #include <map>
 #include <vector>
 
-#include "../Graphics/ShaderObject.h"
+#include "ShaderObject.h"
 
-#include "../Graphics/ShaderObject.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
 #include "../Graphics/DisplayList.h"

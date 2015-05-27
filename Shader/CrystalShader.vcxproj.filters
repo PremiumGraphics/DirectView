@@ -8,6 +8,8 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="FastPointRenderer.cpp" />
     <ClCompile Include="Space2dRenderer.cpp" />
+    <ClCompile Include="GLee.cpp" />
+    <ClCompile Include="ShaderObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WireFrameRenderer.h" />
@@ -17,5 +19,7 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="FastPointRenderer.h" />
     <ClInclude Include="Space2dRenderer.h" />
+    <ClInclude Include="GLee.h" />
+    <ClInclude Include="ShaderObject.h" />
   </ItemGroup>
 </Project>

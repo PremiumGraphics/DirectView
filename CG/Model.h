@@ -33,7 +33,6 @@ private:
 
 	Graphics::Camera<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
-	Math::TriangleVector<float> triangles;
 };
 
 	}
