@@ -228,18 +228,14 @@ void View::build()
 
 void View::buildDisplayList()
 {
-	/*
 	dispList.clear();
-	dispListSelected.clear();
 
-	dispList.add()
-	const PolygonSPtrList& polygons = model.getPolygons();
-	for (const PolygonSPtr& p : polygons) {
-		dispList.add( p.get() );
-	}
-	const FaceSPtrVector& faces = model.getSelectedFaces();
-	for (const FaceSPtr& f : faces) {
-		dispListSelected.add(f.get(), ColorRGBA<float>::Blue());
-	}
-	*/
+	Triangle<float> t;
+	Graphics::Polygon p;
+	p.add(t);
+	dispList.add(p);
+	//const PolygonSPtrList& polygons = model.getPolygons();
+	//for (const PolygonSPtr& p : polygons) {
+	//	dispList.add( p.get() );
+	//}
 }

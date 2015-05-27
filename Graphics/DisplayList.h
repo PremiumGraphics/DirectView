@@ -20,23 +20,12 @@ public:
 	DisplayList()
 	{}
 
-	DisplayList(Polygon* polygon) {
+	DisplayList(const Polygon& polygon) {
 		add(polygon);
 	}
 
-	DisplayList(const Math::Vector3dVector<float>& poss) {
-		vertices = Math::Vector3d<float>::toArray(poss);
-	}
-
-	DisplayList(const Math::Vector3dVector<T>& poss, const Math::Vector3dVector<float>& norms) {
-		vertices = Math::Vector3d<T>::toArray(poss);
-		normals = Math::Vector3d<T>::toArray(norms);
-	}
-
-	DisplayList(const Math::Vector3dVector<float>& poss, const Math::Vector3dVector<float>& norms, const Math::Vector3dVector<float>& texs) {
-		vertices = Math::Vector3d<float>::toArray(poss);
-		normals = Math::Vector3d<float>::toArray(norms);
-		texCoords = Math::Vector3d<float>::toArray(texs);
+	DisplayList(const Vertex<T>& v) {
+		add(v);
 	}
 
 	void clear() {
@@ -44,6 +33,22 @@ public:
 		normals.clear();
 		texCoords.clear();
 		colors.clear();
+	}
+
+	void add(const Polygon& polygon) {
+		const auto& vs = polygon.getVertices();
+		for (const auto& v : vs) {
+			add( *v );
+		}
+	}
+
+	void add(const Vertex<T>& v) {
+		const auto vs = v.getPosition().toArray();
+		vertices.insert(vertices.end(), vs.begin(), vs.end());
+		const auto ns = v.getNormal().toArray();
+		normals.insert(normals.end(), ns.begin(), ns.end());
+		const std::vector<float> cs = ColorRGBA<float>::Black().toArray3();
+		colors.insert(colors.end(), cs.begin(), cs.end());
 	}
 
 	//void add(Vertex* v);

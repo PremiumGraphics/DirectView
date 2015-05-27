@@ -12,7 +12,7 @@ namespace Crystal {
 template<typename T>
 class Vertex final {
 public:
-	Vertex(const Math::Vector3d<T>& position) :
+	explicit Vertex(const Math::Vector3d<T>& position) :
 		position(position)
 	{}
 
