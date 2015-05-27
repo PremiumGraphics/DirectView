@@ -4,26 +4,21 @@
 
 using namespace Crystal::Math;
 
-template < typename T >
-using Space1d = Space < T, 1 > ;
-
-template < typename T >
-using Space2d = Space < T, 2 >;
-
 
 TEST(SpaceTest, TestGetStart)
 {
 	using T = float;
-	EXPECT_EQ(Position1d<T>({ 0 }), Space1d<T>().getStart());
-	EXPECT_EQ(Position1d<T>({ 1 }), Space1d<T>(Position1d<T>({ 1 })).getStart());
-
-	EXPECT_EQ(Position2d<T>({ 0, 0 }), Space2d<T>().getStart());
+	EXPECT_EQ( Vector3d<T>(0,0,0), Space3d<T>().getStart());
+	EXPECT_EQ( Vector3d<T>(1,1,1), Space3d<T>(Vector3d<T>(1,1,1)).getStart());
 }
 
 TEST(SpaceTest, TestGetEnd)
 {
-	EXPECT_EQ(Position1d<float>({ 0 }), Space1d<float>().getEnd());
+	using T = float;
+	EXPECT_EQ( Vector3d<T>(0,0,0), Space3d<T>().getEnd());
 }
+
+/*
 
 TEST(SpaceTest, TestEquals)
 {
@@ -32,3 +27,4 @@ TEST(SpaceTest, TestEquals)
 	EXPECT_NE(Space1d<T>(), Space1d<T>(Position1d<T>({ 1 })));
 
 }
+*/

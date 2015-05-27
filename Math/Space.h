@@ -1,58 +1,44 @@
 #ifndef __CRYSTAL_MATH_SPACE_H__
 #define __CRYSTAL_MATH_SPACE_H__
 
-#include "Vector.h"
-#include "Position.h"
+#include "Vector3d.h"
 
 namespace Crystal {
 	namespace Math {
 
-template< typename T, size_t DIM >
-class Space final {
+template< typename T >
+class Space3d final {
 public:
-	Space() = default;
+	Space3d() = default;
 
-	Space(const Position<T, DIM>& origin) :
+	explicit Space3d(const Vector3d<T>& origin) :
 		origin(origin)
 	{}
 
-	Space(const Position<T,DIM>& origin, const Vector<T,DIM>& length) :
+	Space3d(const Vector3d<T>& origin, const Vector3d<T>& length) :
 		origin(origin),
 		vector(length)
 	{}
 
-	Position<T,DIM> getStart() const { return origin; }
+	Vector3d<T> getStart() const { return origin; }
 
-	Vector<T, DIM> getVector() const { return vector; }
+	Vector3d<T> getVector() const { return vector; }
 
-	Position<T,DIM> getEnd() const {
-		std::array<T, DIM> vs;
-		for (size_t i = 0; i < DIM; ++i) {
-			vs[i] = origin.get(i) + vector.get(i);
-		}
-		return Position<T,DIM>(vs);
-	}
+	Vector3d<T> getEnd() const { return origin + vector; }
 
-	Position<T,DIM> getCenter() const {
-		std::array<T, DIM> vs;
-		for (size_t i = 0; i < DIM; ++i) {
-			vs[i] = origin.get(i) + vector.get(i) / T(2);
-			p.set(i, x);
-		}
-		return Position<T, DIM>(vs);
-	}
+	Vector3d<T> getCenter() const { origin + vector * 0.5; }
 
-	bool equals(const Space& rhs) const {
+	bool equals(const Space3d& rhs) const {
 		return
 			getStart() == rhs.getStart() &&
 			getVector() == rhs.getVector();
 	}
 
-	bool operator==(const Space& rhs) const {
+	bool operator==(const Space3d& rhs) const {
 		return equals(rhs);
 	}
 
-	bool operator!=(const Space& rhs) const {
+	bool operator!=(const Space3d& rhs) const {
 		return !equals(rhs);
 	}
 
@@ -75,8 +61,8 @@ public:
 	*/
 
 private:
-	Position<T,DIM> origin;
-	Vector<T,DIM> vector;
+	Vector3d<T> origin;
+	Vector3d<T> vector;
 };
 
 	}
