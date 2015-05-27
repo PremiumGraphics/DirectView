@@ -150,7 +150,7 @@ public:
 	
 	Vector3d operator*=( const T factor ) { return scale( factor ); }
 
-	Vector3d operator/=( const T factor ) { return scale( 1.0 / factor ); }
+	Vector3d operator/=( const T factor ) { return scale( T(1) / factor ); }
 
 	void rotate(const Matrix3d<T>& matrix) {
 		*(this) = getMult(matrix);
