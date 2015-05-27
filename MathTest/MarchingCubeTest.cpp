@@ -31,7 +31,7 @@ TEST(MarchingCubeTest, TestMarch)
 		Vector3d<float>(0, 1, 1)
 	};
 	
-	const std::array< double, 8 > vs = { 0, 0, 0, 0, 1, 1, 1, 1 };
+	const std::array< float, 8 > vs = { 0, 0, 0, 0, 1, 1, 1, 1 };
 	const auto actual = mc.build( p, vs,0.5);
 	EXPECT_EQ(2, actual.size());
 
@@ -125,7 +125,6 @@ TEST(MarchingCubeTest, TestMarchBits)
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>("00110011")).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>("00111010")).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>("01000011")).size());
-	EXPECT_EQ(4, mc.build(p, std::bitset<8>("10110001")).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>("01101001")).size());
 	EXPECT_EQ(1, mc.build(p, std::bitset<8>("10000000")).size());
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>("10000001")).size());
@@ -139,6 +138,12 @@ TEST(MarchingCubeTest, TestMarchBits)
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>("10100000")).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>("10100001")).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>("10100101")).size());
+	EXPECT_EQ(4, mc.build(p, std::bitset<8>("10110001")).size());
+	EXPECT_EQ(4, mc.build(p, std::bitset<8>("10110010")).size());
+	EXPECT_EQ(4, mc.build(p, std::bitset<8>("10110100")).size());
+	EXPECT_EQ(5, mc.build(p, std::bitset<8>("10110101")).size());
+	EXPECT_EQ(5, mc.build(p, std::bitset<8>("10110110")).size());
+
 	EXPECT_EQ(2, mc.build(p, std::bitset<8>("11000000")).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>("11000001")).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>("11000010")).size());
@@ -147,6 +152,13 @@ TEST(MarchingCubeTest, TestMarchBits)
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>("11000101")).size());
 	EXPECT_EQ(4, mc.build(p, std::bitset<8>("11000110")).size());
 	EXPECT_EQ(3, mc.build(p, std::bitset<8>("11001000")).size());
+	EXPECT_EQ(4, mc.build(p, std::bitset<8>("11001001")).size());
+	EXPECT_EQ(4, mc.build(p, std::bitset<8>("11001010")).size());
+	EXPECT_EQ(5, mc.build(p, std::bitset<8>("11001011")).size());
+	EXPECT_EQ(2, mc.build(p, std::bitset<8>("11001100")).size());
+	EXPECT_EQ(3, mc.build(p, std::bitset<8>("11001101")).size());
+//	EXPECT_EQ(5, mc.build(p, std::bitset<8>("11001110")).size());
+
 
 //	EXPECT_EQ(4, mc.build(p, std::bitset<8>("11000111")).size());
 

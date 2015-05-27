@@ -10,7 +10,6 @@
     <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
-    <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />

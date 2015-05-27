@@ -22,7 +22,7 @@ public:
 
 	~MarchingCube() = default;
 
-	Vector3d<T> interpolate(double isolevel, const Vector3d<T>& p1, const Vector3d<T>& p2, const double valp1, const double valp2) const {
+	Vector3d<T> interpolate(const T isolevel, const Vector3d<T>& p1, const Vector3d<T>& p2, const T valp1, const T valp2) const {
 		if (::fabs(isolevel - valp1) < 0.00001) {
 			return(p1);
 		}
@@ -43,7 +43,7 @@ public:
 
 
 
-	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel)
+	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::array< T, 8 >& val, const T isolevel)
 	{
 		const int cubeindex = getCubeIndex( val, isolevel );
 		const auto vertices = getPositions(cubeindex, p, val, isolevel);
@@ -60,7 +60,7 @@ public:
 
 
 private:
-	std::array< int, 256 > edgeTable;
+	std::array< std::bitset<12>, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
 	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) const {
@@ -77,15 +77,11 @@ private:
 	}
 
 	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {
-		const auto x = p1.getX() + 0.5 * (p2.getX() - p1.getX());
-		const auto y = p1.getY() + 0.5 * (p2.getY() - p1.getY());
-		const auto z = p1.getZ() + 0.5 * (p2.getZ() - p1.getZ());
-
-		return Vector3d< T >(x, y, z);
+		return p1 * 0.5 + p2 * 0.5;
 	}
 
 
-	int getCubeIndex(const std::array< double, 8 >& val, const double isolevel) const {
+	int getCubeIndex(const std::array< T, 8 >& val, const T isolevel) const {
 		std::bitset<8> bit;
 		if (val[0] < isolevel) { bit.set(0); }
 		if (val[1] < isolevel) { bit.set(1); }
@@ -95,87 +91,89 @@ private:
 		if (val[5] < isolevel) { bit.set(5); }
 		if (val[6] < isolevel) { bit.set(6); }
 		if (val[7] < isolevel) { bit.set(7); }
-		return bit.to_ulong();
+		return static_cast<int>( bit.to_ulong() );
 	}
 
 	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p) const {
 		std::array< Vector3d<T>, 12 > vertices;
-		if (edgeTable[cubeindex] & 1) {
+//		if (edgeTable[cubeindex] & 1) {
+		if (edgeTable[cubeindex][0] ) {
 			vertices[0] = getCenter(p[0], p[1]);
 		}
-		if (edgeTable[cubeindex] & 2) {
+		//if (edgeTable[cubeindex] & 2) {
+		if (edgeTable[cubeindex][1] ) {
 			vertices[1] = getCenter(p[1], p[2]);
 		}
-		if (edgeTable[cubeindex] & 4) {
+		if (edgeTable[cubeindex][2] ) {
 			vertices[2] = getCenter(p[2], p[3]);
 		}
-		if (edgeTable[cubeindex] & 8) {
+		if (edgeTable[cubeindex][3] ) {
 			vertices[3] = getCenter(p[3], p[0]);
 		}
-		if (edgeTable[cubeindex] & 16) {
+		if (edgeTable[cubeindex][4] ) {
 			vertices[4] = getCenter(p[4], p[5]);
 		}
-		if (edgeTable[cubeindex] & 32) {
+		if (edgeTable[cubeindex][5] ) {
 			vertices[5] = getCenter(p[5], p[6]);
 		}
-		if (edgeTable[cubeindex] & 64) {
+		if (edgeTable[cubeindex][6]) {
 			vertices[6] = getCenter(p[6], p[7]);
 		}
-		if (edgeTable[cubeindex] & 128) {
+		if (edgeTable[cubeindex][7] ) {
 			vertices[7] = getCenter(p[7], p[4]);
 		}
-		if (edgeTable[cubeindex] & 256) {
+		if (edgeTable[cubeindex][8] ) {
 			vertices[8] = getCenter(p[0], p[4]);
 		}
-		if (edgeTable[cubeindex] & 512) {
+		if (edgeTable[cubeindex][9] ) {
 			vertices[9] = getCenter(p[1], p[5]);
 		}
-		if (edgeTable[cubeindex] & 1024) {
+		if (edgeTable[cubeindex][10] ) {
 			vertices[10] = getCenter(p[2], p[6]);
 		}
-		if (edgeTable[cubeindex] & 2048) {
+		if (edgeTable[cubeindex][11] ) {
 			vertices[11] = getCenter(p[3], p[7]);
 		}
 		return vertices;
 	}
 
 
-	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel) const {
+	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p, const std::array< T, 8 >& val, const T isolevel) const {
 		std::array< Vector3d<T>, 12 > vertices;
-		if (edgeTable[cubeindex] & 1) {
+		if (edgeTable[cubeindex][0]) {
 			vertices[0] = interpolate(isolevel, p[0], p[1], val[0], val[1]);
 		}
-		if (edgeTable[cubeindex] & 2) {
+		if (edgeTable[cubeindex][1]) {
 			vertices[1] = interpolate(isolevel, p[1], p[2], val[1], val[2]);
 		}
-		if (edgeTable[cubeindex] & 4) {
+		if (edgeTable[cubeindex][2]) {
 			vertices[2] = interpolate(isolevel, p[2], p[3], val[2], val[3]);
 		}
-		if (edgeTable[cubeindex] & 8) {
+		if (edgeTable[cubeindex][3]) {
 			vertices[3] = interpolate(isolevel, p[3], p[0], val[3], val[0]);
 		}
-		if (edgeTable[cubeindex] & 16) {
+		if (edgeTable[cubeindex][4]) {
 			vertices[4] = interpolate(isolevel, p[4], p[5], val[4], val[5]);
 		}
-		if (edgeTable[cubeindex] & 32) {
+		if (edgeTable[cubeindex][5]) {
 			vertices[5] = interpolate(isolevel, p[5], p[6], val[5], val[6]);
 		}
-		if (edgeTable[cubeindex] & 64) {
+		if (edgeTable[cubeindex][6]) {
 			vertices[6] = interpolate(isolevel, p[6], p[7], val[6], val[7]);
 		}
-		if (edgeTable[cubeindex] & 128) {
+		if (edgeTable[cubeindex][7]) {
 			vertices[7] = interpolate(isolevel, p[7], p[4], val[7], val[4]);
 		}
-		if (edgeTable[cubeindex] & 256) {
+		if (edgeTable[cubeindex][8]) {
 			vertices[8] = interpolate(isolevel, p[0], p[4], val[0], val[4]);
 		}
-		if (edgeTable[cubeindex] & 512) {
+		if (edgeTable[cubeindex][9]) {
 			vertices[9] = interpolate(isolevel, p[1], p[5], val[1], val[5]);
 		}
-		if (edgeTable[cubeindex] & 1024) {
+		if (edgeTable[cubeindex][10]) {
 			vertices[10] = interpolate(isolevel, p[2], p[6], val[2], val[6]);
 		}
-		if (edgeTable[cubeindex] & 2048) {
+		if (edgeTable[cubeindex][11]) {
 			vertices[11] = interpolate(isolevel, p[3], p[7], val[3], val[7]);
 		}
 		return vertices;
