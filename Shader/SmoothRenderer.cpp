@@ -110,7 +110,7 @@ SmoothRenderer::Location SmoothRenderer::getLocations()
 	return location;
 }
 
-void SmoothRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list, const LightSPtrList& lights, const std::list<Material*>& materials)
+void SmoothRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list, const LightSPtrList& lights, const std::list<Material*>& materials)
 {
 	const std::vector<float>& positions = list.getPositions();
 	const std::vector<float> projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();

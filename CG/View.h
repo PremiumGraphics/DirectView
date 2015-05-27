@@ -81,8 +81,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	Graphics::DisplayList dispList;
-	Graphics::DisplayList dispListSelected;
+	Graphics::DisplayList<float> dispList;
 
 	float pointSize;
 

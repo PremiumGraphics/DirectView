@@ -43,25 +43,11 @@ public:
 
 	Material* getMaterial() { return material; }
 
-	void setVertices(const VertexSPtrVector& vs) { this->vertices = vs; }
+	void setVertices(const VertexSPtrVector<float>& vs) { this->vertices = vs; }
 
-	void addVertices(const VertexSPtrVector& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
+	void addVertices(const VertexSPtrVector<float>& vs) { this->vertices.insert( vertices.end(),vs.begin(), vs.end() ); }
 
-	VertexSPtrVector getVertices() const { return vertices; }
-
-	void move(const Math::Vector3d<float>& vector) {
-		//center += vector;
-		for (const VertexSPtr v : vertices) {
-			v->move(vector);
-		}
-
-	}
-
-	bool operator==(const Polygon& rhs) const {
-		return
-			//faces == rhs.faces &&
-			VerticesAreSame(vertices, rhs.vertices);
-	}
+	VertexSPtrVector<float> getVertices() const { return vertices; }
 
 	void setCenter(const Math::Vector3d<float>& center) { this->center = center; }
 
@@ -71,9 +57,16 @@ public:
 
 	Material* getMaterial() const { return material; }
 
+	void add(const Math::Triangle<float>& t) {
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv0(), 0));
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv1(), 1));
+		vertices.push_back(std::make_shared<Vertex<float> >(t.getv2(), 2));
+	}
+
+
 private:
 	FaceSPtrVector faces;
-	VertexSPtrVector vertices;
+	VertexSPtrVector<float> vertices;
 	Math::Vector3d<float> center;
 	Material* material;
 	std::string name;

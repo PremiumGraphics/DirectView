@@ -14,6 +14,7 @@
 namespace Crystal {
 	namespace Graphics{
 
+template<typename T>
 class DisplayList
 {
 public:
@@ -34,9 +35,9 @@ public:
 		vertices = Math::Vector3d<float>::toArray(poss);
 	}
 
-	DisplayList(const Math::Vector3dVector<float>& poss, const Math::Vector3dVector<float>& norms) {
-		vertices = Math::Vector3d<float>::toArray(poss);
-		normals = Math::Vector3d<float>::toArray(norms);
+	DisplayList(const Math::Vector3dVector<T>& poss, const Math::Vector3dVector<float>& norms) {
+		vertices = Math::Vector3d<T>::toArray(poss);
+		normals = Math::Vector3d<T>::toArray(norms);
 	}
 
 	DisplayList(const Math::Vector3dVector<float>& poss, const Math::Vector3dVector<float>& norms, const Math::Vector3dVector<float>& texs) {
@@ -55,7 +56,6 @@ public:
 		vertexIds.clear();
 		faceIds.clear();
 		polygonIds.clear();
-		materialIds.clear();
 	}
 
 	//void add(Vertex* v);
@@ -73,7 +73,7 @@ public:
 		texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
 		std::vector<unsigned int> vids;
-		for (const VertexSPtr& v : f->getVertices()) {
+		for (const auto& v : f->getVertices()) {
 			vids.push_back(v->getId());
 		}
 
@@ -98,7 +98,6 @@ public:
 		}
 		for (size_t i = 0; i < p->getVertices().size(); ++i) {
 			polygonIds.push_back(p->getId());
-			materialIds.push_back(p->getMaterial()->getId());
 		}
 	}
 
@@ -128,14 +127,13 @@ public:
 	}
 
 private:
-	std::vector< float > vertices;
-	std::vector< float > normals;
-	std::vector< float > texCoords;
-	std::vector< float > colors;
+	std::vector< T > vertices;
+	std::vector< T > normals;
+	std::vector< T > texCoords;
+	std::vector< T > colors;
 	std::vector< unsigned int > vertexIds;
 	std::vector< unsigned int > faceIds;
 	std::vector< unsigned int > polygonIds;
-	std::vector< unsigned int > materialIds;
 	std::vector< std::vector< unsigned int > > ids;
 
 	std::vector<unsigned int> getVertexIds(const Face& f) const;

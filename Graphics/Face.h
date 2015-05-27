@@ -3,6 +3,8 @@
 
 #include "HalfEdge.h"
 
+#include "../Math/Triangle.h"
+
 #include <vector>
 #include <memory>
 
@@ -38,8 +40,8 @@ public:
 
 	HalfEdgeSPtrList getEdges() const { return edges; }
 
-	VertexSPtrVector getVertices() const {
-		VertexSPtrVector vertices;
+	VertexSPtrVector<float> getVertices() const {
+		VertexSPtrVector<float> vertices;
 		for (const HalfEdgeSPtr& e : edges) {
 			vertices.push_back(e->getStart());
 		}
@@ -60,7 +62,7 @@ public:
 	Math::Vector3d<float> getCenter() const {
 		Math::Vector3d<float> center;
 		const float size = static_cast<float>(getVertices().size());
-		for (const VertexSPtr& v : getVertices()) {
+		for (const auto& v : getVertices()) {
 			center += v->getPosition() / size;
 		}
 		return center;
@@ -73,6 +75,7 @@ public:
 private:
 	//VertexSPtrVector vertices;
 	HalfEdgeSPtrList edges;
+	VertexSPtrVector<float> vertices;
 	const unsigned int id;
 	PolygonSPtr polygon;
 };

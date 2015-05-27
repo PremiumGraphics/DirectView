@@ -108,7 +108,7 @@ void NormalRenderer::build()
 	//positionLocation = glGetUniformLocation( shader.getId(), "position" );
 }
 
-void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list )
+void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list )
 {
 	const std::vector<float>& positions = list.getPositions();
 	const std::vector<float>& vectors = list.getNormals();

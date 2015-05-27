@@ -8,12 +8,9 @@
 
 namespace Crystal {
 	namespace Graphics {
-		class HalfEdge;
-		typedef std::shared_ptr<HalfEdge> HalfEdgeSPtr;
-		typedef std::list< HalfEdgeSPtr > HalfEdgeSPtrList;
 
 template<typename T>
-class Vertex {
+class Vertex final {
 public:
 	Vertex(const Math::Vector3d<T>& position, const unsigned int id) :
 		position(position),
@@ -33,29 +30,11 @@ public:
 		id(id)
 	{}
 
-	void setPosition(const Math::Vector3d<T>& position) { this->position = position; }
-
 	Math::Vector3d<T> getPosition() const { return position; }
-
-	void setNormal(const Math::Vector3d<T>& normal) { this->normal = normal; }
 
 	Math::Vector3d<T> getNormal() const { return normal; }
 
-	void setTexCoord(const Math::Vector3d<T>& texCoord) { this->texCoord = texCoord; }
-
 	Math::Vector3d<T> getTexCoord() const { return texCoord; }
-
-	void removeEdge(HalfEdge* e) {
-		edges.remove(e);
-	}
-
-	void addEdge(HalfEdge* e) { this->edges.push_back( e ); }
-
-	std::list< HalfEdge* > getEdges() const { return edges; }
-
-	void move(const Math::Vector3d<T>& vec){
-		position += vec;
-	}
 
 	unsigned int getId() const { return id; }
 
@@ -75,37 +54,18 @@ public:
 		return !equals(rhs);
 	}
 
-	void rotate(const Math::Matrix3d<float>& matrix) {
-		position.rotate(matrix);
-	}
-
-	void scale(const Math::Vector3d<T>& scale) {
-		position.scale(scale.getX(), scale.getY(), scale.getZ());
-	}
-
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;
 	Math::Vector3d<T> texCoord;
-	std::list< HalfEdge* > edges;
 	unsigned int id;
 };
 
-typedef std::shared_ptr< Vertex<float> > VertexSPtr;
-typedef std::vector< VertexSPtr > VertexSPtrVector;
+template<typename T>
+using VertexSPtr = std::shared_ptr< Vertex<T> >;
 
-static bool VerticesAreSame(const VertexSPtrVector& lhs, const VertexSPtrVector& rhs)
-{
-	if (lhs.size() != rhs.size()) {
-		return false;
-	}
-	for (size_t i = 0; i < rhs.size(); ++i) {
-		if (*lhs[i] != *rhs[i]) {
-			return false;
-		}
-	}
-	return true;
-}
+template<typename T>
+using VertexSPtrVector = std::vector< VertexSPtr<T> >;
 
 	}
 }

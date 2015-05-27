@@ -14,7 +14,7 @@ public:
 
 	virtual ~RendererBase(){};
 
-	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList& list) = 0;
+	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list) = 0;
 
 };
 	}

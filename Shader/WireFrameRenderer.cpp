@@ -67,7 +67,7 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 }
 
 
-void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
+void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list)
 {
 	const std::vector<float> positions = list.getPositions();
 	const std::vector< std::vector<unsigned int> > ids = list.getIds();
@@ -167,7 +167,7 @@ SurfaceRenderer::Location SurfaceRenderer::getLocations()
 	return location;
 }
 
-void SurfaceRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
+void SurfaceRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list)
 {
 	const std::vector<float> positions = list.getPositions();
 	const std::vector< std::vector<unsigned int> > ids = list.getIds();

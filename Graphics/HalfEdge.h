@@ -10,12 +10,8 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Face;
-typedef std::shared_ptr< Face > FaceSPtr;
-
 class HalfEdge;
 typedef std::shared_ptr< HalfEdge > HalfEdgeSPtr;
-
 
 class HalfEdge {
 public:
@@ -24,23 +20,15 @@ public:
 		next( nullptr ),
 		start( nullptr ),
 		end( nullptr ),
-		face(nullptr),
 		id( -1 )
 	{}
 
-	HalfEdge(const VertexSPtr start, const VertexSPtr end, const unsigned int id, FaceSPtr face) :
+	HalfEdge(const VertexSPtr<float>& start, const VertexSPtr<float>& end, const unsigned int id) :
 		start(start),
 		end(end),
-		face(face),
 		id( id )
 	{
-		start->addEdge(this);
-		end->addEdge(this);
 	}
-
-	FaceSPtr getFace() const { return face; }
-
-	void setFace(const FaceSPtr& f) { this->face = f; }
 
 	void setPrev(const HalfEdgeSPtr& prev) { this->prev = prev; }
 
@@ -50,17 +38,9 @@ public:
 
 	HalfEdgeSPtr getNext() { return next; }
 
-	void setStart(VertexSPtr start) { this->start = start; }
+	VertexSPtr<float> getStart() { return start; }
 
-	void setEnd(VertexSPtr end) {
-		end->removeEdge(this);
-		this->end = end;
-		this->end->addEdge(this);
-	}
-
-	VertexSPtr getStart() { return start; }
-
-	VertexSPtr getEnd() { return end; }
+	VertexSPtr<float> getEnd() { return end; }
 
 	Math::Vector3d<float> getStartPosition() const { return start->getPosition(); }
 
@@ -70,11 +50,10 @@ public:
 
 
 private:
-	VertexSPtr start;
-	VertexSPtr end;
+	VertexSPtr<float> start;
+	VertexSPtr<float> end;
 	HalfEdgeSPtr prev;
 	HalfEdgeSPtr next;
-	FaceSPtr face;
 	const unsigned int id;
 };
 

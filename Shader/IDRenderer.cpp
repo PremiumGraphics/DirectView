@@ -77,7 +77,7 @@ IDRenderer::Location IDRenderer::getLocations()
 }
 
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList& list)
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list)
 {
 	if (list.getPositions().empty() ) {
 		return;

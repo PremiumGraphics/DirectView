@@ -9,17 +9,14 @@ using namespace Crystal::Graphics;
 
 using T = float;
 
-TEST(DisplayTest, TestConstructByPosition)
+TEST(DisplayTest, TestGetPositions)
 {
-	DisplayList list({ Vector3d<T>(0.0, 0.0, 0.0) });
-	const std::vector< float >& actual = list.getPositions();
-	const std::vector< float > expected{ 0.0, 0.0, 0.0 };
-	EXPECT_EQ(expected, actual);
+	EXPECT_EQ( std::vector<T>({ 0.0, 0.0, 0.0 }), DisplayList<T>({ Vector3d<T>(0.0, 0.0, 0.0) }).getPositions());
 }
 
-TEST(DisplayTest, TestConstructByPosNormal)
+TEST(DisplayTest, TestGetNormals)
 {
-	DisplayList list(
+	DisplayList<T> list(
 		{ Vector3d<T>(0.0, 0.0, 0.0) },
 		{ Vector3d<T>(1.0, 0.0, 0.0) }
 	);
@@ -30,7 +27,7 @@ TEST(DisplayTest, TestConstructByPosNormal)
 
 TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 {
-	DisplayList list(
+	DisplayList<T> list(
 		{ Vector3d<T>(0.0, 0.0, 0.0) },
 		{ Vector3d<T>(1.0, 0.0, 0.0) },
 		{ Vector3d<T>(1.0, 1.0, 1.0) }

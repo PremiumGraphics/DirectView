@@ -19,15 +19,10 @@ TEST(PolygonTest, TestConstruct)
 }
 
 
-TEST(PolygonTest, TestMove)
+TEST(PolygonTest, TestAddTriangle)
 {
 	Polygon p(0, nullptr);
-	p.setVertices({ VertexSPtr(new Vertex<T>(Vector3d<T>(1.0, 2.0, 3.0), 0)) });
+	p.add(Triangle<T>());
 
-	p.move(Vector3d<T>(1.0, 10.0, 100.0));
-
-	const VertexSPtrVector expected = { VertexSPtr( new Vertex<T>(Vector3d<T>(2.0, 12.0, 103.0), 0 ) ) };
-	const VertexSPtrVector& actual = p.getVertices();
-
-	EXPECT_TRUE(VerticesAreSame(expected, actual));
+	EXPECT_EQ(3, p.getVertices().size());
 }

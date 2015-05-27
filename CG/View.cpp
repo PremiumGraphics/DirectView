@@ -192,14 +192,10 @@ void View::draw(const wxSize& size)
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
 		wireFrameRenderer.render(width, height, c, dispList);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glLineWidth(5.0f);
-		wireFrameRenderer.render(width, height, c, dispListSelected);
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
 		surfaceRenderer.render(width, height, c, dispList);
 		glClear(GL_DEPTH_BUFFER_BIT);
-		surfaceRenderer.render(width, height, c, dispListSelected);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.render(width, height, c, dispList );

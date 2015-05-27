@@ -28,8 +28,7 @@ public:
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
 private:
-	Graphics::VertexSPtrVector selectedVertex;
-	Graphics::FaceSPtrVector selectedFace;
+	Graphics::PolygonSPtrVector polygons;
 
 	Graphics::Camera<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
