@@ -46,9 +46,9 @@ public:
 		return vertices;
 	}
 
-	Math::Vector3dVector getTexCoords() const;
+	Math::Vector3dVector<float> getTexCoords() const;
 
-	Math::Vector3d getCenter() const;
+	Math::Vector3d<float> getCenter() const;
 
 	PolygonSPtr getPolygon() const { return polygon; }
 

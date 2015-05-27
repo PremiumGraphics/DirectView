@@ -12,37 +12,38 @@ namespace Crystal {
 		typedef std::shared_ptr<HalfEdge> HalfEdgeSPtr;
 		typedef std::list< HalfEdgeSPtr > HalfEdgeSPtrList;
 
+template<typename T>
 class Vertex {
 public:
-	Vertex(const Math::Vector3d& position, const unsigned int id) :
+	Vertex(const Math::Vector3d<T>& position, const unsigned int id) :
 		position(position),
 		id(id)
 	{}
 
-	Vertex(const Math::Vector3d& position, const Math::Vector3d& normal, const unsigned int id) :
+	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const unsigned int id) :
 		position( position ),
 		normal( normal ),
 		id(id)
 	{}
 
-	Vertex(const Math::Vector3d& position, const Math::Vector3d& normal, const Math::Vector3d& texCoord, const unsigned int id) :
+	Vertex(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const Math::Vector3d<T>& texCoord, const unsigned int id) :
 		position(position),
 		normal(normal),
 		texCoord( texCoord ),
 		id(id)
 	{}
 
-	void setPosition(const Math::Vector3d& position) { this->position = position; }
+	void setPosition(const Math::Vector3d<T>& position) { this->position = position; }
 
-	Math::Vector3d getPosition() const { return position; }
+	Math::Vector3d<T> getPosition() const { return position; }
 
-	void setNormal(const Math::Vector3d& normal) { this->normal = normal; }
+	void setNormal(const Math::Vector3d<T>& normal) { this->normal = normal; }
 
-	Math::Vector3d getNormal() const { return normal; }
+	Math::Vector3d<T> getNormal() const { return normal; }
 
-	void setTexCoord(const Math::Vector3d& texCoord) { this->texCoord = texCoord; }
+	void setTexCoord(const Math::Vector3d<T>& texCoord) { this->texCoord = texCoord; }
 
-	Math::Vector3d getTexCoord() const { return texCoord; }
+	Math::Vector3d<T> getTexCoord() const { return texCoord; }
 
 	void removeEdge(HalfEdge* e) {
 		edges.remove(e);
@@ -52,7 +53,7 @@ public:
 
 	std::list< HalfEdge* > getEdges() const { return edges; }
 
-	void move(const Math::Vector3d& vec){
+	void move(const Math::Vector3d<T>& vec){
 		position += vec;
 	}
 
@@ -78,19 +79,19 @@ public:
 		position.rotate(matrix);
 	}
 
-	void scale(const Math::Vector3d& scale) {
+	void scale(const Math::Vector3d<T>& scale) {
 		position.scale(scale.getX(), scale.getY(), scale.getZ());
 	}
 
 private:
-	Math::Vector3d position;
-	Math::Vector3d normal;
-	Math::Vector3d texCoord;
+	Math::Vector3d<T> position;
+	Math::Vector3d<T> normal;
+	Math::Vector3d<T> texCoord;
 	std::list< HalfEdge* > edges;
 	unsigned int id;
 };
 
-typedef std::shared_ptr< Vertex > VertexSPtr;
+typedef std::shared_ptr< Vertex<float> > VertexSPtr;
 typedef std::vector< VertexSPtr > VertexSPtrVector;
 
 static bool VerticesAreSame(const VertexSPtrVector& lhs, const VertexSPtrVector& rhs)

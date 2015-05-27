@@ -15,14 +15,14 @@ ParticlePairVector PhysicsParticleFindAlgo::search1(const PhysicsParticleSPtrVec
 	ParticlePairVector pairs;
 	for( PhysicsParticleSPtrVector::const_iterator xIter = startIter; xIter != endIter; ++xIter ) {
 		const int gridID = (*xIter)->getGridID();
-		const Vector3d& centerX = (*xIter)->getCenter();
+		const Vector3d<float>& centerX = (*xIter)->getCenter();
 		PhysicsParticleSPtrVector::const_iterator yIter = xIter;
 		++yIter;// ignore itself.
 		while( yIter != particles.end() && ( (*yIter)->getGridID() <= gridID + 1) ) {
-			const Vector3d& centerY = (*yIter)->getCenter();
+			const Vector3d<float>& centerY = (*yIter)->getCenter();
 			if( centerX.getDistanceSquared( centerY ) < effectLengthSquared ) {
-				pairs.push_back( PhysicsParticlePair( (*xIter), (*yIter) ) );
-				pairs.push_back( PhysicsParticlePair( (*yIter), (*xIter) ) );
+				pairs.push_back( PhysicsParticlePair<float>( (*xIter), (*yIter) ) );
+				pairs.push_back( PhysicsParticlePair<float>( (*yIter), (*xIter) ) );
 			}
 			++yIter;
 		}
@@ -48,13 +48,13 @@ ParticlePairVector PhysicsParticleFindAlgo::search2(const PhysicsParticleSPtrVec
 				++yIter[i];
 			}
 			
-			const Vector3d& centerX = (*xIter)->getCenter();
+			const Vector3d<float>& centerX = (*xIter)->getCenter();
 			PhysicsParticleSPtrVector::const_iterator zIter = yIter[i];
 			while( zIter != particles.end() && ( (*zIter)->getGridID() <= baseID + 2) ) {
-				const Vector3d& centerZ = (*zIter)->getCenter();
+				const Vector3d<float>& centerZ = (*zIter)->getCenter();
 				if( centerX.getDistanceSquared( centerZ ) < effectLengthSquared ) {
-					pairs.push_back( PhysicsParticlePair( (*xIter), (*zIter) ) );
-					pairs.push_back( PhysicsParticlePair( (*zIter), (*xIter) ) );
+					pairs.push_back( PhysicsParticlePair<float>( (*xIter), (*zIter) ) );
+					pairs.push_back( PhysicsParticlePair<float>( (*zIter), (*xIter) ) );
 				}
 				++zIter;
 			}
@@ -74,7 +74,7 @@ void PhysicsParticleFindAlgo::createPairs(PhysicsParticleSPtrVector particles, c
 		particle->setGridID( effectLength );
 	}
 	
-	std::sort( particles.begin(), particles.end(), &PhysicsParticle::compare );
+	std::sort( particles.begin(), particles.end(), &PhysicsParticle<float>::compare );
 
 	// optimization for quad core.
 	const int threads = 8;

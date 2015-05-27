@@ -19,7 +19,7 @@ public:
 
 	std::vector< float > createHydrogenVolume();
 
-	std::vector< Math::Vector3d > createTornadoVolume( const float time );
+	std::vector< Math::Vector3d<float> > createTornadoVolume( const float time );
 
 	void setDimensions( const int dimX, const int dimY, const int dimZ ) {
 		this->dimX = dimX;

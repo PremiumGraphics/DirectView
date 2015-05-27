@@ -16,7 +16,7 @@ class Box_ final
 {
 public:
 	
-	Box_() : Box_(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(1.0f, 1.0f, 1.0f))
+	Box_() : Box_(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f))
 	{
 	}
 
@@ -34,7 +34,7 @@ public:
 	}
 
 
-	Box_(const Vector3d& pointX, const Vector3d& pointY) :
+	Box_(const Vector3d<T>& pointX, const Vector3d<T>& pointY) :
 		maxX(std::max<T>(pointX.getX(), pointY.getX())),
 		maxY(std::max<T>(pointX.getY(), pointY.getY())),
 		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
@@ -54,7 +54,7 @@ public:
 
 	Box_ getBoundingBox() const { return *this; }
 
-	void add(const Vector3d& v) {
+	void add(const Vector3d<T>& v) {
 		const auto x = std::min<T>( getMinX(), v.getX());
 		const auto y = std::min<T>( getMinY(), v.getY());
 		const auto z = std::min<T>( getMinZ(), v.getZ());
@@ -104,14 +104,14 @@ public:
 	}
 
 
-	bool isInterior(const Vector3d &point) const {
+	bool isInterior(const Vector3d<T>& point) const {
 		const bool xIsInterior = (getMinX() < point.getX() && point.getX() < maxX);
 		const bool yIsInterior = (getMinY() < point.getY() && point.getY() < maxY);
 		const bool zIsInterior = (getMinZ() < point.getZ() && point.getZ() < maxZ);
 		return xIsInterior && yIsInterior && zIsInterior;
 	}
 	
-	bool isExterior(const Vector3d &point) const {
+	bool isExterior(const Vector3d<T>& point) const {
 		return !isInterior(point);
 	}
 	
@@ -141,8 +141,8 @@ public:
 		return getOuterOffset(-offsetLength);
 	}
 
-	Vector3dVector toPoints(const T divideLength) const {
-		Vector3dVector points;
+	Vector3dVector<T> toPoints(const T divideLength) const {
+		Vector3dVector<T> points;
 		for (T x = getMinX(); x <= maxX; x += divideLength) {
 			for (T y = getMinY(); y <= maxY; y += divideLength) {
 				for (T z = getMinZ(); z <= maxZ; z += divideLength) {
@@ -165,8 +165,8 @@ public:
 
 	T getMinZ() const { return start.getZ(); }
 
-	Vector3d_<T> getLength() const {
-		return Vector3d_<T>(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
+	Vector3d<T> getLength() const {
+		return Vector3d<T>(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
 	}
 
 	bool isValid() const {

@@ -54,7 +54,7 @@ public:
 		matrix.x[14] = -near_ / dz;	
 		*/
 
-		return Math::Matrix4d<float>(
+		return Math::Matrix4d<T>(
 			2.0f / dx, 0.0, 0.0, 0.0,
 			0.0, 2.0f / dy, 0.0, 0.0,
 			0.0, 0.0, -1.0f/ dz, -1.0f,
@@ -66,13 +66,13 @@ public:
 
 	T getFar() const { return far_; }
 
-	void move( const Math::Vector3d& move ) { this->pos += move; }
+	void move( const Math::Vector3d<float>& move ) { this->pos += move; }
 
-	void setPos( const Math::Vector3d& p ) { this->pos = p; }
+	void setPos( const Math::Vector3d<float>& p ) { this->pos = p; }
 
-	Math::Vector3d getPos() const { return pos; }
+	Math::Vector3d<T> getPos() const { return pos; }
 
-	Math::Matrix4d<float> getOrthogonalMatrix() const {
+	Math::Matrix4d<T> getOrthogonalMatrix() const {
 		const float left = -0.5f;
 		const float right = 0.5f;
 		const float bottom = 0.0f;
@@ -102,11 +102,11 @@ public:
 
 	T getTop() const { return top; }
 
-	Math::Vector3d getAngle() const { return angle; }
+	Math::Vector3d<float> getAngle() const { return angle; }
 
-	void addAngle(const Math::Vector3d& a ) { this->angle += a; }
+	void addAngle(const Math::Vector3d<T>& a ) { this->angle += a; }
 
-	void setAngle(const Math::Vector3d& a) { this->angle = a; }
+	void setAngle(const Math::Vector3d<T>& a) { this->angle = a; }
 
 	void setNear( const T n ) { this->near_ = n; } 
 
@@ -115,14 +115,14 @@ public:
 private:
 	T near_;
 	T far_;
-	Math::Vector3d pos;
+	Math::Vector3d<T> pos;
 
 	const T left;
 	const T	right;
 	const T bottom;
 	const T top;
 
-	Math::Vector3d angle;
+	Math::Vector3d<T> angle;
 };
 
 template<typename T>

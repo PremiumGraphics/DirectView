@@ -3,9 +3,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-Vector3dVector Face::getTexCoords() const
+Vector3dVector<float> Face::getTexCoords() const
 {
-	Vector3dVector texCoords;
+	Vector3dVector<float> texCoords;
 	for (const HalfEdgeSPtr& e : edges) {
 		texCoords.push_back(e->getStart()->getNormal());
 		if (e == edges.back() && isOpen()) {
@@ -16,9 +16,9 @@ Vector3dVector Face::getTexCoords() const
 
 }
 
-Vector3d Face::getCenter() const
+Vector3d<float> Face::getCenter() const
 {
-	Vector3d center;
+	Vector3d<float> center;
 	const float size = static_cast<float>(getVertices().size());
 	for (VertexSPtr v : getVertices()) {
 		center += v->getPosition() / size;

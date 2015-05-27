@@ -11,16 +11,17 @@
 namespace Crystal {
 	namespace Math {
 
+template<typename T>
 class Cone final
 {
 public:
 	Cone() :
-		center( Vector3d::Zero() ),
+		center( Vector3d<T>::Zero() ),
 		radius( 1.0f ),
 		height( 1.0f )
 	{}
 
-	Cone( const Vector3d& center, float radius ) :
+	Cone( const Vector3d<T>& center, float radius ) :
 	center( center ),
 	radius( radius )
 	{
@@ -31,7 +32,7 @@ public:
 		assert( false );
 	}
 
-	Vector3d getCenter() const { return center; }
+	Vector3d<T> getCenter() const { return center; }
 
 	void setRadius(const float r) { this->radius = r; }
 
@@ -70,7 +71,7 @@ public:
 	*/
 
 private:
-	Vector3d center;
+	Vector3d<T> center;
 	float radius;
 	float height;
 };

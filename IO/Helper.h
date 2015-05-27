@@ -20,11 +20,11 @@ public:
 		return val;
 	}
 
-	static Math::Vector3d readVector(std::istream& s)
+	static Math::Vector3d<float> readVector(std::istream& s)
 	{
 		float x, y, z;
 		s >> x >> y >> z;
-		return Math::Vector3d( x, y, z );
+		return Math::Vector3d<float>( x, y, z );
 	}
 
 	static Graphics::ColorRGB<float> readColorRGB(std::istream& s)

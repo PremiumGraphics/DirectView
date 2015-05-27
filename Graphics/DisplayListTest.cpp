@@ -7,9 +7,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+using T = float;
+
 TEST(DisplayTest, TestConstructByPosition)
 {
-	DisplayList list({ Vector3d(0.0, 0.0, 0.0) });
+	DisplayList list({ Vector3d<T>(0.0, 0.0, 0.0) });
 	const std::vector< float >& actual = list.getPositions();
 	const std::vector< float > expected{ 0.0, 0.0, 0.0 };
 	EXPECT_EQ(expected, actual);
@@ -18,8 +20,8 @@ TEST(DisplayTest, TestConstructByPosition)
 TEST(DisplayTest, TestConstructByPosNormal)
 {
 	DisplayList list(
-		{ Vector3d(0.0, 0.0, 0.0) },
-		{ Vector3d(1.0, 0.0, 0.0) }
+		{ Vector3d<T>(0.0, 0.0, 0.0) },
+		{ Vector3d<T>(1.0, 0.0, 0.0) }
 	);
 	const std::vector< float >& actual = list.getNormals();
 	const std::vector< float > expected{ 1.0, 0.0, 0.0 };
@@ -29,38 +31,11 @@ TEST(DisplayTest, TestConstructByPosNormal)
 TEST(DisplayTest, TestConstructByPosNormalTexCoord)
 {
 	DisplayList list(
-		{ Vector3d(0.0, 0.0, 0.0) },
-		{ Vector3d(1.0, 0.0, 0.0) },
-		{ Vector3d(1.0, 1.0, 1.0) }
+		{ Vector3d<T>(0.0, 0.0, 0.0) },
+		{ Vector3d<T>(1.0, 0.0, 0.0) },
+		{ Vector3d<T>(1.0, 1.0, 1.0) }
 	);
 	const std::vector< float >& actual = list.getTexCoords();
 	const std::vector< float > expected{ 1.0, 1.0, 1.0 };
 	EXPECT_EQ(expected, actual);
 }
-
-/*
-TEST(FaceTest, TestGetPositions)
-{
-	{
-		VertexBuilder vBuilder;
-		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeList& edges = builder.buildOpenFromVertices();
-		Face f(edges, 0);
-		EXPECT_EQ(2, f.getPositions().size());
-		EXPECT_EQ(nullptr, f.getPolygon());
-	}
-
-	{
-		VertexBuilder vBuilder;
-		vBuilder.build(Vector3d(0.0, 0.0, 0.0));
-		vBuilder.build(Vector3d(1.0, 0.0, 0.0));
-		HalfEdgeBuilder builder(vBuilder);
-		const HalfEdgeList& edges = builder.buildClosedFromVertices(vBuilder.getVertices());
-		Face f(edges, 0);
-		EXPECT_EQ(2, f.getPositions().size());
-		EXPECT_EQ(nullptr, f.getPolygon());
-	}
-}
-*/

@@ -5,9 +5,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+using T = float;
+
 TEST(PhysicsParticleConstantTest, TestConstruct)
 {
-	PhysicsParticle::Constant constant;
+	PhysicsParticle<T>::Constant constant;
 	EXPECT_EQ(1.0f, constant.getDiameter() );
 	EXPECT_EQ(1.0f, constant.getRestDensity());
 }
@@ -15,25 +17,25 @@ TEST(PhysicsParticleConstantTest, TestConstruct)
 
 TEST(PhysicsParticleConstantTest, TestGetVolume)
 {
-	PhysicsParticle::Constant constant;
+	PhysicsParticle<T>::Constant constant;
 	constant.setDiameter(2.0f);
 	EXPECT_FLOAT_EQ(8.0f, constant.getVolume());
 }
 
 TEST(PhysicsParticleTest, TestConstruct)
 {
-	const PhysicsParticle particle;
-	EXPECT_EQ(Vector3d(0.0f, 0.0f, 0.0f), particle.getCenter());
+	const PhysicsParticle<T> particle;
+	EXPECT_EQ(Vector3d<T>(0.0f, 0.0f, 0.0f), particle.getCenter());
 }
 
 TEST(PhysicsParticleTest, TestConstructByPosition)
 {
-	const PhysicsParticle particle(Vector3d(1.0f, 2.0f, 3.0f));
-	EXPECT_EQ(Vector3d(1.0f, 2.0f, 3.0f), particle.getCenter());
+	const PhysicsParticle<T> particle(Vector3d<T>(1.0f, 2.0f, 3.0f));
+	EXPECT_EQ(Vector3d<T>(1.0f, 2.0f, 3.0f), particle.getCenter());
 }
 
 TEST(PhysicsParticleTest, TestConstructByConstant)
 {
-	const PhysicsParticle::Constant constant;
-	const PhysicsParticle particle(constant, Vector3d( 0.0f, 0.0f, 0.0f ) );
+	const PhysicsParticle<T>::Constant constant;
+	const PhysicsParticle<T> particle(constant, Vector3d<T>( 0.0f, 0.0f, 0.0f ) );
 }

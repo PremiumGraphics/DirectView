@@ -6,6 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
+using T = float;
 
 
 ::std::ostream& operator<<(::std::ostream& os, const OBJFace& face) {
@@ -54,9 +55,9 @@ TEST(OBJFileTest, TestReadVertices)
 
 	const OBJGroupSPtr actual = file.getGroups().front();
 
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.1f, 0.2f, 0.3f) }, actual->getPositions() );
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(0.5f, 1.0f, 0.0f) }, actual->getTexCoords());
-	EXPECT_EQ( std::vector < Vector3d > { Vector3d(1.0f, 0.0f, 0.0f) }, actual->getNormals() );
+	EXPECT_EQ( std::vector < Vector3d<T> > { Vector3d<T>(0.1f, 0.2f, 0.3f) }, actual->getPositions() );
+	EXPECT_EQ( std::vector < Vector3d<T> > { Vector3d<T>(0.5f, 1.0f, 0.0f) }, actual->getTexCoords());
+	EXPECT_EQ( std::vector < Vector3d<T> > { Vector3d<T>(1.0f, 0.0f, 0.0f) }, actual->getNormals() );
 }
 
 TEST(OBJFileTest, TestReadFaces)
@@ -92,7 +93,7 @@ TEST(OBJFileTest, TestReadComments)
 
 	OBJFile expected;
 	OBJGroup group;
-	group.setPositions( {Vector3d(0.0, 0.0, 0.0)} );
+	group.setPositions( {Vector3d<T>(0.0, 0.0, 0.0)} );
 	//expected.setGroups({ group });
 	//EXPECT_EQ( expected, file );
 }
@@ -109,11 +110,11 @@ TEST(OBJFileTest, TestReadSquare)
 	const OBJFileReader actual(stream);
 
 	OBJFile expected;
-	const std::vector< Vector3d > positions = {
-		Vector3d(0.0, 2.0, 0.0),
-		Vector3d(0.0, 0.0, 0.0),
-		Vector3d(2.0, 0.0, 0.0),
-		Vector3d(2.0, 2.0, 0.0)
+	const std::vector< Vector3d<T> > positions = {
+		Vector3d<T>(0.0, 2.0, 0.0),
+		Vector3d<T>(0.0, 0.0, 0.0),
+		Vector3d<T>(2.0, 0.0, 0.0),
+		Vector3d<T>(2.0, 2.0, 0.0)
 	};
 	OBJGroup group;
 	group.setPositions( positions );
@@ -174,7 +175,7 @@ TEST(OBJFileTest, TestWriteNormals)
 {
 	OBJFileWriter writer;
 	OBJGroupSPtr group( new OBJGroup() );
-	group->setNormals({ Vector3d(0.5f, 1.0f, 0.0f) });
+	group->setNormals({ Vector3d<T>(0.5f, 1.0f, 0.0f) });
 	std::stringstream stream;
 	OBJFile file;
 	//stream << file;
@@ -203,7 +204,7 @@ TEST(OBJFileTest, TestWrite2)
 	std::stringstream stream;
 	OBJFileWriter writer;
 	OBJGroupSPtr group( new OBJGroup() );
-	group->setPositions({ Vector3d(0.1f, 0.2f, 0.3f) });
+	group->setPositions({ Vector3d<T>(0.1f, 0.2f, 0.3f) });
 	OBJFile file;
 	file.setGroups({ group });
 

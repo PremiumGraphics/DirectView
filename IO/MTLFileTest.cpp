@@ -6,14 +6,16 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
+using T = float;
+
 TEST(MTLTextureOptionTest, TestConstruct)
 {
 	MTLTextureOption opt;
 
 	EXPECT_TRUE( opt.getBlendU() );
 	EXPECT_TRUE( opt.getBlendV() );
-	EXPECT_EQ( Vector3d(0.0f, 0.0f, 0.0f), opt.getOrigin() );
-	EXPECT_EQ( Vector3d(1.0f, 1.0f, 1.0f), opt.getScale() );
+	EXPECT_EQ( Vector3d<T>(0.0f, 0.0f, 0.0f), opt.getOrigin() );
+	EXPECT_EQ( Vector3d<T>(1.0f, 1.0f, 1.0f), opt.getScale() );
 	EXPECT_EQ( 0.0, opt.getBaseValue() );
 	EXPECT_EQ( 1.0, opt.getGainValue() );
 	EXPECT_EQ( "l", opt.getImfChan() );
@@ -41,9 +43,9 @@ TEST(MTLFileTest, TestReadTextureOptions)
 
 	EXPECT_FLOAT_EQ( 0.1f, MTLFile::getTextureOptions("-mm 0.1 0.5").getBaseValue() );
 
-	EXPECT_EQ( Vector3d(1.0f, 0.0f, 0.0f), MTLFile::getTextureOptions("-o 1.0 0.0 0.0").getOrigin() );
-	EXPECT_EQ( Vector3d(0.1f, 0.1f, 0.1f), MTLFile::getTextureOptions("-s 0.1 0.1 0.1").getScale() );
-	EXPECT_EQ( Vector3d(0.5f, 0.5f, 0.0f), MTLFile::getTextureOptions("-t 0.5 0.5 0.0").getTurblence() );
+	EXPECT_EQ( Vector3d<T>(1.0f, 0.0f, 0.0f), MTLFile::getTextureOptions("-o 1.0 0.0 0.0").getOrigin() );
+	EXPECT_EQ( Vector3d<T>(0.1f, 0.1f, 0.1f), MTLFile::getTextureOptions("-s 0.1 0.1 0.1").getScale() );
+	EXPECT_EQ( Vector3d<T>(0.5f, 0.5f, 0.0f), MTLFile::getTextureOptions("-t 0.5 0.5 0.0").getTurblence() );
 
 	EXPECT_EQ( 255, MTLFile::getTextureOptions("-texres 255").getResolution() );
 

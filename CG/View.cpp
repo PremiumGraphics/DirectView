@@ -70,20 +70,20 @@ void View::OnPaint( wxPaintEvent& )
 void View::OnKeyDown(wxKeyEvent& event)
 {
 	Camera<float>* camera = model.getCamera();
-	Vector3d pos = camera->getPos();
+	Vector3d<float> pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
 	case WXK_RIGHT:
-		pos += Vector3d( 0.1f, 0.0f, 0.0f );
+		pos += Vector3d<float>( 0.1f, 0.0f, 0.0f );
 		break;
 	case WXK_LEFT:
-		pos -= Vector3d( 0.1f, 0.0f, 0.0f );
+		pos -= Vector3d<float>( 0.1f, 0.0f, 0.0f );
 		break;
 	case WXK_DOWN:
-		pos += Vector3d( 0.0f, 0.1f, 0.0f );
+		pos += Vector3d<float>( 0.0f, 0.1f, 0.0f );
 		break;
 	case WXK_UP:
-		pos -= Vector3d( 0.0f, 0.1f, 0.0f );
+		pos -= Vector3d<float>( 0.0f, 0.1f, 0.0f );
 		break;
 	default:
 		event.Skip();
@@ -127,23 +127,23 @@ void View::OnMouse( wxMouseEvent& event )
 	}
 
 	if( event.Dragging() ) {
-		Vector3d pos;
-		Vector3d angle;
+		Vector3d<float> pos;
+		Vector3d<float> angle;
 
 		if( event.MiddleIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			pos += Vector3d( 0.0f, 0.0f, diff.y * 1.0f );
+			pos += Vector3d<float>( 0.0f, 0.0f, diff.y * 1.0f );
 		}
 		else if( event.RightIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			angle += Vector3d( diff.x * 0.01, diff.y * 0.01, 0.0f );
+			angle += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
 		}
 		else if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			pos += Vector3d( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
+			pos += Vector3d<float>( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
@@ -153,7 +153,7 @@ void View::OnMouse( wxMouseEvent& event )
 		else if( mode == LIGHT_TRANSLATE ) {
 			const LightSPtrList& lights = model.getLights();
 			for (const LightSPtr& l : lights) {
-				Vector3d lpos = l->getPos();
+				Vector3d<float> lpos = l->getPos();
 				lpos += pos;
 				l->setPos(lpos);
 			}
@@ -235,6 +235,8 @@ void View::buildDisplayList()
 	/*
 	dispList.clear();
 	dispListSelected.clear();
+
+	dispList.add()
 	const PolygonSPtrList& polygons = model.getPolygons();
 	for (const PolygonSPtr& p : polygons) {
 		dispList.add( p.get() );

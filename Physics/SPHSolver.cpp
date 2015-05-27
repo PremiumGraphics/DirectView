@@ -13,7 +13,7 @@ using namespace Crystal::Physics;
 #include <omp.h>
 #endif
 
-void SPHSolver::solve(const PhysicsObjectSPtrVector& objects, const float effectLength )
+void SPHSolver<float>::solve(const PhysicsObjectSPtrVector& objects, const float effectLength )
 {
 	const PhysicsParticleSPtrVector& particles = getParticles( objects );
 
@@ -42,11 +42,11 @@ void SPHSolver::solve(const PhysicsObjectSPtrVector& objects, const float effect
 	#pragma omp parallel for
 	for( int i = 0; i < static_cast<int>( pairs.size() ); ++i ) {
 		const float pressure = pairs[i].getPressure();
-		const Vector3d distanceVector = pairs[i].getDistanceVector();
+		const Vector3d<float> distanceVector = pairs[i].getDistanceVector();
 		pairs[i].getParticle1()->addForce( getSpikyKernelGradient( distanceVector, effectLength ) * pressure * pairs[i].getParticle2()->getVolume() );
 
 		const float viscosityCoe = pairs[i].getViscosityCoe();
-		const Vector3d velocityDiff = pairs[i].getVelocityDiff();
+		const Vector3d<float> velocityDiff = pairs[i].getVelocityDiff();
 		const float distance = pairs[i].getDistance();
 		pairs[i].getParticle2()->addForce( viscosityCoe * velocityDiff * getViscosityKernelLaplacian( distance, effectLength ) * pairs[i].getParticle2()->getVolume() );
 	}
@@ -56,23 +56,8 @@ void SPHSolver::solve(const PhysicsObjectSPtrVector& objects, const float effect
 	}
 }
 
-PhysicsParticleSPtrVector SPHSolver::getParticles( const PhysicsObjectSPtrVector& objects )
-{
-	PhysicsParticleSPtrVector ordered;
-	for( const auto& object : objects ) {
-		const auto& particles = object->getParticles();
-		ordered.insert( ordered.end(), particles.begin(), particles.end() );
-	}
-	return ordered;
-}
 
-float SPHSolver::getPoly6Kernel( const float distance, const float effectLength )
-{
-	const auto poly6Constant = 315.0f / (64.0f * Tolerancef::getPI() * pow( effectLength, 9 ) );
-	return poly6Constant * pow( effectLength * effectLength - distance * distance, 3 );
-}
-
-Vector3d SPHSolver::getPoly6KernelGradient( const Vector3d& distanceVector, const float effectLength )
+Vector3d<float> SPHSolver<float>::getPoly6KernelGradient( const Vector3d<float>& distanceVector, const float effectLength )
 {
 	const auto distance = distanceVector.getLength();
 	const auto poly6ConstantGradient = 945.0f / ( 32.0f * Tolerancef::getPI() * pow( effectLength, 9 ) );
@@ -80,22 +65,4 @@ Vector3d SPHSolver::getPoly6KernelGradient( const Vector3d& distanceVector, cons
 	return distanceVector * factor;
 }
 
-float SPHSolver::getPoly6KernelLaplacian(const float distance, const float effectLength )
-{
-	const auto poly6ConstantLaplacian = 945.0f / ( 32.0f * Tolerancef::getPI() * pow(effectLength, 9 ) );
-	return poly6ConstantLaplacian * ( effectLength * effectLength - distance * distance ) 
-		* ( 42.0f * distance * distance - 18.0f * effectLength * effectLength );
-}
 
-Vector3d SPHSolver::getSpikyKernelGradient(const Vector3d &distanceVector, const float effectLength )
-{
-	const auto constant = 45.0f / ( Tolerancef::getPI() * pow(effectLength, 6 ) );
-	const auto distance = distanceVector.getLength();
-	return distanceVector * constant * pow ( effectLength - distance, 2 ) / distance;
-}
-
-float SPHSolver::getViscosityKernelLaplacian(const float distance, const float effectLength )
-{
-	const auto constant = 45.0f / ( Tolerancef::getPI() * pow(effectLength, 6) );
-	return (effectLength - distance ) * constant;
-}

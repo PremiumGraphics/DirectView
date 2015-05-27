@@ -13,9 +13,9 @@ namespace Crystal {
 
 class XMLIOHelper {
 public:
-	static Math::Vector3d XMLIOHelper::readVector3d( tinyxml2::XMLElement* element );
+	static Math::Vector3d<float> XMLIOHelper::readVector3d( tinyxml2::XMLElement* element );
 
-	static void save( tinyxml2::XMLElement* element, const Math::Vector3d& vector );
+	static void save( tinyxml2::XMLElement* element, const Math::Vector3d<float>& vector );
 
 	static int readInt( tinyxml2::XMLElement* element );
 

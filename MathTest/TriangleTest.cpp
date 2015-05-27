@@ -38,16 +38,16 @@ TYPED_TEST(TriangleTest, TestIsShrinked)
 TYPED_TEST(TriangleTest, TestGetNormal)
 {
 	using T = TypeParam;
-	EXPECT_EQ(Vector3d_<T>::UnitZ(), Triangle<T>::UnitXY().getNormal());
-	EXPECT_EQ(Vector3d_<T>::UnitY(), Triangle<T>::UnitXZ().getNormal());
-	EXPECT_EQ(Vector3d_<T>::UnitX(), Triangle<T>::UnitYZ().getNormal());
+	EXPECT_EQ(Vector3d<T>::UnitZ(), Triangle<T>::UnitXY().getNormal());
+	EXPECT_EQ(Vector3d<T>::UnitY(), Triangle<T>::UnitXZ().getNormal());
+	EXPECT_EQ(Vector3d<T>::UnitX(), Triangle<T>::UnitYZ().getNormal());
 
 	const auto actual = Triangle<T>(
 		Position3d<T>(0,0,0),
 		Position3d<T>(1,0,0),
 		Position3d<T>(1,0,1)
 		).getNormal();
-	EXPECT_EQ(Vector3d_<T>(0.0, -1.0, 0.0), actual);
+	EXPECT_EQ(Vector3d<T>(0.0, -1.0, 0.0), actual);
 }
 
 TYPED_TEST(TriangleTest, TestIsCCW)

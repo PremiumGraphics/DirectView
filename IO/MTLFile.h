@@ -46,17 +46,17 @@ struct MTLTextureOption {
 
 	float getGainValue() const { return gainValue; }
 
-	void setOrigin(const Math::Vector3d& origin) { this->origin = origin; }
+	void setOrigin(const Math::Vector3d<float>& origin) { this->origin = origin; }
 
-	Math::Vector3d getOrigin() const { return origin; }
+	Math::Vector3d<float> getOrigin() const { return origin; }
 
-	void setScale(const Math::Vector3d& scale) { this->scale = scale; }
+	void setScale(const Math::Vector3d<float>& scale) { this->scale = scale; }
 
-	Math::Vector3d getScale() const { return scale; }
+	Math::Vector3d<float> getScale() const { return scale; }
 
-	void setTurblence(const Math::Vector3d& t) { this->turblence = t; }
+	void setTurblence(const Math::Vector3d<float>& t) { this->turblence = t; }
 
-	Math::Vector3d getTurblence() const { return turblence; }
+	Math::Vector3d<float> getTurblence() const { return turblence; }
 
 	void setResolution(const int resolution) { this->resolution = resolution; }
 
@@ -84,9 +84,9 @@ private:
 	float boost;
 	float baseValue;
 	float gainValue;
-	Math::Vector3d origin;
-	Math::Vector3d scale;
-	Math::Vector3d turblence;
+	Math::Vector3d<float> origin;
+	Math::Vector3d<float> scale;
+	Math::Vector3d<float> turblence;
 	int resolution;
 	bool clamp;
 	float bm;

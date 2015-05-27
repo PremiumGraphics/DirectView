@@ -12,27 +12,28 @@
 namespace Crystal {
 	namespace Math {
 
+template<typename T>
 class Sphere final
 {
 public:
 	Sphere() :
-		center( Vector3d::Zero() ),
+		center( Vector3d<T>::Zero() ),
 		radius( 1.0f )
 	{}
 
-	Sphere( const Vector3d& center, const float radius ) :
+	Sphere( const Vector3d<T>& center, const float radius ) :
 		center( center ),
 		radius( radius )
 	{}
 
 	Sphere( const Math::Box& boundingBox ) {
-		center = Vector3d( boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ() );
-		const Vector3d& length = boundingBox.getLength();
+		center = Vector3d<T>( boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ() );
+		const Vector3d<T>& length = boundingBox.getLength();
 		radius = std::min<float>( std::min<float>( length.getX(), length.getY() ), length.getZ() ) * 0.5f;
 	}
 
 	static Sphere UnitSphere() {
-		return Sphere( Vector3d::Zero(), 1.0f );
+		return Sphere( Vector3d<float>::Zero(), 1.0f );
 	}
 
 	Math::Box getBoundingBox() const {
@@ -40,8 +41,8 @@ public:
 		return box.getOuterOffset( radius );
 	}
 
-	Vector3dVector toPoints(const float divideLength ) const {
-		Vector3dVector points;
+	Vector3dVector<T> toPoints(const float divideLength ) const {
+		Vector3dVector<T> points;
 
 		Math::Box box( center, center );
 		box.outerOffset( radius );
@@ -60,7 +61,7 @@ public:
 	}
 
 
-	Vector3d getCenter() const { return center; }
+	Vector3d<T> getCenter() const { return center; }
 
 	float getRadius() const { return radius; }
 
@@ -102,25 +103,25 @@ public:
 		return equals( rhs );
 	}
 
-	bool isOuter(const Vector3d& v) const {
+	bool isOuter(const Vector3d<float>& v) const {
 		return v.getDistanceSquared(center) > (radius * radius);
 	}
 
-	bool isInner(const Vector3d& v) const {
+	bool isInner(const Vector3d<float>& v) const {
 		return !isOuter(v);
 	}
 
-	bool isOnStrictly(const Vector3d& v) const {
+	bool isOnStrictly(const Vector3d<float>& v) const {
 		return Tolerancef::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
 	}
 
-	bool isOnLoosely(const Vector3d& v) const {
+	bool isOnLoosely(const Vector3d<float>& v) const {
 		return Tolerancef::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
 	}
 
 private:
-	Vector3d center;
-	float radius;
+	Vector3d<T> center;
+	T radius;
 };
 
 	}

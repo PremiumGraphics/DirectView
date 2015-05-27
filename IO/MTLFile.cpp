@@ -24,9 +24,9 @@ void MTLTextureOption::setDefault()
 	boost = 1.0f; // TODO.
 	baseValue = 0.0f;
 	gainValue = 1.0f;
-	origin = Math::Vector3d::Zero();
-	scale = Math::Vector3d(1.0f, 1.0f, 1.0f);
-	turblence = Math::Vector3d::Zero();
+	origin = Math::Vector3d<float>::Zero();
+	scale = Math::Vector3d<float>(1.0f, 1.0f, 1.0f);
+	turblence = Math::Vector3d<float>::Zero();
 	imfchan = "l";
 }
 

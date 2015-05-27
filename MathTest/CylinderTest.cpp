@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 
 TEST( CylinderTest, TestConstruct )
 {
-	Cylinder c;
+	Cylinder<float> c;
 	EXPECT_TRUE( c.isValid() );
 	EXPECT_EQ( 1.0f, c.getRadius() );
 	EXPECT_EQ( 1.0f, c.getHeight());
@@ -14,7 +14,7 @@ TEST( CylinderTest, TestConstruct )
 
 TEST(CylinderTest, TestGetSet)
 {
-	Cylinder c;
+	Cylinder<float> c;
 	c.setHeight(10.0f);
 	c.setRadius(50.0f);
 
@@ -24,26 +24,26 @@ TEST(CylinderTest, TestGetSet)
 
 TEST(CylinderTest, TestVolume)
 {
-	Cylinder c;
+	Cylinder<float> c;
 	EXPECT_FLOAT_EQ( Tolerancef::getPI(), c.getVolume() );
 }
 
 TEST(CylinderTest, TestIsInner)
 {
 	{
-		Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 1.0f);
-		EXPECT_TRUE(c.isInner(Vector3d(0.5f, 0.0, 0.0)));
+		Cylinder<float> c(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 1.0f);
+		EXPECT_TRUE(c.isInner(Vector3d<float>(0.5f, 0.0, 0.0)));
 	}
 	{
-		Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 1.0f);
-		EXPECT_FALSE(c.isInner(Vector3d(0.5f, 5.0, 0.0)));
+		Cylinder<float> c(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 1.0f);
+		EXPECT_FALSE(c.isInner(Vector3d<float>(0.5f, 5.0, 0.0)));
 
 	}
 }
 
 TEST(CylinderTest, TestGetBoundingBox)
 {
-	Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 1.0f );
+	Cylinder<float> c(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 1.0f );
 	const Box& b = c.getBoundingBox();
 	EXPECT_FLOAT_EQ(-1.0f, b.getMinX());
 	EXPECT_FLOAT_EQ( 1.0f, b.getMaxX());

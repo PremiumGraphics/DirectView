@@ -5,10 +5,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+using T = float;
+
 TEST(VertexTest, TestConstruct)
 {
-	Vertex v( Vector3d( 0.0, 0.0, 0.0 ), 0 );
-	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getPosition() );
+	Vertex<T> v( Vector3d<T>( 0.0, 0.0, 0.0 ), 0 );
+	EXPECT_EQ( Vector3d<T>(0.0, 0.0, 0.0), v.getPosition() );
 	EXPECT_EQ( 0, v.getId() );
-	EXPECT_EQ( Vector3d(0.0, 0.0, 0.0), v.getTexCoord() );
+	EXPECT_EQ( Vector3d<T>(0.0, 0.0, 0.0), v.getTexCoord() );
 }

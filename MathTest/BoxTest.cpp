@@ -35,7 +35,7 @@ TYPED_TEST( BoxTest, TestGetVolume )
 TYPED_TEST( BoxTest, TestGetLength )
 {
 	using T = TypeParam;
-	EXPECT_EQ( Vector3d_<T>(0.0, 1.0, 2.0), Box_<T>(Position3d<T>(1.0f, 1.0f, 1.0f), Position3d<T>(1.0f, 2.0f, 3.0f)).getLength());
+	EXPECT_EQ( Vector3d<T>(0.0, 1.0, 2.0), Box_<T>(Position3d<T>(1.0f, 1.0f, 1.0f), Position3d<T>(1.0f, 2.0f, 3.0f)).getLength());
 }
 
 TYPED_TEST( BoxTest, TestOuterOffset )

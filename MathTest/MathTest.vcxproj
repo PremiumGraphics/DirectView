@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClCompile Include="BitmapTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
-    <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
@@ -37,7 +36,6 @@
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\Box.h" />
-    <ClInclude Include="..\Math\Circle.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Ellipse.h" />

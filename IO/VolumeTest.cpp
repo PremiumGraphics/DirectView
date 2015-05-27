@@ -5,6 +5,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
+using T = float;
+
 TEST( VolumeTest, TestCreateHydrogen )
 {
 	Volume volume( 10, 10, 10 );
@@ -14,6 +16,6 @@ TEST( VolumeTest, TestCreateHydrogen )
 TEST( VolumeTest, TestCreateTornado )
 {
 	Volume volume( 10, 10, 10 );
-	const std::vector< Vector3d >& vectors = volume.createTornadoVolume( 0.1f );
+	const std::vector< Vector3d<T> >& vectors = volume.createTornadoVolume( 0.1f );
 	EXPECT_EQ( 10 * 10 * 10, vectors.size() );
 }

@@ -45,29 +45,7 @@ wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
 	//this->ySize->SetValue(q.getLengthY());
 }
 
-
-CircleConfigDialog::CircleConfigDialog(wxWindow* parent, const Circle& c) :
-wxDialog(parent, wxID_ANY, "CircleConfig", wxDefaultPosition, wxSize(500, 500))
-{
-	new wxStaticText(this, wxID_ANY, "Divide Angle", wxPoint(0, 100));
-	divideAngle = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-	divideAngle->SetRange(0.1, 120.0);
-
-	new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 200));
-	divideNumber = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-	divideNumber->SetRange(3, 360);
-
-	new wxStaticText(this, wxID_ANY, "Width", wxPoint(0, 300));
-	width = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-
-	new wxStaticText(this, wxID_ANY, "Height", wxPoint(0, 400));
-	height = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
-
-	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-}
-
-SphereConfigDialog::SphereConfigDialog(wxWindow* parent, const Sphere& s) :
+SphereConfigDialog::SphereConfigDialog(wxWindow* parent, const Sphere<float>& s) :
 wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "U Divide", wxPoint(0, 100));
@@ -113,7 +91,7 @@ Box BoxConfigDialog::get() const
 	return Box();
 }
 
-CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent, const Cylinder& cylinder) :
+CylinderConfigDialog::CylinderConfigDialog(wxWindow* parent, const Cylinder<float>& cylinder) :
 wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500))
 {
 	new wxStaticText(this, wxID_ANY, "Divide Number", wxPoint(0, 100));
@@ -132,7 +110,7 @@ wxDialog(parent, wxID_ANY, "CylinderConfig", wxDefaultPosition, wxSize(500, 500)
 }
 
 
-Cylinder CylinderConfigDialog::get() const
+Cylinder<float> CylinderConfigDialog::get() const
 {
-	return Cylinder();
+	return Cylinder<float>();
 }

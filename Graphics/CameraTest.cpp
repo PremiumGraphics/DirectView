@@ -5,6 +5,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
+using T = float;
+
 TEST( CameraTest, ContructTest )
 {
 	Camera<float> c;
@@ -14,8 +16,8 @@ TEST( CameraTest, ContructTest )
 TEST( CameraTest, MoveTest )
 {
 	Camera<float> c;
-	c.move( Vector3d( 1.0f, 0.0f, 0.0f ) );
-	EXPECT_EQ( c.getPos(), Vector3d( 1.0f, 0.0f, 0.0f ) );
+	c.move( Vector3d<T>( 1.0f, 0.0f, 0.0f ) );
+	EXPECT_EQ( c.getPos(), Vector3d<T>( 1.0f, 0.0f, 0.0f ) );
 }
 
 TEST( CameraTest, PerspectiveTest )

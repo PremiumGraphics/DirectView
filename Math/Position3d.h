@@ -22,7 +22,7 @@ public:
 		v(x, y, z)
 	{}
 
-	explicit Position3d(const Vector3d& v) :
+	explicit Position3d(const Vector3d<T>& v) :
 		v(v)
 	{}
 
@@ -46,19 +46,19 @@ public:
 		return !equals(rhs);
 	}
 
-	Vector3d_<T> diff(const Position3d<T>& rhs) const {
-		return Vector3d_<T>(
+	Vector3d<T> diff(const Position3d<T>& rhs) const {
+		return Vector3d<T>(
 			rhs.getX() - getX(),
 			rhs.getY() - getY(),
 			rhs.getZ() - getZ()
 			);
 	}
 
-	Position3d<T> operator+(const Vector3d_<T>& rhs) const {
+	Position3d<T> operator+(const Vector3d<T>& rhs) const {
 		return Position3d<T>(getX() + rhs.getX(), getY() + rhs.getY(), getZ() + rhs.getZ() );
 	}
 
-	Position3d<T> operator-(const Vector3d_<T>& rhs) const {
+	Position3d<T> operator-(const Vector3d<T>& rhs) const {
 		return Position3d<T>(getX() - rhs.getX(), getY() - rhs.getY(), getZ() - rhs.getZ() );
 	}
 
@@ -91,7 +91,7 @@ public:
 	std::vector<T> toArray() const { return{ x, y, z }; }
 
 private:
-	Vector3d_<T> v;
+	Vector3d<T> v;
 };
 
 

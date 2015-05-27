@@ -26,8 +26,8 @@ void DXFFile::read(std::istream& stream)
 	while (str != "EOF") {
 		DXFFace f;
 		std::getline(stream, str);
-		Vector3dVector positions;
-		Vector3d pos;
+		Vector3dVector<float> positions;
+		Vector3d<float> pos;
 		if (str == "0") {
 			std::getline(stream, str);
 			if (str == "3DFACE") {
@@ -69,7 +69,7 @@ void DXFFile::write(std::ostream& stream)
 		strs.push_back( "8");
 		strs.push_back( f.getLayerName());
 
-		const Vector3d& v0 = f.getPositions()[0];
+		const Vector3d<float>& v0 = f.getPositions()[0];
 		strs.push_back( "10");
 		strs.push_back( std::to_string(v0.getX()) );
 		strs.push_back( "20");
@@ -77,7 +77,7 @@ void DXFFile::write(std::ostream& stream)
 		strs.push_back( "30");
 		strs.push_back( std::to_string(v0.getZ()) );
 
-		const Vector3d& v1 = f.getPositions()[1];
+		const Vector3d<float>& v1 = f.getPositions()[1];
 		strs.push_back( "11");
 		strs.push_back( std::to_string(v1.getX()));
 		strs.push_back( "21");
@@ -85,7 +85,7 @@ void DXFFile::write(std::ostream& stream)
 		strs.push_back( "31");
 		strs.push_back(std::to_string(v1.getZ()));
 
-		const Vector3d& v2 = f.getPositions()[2];
+		const Vector3d<float>& v2 = f.getPositions()[2];
 		strs.push_back( "12");
 		strs.push_back( std::to_string(v2.getX()));
 		strs.push_back( "22");
@@ -93,7 +93,7 @@ void DXFFile::write(std::ostream& stream)
 		strs.push_back( "32");
 		strs.push_back( std::to_string(v2.getZ()));
 
-		const Vector3d& v3 = f.getPositions()[3];
+		const Vector3d<float>& v3 = f.getPositions()[3];
 		strs.push_back(" 13");
 		strs.push_back( std::to_string(v2.getX()));
 		strs.push_back(" 23");

@@ -5,10 +5,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+using T = float;
+
 TEST(NeighborSearchAlgoTest, Test)
 {
-	const auto particle1 = std::make_shared<PhysicsParticle>(Vector3d(0.0, 0.0, 0.0));
-	const auto particle2 = std::make_shared<PhysicsParticle>(Vector3d(1.0, 0.0, 0.0));
+	const auto particle1 = std::make_shared<PhysicsParticle<T> >(Vector3d<T>(0.0, 0.0, 0.0));
+	const auto particle2 = std::make_shared<PhysicsParticle<T> >(Vector3d<T>(1.0, 0.0, 0.0));
 	const PhysicsParticleSPtrVector particles{
 		particle1,
 		particle2,

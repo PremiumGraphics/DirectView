@@ -15,7 +15,7 @@ namespace Crystal {
 class PointLight {
 public:
 	PointLight() :
-		pos( Math::Vector3d( 1.0f, 1.0f, 1.0f ) ),
+		pos( Math::Vector3d<float>( 1.0f, 1.0f, 1.0f ) ),
 		diffuse( ColorRGB<float>::Red() ),
 		specular( ColorRGB<float>::Green() ),
 		isSelected( true )
@@ -35,9 +35,9 @@ public:
 
 	void setSpecular( const Graphics::ColorRGB<float> s ) { this->specular = s; }
 
-	Math::Vector3d getPos() const { return pos; }
+	Math::Vector3d<float> getPos() const { return pos; }
 
-	void setPos(const Math::Vector3d& pos) { this->pos = pos; }
+	void setPos(const Math::Vector3d<float>& pos) { this->pos = pos; }
 
 	void setName(const std::string& name) { this->name = name; }
 
@@ -45,7 +45,7 @@ public:
 	bool isSelected;
 
 private:
-	Math::Vector3d pos;
+	Math::Vector3d<float> pos;
 
 	Graphics::ColorRGB<float> diffuse;
 	Graphics::ColorRGB<float> specular;
@@ -60,16 +60,16 @@ public:
 		color(ColorRGB<float>::White())
 	{}
 
-	void setDirection(const Math::Vector3d& direction) { this->direction = direction; }
+	void setDirection(const Math::Vector3d<float>& direction) { this->direction = direction; }
 
-	Math::Vector3d getDirection() const { return direction; }
+	Math::Vector3d<float> getDirection() const { return direction; }
 
 	Graphics::ColorRGB<float> getColor() const { return color; }
 
 	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
 
 private:
-	Math::Vector3d direction;
+	Math::Vector3d<float> direction;
 
 	Graphics::ColorRGB<float> color;
 };

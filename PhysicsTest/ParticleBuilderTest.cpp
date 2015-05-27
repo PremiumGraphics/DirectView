@@ -9,6 +9,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+using T = float;
+
 TEST(ParticleBuilderTest, TestConstruct)
 {
 	ParticleBuilder builder;
@@ -19,7 +21,7 @@ TEST(ParticleBuilderTest, TestConstruct)
 TEST(ParticleBuilderTest, TestBuildBox)
 {
 	ParticleBuilder builder;
-	const Box b(Vector3d(0.0f, 0.0f, 0.0f), Vector3d(10.0f, 1.0f, 1.0f));
+	const Box b(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(10.0f, 1.0f, 1.0f));
 	const PhysicsParticleSPtrVector& actual = builder.create(b.getInnerOffset(0.5f));
 	EXPECT_EQ(10, actual.size());
 }
@@ -27,7 +29,7 @@ TEST(ParticleBuilderTest, TestBuildBox)
 TEST(ParticleBuilderTest, TestCreateSphere)
 {
 	ParticleBuilder builder;
-	const Sphere s(Vector3d(0.0, 0.0, 0.0), 1.0);
+	const Sphere<T> s(Vector3d<T>(0.0, 0.0, 0.0), 1.0);
 	const PhysicsParticleSPtrVector& particles = builder.create(s);
 	EXPECT_EQ(7, particles.size());
 }
@@ -35,7 +37,7 @@ TEST(ParticleBuilderTest, TestCreateSphere)
 TEST(ParticleBuilderTest, TestCreateCylinder)
 {
 	ParticleBuilder builder;
-	const Cylinder c(Vector3d(0.0, 0.0, 0.0), 1.0f, 2.0f);
+	const Cylinder<T> c(Vector3d<T>(0.0, 0.0, 0.0), 1.0f, 2.0f);
 	const PhysicsParticleSPtrVector& particles = builder.create(c);
 	EXPECT_FALSE(particles.empty());
 }

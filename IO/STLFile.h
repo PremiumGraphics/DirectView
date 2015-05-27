@@ -17,20 +17,20 @@ namespace Crystal {
 			STLCell()
 			{}
 
-			STLCell(const std::vector< Math::Vector3d >& positions, const Math::Vector3d& normal) :
+			STLCell(const std::vector< Math::Vector3d<float> >& positions, const Math::Vector3d<float>& normal) :
 				positions(positions),
 				normal(normal)
 			{}
 
-			std::vector< Math::Vector3d > getPositions() const { return positions; }
+			std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-			void setPositions(const std::vector< Math::Vector3d>& positions) { this->positions = positions; }
+			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-			void addPosition(const Math::Vector3d& pos) { this->positions.push_back(pos); }
+			void addPosition(const Math::Vector3d<float>& pos) { this->positions.push_back(pos); }
 
-			void setNormal(const Math::Vector3d& normal) { this->normal = normal; }
+			void setNormal(const Math::Vector3d<float>& normal) { this->normal = normal; }
 
-			Math::Vector3d getNormal() const { return normal; }
+			Math::Vector3d<float> getNormal() const { return normal; }
 
 			bool operator==(const STLCell& rhs) const {
 				return
@@ -39,8 +39,8 @@ namespace Crystal {
 			}
 
 		private:
-			std::vector< Math::Vector3d > positions;
-			Math::Vector3d normal;
+			std::vector< Math::Vector3d<float> > positions;
+			Math::Vector3d<float> normal;
 		};
 
 typedef std::vector< STLCell > STLCellVector;

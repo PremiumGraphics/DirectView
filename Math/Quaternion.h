@@ -21,7 +21,7 @@ public:
 	{
 	}
 	
-	Quaternion(const Vector3d& axis, const T angle) :
+	Quaternion(const Vector3d<T>& axis, const T angle) :
 		x(axis.getX() * sin(angle * 0.5f)),
 		y(axis.getY() * sin(angle * 0.5f)),
 		z(axis.getZ() * sin(angle * 0.5f)),

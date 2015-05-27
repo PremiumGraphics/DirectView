@@ -8,16 +8,16 @@ using namespace Crystal::Graphics;
 using namespace Crystal::CG;
 using namespace tinyxml2;
 
-Vector3d XMLIOHelper::readVector3d( XMLElement* element )
+Vector3d<float> XMLIOHelper::readVector3d( XMLElement* element )
 {
 	const float x = element->FloatAttribute( "x" );
 	const float y = element->FloatAttribute( "y" );
 	const float z = element->FloatAttribute( "z" );
 
-	return Vector3d( x, y, z );
+	return Vector3d<float>( x, y, z );
 }
 
-void XMLIOHelper::save( XMLElement* element, const Vector3d& vector )
+void XMLIOHelper::save( XMLElement* element, const Vector3d<float>& vector )
 {
 	element->SetAttribute( "x", vector.getX() );
 	element->SetAttribute( "y", vector.getY() );

@@ -5,6 +5,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+using T = float;
+
 TEST(FluidObjectTest, TestConstruct)
 {
 	FluidObject fluid;
@@ -14,7 +16,7 @@ TEST(FluidObjectTest, TestConstruct)
 TEST(FluidObjectTest, TestConstructByParticles)
 {
 	const PhysicsParticleSPtrVector particles{
-		std::make_shared<PhysicsParticle>(Vector3d(1.0f, 0.0f, 0.0f))
+		std::make_shared<PhysicsParticle<T> >(Vector3d<T>(1.0f, 0.0f, 0.0f))
 	};
 	const FluidObject fluid(particles);
 	EXPECT_EQ(1, fluid.getParticles().size());
@@ -23,7 +25,7 @@ TEST(FluidObjectTest, TestConstructByParticles)
 TEST(FluidObjectTest, TestGetMass)
 {
 	const PhysicsParticleSPtrVector particles{
-		std::make_shared<PhysicsParticle>(Vector3d(1.0f, 0.0f, 0.0f))
+		std::make_shared<PhysicsParticle<T> >(Vector3d<T>(1.0f, 0.0f, 0.0f))
 	};
 	const FluidObject fluid(particles);
 	EXPECT_FLOAT_EQ(1.0f, fluid.getMass());
@@ -32,7 +34,7 @@ TEST(FluidObjectTest, TestGetMass)
 TEST(FluidObjectTest, TestGetRestVolume)
 {
 	const PhysicsParticleSPtrVector particles{
-		std::make_shared<PhysicsParticle>(Vector3d(1.0f, 0.0f, 0.0f))
+		std::make_shared<PhysicsParticle<T> >(Vector3d<T>(1.0f, 0.0f, 0.0f))
 	};
 	const FluidObject fluid(particles);
 	EXPECT_FLOAT_EQ(1.0f, fluid.getRestVolume());

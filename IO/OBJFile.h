@@ -131,25 +131,25 @@ struct OBJGroup {
 
 	std::vector< OBJFace > getFaces() const { return faces; }
 
-	void setPositions(const std::vector< Math::Vector3d >& positions) { this->positions = positions; }
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-	std::vector< Math::Vector3d > getPositions() const { return positions; }
+	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-	void setNormals(const std::vector< Math::Vector3d >& normals) { this->normals = normals; }
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
 
-	std::vector< Math::Vector3d > getNormals() const { return normals; }
+	std::vector< Math::Vector3d<float> > getNormals() const { return normals; }
 
 	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-	void setTexCoords(const std::vector< Math::Vector3d >& texCoords) { this->texCoords = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
 
-	std::vector< Math::Vector3d > getTexCoords() const { return texCoords; }
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return texCoords; }
 
 	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
-	Math::Vector3d readVertices(const std::string& str);
+	Math::Vector3d<float> readVertices(const std::string& str);
 
-	Math::Vector3d readVector3d(const std::string& str);
+	Math::Vector3d<float> readVector3d(const std::string& str);
 
 	OBJFace readFaces(const std::string& str);
 
@@ -159,9 +159,9 @@ private:
 	std::vector< OBJFace > faces;
 	std::vector< std::string > materials;
 	OBJMTLLib mtlLib;
-	Math::Vector3dVector positions;
-	Math::Vector3dVector normals;
-	Math::Vector3dVector texCoords;
+	Math::Vector3dVector<float> positions;
+	Math::Vector3dVector<float> normals;
+	Math::Vector3dVector<float> texCoords;
 
 };
 

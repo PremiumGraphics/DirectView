@@ -15,7 +15,6 @@
 
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
-#include "../Math/Circle.h"
 #include "../Math/Sphere.h"
 #include "../Math/Box.h"
 #include "../Math/Cylinder.h"
@@ -144,11 +143,10 @@ private:
 private:
 	Math::Triangle<float> triangle;
 	Math::Quad<float> quad;
-	Math::Circle circle;
-	Math::Sphere sphere;
+	Math::Sphere<float> sphere;
 	Math::Box box;
-	Math::Cylinder cylinder;
-	Math::Cone cone;
+	Math::Cylinder<float> cylinder;
+	Math::Cone<float> cone;
 
 
 private:

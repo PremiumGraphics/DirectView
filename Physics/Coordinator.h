@@ -62,7 +62,7 @@ private:
 class ExternalForceCoordinator final : public Coordinator
 {
 public:
-	ExternalForceCoordinator(const Math::Vector3d& force, const float timeStep) :
+	ExternalForceCoordinator(const Math::Vector3d<float>& force, const float timeStep) :
 		force( force ),
 		timeStep( timeStep )
 	{}
@@ -73,14 +73,14 @@ public:
 		}
 	}
 
-	Math::Vector3d getForce() const { return force; }
+	Math::Vector3d<float> getForce() const { return force; }
 
-	void addForce( const Math::Vector3d& force ) { this->force += force; }
+	void addForce( const Math::Vector3d<float>& force ) { this->force += force; }
 
 	float getTimeStep() const { return timeStep; }
 
 private:
-	Math::Vector3d force;
+	Math::Vector3d<float> force;
 	const float timeStep;
 };
 

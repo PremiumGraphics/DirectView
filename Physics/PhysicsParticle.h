@@ -12,7 +12,8 @@
 namespace Crystal{
 	namespace Physics{
 		class Coordinator;
-		
+
+template<typename T>
 class PhysicsParticle final : private UnCopyable
 {
 public:
@@ -46,11 +47,11 @@ public:
 	{
 	}
 
-	PhysicsParticle( const Math::Vector3d& center ) :
+	PhysicsParticle( const Math::Vector3d<T>& center ) :
 		center( center )
 	{}
 
-	PhysicsParticle(const Constant& constant, const Math::Vector3d& center) :
+	PhysicsParticle(const Constant& constant, const Math::Vector3d<T>& center) :
 	constant( constant ),
 	center( center )
 	{
@@ -76,11 +77,11 @@ public:
 		return getMass() / getRestDensity();
 	}
 
-	void addForce(const Math::Vector3d& force) { this->force += force; }
+	void addForce(const Math::Vector3d<T>& force) { this->force += force; }
 
-	void setForce( const Math::Vector3d& force ) { this->force = force; }
+	void setForce( const Math::Vector3d<T>& force ) { this->force = force; }
 
-	Math::Vector3d getForce() const { return force; }
+	Math::Vector3d<T> getForce() const { return force; }
 
 	float getDensity() const { return density; }
 
@@ -90,22 +91,22 @@ public:
 
 	void init() {
 		density = 0.0;
-		force = Math::Vector3d( 0.0f, 0.0f, 0.0f);
+		force = Math::Vector3d<T>( 0.0f, 0.0f, 0.0f);
 	}
 
-	void addCenter( const Math::Vector3d& center ) { this->center += center; }
+	void addCenter( const Math::Vector3d<T>& center ) { this->center += center; }
 
-	void setCenter( const Math::Vector3d& center ) { this->center = center; } 
+	void setCenter( const Math::Vector3d<T>& center ) { this->center = center; } 
 
-	Math::Vector3d getCenter() const { return center; }
+	Math::Vector3d<T> getCenter() const { return center; }
 
-	Math::Vector3d getAccelaration() { return force / density; }
+	Math::Vector3d<T> getAccelaration() { return force / density; }
 
-	Math::Vector3d getVelocity() const { return velocity; }
+	Math::Vector3d<T> getVelocity() const { return velocity; }
 
-	void setVelocity( const Math::Vector3d& velocity ) { this->velocity = velocity; }
+	void setVelocity( const Math::Vector3d<T>& velocity ) { this->velocity = velocity; }
 
-	void addVelocity(const Math::Vector3d& velocity) { this->velocity += velocity; }
+	void addVelocity(const Math::Vector3d<T>& velocity) { this->velocity += velocity; }
 
 	float getViscosityCoe() const { return constant.viscosityCoe; }
 
@@ -114,7 +115,7 @@ private:
 
 public:
 	void setGridID( const float effectLength ) {
-		const Math::Vector3d& point = center;
+		const Math::Vector3d<T>& point = center;
 		int gridX = static_cast<int>( point.getX() / effectLength );
 		int gridY = static_cast<int>( point.getY() / effectLength );
 		int gridZ = static_cast<int>( point.getZ() / effectLength );
@@ -134,13 +135,13 @@ private:
 	}
 
 	float density;
-	Math::Vector3d force;
-	Math::Vector3d velocity;
-	Math::Vector3d center;
+	Math::Vector3d<T> force;
+	Math::Vector3d<T> velocity;
+	Math::Vector3d<T> center;
 	int gridID;
 };
 
-using PhysicsParticleSPtr = std::shared_ptr < PhysicsParticle > ;
+using PhysicsParticleSPtr = std::shared_ptr < PhysicsParticle<float> > ;
 
 using PhysicsParticleSPtrList = std::list < PhysicsParticleSPtr > ;
 

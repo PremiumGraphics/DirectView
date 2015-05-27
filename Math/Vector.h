@@ -152,7 +152,7 @@ template<typename T>
 using Vector2d = Vector<T, 2>;
 
 template<typename T>
-using Vector3d__ = Vector < T, 3 > ;
+using Vector3d_ = Vector < T, 3 > ;
 
 template< typename T >
 static Vector2d<T> operator*(float factor, const Vector2d<T>& rhs) { return rhs.getScaled(factor); }

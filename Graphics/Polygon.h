@@ -55,7 +55,7 @@ public:
 
 	void rotateZ(const double angle);
 
-	void move(const Math::Vector3d& vector) {
+	void move(const Math::Vector3d<float>& vector) {
 		//center += vector;
 		for (const VertexSPtr v : vertices) {
 			v->move(vector);
@@ -63,7 +63,7 @@ public:
 
 	}
 
-	void scale(const Math::Vector3d& scale);
+	void scale(const Math::Vector3d<float>& scale);
 
 	bool operator==(const Polygon& rhs) const {
 		return
@@ -71,9 +71,9 @@ public:
 			VerticesAreSame(vertices, rhs.vertices);
 	}
 
-	void setCenter(const Math::Vector3d& center) { this->center = center; }
+	void setCenter(const Math::Vector3d<float>& center) { this->center = center; }
 
-	Math::Vector3d getCenter() const { return center; }
+	Math::Vector3d<float> getCenter() const { return center; }
 
 	unsigned int getId() const { return id; }
 
@@ -84,7 +84,7 @@ public:
 private:
 	FaceSPtrVector faces;
 	VertexSPtrVector vertices;
-	Math::Vector3d center;
+	Math::Vector3d<float> center;
 	Material* material;
 	std::string name;
 	unsigned int id;

@@ -19,12 +19,12 @@ public:
 	void setTimeStep(const float timeStep) { this->proceedTime = timeStep; }
 
 private:
-	Math::Vector3d angleVelosity;
+	Math::Vector3d<float> angleVelosity;
 	float proceedTime;
 
 	void convertToFluidForce(const PhysicsParticleSPtrVector& particles);
 
-	void getAngleVelosity( const Math::Vector3d& I, const Math::Vector3d& N, const float proceedTime );
+	void getAngleVelosity( const Math::Vector3d<float>& I, const Math::Vector3d<float>& N, const float proceedTime );
 
 	float getWeight(const PhysicsParticleSPtrVector& particles);
 };

@@ -6,7 +6,6 @@
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
 #include "../Math/Cone.h"
-#include "../Math/Circle.h"
 #include "../Math/Sphere.h"
 #include "../Math/Cylinder.h"
 
@@ -43,32 +42,14 @@ namespace Crystal{
 		};
 
 
-		class CircleConfigDialog : public wxDialog
-		{
-		public:
-
-			CircleConfigDialog(wxWindow* parent, const Math::Circle& circle);
-
-			Math::Circle get() const {
-				return Math::Circle();
-			}
-
-		private:
-			wxSpinCtrlDouble* divideAngle;
-			wxSpinCtrl* divideNumber;
-			wxSpinCtrlDouble* width;
-			wxSpinCtrlDouble* height;
-		};
-
-
 		class SphereConfigDialog : public wxDialog
 		{
 		public:
 
-			SphereConfigDialog(wxWindow* parent, const Math::Sphere& sphere);
+			SphereConfigDialog(wxWindow* parent, const Math::Sphere<float>& sphere);
 
-			Math::Sphere get() const {
-				return Math::Sphere();
+			Math::Sphere<float> get() const {
+				return Math::Sphere<float>();
 			}
 
 		private:
@@ -91,7 +72,7 @@ namespace Crystal{
 				{}
 
 				int divideNumber;
-				Math::Cone cone;
+				Math::Cone<float> cone;
 			};
 
 			ConeConfigDialog(wxWindow* parent) :
@@ -133,9 +114,9 @@ namespace Crystal{
 		class CylinderConfigDialog : public wxDialog
 		{
 		public:
-			CylinderConfigDialog(wxWindow* parent, const Math::Cylinder& cylinder);
+			CylinderConfigDialog(wxWindow* parent, const Math::Cylinder<float>& cylinder);
 
-			Math::Cylinder get() const;
+			Math::Cylinder<float> get() const;
 
 		private:
 			wxSpinCtrl* divideNumber;

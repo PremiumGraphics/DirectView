@@ -52,15 +52,15 @@ public:
 	}
 
 
-	Vector3d_<T> getNormal() const {
-		const Vector3d_<T> v01 = v0.diff(v1);
-		const Vector3d_<T> v02 = v1.diff(v2);
+	Vector3d<T> getNormal() const {
+		const Vector3d<T> v01 = v0.diff(v1);
+		const Vector3d<T> v02 = v1.diff(v2);
 		return v01.getOuterProduct(v02).getNormalized();
 	}
 
 	T getArea() const {
-		const Vector3d_<T> v01 = v0.diff(v1);
-		const Vector3d_<T> v02 = v1.diff(v2);
+		const Vector3d<T> v01 = v0.diff(v1);
+		const Vector3d<T> v02 = v1.diff(v2);
 		return v01.getOuterProduct(v02).getLength() * T(0.5);
 	}
 
@@ -74,7 +74,7 @@ public:
 		return !isCCW();
 	}
 
-	Vector3d_<T> getCenter() const {
+	Vector3d<T> getCenter() const {
 		return (v0 + v1 + v2) / T(3);
 	}
 

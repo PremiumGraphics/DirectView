@@ -51,7 +51,7 @@ bool STLFile::readASCII(std::istream& stream)
 		assert(str == "normal");
 
 		STLCell cell;
-		const Vector3d& normal = Helper::readVector(stream);
+		const Vector3d<float>& normal = Helper::readVector(stream);
 		cell.setNormal( normal );
 			
 		stream >> str;
@@ -64,7 +64,7 @@ bool STLFile::readASCII(std::istream& stream)
 			stream >> str;
 			assert( str == "vertex" );
 				
-			const Vector3d& position = Helper::readVector(stream);
+			const Vector3d<float>& position = Helper::readVector(stream);
 			cell.addPosition( position );
 		}
 		cells.push_back( cell );
@@ -88,11 +88,11 @@ bool STLFile::writeASCII(std::ostream& stream)
 
 	for (const STLCell& cell : cells) {
 		stream << "facet" << " ";
-		const Vector3d& normal = cell.getNormal();
+		const Vector3d<float>& normal = cell.getNormal();
 		stream << "normal" << " " << normal.getX() << " " << normal.getY() << " " << normal.getZ() << std::endl;
 		stream << "outer loop" << std::endl;
-		const std::vector< Vector3d >& positions = cell.getPositions();
-		for (const Vector3d& pos : positions) {
+		const std::vector< Vector3d<float> >& positions = cell.getPositions();
+		for (const Vector3d<float>& pos : positions) {
 			stream << "vertex" << " " << pos.getX() << " " << pos.getY() << " " << pos.getZ() << std::endl;
 		}
 		stream << "endloop" << std::endl;
@@ -133,10 +133,10 @@ bool STLFile::readBinary(std::istream& stream) {
 		stream.read( padding, sizeof( char ) * 2 );
 
 		STLCell cell;
-		cell.setNormal( Vector3d( normal[0], normal[1], normal[2] ) );
-		cell.addPosition( Vector3d( pos0[0], pos0[1], pos0[2] ) );
-		cell.addPosition( Vector3d( pos1[0], pos1[1], pos1[2] ) );
-		cell.addPosition( Vector3d( pos2[0], pos2[1], pos2[2] ) );
+		cell.setNormal( Vector3d<float>( normal[0], normal[1], normal[2] ) );
+		cell.addPosition( Vector3d<float>( pos0[0], pos0[1], pos0[2] ) );
+		cell.addPosition( Vector3d<float>( pos1[0], pos1[1], pos1[2] ) );
+		cell.addPosition( Vector3d<float>( pos2[0], pos2[1], pos2[2] ) );
 		//faces.push_back( f );
 		cells.push_back( cell );
 	}
@@ -154,7 +154,7 @@ bool STLFile::writeBinary(std::ostream& stream)
 	for (const STLCell& cell : cells) {
 		const std::vector<float>& normal = cell.getNormal().toArray();
 		stream.write((char *)&(normal.front()), sizeof(float) * 3);
-		for (const Vector3d& pos : cell.getPositions()) {
+		for (const Vector3d<float>& pos : cell.getPositions()) {
 			const std::vector<float>& p = pos.toArray();
 			stream.write((char *)&(p.front()), sizeof(float) * 3);
 		}

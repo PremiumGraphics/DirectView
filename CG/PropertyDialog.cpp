@@ -152,7 +152,7 @@ void LightProperty::setValue(LightSPtr light)
 	Append(new wxStringProperty("Name", wxPG_LABEL, light->name));
 	//Append( new wxIntProperty( "ID", wxPG_LABEL, light->getId() ) );
 
-	const Vector3d& pos = light->getPos();
+	const Vector3d<float>& pos = light->getPos();
 	Append(new wxFloatProperty("PosX", wxPG_LABEL, pos.getX()));
 	Append(new wxFloatProperty("PosY", wxPG_LABEL, pos.getY()));
 	Append(new wxFloatProperty("PosZ", wxPG_LABEL, pos.getZ()));
@@ -172,7 +172,7 @@ void LightProperty::OnChange(wxPropertyGridEvent& event)
 		return;
 	}
 
-	Math::Vector3d pos = light->getPos();
+	Math::Vector3d<float> pos = light->getPos();
 	if (name == "PosX") {
 		const float x = wxANY_AS(value, float);
 		pos.setX(x);

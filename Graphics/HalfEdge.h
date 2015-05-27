@@ -10,7 +10,6 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Vertex;
 class Face;
 typedef std::shared_ptr< Face > FaceSPtr;
 
@@ -63,9 +62,9 @@ public:
 
 	VertexSPtr getEnd() { return end; }
 
-	Math::Vector3d getStartPosition() const { return start->getPosition(); }
+	Math::Vector3d<float> getStartPosition() const { return start->getPosition(); }
 
-	Math::Vector3d getEndPosition() const { return end->getPosition(); }
+	Math::Vector3d<float> getEndPosition() const { return end->getPosition(); }
 
 	unsigned int getId() const { return id; }
 

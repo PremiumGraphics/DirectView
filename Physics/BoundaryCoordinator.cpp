@@ -15,7 +15,7 @@ float getForce(const float over, const float timeStep)
 	return -over / timeStep / timeStep; 
 }
 
-Vector3d getForceX(const float x, const Box& box, const float timeStep)
+Vector3d<float> getForceX(const float x, const Box& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( x > box.getMaxX() ) {
@@ -26,10 +26,10 @@ Vector3d getForceX(const float x, const Box& box, const float timeStep)
 	}
 
 	const float force = getForce( over, timeStep ); 
-	return Vector3d::UnitX() * force;
+	return Vector3d<float>::UnitX() * force;
 }
 
-Vector3d getForceY(const float y, const Box& box, const float timeStep)
+Vector3d<float> getForceY(const float y, const Box& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( y > box.getMaxY() ) {
@@ -39,10 +39,10 @@ Vector3d getForceY(const float y, const Box& box, const float timeStep)
 		over = y - box.getMinY();
 	}
 	const float force = getForce( over, timeStep );
-	return Vector3d::UnitY() * force;
+	return Vector3d<float>::UnitY() * force;
 }
 
-Vector3d getForceZ(const float z, const Box& box, const float timeStep)
+Vector3d<float> getForceZ(const float z, const Box& box, const float timeStep)
 {
 	float over = 0.0f;
 	if( z > box.getMaxZ() ) {
@@ -52,12 +52,12 @@ Vector3d getForceZ(const float z, const Box& box, const float timeStep)
 		over = z - box.getMinZ();
 	}
 	const float force = getForce( over, timeStep );
-	return Vector3d::UnitZ() * force;
+	return Vector3d<float>::UnitZ() * force;
 }
 
-Vector3d getForce( const Vector3d& center, const float timeStep, const Box& box)
+Vector3d<float> getForce( const Vector3d<float>& center, const float timeStep, const Box& box)
 {
-	Vector3d force = Vector3d::Zero();
+	Vector3d<float> force = Vector3d<float>::Zero();
 
 	force += getForceX( center.getX(), box, timeStep );
 	force += getForceY( center.getY(), box, timeStep );
@@ -74,21 +74,21 @@ void BoundaryCoordinator::coordinate(const PhysicsParticleSPtrVector& particles 
 	}
 };
 
-Vector3d getForce( const Vector3d& pos, const float timeStep, const float radius, const Vector3d& center )
+Vector3d<float> getForce( const Vector3d<float>& pos, const float timeStep, const float radius, const Vector3d<float>& center )
 {
 	if( pos.getDistanceSquared( center ) > radius * radius ) {
-		Vector3d normal = pos - center;
+		Vector3d<float> normal = pos - center;
 		const float over = pos.getDistance( center ) - radius;
 		normal.normalize();
 		return normal * ::getForce( over, timeStep );
 	}
-	return Vector3d::Zero();
+	return Vector3d<float>::Zero();
 }
 
-Vector3d getPosition( const Vector3d& pos, const float radius, const Vector3d& center)
+Vector3d<float> getPosition( const Vector3d<float>& pos, const float radius, const Vector3d<float>& center)
 {
 	if( pos.getDistanceSquared( center ) > radius * radius ) {
-		Vector3d normal = pos - center;
+		Vector3d<float> normal = pos - center;
 		normal.normalize();
 		return normal * radius;
 	}

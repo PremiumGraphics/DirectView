@@ -40,13 +40,13 @@ std::vector< float > Volume::createHydrogenVolume()
 
 
 //  Orignal source code is developed by https://code.google.com/p/kvs/.
-std::vector< Vector3d > Volume::createTornadoVolume( const float time )
+std::vector< Vector3d<float> > Volume::createTornadoVolume( const float time )
 {
     const double dx = 1.0f / ( dimX - 1.0f );
     const double dy = 1.0f / ( dimY - 1.0f );
     const double dz = 1.0f / ( dimZ - 1.0f );
 
-	std::vector< Vector3d > vectors;
+	std::vector< Vector3d<float> > vectors;
     for( int k = 0; k < dimZ; k++ ) {
         /* map z to 0->1
          * For each z-slice, determine the spiral circle.
@@ -88,7 +88,7 @@ std::vector< Vector3d > Volume::createTornadoVolume( const float time )
                     scale * z0
                 };
 
-				Vector3d vector( v[0], v[1], v[2] );
+				Vector3d<float> vector( v[0], v[1], v[2] );
 				vectors.push_back( vector );
             }
         }

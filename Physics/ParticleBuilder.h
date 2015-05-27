@@ -4,14 +4,12 @@
 #include "PhysicsParticle.h"
 
 #include "../Math/Box.h"
+#include "../Math/Sphere.h"
+#include "../Math/Cylinder.h"
 
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {
-	namespace Math {
-		class Sphere;
-		class Cylinder;
-	}
 	namespace Physics {
 
 class ParticleBuilder final : private UnCopyable {
@@ -29,16 +27,16 @@ public:
 
 	PhysicsParticleSPtrVector create(const Math::Box& box);
 
-	PhysicsParticleSPtrVector create(const Math::Sphere& sphere);
+	PhysicsParticleSPtrVector create(const Math::Sphere<float>& sphere);
 
-	PhysicsParticleSPtrVector create(const Math::Cylinder& cylinder);
+	PhysicsParticleSPtrVector create(const Math::Cylinder<float>& cylinder);
 
-	PhysicsParticleSPtrVector create(const Math::Vector3dVector& positions);
+	PhysicsParticleSPtrVector create(const Math::Vector3dVector<float>& positions);
 
 private:
 	unsigned int nextId;
 	float divideLength;
-	PhysicsParticle::Constant constant;
+	PhysicsParticle<float>::Constant constant;
 };
 
 	}

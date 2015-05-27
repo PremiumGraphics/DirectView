@@ -53,15 +53,15 @@ TYPED_TEST(Position3dTest, TestDiff)
 {
 	using T = TypeParam;
 
-	EXPECT_EQ(Vector3d_<T>(1.0, 0.0, 0.0), Position3d_<T>(0.0, 0.0, 0.0).diff(Position3d_<T>(1.0, 0.0, 0.0)) );
-	EXPECT_EQ(Vector3d_<T>(-1.0, 0.0, 0.0), Position3d_<T>(2.0, 0.0, 0.0).diff(Position3d_<T>(1.0, 0.0, 0.0)));
+	EXPECT_EQ(Vector3d<T>(1.0, 0.0, 0.0), Position3d_<T>(0.0, 0.0, 0.0).diff(Position3d_<T>(1.0, 0.0, 0.0)) );
+	EXPECT_EQ(Vector3d<T>(-1.0, 0.0, 0.0), Position3d_<T>(2.0, 0.0, 0.0).diff(Position3d_<T>(1.0, 0.0, 0.0)));
 
 }
 
 TYPED_TEST(Position3dTest, TestAdd)
 {
 	using T = TypeParam;
-	EXPECT_EQ( Position3d_<T>(3.0, 0.0, 0.0), Position3d_<T>(1.0, 0.0, 0.0)+ Vector3d_<T>(2.0, 0.0, 0.0) );
+	EXPECT_EQ( Position3d_<T>(3.0, 0.0, 0.0), Position3d_<T>(1.0, 0.0, 0.0)+ Vector3d<T>(2.0, 0.0, 0.0) );
 
 }
 */

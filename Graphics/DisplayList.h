@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "../Math/Vector3d.h"
+#include "../Math/Triangle.h"
 
 #include "ColorRGBA.h"
 
@@ -13,8 +14,6 @@ namespace Crystal {
 
 class Face;
 class Polygon;
-class Vertex;
-typedef std::shared_ptr< Vertex > VertexSPtr;
 class PolygonGroup;
 
 class DisplayList
@@ -27,11 +26,13 @@ public:
 
 	DisplayList(Polygon* polygon);
 
-	DisplayList(const Math::Vector3dVector& poss);
+	DisplayList(const Math::Triangle<float>& t);
 
-	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms);
+	DisplayList(const Math::Vector3dVector<float>& poss);
 
-	DisplayList(const Math::Vector3dVector& poss, const Math::Vector3dVector& norms, const Math::Vector3dVector& texs);
+	DisplayList(const Math::Vector3dVector<float>& poss, const Math::Vector3dVector<float>& norms);
+
+	DisplayList(const Math::Vector3dVector<float>& poss, const Math::Vector3dVector<float>& norms, const Math::Vector3dVector<float>& texs);
 
 	void clear();
 
@@ -81,9 +82,9 @@ private:
 
 	std::vector<unsigned int> getVertexIds(const Face& f) const;
 
-	Math::Vector3dVector getPositions(const Face& f) const;
+	Math::Vector3dVector<float> getPositions(const Face& f) const;
 
-	Math::Vector3dVector getNormals(const Face& f) const;
+	Math::Vector3dVector<float> getNormals(const Face& f) const;
 
 };
 

@@ -18,22 +18,23 @@ DisplayList::DisplayList(Polygon* polygon)
 	add(polygon);
 }
 
-DisplayList::DisplayList(const Vector3dVector& poss)
+DisplayList::DisplayList(const Vector3dVector<float>& poss)
 {
-	vertices = Math::Vector3d::toArray(poss);
+	vertices = Math::Vector3d<float>::toArray(poss);
 }
 
-DisplayList::DisplayList(const Vector3dVector& poss, const Vector3dVector& norms)
+
+DisplayList::DisplayList(const Vector3dVector<float>& poss, const Vector3dVector<float>& norms)
 {
-	vertices = Math::Vector3d::toArray(poss);
-	normals = Math::Vector3d::toArray(norms);
+	vertices = Math::Vector3d<float>::toArray(poss);
+	normals = Math::Vector3d<float>::toArray(norms);
 }
 
-DisplayList::DisplayList(const Vector3dVector& poss, const Vector3dVector& norms, const Vector3dVector& texs)
+DisplayList::DisplayList(const Vector3dVector<float>& poss, const Vector3dVector<float>& norms, const Vector3dVector<float>& texs)
 {
-	vertices = Math::Vector3d::toArray(poss);
-	normals = Math::Vector3d::toArray(norms);
-	texCoords = Math::Vector3d::toArray(texs);
+	vertices = Math::Vector3d<float>::toArray(poss);
+	normals = Math::Vector3d<float>::toArray(norms);
+	texCoords = Math::Vector3d<float>::toArray(texs);
 }
 
 
@@ -60,13 +61,13 @@ void DisplayList::add(Vertex* v)
 
 void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 {
-	const std::vector<float>& vs = Vector3d::toArray( getPositions( *f ));
+	const std::vector<float>& vs = Vector3d<float>::toArray( getPositions( *f ));
 	vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
-	const std::vector<float>& ns = Vector3d::toArray( getNormals( *f ) );
+	const std::vector<float>& ns = Vector3d<float>::toArray( getNormals( *f ) );
 	normals.insert(normals.end(), ns.begin(), ns.end());
 
-	const std::vector<float>& ts = Vector3d::toArray(f->getTexCoords());
+	const std::vector<float>& ts = Vector3d<float>::toArray(f->getTexCoords());
 	texCoords.insert(texCoords.end(), ts.begin(), ts.end());
 
 	std::vector<unsigned int> vids;
@@ -77,7 +78,7 @@ void DisplayList::add(Face* f, const ColorRGBA<float>& color)
 	vertexIds.insert(vertexIds.end(), vids.begin(), vids.end());
 	ids.push_back(vids);
 
-	const Vector3dVector positions = getPositions(*f);
+	const Vector3dVector<float> positions = getPositions(*f);
 	for (size_t i = 0; i < positions.size(); ++i) {
 		faceIds.push_back(f->getId());
 	}
@@ -100,9 +101,9 @@ void DisplayList::add(Polygon* p)
 }
 
 
-Vector3dVector DisplayList::getPositions(const Face& f) const
+Vector3dVector<float> DisplayList::getPositions(const Face& f) const
 {
-	Vector3dVector positions;
+	Vector3dVector<float> positions;
 	const HalfEdgeSPtrList& edges = f.getEdges();
 	for (const HalfEdgeSPtr& e : edges) {
 		positions.push_back(e->getStartPosition());
@@ -114,9 +115,9 @@ Vector3dVector DisplayList::getPositions(const Face& f) const
 }
 
 
-Vector3dVector DisplayList::getNormals(const Face& f) const
+Vector3dVector<float> DisplayList::getNormals(const Face& f) const
 {
-	Vector3dVector normals;
+	Vector3dVector<float> normals;
 	const HalfEdgeSPtrList& edges = f.getEdges();
 	for (const HalfEdgeSPtr& e : edges) {
 		normals.push_back(e->getStart()->getNormal());

@@ -5,6 +5,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
+using T = float;
+
 TEST( STLFileTest, TestReadAscii )
 {
 	std::stringstream stream;
@@ -29,17 +31,17 @@ TEST( STLFileTest, TestReadAscii )
 	STLFile file;
 	file.readASCII(stream);
 
-	const Vector3d normal1(0.0, 0.0, 1.0);
-	const std::vector< Vector3d > positions1 = {
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0),
-		Vector3d(0.0, 1.0, 1.0)
+	const Vector3d<T> normal1(0.0, 0.0, 1.0);
+	const std::vector< Vector3d<T> > positions1 = {
+		Vector3d<T>(0.0, 0.0, 1.0),
+		Vector3d<T>(1.0, 0.0, 1.0),
+		Vector3d<T>(0.0, 1.0, 1.0)
 	};
-	const Vector3d normal2(0.0, 0.0, 1.0);
-	const std::vector< Vector3d > positions2 = {
-		Vector3d(1.0, 1.0, 1.0),
-		Vector3d(0.0, 1.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0)
+	const Vector3d<T> normal2(0.0, 0.0, 1.0);
+	const std::vector< Vector3d<T> > positions2 = {
+		Vector3d<T>(1.0, 1.0, 1.0),
+		Vector3d<T>(0.0, 1.0, 1.0),
+		Vector3d<T>(1.0, 0.0, 1.0)
 	};
 	const STLCellVector cells{
 		STLCell(positions1, normal1),
@@ -58,17 +60,17 @@ TEST(STLFileTest, TestWriteASCII)
 	std::ostringstream stream;
 	STLFile file;
 
-	const Vector3d normal1(0.0, 0.0, 1.0);
-	const std::vector< Vector3d > positions1 = {
-		Vector3d(0.0, 0.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0),
-		Vector3d(0.0, 1.0, 1.0)
+	const Vector3d<T> normal1(0.0, 0.0, 1.0);
+	const std::vector< Vector3d<T> > positions1 = {
+		Vector3d<T>(0.0, 0.0, 1.0),
+		Vector3d<T>(1.0, 0.0, 1.0),
+		Vector3d<T>(0.0, 1.0, 1.0)
 	};
-	const Vector3d normal2(0.0, 0.0, 1.0);
-	const std::vector< Vector3d > positions2 = {
-		Vector3d(1.0, 1.0, 1.0),
-		Vector3d(0.0, 1.0, 1.0),
-		Vector3d(1.0, 0.0, 1.0)
+	const Vector3d<T> normal2(0.0, 0.0, 1.0);
+	const std::vector< Vector3d<T> > positions2 = {
+		Vector3d<T>(1.0, 1.0, 1.0),
+		Vector3d<T>(0.0, 1.0, 1.0),
+		Vector3d<T>(1.0, 0.0, 1.0)
 	};
 	const STLCellVector cells{
 		STLCell(positions1, normal1),

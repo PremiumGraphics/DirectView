@@ -103,9 +103,9 @@ OBJFile OBJFileReader::read(std::istream& stream )
 
 	OBJGroupSPtrVector groups;
 
-	Vector3dVector positions;
-	Vector3dVector normals;
-	Vector3dVector texCoords;
+	Vector3dVector<float> positions;
+	Vector3dVector<float> normals;
+	Vector3dVector<float> texCoords;
 
 	std::string useMtlName;
 	std::vector<OBJFace> faces;
@@ -172,7 +172,7 @@ OBJFile OBJFileReader::read(std::istream& stream )
 }
 
 
-Vector3d OBJGroup::readVertices(const std::string& str)
+Vector3d<float> OBJGroup::readVertices(const std::string& str)
 {
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "v");
@@ -182,14 +182,14 @@ Vector3d OBJGroup::readVertices(const std::string& str)
 	const float z = std::stof(strs[2].c_str());
 	if (strs.size() == 4) {
 		const float w = ::std::stof(strs[3].c_str());
-		return Vector3d(x, y, z);
+		return Vector3d<float>(x, y, z);
 	}
 	else {
-		return Vector3d(x, y, z);
+		return Vector3d<float>(x, y, z);
 	}
 }
 
-Vector3d OBJGroup::readVector3d(const std::string& str)
+Vector3d<float> OBJGroup::readVector3d(const std::string& str)
 {
 	const std::vector< std::string >& strs = Helper::split(str, ' ');
 	//assert(strs.front() == "vt");
@@ -197,10 +197,10 @@ Vector3d OBJGroup::readVector3d(const std::string& str)
 	const float v = ::std::stof(strs[1]);
 	if (strs.size() == 3) {
 		const float w = std::stof(strs[2]);
-		return Vector3d(u, v, w);
+		return Vector3d<float>(u, v, w);
 	}
 	else {
-		return Vector3d(u, v, 0.0f);
+		return Vector3d<float>(u, v, 0.0f);
 	}
 }
 
@@ -231,17 +231,17 @@ bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
 		//stream << "g " << g.getName() << std::endl;
 		strs.push_back("g " + g->getName());
 		//strs.push_back("usemtl " + materialName);
-		for (const Vector3d& pos : g->getPositions()) {
+		for (const auto& pos : g->getPositions()) {
 			char s[256];
 			sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ() );
 			strs.push_back(s);
 		}
-		for (const Vector3d& tex : g->getTexCoords() ) {
+		for (const auto& tex : g->getTexCoords() ) {
 			char s[256];
 			sprintf(s, "vt %.4lf %.4lf %.4lf", tex.getX(), tex.getY(), tex.getZ());
 			strs.push_back(s);
 		}
-		for (const Vector3d& n : g->getNormals() ) {
+		for (const auto& n : g->getNormals() ) {
 			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );
 		}
 		for (const OBJFace& f : g->getFaces()) {

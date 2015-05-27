@@ -38,7 +38,7 @@ void Polygon::rotateZ(const double angle)
 	move(1.0 * center);
 }
 
-void Polygon::scale(const Vector3d& scale)
+void Polygon::scale(const Vector3d<float>& scale)
 {
 	move(-1.0 *center);
 	for (const VertexSPtr& v : vertices) {
@@ -69,7 +69,7 @@ Box Polygon::getBoundingBox() const
 		maxz = std::max<float>( maxz, z );
 	}
 
-	Vector3d min(minx, miny, minz);
-	Vector3d max(maxx, maxy, maxz);
+	Vector3d<float> min(minx, miny, minz);
+	Vector3d<float> max(maxx, maxy, maxz);
 	return Box(min, max);
 }

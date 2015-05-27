@@ -25,11 +25,11 @@ TYPED_TEST(VectorTest, TestGetLength)
 
 	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(std::sqrt(T(2)), Vector2d<T>({ 1, 1 }).getLength() ) );
 
-	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(3, Vector3d__<T>({ 1, 1, 1 }).getLengthSquared()));
-	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(3, Vector3d__<T>({ 1, 1, 1 }).getLengthSquared()));
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(3, Vector3d_<T>({ 1, 1, 1 }).getLengthSquared()));
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(3, Vector3d_<T>({ 1, 1, 1 }).getLengthSquared()));
 
-	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(14, Vector3d__<T>({ 1, 2, 3 }).getLengthSquared()));
-	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(14, Vector3d__<T>({ 1, 2, 3 }).getLengthSquared()));
+	EXPECT_TRUE( Tolerance<T>::isEqualLoosely(14, Vector3d_<T>({ 1, 2, 3 }).getLengthSquared()));
+	EXPECT_TRUE( Tolerance<T>::isEqualStrictly(14, Vector3d_<T>({ 1, 2, 3 }).getLengthSquared()));
 }
 
 

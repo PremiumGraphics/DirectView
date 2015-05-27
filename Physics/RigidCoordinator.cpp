@@ -9,20 +9,20 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Vector3d getCenter(const PhysicsParticleSPtrVector& particles){
+Vector3d<float> getCenter(const PhysicsParticleSPtrVector& particles){
 	if( particles.empty() ) {
-		return Vector3d( 0.0, 0.0, 0.0);
+		return Vector3d<float>( 0.0, 0.0, 0.0);
 	}
-	Vector3d center( 0.0, 0.0, 0.0);
+	Vector3d<float> center( 0.0, 0.0, 0.0);
 	for( const PhysicsParticleSPtr& p : particles ) {
 		center += p->getCenter();
 	}
 	return center /= static_cast<float>(particles.size());
 }
 
-Vector3d getAverageVelosity(const PhysicsParticleSPtrVector& particles)
+Vector3d<float> getAverageVelosity(const PhysicsParticleSPtrVector& particles)
 {
-	Vector3d averageVelosity( 0.0, 0.0, 0.0 );
+	Vector3d<float> averageVelosity(0.0, 0.0, 0.0);
 	for( PhysicsParticleSPtrVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
 		averageVelosity += (*iter)->getVelocity();// variable.velocity;
 	}
@@ -42,8 +42,8 @@ float RigidCoordinator::getWeight(const PhysicsParticleSPtrVector& particles)
 
 void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 {
-	const Math::Vector3d& objectCenter = getCenter( particles );
-	const Math::Vector3d& velocityAverage = getAverageVelosity( particles );
+	const Math::Vector3d<float>& objectCenter = getCenter( particles );
+	const Math::Vector3d<float>& velocityAverage = getAverageVelosity( particles );
 
 	for (const PhysicsParticleSPtr& p : particles) {
 		p->setVelocity(velocityAverage);
@@ -59,19 +59,19 @@ void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 
 	//assert( getCenter( particles ) == Math::Vector3d( 0.0, 0.0, 0.0 ) );
 
-	Math::Vector3d inertiaMoment( 0.0, 0.0, 0.0 );
-	Math::Vector3d torque( 0.0, 0.0, 0.0 );
+	Math::Vector3d<float> inertiaMoment( 0.0, 0.0, 0.0 );
+	Math::Vector3d<float> torque( 0.0, 0.0, 0.0 );
 	
 	for (const PhysicsParticleSPtr& particle : particles) {
-		const Math::Vector3d& center = particle->getCenter();
+		const Math::Vector3d<float>& center = particle->getCenter();
 		
-		Math::Vector3d particleMoment( pow( center.getY(), 2) + pow( center.getZ(), 2),
+		Math::Vector3d<float> particleMoment( pow( center.getY(), 2) + pow( center.getZ(), 2),
 			pow( center.getZ(), 2 ) + pow( center.getX(), 2),
 			pow( center.getX(), 2 ) + pow( center.getY(), 2) );
 		inertiaMoment += (particleMoment) * particle->getMass();
 
-		const Math::Vector3d diffVector( Math::Vector3d( 0.0, 0.0, 0.0), particle->getCenter() );
-		const Math::Vector3d& particleTorque = diffVector.getOuterProduct( particle->getForce() * particle->getVolume() );
+		const Math::Vector3d<float> diffVector( Math::Vector3d<float>( 0.0, 0.0, 0.0), particle->getCenter() );
+		const Math::Vector3d<float>& particleTorque = diffVector.getOuterProduct( particle->getForce() * particle->getVolume() );
 		torque += particleTorque;
 	}
 
@@ -107,7 +107,7 @@ void RigidCoordinator::coordinate(const PhysicsParticleSPtrVector& particles)
 
 void RigidCoordinator::convertToFluidForce(const PhysicsParticleSPtrVector& particles)
 {	
-	Math::Vector3d totalForce( 0.0, 0.0, 0.0 );
+	Math::Vector3d<float> totalForce( 0.0, 0.0, 0.0 );
 	for (const PhysicsParticleSPtr& p : particles) {
 		totalForce += p->getForce() * p->getVolume();
 	}
@@ -118,22 +118,22 @@ void RigidCoordinator::convertToFluidForce(const PhysicsParticleSPtrVector& part
 	}
 }
 
-float getAngleAccelerationX( float x1,float x2,float x3, const Vector3d& I, const Vector3d& N)
+float getAngleAccelerationX( float x1,float x2,float x3, const Vector3d<float>& I, const Vector3d<float>& N)
 {
 	return ( N.getX() + ( I.getY() - I.getZ() ) * x2 * x3 ) / I.getX() - 10.0f * x1;
 }
 
-float getAngleAccelerationY( float x1,float x2,float x3, const Vector3d& I, const Vector3d& N)
+float getAngleAccelerationY( float x1,float x2,float x3, const Vector3d<float>& I, const Vector3d<float>& N)
 {
 	return ( N.getY() + ( I.getZ() - I.getX() ) * x3 * x1 ) / I.getY() - 10.0f * x2;
 }
 
-float getAngleAccelerationZ( float x1, float x2, float x3, const Vector3d& I, const Vector3d& N)
+float getAngleAccelerationZ( float x1, float x2, float x3, const Vector3d<float>& I, const Vector3d<float>& N)
 {
 	return ( N.getZ() + ( I.getX() - I.getY() ) * x1 * x2 ) / I.getZ() - 10.0f * x3;
 }
 
-void RigidCoordinator::getAngleVelosity( const Vector3d& I, const Vector3d& N, const float proceedTime )
+void RigidCoordinator::getAngleVelosity( const Vector3d<float>& I, const Vector3d<float>& N, const float proceedTime )
 {
 	float x1,x2,x3;
 	const int innerSteps = 10;
@@ -169,5 +169,5 @@ void RigidCoordinator::getAngleVelosity( const Vector3d& I, const Vector3d& N, c
 	//angleVelosity.x = x1;
 	//angleVelosity.y = x2;
 	//angleVelosity.z = x3;
-	angleVelosity = Vector3d( x1, x2, x3 );
+	angleVelosity = Vector3d<float>( x1, x2, x3 );
 }
