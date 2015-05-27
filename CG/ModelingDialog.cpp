@@ -5,46 +5,6 @@ using namespace Crystal::Math;
 using namespace Crystal::CG;
 
 
-TriangleConfigDialog::TriangleConfigDialog(wxWindow* parent, const Triangle<float>& triangle) :
-wxDialog(parent, wxID_ANY, "TriangleConfig", wxDefaultPosition, wxSize(500, 500))
-{
-	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
-	xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-	xSize->SetValue(1.0);
-
-	new wxStaticText(this, wxID_ANY, "Y Size", wxPoint(0, 200));
-	ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-	ySize->SetValue(1.0);
-
-	new wxStaticText(this, wxID_ANY, "Name", wxPoint(0, 300));
-	name = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-	name->SetLabel("Triangle");
-
-	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-}
-
-Triangle<float> TriangleConfigDialog::get() const
-{
-	return Triangle<float>();
-}
-
-QuadConfigDialog::QuadConfigDialog(wxWindow* parent, const Quad<float>& q) :
-wxDialog(parent, wxID_ANY, "QuadConfig", wxDefaultPosition, wxSize(500, 500))
-{
-	new wxStaticText(this, wxID_ANY, "X Size", wxPoint(0, 100));
-	xSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
-
-	new wxStaticText(this, wxID_ANY, "Y Size", wxPoint(0, 200));
-	ySize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-
-	new wxButton(this, wxID_OK, "OK", wxPoint(300, 100));
-	new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 200));
-
-	//this->xSize->SetValue(q.getLengthX());
-	//this->ySize->SetValue(q.getLengthY());
-}
-
 SphereConfigDialog::SphereConfigDialog(wxWindow* parent, const Sphere<float>& s) :
 wxDialog(parent, wxID_ANY, "SphereConfig", wxDefaultPosition, wxSize(500, 500))
 {

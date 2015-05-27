@@ -4,10 +4,9 @@
 
 #include "Tolerance.h"
 
-#include "Vector.h"
-
 #include <vector>
 #include <cassert>
+#include <array>
 
 namespace Crystal {
 	namespace Math {

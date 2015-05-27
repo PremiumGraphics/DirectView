@@ -3,12 +3,13 @@
 
 // The lookup tables are from  http://paulbourke.net/geometry/polygonise/
 
-#include "Vector.h"
 #include "Triangle.h"
-#include "Position3d.h"
+#include "Vector3d.h"
 #include "Space.h"
 #include "../Util/UnCopyable.h"
 #include <bitset>
+#include <vector>
+#include <array>
 
 namespace Crystal {
 	namespace Math {
@@ -21,7 +22,7 @@ public:
 
 	~MarchingCube() = default;
 
-	Position3d<T> interpolate(double isolevel, const Position3d<T>& p1, const Position3d<T>& p2, const double valp1, const double valp2) const {
+	Vector3d<T> interpolate(double isolevel, const Vector3d<T>& p1, const Vector3d<T>& p2, const double valp1, const double valp2) const {
 		if (::fabs(isolevel - valp1) < 0.00001) {
 			return(p1);
 		}
@@ -37,12 +38,12 @@ public:
 		const auto y = p1.getY() + mu * (p2.getY() - p1.getY());
 		const auto z = p1.getZ() + mu * (p2.getZ() - p1.getZ());
 
-		return Position3d< T > ( x, y, z );
+		return Vector3d< T > ( x, y, z );
 	}
 
 
 
-	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel)
+	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel)
 	{
 		const int cubeindex = getCubeIndex( val, isolevel );
 		const auto vertices = getPositions(cubeindex, p, val, isolevel);
@@ -50,7 +51,7 @@ public:
 	}
 
 
-	std::vector<Triangle<T> > build(const std::array< Position3d<T>, 8 > p, const std::bitset< 8 >& bit )
+	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::bitset< 8 >& bit )
 	{
 		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
 		const auto vertices = getPositions( cubeindex, p );
@@ -62,7 +63,7 @@ private:
 	std::array< int, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
-	TriangleVector<T> build(const int cubeindex, const std::array<Position3d<T>, 12>& vertices) const {
+	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) const {
 		TriangleVector<T> triangles;
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertices[triTable[cubeindex][i]];
@@ -75,12 +76,12 @@ private:
 		return triangles;
 	}
 
-	Position3d<T> getCenter(const Position3d<T>& p1, const Position3d<T>& p2) const {
+	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {
 		const auto x = p1.getX() + 0.5 * (p2.getX() - p1.getX());
 		const auto y = p1.getY() + 0.5 * (p2.getY() - p1.getY());
 		const auto z = p1.getZ() + 0.5 * (p2.getZ() - p1.getZ());
 
-		return Position3d< T >(x, y, z);
+		return Vector3d< T >(x, y, z);
 	}
 
 
@@ -97,8 +98,8 @@ private:
 		return bit.to_ulong();
 	}
 
-	std::array< Position3d<T>, 12 > getPositions(const int cubeindex, const std::array< Position3d<T>, 8 > p) const {
-		std::array< Position3d<T>, 12 > vertices;
+	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p) const {
+		std::array< Vector3d<T>, 12 > vertices;
 		if (edgeTable[cubeindex] & 1) {
 			vertices[0] = getCenter(p[0], p[1]);
 		}
@@ -139,8 +140,8 @@ private:
 	}
 
 
-	std::array< Position3d<T>, 12 > getPositions(const int cubeindex, const std::array< Position3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel) const {
-		std::array< Position3d<T>, 12 > vertices;
+	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p, const std::array< double, 8 >& val, const double isolevel) const {
+		std::array< Vector3d<T>, 12 > vertices;
 		if (edgeTable[cubeindex] & 1) {
 			vertices[0] = interpolate(isolevel, p[0], p[1], val[0], val[1]);
 		}

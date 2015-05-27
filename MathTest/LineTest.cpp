@@ -22,7 +22,7 @@ TYPED_TEST(LineTest, TestGetStart)
 
 	EXPECT_EQ(Position2d<T>({ 0.0f, 0.0f }), Line2d<T>().getStart());
 	EXPECT_EQ(Position2d<T>({ 1.0f, 0.0f }), Line2d<T>(Position2d<T>({ 1.0f, 0.0f })).getStart());
-	EXPECT_EQ(Position3d_<T>({ 0.0f, 0.0f, 0.0f }), Line3d<T>().getStart());
+	EXPECT_EQ(Vector3d_<T>({ 0.0f, 0.0f, 0.0f }), Line3d<T>().getStart());
 
 }
 

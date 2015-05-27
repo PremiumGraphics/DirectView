@@ -4,42 +4,12 @@
 #include "stdafx.h"
 
 #include "../Math/Triangle.h"
-#include "../Math/Quad.h"
 #include "../Math/Cone.h"
 #include "../Math/Sphere.h"
 #include "../Math/Cylinder.h"
 
 namespace Crystal{
 	namespace CG {
-
-		class TriangleConfigDialog : public wxDialog
-		{
-		public:
-			TriangleConfigDialog(wxWindow* parent, const Math::Triangle<float>& t);
-
-			Math::Triangle<float> get() const;
-
-		private:
-			wxSpinCtrlDouble* xSize;
-			wxSpinCtrlDouble* ySize;
-			wxTextCtrl* name;
-		};
-
-
-
-		class QuadConfigDialog : public wxDialog
-		{
-		public:
-			QuadConfigDialog(wxWindow* parent, const Math::Quad<float>& q);
-
-			Math::Quad<float> get(){
-				return Math::Quad<float>();
-			}
-
-		private:
-			wxSpinCtrlDouble* xSize;
-			wxSpinCtrlDouble* ySize;
-		};
 
 
 		class SphereConfigDialog : public wxDialog

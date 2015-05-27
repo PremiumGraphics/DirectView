@@ -15,44 +15,32 @@
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
-    <ClCompile Include="EllipseTest.cpp" />
-    <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MathTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
-    <ClCompile Include="Position3dTest.cpp" />
-    <ClCompile Include="PositionTest.cpp" />
-    <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
-    <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
-    <ClInclude Include="..\Math\Ellipse.h" />
-    <ClInclude Include="..\Math\Line.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Matrix2d.h" />
     <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Matrix4d.h" />
-    <ClInclude Include="..\Math\Position.h" />
-    <ClInclude Include="..\Math\Position3d.h" />
-    <ClInclude Include="..\Math\Quad.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Space.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
-    <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="..\Math\Vector3d.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

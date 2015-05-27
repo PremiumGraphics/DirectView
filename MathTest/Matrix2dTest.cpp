@@ -61,7 +61,6 @@ TYPED_TEST( Matrix2dTest, InverseTest )
 	}
 }
 
-#include "../Math/Vector.h"
 
 TYPED_TEST( Matrix2dTest, TestProduct )
 {

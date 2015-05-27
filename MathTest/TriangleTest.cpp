@@ -16,9 +16,9 @@ TYPED_TEST_CASE(TriangleTest, TestTypes);
 TYPED_TEST(TriangleTest, TestGet)
 {
 	using T = TypeParam;
-	EXPECT_EQ(Position3d<T>(0.0, 0.0, 0.0), Triangle<T>().getv0());
-	EXPECT_EQ(Position3d<T>(1.0, 0.0, 0.0), Triangle<T>().getv1());
-	EXPECT_EQ(Position3d<T>(0.0, 1.0, 0.0), Triangle<T>().getv2());
+	EXPECT_EQ(Vector3d<T>(0.0, 0.0, 0.0), Triangle<T>().getv0());
+	EXPECT_EQ(Vector3d<T>(1.0, 0.0, 0.0), Triangle<T>().getv1());
+	EXPECT_EQ(Vector3d<T>(0.0, 1.0, 0.0), Triangle<T>().getv2());
 }
 
 TYPED_TEST(TriangleTest, TestGetArea)
@@ -43,9 +43,9 @@ TYPED_TEST(TriangleTest, TestGetNormal)
 	EXPECT_EQ(Vector3d<T>::UnitX(), Triangle<T>::UnitYZ().getNormal());
 
 	const auto actual = Triangle<T>(
-		Position3d<T>(0,0,0),
-		Position3d<T>(1,0,0),
-		Position3d<T>(1,0,1)
+		Vector3d<T>(0,0,0),
+		Vector3d<T>(1,0,0),
+		Vector3d<T>(1,0,1)
 		).getNormal();
 	EXPECT_EQ(Vector3d<T>(0.0, -1.0, 0.0), actual);
 }

@@ -14,7 +14,6 @@
 #include "PropertyDialog.h"
 
 #include "../Math/Triangle.h"
-#include "../Math/Quad.h"
 #include "../Math/Sphere.h"
 #include "../Math/Box.h"
 #include "../Math/Cylinder.h"
@@ -141,8 +140,6 @@ private:
 	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
 private:
-	Math::Triangle<float> triangle;
-	Math::Quad<float> quad;
 	Math::Sphere<float> sphere;
 	Math::Box box;
 	Math::Cylinder<float> cylinder;

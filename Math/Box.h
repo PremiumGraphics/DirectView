@@ -2,7 +2,6 @@
 #define __CRYSTAL_MATH_BOX_H__
 
 #include "Vector3d.h"
-#include "Position3d.h"
 
 #include <vector>
 #include <string>
@@ -20,20 +19,6 @@ public:
 	{
 	}
 
-	Box_(const Position3d<T>& pointX, const Position3d<T>& pointY) :
-		maxX(std::max<T>(pointX.getX(), pointY.getX())),
-		maxY(std::max<T>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
-	{
-		const auto x = std::min<T>(pointX.getX(), pointY.getX());
-		const auto y = std::min<T>(pointX.getY(), pointY.getY());
-		const auto z = std::min<T>(pointX.getZ(), pointY.getZ());
-		this->start = Position3d<T>(x, y, z);
-
-		assert(isValid());
-	}
-
-
 	Box_(const Vector3d<T>& pointX, const Vector3d<T>& pointY) :
 		maxX(std::max<T>(pointX.getX(), pointY.getX())),
 		maxY(std::max<T>(pointX.getY(), pointY.getY())),
@@ -42,11 +27,10 @@ public:
 		const auto x = std::min<T>(pointX.getX(), pointY.getX());
 		const auto y = std::min<T>(pointX.getY(), pointY.getY());
 		const auto z = std::min<T>(pointX.getZ(), pointY.getZ());
-		this->start = Position3d<T>(x, y, z);
+		this->start = Vector3d<T>(x, y, z);
 
 		assert(isValid());
 	}
-
 
 	static Box_ Unit() {
 		return Box_();
@@ -58,7 +42,7 @@ public:
 		const auto x = std::min<T>( getMinX(), v.getX());
 		const auto y = std::min<T>( getMinY(), v.getY());
 		const auto z = std::min<T>( getMinZ(), v.getZ());
-		start = Position3d <T>(x, y, z);
+		start = Vector3d <T>(x, y, z);
 
 		maxX = std::max<T>(maxX, v.getX());
 		maxY = std::max<T>(maxY, v.getY());
@@ -79,24 +63,24 @@ public:
 		return (maxX - getMinX()) * (maxY - getMinY()) * (maxZ - getMinZ());
 	}
 	
-	Position3d<T> getMax() const {
-		return Position3d<T>(maxX, maxY, maxZ);
+	Vector3d<T> getMax() const {
+		return Vector3d<T>(maxX, maxY, maxZ);
 	}
 	
-	Position3d<T> getMin() const {
-		return Position3d<T>(getMinX(), getMinY(), getMinZ());
+	Vector3d<T> getMin() const {
+		return Vector3d<T>(getMinX(), getMinY(), getMinZ());
 	}
 
-	Position3d<T> getStart() const {
+	Vector3d<T> getStart() const {
 		return getMin();
 	}
 
-	Position3d<T> getEnd() const {
+	Vector3d<T> getEnd() const {
 		return getMax();
 	}
 
-	Position3d<T> getCenter() const {
-		return Position3d<T>(
+	Vector3d<T> getCenter() const {
+		return Vector3d<T>(
 			(getMinX() + maxX) * 0.5f,
 			(getMinY() + maxY) * 0.5f,
 			(getMinZ() + maxZ) * 0.5f
@@ -119,7 +103,7 @@ public:
 		const auto x = getMinX() - offsetLength;
 		const auto y = getMinY() - offsetLength;
 		const auto z = getMinZ() - offsetLength;
-		start = Position3d<T>(x, y, z);
+		start = Vector3d<T>(x, y, z);
 		maxX += offsetLength;
 		maxY += offsetLength;
 		maxZ += offsetLength;
@@ -215,8 +199,8 @@ public:
 		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
 		const auto maxz = std::min<T>(this->getEnd().getZ(), rhs.getEnd().getZ());
 
-		const Position3d<T> min_(minx, miny, minz);
-		const Position3d<T> max_(maxx, maxy, maxz);
+		const Vector3d<T> min_(minx, miny, minz);
+		const Vector3d<T> max_(maxx, maxy, maxz);
 		return Box_(min_, max_);
 	}
 
@@ -225,7 +209,7 @@ private:
 	T maxX;
 	T maxY;
 	T maxZ;
-	Position3d<T> start;
+	Vector3d<T> start;
 };
 
 using Box = Box_ < float > ;
