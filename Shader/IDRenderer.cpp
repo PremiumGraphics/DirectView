@@ -69,7 +69,7 @@ IDRenderer::Location IDRenderer::getLocations()
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
-	location.id = glGetAttribLocation(shader.getId(), "vertexId");
+	//location.id = glGetAttribLocation(shader.getId(), "vertexId");
 	//location.faceId = glGetAttribLocation(shader.getId(), "faceId");
 	//location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
 
@@ -84,8 +84,8 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	}
 
 	const std::vector<float>& positions = list.getPositions();
-	const std::vector< std::vector<unsigned int> >& ids = list.getIds();
-	const std::vector<unsigned int>& vertexIds = list.getVertexIds();
+	//const std::vector< std::vector<unsigned int> >& ids = list.getIds();
+	//const std::vector<unsigned int>& vertexIds = list.getVertexIds();
 	//const std::vector<unsigned int>& faceIds = list.getFaceIds();
 	//const std::vector<unsigned int>& polygonIds = list.getPolygonIds();
 
@@ -104,7 +104,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(vertexIds.front()) );
+	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(vertexIds.front()) );
 	//glVertexAttribIPointer(location.faceId, 1, GL_INT, 0, &(faceIds.front()));
 	//glVertexAttribIPointer(location.polygonId, 1, GL_INT, 0, &(polygonIds.front()));
 
@@ -113,9 +113,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
 
-	for (const std::vector<unsigned int>& ids_ : ids ) {
-		glDrawElements(GL_POLYGON, ids_.size(), GL_UNSIGNED_INT, &(ids_.front()));
-	}
+	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3 );
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

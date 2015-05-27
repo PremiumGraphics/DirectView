@@ -44,28 +44,19 @@ public:
 		normals.clear();
 		texCoords.clear();
 		colors.clear();
-
-		ids.clear();
-		vertexIds.clear();
 	}
 
 	//void add(Vertex* v);
 
 	void setColors(const std::vector<float>& colors) { this->colors = colors; }
 
-	std::vector< float > getPositions() const { return vertices; }
+	std::vector< T > getPositions() const { return vertices; }
 
-	std::vector< float > getNormals() const { return normals; }
+	std::vector< T > getNormals() const { return normals; }
 
-	std::vector< float > getTexCoords() const { return texCoords; }
+	std::vector< T > getTexCoords() const { return texCoords; }
 
-	std::vector< float > getColors() const { return colors; }
-
-	std::vector< unsigned int > getVertexIds() const { return vertexIds; }
-
-	void setIds(const std::vector< std::vector< unsigned int > >& ids) { this->ids = ids; }
-
-	std::vector< std::vector< unsigned int > >getIds() const { return ids; }
+	std::vector< T > getColors() const { return colors; }
 
 	bool isValid() const {
 		return
@@ -79,8 +70,6 @@ private:
 	std::vector< T > normals;
 	std::vector< T > texCoords;
 	std::vector< T > colors;
-	std::vector< unsigned int > vertexIds;
-	std::vector< std::vector< unsigned int > > ids;
 
 };
 

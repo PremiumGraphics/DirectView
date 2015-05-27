@@ -25,6 +25,7 @@
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
