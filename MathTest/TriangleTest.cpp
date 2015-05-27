@@ -16,9 +16,9 @@ TYPED_TEST_CASE(TriangleTest, TestTypes);
 TYPED_TEST(TriangleTest, TestGet)
 {
 	using T = TypeParam;
-	EXPECT_EQ(Vector3d<T>(0.0, 0.0, 0.0), Triangle<T>().getv0());
-	EXPECT_EQ(Vector3d<T>(1.0, 0.0, 0.0), Triangle<T>().getv1());
-	EXPECT_EQ(Vector3d<T>(0.0, 1.0, 0.0), Triangle<T>().getv2());
+	EXPECT_EQ(Vector3d<T>(0, 0, 0), Triangle<T>().getv0());
+	EXPECT_EQ(Vector3d<T>(1, 0, 0), Triangle<T>().getv1());
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), Triangle<T>().getv2());
 }
 
 TYPED_TEST(TriangleTest, TestGetArea)

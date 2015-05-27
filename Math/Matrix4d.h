@@ -121,7 +121,7 @@ public:
 
 	bool equals( const Matrix4d& rhs ) const {
 		for( int i = 0; i < 16; ++i ) {
-			if( !Tolerancef::isEqualLoosely( x[i], rhs.x[i] ) ) {
+			if( !Tolerance<T>::isEqualLoosely( x[i], rhs.x[i] ) ) {
 				return false;
 			}
 		}

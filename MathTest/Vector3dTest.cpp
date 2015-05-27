@@ -41,7 +41,7 @@ TYPED_TEST( Vector3dTest, TestScale )
 	using T = TypeParam;
 
 	EXPECT_EQ(Vector3d<T>(2, 2, 2), Vector3d<T>(1, 1, 1).scale(2));
-	EXPECT_EQ(Vector3d<T>(1.0f, 2.0f, 3.0f), Vector3d<T>(0.5f, 1.0f, 1.5f).scale(2.0f));
+	EXPECT_EQ(Vector3d<T>(1, 2, 3), Vector3d<T>(0.5, 1, 1.5).scale(2));
 }
 
 TYPED_TEST(Vector3dTest, TestGetLengthSquared)

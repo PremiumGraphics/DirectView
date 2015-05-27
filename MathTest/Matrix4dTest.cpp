@@ -4,34 +4,44 @@
 
 using namespace Crystal::Math;
 
+template<class T>
+class Matrix4dTest : public testing::Test {
+};
 
+typedef ::testing::Types<float, double> TestTypes;
 
-TEST( Matrix4dTest, ContructTest )
+TYPED_TEST_CASE(Matrix4dTest, TestTypes);
+
+TYPED_TEST( Matrix4dTest, ContructTest )
 {
-	Matrix4d<float> m;
-	EXPECT_EQ( Matrix4d<float>::Identity(), m );
+	using T = TypeParam;
+	Matrix4d<T> m;
+	EXPECT_EQ( Matrix4d<T>::Identity(), m );
 }
 
-TEST( Matrix4dTest, RotateYTest )
+TYPED_TEST( Matrix4dTest, RotateYTest )
 {
-	EXPECT_EQ( Matrix4d<float>::Identity(), Matrix4d<float>::RotateX( 0.0f ) );
-	EXPECT_EQ( Matrix4d<float>::Identity(), Matrix4d<float>::RotateY( 0.0f ) );
-	EXPECT_EQ( Matrix4d<float>::Identity(), Matrix4d<float>::RotateZ( 0.0f ) );
+	using T = TypeParam;
+	EXPECT_EQ( Matrix4d<T>::Identity(), Matrix4d<T>::RotateX( 0.0f ) );
+	EXPECT_EQ( Matrix4d<T>::Identity(), Matrix4d<T>::RotateY( 0.0f ) );
+	EXPECT_EQ( Matrix4d<T>::Identity(), Matrix4d<T>::RotateZ( 0.0f ) );
 }
 
-TEST( Matrix4dTest, toArraysTest )
+TYPED_TEST( Matrix4dTest, toArraysTest )
 {
-	const Matrix4d<float>& m = Matrix4d<float>::Identity();
-	std::vector< float > x = m.toArray4x4();
+	using T = TypeParam;
+
+	const Matrix4d<T>& m = Matrix4d<T>::Identity();
+	std::vector< T > x = m.toArray4x4();
 	EXPECT_EQ( x[0], 1.0f );
 	EXPECT_EQ( x[1], 0.0f );
 	EXPECT_EQ( x[2], 0.0f );
 	EXPECT_EQ( x[3], 0.0f );
 }
 
-TEST( Matrix2dTest, TestEquals )
+TYPED_TEST( Matrix4dTest, TestEquals )
 {
-	const Matrix4d<float>& m1 = Matrix4d<float>::Zero();
-	const Matrix4d<float>& m2 = Matrix4d<float>::Identity();
-	EXPECT_NE( m1, m2 );
+	using T = TypeParam;
+
+	EXPECT_NE(Matrix4d<T>::Zero(), Matrix4d<T>::Identity());
 }

@@ -81,13 +81,6 @@ public:
 
 };
 
-void Widgets::build(Frame* parent, Model& model)
-{
-	lightProperty = new LightProperty(parent, wxSize(300, 100));
-
-	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
-}
-
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
@@ -172,18 +165,24 @@ Frame::Frame()
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
+	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
-	Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
+	//Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinderConfig));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
-	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateConeConfig));
+
+
+	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
+	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
+	booleanBar->AddButton(wxID_ANY, "Union", wxImage(32, 32));
+	booleanBar->AddButton(wxID_ANY, "Diff", wxImage(32, 32));
+	booleanBar->AddButton(wxID_ANY, "Inters", wxImage(32, 32));
 
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
@@ -215,8 +214,6 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	w.build(this, model);
-
 	/*
 	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
 	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
@@ -230,20 +227,12 @@ Frame::Frame()
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	wxSizer* rSizer = new wxBoxSizer( wxVERTICAL );
-	rSizer->Add( w.getLightTree(), 0, wxEXPAND );
-
-	rSizer->Add( w.getLightProperty(), 0, wxEXPAND );
-
-	hSizer->Add( rSizer, 0, wxEXPAND );
 	hSizer->Add( view, 0, wxEXPAND);
 
 
 	vSizer->Add( bar, 0, wxEXPAND );
 	vSizer->Add( hSizer, 0, wxEXPAND );
 
-	//sizer->Add( tree, 0, wxEXPAND );
-	w.refresh();
 
 	SetSizer( vSizer );
 	
@@ -271,7 +260,6 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 	clear();
 	view->Refresh();
 
-	w.refresh();
 }
 
 void Frame::OnClose( wxRibbonButtonBarEvent& )
@@ -423,8 +411,6 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		//const MTLFile& mtl = obj.getMTLFile();
 		view->Refresh();
 
-		w.refresh();
-
 		OnCameraFit( e );
 	}
 	else if( ext == "stl" || ext == "STL" ) {
@@ -441,8 +427,6 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 		//PolygonFactory factory( model.getPolygonBuilder() );
 		//PolygonSPtrList g = factory.create(file);
 		view->Refresh();
-
-		w.refresh();
 
 		OnCameraFit( e );
 	}
@@ -647,16 +631,6 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 	*/
 }
 
-void Frame::OnCreateSphereConfig(wxRibbonButtonBarEvent& e)
-{
-	SphereConfigDialog dialog(this, sphere);
-	//dialog.setConfig(modelings.sphereConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		sphere = dialog.get();
-		//modelings.sphereConfig = dialog.getConfig();
-	}
-}
-
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
 	//Cylinder c;
@@ -665,20 +639,11 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 	//w.getPolygonTree()->build();
 }
 
-void Frame::OnCreateCylinderConfig(wxRibbonButtonBarEvent& e)
-{
-	CylinderConfigDialog dialog(this, cylinder);
-	if (dialog.ShowModal() == wxID_OK) {
-		cylinder = dialog.get();
-	}
-}
-
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	const Box<float> b;
 	
 	//model.getPolygonBuilder().build(b);
-	w.refresh();
 	view->Refresh();
 }
 
@@ -686,15 +651,5 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	//model.getPolygonBuilder().build(10, cone);
-	w.refresh();
 	view->Refresh();
-}
-
-void Frame::OnCreateConeConfig(wxRibbonButtonBarEvent& e)
-{
-	ConeConfigDialog dialog(this);
-	//dialog.setConfig(modelings.coneConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		//modelings.coneConfig = dialog.getConfig();
-	}
 }

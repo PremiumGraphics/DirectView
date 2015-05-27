@@ -35,26 +35,6 @@ namespace Crystal {
 
 		class Frame;
 
-class Widgets {
-public:
-	Widgets() {}
-
-	void build(Frame* parent, Model& model);
-
-	void refresh() {
-		lightTree->build();
-	}
-
-	LightTree* getLightTree() const { return lightTree; }
-
-	LightProperty* getLightProperty() const { return lightProperty; }
-
-private:
-	LightTree* lightTree;
-
-	LightProperty* lightProperty;
-};
-
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -125,28 +105,14 @@ private:
 
 	void OnCreateSphere(wxRibbonButtonBarEvent& e);
 
-	void OnCreateSphereConfig(wxRibbonButtonBarEvent& e);
-
 	void OnCreateCylinder(wxRibbonButtonBarEvent& e);
-
-	void OnCreateCylinderConfig(wxRibbonButtonBarEvent& e);
 
 	void OnCreateBox(wxRibbonButtonBarEvent& e);
 
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
-	void OnCreateConeConfig(wxRibbonButtonBarEvent& e);
 
 private:
-	Math::Sphere<float> sphere;
-	Math::Cylinder<float> cylinder;
-	Math::Cone<float> cone;
-
-
-private:
-
-	Widgets w;
-
 	View* view;
 	Model model;
 
