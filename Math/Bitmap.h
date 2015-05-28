@@ -26,7 +26,7 @@ public:
 		bits(v)
 	{}
 
-	size_t count() const {
+	size_t getCount() const {
 		return bits.count();
 	}
 
@@ -49,19 +49,9 @@ public:
 		bits.reset();
 		return *(this);
 	}
-
-	bool operator[](const size_t i) { return bits[i]; }
-
-	bool operator[](const size_t i) const { return bits[i]; }
-
 	bool get(const size_t i) const { return bits[i]; }
 
 	Bitmap1d& movex(const size_t size) {
-		bits <<= size;
-		return (*this);
-	}
-
-	Bitmap1d& operator<<=(const size_t size) {
 		bits <<= size;
 		return (*this);
 	}
@@ -131,10 +121,17 @@ public:
 		bmp1ds(ySize)
 	{}
 
-	size_t sizex() const { return SIZE; }
+	size_t getSizeX() const { return SIZE; }
 
-	size_t sizey() const { return bmp1ds.size(); }
+	size_t getSizeY() const { return bmp1ds.size(); }
 
+	size_t getTotalSize() const { return getSizeX() * getSizeY(); }
+
+	bool get(const size_t i,const size_t j) const { return bmp1ds[i].get(j); }
+
+	void set(const size_t i, const size_t j) { bmp1ds[i].set(j); }
+
+	Bitmap2d& operator[](const size_t i) { return bmp1ds[i]; }
 
 	size_t count() const {
 		auto howMany = 0;

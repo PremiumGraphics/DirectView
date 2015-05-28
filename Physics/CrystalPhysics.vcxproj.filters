@@ -14,7 +14,6 @@
     <ClInclude Include="PhysicsParticleFindAlgo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoundaryCoordinator.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
