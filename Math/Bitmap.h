@@ -108,8 +108,8 @@ private:
 	std::bitset<SIZE> bits;
 };
 
-//template <size_t SIZE >
-//using Bitmap2d = std::vector < std::vector< Bitmap1d<SIZE > > > ;
+template <size_t SIZE >
+using Bitmap1dVector = std::vector < Bitmap1d<SIZE > >;
 
 template<size_t SIZE>
 class Bitmap2d final
@@ -117,9 +117,15 @@ class Bitmap2d final
 public:
 	Bitmap2d() = default;
 
-	Bitmap2d(const size_t ySize) :
+	explicit Bitmap2d(const size_t ySize) :
 		bmp1ds(ySize)
 	{}
+
+	explicit Bitmap2d(const size_t ySize, const std::string& str)
+	{
+		byString(str);
+	}
+
 
 	size_t getSizeX() const { return SIZE; }
 
@@ -174,36 +180,53 @@ public:
 		return Bitmap2d<SIZE>(bs);
 	}
 
+	void byString(const std::string& str, const size_t ySize) {
+		std::vector< std::string > strs;
+		for (size_t i = 0; i < ySize; ++i) {
+			const size_t start = i * getSizeX();
+			const size_t len = getSizeX();
+			strs.push_back( str.substr(start, len) );
+		}
+		byStrings(strs);
+	}
+
+	void byStrings(const std::vector<std::string>& strs) {
+		for (size_t i = 0; i < strs.size(); ++i) {
+			bmp1ds.push_back( Bitmap1d<SIZE>(strs[i]) );
+		}
+	}
+
 private:
-	std::vector< Bitmap1d< SIZE > > bmp1ds;
+	Bitmap1dVector< SIZE > bmp1ds;
 };
 
-//template< size_t SIZE >
-//using Bitmap3d = std::vector < std::vector< Bitmap2d<SIZE> > > ;
+template< size_t SIZE >
+using Bitmap2dVector = std::vector < Bitmap2d<SIZE> > ;
 
 template<size_t SIZE>
 class Bitmap3d final
 {
 public:
-	/**
 	Bitmap3d(const unsigned int y, const unsigned int z) {
-		bmp.resize(y);
+		for (size_t i = 0; i < z; ++i) {
+			bmp2ds.push_back(Bitmap2d<SIZE>(y));
+		}
 	}
-	*/
 
 	unsigned int getSizeX() const {
-		return SIZE;
+		return bmp2ds.front().getSizeX();
 	}
 
 	unsigned int getSizeY() const {
-		return bmp.size();
+		return bmp2ds.front().getSizeY();
 	}
 
 	unsigned int getSizeZ() const {
-		return bmp.front().size();
+		return bmp2ds.size();
 	}
 
 
+	/*
 	std::bitset<8> to8Bits() const {
 		std::vector< std::bitset<8> > bits;
 		for (size_t i = 0; i < getSizeX()-1; ++i ) {
@@ -224,8 +247,9 @@ public:
 		}
 		return bits;
 	}
+	*/
 private:
-	std::vector < std::vector < Bitmap1d<SIZE> > > bmp;
+	Bitmap2dVector<SIZE> bmp2ds;
 };
 	}
 }

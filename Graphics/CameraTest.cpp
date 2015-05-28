@@ -25,7 +25,7 @@ TEST( CameraTest, PerspectiveTest )
 	Camera<float> c;
 	const Matrix4d<float>& m = c.getPerspectiveMatrix();
 	{
-		const float expected = 2.0 / ( c.getRight() - c.getLeft() );
+		const T expected = T(2) / ( c.getRight() - c.getLeft() );
 		EXPECT_EQ( expected, m.getX00() );
 		EXPECT_EQ( 0.0, m.getX01() );
 		EXPECT_EQ( 0.0, m.getX02() );
@@ -33,7 +33,7 @@ TEST( CameraTest, PerspectiveTest )
 	}
 
 	{
-		const float expected = 2.0 / ( c.getTop() - c.getBottom() );
+		const T expected = T(2) / ( c.getTop() - c.getBottom() );
 		EXPECT_EQ( 0.0, m.getX10() );
 		EXPECT_EQ( expected, m.getX11() );
 		EXPECT_EQ( 0.0, m.getX12() );

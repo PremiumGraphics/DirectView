@@ -208,6 +208,17 @@ TEST(Bitmap2dTest, TestGet)
 
 }
 
+TEST(Bitmap2dTest, TestByString)
+{
+	Bitmap2d<2> bitmap;
+	bitmap.byString("0111",2);
+	EXPECT_TRUE(bitmap.get(0, 0));
+	EXPECT_FALSE(bitmap.get(0, 1));
+	EXPECT_TRUE(bitmap.get(1, 0));
+	EXPECT_TRUE(bitmap.get(1, 1));
+}
+
+
 /*
 TEST(Bitmap2dTest, TestByValues)
 {
@@ -442,6 +453,22 @@ TEST(Bitmap2dTest, TestMoveY)
 	//EXPECT_EQ(Bitmap2x2("1100"), Bitmap2x2("0011").movey(1));
 }
 */
+
+
+TEST(Bitmap3dTest, TestGetSizeX)
+{
+	EXPECT_EQ(1, Bitmap3d<1>(1,1).getSizeX());
+	EXPECT_EQ(1, Bitmap3d<1>(2,2).getSizeX());
+	//EXPECT_EQ(2, Bitmap2d<2>(1).getSizeX());
+	//EXPECT_EQ(2, Bitmap2d<2>(2).getSizeX());
+}
+
+TEST(Bitmap3dTest, TestGetSizeY)
+{
+	EXPECT_EQ(1, Bitmap3d<1>(1, 1).getSizeY());
+	EXPECT_EQ(2, Bitmap3d<1>(2, 2).getSizeY());
+	EXPECT_EQ(2, Bitmap3d<2>(2, 3).getSizeX());
+}
 
 TEST(Bitmap3dTest, TestTo8Bits)
 {

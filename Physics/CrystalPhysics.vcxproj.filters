@@ -15,7 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RigidCoordinator.cpp" />
-    <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
   </ItemGroup>
 </Project>

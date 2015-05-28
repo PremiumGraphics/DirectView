@@ -151,7 +151,6 @@
     <ClInclude Include="SPHSolver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ParticleBuilder.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
   </ItemGroup>
