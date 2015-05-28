@@ -94,12 +94,13 @@ TYPED_TEST( Vector3dTest, TestGetDistance )
 
 TYPED_TEST( Vector3dTest, TestToArray )
 {
-	const Vector3dVector<float> vectors = {
-		Vector3d<float>(1.0f, 2.0f, 3.0f),
-		Vector3d<float>(4.0f, 5.0f, 6.0f)
+	using T = TypeParam;
+	const Vector3dVector<T> vectors = {
+		Vector3d<T>(1, 2, 3),
+		Vector3d<T>(4, 5, 6)
 	};
-	const auto& actual = Vector3d<float>::toArray( vectors );
-	const std::vector<float> expected{ 1.0f, 2.0, 3.0f, 4.0, 5.0f, 6.0f };
+	const auto& actual = Vector3d<T>::toArray( vectors );
+	const std::vector<T> expected{ 1, 2, 3, 4, 5, 6 };
 
 	EXPECT_EQ( expected, actual );
 }

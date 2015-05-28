@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_SPACE_H__
 
 #include "Vector.h"
+#include <array>
 
 namespace Crystal {
 	namespace Math {
@@ -66,6 +67,25 @@ public:
 		return spaces;
 	}
 
+	std::array< Vector3d<T>, 8 > toArray() const {
+		const auto x1 = getStart().getX();
+		const auto y1 = getStart().getY();
+		const auto z1 = getStart().getZ();
+		const auto x2 = getEnd().getX();
+		const auto y2 = getEnd().getY();
+		const auto z2 = getEnd().getZ();
+
+		return{
+			Vector3d<T>(x1, y1, z1),
+			Vector3d<T>(x1, y1, z2),
+			Vector3d<T>(x1, y2, z1),
+			Vector3d<T>(x1, y2, z2),
+			Vector3d<T>(x2, y1, z1),
+			Vector3d<T>(x2, y1, z2),
+			Vector3d<T>(x2, y2, z1),
+			Vector3d<T>(x2, y2, z2),
+		};
+	}
 
 	//Vector<T,DIM> getVector() const { return vector; }
 
