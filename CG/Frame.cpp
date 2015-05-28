@@ -40,6 +40,11 @@ enum {
 	ID_CREATE_BOX,
 	ID_CREATE_CONE,
 
+	ID_BOOLEAN_UNION,
+	ID_BOOLEAN_DIFF,
+	ID_BOOLEAN_INTERSECTION,
+	ID_BOOLEAN_NOT,
+
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
 	ID_RENDERING_PHONG,
@@ -176,9 +181,15 @@ Frame::Frame()
 
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
 	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
-	booleanBar->AddButton(wxID_ANY, "Union", wxImage(32, 32));
-	booleanBar->AddButton(wxID_ANY, "Diff", wxImage(32, 32));
-	booleanBar->AddButton(wxID_ANY, "Inters", wxImage(32, 32));
+	booleanBar->AddButton(ID_BOOLEAN_UNION, "Union", wxImage("../Resource/union.png") );
+	booleanBar->AddButton(ID_BOOLEAN_DIFF, "Diff", wxImage("../Resource/diff.png"));
+	booleanBar->AddButton(ID_BOOLEAN_INTERSECTION, "Inters", wxImage("../Resource/intersection.png"));
+	booleanBar->AddButton(ID_BOOLEAN_NOT, "Not", wxImage(32, 32));
+
+	Connect(ID_BOOLEAN_UNION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanUnion));
+	Connect(ID_BOOLEAN_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanDiff));
+	Connect(ID_BOOLEAN_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanIntersection));
+	Connect(ID_BOOLEAN_NOT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanNot));
 
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
@@ -648,4 +659,26 @@ void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
+}
+
+
+void Frame::OnBooleanUnion(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO:Union");
+}
+
+void Frame::OnBooleanDiff(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO:Diff");
+}
+
+void Frame::OnBooleanIntersection(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO:Intersection");
+
+}
+
+void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO:Not");
 }

@@ -90,6 +90,15 @@ private:
 	void OnCreateCone(wxRibbonButtonBarEvent& e);
 
 
+	void OnBooleanUnion(wxRibbonButtonBarEvent& e);
+
+	void OnBooleanDiff(wxRibbonButtonBarEvent& e);
+
+	void OnBooleanIntersection(wxRibbonButtonBarEvent& e);
+
+	void OnBooleanNot(wxRibbonButtonBarEvent& e);
+
+
 private:
 	View* view;
 	Model model;

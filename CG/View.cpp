@@ -69,7 +69,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	Camera<float>* camera = model.getCamera();
+	CameraSPtr<float> camera = model.getCamera();
 	Vector3d<float> pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -235,7 +235,7 @@ void View::buildDisplayList()
 	MarchingCube<float> mc;
 	mc.buildTable();
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("10000011"));
+	const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("01000001"));
 
 	Graphics::Polygon p;
 	for (const auto t : ts) {
