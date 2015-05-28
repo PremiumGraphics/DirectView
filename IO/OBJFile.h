@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_APP_OBJ_FILE_H__
 #define __CRYSTAL_APP_OBJ_FILE_H__
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include "../IO/MTLFile.h"
 

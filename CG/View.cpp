@@ -45,7 +45,7 @@ View::~View()
 	//delete texture;
 }
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 using namespace Crystal::Math;
 

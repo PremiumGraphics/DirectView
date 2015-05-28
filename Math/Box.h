@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_BoxH__
 #define __CRYSTAL_MATH_BoxH__
 
-#include "Vector3d.h"
+#include "Vector.h"
 
 #include <vector>
 #include <string>

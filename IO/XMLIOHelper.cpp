@@ -1,6 +1,6 @@
 #include "XMLIOHelper.h"
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "../Graphics/ColorRGBA.h"
 
 using namespace Crystal::Math;

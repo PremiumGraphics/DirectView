@@ -3,7 +3,7 @@
 #include "../Math/Matrix3d.h"
 
 #include "../Math/Tolerance.h"
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "../Math/Quaternion.h"
 
 using namespace Crystal::Math;

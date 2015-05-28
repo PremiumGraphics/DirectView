@@ -5,7 +5,7 @@
 
 #include "PhysicsParticle.h"
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include "../Util/UnCopyable.h"
 

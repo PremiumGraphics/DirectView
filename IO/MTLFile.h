@@ -6,7 +6,7 @@
 #include "../Graphics/Material.h"
 #include "../Graphics/ColorRGB.h"
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 
 #include <cassert>

@@ -2,7 +2,7 @@
 #define __CRYSTAL_GRAPHICS_CAMERA_H__
 
 #include "../Math/Matrix4d.h"
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include <memory>
 

@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_GRAPHICS_VERTEX_H__
 #define __CRYSTAL_GRAPHICS_VERTEX_H__
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "ColorRGBA.h"
 #include <vector>
 #include <list>

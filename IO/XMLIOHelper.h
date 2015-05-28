@@ -3,7 +3,7 @@
 
 #include "tinyxml2.h"
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include "../Graphics/ColorRGB.h"
 #include "../Graphics/ColorRGBA.h"

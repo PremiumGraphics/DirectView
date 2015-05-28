@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "../Math/Box.h"
 
 using namespace Crystal::Math;

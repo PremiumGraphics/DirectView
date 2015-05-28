@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "../Math/Triangle.h"
 
 #include "ColorRGBA.h"

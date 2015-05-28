@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_MATH_CYLINDER_H__
 #define __CRYSTAL_MATH_CYLINDER_H__
 
-#include "Vector3d.h"
+#include "Vector.h"
 
 #include "Triangle.h"
 

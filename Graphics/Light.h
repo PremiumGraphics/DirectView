@@ -2,7 +2,7 @@
 #define __CRYSTAL_GRAPHICS_LIGHT_H__
 
 #include "ColorRGB.h"
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include <list>
 #include <string>

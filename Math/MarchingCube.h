@@ -4,7 +4,7 @@
 // The lookup tables are from  http://paulbourke.net/geometry/polygonise/
 
 #include "Triangle.h"
-#include "Vector3d.h"
+#include "Vector.h"
 #include "Space.h"
 #include "../Util/UnCopyable.h"
 #include <bitset>

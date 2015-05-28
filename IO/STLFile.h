@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_IO_STL_FILE_H__
 #define __CRYSTAL_IO_STL_FILE_H__
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 #include <fstream>
 

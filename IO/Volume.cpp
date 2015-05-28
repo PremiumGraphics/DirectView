@@ -1,6 +1,6 @@
 #include "Volume.h"
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::IO;

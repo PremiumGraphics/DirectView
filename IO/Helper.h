@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_IO_HELPER_H__
 #define __CRYSTAL_IO_HELPER_H__
 
-#include "../Math/Vector3d.h"
+#include "../Math/Vector.h"
 #include "../Graphics/ColorRGB.h"
 #include "../Graphics/ColorRGBA.h"
 #include <istream>

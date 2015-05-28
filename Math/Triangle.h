@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-#include "Vector3d.h"
+#include "Vector.h"
 
 namespace Crystal {
 	namespace Math {
