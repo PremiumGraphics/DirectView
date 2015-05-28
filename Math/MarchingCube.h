@@ -46,21 +46,42 @@ public:
 	}
 	*/
 
-	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::array< T, 8 >& val, const T isolevel)
+	std::vector<Triangle<T> > build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
 	{
+		const std::array< Vector3d<T>, 8 > vs = toArray(s);
 		const int cubeindex = getCubeIndex( val, isolevel );
-		const auto vertices = getPositions(cubeindex, p, val, isolevel);
+		const auto vertices = getPositions(cubeindex, vs, val, isolevel);
 		return build(cubeindex, vertices);
 	}
 
 
-	std::vector<Triangle<T> > build(const std::array< Vector3d<T>, 8 > p, const std::bitset< 8 >& bit )
+	std::vector<Triangle<T> > build(const Space3d<T>& s, const std::bitset< 8 >& bit )
 	{
+		const std::array< Vector3d<T>, 8 > vs = toArray(s);
 		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
-		const auto vertices = getPositions( cubeindex, p );
+		const auto vertices = getPositions( cubeindex, vs );
 		return build(cubeindex, vertices);
 	}
 
+	std::array< Vector3d<T>, 8 > toArray(const Space3d<T>& s) {
+		const auto x1 = s.getStart().getX();
+		const auto y1 = s.getStart().getY();
+		const auto z1 = s.getStart().getZ();
+		const auto x2 = s.getEnd().getX();
+		const auto y2 = s.getEnd().getY();
+		const auto z2 = s.getEnd().getZ();
+
+		return{
+			Vector3d<T>(x1, y1, z1),
+			Vector3d<T>(x1, y1, z2),
+			Vector3d<T>(x1, y2, z1),
+			Vector3d<T>(x1, y2, z2),
+			Vector3d<T>(x2, y1, z1),
+			Vector3d<T>(x2, y1, z2),
+			Vector3d<T>(x2, y2, z1),
+			Vector3d<T>(x2, y2, z2),
+		};
+	}
 
 private:
 	std::array< std::bitset<12>, 256 > edgeTable;

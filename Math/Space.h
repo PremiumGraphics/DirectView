@@ -42,6 +42,29 @@ public:
 		return !equals(rhs);
 	}
 
+	std::vector< Space3d<T> > getDivided(const T xdiv, const T ydiv, const T zdiv) const  {
+		assert(xdiv >= 1 && ydiv >= 1 && zdiv >= 1);
+
+		const auto lengthx = vector.getX() / xdiv;
+		const auto lengthy = vector.getY() / ydiv;
+		const auto lengthz = vector.getZ() / zdiv;
+		const Vector3d<T> l(lengthx, lengthy, lengthz);
+
+		std::vector< Space3d<T> > spaces;
+		for (size_t i = 0; i < xdiv; ++i) {
+			for (size_t j = 0; j < ydiv; ++j) {
+				for (size_t k = 0; k < zdiv; ++k) {
+					//Vector3d<T> origin = origin + l * i ;
+					const auto originx = origin.getX() + lengthx * i;
+					const auto originy = origin.getY() + lengthy * j;
+					const auto originz = origin.getZ() + lengthz * k;
+					const Vector3d<T> origin_(originx, originy, originz);
+					spaces.push_back( Space3d<T>(origin_, l) );
+				}
+			}
+		}
+		return spaces;
+	}
 
 
 	//Vector<T,DIM> getVector() const { return vector; }

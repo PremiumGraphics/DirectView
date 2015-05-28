@@ -11,10 +11,11 @@
 namespace Crystal{
 	namespace Physics{
 
+template<typename T>
 class BoundaryCoordinator : public Coordinator
 {
 public:
-	BoundaryCoordinator(const Math::Box<float>& box, const float timeStep ) :
+	BoundaryCoordinator(const Math::Box<T>& box, const T timeStep ) :
 		box( box ),
 		timeStep( timeStep )
 	{}
@@ -24,28 +25,28 @@ public:
 	virtual void coordinate(const PhysicsParticleSPtrVector& particles) {
 		#pragma omp parallel for
 		for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-			particles[i]->addForce(getForce(particles[i]->getCenter(), box) * particles[i]->getDensity());
+			particles[i]->addForce(getForce(particles[i]->getCenter() ) * particles[i]->getDensity());
 		}
 	}
 
 private:
-	const Math::Box<float> box;
-	const float timeStep;
+	const Math::Box<T> box;
+	const T timeStep;
 
-	Math::Vector3d<float> getForce(const Math::Vector3d<float>& center, const Math::Box<float>& box) {
-		Math::Vector3d<float> force = Math::Vector3d<float>::Zero();
+	Math::Vector3d<T> getForce(const Math::Vector3d<T>& center) {
+		Math::Vector3d<T> force = Math::Vector3d<T>::Zero();
 
-		force += getForceX(center.getX(), box );
-		force += getForceY(center.getY(), box );
-		force += getForceZ(center.getZ(), box, timeStep);
+		force += getForceX(center.getX() );
+		force += getForceY(center.getY() );
+		force += getForceZ(center.getZ() );
 
 		return force;
 
 	}
 
-	Math::Vector3d<float> getForceX(const float x, const Math::Box<float>& box)
+	Math::Vector3d<T> getForceX(const T x)
 	{
-		float over = 0.0f;
+		T over = 0.0f;
 		if (x > box.getMaxX()) {
 			over = x - box.getMaxX();
 		}
@@ -54,12 +55,12 @@ private:
 		}
 
 		const float force = getForce(over);
-		return Math::Vector3d<float>::UnitX() * force;
+		return Math::Vector3d<T>::UnitX() * force;
 	}
 
-	Math::Vector3d<float> getForceY(const float y, const Math::Box<float>& box)
+	Math::Vector3d<float> getForceY(const float y)
 	{
-		float over = 0.0f;
+		T over = 0.0f;
 		if (y > box.getMaxY()) {
 			over = y - box.getMaxY();
 		}
@@ -67,49 +68,29 @@ private:
 			over = y - box.getMinY();
 		}
 		const float force = getForce(over);
-		return Math::Vector3d<float>::UnitY() * force;
-
+		return Math::Vector3d<T>::UnitY() * force;
 	}
 
-	Math::Vector3d<float> getForceZ(const float z, const Math::Box<float>& box, const float timeStep)
+	Math::Vector3d<T> getForceZ(const float z)
 	{
-		float over = 0.0f;
+		T over = 0.0f;
 		if (z > box.getMaxZ()) {
 			over = z - box.getMaxZ();
 		}
 		else if (z < box.getMinZ()) {
 			over = z - box.getMinZ();
 		}
-		const float force = getForce(over);
-		return Math::Vector3d<float>::UnitZ() * force;
+		const T force = getForce(over);
+		return Math::Vector3d<T>::UnitZ() * force;
 
 	}
 
-	float getForce(const float over) {
+	T getForce(const T over) {
 		return -over / timeStep / timeStep;
 	}
 
 
 };
-
-/*
-class SphereBoundaryCoordinator : public Coordinator
-{
-public:
-	SphereBoundaryCoordinator(const float radius, const Math::Vector3d& center) :
-		radius( radius ),
-		center( center )
-	{}
-
-	~SphereBoundaryCoordinator(void){};
-
-	virtual void coordinate(const ParticleVector& particles);
-
-private:
-	const float radius;
-	const Math::Vector3d center;
-};
-*/
 
 	}
 }
