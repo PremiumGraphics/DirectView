@@ -6,7 +6,7 @@
 #include "../Math/Box.h"
 #include "../Math/Vector.h"
 
-#include "PhysicsParticle.h"
+#include "Particle.h"
 #include "PhysicsObject.h"
 
 namespace Crystal {
@@ -24,12 +24,12 @@ public:
 	~PhysicsObjectBuilder() = default;
 
 	PhysicsObjectSPtr create(const Math::Box<float>& box, const PhysicsObject::Type& type) {
-		PhysicsParticle<float>::Constant constant;
-		PhysicsParticleSPtrVector particles;
+		Particle<float>::Constant constant;
+		ParticleSPtrVector particles;
 		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 			for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 				for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-					particles.push_back(std::make_shared<PhysicsParticle<float> >(constant, Math::Vector3d<float>(x, y, z)));
+					particles.push_back(std::make_shared<Particle<float> >(constant, Math::Vector3d<float>(x, y, z)));
 					//object->add(p);
 				}
 			}

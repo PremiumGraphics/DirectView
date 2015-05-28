@@ -11,7 +11,7 @@ public:
 	FluidObject()
 	{}
 
-	FluidObject(const PhysicsParticleSPtrVector& particles) :
+	FluidObject(const ParticleSPtrVector& particles) :
 		PhysicsObject(particles) 
 	{}
 

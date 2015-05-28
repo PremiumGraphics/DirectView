@@ -9,10 +9,10 @@ using T = float;
 
 TEST( EulerIntegratorTest, Test )
 {
-	const PhysicsParticleSPtr particle = std::make_shared<PhysicsParticle<T> >( Vector3d<T>( 0.0, 0.0, 0.0 ) );
+	const ParticleSPtr particle = std::make_shared<Particle<T> >( Vector3d<T>( 0.0, 0.0, 0.0 ) );
 	particle->setVelocity(Vector3d<T>(1.0f, 0.0f, 0.0f));
 	EulerIntegrator integrator( 2.0f );
-	PhysicsParticleSPtrVector particles{ particle };
+	ParticleSPtrVector particles{ particle };
 	integrator.coordinate( particles );
 	const auto actual = particle->getCenter();
 	EXPECT_EQ(Vector3d<T>(2.0f, 0.0f, 0.0), actual);
@@ -20,9 +20,9 @@ TEST( EulerIntegratorTest, Test )
 
 TEST( StaticIntegratorTest, Test )
 {
-	PhysicsParticle<T>::Constant constant;
-	const auto particle = std::make_shared<PhysicsParticle<T> >(constant, Vector3d<T>(0.0f, 0.0f, 0.0f));
-	PhysicsParticleSPtrVector particles{ particle };
+	Particle<T>::Constant constant;
+	const auto particle = std::make_shared<Particle<T> >(constant, Vector3d<T>(0.0f, 0.0f, 0.0f));
+	ParticleSPtrVector particles{ particle };
 	StaticIntegrator integrator;
 	integrator.coordinate( particles );
 }

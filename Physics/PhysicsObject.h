@@ -17,12 +17,12 @@ public:
 
 	PhysicsObject() {};
 
-	PhysicsObject(const PhysicsParticleSPtrVector& particles ) :
+	PhysicsObject(const ParticleSPtrVector& particles ) :
 		particles(particles)
 	{}
 
 
-	PhysicsObject( const PhysicsParticleSPtrVector& particles, const CoordinatorSPtrVector& coordinators ) :
+	PhysicsObject( const ParticleSPtrVector& particles, const CoordinatorSPtrVector& coordinators ) :
 		particles( particles ),
 		coordinators( coordinators )
 	{}
@@ -37,7 +37,7 @@ public:
 		}
 	}
 
-	PhysicsParticleSPtrVector getParticles() const { return particles; }
+	ParticleSPtrVector getParticles() const { return particles; }
 
 	float getMass() const {
 		auto weight = 0.0f;
@@ -62,7 +62,7 @@ public:
 
 
 private:
-	PhysicsParticleSPtrVector particles;
+	ParticleSPtrVector particles;
 	CoordinatorSPtrVector coordinators;
 };
 

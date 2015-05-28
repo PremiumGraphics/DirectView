@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_PARTICLE_BUILDER_H__
 #define __CRYSTAL_PHYSICS_PARTICLE_BUILDER_H__
 
-#include "PhysicsParticle.h"
+#include "Particle.h"
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
@@ -26,12 +26,12 @@ public:
 
 	float getDivideLength() const { return divideLength; }
 
-	PhysicsParticleSPtrVector create(const Math::Box<T>& box) {
-		PhysicsParticleSPtrVector particles;
+	ParticleSPtrVector create(const Math::Box<T>& box) {
+		ParticleSPtrVector particles;
 		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
 			for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
 				for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-					particles.push_back(std::make_shared<PhysicsParticle<T> >(constant, Math::Vector3d<T>(x, y, z)));
+					particles.push_back(std::make_shared<Particle<T> >(constant, Math::Vector3d<T>(x, y, z)));
 					//object->add(p);
 				}
 			}
@@ -39,7 +39,7 @@ public:
 		return particles;
 	}
 
-	PhysicsParticleSPtrVector create(const Math::Sphere<float>& sphere) {
+	ParticleSPtrVector create(const Math::Sphere<float>& sphere) {
 		Math::Box<float> box = sphere.getBoundingBox();
 		Math::Vector3dVector<float> positions;
 		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
@@ -55,7 +55,7 @@ public:
 		return create(positions);
 	}
 
-	PhysicsParticleSPtrVector create(const Math::Cylinder<T>& cylinder) {
+	ParticleSPtrVector create(const Math::Cylinder<T>& cylinder) {
 		const Math::Box<float>& box = cylinder.getBoundingBox();
 		Math::Vector3dVector<float> positions;
 		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
@@ -71,10 +71,10 @@ public:
 		return create(positions);
 	}
 
-	PhysicsParticleSPtrVector create(const Math::Vector3dVector<T>& positions) {
-		PhysicsParticleSPtrVector particles;
+	ParticleSPtrVector create(const Math::Vector3dVector<T>& positions) {
+		ParticleSPtrVector particles;
 		for (const auto& p : positions) {
-			particles.push_back(std::make_shared<PhysicsParticle<T> >(constant, p));
+			particles.push_back(std::make_shared<Particle<T> >(constant, p));
 		}
 		return particles;
 	}
@@ -82,7 +82,7 @@ public:
 private:
 	unsigned int nextId;
 	T divideLength;
-	PhysicsParticle<float>::Constant constant;
+	Particle<float>::Constant constant;
 };
 
 	}

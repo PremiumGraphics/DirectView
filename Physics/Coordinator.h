@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "PhysicsParticle.h"
+#include "Particle.h"
 
 #include "../Math/Vector.h"
 
@@ -22,7 +22,7 @@ public:
 
 	virtual ~Coordinator(){}
 
-	virtual void coordinate( const PhysicsParticleSPtrVector& particles ) = 0;
+	virtual void coordinate( const ParticleSPtrVector& particles ) = 0;
 };
 
 using CoordinatorSPtr = std::shared_ptr < Coordinator > ;
@@ -32,7 +32,7 @@ class StaticIntegrator final : public Coordinator
 {
 public:
 
-	virtual void coordinate( const PhysicsParticleSPtrVector& particles) override
+	virtual void coordinate( const ParticleSPtrVector& particles) override
 	{}
 };
 
@@ -44,7 +44,7 @@ public:
 	{
 	}
 	
-	virtual void coordinate(const PhysicsParticleSPtrVector& particles) override {
+	virtual void coordinate(const ParticleSPtrVector& particles) override {
 		for (const auto& particle : particles) {
 			const auto& accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
 			particle->addVelocity(accelaration * timeStep);
@@ -67,7 +67,7 @@ public:
 		timeStep( timeStep )
 	{}
 
-	virtual void coordinate(const PhysicsParticleSPtrVector& particles) override {
+	virtual void coordinate(const ParticleSPtrVector& particles) override {
 		for (const auto& particle : particles) {
 			particle->addForce(force * particle->getDensity());
 		}

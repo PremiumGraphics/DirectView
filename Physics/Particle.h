@@ -14,7 +14,7 @@ namespace Crystal{
 		class Coordinator;
 
 template<typename T>
-class PhysicsParticle final : private UnCopyable
+class Particle final : private UnCopyable
 {
 public:
 	
@@ -43,15 +43,15 @@ public:
 		float restDensity;
 	};
 	
-	PhysicsParticle()
+	Particle()
 	{
 	}
 
-	PhysicsParticle( const Math::Vector3d<T>& center ) :
+	Particle( const Math::Vector3d<T>& center ) :
 		center( center )
 	{}
 
-	PhysicsParticle(const Constant& constant, const Math::Vector3d<T>& center) :
+	Particle(const Constant& constant, const Math::Vector3d<T>& center) :
 	constant( constant ),
 	center( center )
 	{
@@ -124,7 +124,7 @@ public:
 
 	int getGridID() const { return gridID; }
 
-	static bool compare(const std::shared_ptr<PhysicsParticle>& lhs, const std::shared_ptr<PhysicsParticle>& rhs){
+	static bool compare(const std::shared_ptr<Particle>& lhs, const std::shared_ptr<Particle>& rhs){
 		return lhs->getGridID() < rhs->getGridID();
 	}
 
@@ -141,11 +141,11 @@ private:
 	int gridID;
 };
 
-using PhysicsParticleSPtr = std::shared_ptr < PhysicsParticle<float> > ;
+using ParticleSPtr = std::shared_ptr < Particle<float> > ;
 
-using PhysicsParticleSPtrList = std::list < PhysicsParticleSPtr > ;
+using ParticleSPtrList = std::list < ParticleSPtr > ;
 
-using PhysicsParticleSPtrVector = std::vector < PhysicsParticleSPtr > ;
+using ParticleSPtrVector = std::vector < ParticleSPtr > ;
 
 //typedef std::pair<Particle*, Particle*> ParticlePair;
 

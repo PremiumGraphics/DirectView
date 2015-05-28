@@ -22,7 +22,7 @@ public:
 
 	~BoundaryCoordinator(void){};
 
-	virtual void coordinate(const PhysicsParticleSPtrVector& particles) {
+	virtual void coordinate(const ParticleSPtrVector& particles) {
 		#pragma omp parallel for
 		for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
 			particles[i]->addForce(getForce(particles[i]->getCenter() ) * particles[i]->getDensity());

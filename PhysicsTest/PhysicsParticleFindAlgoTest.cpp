@@ -9,9 +9,9 @@ using T = float;
 
 TEST(NeighborSearchAlgoTest, Test)
 {
-	const auto particle1 = std::make_shared<PhysicsParticle<T> >(Vector3d<T>(0.0, 0.0, 0.0));
-	const auto particle2 = std::make_shared<PhysicsParticle<T> >(Vector3d<T>(1.0, 0.0, 0.0));
-	const PhysicsParticleSPtrVector particles{
+	const auto particle1 = std::make_shared<Particle<T> >(Vector3d<T>(0.0, 0.0, 0.0));
+	const auto particle2 = std::make_shared<Particle<T> >(Vector3d<T>(1.0, 0.0, 0.0));
+	const ParticleSPtrVector particles{
 		particle1,
 		particle2,
 	};

@@ -9,8 +9,8 @@ using T = float;
 
 TEST( BoundaryCoordinatorTest, Test )
 {
-	const PhysicsParticleSPtr particle = std::make_shared<PhysicsParticle<T> >( Vector3d<T>( 0.0, 0.0, 0.0 ) );
-	const PhysicsParticleSPtrVector particles{ particle };
+	const ParticleSPtr particle = std::make_shared<Particle<T> >( Vector3d<T>( 0.0, 0.0, 0.0 ) );
+	const ParticleSPtrVector particles{ particle };
 
 	BoundaryCoordinator<T> coordinator( Box<T>::Unit(), 1.0f);
 	coordinator.coordinate(particles);

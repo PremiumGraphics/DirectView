@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
 #define __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
 
-#include "PhysicsParticle.h"
+#include "Particle.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -15,7 +15,7 @@ public:
 		particle2( nullptr )
 	{}
 
-	PhysicsParticlePair(const PhysicsParticleSPtr& particle1, const PhysicsParticleSPtr& particle2) :
+	PhysicsParticlePair(const ParticleSPtr& particle1, const ParticleSPtr& particle2) :
 		particle1(particle1),
 		particle2(particle2)
 	{
@@ -52,13 +52,13 @@ public:
 			particle1 != particle2;
 	}
 
-	PhysicsParticleSPtr getParticle1() const { return particle1; }
+	ParticleSPtr getParticle1() const { return particle1; }
 
-	PhysicsParticleSPtr getParticle2() const { return particle2; }
+	ParticleSPtr getParticle2() const { return particle2; }
 
 private:
-	PhysicsParticleSPtr particle1;
-	PhysicsParticleSPtr particle2;
+	ParticleSPtr particle1;
+	ParticleSPtr particle2;
 };
 
 using ParticlePairVector = std::vector<PhysicsParticlePair<float> >;

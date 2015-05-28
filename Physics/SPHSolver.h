@@ -62,8 +62,8 @@ public:
 	}
 
 private:
-	PhysicsParticleSPtrVector getParticles(const PhysicsObjectSPtrVector& objects) {
-		PhysicsParticleSPtrVector ordered;
+	ParticleSPtrVector getParticles(const PhysicsObjectSPtrVector& objects) {
+		ParticleSPtrVector ordered;
 		for (const auto& object : objects) {
 			const auto& particles = object->getParticles();
 			ordered.insert(ordered.end(), particles.begin(), particles.end());
