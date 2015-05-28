@@ -4,10 +4,6 @@
 
 #include "View.h"
 
-#include "Tree.h"
-#include "PropertyDialog.h"
-
-#include "ModelingDialog.h"
 
 #include "wx/filename.h"
 
@@ -641,7 +637,7 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	const Box<float> b;
+	//const Box<float> b;
 	
 	//model.getPolygonBuilder().build(b);
 	view->Refresh();

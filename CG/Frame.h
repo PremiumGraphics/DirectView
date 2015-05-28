@@ -6,34 +6,12 @@
 
 #include "Model.h"
 
-#include "ModelingDialog.h"
-
-#include "PropertyDialog.h"
-
-#include "Tree.h"
-#include "PropertyDialog.h"
-
-#include "../Math/Triangle.h"
-#include "../Math/Sphere.h"
-#include "../Math/Box.h"
-#include "../Math/Cylinder.h"
-
-
 #include <memory>
 
 namespace Crystal {
 	namespace CG {
 		class View;
 		class Model;
-		class PolygonTree;
-		class MaterialTree;
-		class LightTree;
-
-		class PolygonGroupProperty;
-		class MaterialProperty;
-		class LightProperty;
-
-		class Frame;
 
 
 class Frame : public wxFrame//wxMDIParentFrame
