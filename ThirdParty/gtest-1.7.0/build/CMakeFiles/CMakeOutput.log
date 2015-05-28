@@ -1,0 +1,249 @@
+The system is: Windows - 6.1 - AMD64
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:28 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdCXX\CompilerIdCXX.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "Debug\" を作成しています。
+  ディレクトリ "Debug\CompilerIdCXX.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "Debug\CompilerIdCXX.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /nologo /W0 /WX- /Od /Oy- /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCXXCompilerId.obj
+  CompilerIdCXX.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdCXX\.\CompilerIdCXX.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_CXX_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe
+FinalizeBuildStatus:
+  ファイル "Debug\CompilerIdCXX.tlog\unsuccessfulbuild" を削除しています。
+  "Debug\CompilerIdCXX.tlog\CompilerIdCXX.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdCXX\CompilerIdCXX.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.42
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+
+The CXX compiler identification is MSVC, found in "C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/3.1.1/CompilerIdCXX/CompilerIdCXX.exe"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:29 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdC\CompilerIdC.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "Debug\" を作成しています。
+  ディレクトリ "Debug\CompilerIdC.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "Debug\CompilerIdC.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /nologo /W0 /WX- /Od /Oy- /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe
+FinalizeBuildStatus:
+  ファイル "Debug\CompilerIdC.tlog\unsuccessfulbuild" を削除しています。
+  "Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\3.1.1\CompilerIdC\CompilerIdC.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.46
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/3.1.1/CompilerIdC/CompilerIdC.exe"
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec4076864023.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:30 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec4076864023.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec4076864023.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec4076864023.dir\Debug\cmTryCom.B92E4BBD.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec4076864023.dir\Debug\cmTryCom.B92E4BBD.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec4076864023.dir\Debug\\" /Fd"cmTryCompileExec4076864023.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec4076864023.dir\Debug\\" /Fd"cmTryCompileExec4076864023.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  
+  testCXXCompiler.cxx
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4076864023.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4076864023.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4076864023.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec4076864023.dir\Debug\testCXXCompiler.obj
+  cmTryCompileExec4076864023.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4076864023.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec4076864023.dir\Debug\cmTryCom.B92E4BBD.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec4076864023.dir\Debug\cmTryCom.B92E4BBD.tlog\cmTryCompileExec4076864023.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec4076864023.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:01.34
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec1074770820.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:31 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec1074770820.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec1074770820.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec1074770820.dir\Debug\cmTryCom.D8A9EFF2.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec1074770820.dir\Debug\cmTryCom.D8A9EFF2.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1074770820.dir\Debug\\" /Fd"cmTryCompileExec1074770820.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCXXCompilerABI.cpp"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1074770820.dir\Debug\\" /Fd"cmTryCompileExec1074770820.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCXXCompilerABI.cpp"
+  
+  CMakeCXXCompilerABI.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1074770820.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1074770820.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1074770820.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec1074770820.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTryCompileExec1074770820.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1074770820.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec1074770820.dir\Debug\cmTryCom.D8A9EFF2.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec1074770820.dir\Debug\cmTryCom.D8A9EFF2.tlog\cmTryCompileExec1074770820.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec1074770820.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.48
+
+
+Determining if the C compiler works passed with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec791703268.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:32 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec791703268.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec791703268.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec791703268.dir\Debug\cmTryCom.848A98DA.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec791703268.dir\Debug\cmTryCom.848A98DA.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec791703268.dir\Debug\\" /Fd"cmTryCompileExec791703268.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec791703268.dir\Debug\\" /Fd"cmTryCompileExec791703268.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  
+  testCCompiler.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec791703268.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec791703268.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec791703268.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec791703268.dir\Debug\testCCompiler.obj
+  cmTryCompileExec791703268.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec791703268.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec791703268.dir\Debug\cmTryCom.848A98DA.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec791703268.dir\Debug\cmTryCom.848A98DA.tlog\cmTryCompileExec791703268.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec791703268.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.51
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec4221913523.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Microsoft (R) Build Engine バージョン 12.0.31101.0
+[Microsoft .NET Framework、バージョン 4.0.30319.34209]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+2015/05/28 13:51:33 にビルドを開始しました。
+ノード 1 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec4221913523.vcxproj" (既定のターゲット)。
+PrepareForBuild:
+  ディレクトリ "cmTryCompileExec4221913523.dir\Debug\" を作成しています。
+  ディレクトリ "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\" を作成しています。
+  ディレクトリ "cmTryCompileExec4221913523.dir\Debug\cmTryCom.EA473784.tlog\" を作成しています。
+InitializeBuildStatus:
+  "AlwaysCreate" が指定されたため "cmTryCompileExec4221913523.dir\Debug\cmTryCom.EA473784.tlog\unsuccessfulbuild" を作成しています。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4221913523.dir\Debug\\" /Fd"cmTryCompileExec4221913523.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCCompilerABI.c"
+  Microsoft(R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4221913523.dir\Debug\\" /Fd"cmTryCompileExec4221913523.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.1\Modules\CMakeCCompilerABI.c"
+  
+  CMakeCCompilerABI.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4221913523.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4221913523.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4221913523.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec4221913523.dir\Debug\CMakeCCompilerABI.obj
+  cmTryCompileExec4221913523.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4221913523.exe
+FinalizeBuildStatus:
+  ファイル "cmTryCompileExec4221913523.dir\Debug\cmTryCom.EA473784.tlog\unsuccessfulbuild" を削除しています。
+  "cmTryCompileExec4221913523.dir\Debug\cmTryCom.EA473784.tlog\cmTryCompileExec4221913523.lastbuildstate" のタッチ タスクを実行しています。
+プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\ThirdParty\gtest-1.7.0\build\CMakeFiles\CMakeTmp\cmTryCompileExec4221913523.vcxproj" (既定のターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:00.51
+
+

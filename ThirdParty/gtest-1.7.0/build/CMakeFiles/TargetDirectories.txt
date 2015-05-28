@@ -1,0 +1,4 @@
+C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/gtest.dir
+C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/gtest_main.dir
+C:/Users/PremiumGraphics/Documents/GitHub/DirectView/ThirdParty/gtest-1.7.0/build/CMakeFiles/ZERO_CHECK.dir
