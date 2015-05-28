@@ -117,6 +117,10 @@ class Bitmap2d final
 public:
 	Bitmap2d() = default;
 
+	explicit Bitmap2d(const Bitmap1dVector<SIZE>& bmps) :
+		bmp1ds(bmps)
+	{}
+
 	explicit Bitmap2d(const size_t ySize) :
 		bmp1ds(ySize)
 	{}
@@ -175,7 +179,7 @@ public:
 	Bitmap2d<SIZE> not() const {
 		std::vector< Bitmap1d< SIZE > > bs;
 		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bs[i] = bmp1ds[i].not();
+			bs.push_back( bmp1ds[i].not() );
 		}
 		return Bitmap2d<SIZE>(bs);
 	}
@@ -207,6 +211,11 @@ template<size_t SIZE>
 class Bitmap3d final
 {
 public:
+	explicit Bitmap3d(const Bitmap2dVector<SIZE>& bmps) :
+	bmp2ds(bmps)
+	{
+	}
+
 	Bitmap3d(const unsigned int y, const unsigned int z) {
 		for (size_t i = 0; i < z; ++i) {
 			bmp2ds.push_back(Bitmap2d<SIZE>(y));
@@ -225,29 +234,32 @@ public:
 		return bmp2ds.size();
 	}
 
-
-	/*
-	std::bitset<8> to8Bits() const {
-		std::vector< std::bitset<8> > bits;
-		for (size_t i = 0; i < getSizeX()-1; ++i ) {
-			for (size_t j = 0; j < getSizeY()-1; ++j) {
-				for (size_t k = 0; l < getSizeZ()-1; ++k) {
-					std::bitset<8> b;
-					if (bmp[i][j][k]) { b.set(0); }
-					if (bmp[i][j][k+1]) { b.set(1); }
-					if (bmp[i][j+1][k]) { b.set(2); }
-					if (bmp[i][j+1][k+1]) { b.set(3); }
-					if (bmp[i+1][j][k]) { b.set(4); }
-					if (bmp[i+1][j][k+1]) { b.set(5); }
-					if (bmp[i+1][j+1][k]) { b.set(6); }
-					if (bmp[i+1][j+1][k+1]) { b.set(7); }
-					bits.push_back(b);
-				}
-			}
+	Bitmap3d<SIZE> not() const {
+		Bitmap2dVector< SIZE > bs;
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bs.push_back( bmp2ds[i].not() );
 		}
-		return bits;
+		return Bitmap3d<SIZE>(bs);
 	}
-	*/
+
+	bool get(const size_t i, const size_t j, const size_t k) const { return bmp2ds[i].get(j,k); }
+
+	void set(const size_t i, const size_t j) { bmp2ds[i].set(j,k); }
+
+	std::bitset<8> to8Bit(const size_t i, const size_t j, const size_t k) const {
+		std::bitset<8> b;
+		if (get(i, j, k)){ b.set(0);}
+		if (get(i, j, k + 1)){ b.set(1); }
+		if (get(i, j + 1, k)) { b.set(2); }
+		if (get(i, j + 1, k + 1)) { b.set(3); }
+		if (get(i + 1, j, k))	{ b.set(4); }
+		if (get(i + 1, j, k + 1)) { b.set(5); }
+		if (get(i + 1, j + 1, k)) { b.set(6); }
+		if (get(i + 1, j + 1, k + 1)) { b.set(7); }
+		return b;
+
+	}
+
 private:
 	Bitmap2dVector<SIZE> bmp2ds;
 };

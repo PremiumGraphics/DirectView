@@ -470,7 +470,14 @@ TEST(Bitmap3dTest, TestGetSizeY)
 	EXPECT_EQ(2, Bitmap3d<2>(2, 3).getSizeX());
 }
 
-TEST(Bitmap3dTest, TestTo8Bits)
+TEST(Bitmap3dTest, TestNot)
 {
+	const Bitmap3d<2> actual = Bitmap3d<2>(2, 2).not();
+	EXPECT_TRUE(actual.get(0, 0, 0));
+}
 
+TEST(Bitmap3dTest, TestTo8Bit)
+{
+	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d<2>(2, 2).to8Bit(0,0,0) );
+	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d<2>(2, 2).not().to8Bit(0, 0, 0) );
 }
