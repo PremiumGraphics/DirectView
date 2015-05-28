@@ -151,7 +151,6 @@
     <ClInclude Include="SPHSolver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
