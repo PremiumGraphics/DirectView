@@ -7,15 +7,15 @@ namespace Crystal {
 	namespace Physics {
 
 template<typename T>
-class PhysicsParticlePair final
+class ParticlePair final
 {
 public:
-	PhysicsParticlePair() :
+	ParticlePair() :
 		particle1( nullptr ),
 		particle2( nullptr )
 	{}
 
-	PhysicsParticlePair(const ParticleSPtr& particle1, const ParticleSPtr& particle2) :
+	ParticlePair(const ParticleSPtr& particle1, const ParticleSPtr& particle2) :
 		particle1(particle1),
 		particle2(particle2)
 	{
@@ -61,7 +61,7 @@ private:
 	ParticleSPtr particle2;
 };
 
-using ParticlePairVector = std::vector<PhysicsParticlePair<float> >;
+using ParticlePairVector = std::vector<ParticlePair<float> >;
 
 	}
 }

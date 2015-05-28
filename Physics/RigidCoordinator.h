@@ -22,11 +22,36 @@ private:
 	Math::Vector3d<float> angleVelosity;
 	float proceedTime;
 
-	void convertToFluidForce(const ParticleSPtrVector& particles);
+	void convertToFluidForce(const ParticleSPtrVector& particles) {
+		Math::Vector3d<float> totalForce(0.0, 0.0, 0.0);
+		for (const auto& p : particles) {
+			totalForce += p->getForce() * p->getVolume();
+		}
 
-	void getAngleVelosity( const Math::Vector3d<float>& I, const Math::Vector3d<float>& N, const float proceedTime );
+		const float weight = getWeight(particles);
+		for (const auto& p : particles) {
+			p->setForce(totalForce / weight * p->getDensity());
+		}
+	}
 
-	float getWeight(const ParticleSPtrVector& particles);
+	void getAngleVelosity(const Math::Vector3d<float>& I, const Math::Vector3d<float>& N, const float proceedTime);
+
+	Math::Vector3d<float> getAverageVelosity(const ParticleSPtrVector& particles) {
+		Math::Vector3d<float> averageVelosity(0.0, 0.0, 0.0);
+		for (const auto& p : particles) {
+			averageVelosity += p->getVelocity();// variable.velocity;
+		}
+		return averageVelosity / static_cast<float>(particles.size());
+	}
+
+
+	float getWeight(const ParticleSPtrVector& particles) {
+		auto weight = 0.0f;
+		for (const auto& particle : particles) {
+			weight += particle->getMass();
+		}
+		return weight;
+	}
 };
 
 	}

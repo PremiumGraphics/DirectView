@@ -30,12 +30,12 @@ public:
 		top( top )
 	{}
 
-	Math::Matrix4d<float> getModelviewMatrix() const {
-		Math::Matrix4d<float> matrix;
+	Math::Matrix4d<T> getModelviewMatrix() const {
+		Math::Matrix4d<T> matrix;
 		matrix.translate( pos.getX(), pos.getY(), pos.getZ() );
-		matrix *= Math::Matrix4d<float>::RotateX( angle.getX() );
-		matrix *= Math::Matrix4d<float>::RotateY( angle.getY() );
-		matrix *= Math::Matrix4d<float>::RotateZ( angle.getZ() );
+		matrix *= Math::Matrix4d<T>::RotateX( angle.getX() );
+		matrix *= Math::Matrix4d<T>::RotateY( angle.getY() );
+		matrix *= Math::Matrix4d<T>::RotateZ( angle.getZ() );
 		return matrix;
 	}
 
@@ -73,16 +73,16 @@ public:
 	Math::Vector3d<T> getPos() const { return pos; }
 
 	Math::Matrix4d<T> getOrthogonalMatrix() const {
-		const float left = -0.5f;
-		const float right = 0.5f;
-		const float bottom = 0.0f;
-		const float top = 1.0f;
+		const T left = -0.5f;
+		const T right = 0.5f;
+		const T bottom = 0.0f;
+		const T top = 1.0f;
 
-		const float dx = right - left;
-		const float dy = top - bottom;
-		const float dz = far_ - near_;
+		const T dx = right - left;
+		const T dy = top - bottom;
+		const T dz = far_ - near_;
 
-		Math::Matrix4d matrix;
+		Math::Matrix4d<T> matrix;
 		matrix.setIdentityMatrix();
 		matrix.x[0] =  2.0f / dx;
 		matrix.x[5] =  2.0f / dy;

@@ -2,7 +2,7 @@
 #define __CRYSTAL_PHYSICS_PARTICLE_FIND_ALGO_H__
 
 #include "Particle.h"
-#include "PhysicsParticlePair.h"
+#include "ParticlePair.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -80,8 +80,8 @@ private:
 			while (yIter != particles.end() && ((*yIter)->getGridID() <= gridID + 1)) {
 				const auto& centerY = (*yIter)->getCenter();
 				if (centerX.getDistanceSquared(centerY) < effectLengthSquared) {
-					pairs.push_back(PhysicsParticlePair<float>((*xIter), (*yIter)));
-					pairs.push_back(PhysicsParticlePair<float>((*yIter), (*xIter)));
+					pairs.push_back(ParticlePair<float>((*xIter), (*yIter)));
+					pairs.push_back(ParticlePair<float>((*yIter), (*xIter)));
 				}
 				++yIter;
 			}
@@ -111,8 +111,8 @@ private:
 				while (zIter != particles.end() && ((*zIter)->getGridID() <= baseID + 2)) {
 					const auto& centerZ = (*zIter)->getCenter();
 					if (centerX.getDistanceSquared(centerZ) < effectLengthSquared) {
-						pairs.push_back(PhysicsParticlePair<float>((*xIter), (*zIter)));
-						pairs.push_back(PhysicsParticlePair<float>((*zIter), (*xIter)));
+						pairs.push_back(ParticlePair<float>((*xIter), (*zIter)));
+						pairs.push_back(ParticlePair<float>((*zIter), (*xIter)));
 					}
 					++zIter;
 				}

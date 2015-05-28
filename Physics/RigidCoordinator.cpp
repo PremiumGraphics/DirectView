@@ -20,23 +20,6 @@ Vector3d<float> getCenter(const ParticleSPtrVector& particles){
 	return center /= static_cast<float>(particles.size());
 }
 
-Vector3d<float> getAverageVelosity(const ParticleSPtrVector& particles)
-{
-	Vector3d<float> averageVelosity(0.0, 0.0, 0.0);
-	for (const auto& p : particles) {
-		averageVelosity += p->getVelocity();// variable.velocity;
-	}
-	return averageVelosity / static_cast<float>(particles.size());
-}
-
-float RigidCoordinator::getWeight(const ParticleSPtrVector& particles)
-{
-	auto weight = 0.0f;
-	for( const ParticleSPtr& particle : particles ) {
-		weight += particle->getMass();
-	}
-	return weight;
-}
 
 #include <iostream>
 
@@ -105,18 +88,6 @@ void RigidCoordinator::coordinate(const ParticleSPtrVector& particles)
 	convertToFluidForce( particles );
 }
 
-void RigidCoordinator::convertToFluidForce(const ParticleSPtrVector& particles)
-{	
-	Math::Vector3d<float> totalForce( 0.0, 0.0, 0.0 );
-	for (const auto& p : particles) {
-		totalForce += p->getForce() * p->getVolume();
-	}
-
-	const float weight =  getWeight( particles );
-	for (const auto& p : particles) {
-		p->setForce(totalForce / weight * p->getDensity());
-	}
-}
 
 float getAngleAccelerationX( float x1,float x2,float x3, const Vector3d<float>& I, const Vector3d<float>& N)
 {

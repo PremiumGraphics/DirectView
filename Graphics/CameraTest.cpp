@@ -7,20 +7,23 @@ using namespace Crystal::Graphics;
 
 using T = float;
 
-TEST( CameraTest, ContructTest )
+TEST( CameraTest, TestGetConstruct )
 {
-	Camera<float> c;
-	EXPECT_TRUE( c.getNear() == 0.01f );// == Color::Black() );
+	Camera<T> c;
+	EXPECT_EQ(c.getNear(), 0.01f );// == Color::Black() );
+	EXPECT_EQ(c.getFar(), 10.0f);
+	EXPECT_EQ(Vector3d<T>(0, 0, 0), c.getPos());
 }
 
-TEST( CameraTest, MoveTest )
+TEST( CameraTest, TestMove )
 {
 	Camera<float> c;
-	c.move( Vector3d<T>( 1.0f, 0.0f, 0.0f ) );
-	EXPECT_EQ( c.getPos(), Vector3d<T>( 1.0f, 0.0f, 0.0f ) );
+	c.move(Vector3d<T>(1.0f, 0.0f, 0.0f));
+
+	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPos() );
 }
 
-TEST( CameraTest, PerspectiveTest )
+TEST( CameraTest, TestGetPerspectiveMatrix )
 {
 	Camera<float> c;
 	const Matrix4d<float>& m = c.getPerspectiveMatrix();
