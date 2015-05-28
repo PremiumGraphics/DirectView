@@ -26,17 +26,11 @@ public:
 
 	Polygon& add(const Math::Triangle<float>& t) {
 		VertexSPtrVector<float> vs;
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv0() ));
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv1() ));
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv2() ));
+		const auto normal = t.getNormal();
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv0(), normal));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv1(), normal));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv2(), normal));
 
-		/*
-		HalfEdgeSPtrList edges;
-		edges.push_back( vs[0]);
-		edges.push_back(vs[1])
-		*/
-
-		//faces.push_back( std::make_shared<Face>(vs) );
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
 

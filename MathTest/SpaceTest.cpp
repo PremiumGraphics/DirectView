@@ -51,13 +51,13 @@ TEST(SpaceTest, TestToArray)
 	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
 	const std::array< Vector3d<T>, 8 >& actual = s.toArray();
 	EXPECT_EQ(Vector3d<T>(0, 0, 0), actual[0]);
-	EXPECT_EQ(Vector3d<T>(0, 0, 1), actual[1]);
-	EXPECT_EQ(Vector3d<T>(0, 1, 0), actual[2]);
-	EXPECT_EQ(Vector3d<T>(0, 1, 1), actual[3]);
-	EXPECT_EQ(Vector3d<T>(1, 0, 0), actual[4]);
+	EXPECT_EQ(Vector3d<T>(1, 0, 0), actual[1]);
+	EXPECT_EQ(Vector3d<T>(1, 1, 0), actual[2]);
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), actual[3]);
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), actual[4]);
 	EXPECT_EQ(Vector3d<T>(1, 0, 1), actual[5]);
-	EXPECT_EQ(Vector3d<T>(1, 1, 0), actual[6]);
-	EXPECT_EQ(Vector3d<T>(1, 1, 1), actual[7]);
+	EXPECT_EQ(Vector3d<T>(1, 1, 1), actual[6]);
+	EXPECT_EQ(Vector3d<T>(0, 1, 1), actual[7]);
 
 }
 /*

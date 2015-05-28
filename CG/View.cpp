@@ -226,13 +226,24 @@ void View::build()
 	*/
 }
 
+#include "../Math/MarchingCube.h"
+
 void View::buildDisplayList()
 {
 	dispList.clear();
 
-	Triangle<float> t;
+	MarchingCube<float> mc;
+	mc.buildTable();
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+	const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("10000011"));
+
 	Graphics::Polygon p;
-	p.add(t);
+	for (const auto t : ts) {
+		p.add(t);
+	}
+
+	//Triangle<float> t;
+
 	dispList.add(p);
 	//const PolygonSPtrList& polygons = model.getPolygons();
 	//for (const PolygonSPtr& p : polygons) {
