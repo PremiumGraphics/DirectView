@@ -100,63 +100,76 @@ public:
 	Bitmap2d() = default;
 
 	explicit Bitmap2d(const Bitmap1dVector& bmps) :
-		bmp1ds(bmps)
+		bmps(bmps)
 	{}
 
 	Bitmap2d(const size_t xSize, const size_t ySize)
 	{
 		for (size_t i = 0; i < ySize; ++i) {
-			bmp1ds.push_back(Bitmap1d(xSize));
+			bmps.push_back(Bitmap1d(xSize));
 		}
 	}
 
-	size_t getSizeX() const { return bmp1ds.front().size(); }
+	size_t getSizeX() const { return bmps.front().size(); }
 
-	size_t getSizeY() const { return bmp1ds.size(); }
+	size_t getSizeY() const { return bmps.size(); }
 
 	Bitmap2d& setAll() {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].setAll();
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].setAll();
 		}
 		return (*this);
 	}
 
 
-	Bitmap1d operator[](const size_t i) const { return bmp1ds[i]; }
+	Bitmap1d operator[](const size_t i) const { return bmps[i]; }
 
-	Bitmap1d& operator[](const size_t i) { return bmp1ds[i]; }
+	Bitmap1d& operator[](const size_t i) { return bmps[i]; }
 
 	Bitmap2d& and(const Bitmap2d& rhs) {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].and(rhs.bmp1ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].and(rhs.bmps[i]);
 		}
 		return (*this);
 	}
 
 	Bitmap2d& or(const Bitmap2d& rhs) {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].or(rhs.bmp1ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].or(rhs.bmps[i]);
 		}
 		return (*this);
 	}
 
 	Bitmap2d& xor(const Bitmap2d& rhs) {
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bmp1ds[i].xor(rhs.bmp1ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].xor(rhs.bmps[i]);
 		}
 		return (*this);
 	}
 
 	Bitmap2d not() {
 		Bitmap1dVector bs;
-		for (size_t i = 0; i < bmp1ds.size(); ++i) {
-			bs.push_back( bmp1ds[i].not() );
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bs.push_back( bmps[i].not() );
 		}
 		return Bitmap2d(bs);
 	}
 
+	bool equals(const Bitmap2d& rhs) const {
+		return bmps == rhs.bmps;
+	}
+
+	bool operator==(const Bitmap2d& rhs) const {
+		return bmps == rhs.bmps;
+	}
+
+	bool operator!=(const Bitmap2d& rhs) const {
+		return bmps != rhs.bmps;
+	}
+
+
 private:
-	Bitmap1dVector bmp1ds;
+	Bitmap1dVector bmps;
 };
 
 using Bitmap2dVector = std::vector < Bitmap2d > ;
@@ -165,33 +178,33 @@ class Bitmap3d final
 {
 public:
 	explicit Bitmap3d(const Bitmap2dVector& bmps) :
-	bmp2ds(bmps)
+	bmps(bmps)
 	{
 	}
 
 	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z) {
 		for (size_t i = 0; i < z; ++i) {
 			for (size_t i = 0; i < z; ++i) {
-				bmp2ds.push_back(Bitmap2d(x, y));
+				bmps.push_back(Bitmap2d(x, y));
 			}
 		}
 	}
 
 	unsigned int getSizeX() const {
-		return bmp2ds.front().getSizeX();
+		return bmps.front().getSizeX();
 	}
 
 	unsigned int getSizeY() const {
-		return bmp2ds.front().getSizeY();
+		return bmps.front().getSizeY();
 	}
 
 	unsigned int getSizeZ() const {
-		return bmp2ds.size();
+		return bmps.size();
 	}
 
 	Bitmap3d& setAll() {
-		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bmp2ds[i].setAll();
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].setAll();
 		}
 		return (*this);
 	}
@@ -199,34 +212,34 @@ public:
 
 	Bitmap3d not() {
 		Bitmap2dVector bs;
-		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bs.push_back( bmp2ds[i].not() );
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bs.push_back( bmps[i].not() );
 		}
 		return Bitmap3d(bs);
 	}
 
 	//bool get(const size_t i, const size_t j, const size_t k) const { return bmp2ds[i].get(j,k); }
-	Bitmap2d operator[](const size_t i) const { return bmp2ds[i]; }
+	Bitmap2d operator[](const size_t i) const { return bmps[i]; }
 
-	Bitmap2d& operator[](const size_t i) { return bmp2ds[i]; }
+	Bitmap2d& operator[](const size_t i) { return bmps[i]; }
 
 	Bitmap3d& and(const Bitmap3d& rhs) {
-		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bmp2ds[i].and(rhs.bmp2ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].and(rhs.bmps[i]);
 		}
 		return (*this);
 	}
 
 	Bitmap3d& or(const Bitmap3d& rhs) {
-		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bmp2ds[i].or(rhs.bmp2ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].or(rhs.bmps[i]);
 		}
 		return (*this);
 	}
 
 	Bitmap3d& xor(const Bitmap3d& rhs) {
-		for (size_t i = 0; i < bmp2ds.size(); ++i) {
-			bmp2ds[i].xor(rhs.bmp2ds[i]);
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bmps[i].xor(rhs.bmps[i]);
 		}
 		return (*this);
 	}
@@ -237,20 +250,31 @@ public:
 
 	std::bitset<8> to8Bit(const size_t i, const size_t j, const size_t k) const {
 		std::bitset<8> b;
-		if (bmp2ds[i][j][k]){ b.set(0);}
-		if (bmp2ds[i][j][k]){ b.set(1); }
-		if (bmp2ds[i][j+1][k]) { b.set(2); }
-		if (bmp2ds[i][j+1][k+1]) { b.set(3); }
-		if (bmp2ds[i+1][j][k])	{ b.set(4); }
-		if (bmp2ds[i+1][j][k+1]) { b.set(5); }
-		if (bmp2ds[i+1][j+1][k]) { b.set(6); }
-		if (bmp2ds[i+1][j+1][k+1]) { b.set(7); }
+		if (bmps[i][j][k])		{ b.set(0); }
+		if (bmps[i+1][j][k])	{ b.set(1); }
+		if (bmps[i+1][j+1][k])	{ b.set(2); }
+		if (bmps[i][j+1][k])	{ b.set(3); }
+		if (bmps[i][j][k+1])	{ b.set(4); }
+		if (bmps[i+1][j][k+1])	{ b.set(5); }
+		if (bmps[i+1][j+1][k+1]){ b.set(6); }
+		if (bmps[i][j+1][k+1])	{ b.set(7); }
+
+		/*
+		Vector3d<T>(x1, y1, z1),
+			Vector3d<T>(x2, y1, z1),
+			Vector3d<T>(x2, y2, z1),
+			Vector3d<T>(x1, y2, z1),
+			Vector3d<T>(x1, y1, z2),
+			Vector3d<T>(x2, y1, z2),
+			Vector3d<T>(x2, y2, z2),
+			Vector3d<T>(x1, y2, z2),
+*/
 		return b;
 
 	}
 
 private:
-	Bitmap2dVector bmp2ds;
+	Bitmap2dVector bmps;
 };
 	}
 }
