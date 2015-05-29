@@ -13,7 +13,4 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticlePair.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="RigidCoordinator.cpp" />
-  </ItemGroup>
 </Project>

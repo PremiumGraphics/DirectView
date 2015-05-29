@@ -150,9 +150,6 @@
     <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHSolver.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="RigidCoordinator.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
