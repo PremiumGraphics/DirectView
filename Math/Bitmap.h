@@ -4,8 +4,6 @@
 #include <bitset>
 #include <vector>
 
-#include "Vector.h"
-
 namespace Crystal {
 	namespace Math {
 
@@ -169,6 +167,36 @@ public:
 		return !equals( rhs );
 	}
 
+	/*
+	Bitmap2d& setCircle() {
+		//const Vector3d<float> center(getSizeX() / 2.0f - 0.5f, getSizeY() / 2.0f - 0.5f, 0.0);
+		const int centerX = getSizeX() / 2;
+		const int centerY = getSizeY() / 2;
+		const int radius = getSizeX() / 2;
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				if (std::pow(centerX - x, 2) * std::pow(centerY - y, 2) <= radius * radius) {
+					bmps[x].set(y);
+				}
+			}
+		}
+		return (*this);
+	}
+	*/
+
+	int getCount() const {
+		int count = 0;
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				if (bmps[x][y]) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+
 
 private:
 	Bitmap1dVector bmps;
@@ -186,9 +214,7 @@ public:
 
 	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z) {
 		for (size_t i = 0; i < z; ++i) {
-			for (size_t i = 0; i < z; ++i) {
-				bmps.push_back(Bitmap2d(x, y));
-			}
+			bmps.push_back(Bitmap2d(x, y));
 		}
 	}
 
@@ -257,14 +283,15 @@ public:
 		return !equals(rhs);
 	}
 
+	/*
 	Bitmap3d& setSphere() {
 		const Vector3d<float> center(getSizeX() / 2.0f, getSizeY() / 2.0f, getSizeZ()/2.0f);
-		const int radius = getSizeX();
+		const float radius = getSizeX() / 2.0f;
 		for (size_t x = 0; x < getSizeX(); ++x) {
 			for (size_t y = 0; y < getSizeY(); ++y) {
 				for (size_t z = 0; z < getSizeZ(); ++z) {
-					const Vector3d<float> pos(x, y, z);
-					if (pos.getDistanceSquared(center) <= radius * radius) {
+					const Vector3d<float> pos(x+0.5f, y+0.5f, z+0.5f);
+					if (pos.getDistanceSquared(center) < radius * radius) {
 						bmps[x][y].set(z);
 					}
 				}
@@ -272,7 +299,21 @@ public:
 		}
 		return (*this);
 	}
+	*/
 
+	int getCount() const {
+		int count = 0;
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
+					if (bmps[x][y][z]) {
+						count++;
+					}
+				}
+			}
+		}
+		return count;
+	}
 
 	//void set(const size_t i, const size_t j) { bmp2ds[i].set(j,k); }
 

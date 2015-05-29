@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_SPACE_H__
 
 #include "Vector.h"
+#include "Bitmap.h"
 #include <array>
 
 namespace Crystal {
@@ -27,7 +28,7 @@ public:
 
 	Vector3d<T> getEnd() const { return origin + vector; }
 
-	Vector3d<T> getCenter() const { origin + vector * 0.5; }
+	Vector3d<T> getCenter() const { return origin + vector * 0.5; }
 
 	bool equals(const Space3d& rhs) const {
 		return
@@ -103,9 +104,60 @@ public:
 	}
 	*/
 
+
+	bool hasIntersection(const Space3d& rhs) const {
+		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
+		const auto lx = getVector().getX() * 0.5 + rhs.getVector().getX() * 0.5;
+
+		const auto disty = std::fabs(getCenter().getY() - rhs.getCenter().getY());
+		const auto ly = getVector().getY() * 0.5 + rhs.getVector().getY() * 0.5;
+
+		const auto distz = std::fabs(getCenter().getZ() - rhs.getCenter().getZ());
+		const auto lz = getVector().getZ() * 0.5 + rhs.getVector().getZ() * 0.5;
+
+		return (distx < lx && disty < ly && distz < lz);
+	}
+
+
 private:
 	Vector3d<T> origin;
 	Vector3d<T> vector;
+};
+
+template< typename T >
+class BitSpace3d final {
+public:
+	BitSpace3d() = default;
+
+	BitSpace3d(const Space3d<T>& space, const Bitmap3d& bmp) :
+		space( space ),
+		bmp( bmp )
+	{}
+
+	/*
+	BitSpace3d getIntersection() const {
+	}
+	*/
+
+	Vector3d<T> getUnitLength() const {
+		const auto x = space.getVector().getX() / bmp.getSizeX();
+		const auto y = space.getVector().getY() / bmp.getSizeY();
+		const auto z = space.getVector().getZ() / bmp.getSizeZ();
+		return Vector3d<T>(x, y, z);
+	}
+
+	std::array< int, 3 > toIndex(const Vector3d<T>& p) const {
+		const auto unitLength = getUnitLength();
+		const auto ix = static_cast<int>( ( p.getX() - space.getStart().getX() ) / unitLength.getX() );
+		const auto iy = static_cast<int>( ( p.getY() - space.getStart().getY() ) / unitLength.getY() );
+		const auto iz = static_cast<int>( ( p.getZ() - space.getStart().getZ() ) / unitLength.getZ() );
+		return{ ix, iy, iz };
+	}
+
+private:
+	Space3d<T> space;
+	Bitmap3d bmp;
+
 };
 
 	}

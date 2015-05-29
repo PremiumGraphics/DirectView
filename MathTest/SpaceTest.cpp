@@ -45,6 +45,14 @@ TEST(SpaceTest, TestGetDivided)
 
 }
 
+TEST(SpaceTest, TestHasIntersection)
+{
+	using T = float;
+	const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+	const auto rhs = Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(10, 10, 10));
+	EXPECT_TRUE(lhs.hasIntersection(rhs));
+}
+
 TEST(SpaceTest, TestToArray)
 {
 	using T = float;
@@ -58,7 +66,26 @@ TEST(SpaceTest, TestToArray)
 	EXPECT_EQ(Vector3d<T>(1, 0, 1), actual[5]);
 	EXPECT_EQ(Vector3d<T>(1, 1, 1), actual[6]);
 	EXPECT_EQ(Vector3d<T>(0, 1, 1), actual[7]);
+}
 
+TEST(BitSpaceTest, TestGetUnitLength)
+{
+	using T = float;
+	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+	const Bitmap3d bmp(2, 2, 2);
+	BitSpace3d<T> bs(s, bmp);
+	EXPECT_EQ( Vector3d<T>( 5,5, 5), bs.getUnitLength() );
+}
+
+TEST(BitSpaceTest, TestToIndex)
+{
+	using T = float;
+	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10) );
+	const Bitmap3d bmp(2, 2, 2);
+	BitSpace3d<T> bs(s, bmp);
+	const std::array<int, 3> expected = { 0, 0, 0 };
+	EXPECT_EQ( expected, bs.toIndex(Vector3d<T>(2, 2, 2)));
+//	bs.toIndex(Vector3d<T>(8, 8, 8));
 }
 /*
 
