@@ -3,11 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Physics\CrystalPhysics.vcxproj", "{4DA5021F-0C06-476A-8387-6F744042D459}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CGStudio", "CG\CGStudio.vcxproj", "{9E0AA29D-0D3D-4635-9F5F-B155D380D674}"
 	ProjectSection(ProjectDependencies) = postProject
-		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2} = {9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}
 		{028C3897-F00D-4265-B059-BC79B022A0A0} = {028C3897-F00D-4265-B059-BC79B022A0A0}
 	EndProjectSection
@@ -15,9 +12,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IO", "IO\IO.vcxproj", "{028C3897-F00D-4265-B059-BC79B022A0A0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsTest", "Graphics\GraphicsTest.vcxproj", "{237CD933-92AB-4D20-A554-78F84819FE5D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "MathTest\MathTest.vcxproj", "{E7634880-87E0-4EF1-99FA-E9871BC1B152}"
 EndProject
@@ -29,9 +23,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shader", "Shader\CrystalShader.vcxproj", "{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "PhysicsTest\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4DA5021F-0C06-476A-8387-6F744042D459} = {4DA5021F-0C06-476A-8387-6F744042D459}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,20 +36,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|Win32.Build.0 = Debug|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|x64.ActiveCfg = Debug|x64
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Debug|x64.Build.0 = Debug|x64
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|Any CPU.ActiveCfg = Release|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|Win32.ActiveCfg = Release|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|Win32.Build.0 = Release|Win32
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|x64.ActiveCfg = Release|x64
-		{4DA5021F-0C06-476A-8387-6F744042D459}.Release|x64.Build.0 = Release|x64
 		{9E0AA29D-0D3D-4635-9F5F-B155D380D674}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{9E0AA29D-0D3D-4635-9F5F-B155D380D674}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{9E0AA29D-0D3D-4635-9F5F-B155D380D674}.Debug|Mixed Platforms.Build.0 = Debug|Win32

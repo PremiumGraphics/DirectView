@@ -22,6 +22,19 @@
     <ClCompile Include="PhysicsParticleFindAlgoTest.cpp" />
     <ClCompile Include="RigidCoordinatorTest.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Physics\BoundaryCoordinator.h" />
+    <ClInclude Include="..\Physics\Coordinator.h" />
+    <ClInclude Include="..\Physics\FluidObject.h" />
+    <ClInclude Include="..\Physics\Particle.h" />
+    <ClInclude Include="..\Physics\ParticleBuilder.h" />
+    <ClInclude Include="..\Physics\ParticlePair.h" />
+    <ClInclude Include="..\Physics\PhysicsObject.h" />
+    <ClInclude Include="..\Physics\PhysicsObjectBuilder.h" />
+    <ClInclude Include="..\Physics\PhysicsParticleFindAlgo.h" />
+    <ClInclude Include="..\Physics\RigidCoordinator.h" />
+    <ClInclude Include="..\Physics\SPHSolver.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -71,7 +84,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Math.lib;Particle.lib;Physics.lib;gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,7 +105,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Math.lib;Particle.lib;Physics.lib;gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
