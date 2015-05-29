@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_GRAPHICS_CAMERA_H__
 #define __CRYSTAL_GRAPHICS_CAMERA_H__
 
-#include "../Math/Matrix3d.h"
+#include "../Math/Matrix.h"
 #include "../Math/Vector.h"
 
 #include <memory>

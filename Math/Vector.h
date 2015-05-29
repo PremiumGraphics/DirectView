@@ -4,7 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "Tolerance.h"
-#include "Matrix3d.h"
+#include "Matrix.h"
 
 namespace Crystal{
 	namespace Math{

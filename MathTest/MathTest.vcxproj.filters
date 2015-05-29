@@ -6,19 +6,18 @@
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
-    <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="BitmapTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
-    <ClInclude Include="..\Math\Matrix3d.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />
@@ -27,5 +26,6 @@
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="..\Math\Matrix.h" />
   </ItemGroup>
 </Project>

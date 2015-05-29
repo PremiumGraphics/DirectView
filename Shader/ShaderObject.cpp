@@ -2,7 +2,7 @@
 
 #include "ShaderObject.h"
 //#include "TextureObject.h"
-#include "../Math/Matrix4d.h"
+#include "../Math/Matrix.h"
 
 #include <cassert>
 #include <stdlib.h>

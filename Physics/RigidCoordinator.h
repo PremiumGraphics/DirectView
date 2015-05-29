@@ -4,7 +4,7 @@
 #include "Particle.h"
 #include "Coordinator.h"
 
-#include "../Math/Matrix3d.h"
+#include "../Math/Matrix.h"
 #include "../Math/Quaternion.h"
 
 namespace Crystal{

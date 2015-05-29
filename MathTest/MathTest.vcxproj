@@ -16,7 +16,7 @@
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
-    <ClCompile Include="Matrix3dTest.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
@@ -30,7 +30,7 @@
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />
-    <ClInclude Include="..\Math\Matrix3d.h" />
+    <ClInclude Include="..\Math\Matrix.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Space.h" />
     <ClInclude Include="..\Math\Sphere.h" />

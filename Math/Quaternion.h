@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_QUATERNION_H__
 
 #include "Vector.h"
-#include "Matrix3d.h"
+#include "Matrix.h"
 
 namespace Crystal{
 	namespace Math{

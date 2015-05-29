@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../Shader/ShaderObject.h"
-#include "../Math/Matrix4d.h"
+#include "../Math/Matrix.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/DisplayList.h"

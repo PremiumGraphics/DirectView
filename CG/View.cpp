@@ -1,7 +1,7 @@
 #include <stdafx.h>
 #include "View.h"
 
-#include "../Math/Matrix3d.h"
+#include "../Math/Matrix.h"
 #include "../Math/Quaternion.h"
 
 #include "../Graphics/Polygon.h"
