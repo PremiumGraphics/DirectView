@@ -24,7 +24,9 @@ public:
 
 	Vector3d<T> getStart() const { return origin; }
 
-	Vector3d<T> getVector() const { return vector; }
+	Vector3d<T> getLengths() const { return vector; }
+
+	T getVolume() const { return vector.getX() * vector.getY() * vector.getZ(); }
 
 	Vector3d<T> getEnd() const { return origin + vector; }
 
@@ -33,7 +35,7 @@ public:
 	bool equals(const Space3d& rhs) const {
 		return
 			getStart() == rhs.getStart() &&
-			getVector() == rhs.getVector();
+			getLengths() == rhs.getLengths();
 	}
 
 	bool operator==(const Space3d& rhs) const {
@@ -107,13 +109,13 @@ public:
 
 	bool hasIntersection(const Space3d& rhs) const {
 		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
-		const auto lx = getVector().getX() * 0.5 + rhs.getVector().getX() * 0.5;
+		const auto lx = getLengths().getX() * 0.5 + rhs.getLengths().getX() * 0.5;
 
 		const auto disty = std::fabs(getCenter().getY() - rhs.getCenter().getY());
-		const auto ly = getVector().getY() * 0.5 + rhs.getVector().getY() * 0.5;
+		const auto ly = getLengths().getY() * 0.5 + rhs.getLengths().getY() * 0.5;
 
 		const auto distz = std::fabs(getCenter().getZ() - rhs.getCenter().getZ());
-		const auto lz = getVector().getZ() * 0.5 + rhs.getVector().getZ() * 0.5;
+		const auto lz = getLengths().getZ() * 0.5 + rhs.getLengths().getZ() * 0.5;
 
 		return (distx < lx && disty < ly && distz < lz);
 	}
@@ -139,19 +141,66 @@ public:
 	}
 	*/
 
-	Vector3d<T> getUnitLength() const {
-		const auto x = space.getVector().getX() / bmp.getSizeX();
-		const auto y = space.getVector().getY() / bmp.getSizeY();
-		const auto z = space.getVector().getZ() / bmp.getSizeZ();
+	Space3d<T> getSpace() const { return space; }
+	
+	Bitmap3d getBitmap() const { return bmp; }
+
+	Vector3d<T> getUnitLengths() const {
+		const auto x = space.getLengths().getX() / bmp.getSizeX();
+		const auto y = space.getLengths().getY() / bmp.getSizeY();
+		const auto z = space.getLengths().getZ() / bmp.getSizeZ();
 		return Vector3d<T>(x, y, z);
 	}
 
+	T getUnitVolume() const {
+		const auto unitLength = getUnitLengths();
+		return unitLength.getX() * unitLength.getY() * unitLength.getZ();
+	}
+
+	T getVolume() const {
+		return bmp.getCount() * getUnitVolume();
+	}
+
 	std::array< int, 3 > toIndex(const Vector3d<T>& p) const {
-		const auto unitLength = getUnitLength();
+		const auto unitLength = getUnitLengths();
 		const auto ix = static_cast<int>( ( p.getX() - space.getStart().getX() ) / unitLength.getX() );
 		const auto iy = static_cast<int>( ( p.getY() - space.getStart().getY() ) / unitLength.getY() );
 		const auto iz = static_cast<int>( ( p.getZ() - space.getStart().getZ() ) / unitLength.getZ() );
 		return{ ix, iy, iz };
+	}
+
+	void setBox() const {
+		bmp.setAll();
+	}
+
+	void setSphere() {
+		const auto center = space.getCenter();
+		const auto startx = space.getStart().getX();
+		const auto starty = space.getStart().getY();
+		const auto startz = space.getStart().getZ();
+		const auto endx = space.getEnd().getX();
+		const auto endy = space.getEnd().getY();
+		const auto endz = space.getEnd().getZ();
+		const auto radius = space.getLengths().getX(); // TODO.
+		const auto unit = getUnitLengths();
+
+		/*
+		for (auto x = startx; x < endx; x += unit.getX()) {
+			for (auto y = starty; y < endy; y += unit.getY()) {
+				for (auto z = startz; z < endz; z += unit.getZ()) {
+					Vector3d v(x, y, z);
+					if (center.getDistanceSquared(v) < radius * radius() {
+						const auto i = toIndex(v);
+						//bmp[i[0]][i[1]][i2].
+					}
+					else {
+						;
+					}
+					//const auto i = toIndex(Vector3d(x, y, z));
+				}
+			}
+		}
+		*/
 	}
 
 private:

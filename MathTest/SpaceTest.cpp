@@ -19,6 +19,13 @@ TEST(SpaceTest, TestGetEnd)
 	EXPECT_EQ( Vector3d<T>(10, 10, 10), Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(5, 5, 5)).getEnd() );
 }
 
+TEST(SpaceTest, TestGetVolume)
+{
+	using T = float;
+	EXPECT_EQ(0, Space3d<T>().getVolume());
+	EXPECT_EQ(125, Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(5, 5, 5)).getVolume());
+}
+
 
 TEST(SpaceTest, TestGetDivided)
 {
@@ -74,7 +81,7 @@ TEST(BitSpaceTest, TestGetUnitLength)
 	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
 	const Bitmap3d bmp(2, 2, 2);
 	BitSpace3d<T> bs(s, bmp);
-	EXPECT_EQ( Vector3d<T>( 5,5, 5), bs.getUnitLength() );
+	EXPECT_EQ( Vector3d<T>( 5,5, 5), bs.getUnitLengths() );
 }
 
 TEST(BitSpaceTest, TestToIndex)

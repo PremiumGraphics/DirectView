@@ -422,6 +422,14 @@ TEST(Bitmap3dTest, TestGetSizeY)
 	EXPECT_EQ(2, Bitmap3d(2,2,3).getSizeX());
 }
 
+TEST(Bitmap3dTest, TestGetSizeZ)
+{
+	EXPECT_EQ(1, Bitmap3d(1, 1, 1).getSizeZ());
+	EXPECT_EQ(2, Bitmap3d(1, 2, 2).getSizeZ());
+	EXPECT_EQ(3, Bitmap3d(2, 2, 3).getSizeZ());
+}
+
+
 /*
 TEST(Bitmap3dTest, TestNot)
 {

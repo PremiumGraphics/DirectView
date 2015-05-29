@@ -108,11 +108,9 @@ public:
 		bmps(bmps)
 	{}
 
-	Bitmap2d(const size_t xSize, const size_t ySize)
+	Bitmap2d(const size_t xSize, const size_t ySize) :
+		bmps(ySize, Bitmap1d(xSize))
 	{
-		for (size_t i = 0; i < ySize; ++i) {
-			bmps.push_back(Bitmap1d(xSize));
-		}
 	}
 
 	size_t getSizeX() const { return bmps.front().size(); }
@@ -211,10 +209,9 @@ public:
 	{
 	}
 
-	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z) {
-		for (size_t i = 0; i < z; ++i) {
-			bmps.push_back(Bitmap2d(x, y));
-		}
+	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z):
+		bmps( z, Bitmap2d(x,y) )
+	{
 	}
 
 	unsigned int getSizeX() const {
