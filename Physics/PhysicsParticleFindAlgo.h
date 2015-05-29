@@ -17,11 +17,11 @@
 namespace Crystal{
 	namespace Physics{
 
-class PhysicsParticleFindAlgo final : private UnCopyable{
+class ParticleFindAlgo final : private UnCopyable{
 public:
-	PhysicsParticleFindAlgo() = default;
+	ParticleFindAlgo() = default;
 
-	~PhysicsParticleFindAlgo() = default;
+	~ParticleFindAlgo() = default;
 
 	void createPairs(ParticleSPtrVector particles, const float effectLength) {
 		if (particles.empty()) {

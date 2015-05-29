@@ -29,7 +29,7 @@ public:
 			particle->init();
 		}
 
-		PhysicsParticleFindAlgo algo;
+		ParticleFindAlgo algo;
 		algo.createPairs(particles, effectLength);
 		const ParticlePairVector& pairs = algo.getPairs();
 

@@ -4,6 +4,8 @@
 #include <bitset>
 #include <vector>
 
+#include "Vector.h"
+
 namespace Crystal {
 	namespace Math {
 
@@ -160,11 +162,11 @@ public:
 	}
 
 	bool operator==(const Bitmap2d& rhs) const {
-		return bmps == rhs.bmps;
+		return equals( rhs );
 	}
 
 	bool operator!=(const Bitmap2d& rhs) const {
-		return bmps != rhs.bmps;
+		return !equals( rhs );
 	}
 
 
@@ -209,15 +211,6 @@ public:
 		return (*this);
 	}
 
-
-	Bitmap3d not() {
-		Bitmap2dVector bs;
-		for (size_t i = 0; i < bmps.size(); ++i) {
-			bs.push_back( bmps[i].not() );
-		}
-		return Bitmap3d(bs);
-	}
-
 	//bool get(const size_t i, const size_t j, const size_t k) const { return bmp2ds[i].get(j,k); }
 	Bitmap2d operator[](const size_t i) const { return bmps[i]; }
 
@@ -244,6 +237,41 @@ public:
 		return (*this);
 	}
 
+	Bitmap3d not() {
+		Bitmap2dVector bs;
+		for (size_t i = 0; i < bmps.size(); ++i) {
+			bs.push_back(bmps[i].not());
+		}
+		return Bitmap3d(bs);
+	}
+
+	bool equals(const Bitmap3d& rhs) const {
+		return bmps == rhs.bmps;
+	}
+
+	bool operator==(const Bitmap3d& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Bitmap3d& rhs) const {
+		return !equals(rhs);
+	}
+
+	Bitmap3d& setSphere() {
+		const Vector3d<float> center(getSizeX() / 2.0f, getSizeY() / 2.0f, getSizeZ()/2.0f);
+		const int radius = getSizeX();
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
+					const Vector3d<float> pos(x, y, z);
+					if (pos.getDistanceSquared(center) <= radius * radius) {
+						bmps[x][y].set(z);
+					}
+				}
+			}
+		}
+		return (*this);
+	}
 
 
 	//void set(const size_t i, const size_t j) { bmp2ds[i].set(j,k); }

@@ -17,14 +17,14 @@ TEST(NeighborSearchAlgoTest, Test)
 	};
 
 	{
-		PhysicsParticleFindAlgo algo;
+		ParticleFindAlgo algo;
 		algo.createPairs(particles, 1.1f);
 		const auto& pairs = algo.getPairs();
 		EXPECT_EQ(2, pairs.size());
 	}
 
 	{
-		PhysicsParticleFindAlgo algo;
+		ParticleFindAlgo algo;
 		algo.createPairs(particles, 0.9f);
 		const auto& pairs = algo.getPairs();
 		EXPECT_TRUE( pairs.empty());
