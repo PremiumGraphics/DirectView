@@ -12,6 +12,14 @@ TEST(SpaceTest, TestGetStart)
 	EXPECT_EQ( Vector3d<T>(1,1,1), Space3d<T>(Vector3d<T>(1,1,1)).getStart());
 }
 
+TEST(SpaceTest, TestGetCenter)
+{
+	using T = float;
+	EXPECT_EQ(Vector3d<T>(0, 0, 0), Space3d<T>().getCenter());
+	EXPECT_EQ(Vector3d<T>(5, 6, 7), Space3d<T>(Vector3d<T>(0,2,4), Vector3d<T>(10,8,6)).getCenter());
+
+}
+
 TEST(SpaceTest, TestGetEnd)
 {
 	using T = float;
@@ -55,9 +63,34 @@ TEST(SpaceTest, TestGetDivided)
 TEST(SpaceTest, TestHasIntersection)
 {
 	using T = float;
-	const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
-	const auto rhs = Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(10, 10, 10));
-	EXPECT_TRUE(lhs.hasIntersection(rhs));
+	{
+		const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+		const auto rhs = Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(10, 10, 10));
+		EXPECT_TRUE(lhs.hasIntersection(rhs));
+	}
+
+	{
+		const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+		const auto rhs = Space3d<T>(Vector3d<T>(10, 10, 10), Vector3d<T>(10, 10, 10));
+		EXPECT_FALSE(lhs.hasIntersection(rhs));
+	}
+}
+
+TEST(SpaceTest, TestGetOveralpped)
+{
+	using T = float;
+	{
+		const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+		const auto rhs = Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(10, 10, 10));
+		EXPECT_EQ( Space3d<T>(Vector3d<T>(5,5,5), Vector3d<T>(5,5,5) ), lhs.getOverlapped(rhs) );
+	}
+
+	{
+		const auto lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+		const auto rhs = Space3d<T>(Vector3d<T>(10, 10, 10), Vector3d<T>(10, 10, 10));
+		EXPECT_EQ( Space3d<T>(), lhs.getOverlapped(rhs));
+	}
+
 }
 
 TEST(SpaceTest, TestToArray)

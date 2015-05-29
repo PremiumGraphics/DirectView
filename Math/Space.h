@@ -121,6 +121,24 @@ public:
 	}
 
 
+	Space3d getOverlapped(const Space3d& rhs) const {
+		if (!hasIntersection(rhs)) {
+			return Space3d();
+		}
+		const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
+		const auto miny = std::max<T>(this->getStart().getY(), rhs.getStart().getY());
+		const auto minz = std::max<T>(this->getStart().getZ(), rhs.getStart().getZ());
+
+		const auto maxx = std::min<T>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxy = std::min<T>(this->getEnd().getY(), rhs.getEnd().getY());
+		const auto maxz = std::min<T>(this->getEnd().getZ(), rhs.getEnd().getZ());
+
+		const Vector3d<T> min_(minx, miny, minz);
+		const Vector3d<T> max_(maxx, maxy, maxz);
+		return Space3d(min_, max_ - min_);
+	}
+
+
 private:
 	Vector3d<T> origin;
 	Vector3d<T> vector;
@@ -140,6 +158,10 @@ public:
 	BitSpace3d getIntersection() const {
 	}
 	*/
+
+	Vector3d<T> getStart() const { return space.getStart(); }
+
+	Vector3d<T> getEnd() const { return space.getEnd(); }
 
 	Space3d<T> getSpace() const { return space; }
 	
@@ -175,12 +197,12 @@ public:
 
 	void setSphere() {
 		const auto center = space.getCenter();
-		const auto startx = space.getStart().getX();
-		const auto starty = space.getStart().getY();
-		const auto startz = space.getStart().getZ();
-		const auto endx = space.getEnd().getX();
-		const auto endy = space.getEnd().getY();
-		const auto endz = space.getEnd().getZ();
+		const auto startx = getStart().getX();
+		const auto starty = getStart().getY();
+		const auto startz = getStart().getZ();
+		const auto endx = getEnd().getX();
+		const auto endy = getEnd().getY();
+		const auto endz = getEnd().getZ();
 		const auto radius = space.getLengths().getX(); // TODO.
 		const auto unit = getUnitLengths();
 
