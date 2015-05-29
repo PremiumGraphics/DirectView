@@ -26,7 +26,7 @@ public:
 		return *(this);
 	}
 
-	Bitmap1d& set() {
+	Bitmap1d& setAll() {
 		for (size_t i = 0; i < bits.size(); ++i) {
 			bits[i] = true;
 		}
@@ -114,6 +114,14 @@ public:
 
 	size_t getSizeY() const { return bmp1ds.size(); }
 
+	Bitmap2d& setAll() {
+		for (size_t i = 0; i < bmp1ds.size(); ++i) {
+			bmp1ds[i].setAll();
+		}
+		return (*this);
+	}
+
+
 	Bitmap1d operator[](const size_t i) const { return bmp1ds[i]; }
 
 	Bitmap1d& operator[](const size_t i) { return bmp1ds[i]; }
@@ -164,7 +172,7 @@ public:
 	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z) {
 		for (size_t i = 0; i < z; ++i) {
 			for (size_t i = 0; i < z; ++i) {
-				bmp2ds.push_back(Bitmap2d(x,y));
+				bmp2ds.push_back(Bitmap2d(x, y));
 			}
 		}
 	}
@@ -181,6 +189,14 @@ public:
 		return bmp2ds.size();
 	}
 
+	Bitmap3d& setAll() {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].setAll();
+		}
+		return (*this);
+	}
+
+
 	Bitmap3d not() {
 		Bitmap2dVector bs;
 		for (size_t i = 0; i < bmp2ds.size(); ++i) {
@@ -193,6 +209,27 @@ public:
 	Bitmap2d operator[](const size_t i) const { return bmp2ds[i]; }
 
 	Bitmap2d& operator[](const size_t i) { return bmp2ds[i]; }
+
+	Bitmap3d& and(const Bitmap3d& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].and(rhs.bmp2ds[i]);
+		}
+		return (*this);
+	}
+
+	Bitmap3d& or(const Bitmap3d& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].or(rhs.bmp2ds[i]);
+		}
+		return (*this);
+	}
+
+	Bitmap3d& xor(const Bitmap3d& rhs) {
+		for (size_t i = 0; i < bmp2ds.size(); ++i) {
+			bmp2ds[i].xor(rhs.bmp2ds[i]);
+		}
+		return (*this);
+	}
 
 
 

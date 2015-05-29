@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 
 TEST(Bitmap1dTest, TestGet)
 {
-	EXPECT_FALSE(Bitmap1d(1)[0]);
+	EXPECT_FALSE(Bitmap1d({ 1 })[0]);
 }
 
 /*
@@ -41,15 +41,15 @@ TEST(Bitmap1dTest, TestAnd)
 {
 	EXPECT_EQ(Bitmap1d({ 0, 0 }).and(Bitmap1d({ 0, 0 })), Bitmap1d({ 0, 0 }));
 	EXPECT_EQ(Bitmap1d({ 0, 0 }).and(Bitmap1d({ 0, 1 })), Bitmap1d({ 0, 0 }));
-	EXPECT_EQ(Bitmap1d({0,0}).and(Bitmap1d({1,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({0,0}).and(Bitmap1d({1,1})), Bitmap1d({0,0}));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).and(Bitmap1d({ 1, 0 })), Bitmap1d({ 0, 0}));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).and(Bitmap1d({ 1, 1 })), Bitmap1d({ 0, 0}));
 
-	EXPECT_EQ(Bitmap1d({0,1}).and(Bitmap1d({0,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({0,1}).and(Bitmap1d({0,1})), Bitmap1d({0,1}));
-	EXPECT_EQ(Bitmap1d({0,1}).and(Bitmap1d({1,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({0,1}).and(Bitmap1d({1,1})), Bitmap1d({0,1}));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 0, 0})), Bitmap1d({ 0, 0}));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 0, 1})), Bitmap1d({ 0, 1}));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 1, 0})), Bitmap1d({ 0, 0}));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 1, 1})), Bitmap1d({ 0, 1}));
 
-	EXPECT_EQ(Bitmap1d({1,0}).and(Bitmap1d({0,0})), Bitmap1d({0,0}));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({0 , 0})), Bitmap1d({ 0, 0}));
 	EXPECT_EQ(Bitmap1d({1,0}).and(Bitmap1d({0,1})), Bitmap1d({0,0}));
 	EXPECT_EQ(Bitmap1d({1,0}).and(Bitmap1d({1,0})), Bitmap1d({1,0}));
 	EXPECT_EQ(Bitmap1d({1,0}).and(Bitmap1d({1,1})), Bitmap1d({1,0}));
@@ -449,5 +449,5 @@ TEST(Bitmap3dTest, TestNot)
 TEST(Bitmap3dTest, TestTo8Bit)
 {
 	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d(2,2,2).to8Bit(0,0,0) );
-	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d(2,2,2).not().to8Bit(0, 0, 0) );
+	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d(2,2,2).setAll().to8Bit(0, 0, 0) );
 }
