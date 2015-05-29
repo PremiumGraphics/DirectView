@@ -3,6 +3,7 @@
 
 #include <bitset>
 #include <vector>
+#include <numeric>
 
 namespace Crystal {
 	namespace Math {
@@ -31,6 +32,10 @@ public:
 			bits[i] = true;
 		}
 		return (*this);
+	}
+
+	int getCount() const {
+		return std::count(bits.begin(), bits.end(), true);
 	}
 
 	bool operator[](const size_t i) const { return bits[i]; }
@@ -186,17 +191,11 @@ public:
 
 	int getCount() const {
 		int count = 0;
-		for (size_t x = 0; x < getSizeX(); ++x) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				if (bmps[x][y]) {
-					count++;
-				}
-			}
+		for (const auto& b : bmps) {
+			count += b.getCount();
 		}
 		return count;
 	}
-
-
 
 private:
 	Bitmap1dVector bmps;
@@ -303,17 +302,12 @@ public:
 
 	int getCount() const {
 		int count = 0;
-		for (size_t x = 0; x < getSizeX(); ++x) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				for (size_t z = 0; z < getSizeZ(); ++z) {
-					if (bmps[x][y][z]) {
-						count++;
-					}
-				}
-			}
+		for (const auto& b : bmps) {
+			count += b.getCount();
 		}
 		return count;
 	}
+
 
 	//void set(const size_t i, const size_t j) { bmp2ds[i].set(j,k); }
 

@@ -26,16 +26,15 @@ TEST(Bitmap1dTest, TestResetAll)
 	EXPECT_FALSE(bitmap[0]);
 	EXPECT_FALSE(bitmap[1]);
 }
+*/
 
 TEST(Bitmap1dTest, TestGetCount)
 {
-	EXPECT_EQ(0, Bitmap1d("00").getCount());
-	EXPECT_EQ(1, Bitmap1d({0,1}).getCount());
-	EXPECT_EQ(1, Bitmap1d({1,0}).getCount());
-	EXPECT_EQ(2, Bitmap1d({1,1}).getCount());
+	EXPECT_EQ(0, Bitmap1d({ 0, 0 }).getCount());
+	EXPECT_EQ(1, Bitmap1d({ 0, 1 }).getCount());
+	EXPECT_EQ(1, Bitmap1d({ 1, 0 }).getCount());
+	EXPECT_EQ(2, Bitmap1d({ 1, 1 }).getCount());
 }
-*/
-
 
 TEST(Bitmap1dTest, TestAnd)
 {
@@ -49,15 +48,15 @@ TEST(Bitmap1dTest, TestAnd)
 	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 1, 0 })), Bitmap1d({ 0, 0 }));
 	EXPECT_EQ(Bitmap1d({ 0, 1 }).and(Bitmap1d({ 1, 1 })), Bitmap1d({ 0, 1 }));
 
-	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({0 , 0})), Bitmap1d({ 0, 0}));
-	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({0,1})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({1,0})), Bitmap1d({1,0}));
-	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({1,1})), Bitmap1d({1,0}));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({ 0, 0 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({ 0, 1 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({ 1, 0 })), Bitmap1d({ 1, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).and(Bitmap1d({ 1, 1 })), Bitmap1d({ 1, 0 }));
 
-	EXPECT_EQ(Bitmap1d({1,1}).and(Bitmap1d({0,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({1,1}).and(Bitmap1d({0,1})), Bitmap1d({0,1}));
-	EXPECT_EQ(Bitmap1d({1,1}).and(Bitmap1d({1,0})), Bitmap1d({1,0}));
-	EXPECT_EQ(Bitmap1d({1,1}).and(Bitmap1d({1,1})), Bitmap1d({1,1}));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).and(Bitmap1d({ 0, 0 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).and(Bitmap1d({ 0, 1 })), Bitmap1d({ 0, 1 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).and(Bitmap1d({ 1, 0 })), Bitmap1d({ 1, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).and(Bitmap1d({ 1, 1 })), Bitmap1d({ 1, 1 }));
 }
 
 
@@ -89,25 +88,25 @@ TEST(Bitmap1dTest, TestOr)
 
 TEST(Bitmap1dTest, TestXor)
 {
-	EXPECT_EQ(Bitmap1d({0,0}).xor(Bitmap1d({0,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({0,0}).xor(Bitmap1d({0,1})), Bitmap1d({0,1}));
-	EXPECT_EQ(Bitmap1d({0,0}).xor(Bitmap1d({1,0})), Bitmap1d({1,0}));
-	EXPECT_EQ(Bitmap1d({0,0}).xor(Bitmap1d({1,1})), Bitmap1d({1,1}));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).xor(Bitmap1d({ 0, 0 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).xor(Bitmap1d({ 0, 1 })), Bitmap1d({ 0, 1 }));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).xor(Bitmap1d({ 1, 0 })), Bitmap1d({ 1, 0 }));
+	EXPECT_EQ(Bitmap1d({ 0, 0 }).xor(Bitmap1d({ 1, 1 })), Bitmap1d({ 1, 1 }));
 
-	EXPECT_EQ(Bitmap1d({0,1}).xor(Bitmap1d({0,0})), Bitmap1d({0,1}));
-	EXPECT_EQ(Bitmap1d({0,1}).xor(Bitmap1d({0,1})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({0,1}).xor(Bitmap1d({1,0})), Bitmap1d({1,1}));
-	EXPECT_EQ(Bitmap1d({0,1}).xor(Bitmap1d({1,1})), Bitmap1d({1,0}));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).xor(Bitmap1d({ 0, 0 })), Bitmap1d({ 0, 1 }));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).xor(Bitmap1d({ 0, 1 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).xor(Bitmap1d({ 1, 0 })), Bitmap1d({ 1, 1 }));
+	EXPECT_EQ(Bitmap1d({ 0, 1 }).xor(Bitmap1d({ 1, 1 })), Bitmap1d({ 1, 0 }));
 
-	EXPECT_EQ(Bitmap1d({1,0}).xor(Bitmap1d({0,0})), Bitmap1d({1,0}));
-	EXPECT_EQ(Bitmap1d({1,0}).xor(Bitmap1d({0,1})), Bitmap1d({1,1}));
-	EXPECT_EQ(Bitmap1d({1,0}).xor(Bitmap1d({1,0})), Bitmap1d({0,0}));
-	EXPECT_EQ(Bitmap1d({1,0}).xor(Bitmap1d({1,1})), Bitmap1d({0,1}));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).xor(Bitmap1d({ 0, 0 })), Bitmap1d({ 1, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).xor(Bitmap1d({ 0, 1 })), Bitmap1d({ 1, 1 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).xor(Bitmap1d({ 1, 0 })), Bitmap1d({ 0, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 0 }).xor(Bitmap1d({ 1, 1 })), Bitmap1d({ 0, 1 }));
 
-	EXPECT_EQ(Bitmap1d({1,1}).xor(Bitmap1d({0,0})), Bitmap1d({1,1}));
-	EXPECT_EQ(Bitmap1d({1,1}).xor(Bitmap1d({0,1})), Bitmap1d({1,0}));
-	EXPECT_EQ(Bitmap1d({1,1}).xor(Bitmap1d({1,0})), Bitmap1d({0,1}));
-	EXPECT_EQ(Bitmap1d({1,1}).xor(Bitmap1d({1,1})), Bitmap1d({0,0}));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).xor(Bitmap1d({ 0, 0 })), Bitmap1d({ 1, 1 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).xor(Bitmap1d({ 0, 1 })), Bitmap1d({ 1, 0 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).xor(Bitmap1d({ 1, 0 })), Bitmap1d({ 0, 1 }));
+	EXPECT_EQ(Bitmap1d({ 1, 1 }).xor(Bitmap1d({ 1, 1 })), Bitmap1d({ 0, 0 }));
 }
 
 TEST(Bitmap1dTest, TestNot)
@@ -169,6 +168,13 @@ TEST(Bitmap2dTest, TestGetSizeY)
 	EXPECT_EQ(1, Bitmap2d(2,1).getSizeY());
 	EXPECT_EQ(2, Bitmap2d(2,2).getSizeY());
 }
+
+TEST(Bitmap2dTest, TestGetCount)
+{
+	EXPECT_EQ(0, Bitmap2d(2,2).getCount());
+	EXPECT_EQ(4, Bitmap2d(2, 2).not().getCount());
+}
+
 
 /*
 

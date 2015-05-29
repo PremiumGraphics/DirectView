@@ -83,8 +83,16 @@ TEST(BitSpaceTest, TestToIndex)
 	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10) );
 	const Bitmap3d bmp(2, 2, 2);
 	BitSpace3d<T> bs(s, bmp);
-	const std::array<int, 3> expected = { 0, 0, 0 };
-	EXPECT_EQ( expected, bs.toIndex(Vector3d<T>(2, 2, 2)));
+	{
+		const std::array<int, 3> expected = { 0, 0, 0 };
+		EXPECT_EQ(expected, bs.toIndex(Vector3d<T>(2, 2, 2)));
+	}
+
+	{
+		const std::array<int, 3> expected = { 1, 1, 1 };
+		EXPECT_EQ(expected, bs.toIndex(Vector3d<T>(8, 8, 8)));
+	}
+
 //	bs.toIndex(Vector3d<T>(8, 8, 8));
 }
 /*
