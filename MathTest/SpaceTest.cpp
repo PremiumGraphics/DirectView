@@ -135,6 +135,26 @@ TEST(BitSpaceTest, TestToIndex)
 
 //	bs.toIndex(Vector3d<T>(8, 8, 8));
 }
+
+TEST(BitSpaceTest, TestGetNormalized)
+{
+	using T = float;
+	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const Bitmap3d bmp(2, 2, 2);
+	BitSpace3d<T> bs(s, bmp);
+	EXPECT_EQ( Vector3d<T>(0.25, 0.25, 0.25), bs.getNormalized(0, 0, 0) );
+	EXPECT_EQ(Vector3d<T>(0.75, 0.75, 0.75), bs.getNormalized(1, 1, 1));
+}
+
+TEST(BitSpaceTest, TestSetSphere)
+{
+	using T = float;
+	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const Bitmap3d bmp(3, 3, 3);
+	BitSpace3d<T> bs(s, bmp);
+	bs.setSphere();
+	EXPECT_EQ( 19, bs.getBitmap().getCount() );
+}
 /*
 
 TEST(SpaceTest, TestEquals)

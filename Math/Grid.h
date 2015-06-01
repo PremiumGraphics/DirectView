@@ -65,32 +65,32 @@ private:
 template<typename T>
 using Grid2dVector = std::vector < Grid2d<T> > ;
 
-/*
 template<typename T>
 class Grid3d final
 {
 public:
 	Grid3d() = default;
 
-	Grid3d(const size_t sizex, const size_t sizey, const size_t z) :
-		grids( Grid2d( )
+	Grid3d(const size_t sizex, const size_t sizey, const size_t sizez) :
+		grids( sizez, Grid2d<T>(sizex, sizey) )
 	{}
 
-	T get(const size_t x, const size_t y) const { return grids[x].get(y); }
+	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(y); }
 
-	Grid2d& set(const size_t x, const size_t y, const T v) {
-		grids[x].set(y, v);
+	Grid3d& set(const size_t x, const size_t y, const size_t z, const T v) {
+		grids[z].set(x, y, v);
 		return (*this);
 	}
 
-	size_t getSizeX() const { return grids.size(); }
+	size_t getSizeX() const { return grids.front().getSizeX(); }
 
-	size_t getSizeY() const { return grids.front().getSize(); }
+	size_t getSizeY() const { return grids.front().getSizeY(); }
+
+	size_t getSizeZ() const { return grids.size(); }
 
 private:
 	std::vector< Grid2d<T> > grids;
 };
-*/
 
 	}
 }

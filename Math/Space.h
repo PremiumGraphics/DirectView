@@ -196,33 +196,26 @@ public:
 	}
 
 	void setSphere() {
-		const auto center = space.getCenter();
-		const auto startx = getStart().getX();
-		const auto starty = getStart().getY();
-		const auto startz = getStart().getZ();
-		const auto endx = getEnd().getX();
-		const auto endy = getEnd().getY();
-		const auto endz = getEnd().getZ();
-		const auto radius = space.getLengths().getX(); // TODO.
-		const auto unit = getUnitLengths();
-
-		/*
-		for (auto x = startx; x < endx; x += unit.getX()) {
-			for (auto y = starty; y < endy; y += unit.getY()) {
-				for (auto z = startz; z < endz; z += unit.getZ()) {
-					Vector3d v(x, y, z);
-					if (center.getDistanceSquared(v) < radius * radius() {
-						const auto i = toIndex(v);
-						//bmp[i[0]][i[1]][i2].
+		const Vector3d<T> center(0.5, 0.5, 0.5);
+		//const auto lengths = getUnitLengths();
+		const T radius = 0.5;//std::min<T>({ lengths.getX(), lengths.getY(), lengths.getZ() } );
+		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
+			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
+				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
+					const auto& norm = getNormalized(x, y, z);
+					if (norm.getDistance(center) < radius) {
+						bmp[x][y].set(z);
 					}
-					else {
-						;
-					}
-					//const auto i = toIndex(Vector3d(x, y, z));
 				}
 			}
 		}
-		*/
+	}
+
+	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) {
+		const auto x = ix / static_cast<T>(bmp.getSizeX()) * space.getLengths().getX();
+		const auto y = iy / static_cast<T>(bmp.getSizeY()) * space.getLengths().getY();
+		const auto z = iz / static_cast<T>(bmp.getSizeZ()) * space.getLengths().getZ();
+		return Vector3d<T>(x, y, z) + getUnitLengths() * T(0.5);
 	}
 
 private:
