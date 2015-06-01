@@ -108,12 +108,9 @@ void NormalRenderer::build()
 	//positionLocation = glGetUniformLocation( shader.getId(), "position" );
 }
 
-void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list )
+void NormalRenderer::render(const int width, const int height, const Camera<float>& camera )
 {
-	const std::vector<float>& positions = list.getPositions();
-	const std::vector<float>& vectors = list.getNormals();
-
-	if (positions.empty() || vectors.empty()) {
+	if (positions.empty() || normals.empty()) {
 		return;
 	}
 
@@ -134,7 +131,7 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	vectorLocation = glGetAttribLocation(shader.getId(), "vector");
-	glVertexAttribPointer(vectorLocation, 3, GL_FLOAT, GL_FALSE, 0, &(vectors.front()));
+	glVertexAttribPointer(vectorLocation, 3, GL_FLOAT, GL_FALSE, 0, &(normals.front()));
 	ShaderUtil::setUniform(shader.getId(), "scale", 1.0f);
 
 	glEnableVertexAttribArray(0);

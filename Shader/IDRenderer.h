@@ -6,22 +6,20 @@
 
 #include "ShaderObject.h"
 #include "../Graphics/Polygon.h"
-#include "../Graphics/DisplayList.h"
 #include "../Graphics/Camera.h"
-
-#include "RendererBase.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class IDRenderer : public RendererBase {
+		/*
+class IDRenderer {
 public:
 
 	IDRenderer();
 
-	virtual ~IDRenderer();
+	~IDRenderer();
 
-	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list);
 
 	void build();
 
@@ -40,6 +38,7 @@ private:
 
 	Graphics::ShaderObject shader;
 };
+*/
 
 	}
 }

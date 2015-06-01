@@ -5,25 +5,26 @@
 #include <vector>
 
 #include "../Shader/ShaderObject.h"
-#include "../Graphics/DisplayList.h"
 #include "../Graphics/Camera.h"
-
-#include "RendererBase.h"
+#include "../Graphics/Polygon.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class WireFrameRenderer : public RendererBase {
+class WireFrameRenderer {
 public:
 
 	WireFrameRenderer()
 	{};
 
-	virtual ~WireFrameRenderer();
+	~WireFrameRenderer();
 
-	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera );
 
 	void build();
+
+	std::vector< float > positions;
+	std::vector< float > colors;
 
 private:
 	struct Location {
@@ -38,16 +39,20 @@ private:
 	Graphics::ShaderObject shader;
 };
 
-class SurfaceRenderer : public RendererBase {
+class SurfaceRenderer {
 public:
 	SurfaceRenderer()
 	{};
 
 	virtual ~SurfaceRenderer();
 
-	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list);
+	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera );
 
 	void build();
+
+	std::vector< float > positions;
+	std::vector< float > colors;
+
 
 private:
 	struct Location {

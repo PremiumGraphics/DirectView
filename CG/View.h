@@ -11,9 +11,6 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
-
-#include "../Graphics/DisplayList.h"
-
 namespace Crystal {
 	namespace Graphics {
 		class Color;
@@ -76,14 +73,18 @@ private:
 
 	Shader::WireFrameRenderer wireFrameRenderer;
 	Shader::SurfaceRenderer surfaceRenderer;
-	Graphics::SmoothRenderer smoothRenderer;
+	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
-	Shader::IDRenderer idRenderer;
-
-	Graphics::DisplayList<float> dispList;
+	//Shader::IDRenderer idRenderer;
 
 	float pointSize;
+
+	std::vector< float > positions;
+	std::vector< float > normals;
+	std::vector< float > texCoords;
+	std::vector< float > colors;
+
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

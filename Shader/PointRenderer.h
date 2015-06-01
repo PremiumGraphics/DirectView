@@ -5,7 +5,6 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
-#include "../Graphics/DisplayList.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -19,7 +18,9 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>* camera, const Graphics::DisplayList<float>& list);
+	void render(const int width, const int height, const Graphics::Camera<float>* camera);
+
+	std::vector<float> positions;
 
 private:
 	Graphics::ShaderObject shader;

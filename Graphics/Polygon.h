@@ -10,6 +10,7 @@
 #include "../Math/Triangle.h"
 #include "Vertex.h"
 #include "Material.h"
+#include "ColorRGBA.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -24,17 +25,49 @@ public:
 
 	VertexSPtrVector<float> getVertices() const { return vertices; }
 
-	Polygon& add(const Math::Triangle<float>& t) {
+	void add(const Math::Vector3d<float>& v0, const Math::Vector3d<float>& v1, const ColorRGBA<float>& c) {
+		vertices.push_back(std::make_shared<Vertex<float> >(v0, Math::Vector3d<float>(0,0,0), Math::Vector3d<float>(0, 0, 0), c));
+		vertices.push_back(std::make_shared<Vertex<float> >(v1, Math::Vector3d<float>(0,0,0), Math::Vector3d<float>(0, 0, 0), c));
+	}
+
+	Polygon& add(const Math::Triangle<float>& t, const ColorRGBA<float>& c) {
 		VertexSPtrVector<float> vs;
 		const auto normal = t.getNormal();
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv0(), normal));
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv1(), normal));
-		vs.push_back(std::make_shared<Vertex<float> >(t.getv2(), normal));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv0(), normal, Math::Vector3d<float>(0,0,0), c));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv1(), normal, Math::Vector3d<float>(0,0,0), c));
+		vs.push_back(std::make_shared<Vertex<float> >(t.getv2(), normal, Math::Vector3d<float>(0,0,0), c));
 
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
 		return (*this);
+	}
+
+	std::vector<float> toPositionArray() const {
+		std::vector<float> positions;
+		for (const auto& v : vertices) {
+			const auto& ps = v->getPosition().toArray();
+			positions.insert(positions.end(), ps.begin(), ps.end());
+		}
+		return positions;
+	}
+
+	std::vector<float> toNormalArray() const {
+		std::vector<float> normals;
+		for (const auto& v : vertices) {
+			const auto& ns = v->getNormal().toArray();
+			normals.insert(normals.end(), ns.begin(), ns.end());
+		}
+		return normals;
+	}
+
+	std::vector<float> toColorArray() const {
+		std::vector<float> results;
+		for (const auto& v : vertices) {
+			const auto& vs = v->getColor().toArray3();
+			results.insert(results.end(), vs.begin(), vs.end());
+		}
+		return results;
 	}
 
 

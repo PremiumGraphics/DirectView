@@ -67,10 +67,8 @@ WireFrameRenderer::Location WireFrameRenderer::getLocations()
 }
 
 
-void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list)
+void WireFrameRenderer::render(const int width, const int height, const Camera<float>& camera)
 {
-	const std::vector<float> positions = list.getPositions();
-	const std::vector<float> colors = list.getColors();
 	if ( positions.empty() ) {
 		return;
 	}
@@ -95,7 +93,7 @@ void WireFrameRenderer::render(const int width, const int height, const Camera<f
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
+	glDrawArrays(GL_LINES, 0, positions.size() / 3);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 
@@ -164,10 +162,7 @@ SurfaceRenderer::Location SurfaceRenderer::getLocations()
 	return location;
 }
 
-void SurfaceRenderer::render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list)
-{
-	const std::vector<float> positions = list.getPositions();
-	const std::vector<float> colors = list.getColors();
+void SurfaceRenderer::render(const int width, const int height, const Camera<float>& camera) {
 	if (positions.empty()) {
 		return;
 	}

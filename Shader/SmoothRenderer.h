@@ -8,12 +8,12 @@
 #include "../Math/Matrix.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/DisplayList.h"
 #include "../Graphics/Material.h"
 
 namespace Crystal {
 	namespace Graphics {
 
+		/*
 class SmoothRenderer {
 public:
 
@@ -23,7 +23,6 @@ public:
 
 	void build();
 
-	/*
 	struct Param {
 		std::vector<float> positions;
 		std::vector<float> normals;
@@ -36,7 +35,6 @@ public:
 		std::vector<float> matDiffuse;
 		float shininess;
 	};
-	*/
 
 	void render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list, const LightSPtrList& lights, const std::list<Material*>& materials );
 
@@ -58,6 +56,7 @@ private:
 
 	Location getLocations();
 };
+	*/
 
 	}
 }

@@ -67,10 +67,8 @@ void PointRenderer::build()
 	glBindAttribLocation(shader.getId(), positionLocation, "position");
 }
 
-void PointRenderer::render(const int width, const int height, const Camera<float>* camera, const DisplayList<float>& list)
+void PointRenderer::render(const int width, const int height, const Camera<float>* camera)
 {
-	const std::vector<float>& positions = list.getPositions();
-
 	if (positions.empty()) {
 		return;
 	}

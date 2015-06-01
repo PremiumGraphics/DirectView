@@ -191,22 +191,28 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.render(width, height, c, dispList);
+		wireFrameRenderer.positions = positions;
+		wireFrameRenderer.colors = colors;
+		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
-		surfaceRenderer.render(width, height, c, dispList);
+		surfaceRenderer.render(width, height, c );
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.render(width, height, c, dispList );
+		normalRenderer.positions = positions;
+		normalRenderer.normals = normals;
+		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		glPointSize(pointSize);
-		pointRenderer.render(width, height, &c, dispList );
+		pointRenderer.render(width, height, &c );
 	}
+	/*
 	else if (renderingMode == RENDERING_MODE::ID) {
 		idRenderer.render(width, height, c, dispList );
 	}
+	*/
 	else {
 		assert( false );
 	}
@@ -215,10 +221,10 @@ void View::draw(const wxSize& size)
 void View::build()
 {
 	wireFrameRenderer.build();
-	smoothRenderer.build();
+	//smoothRenderer.build();
 	normalRenderer.build();
 	pointRenderer.build();
-	idRenderer.build();
+	//idRenderer.build();
 	surfaceRenderer.build();
 	/*
 	wireFrameRenderer.build();
@@ -230,7 +236,12 @@ void View::build()
 
 void View::buildDisplayList()
 {
-	dispList.clear();
+
+	positions.clear();
+	normals.clear();
+	texCoords.clear();
+	colors.clear();
+
 
 	MarchingCube<float> mc;
 	mc.buildTable();
@@ -245,12 +256,18 @@ void View::buildDisplayList()
 
 	Graphics::Polygon p;
 	for (const auto t : triangles) {
-		p.add(t);
+		//p.add(t, Graphics::ColorRGBA<float>::Blue() );
+		p.add(t.getv0(), t.getv1(), ColorRGBA<float>::Blue());
+		p.add(t.getv1(), t.getv2(), ColorRGBA<float>::Blue());
+		p.add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
 	}
+
+	positions = p.toPositionArray();
+	normals = p.toNormalArray();
+	colors = p.toColorArray();
 
 	//Triangle<float> t;
 
-	dispList.add(p);
 	//const PolygonSPtrList& polygons = model.getPolygons();
 	//for (const PolygonSPtr& p : polygons) {
 	//	dispList.add( p.get() );

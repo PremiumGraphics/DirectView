@@ -47,6 +47,14 @@ public:
 
 	ColorRGBA<T> getColor() const { return color; }
 
+	std::vector<float> toPositionArray() const { return position.toArray(); }
+
+	std::vector<float> toNormalArray() const { return normal.toArray(); }
+
+	std::vector<float> toTexArray() const { return texCoord.toArray(); }
+
+	std::vector<float> toColorArray() const { return color.toArray3(); }
+
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;

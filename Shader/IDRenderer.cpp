@@ -6,6 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+/*
 IDRenderer::IDRenderer()
 {
 }
@@ -124,3 +125,4 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 
 	glUseProgram(0);
 }
+*/
