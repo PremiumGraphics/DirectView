@@ -11,6 +11,7 @@
 #include <vector>
 #include <array>
 #include "Bitmap.h"
+#include "BitSpace.h"
 
 namespace Crystal {
 	namespace Math {
@@ -46,30 +47,46 @@ public:
 	}
 	*/
 
-	std::vector<Triangle<T> > build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
+	MarchingCube& build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
 	{
+		triangles.clear();
 		const std::array< Vector3d<T>, 8 > vs = s.toArray();
 		const int cubeindex = getCubeIndex( val, isolevel );
 		const auto vertices = getPositions(cubeindex, vs, val, isolevel);
-		return build(cubeindex, vertices);
+		build(cubeindex, vertices);
+		return *this;
 	}
 
 
-	std::vector<Triangle<T> > build(const Space3d<T>& s, const std::bitset< 8 >& bit )
+	MarchingCube& march(const BitSpace3d<T>& bs)
 	{
+		triangles.clear();
+		const std::vector< BitCell3d<T> >& cells = bs.toCells();
+		for (const auto c : cells) {
+			build(c.getSpace(), c.getValues());
+		}
+		return *(this);
+	}
+
+	MarchingCube& build(const Space3d<T>& s, const std::bitset< 8 >& bit )
+	{
+		triangles.clear();
 		const std::array< Vector3d<T>, 8 > vs = s.toArray();
 		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
 		const auto vertices = getPositions( cubeindex, vs );
-		return build(cubeindex, vertices);
+		build(cubeindex, vertices);
+		return *(this);
 	}
 
+	TriangleVector<T> getTriangles() const { return triangles; }
 
 private:
+	TriangleVector<T> triangles;
+
 	std::array< std::bitset<12>, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
-	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) const {
-		TriangleVector<T> triangles;
+	void build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) {
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertices[triTable[cubeindex][i]];
 			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
@@ -77,8 +94,6 @@ private:
 			Triangle<T> t(v1, v2, v3);
 			triangles.push_back(t);
 		}
-
-		return triangles;
 	}
 
 	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {

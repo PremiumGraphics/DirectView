@@ -106,19 +106,23 @@ public:
 	std::vector< BitCell3d<T> > toCells() const {
 		std::vector< BitCell3d<T> > cells;
 
-		const std::vector< Space3d<T> >& spaces = space.getDivided( bmp.getSizeX(), bmp.getSizeY(), bmp.getSizeZ() );
+		const auto lengths = getUnitLengths();
+		const Space3d<T>& innerSpace = space.offset( lengths );
+		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided( bmp.getSizeX()-1, bmp.getSizeY()-1, bmp.getSizeZ()-1 );
 
-		std::vector<bool> bs;
-		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
-			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
-				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					bs.push_back(bmp[x][y][z]);
+		std::vector<std::bitset<8>> bs;
+		for (size_t x = 0; x < bmp.getSizeX()-1; ++x) {
+			for (size_t y = 0; y < bmp.getSizeY()-1; ++y) {
+				for (size_t z = 0; z < bmp.getSizeZ()-1; ++z) {
+					bs.push_back(bmp.to8Bit(x, y, z));
 				}
 			}
 		}
 
-		for (size_t i = 0; i < cells.size(); ++i) {
-			Cell3d<T, bool> c(spaces[i], bs[i]);
+		assert(spaces.size() == bs.size());
+
+		for (size_t i = 0; i < spaces.size(); ++i) {
+			BitCell3d<T> c(spaces[i], bs[i]);
 			cells.push_back(c);
 		}
 		return cells;
