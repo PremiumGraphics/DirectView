@@ -142,7 +142,7 @@ public:
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					if (bmp[x][y][z]) {
+					if (bmp.get(x,y,z)) {
 						results.push_back(spaces[i]);
 					}
 					i++;

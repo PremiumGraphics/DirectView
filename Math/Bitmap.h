@@ -140,9 +140,9 @@ public:
 	}
 
 
-	Bitmap1d operator[](const size_t i) const { return bmps[i]; }
-
 	Bitmap1d& operator[](const size_t i) { return bmps[i]; }
+
+	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
 
 	Bitmap2d& and(const Bitmap2d& rhs) {
 		for (size_t i = 0; i < bmps.size(); ++i) {
@@ -184,23 +184,6 @@ public:
 	bool operator!=(const Bitmap2d& rhs) const {
 		return !equals( rhs );
 	}
-
-	/*
-	Bitmap2d& setCircle() {
-		//const Vector3d<float> center(getSizeX() / 2.0f - 0.5f, getSizeY() / 2.0f - 0.5f, 0.0);
-		const int centerX = getSizeX() / 2;
-		const int centerY = getSizeY() / 2;
-		const int radius = getSizeX() / 2;
-		for (size_t x = 0; x < getSizeX(); ++x) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				if (std::pow(centerX - x, 2) * std::pow(centerY - y, 2) <= radius * radius) {
-					bmps[x].set(y);
-				}
-			}
-		}
-		return (*this);
-	}
-	*/
 
 	int getCount() const {
 		int count = 0;
@@ -248,8 +231,7 @@ public:
 		return (*this);
 	}
 
-	//bool get(const size_t i, const size_t j, const size_t k) const { return bmp2ds[i].get(j,k); }
-	Bitmap2d operator[](const size_t i) const { return bmps[i]; }
+	bool get(const size_t x, const size_t y, const size_t z) const { return bmps[z].get(x,y); }
 
 	Bitmap2d& operator[](const size_t i) { return bmps[i]; }
 
@@ -294,24 +276,6 @@ public:
 		return !equals(rhs);
 	}
 
-	/*
-	Bitmap3d& setSphere() {
-		const Vector3d<float> center(getSizeX() / 2.0f, getSizeY() / 2.0f, getSizeZ()/2.0f);
-		const float radius = getSizeX() / 2.0f;
-		for (size_t x = 0; x < getSizeX(); ++x) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				for (size_t z = 0; z < getSizeZ(); ++z) {
-					const Vector3d<float> pos(x+0.5f, y+0.5f, z+0.5f);
-					if (pos.getDistanceSquared(center) < radius * radius) {
-						bmps[x][y].set(z);
-					}
-				}
-			}
-		}
-		return (*this);
-	}
-	*/
-
 	int getCount() const {
 		int count = 0;
 		for (const auto& b : bmps) {
@@ -325,14 +289,14 @@ public:
 
 	std::bitset<8> to8Bit(const size_t i, const size_t j, const size_t k) const {
 		std::bitset<8> b;
-		if (bmps[i][j][k])		{ b.set(0); }
-		if (bmps[i+1][j][k])	{ b.set(1); }
-		if (bmps[i+1][j+1][k])	{ b.set(2); }
-		if (bmps[i][j+1][k])	{ b.set(3); }
-		if (bmps[i][j][k+1])	{ b.set(4); }
-		if (bmps[i+1][j][k+1])	{ b.set(5); }
-		if (bmps[i+1][j+1][k+1]){ b.set(6); }
-		if (bmps[i][j+1][k+1])	{ b.set(7); }
+		if (get(i,j,k))		{ b.set(0); }
+		if (get(i+1,j,k))	{ b.set(1); }
+		if (get(i+1,j+1,k))	{ b.set(2); }
+		if (get(i,j+1,k))	{ b.set(3); }
+		if (get(i,j,k+1))	{ b.set(4); }
+		if (get(i+1,j,k+1))	{ b.set(5); }
+		if (get(i+1,j+1,k+1)){ b.set(6); }
+		if (get(i,j+1,k+1))	{ b.set(7); }
 
 		/*
 		Vector3d<T>(x1, y1, z1),
