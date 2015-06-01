@@ -116,6 +116,14 @@ TEST(Bitmap1dTest, TestNot)
 	EXPECT_EQ(Bitmap1d({ 0, 1 }), Bitmap1d({ 1, 0 }).not() );
 	EXPECT_EQ(Bitmap1d({ 0, 0 }), Bitmap1d({ 1, 1 }).not() );
 }
+
+TEST(Bitmap1dTest, TestMoved)
+{
+	EXPECT_EQ(Bitmap1d({ 1, 1 }), Bitmap1d({ 1, 1, 1 }).moved(1) );
+	EXPECT_EQ(Bitmap1d({ 0, 1 }), Bitmap1d({ 0, 0, 1 }).moved(1) );
+	EXPECT_EQ(Bitmap1d(std::vector<bool>{ 1 }), Bitmap1d({ 1, 1, 1 }).moved(2));
+
+}
 /*
 
 TEST(Bitmap1dTest, TestIsAll)

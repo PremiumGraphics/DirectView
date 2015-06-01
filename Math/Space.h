@@ -21,6 +21,10 @@ public:
 		vector(length)
 	{}
 
+	static Space3d<T> Unit() {
+		return Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	}
+
 	Vector3d<T> getStart() const { return origin; }
 
 	Vector3d<T> getLengths() const { return vector; }
@@ -30,6 +34,25 @@ public:
 	Vector3d<T> getEnd() const { return origin + vector; }
 
 	Vector3d<T> getCenter() const { return origin + vector * 0.5; }
+
+	Space3d moveStart(const Vector3d<T>& v) const {
+		return Vector3d<T>(origin + v, vector - v);
+	}
+
+	Space3d& moveStart(const Vector3d<T>& v) {
+		origin += v;
+		vector -= v;
+		return (*this);
+	}
+
+	Space3d moveEnd(const Vector3d<T>& v) const {
+		return Vector3d<T>(origin, vector + v);
+	}
+
+	Space3d& moveEnd(const Vector3d<T>& v) {
+		vector += v;
+		return (*this);
+	}
 
 	bool equals(const Space3d& rhs) const {
 		return

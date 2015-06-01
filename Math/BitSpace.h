@@ -39,11 +39,6 @@ public:
 		bmp(bmp)
 	{}
 
-	/*
-	BitSpace3d getIntersection() const {
-	}
-	*/
-
 	Vector3d<T> getStart() const { return space.getStart(); }
 
 	Vector3d<T> getEnd() const { return space.getEnd(); }
@@ -102,7 +97,7 @@ public:
 		}
 	}
 
-	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) {
+	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) const {
 		const auto x = ix / static_cast<T>(bmp.getSizeX()) * space.getLengths().getX();
 		const auto y = iy / static_cast<T>(bmp.getSizeY()) * space.getLengths().getY();
 		const auto z = iz / static_cast<T>(bmp.getSizeZ()) * space.getLengths().getZ();
@@ -160,6 +155,25 @@ public:
 		}
 		return positions;
 	}
+
+
+	/*
+	BitSpace3d getIntersection(const BitSpace3d& rhs) const {
+		const auto s = getSpace().getOverlapped(rhs.getSpace());
+		const Vector3d<T> d = s.getStart() - this->getStart();
+		const auto diff = toIndex(d);
+		
+		return dest;
+	}
+	*/
+
+	/*
+	BitSpace3d getSubSpace(const Vector3d<T>& v) const {
+		const auto toIndex(v);
+		Bitmap3d bmp;
+		return BitSpace3d(space.moveEnd(v), bmp);
+	}
+	*/
 
 private:
 	Space3d<T> space;

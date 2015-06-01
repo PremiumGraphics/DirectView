@@ -16,6 +16,8 @@ template<typename T>
 
 class Vertex final {
 public:
+	Vertex() = default;
+
 	explicit Vertex(const Math::Vector3d<T>& position) :
 		position(position)
 	{}
@@ -38,6 +40,7 @@ public:
 		color(color)
 	{}
 
+	~Vertex() = default;
 
 	Math::Vector3d<T> getPosition() const { return position; }
 

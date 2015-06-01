@@ -106,6 +106,15 @@ public:
 		return b;
 	}
 
+	Bitmap1d moved(const size_t shift) const {
+		const auto newSize = size() - shift;
+		Bitmap1d dest( newSize );
+		for (size_t i = 0; i < newSize; ++i) {
+			dest.bits[i] = this->bits[i+shift];
+		}
+		return dest;
+	}
+
 private:
 	//std::bitset<SIZE> bits;
 	std::vector<bool> bits;	// not best practice. see Effective STL.
@@ -143,6 +152,8 @@ public:
 	Bitmap1d& operator[](const size_t i) { return bmps[i]; }
 
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
+
+	void set(const size_t x, const size_t y) { bmps[y].set(x); }
 
 	Bitmap2d& and(const Bitmap2d& rhs) {
 		for (size_t i = 0; i < bmps.size(); ++i) {
@@ -233,6 +244,8 @@ public:
 
 	bool get(const size_t x, const size_t y, const size_t z) const { return bmps[z].get(x,y); }
 
+	void set(const size_t x, const size_t y, const size_t z) { return bmps[z].set(x, y); }
+
 	Bitmap2d& operator[](const size_t i) { return bmps[i]; }
 
 	Bitmap3d& and(const Bitmap3d& rhs) {
@@ -298,19 +311,21 @@ public:
 		if (get(i+1,j+1,k+1)){ b.set(6); }
 		if (get(i,j+1,k+1))	{ b.set(7); }
 
-		/*
-		Vector3d<T>(x1, y1, z1),
-			Vector3d<T>(x2, y1, z1),
-			Vector3d<T>(x2, y2, z1),
-			Vector3d<T>(x1, y2, z1),
-			Vector3d<T>(x1, y1, z2),
-			Vector3d<T>(x2, y1, z2),
-			Vector3d<T>(x2, y2, z2),
-			Vector3d<T>(x1, y2, z2),
-*/
 		return b;
-
 	}
+
+	/*
+	Bitmap3d getSub(const std::array<unsigned int, 3>& start) {
+		Bitmap3d dest(this->getSizeX() - start[0], this->getSizeY() - start[1], this->getSizeZ() - start[2]);
+		for (unsigned int x = start[0]; x < this->getSizeX(); ++x) {
+			for (unsigned int y = start[1]; y < this->getSizeY(); ++y) {
+				for (unsigned int z = start[2]; z < this->getSizeZ(); ++z) {
+					dest.set(x, y, z); //dest[x][]
+				}
+			}
+		}
+	}
+	*/
 
 private:
 	Bitmap2dVector bmps;

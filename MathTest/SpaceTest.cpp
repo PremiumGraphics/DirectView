@@ -116,6 +116,25 @@ TEST(SpaceTest, TestOffset)
 	EXPECT_EQ(Vector3d<T>(1, 1, 1), actual.getStart());
 	EXPECT_EQ(Vector3d<T>(9, 9, 9), actual.getEnd());
 }
+
+TEST(SpaceTest, TestMoveStart)
+{
+	using T = float;
+	
+	EXPECT_EQ(
+		Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(9, 9, 9)),
+		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10)).moveStart(Vector3d<T>(1, 1, 1))
+		);
+}
+
+TEST(SpaceTest, TestMoveEnd)
+{
+	using T = float;
+	EXPECT_EQ(
+		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(9, 9, 9) ),
+		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10) ).moveEnd(Vector3d<T>(-1, -1, -1))
+		);
+}
 /*
 
 TEST(SpaceTest, TestEquals)
