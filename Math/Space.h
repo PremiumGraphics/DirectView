@@ -53,10 +53,11 @@ public:
 		const auto lengthz = vector.getZ() / zdiv;
 		const Vector3d<T> l(lengthx, lengthy, lengthz);
 
-		std::vector< Space3d<T> > spaces;
+		std::vector< Space3d<T> >spaces;
 		for (size_t i = 0; i < xdiv; ++i) {
 			for (size_t j = 0; j < ydiv; ++j) {
 				for (size_t k = 0; k < zdiv; ++k) {
+
 					//Vector3d<T> origin = origin + l * i ;
 					const auto originx = origin.getX() + lengthx * i;
 					const auto originy = origin.getY() + lengthy * j;

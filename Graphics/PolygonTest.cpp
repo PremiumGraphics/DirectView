@@ -15,5 +15,5 @@ using T = float;
 
 TEST(PolygonTest, TestAddTriangle)
 {
-	EXPECT_EQ(3, Polygon().add(Triangle<T>()).getVertices().size());
+	EXPECT_EQ(3, Polygon().add(Triangle<T>(), ColorRGBA<float>() ).getVertices().size());
 }

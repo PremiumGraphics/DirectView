@@ -128,6 +128,33 @@ public:
 		return cells;
 	}
 
+	std::vector< Space3d<T> > toEnabledSpaces() const {
+		std::vector< Space3d<T> > results;
+
+		const std::vector< Space3d<T> >& spaces = space.getDivided(bmp.getSizeX(), bmp.getSizeY(), bmp.getSizeZ() );
+		int i = 0;
+		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
+			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
+				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
+					if (bmp[x][y][z]) {
+						results.push_back(spaces[i]);
+					}
+					i++;
+				}
+			}
+		}
+		return results;
+	}
+
+	Vector3dVector<T> toEnabledPositions() const {
+		Vector3dVector<T> positions;
+		const auto& spaces = toEnabledSpaces();
+		for (const auto& s : spaces) {
+			positions.push_back( s.getCenter() );
+		}
+		return positions;
+	}
+
 private:
 	Space3d<T> space;
 	Bitmap3d bmp;

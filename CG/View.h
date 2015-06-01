@@ -85,6 +85,7 @@ private:
 	std::vector< float > texCoords;
 	std::vector< float > colors;
 
+	std::vector< float > points;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

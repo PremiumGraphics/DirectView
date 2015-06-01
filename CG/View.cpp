@@ -205,7 +205,7 @@ void View::draw(const wxSize& size)
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		pointRenderer.positions = positions;
+		pointRenderer.positions = points;
 		glPointSize(pointSize);
 		pointRenderer.render(width, height, &c );
 	}
@@ -260,6 +260,11 @@ void View::buildDisplayList()
 		positions = p.toPositionArray();
 		normals = p.toNormalArray();
 		colors = p.toColorArray();
+
+		for (const auto& p : bs.toEnabledPositions()) {
+			const auto pos = p.toArray();
+			points.insert(points.end(), pos.begin(), pos.end());
+		}
 	}
 
 	//Triangle<float> t;
