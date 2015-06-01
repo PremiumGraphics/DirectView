@@ -47,46 +47,42 @@ public:
 	}
 	*/
 
-	MarchingCube& build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
+	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
 	{
-		triangles.clear();
+		TriangleVector<T> triangles;
 		const std::array< Vector3d<T>, 8 > vs = s.toArray();
 		const int cubeindex = getCubeIndex( val, isolevel );
 		const auto vertices = getPositions(cubeindex, vs, val, isolevel);
-		build(cubeindex, vertices);
-		return *this;
+		return build(cubeindex, vertices);
 	}
 
 
-	MarchingCube& march(const BitSpace3d<T>& bs)
+	TriangleVector<T> march(const BitSpace3d<T>& bs)
 	{
-		triangles.clear();
+		TriangleVector<T> triangles;
 		const std::vector< BitCell3d<T> >& cells = bs.toCells();
 		for (const auto c : cells) {
-			build(c.getSpace(), c.getValues());
+			const auto ts = build(c.getSpace(), c.getValues());
+			triangles.insert(triangles.end(), ts.begin(), ts.end());
 		}
-		return *(this);
+		return triangles;
 	}
 
-	MarchingCube& build(const Space3d<T>& s, const std::bitset< 8 >& bit )
+	TriangleVector<T> build(const Space3d<T>& s, const std::bitset< 8 >& bit )
 	{
-		triangles.clear();
 		const std::array< Vector3d<T>, 8 > vs = s.toArray();
 		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
 		const auto vertices = getPositions( cubeindex, vs );
-		build(cubeindex, vertices);
-		return *(this);
+		return build(cubeindex, vertices);
 	}
 
-	TriangleVector<T> getTriangles() const { return triangles; }
-
 private:
-	TriangleVector<T> triangles;
 
 	std::array< std::bitset<12>, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
-	void build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) {
+	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) {
+		TriangleVector<T> triangles;
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertices[triTable[cubeindex][i]];
 			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
@@ -94,6 +90,7 @@ private:
 			Triangle<T> t(v1, v2, v3);
 			triangles.push_back(t);
 		}
+		return triangles;
 	}
 
 	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {

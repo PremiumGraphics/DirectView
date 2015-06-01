@@ -235,10 +235,16 @@ void View::buildDisplayList()
 	MarchingCube<float> mc;
 	mc.buildTable();
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("01000001"));
+	//const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("01000001")).getTriangles();
+
+	Bitmap3d bmp(10, 10, 10);
+	BitSpace3d<float> bs(space, bmp);
+	bs.setSphere();
+
+	const auto& triangles = mc.march(bs);
 
 	Graphics::Polygon p;
-	for (const auto t : ts) {
+	for (const auto t : triangles) {
 		p.add(t);
 	}
 
