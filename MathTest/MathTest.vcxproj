@@ -15,6 +15,7 @@
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
+    <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Matrix.h" />
     <ClInclude Include="..\Math\Quaternion.h" />

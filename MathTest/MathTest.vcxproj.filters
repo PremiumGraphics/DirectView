@@ -13,6 +13,7 @@
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="GridTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -27,5 +28,6 @@
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="..\Math\Matrix.h" />
+    <ClInclude Include="..\Math\Grid.h" />
   </ItemGroup>
 </Project>
