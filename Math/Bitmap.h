@@ -91,6 +91,21 @@ public:
 		return *this;
 	}
 
+	std::bitset<2> to2Bit(const size_t i) const {
+		std::bitset<2> b;
+		b.set( bits[i] );
+		b.set( bits[i+1] );
+		return b;
+	}
+
+	std::vector< std::bitset<2> > to2Bits() const {
+		std::vector< std::bitset<2> > b;
+		for (size_t i = 1; i < bits.size(); ++i) {
+			b.push_back(to2Bit(i));
+		}
+		return b;
+	}
+
 private:
 	//std::bitset<SIZE> bits;
 	std::vector<bool> bits;	// not best practice. see Effective STL.

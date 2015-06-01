@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitmapTest.cpp" />
+    <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
@@ -27,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap.h" />
+    <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
