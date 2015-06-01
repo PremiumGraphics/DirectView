@@ -5,6 +5,8 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Polygon.h"
 
+#include "../Math/BitSpace.h"
+
 namespace Crystal {
 	namespace CG {
 
@@ -19,8 +21,12 @@ public:
 
 	void clear()
 	{
+		bitSpaces.clear();
 	}
 
+	void addBitSpace(const Math::BitSpace3d<float>& bs) { bitSpaces.push_back(bs); }
+
+	std::list< Math::BitSpace3d<float> > getBitSpaces() const { return bitSpaces; }
 
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
@@ -30,6 +36,7 @@ public:
 
 private:
 	Graphics::PolygonSPtrVector polygons;
+	std::list< Math::BitSpace3d<float> > bitSpaces;
 
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;

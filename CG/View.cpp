@@ -205,6 +205,7 @@ void View::draw(const wxSize& size)
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
+		pointRenderer.positions = positions;
 		glPointSize(pointSize);
 		pointRenderer.render(width, height, &c );
 	}
@@ -245,26 +246,21 @@ void View::buildDisplayList()
 
 	MarchingCube<float> mc;
 	mc.buildTable();
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	//const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("01000001")).getTriangles();
 
-	Bitmap3d bmp(10, 10, 10);
-	BitSpace3d<float> bs(space, bmp);
-	bs.setSphere();
+	for (const auto& bs : model.getBitSpaces()) {
+		const auto& triangles = mc.march(bs);
 
-	const auto& triangles = mc.march(bs);
-
-	Graphics::Polygon p;
-	for (const auto t : triangles) {
-		//p.add(t, Graphics::ColorRGBA<float>::Blue() );
-		p.add(t.getv0(), t.getv1(), ColorRGBA<float>::Blue());
-		p.add(t.getv1(), t.getv2(), ColorRGBA<float>::Blue());
-		p.add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
+		Graphics::Polygon p;
+		for (const auto t : triangles) {
+			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
+			p.add(t.getv0(), t.getv1(), ColorRGBA<float>::Blue());
+			p.add(t.getv1(), t.getv2(), ColorRGBA<float>::Blue());
+			p.add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
+		}
+		positions = p.toPositionArray();
+		normals = p.toNormalArray();
+		colors = p.toColorArray();
 	}
-
-	positions = p.toPositionArray();
-	normals = p.toNormalArray();
-	colors = p.toColorArray();
 
 	//Triangle<float> t;
 
