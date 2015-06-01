@@ -630,7 +630,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	//const TriangleVector<float>& ts = mc.build(space, std::bitset<8>("01000001")).getTriangles();
 
 	Bitmap3d bmp(10, 10, 10);
 	BitSpace3d<float> bs(space, bmp);
@@ -651,9 +650,13 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	//const Box<float> b;
-	
-	//model.getPolygonBuilder().build(b);
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+
+	Bitmap3d bmp(10, 10, 10);
+	BitSpace3d<float> bs(space, bmp);
+	bs.setBox();
+
+	model.addBitSpace(bs);
 	view->Refresh();
 }
 

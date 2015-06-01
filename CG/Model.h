@@ -13,10 +13,9 @@ namespace Crystal {
 class Model {
 public:
 	Model() :
-		lightBuilder(new Graphics::LightBuilder()),
+		lightBuilder( std::make_shared< Graphics::LightBuilder>()),
 		camera( std::make_shared< Graphics::Camera<float> >() )
 	{
-		camera->setNear(1.0f);
 	}
 
 	void clear()

@@ -10,7 +10,7 @@ using T = float;
 TEST( CameraTest, TestGetConstruct )
 {
 	Camera<T> c;
-	EXPECT_EQ(c.getNear(), 0.01f );// == Color::Black() );
+	EXPECT_EQ(c.getNear(), 1.0f );// == Color::Black() );
 	EXPECT_EQ(c.getFar(), 10.0f);
 	EXPECT_EQ(Vector3d<T>(0, 0, 0), c.getPos());
 }

@@ -76,8 +76,14 @@ public:
 		return{ ix, iy, iz };
 	}
 
-	void setBox() const {
-		bmp.setAll();
+	void setBox() {
+		for (size_t x = 1; x < bmp.getSizeX()-1; ++x) {
+			for (size_t y = 1; y < bmp.getSizeY()-1; ++y) {
+				for (size_t z = 1; z < bmp.getSizeZ()-1; ++z) {
+					bmp[x][y].set(z);
+				}
+			}
+		}
 	}
 
 	void setSphere() {

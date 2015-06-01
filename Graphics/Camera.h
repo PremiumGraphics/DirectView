@@ -13,7 +13,7 @@ template< typename T >
 class Camera{
 public:
 	Camera() :
-		near_( 0.01f ),
+		near_( 1.0f ),
 		far_( 10.0f ),
 		left( -0.5f ),
 		right( 0.5f ),
