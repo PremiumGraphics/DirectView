@@ -69,16 +69,6 @@ public:
 		return clamp({ ix, iy, iz });
 	}
 
-	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
-		const auto maxx = getResolution()[0] - 1;
-		const auto maxy = getResolution()[1] - 1;
-		const auto maxz = getResolution()[2] - 1;
-
-		const auto ix = std::min<unsigned int>(maxx, i[0]);
-		const auto iy = std::min<unsigned int>(maxy, i[1]);
-		const auto iz = std::min<unsigned int>(maxz, i[2]);
-		return { ix, iy, iz };
-	}
 
 	void setBox() {
 		for (size_t x = 1; x < bmp.getSizeX()-1; ++x) {
@@ -172,11 +162,14 @@ public:
 	}
 	*/
 
+
+	BitSpace3d getOverlapped(const BitSpace3d<T>& rhs) const {
+		return getOverlapped(rhs.getSpace());
+	}
+
 	BitSpace3d getOverlapped(const Space3d<T>& rhs) const {
-		const auto s = getSpace().getOverlapped(rhs);
-		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
-		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
-		const auto& b = bmp.getSub(startIndex, endIndex);
+		const auto& s = getOverlappedSpace(rhs);
+		const auto& b = getOverlappedBitmap(rhs);
 		return BitSpace3d(s, b);
 	}
 
@@ -186,13 +179,18 @@ public:
 	}
 	*/
 
-	/*
 	BitSpace3d and(const BitSpace3d<T>& rhs) const {
-		const BitSpace3d& b = rhs.getOverlapped(rhs.getSpace());
-		b.getBitmap().and( rhs.getBitmap() );
-		return b;
+		const BitSpace3d& bs = getOverlapped(rhs);
+		bs.getBitmap().and(rhs.getBitmap());
+		return bs;
 	}
-	*/
+
+	BitSpace3d or(const BitSpace3d<T>& rhs) const {
+		const BitSpace3d& bs = getOverlapped(rhs);
+		bs.getBitmap().or(rhs.getBitmap());
+		return bs;
+	}
+
 
 	/*
 	BitSpace3d getSubSpace(const Vector3d<T>& v) const {
@@ -202,9 +200,42 @@ public:
 	}
 	*/
 
+	bool equals(const BitSpace3d<T>& rhs) const {
+		return
+			(getSpace() == rhs.getSpace()) &&
+			(getBitmap() == rhs.getBitmap());
+	}
+
+	bool operator==(const BitSpace3d<T>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const BitSpace3d<T>& rhs) const {
+		return !equals(rhs);
+	}
+
 private:
 	Space3d<T> space;
 	Bitmap3d bmp;
+
+private:
+	Bitmap3d getOverlappedBitmap(const Space3d<T>& rhs) const {
+		const auto s = getSpace().getOverlapped(rhs);
+		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
+		return bmp.getSub(startIndex, endIndex);
+	}
+
+	Space3d<T> getOverlappedSpace(const Space3d<T>& rhs) const {
+		return getSpace().getOverlapped(rhs);
+	}
+
+	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
+		const auto ix = std::min<unsigned int>(getResolution()[0], i[0]);
+		const auto iy = std::min<unsigned int>(getResolution()[1], i[1]);
+		const auto iz = std::min<unsigned int>(getResolution()[2], i[2]);
+		return{ ix, iy, iz };
+	}
 
 };
 

@@ -119,8 +119,8 @@ TEST(Bitmap1dTest, TestNot)
 
 TEST(Bitmap1dTest, TestGetSub)
 {
-	EXPECT_EQ(Bitmap1d({ 1, 1 }), Bitmap1d({ 1, 1, 1 }).getSub(0,1) );
-	EXPECT_EQ(Bitmap1d({ 0,1 }), Bitmap1d({ 0, 0, 1 }).getSub(1,2) );
+	EXPECT_EQ(Bitmap1d({ 1, 1 }), Bitmap1d({ 1, 1, 1 }).getSub(0,2) );
+	EXPECT_EQ(Bitmap1d({ 0, 1 }), Bitmap1d({ 0, 0, 1 }).getSub(1,3) );
 	//EXPECT_EQ(Bitmap1d(std::vector<bool>{ 1 }), Bitmap1d({ 1, 1, 1 }).getSub(2));
 }
 
@@ -191,7 +191,7 @@ TEST(Bitmap2dTest, TestGetCount)
 
 TEST(Bitmap2dTest, TestGetSub)
 {
-	EXPECT_EQ( Bitmap2d(1,1), Bitmap2d(2, 2).getSub(0, 0, 0, 0) );
+	EXPECT_EQ( Bitmap2d(1,1), Bitmap2d(2, 2).getSub(0, 1, 0, 1) );
 }
 
 TEST(Bitmap2dTest, TestGet)
@@ -484,7 +484,7 @@ TEST(Bitmap3dTest, TestTo8Bit)
 
 TEST(Bitmap3dTest, TestGetSub)
 {
-	EXPECT_EQ(Bitmap3d(1, 1, 1), Bitmap3d(3, 3, 3).getSub({ 0, 0, 0 }, { 0, 0, 0 }));
+	EXPECT_EQ(Bitmap3d(1, 1, 1), Bitmap3d(3, 3, 3).getSub({ 0, 0, 0 }, { 1, 1, 1 }));
 }
 
 TEST(Bitmap3dTest, TestSetBitmap)

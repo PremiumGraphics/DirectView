@@ -110,7 +110,7 @@ public:
 	}
 
 	Bitmap1d getSub(const size_t startIndex, const size_t endIndex) const {
-		std::vector<bool> bs(bits.begin() + startIndex, bits.begin() + endIndex + 1);
+		std::vector<bool> bs(bits.begin() + startIndex, bits.begin() + endIndex);
 		return Bitmap1d( bs );
 	}
 
@@ -222,7 +222,7 @@ public:
 	}
 
 	Bitmap2d getSub(const size_t startx, const size_t endx, const size_t starty, const size_t endy) const {
-		Bitmap1dVector bs( bmps.begin() + starty, bmps.begin() + endy +1 );
+		Bitmap1dVector bs( bmps.begin() + starty, bmps.begin() + endy );
 		for (auto& bm : bs) {
 			bm = bm.getSub(startx, endx);
 		}
@@ -359,7 +359,7 @@ public:
 	}
 
 	Bitmap3d getSub(const std::array<unsigned int, 3>& start, const std::array<unsigned int, 3>& end) const {
-		Bitmap2dVector bs(bmps.begin() + start[2], bmps.begin() + end[2] + 1);
+		Bitmap2dVector bs(bmps.begin() + start[2], bmps.begin() + end[2]);
 		for (auto& bm : bs) {
 			bm = bm.getSub(start[0], end[0], start[1], end[1]);
 		}

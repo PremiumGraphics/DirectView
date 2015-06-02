@@ -82,8 +82,20 @@ TEST(BitSpaceTest, TestEnabledPositions)
 TEST(BitSpaceTest, TestGetOverlapped)
 {
 	using T = float;
-	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2));
-	BitSpace3d<T> bs(s, Bitmap3d(2, 2, 2));
+	BitSpace3d<T> bs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
 	const auto actual = bs.getOverlapped( Space3d<T>( Vector3d<T>(1, 1, 1), Vector3d<T>(2,2,2) ) );
 	EXPECT_EQ( Bitmap3d(1,1,1), actual.getBitmap() );
+
+	BitSpace3d<T> lhs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	BitSpace3d<T> rhs(Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	EXPECT_EQ(Bitmap3d(1, 1, 1), lhs.getOverlapped(rhs).getBitmap());
+}
+
+TEST(BitSpaceTest, TestAnd)
+{
+	using T = float;
+	BitSpace3d<T> lhs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	BitSpace3d<T> rhs(Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	const BitSpace3d<T> actual = lhs.and(rhs);
+	EXPECT_EQ( Bitmap3d(1, 1, 1), actual.getBitmap() );
 }
