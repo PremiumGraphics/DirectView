@@ -44,5 +44,11 @@ TEST(Grid3dTest, TestGetSizeX)
 
 	EXPECT_EQ(2, Grid3d<T>(2, 1, 1).getSizeX());
 	EXPECT_EQ(2, Grid3d<T>(2, 1, 2).getSizeX());
+}
 
+TEST(Grid3dTest, TestToArray8)
+{
+	using T = float;
+	std::array<T, 8> expected{ 0, 0, 0, 0, 0, 0, 0, 0 };
+	EXPECT_EQ( expected, Grid3d<T>(2, 2, 2).toArray8(0,0,0));
 }
