@@ -157,15 +157,13 @@ public:
 	}
 
 
-	/*
-	BitSpace3d getIntersection(const BitSpace3d& rhs) const {
-		const auto s = getSpace().getOverlapped(rhs.getSpace());
-		const Vector3d<T> d = s.getStart() - this->getStart();
-		const auto diff = toIndex(d);
-		
-		return dest;
+	BitSpace3d getOverlapped(const Space3d<T>& rhs) const {
+		const auto s = getSpace().getOverlapped(rhs);
+		const std::array<int, 3>& startIndex = toIndex(s.getStart());
+		const std::array<int, 3>& endIndex = toIndex(s.getEnd());
+		const auto& b = bmp.getSub(startIndex[0], endIndex[0]-1, startIndex[1], endIndex[1]-1, startIndex[2], endIndex[2]-1);
+		return BitSpace3d(s, b);
 	}
-	*/
 
 	/*
 	BitSpace3d getSubSpace(const Vector3d<T>& v) const {
