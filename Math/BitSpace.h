@@ -90,7 +90,7 @@ public:
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
 					const auto& norm = getNormalized(x, y, z);
 					if (norm.getDistance(center) < radius) {
-						bmp[x][y].set(z);
+						bmp.set(x,y,z);
 					}
 				}
 			}

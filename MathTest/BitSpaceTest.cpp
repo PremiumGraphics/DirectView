@@ -62,7 +62,7 @@ TEST(BitSpaceTest, TestEnabledSpaces)
 	using T = float;
 	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
 	Bitmap3d bmp(2, 2, 2);
-	bmp[1][0].set(0);
+	bmp.set(1,0,0);
 	BitSpace3d<T> bs(s, bmp);
 	const auto& cells = bs.toEnabledSpaces();
 	EXPECT_EQ(1, cells.size());
@@ -74,7 +74,7 @@ TEST(BitSpaceTest, TestEnabledPositions)
 	using T = float;
 	const auto s = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
 	Bitmap3d bmp(2, 2, 2);
-	bmp[1][0].set(0);
+	bmp.set(1, 0, 0);
 	BitSpace3d<T> bs(s, bmp);
 	const auto& positons = bs.toEnabledPositions();
 	EXPECT_EQ(1, positons.size());

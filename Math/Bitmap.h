@@ -27,9 +27,9 @@ public:
 		return *(this);
 	}
 
-	Bitmap1d& setAll() {
+	Bitmap1d& setAll(const bool b = true) {
 		for (size_t i = 0; i < bits.size(); ++i) {
-			bits[i] = true;
+			bits[i] = b;
 		}
 		return (*this);
 	}
@@ -106,13 +106,9 @@ public:
 		return b;
 	}
 
-	Bitmap1d moved(const size_t shift) const {
-		const auto newSize = size() - shift;
-		Bitmap1d dest( newSize );
-		for (size_t i = 0; i < newSize; ++i) {
-			dest.bits[i] = this->bits[i+shift];
-		}
-		return dest;
+	Bitmap1d getSub(const size_t startIndex, const size_t endIndex) const {
+		std::vector<bool> bs(bits.begin() + startIndex, bits.begin() + endIndex + 1);
+		return Bitmap1d( bs );
 	}
 
 private:
@@ -137,6 +133,14 @@ public:
 	{
 	}
 
+	Bitmap2d(const size_t xSize, const size_t ySize, const bool b) :
+		bmps(ySize, Bitmap1d(xSize))
+	{
+		for (auto& bm : bmps) {
+			bm.setAll(b);
+		}
+	}
+
 	size_t getSizeX() const { return bmps.front().size(); }
 
 	size_t getSizeY() const { return bmps.size(); }
@@ -147,9 +151,6 @@ public:
 		}
 		return (*this);
 	}
-
-
-	Bitmap1d& operator[](const size_t i) { return bmps[i]; }
 
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
 
@@ -204,6 +205,14 @@ public:
 		return count;
 	}
 
+	Bitmap2d getSub(const size_t startx, const size_t endx, const size_t starty, const size_t endy) const {
+		Bitmap1dVector bs( bmps.begin() + starty, bmps.begin() + endy +1 );
+		for (auto& bm : bs) {
+			bm = bm.getSub(startx, endx);
+		}
+		return Bitmap2d(bs);
+	}
+
 private:
 	Bitmap1dVector bmps;
 };
@@ -220,6 +229,11 @@ public:
 
 	Bitmap3d(const unsigned int x, const unsigned int y, const unsigned int z):
 		bmps( z, Bitmap2d(x,y) )
+	{
+	}
+
+	Bitmap3d(const size_t xSize, const size_t ySize, const size_t zSize, const bool b) :
+		bmps(zSize, Bitmap2d(xSize, ySize, b))
 	{
 	}
 
@@ -246,7 +260,7 @@ public:
 
 	void set(const size_t x, const size_t y, const size_t z) { return bmps[z].set(x, y); }
 
-	Bitmap2d& operator[](const size_t i) { return bmps[i]; }
+	//Bitmap2d& operator[](const size_t i) { return bmps[i]; }
 
 	Bitmap3d& and(const Bitmap3d& rhs) {
 		for (size_t i = 0; i < bmps.size(); ++i) {
@@ -314,18 +328,13 @@ public:
 		return b;
 	}
 
-	/*
-	Bitmap3d getSub(const std::array<unsigned int, 3>& start) {
-		Bitmap3d dest(this->getSizeX() - start[0], this->getSizeY() - start[1], this->getSizeZ() - start[2]);
-		for (unsigned int x = start[0]; x < this->getSizeX(); ++x) {
-			for (unsigned int y = start[1]; y < this->getSizeY(); ++y) {
-				for (unsigned int z = start[2]; z < this->getSizeZ(); ++z) {
-					dest.set(x, y, z); //dest[x][]
-				}
-			}
+	Bitmap3d getSub(const size_t startx, const size_t endx, const size_t starty, const size_t endy, const size_t startz, const size_t endz) const {
+		Bitmap2dVector bs(bmps.begin() + startz, bmps.begin() + endz + 1);
+		for (auto& bm : bs) {
+			bm = bm.getSub(startx, endx, starty, endy);
 		}
+		return Bitmap3d(bs);
 	}
-	*/
 
 private:
 	Bitmap2dVector bmps;
