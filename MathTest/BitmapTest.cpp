@@ -451,6 +451,12 @@ TEST(Bitmap3dTest, TestGetSizeZ)
 	EXPECT_EQ(3, Bitmap3d(2, 2, 3).getSizeZ());
 }
 
+TEST(Bitmap3dTest, TestGetSizes)
+{
+	const std::array<unsigned int, 3> expected{ 1, 1, 1 };
+	EXPECT_EQ( expected, Bitmap3d(1, 1, 1).getSizes());
+
+}
 
 /*
 TEST(Bitmap3dTest, TestNot)
@@ -467,7 +473,7 @@ TEST(Bitmap3dTest, TestTo8Bit)
 
 TEST(Bitmap3dTest, TestGetSub)
 {
-	EXPECT_EQ(Bitmap3d(1, 1,1), Bitmap3d(3, 3,3).getSub(0, 0, 0, 0, 0, 0));
+	EXPECT_EQ(Bitmap3d(1, 1, 1), Bitmap3d(3, 3, 3).getSub({ 0, 0, 0 }, { 0, 0, 0 }));
 }
 
 

@@ -3,6 +3,7 @@
 
 #include <bitset>
 #include <vector>
+#include <array>
 #include <numeric>
 
 namespace Crystal {
@@ -22,8 +23,8 @@ public:
 		bits(b)
 	{}
 
-	Bitmap1d& set( const size_t i) {
-		bits[i] = true;
+	Bitmap1d& set( const size_t i, const bool b = true) {
+		bits[i] = b;
 		return *(this);
 	}
 
@@ -154,7 +155,7 @@ public:
 
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
 
-	void set(const size_t x, const size_t y) { bmps[y].set(x); }
+	void set(const size_t x, const size_t y, const bool b = true) { bmps[y].set(x, b); }
 
 	Bitmap2d& and(const Bitmap2d& rhs) {
 		for (size_t i = 0; i < bmps.size(); ++i) {
@@ -249,6 +250,10 @@ public:
 		return bmps.size();
 	}
 
+	std::array<unsigned int, 3> getSizes() const {
+		return { getSizeX(), getSizeY(), getSizeZ() };
+	}
+
 	Bitmap3d& setAll() {
 		for (size_t i = 0; i < bmps.size(); ++i) {
 			bmps[i].setAll();
@@ -258,7 +263,7 @@ public:
 
 	bool get(const size_t x, const size_t y, const size_t z) const { return bmps[z].get(x,y); }
 
-	void set(const size_t x, const size_t y, const size_t z) { return bmps[z].set(x, y); }
+	void set(const size_t x, const size_t y, const size_t z, const bool b = true) { return bmps[z].set(x, y, b); }
 
 	//Bitmap2d& operator[](const size_t i) { return bmps[i]; }
 
@@ -328,12 +333,24 @@ public:
 		return b;
 	}
 
-	Bitmap3d getSub(const size_t startx, const size_t endx, const size_t starty, const size_t endy, const size_t startz, const size_t endz) const {
-		Bitmap2dVector bs(bmps.begin() + startz, bmps.begin() + endz + 1);
+	Bitmap3d getSub(const std::array<unsigned int, 3>& start, const std::array<unsigned int, 3>& end) const {
+		Bitmap2dVector bs(bmps.begin() + start[2], bmps.begin() + end[2] + 1);
 		for (auto& bm : bs) {
-			bm = bm.getSub(startx, endx, starty, endy);
+			bm = bm.getSub(start[0], end[0], start[1], end[1]);
 		}
 		return Bitmap3d(bs);
+	}
+
+	Bitmap3d& set(const std::array<unsigned int, 3>& start, const Bitmap3d& rhs) {
+		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
+			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
+				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
+					const bool b = rhs.get(x, y, z);
+					set(x + start[0], y + start[1], z + start[2], b);
+				}
+			}
+		}
+		return (*this);
 	}
 
 private:

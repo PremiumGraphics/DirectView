@@ -16,10 +16,6 @@ public:
 		values( values )
 	{}
 
-	//getStart() const 
-
-	//std::array<Vector3d<T>, 8> getPositions() const { return }
-
 	Space3d<T> getSpace() const { return space; }
 
 	std::bitset<8> getValues() const { return values; }
@@ -47,6 +43,8 @@ public:
 
 	Bitmap3d getBitmap() const { return bmp; }
 
+	std::array< unsigned int, 3 > getResolution() const { return bmp.getSizes(); }
+
 	Vector3d<T> getUnitLengths() const {
 		const auto x = space.getLengths().getX() / bmp.getSizeX();
 		const auto y = space.getLengths().getY() / bmp.getSizeY();
@@ -63,12 +61,23 @@ public:
 		return bmp.getCount() * getUnitVolume();
 	}
 
-	std::array< int, 3 > toIndex(const Vector3d<T>& p) const {
+	std::array< unsigned int, 3 > toIndex(const Vector3d<T>& p) const {
 		const auto unitLength = getUnitLengths();
-		const auto ix = static_cast<int>((p.getX() - space.getStart().getX()) / unitLength.getX());
-		const auto iy = static_cast<int>((p.getY() - space.getStart().getY()) / unitLength.getY());
-		const auto iz = static_cast<int>((p.getZ() - space.getStart().getZ()) / unitLength.getZ());
-		return{ ix, iy, iz };
+		const auto ix = static_cast<unsigned int>((p.getX() - space.getStart().getX()) / unitLength.getX());
+		const auto iy = static_cast<unsigned int>((p.getY() - space.getStart().getY()) / unitLength.getY());
+		const auto iz = static_cast<unsigned int>((p.getZ() - space.getStart().getZ()) / unitLength.getZ());
+		return clamp({ ix, iy, iz });
+	}
+
+	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
+		const auto maxx = getResolution()[0] - 1;
+		const auto maxy = getResolution()[1] - 1;
+		const auto maxz = getResolution()[2] - 1;
+
+		const auto ix = std::min<unsigned int>(maxx, i[0]);
+		const auto iy = std::min<unsigned int>(maxy, i[1]);
+		const auto iz = std::min<unsigned int>(maxz, i[2]);
+		return { ix, iy, iz };
 	}
 
 	void setBox() {
@@ -156,14 +165,34 @@ public:
 		return positions;
 	}
 
+	/*
+	Bitmap3d getSubBitmap(const Space3d<T>& rhs) const {
+		const auto s = getSpace().getOverlapped(rhs);
+		return bmp.getSub(startIndex[0], endIndex[0], startIndex[1], endIndex[1], startIndex[2], endIndex[2]);
+	}
+	*/
 
 	BitSpace3d getOverlapped(const Space3d<T>& rhs) const {
 		const auto s = getSpace().getOverlapped(rhs);
-		const std::array<int, 3>& startIndex = toIndex(s.getStart());
-		const std::array<int, 3>& endIndex = toIndex(s.getEnd());
-		const auto& b = bmp.getSub(startIndex[0], endIndex[0]-1, startIndex[1], endIndex[1]-1, startIndex[2], endIndex[2]-1);
+		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
+		const auto& b = bmp.getSub(startIndex, endIndex);
 		return BitSpace3d(s, b);
 	}
+
+	/*
+	BitSpace3d& setOverlapped(const Space3d<T>& rhs) const {
+
+	}
+	*/
+
+	/*
+	BitSpace3d and(const BitSpace3d<T>& rhs) const {
+		const BitSpace3d& b = rhs.getOverlapped(rhs.getSpace());
+		b.getBitmap().and( rhs.getBitmap() );
+		return b;
+	}
+	*/
 
 	/*
 	BitSpace3d getSubSpace(const Vector3d<T>& v) const {
