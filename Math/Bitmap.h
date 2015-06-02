@@ -41,6 +41,8 @@ public:
 
 	bool operator[](const size_t i) const { return bits[i]; }
 
+	bool get(const size_t i) const { return bits[i]; }
+
 	Bitmap1d& and(const Bitmap1d& rhs) {
 		for (size_t i = 0; i < bits.size(); ++i) {
 			bits[i] = bits[i] & rhs.bits[i];
@@ -69,10 +71,10 @@ public:
 		return *(this);
 	}
 
-	size_t size() const { return bits.size(); }
+	size_t getSize() const { return bits.size(); }
 
+	bool isAll() const { return getCount() == getSize(); }
 	/*
-	bool isAll() const { return bits.all(); }
 
 	bool isAny() const { return bits.any(); }
 
@@ -112,6 +114,15 @@ public:
 		return Bitmap1d( bs );
 	}
 
+	Bitmap1d& set(const unsigned int start, const Bitmap1d& rhs) {
+		for (size_t x = 0; x < rhs.getSize(); ++x) {
+			const bool b = rhs.get(x);
+			set(x + start, b);
+		}
+		return (*this);
+	}
+
+
 private:
 	//std::bitset<SIZE> bits;
 	std::vector<bool> bits;	// not best practice. see Effective STL.
@@ -142,7 +153,7 @@ public:
 		}
 	}
 
-	size_t getSizeX() const { return bmps.front().size(); }
+	size_t getSizeX() const { return bmps.front().getSize(); }
 
 	size_t getSizeY() const { return bmps.size(); }
 
@@ -154,6 +165,10 @@ public:
 	}
 
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
+
+	Bitmap1d& get(const size_t y) {
+		return bmps[y];
+	}
 
 	void set(const size_t x, const size_t y, const bool b = true) { bmps[y].set(x, b); }
 
@@ -212,6 +227,16 @@ public:
 			bm = bm.getSub(startx, endx);
 		}
 		return Bitmap2d(bs);
+	}
+
+	Bitmap2d& set(const std::array<unsigned int, 2>& start, const Bitmap2d& rhs) {
+		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
+			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
+				const bool b = rhs.get(x, y);
+				set(x + start[0], y + start[1], b);
+			}
+		}
+		return (*this);
 	}
 
 private:

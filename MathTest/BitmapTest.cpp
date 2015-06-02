@@ -124,24 +124,21 @@ TEST(Bitmap1dTest, TestGetSub)
 	//EXPECT_EQ(Bitmap1d(std::vector<bool>{ 1 }), Bitmap1d({ 1, 1, 1 }).getSub(2));
 }
 
-/*
-TEST(Bitmap1dTest, TestMovedEndIndex)
+TEST(Bitmap1dTest, TestSetBitmap)
 {
-	EXPECT_EQ(Bitmap1d({ 1, 1 }), Bitmap1d({ 1, 1, 1 }).moved(1,2));
-	EXPECT_EQ(Bitmap1d({ 0, 1 }), Bitmap1d({ 0, 0, 1 }).moved(1));
-	EXPECT_EQ(Bitmap1d(std::vector<bool>{ 1 }), Bitmap1d({ 1, 1, 1 }).moved(2));
+	EXPECT_EQ(Bitmap1d({ 1, 0, 0 }), Bitmap1d({ 1, 1, 1 }).set(1, Bitmap1d({ 0, 0 }) ) );
 }
-*/
 
-/*
 
 TEST(Bitmap1dTest, TestIsAll)
 {
-	EXPECT_FALSE(Bitmap1d({0,0}).isAll());
-	EXPECT_FALSE(Bitmap1d({0,1}).isAll());
-	EXPECT_FALSE(Bitmap1d({1,0}).isAll());
-	EXPECT_TRUE(Bitmap1d({1,1}).isAll());
+	EXPECT_FALSE(Bitmap1d({ 0, 0 }).isAll());
+	EXPECT_FALSE(Bitmap1d({ 0, 1 }).isAll());
+	EXPECT_FALSE(Bitmap1d({ 1, 0 }).isAll());
+	EXPECT_TRUE( Bitmap1d({ 1, 1 }).isAll());
+
 }
+/*
 
 TEST(Bitmap1dTest, TestIsAny)
 {
@@ -195,6 +192,20 @@ TEST(Bitmap2dTest, TestGetCount)
 TEST(Bitmap2dTest, TestGetSub)
 {
 	EXPECT_EQ( Bitmap2d(1,1), Bitmap2d(2, 2).getSub(0, 0, 0, 0) );
+}
+
+TEST(Bitmap2dTest, TestGet)
+{
+	EXPECT_EQ(Bitmap1d(2), Bitmap2d(2, 2, false).get(1));
+}
+
+TEST(Bitmap2dTest, TestSetBitmap)
+{
+	Bitmap2d lhs( 2, 2, false );
+	Bitmap2d rhs( 1, 1, true );
+	const std::array< unsigned int, 2 > start{ 1, 1 };
+	Bitmap2d actual = lhs.set(start, rhs);
+	EXPECT_EQ(1, actual.getCount());
 }
 
 
@@ -281,11 +292,11 @@ TEST(Bitmap2dTest, TestToString)
 
 TEST(Bitmap2dTest, TestEquals)
 {
-	EXPECT_TRUE( Bitmap2d(1,1).equals(Bitmap2d(1,1)));
-	EXPECT_EQ( Bitmap2d(1,1), Bitmap2d(1,1) );
+	EXPECT_TRUE( Bitmap2d(1,1,true).equals(Bitmap2d(1,1,true)));
+	EXPECT_EQ( Bitmap2d(1,1,true), Bitmap2d(1,1,true) );
 
-	EXPECT_FALSE( Bitmap2d(1,1).setAll().equals(Bitmap2d(1,1)));
-	EXPECT_NE(Bitmap2d(1,1).setAll(), Bitmap2d());
+	EXPECT_FALSE( Bitmap2d(1,1,true).equals(Bitmap2d(1,1,false)) );
+	EXPECT_NE( Bitmap2d(1,1,true), Bitmap2d(1,1,false));
 }
 
 
@@ -467,14 +478,24 @@ TEST(Bitmap3dTest, TestNot)
 
 TEST(Bitmap3dTest, TestTo8Bit)
 {
-	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d(2,2,2).to8Bit(0,0,0) );
-	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d(2,2,2).setAll().to8Bit(0, 0, 0) );
+	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d(2,2,2,false).to8Bit(0,0,0) );
+	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d(2,2,2,true).to8Bit(0,0,0) );
 }
 
 TEST(Bitmap3dTest, TestGetSub)
 {
 	EXPECT_EQ(Bitmap3d(1, 1, 1), Bitmap3d(3, 3, 3).getSub({ 0, 0, 0 }, { 0, 0, 0 }));
 }
+
+TEST(Bitmap3dTest, TestSetBitmap)
+{
+	Bitmap3d lhs(2, 2, 2, false);
+	Bitmap3d rhs(1, 1, 1, true);
+	const std::array< unsigned int, 3 > start{ 1, 1, 1 };
+	Bitmap3d actual = lhs.set(start, rhs);
+	EXPECT_EQ(1, actual.getCount());
+}
+
 
 
 /*
