@@ -66,3 +66,10 @@ TEST(BitSpaceTest, TestAnd)
 	const BitSpace3d<T> actual = lhs.and(rhs);
 	EXPECT_EQ( Bitmap3d(1, 1, 1), actual.getBitmap() );
 }
+
+TEST(BitSpaceTest, TestNot)
+{
+	using T = float;
+	BitSpace3d<T> bs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	EXPECT_EQ(8, bs.not().getBitmap().getCount());
+}

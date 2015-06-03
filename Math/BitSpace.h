@@ -175,6 +175,10 @@ public:
 		return bs;
 	}
 
+	BitSpace3d& not() {
+		bmp.not();
+		return (*this);
+	}
 
 	/*
 	BitSpace3d getSubSpace(const Vector3d<T>& v) const {

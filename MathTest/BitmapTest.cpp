@@ -147,15 +147,17 @@ TEST(Bitmap1dTest, TestIsAny)
 	EXPECT_TRUE(Bitmap1d({1,0}).isAny());
 	EXPECT_TRUE(Bitmap1d({1,1}).isAny());
 }
+*/
 
 TEST(Bitmap1dTest, TestIsNone)
 {
-	EXPECT_TRUE(Bitmap1d({0,0}).isNone());
+	EXPECT_TRUE( Bitmap1d({0,0}).isNone());
 	EXPECT_FALSE(Bitmap1d({0,1}).isNone());
 	EXPECT_FALSE(Bitmap1d({1,0}).isNone());
 	EXPECT_FALSE(Bitmap1d({1,1}).isNone());
 }
 
+/*
 TEST(Bitmap1dTest, TestMoveX)
 {
 	EXPECT_EQ(Bitmap1d({0,0}), Bitmap1d({0,0}).movex(1) );
@@ -208,17 +210,7 @@ TEST(Bitmap2dTest, TestSetBitmap)
 	EXPECT_EQ(1, actual.getCount());
 }
 
-
 /*
-
-TEST(Bitmap2dTest, TestGet)
-{
-	EXPECT_FALSE(Bitmap2d<1>(1).get(0, 0));
-	EXPECT_FALSE(Bitmap2d<1>(2).get(1, 0));
-	EXPECT_FALSE(Bitmap2d<2>(1).get(0, 1));
-
-}
-
 TEST(Bitmap2dTest, TestByValue)
 {
 	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2().byValue(0));
@@ -300,14 +292,13 @@ TEST(Bitmap2dTest, TestEquals)
 }
 
 
-/*
 TEST(Bitmap2dTest, TestIsAll)
 {
-	EXPECT_FALSE(Bitmap1x2("00").isAll());
-	EXPECT_FALSE(Bitmap1x2({0,1}).isAll());
-	EXPECT_FALSE(Bitmap1x2({1,0}).isAll());
-	EXPECT_TRUE(Bitmap1x2({1,1}).isAll());
+	EXPECT_FALSE( Bitmap2d(2,2,false).isAll() );
+	EXPECT_FALSE( Bitmap2d(2,2).set(0,0,true).isAll() );
 }
+
+/*
 
 TEST(Bitmap2dTest, TestIsNone)
 {

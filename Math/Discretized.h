@@ -18,19 +18,17 @@ public:
 
 	explicit Discretized3d(const Space3d<T>& space) :
 		space(space),
-		sizex(1),
-		sizey(1),
-		sizez(1)
+		sizes({1,1,1})
 	{
 	}
 
 	explicit Discretized3d(const Space3d<T>& space, const Index3d& sizes) :
 		space(space),
-		sizex(sizes[0]),
-		sizey(sizes[1]),
-		sizez(sizes[2])
+		sizes(sizes)
 	{
 	}
+
+	Space3d<T> getSpace() const { return space; }
 
 	Vector3d<T> getLengths() const { return space.getLengths(); }
 
@@ -44,16 +42,18 @@ public:
 
 	Vector3d<T> getEnd() const { return space.getEnd(); }
 
-	unsigned int getSizeX() const { return sizex; }
+	unsigned int getSizeX() const { return sizes[0]; }
 
-	unsigned int getSizeY() const { return sizey; }
+	unsigned int getSizeY() const { return sizes[1]; }
 
-	unsigned int getSizeZ() const { return sizez; }
+	unsigned int getSizeZ() const { return sizes[2]; }
+
+	std::array < unsigned int, 3 > getSizes() const { return sizes }
 
 	Vector3d<T> getUnitLengths() const {
-		const auto x = space.getLengths().getX() / sizex;
-		const auto y = space.getLengths().getY() / sizey;
-		const auto z = space.getLengths().getZ() / sizez;
+		const auto x = space.getLengths().getX() / getSizeX();
+		const auto y = space.getLengths().getY() / getSizeY();
+		const auto z = space.getLengths().getZ() / getSizeZ();
 		return Vector3d<T>(x, y, z);
 	}
 
@@ -87,9 +87,7 @@ public:
 
 private:
 	Space3d<T> space;
-	unsigned int sizex;
-	unsigned int sizey;
-	unsigned int sizez;
+	Index3d sizes;
 
 	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
 		const auto ix = std::min<unsigned int>(getSizeX(), i[0]);

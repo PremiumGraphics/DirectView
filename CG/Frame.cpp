@@ -642,10 +642,16 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	//Cylinder c;
-	//const PolygonSPtr& polygon = model.getPolygonBuilder()->build(modelings.cylinderConfig.divideNumber, c);
-	//polygon->setName("Cylinder");
-	//w.getPolygonTree()->build();
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+
+	Bitmap3d bmp(20, 20, 20);
+	BitSpace3d<float> bs(space, bmp);
+	bs.setBox();
+	bs.not();
+
+	model.addBitSpace(bs);
+
+	view->Refresh();
 }
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
