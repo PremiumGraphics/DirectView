@@ -4,9 +4,12 @@
 
 using namespace Crystal::Math;
 
-TEST(Kernel1dTest, Test)
+TEST(Kernel1dTest, TestGet)
 {
-	Gaussian1d<float> k;
-	const auto expected = 1.0 / std::sqrt(2.0 * Tolerance<float>::getPI());
-	EXPECT_FLOAT_EQ(expected, k.get(0));
+	using T = float;
+	Gaussian<T> k;
+	const auto expected = T(1) / std::sqrt(T(2) * Tolerance<float>::getPI());
+	EXPECT_FLOAT_EQ(expected, k.get(T(0)) );
+	EXPECT_FLOAT_EQ(expected*2, k.get(T(0),T(0)));
+	EXPECT_FLOAT_EQ(expected*3, k.get(T(0), T(0), T(0)));
 }
