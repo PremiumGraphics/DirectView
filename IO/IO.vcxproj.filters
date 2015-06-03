@@ -4,8 +4,6 @@
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
-    <ClCompile Include="XMLIOHelper.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="DXFFile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -13,8 +11,6 @@
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="STLFile.h" />
-    <ClInclude Include="XMLIOHelper.h" />
-    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="DXFFile.h" />
   </ItemGroup>
 </Project>
