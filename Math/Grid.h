@@ -89,6 +89,10 @@ public:
 
 	size_t getSizeZ() const { return grids.size(); }
 
+	std::array<unsigned int,3> getSizes() const {
+		return { getSizeX(), getSizeY(), getSizeZ() };
+	}
+
 	std::array< T, 8 > toArray8(const size_t i, const size_t j, const size_t k) const {
 		return std::array < T, 8 > {
 				get(i, j, k),

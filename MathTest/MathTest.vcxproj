@@ -16,6 +16,7 @@
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="DiscretizedTest.cpp" />
     <ClCompile Include="GridSpaceTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="..\Math\Box.h" />
     <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
+    <ClInclude Include="..\Math\Discretized.h" />
     <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\GridSpace.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />

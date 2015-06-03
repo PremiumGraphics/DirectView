@@ -21,6 +21,8 @@ public:
 		vector(length)
 	{}
 
+	~Space3d() = default;
+
 	static Space3d<T> Unit() {
 		return Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
 	}
@@ -51,6 +53,12 @@ public:
 
 	Space3d& moveEnd(const Vector3d<T>& v) {
 		vector += v;
+		return (*this);
+	}
+
+	Space3d& move(const Vector3d<T>& v) {
+		moveStart(v);
+		moveEnd(v);
 		return (*this);
 	}
 
@@ -170,6 +178,7 @@ private:
 	Vector3d<T> origin;
 	Vector3d<T> vector;
 };
+
 
 	}
 }

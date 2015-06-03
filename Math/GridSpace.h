@@ -3,6 +3,7 @@
 
 #include "Grid.h"
 #include "Space.h"
+#include "Discretized.h"
 
 namespace Crystal {
 	namespace Math {
@@ -35,38 +36,19 @@ class GridSpace3d final {
 public:
 	GridSpace3d() = default;
 
-	GridSpace3d(const Space3d<T>& space, const Grid3d<T>& grid) :
+	GridSpace3d(const Discretized3d<T>& space, const Grid3d<T>& grid) :
 		space(space),
 		grid(grid)
 	{}
 
 	Vector3d<T> getStart() const { return space.getStart(); }
 
-	Vector3d<T> getEnd() const { return space.getEnd(); }
+	//Vector3d<T> getEnd() const { return space.getEnd(); }
 
-	Space3d<T> getSpace() const { return space; }
+	Discretized3d<T> getSpace() const { return space; }
 
 	Grid3d<T> getGrid() const { return grid; }
 
-	Vector3d<T> getUnitLengths() const {
-		const auto x = space.getLengths().getX() / grid.getSizeX();
-		const auto y = space.getLengths().getY() / grid.getSizeY();
-		const auto z = space.getLengths().getZ() / grid.getSizeZ();
-		return Vector3d<T>(x, y, z);
-	}
-
-	T getUnitVolume() const {
-		const auto unitLength = getUnitLengths();
-		return unitLength.getX() * unitLength.getY() * unitLength.getZ();
-	}
-
-	std::array< int, 3 > toIndex(const Vector3d<T>& p) const {
-		const auto unitLength = getUnitLengths();
-		const auto ix = static_cast<int>((p.getX() - space.getStart().getX()) / unitLength.getX());
-		const auto iy = static_cast<int>((p.getY() - space.getStart().getY()) / unitLength.getY());
-		const auto iz = static_cast<int>((p.getZ() - space.getStart().getZ()) / unitLength.getZ());
-		return{ ix, iy, iz };
-	}
 
 	std::vector< GridCell3d<T, T> > toCells() const {
 		std::vector< GridCell3d<T, T> > cells;
@@ -122,15 +104,9 @@ public:
 	}
 	*/
 
-	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) const {
-		const auto x = ix / static_cast<T>(grid.getSizeX()) * space.getLengths().getX();
-		const auto y = iy / static_cast<T>(grid.getSizeY()) * space.getLengths().getY();
-		const auto z = iz / static_cast<T>(grid.getSizeZ()) * space.getLengths().getZ();
-		return Vector3d<T>(x, y, z) + getUnitLengths() * T(0.5);
-	}
 
 private:
-	Space3d<T> space;
+	Discretized3d<T> space;
 	Grid3d<T> grid;
 };
 

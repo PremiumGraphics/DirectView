@@ -3,6 +3,7 @@
 
 #include "Bitmap.h"
 #include "Space.h"
+#include "Discretized.h"
 
 namespace Crystal {
 	namespace Math {
@@ -30,6 +31,11 @@ class BitSpace3d final {
 public:
 	BitSpace3d() = default;
 
+	explicit BitSpace3d(const Bitmap3d& bmp) :
+		space(Space3d<T>::Unit()),
+		bmp( bmp)
+	{}
+
 	BitSpace3d(const Space3d<T>& space, const Bitmap3d& bmp) :
 		space(space),
 		bmp(bmp)
@@ -45,29 +51,11 @@ public:
 
 	std::array< unsigned int, 3 > getResolution() const { return bmp.getSizes(); }
 
-	Vector3d<T> getUnitLengths() const {
-		const auto x = space.getLengths().getX() / bmp.getSizeX();
-		const auto y = space.getLengths().getY() / bmp.getSizeY();
-		const auto z = space.getLengths().getZ() / bmp.getSizeZ();
-		return Vector3d<T>(x, y, z);
-	}
-
-	T getUnitVolume() const {
-		const auto unitLength = getUnitLengths();
-		return unitLength.getX() * unitLength.getY() * unitLength.getZ();
-	}
-
+	/*
 	T getVolume() const {
 		return bmp.getCount() * getUnitVolume();
 	}
-
-	std::array< unsigned int, 3 > toIndex(const Vector3d<T>& p) const {
-		const auto unitLength = getUnitLengths();
-		const auto ix = static_cast<unsigned int>((p.getX() - space.getStart().getX()) / unitLength.getX());
-		const auto iy = static_cast<unsigned int>((p.getY() - space.getStart().getY()) / unitLength.getY());
-		const auto iz = static_cast<unsigned int>((p.getZ() - space.getStart().getZ()) / unitLength.getZ());
-		return clamp({ ix, iy, iz });
-	}
+	*/
 
 
 	void setBox() {
@@ -80,13 +68,14 @@ public:
 		}
 	}
 
-	void setSphere() {
+	BitSpace3d& setSphere() {
 		const Vector3d<T>& center = space.getCenter();
-		const T radius = ( getSpace().getLengths().getX() - getUnitLengths().getX() ) * T(0.5);
+		const auto unitLength = Discretized3d<T>(space, bmp.getSizes()).getUnitLengths();
+		const T radius = ( getSpace().getLengths().getX() - unitLength.getX() ) * T(0.5);
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					const auto pos = toCenterPosition(x, y, z);
+					const auto pos = Discretized3d<T>(space, bmp.getSizes()).toCenterPosition(x, y, z);
 					const auto distSquared = pos.getDistanceSquared(center);
 					if ( distSquared < radius * radius) {
 						bmp.set(x,y,z);
@@ -94,26 +83,14 @@ public:
 				}
 			}
 		}
+		return (*this);
 	}
 
-	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) const {
-		const auto x = ix / static_cast<T>(bmp.getSizeX()) * space.getLengths().getX();
-		const auto y = iy / static_cast<T>(bmp.getSizeY()) * space.getLengths().getY();
-		const auto z = iz / static_cast<T>(bmp.getSizeZ()) * space.getLengths().getZ();
-		return Vector3d<T>(x, y, z) + getUnitLengths() * T(0.5);
-	}
-
-	Vector3d<T> toCenterPosition(const size_t x, const size_t y, const size_t z) const {
-		const auto xx = x * getUnitLengths().getX() + getUnitLengths().getX() * T(0.5) + getStart().getX();
-		const auto yy = y * getUnitLengths().getY() + getUnitLengths().getY() * T(0.5) + getStart().getY();
-		const auto zz = z * getUnitLengths().getZ() + getUnitLengths().getZ() * T(0.5) + getStart().getZ();
-		return Vector3d<T>(xx, yy, zz);
-	}
 
 	std::vector< BitCell3d<T> > toCells() const {
 		std::vector< BitCell3d<T> > cells;
 
-		const auto lengths = getUnitLengths();
+		const auto lengths = Discretized3d<T>(space, bmp.getSizes()).getUnitLengths();
 		const Space3d<T>& innerSpace = space.offset( lengths );
 		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided( bmp.getSizeX()-1, bmp.getSizeY()-1, bmp.getSizeZ()-1 );
 
@@ -228,8 +205,8 @@ private:
 private:
 	Bitmap3d getOverlappedBitmap(const Space3d<T>& rhs) const {
 		const auto s = getSpace().getOverlapped(rhs);
-		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
-		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
+		const std::array<unsigned int, 3>& startIndex = Discretized3d<T>(space, getBitmap().getSizes()).toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = Discretized3d<T>(space, getBitmap().getSizes()).toIndex(s.getEnd());
 		return bmp.getSub(startIndex, endIndex);
 	}
 
@@ -237,12 +214,7 @@ private:
 		return getSpace().getOverlapped(rhs);
 	}
 
-	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
-		const auto ix = std::min<unsigned int>(getResolution()[0], i[0]);
-		const auto iy = std::min<unsigned int>(getResolution()[1], i[1]);
-		const auto iz = std::min<unsigned int>(getResolution()[2], i[2]);
-		return{ ix, iy, iz };
-	}
+
 
 };
 

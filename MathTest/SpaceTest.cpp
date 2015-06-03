@@ -135,6 +135,17 @@ TEST(SpaceTest, TestMoveEnd)
 		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10) ).moveEnd(Vector3d<T>(-1, -1, -1))
 		);
 }
+
+TEST(SpaceTest, TestMove)
+{
+	using T = float;
+
+	EXPECT_EQ(
+		Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(10, 10, 10)),
+		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10)).move(Vector3d<T>(1, 1, 1))
+		);
+}
+
 /*
 
 TEST(SpaceTest, TestEquals)
