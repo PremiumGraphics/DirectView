@@ -5,38 +5,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
-//  Orignal source code is developed by https://code.google.com/p/kvs/.
-std::vector< float > Volume::createHydrogenVolume()
-{
-    const float kr1 = 32.0f / dimX;
-    const float kr2 = 32.0f / dimY;
-    const float kr3 = 32.0f / dimZ;
-    const float kd = 6.0;
-
-	std::vector< float > values;
-
-    for( int z = 0; z < dimZ; ++z ) {
-        const float dz = kr3 * ( z - ( dimZ / 2.0f ) );
-        for( int y = 0; y < dimY; ++y ) {
-			const float dy = kr2 * ( y - ( dimY / 2.0f ) );
-			for ( int x = 0; x < dimX; ++x ) {
-                const float dx = kr1 * ( x - ( dimX / 2.0f ));
-                const float r = std::sqrt( dx * dx + dy * dy + dz * dz );
-                const float cos_theta = dz / r;
-                const float phi = kd * ( r*r ) * std::exp( -r/2 ) * ( 3*cos_theta*cos_theta-1 );
-
-                float c = phi * phi;
-                if ( c > 255.0 ) {
-					c = 255.0;
-				}
-
-				values.push_back( c );
-            }
-        }
-    }
-
-    return values;
-}
 
 
 //  Orignal source code is developed by https://code.google.com/p/kvs/.

@@ -36,10 +36,12 @@ class GridSpace3d final {
 public:
 	GridSpace3d() = default;
 
-	GridSpace3d(const Discretized3d<T>& space, const Grid3d<T>& grid) :
-		space(space),
-		grid(grid)
-	{}
+	GridSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
+		grid( grid ),
+		space( space_, grid.getSizes() )
+	{
+	//	this->space = Discretized3d(space, grid.getSizes());
+	}
 
 	Vector3d<T> getStart() const { return space.getStart(); }
 

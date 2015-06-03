@@ -15,8 +15,7 @@ TEST(GridSpace3dTest, TestSetSmooth)
 {
 	using T = float;
 	Grid3d<T> grid(3,3,3);
-	Discretized3d<T> ds(Space3d<T>::Unit(), Index3d{ 3, 3, 3 });
-	GridSpace3d<T> gs(ds, grid);
+	GridSpace3d<T> gs(Space3d<T>::Unit(), grid);
 	gs.setSmooth();
 	//gs.setSmooth();
 }
