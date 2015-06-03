@@ -631,7 +631,7 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
-	Bitmap3d bmp(10, 10, 10);
+	Bitmap3d bmp(20, 20, 20);
 	BitSpace3d<float> bs(space, bmp);
 	bs.setSphere();
 
@@ -652,7 +652,7 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
-	Bitmap3d bmp(10, 10, 10);
+	Bitmap3d bmp(20, 20, 20);
 	BitSpace3d<float> bs(space, bmp);
 	bs.setBox();
 

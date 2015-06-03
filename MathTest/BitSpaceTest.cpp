@@ -44,7 +44,7 @@ TEST(BitSpaceTest, TestSetSphere)
 	using T = float;
 	BitSpace3d<T> bs(Space3d<T>::Unit(), Bitmap3d(3, 3, 3));
 	bs.setSphere();
-	EXPECT_EQ(19, bs.getBitmap().getCount());
+	EXPECT_EQ(1, bs.getBitmap().getCount());
 }
 
 TEST(BitSpaceTest, TestToCells)

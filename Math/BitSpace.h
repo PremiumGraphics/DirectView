@@ -81,14 +81,14 @@ public:
 	}
 
 	void setSphere() {
-		const Vector3d<T> center(0.5, 0.5, 0.5);
-		//const auto lengths = getUnitLengths();
-		const T radius = 0.5;//std::min<T>({ lengths.getX(), lengths.getY(), lengths.getZ() } );
+		const Vector3d<T>& center = space.getCenter();
+		const T radius = ( getSpace().getLengths().getX() - getUnitLengths().getX() ) * T(0.5);
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					const auto& norm = getNormalized(x, y, z);
-					if (norm.getDistance(center) < radius) {
+					const auto pos = toCenterPosition(x, y, z);
+					const auto distSquared = pos.getDistanceSquared(center);
+					if ( distSquared < radius * radius) {
 						bmp.set(x,y,z);
 					}
 				}
@@ -101,6 +101,13 @@ public:
 		const auto y = iy / static_cast<T>(bmp.getSizeY()) * space.getLengths().getY();
 		const auto z = iz / static_cast<T>(bmp.getSizeZ()) * space.getLengths().getZ();
 		return Vector3d<T>(x, y, z) + getUnitLengths() * T(0.5);
+	}
+
+	Vector3d<T> toCenterPosition(const size_t x, const size_t y, const size_t z) const {
+		const auto xx = x * getUnitLengths().getX() + getUnitLengths().getX() * T(0.5) + getStart().getX();
+		const auto yy = y * getUnitLengths().getY() + getUnitLengths().getY() * T(0.5) + getStart().getY();
+		const auto zz = z * getUnitLengths().getZ() + getUnitLengths().getZ() * T(0.5) + getStart().getZ();
+		return Vector3d<T>(xx, yy, zz);
 	}
 
 	std::vector< BitCell3d<T> > toCells() const {
