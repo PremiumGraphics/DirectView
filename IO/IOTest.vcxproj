@@ -16,7 +16,6 @@
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="STLFileTest.cpp" />
-    <ClCompile Include="VolumeTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6BF13D86-6D76-43D6-B608-943F8E8102D5}</ProjectGuid>

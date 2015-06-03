@@ -37,5 +37,6 @@
     <ClInclude Include="..\Math\GridSpace.h" />
     <ClInclude Include="..\Math\Discretized.h" />
     <ClInclude Include="..\Math\Kernel.h" />
+    <ClInclude Include="..\Math\Volume.h" />
   </ItemGroup>
 </Project>

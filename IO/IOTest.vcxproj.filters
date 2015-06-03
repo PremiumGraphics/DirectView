@@ -5,7 +5,6 @@
     <ClCompile Include="STLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
-    <ClCompile Include="VolumeTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
   </ItemGroup>
 </Project>
