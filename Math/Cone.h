@@ -42,7 +42,7 @@ public:
 	}
 
 	float getVolume() const {
-		return radius * radius * Tolerancef::getPI() * height / 3.0f;
+		return radius * radius * Tolerance<T>::getPI() * height / 3.0f;
 	}
 
 	void outerOffset(const float offsetLength) {};

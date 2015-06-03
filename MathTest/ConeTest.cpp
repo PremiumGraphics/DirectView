@@ -24,5 +24,5 @@ TEST(ConeTest, TestGetSet)
 
 TEST(ConeTest, TestVolume)
 {
-	EXPECT_FLOAT_EQ(Tolerancef::getPI() / 3.0f, Cone<float>().getVolume() );
+	EXPECT_FLOAT_EQ(Tolerance<float>::getPI() / 3.0f, Cone<float>().getVolume());
 }

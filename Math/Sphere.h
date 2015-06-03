@@ -95,7 +95,7 @@ public:
 
 	bool equals( const Sphere& rhs ) const {
 		return
-			Tolerancef::isEqualLoosely( radius, rhs.radius) &&
+			Tolerance<T>::isEqualLoosely( radius, rhs.radius) &&
 			( center == rhs.center );
 	}
 
@@ -112,11 +112,11 @@ public:
 	}
 
 	bool isOnStrictly(const Vector3d<float>& v) const {
-		return Tolerancef::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
+		return Tolerance<T>::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
 	}
 
 	bool isOnLoosely(const Vector3d<float>& v) const {
-		return Tolerancef::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
+		return Tolerance<T>::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
 	}
 
 private:

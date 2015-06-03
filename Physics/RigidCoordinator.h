@@ -53,7 +53,7 @@ public:
 
 		getAngleVelosity(inertiaMoment, torque, proceedTime);
 
-		if (Math::Tolerancef::isEqualStrictly(angleVelosity.getLength())) {
+		if (Math::Tolerance<float>::isEqualStrictly(angleVelosity.getLength())) {
 			for (const ParticleSPtr& p : particles) {
 				p->addCenter(objectCenter);
 			}

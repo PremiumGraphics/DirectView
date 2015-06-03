@@ -17,6 +17,7 @@
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="GridSpaceTest.cpp" />
     <ClCompile Include="DiscretizedTest.cpp" />
+    <ClCompile Include="KernelTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -35,5 +36,6 @@
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\GridSpace.h" />
     <ClInclude Include="..\Math\Discretized.h" />
+    <ClInclude Include="..\Math\Kernel.h" />
   </ItemGroup>
 </Project>

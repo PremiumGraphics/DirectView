@@ -19,6 +19,7 @@
     <ClCompile Include="DiscretizedTest.cpp" />
     <ClCompile Include="GridSpaceTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
+    <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\Math\Discretized.h" />
     <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\GridSpace.h" />
+    <ClInclude Include="..\Math\Kernel.h" />
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Matrix.h" />
     <ClInclude Include="..\Math\Quaternion.h" />

@@ -66,8 +66,6 @@ public:
 
 };
 
-using Tolerancef = Tolerance < float >;
-
 
 /*
 static bool isEqualLoosely(double x) { return ::fabs(x) < getLooseTolerance(); }

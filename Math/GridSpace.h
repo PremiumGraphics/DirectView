@@ -82,9 +82,10 @@ public:
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
-					const auto pos = space.toCenterPosition( x, y, z);
+					const auto& pos = space.toCenterPosition( x, y, z);
 					if (center.getDistanceSquared(pos) < radius * radius) {
-						const auto v = 1.0f - pos.getDistance(center) / radius;
+						const auto dist = pos.getDistance(center);
+						const auto v = 1.0f - dist / radius;
 						grid.set(x, y, z, v);
 					}
 					else {
