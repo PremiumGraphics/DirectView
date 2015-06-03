@@ -24,7 +24,6 @@ public:
 	{
 	}
 
-
 	explicit Discretized3d(const Space3d<T>& space, const Index3d& sizes) :
 		space(space),
 		sizex(sizes[0]),
@@ -33,7 +32,15 @@ public:
 	{
 	}
 
+	Vector3d<T> getLengths() const { return space.getLengths(); }
+
+	T getMinLength() const { return std::min < T >( { getLengths().getX(), getLengths().getY(), getLengths().getZ() } ); }
+
+	T getMaxLength() const { return std::max < T >( { getLengths().getX(), getLengths().getY(), getLengths().getZ() } ); }
+
 	Vector3d<T> getStart() const { return space.getStart(); }
+
+	Vector3d<T> getCenter() const { return space.getCenter(); }
 
 	Vector3d<T> getEnd() const { return space.getEnd(); }
 

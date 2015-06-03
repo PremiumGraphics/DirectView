@@ -76,34 +76,24 @@ public:
 	}
 
 
-	/*
-	void setBox() {
-		for (size_t x = 1; x < grid.getSizeX()-1; ++x) {
-			for (size_t y = 1; y < grid.getSizeY()-1; ++y) {
-				for (size_t z = 1; z < grid.getSizeZ()-1; ++z) {
-					grid[x][y].set(z);
-				}
-			}
-		}
-	}
-
-	void setSphere() {
-		const Vector3d<T> center(0.5, 0.5, 0.5);
-		//const auto lengths = getUnitLengths();
-		const T radius = 0.5;//std::min<T>({ lengths.getX(), lengths.getY(), lengths.getZ() } );
+	void setSmooth() {
+		const auto& center = space.getCenter();
+		const float radius = space.getMinLength() * T(0.5);
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
-					const auto& norm = getNormalized(x, y, z);
-					if (norm.getDistance(center) < radius) {
-						grid.set(x,y,z);
+					const auto pos = space.toCenterPosition( x, y, z);
+					if (center.getDistanceSquared(pos) < radius * radius) {
+						const auto v = 1.0f - pos.getDistance(center) / radius;
+						grid.set(x, y, z, v);
+					}
+					else {
+						grid.set(x, y, z, 0);
 					}
 				}
 			}
 		}
 	}
-	*/
-
 
 private:
 	Discretized3d<T> space;
