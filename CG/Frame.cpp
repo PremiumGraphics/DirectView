@@ -637,6 +637,8 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 
 	model.addBitSpace(bs);
 
+	model.toPolygon();
+
 	view->Refresh();
 }
 
@@ -651,6 +653,9 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 	model.addBitSpace(bs);
 
+	model.toPolygon();
+
+
 	view->Refresh();
 }
 
@@ -663,6 +668,9 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 	bs.setBox();
 
 	model.addBitSpace(bs);
+
+	model.toPolygon();
+
 	view->Refresh();
 }
 
@@ -670,13 +678,15 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	Grid3d<float> grid(20, 20, 20);
+	Grid3d<float> grid(40, 40, 40);
 	ScalarSpace3d<float> ss(space, grid);
-	ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
-	ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
-
+	//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
+	//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
+	ss.addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
 
 	model.addScalarSpace(ss);
+
+	model.toPolygon();
 
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();

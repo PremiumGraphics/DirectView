@@ -7,6 +7,7 @@
 
 #include "../Math/BitSpace.h"
 #include "../Math/ScalarSpace.h"
+#include "../Math/MarchingCube.h"
 
 namespace Crystal {
 	namespace CG {
@@ -17,11 +18,13 @@ public:
 		lightBuilder( std::make_shared< Graphics::LightBuilder>()),
 		camera( std::make_shared< Graphics::Camera<float> >() )
 	{
+		mc.buildTable();
 	}
 
 	void clear()
 	{
 		bitSpaces.clear();
+		polygons.clear();
 	}
 
 	void addBitSpace(const Math::BitSpace3d<float>& bs) { bitSpaces.push_back(bs); }
@@ -38,10 +41,15 @@ public:
 
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
+	void toPolygon();
+
+	Graphics::PolygonSPtrVector getPolygons() const { return polygons; }
+
 private:
 	Graphics::PolygonSPtrVector polygons;
 	std::list< Math::BitSpace3d<float> > bitSpaces;
 	std::list< Math::ScalarSpace3d<float> > scalarSpaces;
+	Math::MarchingCube<float> mc;
 
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
