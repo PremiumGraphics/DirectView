@@ -32,22 +32,18 @@ private:
 
 
 template< typename T >
-class ScalarSpace3d final {
+class ScalarSpace3d : public GridSpaceBase<T> {
 public:
 	ScalarSpace3d() = default;
 
 	ScalarSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
-		grid( grid ),
-		space( space_, grid.getSizes() )
+		GridSpaceBase( space_, grid.getSizes() ),
+		grid( grid )
 	{
 	//	this->space = Discretized3d(space, grid.getSizes());
 	}
 
-	Vector3d<T> getStart() const { return space.getStart(); }
-
 	//Vector3d<T> getEnd() const { return space.getEnd(); }
-
-	GridSpaceBase<T> getSpace() const { return space; }
 
 	Grid3d<T> getGrid() const { return grid; }
 
@@ -79,12 +75,12 @@ public:
 
 
 	void setSmooth() {
-		const auto& center = space.getCenter();
-		const float radius = space.getMinLength() * T(0.5);
+		const auto& center = getCenter();
+		const float radius = getMinLength() * T(0.5);
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
-					const auto& pos = space.toCenterPosition( x, y, z);
+					const auto& pos = toCenterPosition( x, y, z);
 					if (center.getDistanceSquared(pos) < radius * radius) {
 						const auto dist = pos.getDistance(center);
 						const auto v = 1.0f - dist / radius;
@@ -99,7 +95,6 @@ public:
 	}
 
 private:
-	GridSpaceBase<T> space;
 	Grid3d<T> grid;
 };
 

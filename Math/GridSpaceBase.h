@@ -22,7 +22,7 @@ public:
 	{
 	}
 
-	explicit GridSpaceBase(const Space3d<T>& space, const Index3d& sizes) :
+	GridSpaceBase(const Space3d<T>& space, const Index3d& sizes) :
 		space(space),
 		sizes(sizes)
 	{
@@ -77,6 +77,7 @@ public:
 		return clamp({ ix, iy, iz });
 	}
 
+
 	Vector3d<T> toCenterPosition(const size_t x, const size_t y, const size_t z) const {
 		const auto unitLengths = getUnitLengths();
 		const auto xx = x * unitLengths.getX() + unitLengths.getX() * T(0.5) + getStart().getX();
@@ -95,6 +96,24 @@ private:
 		const auto iz = std::min<unsigned int>(getSizeZ(), i[2]);
 		return{ ix, iy, iz };
 	}
+};
+
+template<typename T>
+class GridSpaceBaseTest : public GridSpaceBase<T>
+{
+public:
+	explicit GridSpaceBaseTest(const Space3d<T>& space) :
+		GridSpaceBase( space )
+	{
+	}
+
+	GridSpaceBaseTest(const Space3d<T>& space, const Index3d& sizes) :
+		GridSpaceBase( space, sizes )
+	{
+	}
+
+private:
+
 };
 
 	}
