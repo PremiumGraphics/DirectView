@@ -17,6 +17,7 @@
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="GridSpaseBaseTest.cpp" />
+    <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />

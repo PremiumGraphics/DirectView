@@ -12,6 +12,7 @@
 #include <array>
 #include "Bitmap.h"
 #include "BitSpace.h"
+#include "ScalarSpace.h"
 
 namespace Crystal {
 	namespace Math {
@@ -47,6 +48,18 @@ public:
 	}
 	*/
 
+	TriangleVector<T> march(const ScalarSpace3d<T>& ss, const T isolevel)
+	{
+		TriangleVector<T> triangles;
+		const std::vector< ScalarCell3d<T,T> >& cells = ss.toCells();
+		for (const auto c : cells) {
+			const auto ts = build(c.getSpace(), c.getValues(), isolevel);
+			triangles.insert(triangles.end(), ts.begin(), ts.end());
+		}
+		return triangles;
+	}
+
+
 	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
 	{
 		TriangleVector<T> triangles;
@@ -55,7 +68,6 @@ public:
 		const auto vertices = getPositions(cubeindex, vs, val, isolevel);
 		return build(cubeindex, vertices);
 	}
-
 
 	TriangleVector<T> march(const BitSpace3d<T>& bs)
 	{

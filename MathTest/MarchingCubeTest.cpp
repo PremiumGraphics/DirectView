@@ -174,7 +174,7 @@ TEST(MarchingCubeTest, TestMarchBits)
 
 }
 
-TEST(MarchingCubeTest, TestMarch)
+TEST(MarchingCubeTest, TestMarchBitSpace)
 {
 	MarchingCube<float> mc;
 	mc.buildTable();
@@ -184,4 +184,17 @@ TEST(MarchingCubeTest, TestMarch)
 	BitSpace3d<float> bs(s, bmp);
 
 	EXPECT_EQ( 0, mc.march(bs).size() );
+}
+
+
+TEST(MarchingCubeTest, TestMarchScalarSpace)
+{
+	MarchingCube<float> mc;
+	mc.buildTable();
+
+	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(10, 10, 10));
+	const Grid3d<float> grid(2,2,2);
+	ScalarSpace3d<float> ss(s, grid);
+
+	mc.march(ss, 0.5);
 }

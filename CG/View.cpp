@@ -247,6 +247,22 @@ void View::buildDisplayList()
 	MarchingCube<float> mc;
 	mc.buildTable();
 
+	for (const auto& ss : model.getScalarSpaces()) {
+		const auto& triangles = mc.march(ss, 0.5);
+
+		Graphics::Polygon p;
+		for (const auto t : triangles) {
+			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
+			p.add(t.getv0(), t.getv1(), ColorRGBA<float>::Blue());
+			p.add(t.getv1(), t.getv2(), ColorRGBA<float>::Blue());
+			p.add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
+		}
+		positions = p.toPositionArray();
+		normals = p.toNormalArray();
+		colors = p.toColorArray();
+
+	}
+
 	for (const auto& bs : model.getBitSpaces()) {
 		const auto& triangles = mc.march(bs);
 

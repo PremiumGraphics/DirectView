@@ -6,6 +6,7 @@
 #include "../Graphics/Polygon.h"
 
 #include "../Math/BitSpace.h"
+#include "../Math/ScalarSpace.h"
 
 namespace Crystal {
 	namespace CG {
@@ -27,6 +28,10 @@ public:
 
 	std::list< Math::BitSpace3d<float> > getBitSpaces() const { return bitSpaces; }
 
+	void addScalarSpace(const Math::ScalarSpace3d<float>& ss) { scalarSpaces.push_back(ss); }
+
+	std::list< Math::ScalarSpace3d<float> > getScalarSpaces() const { return scalarSpaces; }
+
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
 	Graphics::CameraSPtr<float> getCamera() { return camera; }
@@ -36,6 +41,7 @@ public:
 private:
 	Graphics::PolygonSPtrVector polygons;
 	std::list< Math::BitSpace3d<float> > bitSpaces;
+	std::list< Math::ScalarSpace3d<float> > scalarSpaces;
 
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;

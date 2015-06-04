@@ -669,6 +669,13 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+	Grid3d<float> grid(20, 20, 20);
+	ScalarSpace3d<float> ss(space, grid);
+	ss.setSmooth();
+
+	model.addScalarSpace(ss);
+
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
 }
