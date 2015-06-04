@@ -52,22 +52,23 @@ public:
 		std::vector< ScalarCell3d<T, T> > cells;
 
 		const auto lengths = getUnitLengths();
-		const Space3d<T>& innerSpace = space.offset(lengths);
+		const Space3d<T>& innerSpace = getSpace().offset(lengths);
 		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
 
-		std::vector<std::array<8>> bs;
+		//std::vector<std::array<8>> bs;
+		std::vector< std::array<T, 8 > > values;
 		for (size_t x = 0; x < grid.getSizeX() - 1; ++x) {
 			for (size_t y = 0; y < grid.getSizeY() - 1; ++y) {
 				for (size_t z = 0; z < grid.getSizeZ() - 1; ++z) {
-					bs.push_back(grid.to8Array(x, y, z));
+					values.push_back(grid.toArray8(x, y, z));
 				}
 			}
 		}
 
-		assert(spaces.size() == bs.size());
+		assert(spaces.size() == values.size());
 
 		for (size_t i = 0; i < spaces.size(); ++i) {
-			ScalarCell3d<T, T> c(spaces[i], bs[i]);
+			ScalarCell3d<T, T> c( spaces[i], values[i]);
 			cells.push_back(c);
 		}
 		return cells;

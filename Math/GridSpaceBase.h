@@ -14,7 +14,7 @@ class GridSpaceBase
 public:
 	GridSpaceBase() = default;
 
-	~GridSpaceBase() = default;
+	virtual ~GridSpaceBase() = default;
 
 	explicit GridSpaceBase(const Space3d<T>& space) :
 		space(space),
@@ -28,6 +28,7 @@ public:
 	{
 	}
 
+public:
 	Space3d<T> getSpace() const { return space; }
 
 	Vector3d<T> getLengths() const { return space.getLengths(); }

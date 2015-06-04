@@ -19,3 +19,9 @@ TEST(GridSpace3dTest, TestSetSmooth)
 	gs.setSmooth();
 	//gs.setSmooth();
 }
+
+TEST(GridSpace3dTest, TestToCells)
+{
+	using T = float;
+	EXPECT_EQ( 1, ScalarSpace3d<T>(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2)).toCells().size() );
+}

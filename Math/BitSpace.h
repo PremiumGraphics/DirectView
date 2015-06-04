@@ -41,13 +41,7 @@ public:
 		bmp(bmp)
 	{}
 
-	Vector3d<T> getStart() const { return space.getStart(); }
-
-	Vector3d<T> getEnd() const { return space.getEnd(); }
-
 	Bitmap3d getBitmap() const { return bmp; }
-
-	std::array< unsigned int, 3 > getResolution() const { return bmp.getSizes(); }
 
 	/*
 	T getVolume() const {
@@ -56,7 +50,7 @@ public:
 	*/
 
 
-	void setBox() {
+	BitSpace3d& setBox() {
 		for (size_t x = 1; x < bmp.getSizeX()-1; ++x) {
 			for (size_t y = 1; y < bmp.getSizeY()-1; ++y) {
 				for (size_t z = 1; z < bmp.getSizeZ()-1; ++z) {
@@ -64,6 +58,7 @@ public:
 				}
 			}
 		}
+		return (*this);
 	}
 
 	BitSpace3d& setSphere() {
