@@ -4,6 +4,25 @@
 
 using namespace Crystal::Math;
 
+template<typename T>
+class GridSpaceBaseTest : public GridSpaceBase<T>
+{
+public:
+	explicit GridSpaceBaseTest(const Space3d<T>& space) :
+		GridSpaceBase(space)
+	{
+	}
+
+	GridSpaceBaseTest(const Space3d<T>& space, const Index3d& sizes) :
+		GridSpaceBase(space, sizes)
+	{
+	}
+
+private:
+
+};
+
+
 TEST(Discretized3dTest, TestGetSizeX)
 {
 	EXPECT_EQ( 1, GridSpaceBase<float>(Space3d<float>(), Index3d{ 1, 2, 3 } ).getSizeX() );

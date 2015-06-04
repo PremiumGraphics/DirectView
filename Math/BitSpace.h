@@ -27,25 +27,23 @@ private:
 };
 
 template< typename T >
-class BitSpace3d final {
+class BitSpace3d : public GridSpaceBase<T> {
 public:
 	BitSpace3d() = default;
 
 	explicit BitSpace3d(const Bitmap3d& bmp) :
-		space(Space3d<T>::Unit()),
+		GridSpaceBase(Space3d<T>::Unit(), bmp.getSizes() ),
 		bmp( bmp)
 	{}
 
 	BitSpace3d(const Space3d<T>& space, const Bitmap3d& bmp) :
-		space(space),
+		GridSpaceBase(space, bmp.getSizes() ),
 		bmp(bmp)
 	{}
 
 	Vector3d<T> getStart() const { return space.getStart(); }
 
 	Vector3d<T> getEnd() const { return space.getEnd(); }
-
-	Space3d<T> getSpace() const { return space; }
 
 	Bitmap3d getBitmap() const { return bmp; }
 
@@ -69,13 +67,13 @@ public:
 	}
 
 	BitSpace3d& setSphere() {
-		const Vector3d<T>& center = space.getCenter();
-		const auto unitLength = GridSpaceBase<T>(space, bmp.getSizes()).getUnitLengths();
+		const Vector3d<T>& center = getCenter();
+		const auto unitLength = getUnitLengths();
 		const T radius = ( getSpace().getLengths().getX() - unitLength.getX() ) * T(0.5);
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					const auto pos = GridSpaceBase<T>(space, bmp.getSizes()).toCenterPosition(x, y, z);
+					const auto pos = toCenterPosition(x, y, z);
 					const auto distSquared = pos.getDistanceSquared(center);
 					if ( distSquared < radius * radius) {
 						bmp.set(x,y,z);
@@ -90,8 +88,8 @@ public:
 	std::vector< BitCell3d<T> > toCells() const {
 		std::vector< BitCell3d<T> > cells;
 
-		const auto lengths = GridSpaceBase<T>(space, bmp.getSizes()).getUnitLengths();
-		const Space3d<T>& innerSpace = space.offset( lengths );
+		const auto lengths = getUnitLengths();
+		const Space3d<T>& innerSpace = getSpace().offset( lengths );
 		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided( bmp.getSizeX()-1, bmp.getSizeY()-1, bmp.getSizeZ()-1 );
 
 		std::vector<std::bitset<8>> bs;
@@ -115,7 +113,7 @@ public:
 	std::vector< Space3d<T> > toEnabledSpaces() const {
 		std::vector< Space3d<T> > results;
 
-		const std::vector< Space3d<T> >& spaces = space.getDivided(bmp.getSizeX(), bmp.getSizeY(), bmp.getSizeZ() );
+		const std::vector< Space3d<T> >& spaces = getSpace().getDivided(bmp.getSizeX(), bmp.getSizeY(), bmp.getSizeZ() );
 		int i = 0;
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
@@ -203,14 +201,13 @@ public:
 	}
 
 private:
-	Space3d<T> space;
 	Bitmap3d bmp;
 
 private:
 	Bitmap3d getOverlappedBitmap(const Space3d<T>& rhs) const {
 		const auto s = getSpace().getOverlapped(rhs);
-		const std::array<unsigned int, 3>& startIndex = GridSpaceBase<T>(space, getBitmap().getSizes()).toIndex(s.getStart());
-		const std::array<unsigned int, 3>& endIndex = GridSpaceBase<T>(space, getBitmap().getSizes()).toIndex(s.getEnd());
+		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
 		return bmp.getSub(startIndex, endIndex);
 	}
 

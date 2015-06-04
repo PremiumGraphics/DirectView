@@ -98,23 +98,6 @@ private:
 	}
 };
 
-template<typename T>
-class GridSpaceBaseTest : public GridSpaceBase<T>
-{
-public:
-	explicit GridSpaceBaseTest(const Space3d<T>& space) :
-		GridSpaceBase( space )
-	{
-	}
-
-	GridSpaceBaseTest(const Space3d<T>& space, const Index3d& sizes) :
-		GridSpaceBase( space, sizes )
-	{
-	}
-
-private:
-
-};
 
 	}
 }
