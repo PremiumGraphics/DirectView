@@ -31,6 +31,11 @@ public:
 public:
 	Space3d<T> getSpace() const { return space; }
 
+	GridSpaceBase& scale(const Vector3d<T>& v) {
+		space.scale(v);
+		return (*this);
+	}
+
 	Vector3d<T> getLengths() const { return space.getLengths(); }
 
 	T getMinLength() const { return std::min < T >( { getLengths().getX(), getLengths().getY(), getLengths().getZ() } ); }

@@ -50,3 +50,11 @@ TEST(GridSpaceBaseTest, TestToIndex)
 
 	//	bs.toIndex(Vector3d<T>(8, 8, 8));
 }
+
+TEST(GridSpaceBaseTest, TestScale)
+{
+	using T = float;
+	GridSpaceBase<T> original( Space3d<T>::Unit(), Index3d{ 1, 1, 1 });
+	original.scale(Vector3d<T>(2, 4, 8));
+	EXPECT_EQ( Vector3d<T>(2,4,8), original.getSpace().getLengths());
+}

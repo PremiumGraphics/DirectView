@@ -672,7 +672,9 @@ void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 	Grid3d<float> grid(20, 20, 20);
 	ScalarSpace3d<float> ss(space, grid);
-	ss.setSmooth();
+	ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
+	ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
+
 
 	model.addScalarSpace(ss);
 

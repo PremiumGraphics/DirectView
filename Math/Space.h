@@ -37,6 +37,11 @@ public:
 
 	Vector3d<T> getCenter() const { return origin + vector * 0.5; }
 
+	Space3d& scale(const Vector3d<T>& v)  {
+		vector.scale( v.getX(), v.getY(), v.getZ() );
+		return (*this);
+	}
+
 	Space3d moveStart(const Vector3d<T>& v) const {
 		return Vector3d<T>(origin + v, vector - v);
 	}

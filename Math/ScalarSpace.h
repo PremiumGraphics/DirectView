@@ -75,9 +75,7 @@ public:
 	}
 
 
-	void setSmooth() {
-		const auto& center = getCenter();
-		const float radius = getMinLength() * T(0.5);
+	void addSmooth(const Vector3d<T>& center, const T radius) {
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
@@ -85,10 +83,8 @@ public:
 					if (center.getDistanceSquared(pos) < radius * radius) {
 						const auto dist = pos.getDistance(center);
 						const auto v = 1.0f - dist / radius;
-						grid.set(x, y, z, v);
-					}
-					else {
-						grid.set(x, y, z, 0);
+						const auto original = grid.get(x, y, z);
+						grid.set(x, y, z, v + original);
 					}
 				}
 			}
