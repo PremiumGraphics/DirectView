@@ -3,16 +3,16 @@
 
 #include "Grid.h"
 #include "Space.h"
-#include "Discretized.h"
+#include "GridSpaceBase.h"
 
 namespace Crystal {
 	namespace Math {
 
 template< typename T, typename ValueType >
-class GridCell3d
+class ScalarCell3d
 {
 public:
-	GridCell3d(const Space3d<T>& space, const std::array< ValueType, 8>& values) :
+	ScalarCell3d(const Space3d<T>& space, const std::array< ValueType, 8>& values) :
 		space(space),
 		values(values)
 	{}
@@ -32,11 +32,11 @@ private:
 
 
 template< typename T >
-class GridSpace3d final {
+class ScalarSpace3d final {
 public:
-	GridSpace3d() = default;
+	ScalarSpace3d() = default;
 
-	GridSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
+	ScalarSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
 		grid( grid ),
 		space( space_, grid.getSizes() )
 	{
@@ -47,13 +47,13 @@ public:
 
 	//Vector3d<T> getEnd() const { return space.getEnd(); }
 
-	Discretized3d<T> getSpace() const { return space; }
+	GridSpaceBase<T> getSpace() const { return space; }
 
 	Grid3d<T> getGrid() const { return grid; }
 
 
-	std::vector< GridCell3d<T, T> > toCells() const {
-		std::vector< GridCell3d<T, T> > cells;
+	std::vector< ScalarCell3d<T, T> > toCells() const {
+		std::vector< ScalarCell3d<T, T> > cells;
 
 		const auto lengths = getUnitLengths();
 		const Space3d<T>& innerSpace = space.offset(lengths);
@@ -71,7 +71,7 @@ public:
 		assert(spaces.size() == bs.size());
 
 		for (size_t i = 0; i < spaces.size(); ++i) {
-			GridCell3d<T, T> c(spaces[i], bs[i]);
+			ScalarCell3d<T, T> c(spaces[i], bs[i]);
 			cells.push_back(c);
 		}
 		return cells;
@@ -99,7 +99,7 @@ public:
 	}
 
 private:
-	Discretized3d<T> space;
+	GridSpaceBase<T> space;
 	Grid3d<T> grid;
 };
 

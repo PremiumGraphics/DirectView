@@ -9,20 +9,20 @@ namespace Crystal{
 using Index3d = std::array < unsigned int, 3 > ;
 
 template<typename T>
-class Discretized3d
+class GridSpaceBase
 {
 public:
-	Discretized3d() = default;
+	GridSpaceBase() = default;
 
-	~Discretized3d() = default;
+	~GridSpaceBase() = default;
 
-	explicit Discretized3d(const Space3d<T>& space) :
+	explicit GridSpaceBase(const Space3d<T>& space) :
 		space(space),
 		sizes({1,1,1})
 	{
 	}
 
-	explicit Discretized3d(const Space3d<T>& space, const Index3d& sizes) :
+	explicit GridSpaceBase(const Space3d<T>& space, const Index3d& sizes) :
 		space(space),
 		sizes(sizes)
 	{

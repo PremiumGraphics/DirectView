@@ -3,7 +3,7 @@
 
 #include "Bitmap.h"
 #include "Space.h"
-#include "Discretized.h"
+#include "GridSpaceBase.h"
 
 namespace Crystal {
 	namespace Math {
@@ -70,12 +70,12 @@ public:
 
 	BitSpace3d& setSphere() {
 		const Vector3d<T>& center = space.getCenter();
-		const auto unitLength = Discretized3d<T>(space, bmp.getSizes()).getUnitLengths();
+		const auto unitLength = GridSpaceBase<T>(space, bmp.getSizes()).getUnitLengths();
 		const T radius = ( getSpace().getLengths().getX() - unitLength.getX() ) * T(0.5);
 		for (size_t x = 0; x < bmp.getSizeX(); ++x) {
 			for (size_t y = 0; y < bmp.getSizeY(); ++y) {
 				for (size_t z = 0; z < bmp.getSizeZ(); ++z) {
-					const auto pos = Discretized3d<T>(space, bmp.getSizes()).toCenterPosition(x, y, z);
+					const auto pos = GridSpaceBase<T>(space, bmp.getSizes()).toCenterPosition(x, y, z);
 					const auto distSquared = pos.getDistanceSquared(center);
 					if ( distSquared < radius * radius) {
 						bmp.set(x,y,z);
@@ -90,7 +90,7 @@ public:
 	std::vector< BitCell3d<T> > toCells() const {
 		std::vector< BitCell3d<T> > cells;
 
-		const auto lengths = Discretized3d<T>(space, bmp.getSizes()).getUnitLengths();
+		const auto lengths = GridSpaceBase<T>(space, bmp.getSizes()).getUnitLengths();
 		const Space3d<T>& innerSpace = space.offset( lengths );
 		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided( bmp.getSizeX()-1, bmp.getSizeY()-1, bmp.getSizeZ()-1 );
 
@@ -209,8 +209,8 @@ private:
 private:
 	Bitmap3d getOverlappedBitmap(const Space3d<T>& rhs) const {
 		const auto s = getSpace().getOverlapped(rhs);
-		const std::array<unsigned int, 3>& startIndex = Discretized3d<T>(space, getBitmap().getSizes()).toIndex(s.getStart());
-		const std::array<unsigned int, 3>& endIndex = Discretized3d<T>(space, getBitmap().getSizes()).toIndex(s.getEnd());
+		const std::array<unsigned int, 3>& startIndex = GridSpaceBase<T>(space, getBitmap().getSizes()).toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = GridSpaceBase<T>(space, getBitmap().getSizes()).toIndex(s.getEnd());
 		return bmp.getSub(startIndex, endIndex);
 	}
 
