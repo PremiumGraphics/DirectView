@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Math/GridSpace.h"
+#include "../Math/ScalarSpace.h"
 
 using namespace Crystal::Math;
 

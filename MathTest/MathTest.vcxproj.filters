@@ -13,11 +13,10 @@
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
-    <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
-    <ClCompile Include="GridSpaceTest.cpp" />
     <ClCompile Include="DiscretizedTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
+    <ClCompile Include="ScalarSpaceTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -35,8 +34,8 @@
     <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\GridSpace.h" />
-    <ClInclude Include="..\Math\Discretized.h" />
     <ClInclude Include="..\Math\Kernel.h" />
     <ClInclude Include="..\Math\Volume.h" />
+    <ClInclude Include="..\Math\ScalarSpace.h" />
   </ItemGroup>
 </Project>
