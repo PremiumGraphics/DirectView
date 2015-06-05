@@ -20,17 +20,16 @@ TEST(Grid1dTest, TestSet)
 {
 	using T = float;
 	Grid1d<T> lhs(2, 10);
-	Grid1d<T> rhs(1, 20);
-	lhs.set(1, rhs);
+	lhs.set(1, Grid1d<T>(1, 20));
 	EXPECT_EQ(20, lhs.get(1));
 }
 
 TEST(Grid1dTest, TestGetSub)
 {
 	using T = float;
-	const Grid1d<T> actual = Grid1d<T>(2, 0).getSub(0, 1);
-	const Grid1d<T> expected(1, 0);
-	EXPECT_EQ( expected, actual );
+	EXPECT_EQ(Grid1d<T>(1, 0), Grid1d<T>(2, 0).getSub(0, 1));
+	EXPECT_EQ(Grid1d<T>(2, 100), Grid1d<T>(5, 100).getSub(0, 2));
+
 }
 
 TEST(Grid2dTest, TestGetSizeX)
@@ -54,9 +53,7 @@ TEST(Grid2dTest, TestGetSizeY)
 TEST(Grid2dTest, TestGetSub)
 {
 	using T = float;
-	const Grid2d<T> actual = Grid2d<T>(2, 2).getSub(0, 1, 0, 1);
-	const Grid2d<T> expected(1, 1);
-	EXPECT_EQ(expected, actual);
+	EXPECT_EQ( Grid2d<T>(1, 1), Grid2d<T>(2, 2).getSub(0, 1, 0, 1) );
 }
 
 
@@ -83,8 +80,8 @@ TEST(Grid3dTest, TestGetSub)
 {
 	using T = float;
 	const Grid3d<T> actual = Grid3d<T>(2, 2, 2).getSub({ 0, 0, 0 }, { 1, 1, 1 });
-	const Grid3d<T> expected(1, 1, 1);
-	EXPECT_EQ(expected, actual);
+	
+	EXPECT_EQ( Grid3d<T>(1, 1, 1) , actual);
 }
 
 TEST(Grid3dTest, TestAdd)
@@ -95,5 +92,16 @@ TEST(Grid3dTest, TestAdd)
 	lhs.add(rhs);
 
 	const auto expected = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20).set(1, 1, 1, 10);
+	EXPECT_EQ(expected, lhs);
+}
+
+TEST(Grid3dTest, TestSub)
+{
+	using T = float;
+	auto lhs = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20);
+	const auto rhs = Grid3d<T>(2, 2, 2).set(1, 1, 1, -10);
+	lhs.add(rhs);
+
+	const auto expected = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20).set(1, 1, 1, -10);
 	EXPECT_EQ(expected, lhs);
 }

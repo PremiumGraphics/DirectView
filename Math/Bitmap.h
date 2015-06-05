@@ -74,10 +74,8 @@ public:
 	size_t getSize() const { return bits.size(); }
 
 	bool isAll() const { return getCount() == getSize(); }
-	/*
 
-	bool isAny() const { return bits.any(); }
-	*/
+	bool isAny() const { return !isNone(); }
 
 	bool isNone() const { return getCount() == 0; }
 
@@ -169,6 +167,10 @@ public:
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
 
 	bool isAll() const { return getCount() == getSize(); }
+
+	bool isAny() const { return !isNone(); }
+
+	bool isNone() const { return getCount() == 0; }
 
 	Bitmap1d& get(const size_t y) {
 		return bmps[y];
@@ -282,9 +284,20 @@ public:
 		return bmps.size();
 	}
 
+	unsigned int getSize() const {
+		return getSizeX() * getSizeY() * getSizeZ();
+	}
+
 	std::array<unsigned int, 3> getSizes() const {
 		return { getSizeX(), getSizeY(), getSizeZ() };
 	}
+
+	bool isAll() const { return getCount() == getSize(); }
+
+	bool isAny() const { return !isNone(); }
+
+	bool isNone() const { return getCount() == 0; }
+
 
 	Bitmap3d& setAll() {
 		for (size_t i = 0; i < bmps.size(); ++i) {

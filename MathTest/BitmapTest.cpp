@@ -211,21 +211,6 @@ TEST(Bitmap2dTest, TestSetBitmap)
 }
 
 /*
-TEST(Bitmap2dTest, TestByValue)
-{
-	EXPECT_EQ(Bitmap2x2("0000"), Bitmap2x2().byValue(0));
-	EXPECT_EQ(Bitmap2x2("0100"), Bitmap2x2().byValue(1));
-	EXPECT_EQ(Bitmap2x2("1000"), Bitmap2x2().byValue(2));
-	EXPECT_EQ(Bitmap2x2("1100"), Bitmap2x2().byValue(3));
-
-	EXPECT_EQ(Bitmap2x2("0001"), Bitmap2x2().byValue(4));
-	EXPECT_EQ(Bitmap2x2("0101"), Bitmap2x2().byValue(5));
-	EXPECT_EQ(Bitmap2x2("1001"), Bitmap2x2().byValue(6));
-
-
-	EXPECT_TRUE(Bitmap2x2().byValue(1).get(0, 0));
-}
-
 
 TEST(Bitmap2dTest, TestSet)
 {
@@ -272,14 +257,6 @@ TEST(Bitmap2dTest, TestResetAll)
 	EXPECT_FALSE(bitmap.get(0, 1));
 }
 
-TEST(Bitmap2dTest, TestToString)
-{
-	EXPECT_EQ("0000", Bitmap2x2("0000").toString());
-	EXPECT_EQ("0001", Bitmap2x2("0001").toString());
-	EXPECT_EQ("0010", Bitmap2x2("0010").toString());
-	EXPECT_EQ("0011", Bitmap2x2("0011").toString());
-}
-
 */
 
 TEST(Bitmap2dTest, TestEquals)
@@ -296,25 +273,30 @@ TEST(Bitmap2dTest, TestIsAll)
 {
 	EXPECT_FALSE( Bitmap2d(2,2,false).isAll() );
 	EXPECT_FALSE( Bitmap2d(2,2).set(0,0,true).isAll() );
+	EXPECT_TRUE(  Bitmap2d(2, 2, true).isAll());
 }
 
-/*
+
+TEST(Bitmap2dTest, TestIsAny)
+{
+	EXPECT_FALSE( Bitmap2d(2, 2, false).isAny());
+	EXPECT_TRUE(  Bitmap2d(2, 2, true).isAny());
+}
+
 
 TEST(Bitmap2dTest, TestIsNone)
 {
-	EXPECT_TRUE(Bitmap2x2("0000").isNone());
-	EXPECT_FALSE(Bitmap2x2("0001").isNone());
-	EXPECT_FALSE(Bitmap2x2("0010").isNone());
-	EXPECT_FALSE(Bitmap2x2("0100").isNone());
+	EXPECT_TRUE( Bitmap2d(2, 2,false).isNone());
+	EXPECT_FALSE(Bitmap2d(2, 2, true).isNone());
 }
 
 TEST(Bitmap2dTest, TestNot)
 {
-	EXPECT_EQ(Bitmap1x2("00").not(), Bitmap1x2({1,1}));
-	EXPECT_EQ(Bitmap1x2({0,1}).not(), Bitmap1x2({1,0}));
-	EXPECT_EQ(Bitmap1x2({1,0}).not(), Bitmap1x2({0,1}));
-	EXPECT_EQ(Bitmap1x2({1,1}).not(), Bitmap1x2("00"));
+	EXPECT_EQ(Bitmap2d(2, 2, false), Bitmap2d(2, 2, true).not());
+	EXPECT_EQ(Bitmap2d(2, 2, true), Bitmap2d(2, 2, false).not());
 }
+/*
+
 
 TEST(Bitmap2dTest, TestAnd)
 {
@@ -380,35 +362,6 @@ TEST(Bitmap2dTest, TestXor)
 	EXPECT_EQ(Bitmap1x2({1,0}).xor(Bitmap1x2({1,1})), Bitmap1x2({0,1}));
 }
 
-TEST(Bitmap2dTest, TestSubdivX)
-{
-	EXPECT_EQ(Bitmap2x1("00"), Bitmap1x1("0").subdivx());
-}
-
-TEST(Bitmap2dTest, TestGetEdgesX)
-{
-	{
-		Bitmap1dArray<2, 2> bmps = {
-			Bitmap1d("00"),
-			Bitmap1d("00")
-		};
-		Bitmap2d<2, 2> b(bmps);
-		const auto actual = b.getEdgesx();
-		EXPECT_EQ(Bitmap2x2("0000"), actual);
-	}
-
-	{
-		Bitmap1dArray<2, 2> bmps = {
-			Bitmap1d({0,1}),
-			Bitmap1d("00")
-		};
-		Bitmap2d<2, 2> b(bmps);
-		const auto actual = b.getEdgesx();
-		EXPECT_EQ(Bitmap2x2("0001"), actual);
-	}
-
-}
-
 TEST(Bitmap2dTest, TestMoveX)
 {
 	EXPECT_EQ(Bitmap2x2("1010"), Bitmap2x2("0101").movex(1));
@@ -460,12 +413,10 @@ TEST(Bitmap3dTest, TestGetSizes)
 
 }
 
-/*
 TEST(Bitmap3dTest, TestNot)
 {
-	EXPECT_TRUE( Bitmap2d(2,2,2).setAll(), Bitmap3d(2,2,2).not());
+	EXPECT_EQ(Bitmap3d(2, 2, 2, true), Bitmap3d(2, 2, 2, false).not());
 }
-*/
 
 TEST(Bitmap3dTest, TestTo8Bit)
 {

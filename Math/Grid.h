@@ -203,6 +203,19 @@ public:
 		return (*this);
 	}
 
+	Grid3d& set(const std::array<unsigned int, 3>& start, const Grid3d& rhs) {
+		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
+			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
+				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
+					const T v = rhs.get(x, y, z);
+					set(x + start[0], y + start[1], z + start[2], v);
+				}
+			}
+		}
+		return (*this);
+	}
+
+
 	std::array< T, 8 > toArray8(const size_t i, const size_t j, const size_t k) const {
 		return std::array < T, 8 > {
 				get(i, j, k),

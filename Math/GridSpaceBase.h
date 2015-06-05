@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_DISCRETIZED_H__
-#define __CRYSTAL_MATH_DISCRETIZED_H__
+#ifndef __CRYSTAL_MATH_GRID_SPACE_BASE_H__
+#define __CRYSTAL_MATH_GRID_SPACE_BASE_H__
 
 #include "Space.h"
 
@@ -100,7 +100,7 @@ private:
 	Space3d<T> space;
 	Index3d sizes;
 
-	std::array< unsigned int, 3 > clamp(const std::array<unsigned int, 3 >& i) const {
+	std::array< unsigned int, 3 > clamp(const Index3d& i) const {
 		const auto ix = std::min<unsigned int>(getSizeX(), i[0]);
 		const auto iy = std::min<unsigned int>(getSizeY(), i[1]);
 		const auto iz = std::min<unsigned int>(getSizeZ(), i[2]);
