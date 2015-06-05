@@ -93,6 +93,18 @@ public:
 		return ScalarSpace3d(getOverlappedSpace(rhs), getOverlappedGrid(rhs));
 	}
 
+	ScalarSpace3d add(const ScalarSpace3d<T>& rhs) const {
+		const ScalarSpace3d& ss = getOverlapped(rhs.getSpace());
+		ss.getGrid().add(rhs.getGrid());
+		return ss;
+	}
+
+	ScalarSpace3d sub(const ScalarSpace3d<T>& rhs) const {
+		const ScalarSpace3d& ss = getOverlapped(rhs.getSpace());
+		ss.getGrid().sub(rhs.getGrid());
+		return ss;
+	}
+
 
 private:
 	Grid3d<T> grid;

@@ -16,6 +16,15 @@ TEST(Grid1dTest, TestGet)
 	EXPECT_EQ(0, Grid1d<T>(2, 0).get(0));
 }
 
+TEST(Grid1dTest, TestSet)
+{
+	using T = float;
+	Grid1d<T> lhs(2, 10);
+	Grid1d<T> rhs(1, 20);
+	lhs.set(1, rhs);
+	EXPECT_EQ(20, lhs.get(1));
+}
+
 TEST(Grid1dTest, TestGetSub)
 {
 	using T = float;

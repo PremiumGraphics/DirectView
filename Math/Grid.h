@@ -34,6 +34,14 @@ public:
 		return (*this);
 	}
 
+	Grid1d& set(const unsigned int start, const Grid1d& rhs) {
+		for (size_t x = 0; x < rhs.getSize(); ++x) {
+			const T v = rhs.get(x);
+			set(x + start, v);
+		}
+		return (*this);
+	}
+
 	Grid1d getSub(const size_t startIndex, const size_t endIndex) const {
 		std::vector<T> bs(values.begin() + startIndex, values.begin() + endIndex);
 		return Grid1d(bs);
@@ -91,6 +99,17 @@ public:
 		}
 		return Grid2d(gs);
 	}
+
+	Grid2d& set(const std::array<unsigned int, 2>& start, const Grid2d& rhs) {
+		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
+			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
+				const T v = rhs.get(x, y);
+				set(x + start[0], y + start[1], v);
+			}
+		}
+		return (*this);
+	}
+
 
 	bool equals(const Grid2d& rhs) const {
 		return grids == rhs.grids;
@@ -156,12 +175,28 @@ public:
 		return (*this);
 	}
 
+	Grid3d& sub(const size_t x, const size_t y, const size_t z, const T v) {
+		return add( x, y, z, -v );
+	}
+
 	Grid3d& add(const Grid3d& rhs) {
-		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
-			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
-				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
 					const auto v = rhs.get(x, y, z);
 					add(x, y, z, v);
+				}
+			}
+		}
+		return (*this);
+	}
+
+	Grid3d& sub(const Grid3d& rhs) {
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
+					const auto v = rhs.get(x, y, z);
+					sub(x, y, z, v);
 				}
 			}
 		}
