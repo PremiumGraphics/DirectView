@@ -77,3 +77,14 @@ TEST(Grid3dTest, TestGetSub)
 	const Grid3d<T> expected(1, 1, 1);
 	EXPECT_EQ(expected, actual);
 }
+
+TEST(Grid3dTest, TestAdd)
+{
+	using T = float;
+	auto lhs = Grid3d<T>(2, 2, 2).set( 0, 0, 0, 20 );
+	const auto rhs = Grid3d<T>(2, 2, 2).set(1,1,1,10);
+	lhs.add(rhs);
+
+	const auto expected = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20).set(1, 1, 1, 10);
+	EXPECT_EQ(expected, lhs);
+}

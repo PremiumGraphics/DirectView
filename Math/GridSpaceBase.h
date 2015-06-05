@@ -92,6 +92,10 @@ public:
 		return Vector3d<T>(xx, yy, zz);
 	}
 
+	Space3d<T> getOverlappedSpace(const Space3d<T>& rhs) const {
+		return space.getOverlapped(rhs);
+	}
+
 private:
 	Space3d<T> space;
 	Index3d sizes;

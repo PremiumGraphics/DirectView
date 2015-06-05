@@ -40,10 +40,7 @@ public:
 		GridSpaceBase( space_, grid.getSizes() ),
 		grid( grid )
 	{
-	//	this->space = Discretized3d(space, grid.getSizes());
 	}
-
-	//Vector3d<T> getEnd() const { return space.getEnd(); }
 
 	Grid3d<T> getGrid() const { return grid; }
 
@@ -83,16 +80,30 @@ public:
 					if (center.getDistanceSquared(pos) < radius * radius) {
 						const auto dist = pos.getDistance(center);
 						const auto v = 1.0f - dist / radius;
-						const auto original = grid.get(x, y, z);
-						grid.set(x, y, z, v + original);
+						//const auto original = grid.get(x, y, z);
+						//grid.set(x, y, z, v + original);
+						grid.add(x, y,z, v);
 					}
 				}
 			}
 		}
 	}
 
+	ScalarSpace3d getOverlapped(const Space3d<T>& rhs) const {
+		return ScalarSpace3d(getOverlappedSpace(rhs), getOverlappedGrid(rhs));
+	}
+
+
 private:
 	Grid3d<T> grid;
+
+	Grid3d<T> getOverlappedGrid(const Space3d<T>& rhs) const {
+		const auto s = getSpace().getOverlapped(rhs);
+		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
+		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
+		return grid.getSub(startIndex, endIndex);
+	}
+
 };
 
 	}

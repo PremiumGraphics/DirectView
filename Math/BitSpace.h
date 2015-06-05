@@ -206,11 +206,6 @@ private:
 		return bmp.getSub(startIndex, endIndex);
 	}
 
-	Space3d<T> getOverlappedSpace(const Space3d<T>& rhs) const {
-		return getSpace().getOverlapped(rhs);
-	}
-
-
 
 };
 

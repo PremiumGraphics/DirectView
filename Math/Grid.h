@@ -142,7 +142,7 @@ public:
 		return { getSizeX(), getSizeY(), getSizeZ() };
 	}
 
-	Grid3d getSub(const std::array<unsigned int, 3>& start, const std::array<unsigned int, 3>& end) {
+	Grid3d getSub(const std::array<unsigned int, 3>& start, const std::array<unsigned int, 3>& end) const {
 		Grid2dVector<T> gs(grids.begin() + start[2], grids.begin() + end[2]);
 		for (auto& g : gs) {
 			g = g.getSub(start[0], end[0], start[1], end[1]);
@@ -150,33 +150,35 @@ public:
 		return Grid3d(gs);
 	}
 
+	Grid3d& add(const size_t x, const size_t y, const size_t z, const T v) {
+		const auto vv = this->get(x, y, z) + v;
+		this->set(x, y, z, vv);
+		return (*this);
+	}
+
+	Grid3d& add(const Grid3d& rhs) {
+		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
+			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
+				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
+					const auto v = rhs.get(x, y, z);
+					add(x, y, z, v);
+				}
+			}
+		}
+		return (*this);
+	}
 
 	std::array< T, 8 > toArray8(const size_t i, const size_t j, const size_t k) const {
 		return std::array < T, 8 > {
 				get(i, j, k),
-				get(i + 1, j, k),
-				get(i + 1, j + 1, k),
-				get(i, j + 1, k),
-				get(i, j, k + 1),
-				get(i + 1, j, k + 1),
-				get(i + 1, j + 1, k + 1),
-				get(i, j + 1, k + 1)
+				get(i+1, j, k),
+				get(i+1, j+1, k),
+				get(i, j+1, k),
+				get(i, j, k+1),
+				get(i+ 1, j, k+1),
+				get(i+ 1, j+1, k+1),
+				get(i, j+1, k+1)
 		};
-
-		/*
-		std::bitset<8> to8Bit(const size_t i, const size_t j, const size_t k) const {
-			std::bitset<8> b;
-			if (get(i, j, k))		{ b.set(0); }
-			if (get(i + 1, j, k))	{ b.set(1); }
-			if (get(i + 1, j + 1, k))	{ b.set(2); }
-			if (get(i, j + 1, k))	{ b.set(3); }
-			if (get(i, j, k + 1))	{ b.set(4); }
-			if (get(i + 1, j, k + 1))	{ b.set(5); }
-			if (get(i + 1, j + 1, k + 1)){ b.set(6); }
-			if (get(i, j + 1, k + 1))	{ b.set(7); }
-
-			return b;
-			*/
 	}
 
 	bool equals(const Grid3d& rhs) const {
