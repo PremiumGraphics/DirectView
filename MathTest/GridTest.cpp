@@ -16,6 +16,14 @@ TEST(Grid1dTest, TestGet)
 	EXPECT_EQ(0, Grid1d<T>(2, 0).get(0));
 }
 
+TEST(Grid1dTest, TestGetSub)
+{
+	using T = float;
+	const Grid1d<T> actual = Grid1d<T>(2, 0).getSub(0, 1);
+	const Grid1d<T> expected(1, 0);
+	EXPECT_EQ( expected, actual );
+}
+
 TEST(Grid2dTest, TestGetSizeX)
 {
 	using T = float;
@@ -34,6 +42,15 @@ TEST(Grid2dTest, TestGetSizeY)
 	EXPECT_EQ(2, Grid2d<T>(2, 2).getSizeY());
 }
 
+TEST(Grid2dTest, TestGetSub)
+{
+	using T = float;
+	const Grid2d<T> actual = Grid2d<T>(2, 2).getSub(0, 1, 0, 1);
+	const Grid2d<T> expected(1, 1);
+	EXPECT_EQ(expected, actual);
+}
+
+
 TEST(Grid3dTest, TestGetSizeX)
 {
 	using T = float;
@@ -51,4 +68,12 @@ TEST(Grid3dTest, TestToArray8)
 	using T = float;
 	std::array<T, 8> expected{ 0, 0, 0, 0, 0, 0, 0, 0 };
 	EXPECT_EQ( expected, Grid3d<T>(2, 2, 2).toArray8(0,0,0));
+}
+
+TEST(Grid3dTest, TestGetSub)
+{
+	using T = float;
+	const Grid3d<T> actual = Grid3d<T>(2, 2, 2).getSub({ 0, 0, 0 }, { 1, 1, 1 });
+	const Grid3d<T> expected(1, 1, 1);
+	EXPECT_EQ(expected, actual);
 }
