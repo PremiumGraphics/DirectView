@@ -143,10 +143,6 @@ Frame::Frame()
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
-	//Connect(ID_PICK_VERTEX,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPick) );
-	Connect( ID_POLYGON_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonTranslate) );
-	Connect( ID_POLYGON_ROTATE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonRotate));
-	Connect( ID_POLYGON_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPolygonScale));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -346,11 +342,6 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 	view->setMode( View::CAMERA_TRANSLATE );
 }
 
-void Frame::OnPolygonRotate( wxRibbonButtonBarEvent& )
-{
-//	view->setMode( View::POLYGON_ROTATE );
-}
-
 void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::LIGHT_TRANSLATE );
@@ -532,16 +523,6 @@ void Frame::OnLocale( wxCommandEvent& )
 
 #include "wx/numdlg.h"
 
-void Frame::OnPolygonTranslate( wxRibbonButtonBarEvent& )
-{
-	//view->setMode( View::POLYGON_TRANSLATE );
-}
-
-void Frame::OnPolygonScale( wxRibbonButtonBarEvent& e)
-{
-	//view->setMode( View::POLYGON_SCALE );
-}
-
 void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
 {
 	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
@@ -629,16 +610,8 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-
-	Bitmap3d bmp(20, 20, 20);
-	//BitSpace3d<float> bs(space, bmp);
-	//bs.setSphere();
-	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
-	model.addBitSpace(bs);
-
-	model.toPolygon();
-
+	Command command(&model);
+	command.createSphere(20, 20, 20);
 	view->Refresh();
 }
 
@@ -662,7 +635,7 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
 	Command command( &model );
-	command.createBox();
+	command.createBox(20,20,20);
 	view->Refresh();
 }
 
