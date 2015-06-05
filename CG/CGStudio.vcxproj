@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Model.h" />

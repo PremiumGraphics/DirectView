@@ -107,6 +107,8 @@ private:
 	Graphics::LightBuilderSPtr lightBuilder;
 };
 
+
+using ModelSPtr = std::shared_ptr < Model > ;
 	}
 }
 

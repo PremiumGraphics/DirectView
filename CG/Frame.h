@@ -5,6 +5,7 @@
 #include "../Graphics/Light.h"
 
 #include "Model.h"
+#include "Command.h"
 
 #include <memory>
 

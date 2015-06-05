@@ -661,16 +661,8 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-
-	Bitmap3d bmp(20, 20, 20);
-	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
-	bs->setBox();
-
-	model.addBitSpace(bs);
-
-	model.toPolygon();
-
+	Command command( &model );
+	command.createBox();
 	view->Refresh();
 }
 
