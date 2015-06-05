@@ -6,7 +6,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="Model.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
