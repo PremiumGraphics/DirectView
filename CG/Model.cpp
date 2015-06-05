@@ -9,9 +9,10 @@ using namespace Crystal::CG;
 void Model::toPolygon()
 {
 	polygons.clear();
+	gridCenters.clear();
 
 	for (const auto ss : scalarSpaces) {
-		const auto triangles = mc.march(ss, 0.5);
+		const auto triangles = mc.march(*ss, 0.5);
 
 		Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
 		for (const auto t : triangles) {
@@ -21,10 +22,12 @@ void Model::toPolygon()
 			polygon->add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
+
+		gridCenters.push_back(ss->getCenter());
 	}
 
 	for (const auto& bs : bitSpaces) {
-		const auto& triangles = mc.march(bs);
+		const auto& triangles = mc.march(*bs);
 
 		Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
 		for (const auto t : triangles) {
@@ -34,6 +37,8 @@ void Model::toPolygon()
 			polygon->add(t.getv2(), t.getv0(), ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
+
+		gridCenters.push_back(bs->getCenter());
 	}
 
 }

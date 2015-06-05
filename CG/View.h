@@ -76,7 +76,7 @@ private:
 	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
-	//Shader::IDRenderer idRenderer;
+	Shader::IDRenderer idRenderer;
 
 	float pointSize;
 
@@ -84,6 +84,7 @@ private:
 	std::vector< float > normals;
 	std::vector< float > texCoords;
 	std::vector< float > colors;
+	std::vector< int > ids;
 
 	std::vector< float > points;
 

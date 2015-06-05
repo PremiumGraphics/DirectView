@@ -209,11 +209,11 @@ void View::draw(const wxSize& size)
 		glPointSize(pointSize);
 		pointRenderer.render(width, height, &c );
 	}
-	/*
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.render(width, height, c, dispList );
+		idRenderer.positions = points;
+		idRenderer.ids = ids;
+		idRenderer.render(width, height, c );
 	}
-	*/
 	else {
 		assert( false );
 	}
@@ -225,7 +225,7 @@ void View::build()
 	//smoothRenderer.build();
 	normalRenderer.build();
 	pointRenderer.build();
-	//idRenderer.build();
+	idRenderer.build();
 	surfaceRenderer.build();
 	/*
 	wireFrameRenderer.build();
@@ -247,7 +247,6 @@ void View::buildDisplayList()
 		positions = p->toPositionArray();
 		normals = p->toNormalArray();
 		colors = p->toColorArray();
-
 	}
 
 	/*
@@ -256,11 +255,4 @@ void View::buildDisplayList()
 			points.insert(points.end(), pos.begin(), pos.end());
 	}
 	*/
-
-	//Triangle<float> t;
-
-	//const PolygonSPtrList& polygons = model.getPolygons();
-	//for (const PolygonSPtr& p : polygons) {
-	//	dispList.add( p.get() );
-	//}
 }

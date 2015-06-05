@@ -17,7 +17,7 @@ public:
 		v( 0.0 )
 	{}
 
-	ColorHSV( const float h, const float s, const float v ) :
+	ColorHSV( const T h, const T s, const T v ) :
 		h( h ),
 		s( s ),
 		v( v )

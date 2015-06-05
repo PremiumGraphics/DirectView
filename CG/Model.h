@@ -9,8 +9,22 @@
 #include "../Math/ScalarSpace.h"
 #include "../Math/MarchingCube.h"
 
+#include <memory>
+
 namespace Crystal {
 	namespace CG {
+
+template<typename T>
+using ScalarSpace3dSPtr = std::shared_ptr < Math::ScalarSpace3d<T> > ;
+
+template<typename T>
+using ScalarSpace3dSPtrList = std::list < ScalarSpace3dSPtr<T> > ;
+
+template<typename T>
+using BitSpace3dSPtr = std::shared_ptr < Math::BitSpace3d<T> > ;
+
+template<typename T>
+using BitSpace3dSPtrList = std::list < BitSpace3dSPtr<T> > ;
 
 class Model {
 public:
@@ -27,13 +41,13 @@ public:
 		polygons.clear();
 	}
 
-	void addBitSpace(const Math::BitSpace3d<float>& bs) { bitSpaces.push_back(bs); }
+	void addBitSpace(const BitSpace3dSPtr<float>& bs) { bitSpaces.push_back(bs); }
 
-	std::list< Math::BitSpace3d<float> > getBitSpaces() const { return bitSpaces; }
+	BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
 
-	void addScalarSpace(const Math::ScalarSpace3d<float>& ss) { scalarSpaces.push_back(ss); }
+	void addScalarSpace(const ScalarSpace3dSPtr<float>& ss) { scalarSpaces.push_back(ss); }
 
-	std::list< Math::ScalarSpace3d<float> > getScalarSpaces() const { return scalarSpaces; }
+	ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
 
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
@@ -47,8 +61,9 @@ public:
 
 private:
 	Graphics::PolygonSPtrVector polygons;
-	std::list< Math::BitSpace3d<float> > bitSpaces;
-	std::list< Math::ScalarSpace3d<float> > scalarSpaces;
+	std::vector< Math::Vector3d<float > > gridCenters;
+	BitSpace3dSPtrList<float> bitSpaces;
+	ScalarSpace3dSPtrList<float> scalarSpaces;
 	Math::MarchingCube<float> mc;
 
 	Graphics::CameraSPtr<float> camera;

@@ -11,7 +11,6 @@
 namespace Crystal {
 	namespace Shader {
 
-		/*
 class IDRenderer {
 public:
 
@@ -19,9 +18,12 @@ public:
 
 	~IDRenderer();
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::DisplayList<float>& list);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera);
 
 	void build();
+
+	std::vector<float> positions;
+	std::vector<int> ids;
 
 private:
 	struct Location {
@@ -29,8 +31,6 @@ private:
 		GLuint modelviewMatrix;
 		GLuint position;
 		GLuint id;
-		GLuint faceId;
-		GLuint polygonId;
 	};
 
 	Location getLocations();
@@ -38,7 +38,6 @@ private:
 
 	Graphics::ShaderObject shader;
 };
-*/
 
 	}
 }

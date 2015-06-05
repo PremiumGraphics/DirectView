@@ -632,9 +632,9 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
 	Bitmap3d bmp(20, 20, 20);
-	BitSpace3d<float> bs(space, bmp);
-	bs.setSphere();
-
+	//BitSpace3d<float> bs(space, bmp);
+	//bs.setSphere();
+	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
 	model.addBitSpace(bs);
 
 	model.toPolygon();
@@ -647,9 +647,9 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
 	Bitmap3d bmp(20, 20, 20);
-	BitSpace3d<float> bs(space, bmp);
-	bs.setBox();
-	bs.not();
+	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
+	bs->setBox();
+	bs->not();
 
 	model.addBitSpace(bs);
 
@@ -664,8 +664,8 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
 	Bitmap3d bmp(20, 20, 20);
-	BitSpace3d<float> bs(space, bmp);
-	bs.setBox();
+	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
+	bs->setBox();
 
 	model.addBitSpace(bs);
 
@@ -679,10 +679,10 @@ void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 	Grid3d<float> grid(40, 40, 40);
-	ScalarSpace3d<float> ss(space, grid);
+	ScalarSpace3dSPtr<float> ss( new ScalarSpace3d<float>(space, grid) );
 	//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
 	//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
-	ss.addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
+	ss->addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
 
 	model.addScalarSpace(ss);
 
