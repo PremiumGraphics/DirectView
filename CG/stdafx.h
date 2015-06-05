@@ -29,3 +29,5 @@
 #include "wx/propgrid/propgrid.h"
 #include "wx/propgrid/advprops.h"
 
+#undef TRUE
+#undef FALSE

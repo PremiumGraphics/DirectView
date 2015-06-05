@@ -4,30 +4,6 @@
 
 using namespace Crystal::Math;
 
-TEST(Bitmap1dTest, TestGet)
-{
-	EXPECT_FALSE(Bitmap1d({ 1 })[0]);
-}
-
-/*
-TEST(Bitmap1dTest, TestSet)
-{
-	EXPECT_TRUE(Bitmap1d(1).set(0).get(0));
-	EXPECT_TRUE(Bitmap1d().set().get(0));
-	EXPECT_TRUE(Bitmap1d().set().get(1));
-}
-
-
-TEST(Bitmap1dTest, TestResetAll)
-{
-	Bitmap1d bitmap(2);
-	bitmap.set();
-	bitmap.reset();
-	EXPECT_FALSE(bitmap[0]);
-	EXPECT_FALSE(bitmap[1]);
-}
-*/
-
 TEST(Bitmap1dTest, TestGetCount)
 {
 	EXPECT_EQ(0, Bitmap1d({ 0, 0 }).getCount());
@@ -187,8 +163,8 @@ TEST(Bitmap2dTest, TestGetSizeY)
 
 TEST(Bitmap2dTest, TestGetCount)
 {
-	EXPECT_EQ(0, Bitmap2d(2,2).getCount());
-	EXPECT_EQ(4, Bitmap2d(2,2,true).getCount());
+	EXPECT_EQ(0, Bitmap2d::FALSE(2,2).getCount());
+	EXPECT_EQ(4, Bitmap2d::TRUE(2,2).getCount());
 }
 
 TEST(Bitmap2dTest, TestGetSub)
@@ -219,15 +195,6 @@ TEST(Bitmap2dTest, TestSet)
 	EXPECT_TRUE(bitmap.get(0, 0));
 	bitmap.set(0, 1);
 	EXPECT_TRUE(bitmap.get(0, 1));
-}
-
-TEST(Bitmap2dTest, TestSetAll)
-{
-	Bitmap2x1 bitmap;
-	bitmap.set();
-
-	EXPECT_TRUE(bitmap.get(0, 0));
-	EXPECT_TRUE(bitmap.get(1, 0));
 }
 
 TEST(Bitmap2dTest, TestSet1d)
@@ -261,7 +228,7 @@ TEST(Bitmap2dTest, TestResetAll)
 
 TEST(Bitmap2dTest, TestEquals)
 {
-	EXPECT_TRUE( Bitmap2d(1,1,true).equals(Bitmap2d(1,1,true)));
+	EXPECT_TRUE( Bitmap2d::TRUE(1,1).equals(Bitmap2d(1,1,true)));
 	EXPECT_EQ( Bitmap2d(1,1,true), Bitmap2d(1,1,true) );
 
 	EXPECT_FALSE( Bitmap2d(1,1,true).equals(Bitmap2d(1,1,false)) );
@@ -271,29 +238,26 @@ TEST(Bitmap2dTest, TestEquals)
 
 TEST(Bitmap2dTest, TestIsAll)
 {
-	EXPECT_FALSE( Bitmap2d(2,2,false).isAll() );
-	EXPECT_FALSE( Bitmap2d(2,2).set(0,0,true).isAll() );
-	EXPECT_TRUE(  Bitmap2d(2, 2, true).isAll());
+	EXPECT_FALSE(Bitmap2d::FALSE(2, 2).isAll() );
+	EXPECT_TRUE( Bitmap2d::TRUE( 2, 2).isAll() );
 }
-
 
 TEST(Bitmap2dTest, TestIsAny)
 {
-	EXPECT_FALSE( Bitmap2d(2, 2, false).isAny());
-	EXPECT_TRUE(  Bitmap2d(2, 2, true).isAny());
+	EXPECT_FALSE( Bitmap2d::FALSE(2, 2).isAny());
+	EXPECT_TRUE(  Bitmap2d::TRUE( 2, 2).isAny());
 }
-
 
 TEST(Bitmap2dTest, TestIsNone)
 {
-	EXPECT_TRUE( Bitmap2d(2, 2,false).isNone());
-	EXPECT_FALSE(Bitmap2d(2, 2, true).isNone());
+	EXPECT_TRUE( Bitmap2d::FALSE(2, 2).isNone());
+	EXPECT_FALSE(Bitmap2d::TRUE( 2, 2).isNone());
 }
 
 TEST(Bitmap2dTest, TestNot)
 {
-	EXPECT_EQ(Bitmap2d(2, 2, false), Bitmap2d(2, 2, true).not());
-	EXPECT_EQ(Bitmap2d(2, 2, true), Bitmap2d(2, 2, false).not());
+	EXPECT_EQ( Bitmap2d::FALSE(2,2), Bitmap2d::TRUE(2,2).not());
+	EXPECT_EQ( Bitmap2d(2, 2, true), Bitmap2d(2, 2, false).not());
 }
 /*
 
@@ -415,13 +379,34 @@ TEST(Bitmap3dTest, TestGetSizes)
 
 TEST(Bitmap3dTest, TestNot)
 {
-	EXPECT_EQ(Bitmap3d(2, 2, 2, true), Bitmap3d(2, 2, 2, false).not());
+	EXPECT_EQ(Bitmap3d::TRUE(2, 2, 2), Bitmap3d::FALSE(2,2,2).not());
 }
+
+TEST(Bitmap3dTest, TestIsAll)
+{
+	EXPECT_FALSE(Bitmap3d::FALSE(2, 2, 2).isAll());
+	EXPECT_TRUE(Bitmap3d::TRUE(2, 2, 2).isAll());
+}
+
+/*
+TEST(Bitmap3dTest, TestIsAny)
+{
+	EXPECT_FALSE(Bitmap2d::FALSE(2, 2).isAny());
+	EXPECT_TRUE(Bitmap2d::TRUE(2, 2).isAny());
+}
+
+TEST(Bitmap3dTest, TestIsNone)
+{
+	EXPECT_TRUE(Bitmap2d::FALSE(2, 2).isNone());
+	EXPECT_FALSE(Bitmap2d::TRUE(2, 2).isNone());
+}
+*/
+
 
 TEST(Bitmap3dTest, TestTo8Bit)
 {
-	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d(2,2,2,false).to8Bit(0,0,0) );
-	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d(2,2,2,true).to8Bit(0,0,0) );
+	EXPECT_EQ( std::bitset<8>("00000000"), Bitmap3d::FALSE(2,2,2).to8Bit(0,0,0) );
+	EXPECT_EQ( std::bitset<8>("11111111"), Bitmap3d::TRUE(2,2,2).to8Bit(0,0,0) );
 }
 
 TEST(Bitmap3dTest, TestGetSub)

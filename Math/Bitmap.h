@@ -23,6 +23,17 @@ public:
 		bits(b)
 	{}
 
+	static Bitmap1d TRUE(const size_t size) {
+		std::vector<bool> values(size, true);
+		return Bitmap1d(values);
+	}
+
+	static Bitmap1d FALSE(const size_t size) {
+		std::vector<bool> values(size, false);
+		return Bitmap1d(values);
+	}
+
+
 	Bitmap1d& set( const size_t i, const bool b = true) {
 		bits[i] = b;
 		return *(this);
@@ -151,6 +162,15 @@ public:
 		}
 	}
 
+	static Bitmap2d TRUE(const size_t sizex, const size_t sizey) {
+		return Bitmap2d(sizex, sizey, true);
+	}
+
+	static Bitmap2d FALSE(const size_t sizex, const size_t sizey) {
+		return Bitmap2d(sizex, sizey, false);
+	}
+
+
 	size_t getSizeX() const { return bmps.front().getSize(); }
 
 	size_t getSizeY() const { return bmps.size(); }
@@ -270,6 +290,14 @@ public:
 	Bitmap3d(const size_t xSize, const size_t ySize, const size_t zSize, const bool b) :
 		bmps(zSize, Bitmap2d(xSize, ySize, b))
 	{
+	}
+
+	static Bitmap3d TRUE(const size_t sizex, const size_t sizey, const size_t sizez) {
+		return Bitmap3d(sizex, sizey, sizez, true);
+	}
+
+	static Bitmap3d FALSE(const size_t sizex, const size_t sizey, const size_t sizez) {
+		return Bitmap3d(sizex, sizey, sizez, false);
 	}
 
 	unsigned int getSizeX() const {
