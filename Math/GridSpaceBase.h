@@ -96,6 +96,11 @@ public:
 		return space.getOverlapped(rhs);
 	}
 
+	GridSpaceBase& move(const Vector3d<T>& vector) {
+		space.move(vector);
+		return (*this);
+	}
+
 private:
 	Space3d<T> space;
 	Index3d sizes;

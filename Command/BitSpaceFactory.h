@@ -12,16 +12,10 @@ namespace Crystal {
 
 
 template<typename T>
-using BitSpace3dSPtr = std::shared_ptr < Math::BitSpace3d<T> >;
+using BitSpaceIdMap = std::map< Math::BitSpace3dSPtr<T>, unsigned int >;
 
 template<typename T>
-using BitSpace3dSPtrList = std::list < BitSpace3dSPtr<T> >;
-
-template<typename T>
-using BitSpaceIdMap = std::map< BitSpace3dSPtr<T>, unsigned int >;
-
-template<typename T>
-using IdBitSpacemap = std::map < unsigned int, BitSpace3dSPtr<T> > ;
+using IdBitSpacemap = std::map < unsigned int, Math::BitSpace3dSPtr<T> > ;
 
 
 class BitSpaceFactory
@@ -37,33 +31,33 @@ public:
 	}
 
 
-	BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
+	Math::BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
 
 
-	BitSpace3dSPtr<float> createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+	Math::BitSpace3dSPtr<float> createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
 		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
 
 		Math::Bitmap3d bmp(resx, resy, resz);
-		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
 		bs->setBox();
 		addBitSpace(bs);
 		return bs;
 	}
 
-	BitSpace3dSPtr<float> createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+	Math::BitSpace3dSPtr<float> createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
 		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
 
 		Math::Bitmap3d bmp(20, 20, 20);
-		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
 		bs->setSphere();
 		addBitSpace(bs);
 		return bs;
 	}
 
-	BitSpace3dSPtr<float> createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+	Math::BitSpace3dSPtr<float> createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
 		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
 		Math::Bitmap3d bmp(20, 20, 20);
-		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
 		bs->setBox();
 		bs->not();
 		addBitSpace(bs);
@@ -72,17 +66,17 @@ public:
 	}
 
 
-	unsigned int getId(const BitSpace3dSPtr<float>& bs) { return bitIdMap[bs]; }
+	unsigned int getId(const Math::BitSpace3dSPtr<float>& bs) { return bitIdMap[bs]; }
 
 
 
 private:
-	BitSpace3dSPtrList<float> bitSpaces;
+	Math::BitSpace3dSPtrList<float> bitSpaces;
 	BitSpaceIdMap<float> bitIdMap;
 	IdBitSpacemap<float> idBitMap;
 	unsigned int nextId;
 
-	void addBitSpace(const BitSpace3dSPtr<float>& bs) {
+	void addBitSpace(const Math::BitSpace3dSPtr<float>& bs) {
 		bitSpaces.push_back(bs);
 		bitIdMap[bs] = nextId;
 		idBitMap[nextId] = bs;

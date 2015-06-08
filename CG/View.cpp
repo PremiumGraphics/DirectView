@@ -200,7 +200,7 @@ void View::draw(const wxSize& size)
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
 		wireFrameRenderer.positions = rCommand.getPositions();
-		wireFrameRenderer.colors = rCommand.colors;
+		wireFrameRenderer.colors = rCommand.getColors();
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
@@ -209,7 +209,7 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		normalRenderer.positions = rCommand.getPositions();
-		normalRenderer.normals = rCommand.normals;
+		normalRenderer.normals = rCommand.getNormals();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {

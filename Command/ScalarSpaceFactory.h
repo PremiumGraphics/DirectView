@@ -16,7 +16,7 @@ template<typename T>
 using IdScalarSpaceMap = std::map < unsigned int, Math::ScalarSpace3dSPtr<T> >;
 
 
-class ScalarSpaceFactory
+class ScalarSpaceFactory final
 {
 public:
 	ScalarSpaceFactory() :

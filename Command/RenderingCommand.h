@@ -45,18 +45,24 @@ struct RenderingCommand {
 
 	float getPointSize() const { return pointSize; }
 
-	std::vector< float > normals;
-	std::vector< float > texCoords;
-	std::vector< float > colors;
 	std::vector< int > ids;
 
 	std::vector< float > points;
 
 	std::vector< float > getPositions() const { return positions; }
 
+	std::vector< float > getNormals() const { return normals; }
+
+	std::vector< float > getTexCoords() const { return texCoords; }
+
+	std::vector< float > getColors() const { return colors; }
+
 private:
 	float pointSize;
 	std::vector< float > positions;
+	std::vector< float > normals;
+	std::vector< float > texCoords;
+	std::vector< float > colors;
 
 };
 

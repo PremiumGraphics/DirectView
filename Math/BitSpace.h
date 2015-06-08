@@ -5,6 +5,9 @@
 #include "Space.h"
 #include "GridSpaceBase.h"
 
+#include <memory>
+#include <list>
+
 namespace Crystal {
 	namespace Math {
 
@@ -29,7 +32,9 @@ private:
 template< typename T >
 class BitSpace3d : public GridSpaceBase<T> {
 public:
-	BitSpace3d() = default;
+	BitSpace3d() :
+		bmp(1, 1, 1)
+	{}
 
 	explicit BitSpace3d(const Bitmap3d& bmp) :
 		GridSpaceBase(Space3d<T>::Unit(), bmp.getSizes() ),
@@ -208,6 +213,14 @@ private:
 
 
 };
+
+
+template<typename T>
+using BitSpace3dSPtr = std::shared_ptr < Math::BitSpace3d<T> >;
+
+template<typename T>
+using BitSpace3dSPtrList = std::list < BitSpace3dSPtr<T> >;
+
 
 	}
 }

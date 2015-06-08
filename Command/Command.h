@@ -34,20 +34,6 @@ private:
 	Model* model;
 	BitSpaceFactory* sf;
 };
-
-class BooleanCommand {
-public:
-	BooleanCommand(const BitSpace3dSPtr<float>& bs1, const BitSpace3dSPtr<float>& bs2) :
-		bs1(bs1),
-		bs2(bs2)
-	{
-	}
-
-	void and();
-private:
-	BitSpace3dSPtr<float> bs1;
-	BitSpace3dSPtr<float> bs2;
-};
 	}
 }
 
