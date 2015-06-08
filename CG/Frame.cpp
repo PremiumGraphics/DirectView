@@ -640,7 +640,7 @@ void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 	//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
 	ss->addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
 
-	model.getScalarSpaceFactory()->addScalarSpace(ss);
+	model.getScalarSpaceFactory()->add(ss);
 
 	model.toPolygon();
 

@@ -24,28 +24,37 @@ public:
 	{}
 
 	void clear() {
-		scalarSpaces.clear();
+		spaces.clear();
 		nextId = 0;
 	}
 
-	void addScalarSpace(const Math::ScalarSpace3dSPtr<float>& ss) {
-		scalarSpaces.push_back(ss);
-		scalarIdMap[ss] = nextId;
-		idScalarMap[nextId] = ss;
+	void add(const Math::ScalarSpace3dSPtr<float>& ss) {
+		spaces.push_back(ss);
+		spaceIdMap[ss] = nextId;
+		idSpaceMap[nextId] = ss;
 		nextId++;
 	}
 
-	unsigned int getId(const Math::ScalarSpace3dSPtr<float>& ss) { return scalarIdMap[ss]; }
+	unsigned int getId(const Math::ScalarSpace3dSPtr<float>& ss) {
+		if ( spaceIdMap.find(ss) == spaceIdMap.end()) {
+			return -1;
+		}
+		return spaceIdMap[ss];
+	}
 
-	Math::ScalarSpace3dSPtr<float> getScalarSpace(const unsigned int id) { return idScalarMap[id]; }
+	Math::ScalarSpace3dSPtr<float> getSpace(const unsigned int id) {
+		if (idSpaceMap.find(id) == idSpaceMap.end()) {
+			return nullptr;
+		}
+		return idSpaceMap[id];
+	}
 
-	Math::ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
-
+	Math::ScalarSpace3dSPtrList<float> getScalarSpaces() const { return spaces; }
 
 private:
-	Math::ScalarSpace3dSPtrList<float> scalarSpaces;
-	ScalarSpaceIdMap<float> scalarIdMap;
-	IdScalarSpaceMap<float> idScalarMap;
+	Math::ScalarSpace3dSPtrList<float> spaces;
+	ScalarSpaceIdMap<float> spaceIdMap;
+	IdScalarSpaceMap<float> idSpaceMap;
 	unsigned int nextId;
 
 };

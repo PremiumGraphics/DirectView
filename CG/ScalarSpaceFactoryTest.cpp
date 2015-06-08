@@ -6,7 +6,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Command;
 
-TEST(ScalarSpaceFactoryTest, Test)
+TEST(ScalarSpaceFactoryTest, TestGetId)
 {
 	ScalarSpaceFactory factory;
+	EXPECT_EQ( -1, factory.getId(nullptr) );
 }
