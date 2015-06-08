@@ -17,7 +17,7 @@ namespace Crystal {
 	namespace Graphics {
 		class Color;
 	}
-	namespace CGS {
+	namespace UI {
 
 class View : public wxGLCanvas
 {
@@ -78,7 +78,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	RenderingCommand rCommand;
+	Command::RenderingCommand rCommand;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

@@ -5,7 +5,7 @@
 #include "../Math/ScalarSpace.h"
 
 namespace Crystal{
-	namespace CGS {
+	namespace Command {
 
 
 struct RenderingCommand {

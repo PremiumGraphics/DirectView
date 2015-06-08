@@ -13,7 +13,7 @@ namespace Crystal {
 	namespace Command {
 		class Model;
 	}
-	namespace CGS {
+	namespace UI {
 		class View;
 
 class Frame : public wxFrame//wxMDIParentFrame

@@ -14,7 +14,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 using namespace Crystal::Command;
-using namespace Crystal::CGS;
+using namespace Crystal::UI;
 
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,

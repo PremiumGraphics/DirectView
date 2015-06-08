@@ -6,7 +6,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::CGS;
+using namespace Crystal::Command;
 
 TEST(RenderingCommandTest, TestClear)
 {

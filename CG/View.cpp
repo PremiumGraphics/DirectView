@@ -11,7 +11,7 @@
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
-using namespace Crystal::CGS;
+using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
