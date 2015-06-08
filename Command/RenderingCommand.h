@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CGS_RENDERING_COMMAND_H__
-#define __CRYSTAL_CGS_RENDERING_COMMAND_H__
+#ifndef __CRYSTAL_COMMAND_RENDERING_COMMAND_H__
+#define __CRYSTAL_COMMAND_RENDERING_COMMAND_H__
 
 #include "../Graphics/Polygon.h"
 #include "../Math/ScalarSpace.h"

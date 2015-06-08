@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_APP_VIEW_H__
-#define __CRYSTAL_APP_VIEW_H__
+#ifndef __CRYSTAL_UI_VIEW_H__
+#define __CRYSTAL_UI_VIEW_H__
 
 #include "View.h"
 

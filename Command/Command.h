@@ -1,5 +1,5 @@
-#ifndef __CG_STUDIO_COMMAND_H__
-#define __CG_STUDIO_COMMAND_H__
+#ifndef __CRYSTAL_COMMAND_COMMAND_H__
+#define __CRYSTAL_COMMAND_COMMAND_H__
 
 #include "Model.h"
 

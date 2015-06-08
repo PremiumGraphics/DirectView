@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CGS_SPACE_PICK_COMMAND_H__
-#define __CRYSTAL_CGS_SPACE_PICK_COMMAND_H__
+#ifndef __CRYSTAL_COMMAND_SPACE_PICK_COMMAND_H__
+#define __CRYSTAL_COMMAND_SPACE_PICK_COMMAND_H__
 
 #include "../Math/ScalarSpace.h"
 #include "ScalarSpaceFactory.h"

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CG_CONVERTER_H__
-#define __CRYSTAL_CG_CONVERTER_H__
+#ifndef __CRYSTAL_UI_CONVERTER_H__
+#define __CRYSTAL_UI_CONVERTER_H__
 
 #include "../Graphics/ColorRGB.h"
 #include "../Graphics/ColorRGBA.h"

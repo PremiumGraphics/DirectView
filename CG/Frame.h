@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CG_FRAME_H__
-#define __CRYSTAL_CG_FRAME_H__
+#ifndef __CRYSTAL_UI_FRAME_H__
+#define __CRYSTAL_UI_FRAME_H__
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/Light.h"

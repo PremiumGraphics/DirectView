@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CG_APP_H__
-#define __CRYSTAL_CG_APP_H__
+#ifndef __CRYSTAL_UI_APP_H__
+#define __CRYSTAL_UI_APP_H__
 
 namespace Crystal {
 	namespace UI {
