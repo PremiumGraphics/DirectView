@@ -16,7 +16,7 @@
     <ClInclude Include="..\Command\Model.h" />
     <ClInclude Include="..\Command\RenderingCommand.h" />
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
-    <ClInclude Include="BitSpaceTransfomCommand.h" />
+    <ClInclude Include="BitSpaceTransformCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Command\BitSpaceFactoryTest.cpp" />
