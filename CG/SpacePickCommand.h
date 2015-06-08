@@ -2,7 +2,7 @@
 #define __CRYSTAL_CGS_SPACE_PICK_COMMAND_H__
 
 #include "../Math/ScalarSpace.h"
-#include "SpaceFactory.h"
+#include "ScalarSpaceFactory.h"
 
 #include <list>
 
@@ -13,16 +13,16 @@ class SpacePickCommand
 {
 public:
 	void clear() {
-		spaces.clear();
+		selecteds.clear();
 	}
 
 	//Math::ScalarSpace3dSPtr<float> getSelected() { return  }
 
-	bool isEmpty() const { return spaces.empty(); }
+	bool isEmpty() const { return selecteds.empty(); }
 
 private:
 	Math::ScalarSpace3dSPtrList<float> selecteds;
-	Math::ScalarSpace3dSPtrList<float> spaces;
+	ScalarSpaceFactory factory;
 };
 	}
 }

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CGS_SPACE_FACTORY__
-#define __CRYSTAL_CGS_SPACE_FACTORY__
+#ifndef __CRYSTAL_CGS_BIT_SPACE_FACTORY__
+#define __CRYSTAL_CGS_BIT_SPACE_FACTORY__
 
 #include "../Math/BitSpace.h"
 #include <memory>

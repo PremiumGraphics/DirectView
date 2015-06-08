@@ -16,10 +16,10 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Command.h" />
-    <ClInclude Include="SpaceFactory.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="SpacePickCommand.h" />
     <ClInclude Include="ScalarSpaceFactory.h" />
+    <ClInclude Include="BitSpaceFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

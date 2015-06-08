@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "SpaceFactory.h"
+#include "BitSpaceFactory.h"
 
 using namespace Crystal::CGS;
 

@@ -9,7 +9,7 @@
 #include "../Math/ScalarSpace.h"
 #include "../Math/MarchingCube.h"
 
-#include "SpaceFactory.h"
+#include "BitSpaceFactory.h"
 #include "ScalarSpaceFactory.h"
 
 #include <memory>
