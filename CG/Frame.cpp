@@ -612,22 +612,13 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	MainCommand command(&model);
 	command.createSphere(20, 20, 20);
-	model.toPolygon();
 	view->Refresh();
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-
-	Bitmap3d bmp(20, 20, 20);
-	BitSpace3dSPtr<float> bs(new BitSpace3d<float>(space, bmp));
-	bs->setBox();
-	bs->not();
-
-	
-	model.getSpaceFactory()->addBitSpace(bs);
-	model.toPolygon();
+	MainCommand command(&model);
+	command.createCylinder(20, 20, 20);
 
 
 	view->Refresh();

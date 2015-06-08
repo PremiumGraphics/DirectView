@@ -42,17 +42,8 @@ public:
 		nextId = 0;
 	}
 
-	void addBitSpace(const BitSpace3dSPtr<float>& bs) {
-		bitSpaces.push_back(bs);
-		bitIdMap[bs] = nextId++;
-	}
 
 	BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
-
-	void addScalarSpace(const ScalarSpace3dSPtr<float>& ss) {
-		scalarSpaces.push_back(ss);
-		scalarIdMap[ss] = nextId++;
-	}
 
 	ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
 
@@ -66,10 +57,38 @@ public:
 		return bs;
 	}
 
+	BitSpace3dSPtr<float> createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+
+		Math::Bitmap3d bmp(20, 20, 20);
+		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		bs->setSphere();
+		addBitSpace(bs);
+		return bs;
+	}
+
+	BitSpace3dSPtr<float> createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+		Math::Bitmap3d bmp(20, 20, 20);
+		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		bs->setBox();
+		bs->not();
+		addBitSpace(bs);
+
+		return bs;
+	}
+
 
 	unsigned int getId(const BitSpace3dSPtr<float>& bs) { return bitIdMap[bs]; }
 
 	unsigned int getId(const ScalarSpace3dSPtr<float>& ss) { return scalarIdMap[ss]; }
+
+
+	void addScalarSpace(const ScalarSpace3dSPtr<float>& ss) {
+		scalarSpaces.push_back(ss);
+		scalarIdMap[ss] = nextId++;
+	}
+
 
 private:
 	BitSpace3dSPtrList<float> bitSpaces;
@@ -77,6 +96,13 @@ private:
 	BitSpaceIdMap<float> bitIdMap;
 	ScalarSpaceIdMap<float> scalarIdMap;
 	unsigned int nextId;
+
+	void addBitSpace(const BitSpace3dSPtr<float>& bs) {
+		bitSpaces.push_back(bs);
+		bitIdMap[bs] = nextId++;
+	}
+
+
 };
 
 	}

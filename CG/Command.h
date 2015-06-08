@@ -21,13 +21,12 @@ public:
 	}
 
 	void createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+		model->getSpaceFactory()->createSphere(resx, resy, resz);
+		model->toPolygon();
+	}
 
-		Math::Bitmap3d bmp(20, 20, 20);
-		BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
-		bs->setSphere();
-		sf->addBitSpace(bs);
-
+	void createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		model->getSpaceFactory()->createCylinder(resx, resy, resz);
 		model->toPolygon();
 	}
 
