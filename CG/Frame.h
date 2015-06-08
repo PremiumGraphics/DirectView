@@ -92,6 +92,7 @@ private:
 private:
 	View* view;
 	Command::Model model;
+	Command::MainCommand command;
 
 	wxLocale locale;
 

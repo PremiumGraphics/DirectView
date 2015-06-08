@@ -12,3 +12,9 @@ TEST(BitSpaceTransformCommandTest, TestNot)
 	command.add(space);
 	command.not();
 }
+
+TEST(BitSpaceTransformCommandTest, TestScale)
+{
+	BitSpaceTransformCommand command;
+	command.scale(Vector3d<float>(1, 2, 3));
+}

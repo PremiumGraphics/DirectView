@@ -85,7 +85,8 @@ public:
 
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
+	command( &model )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -586,21 +587,18 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	MainCommand command(&model);
 	command.createSphere(20, 20, 20);
 	view->Refresh();
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	MainCommand command(&model);
 	command.createCylinder(20, 20, 20);
 	view->Refresh();
 }
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	MainCommand command( &model );
 	command.createBox(20,20,20);
 	view->Refresh();
 }
@@ -608,7 +606,6 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	MainCommand command(&model);
 	command.createScalar(40, 40, 40);
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();

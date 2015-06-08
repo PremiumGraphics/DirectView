@@ -18,6 +18,7 @@
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
     <ClInclude Include="BitSpaceTransformCommand.h" />
     <ClInclude Include="PolygonFactory.h" />
+    <ClInclude Include="ScalarSpaceTransformCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Command\BitSpaceFactoryTest.cpp" />

@@ -47,9 +47,16 @@ public:
 		return (*this);
 	}
 
-	BitSpaceTransformCommand move(const Math::Vector3d<float>& vector) {
+	BitSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
 		for (auto& b : spaces) {
 			b->move(vector);
+		}
+		return (*this);
+	}
+
+	BitSpaceTransformCommand& scale(const Math::Vector3d<float>& scale) {
+		for (auto& b : spaces) {
+			b->scale(scale);
 		}
 		return (*this);
 	}
