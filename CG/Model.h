@@ -15,7 +15,7 @@
 #include <map>
 
 namespace Crystal {
-	namespace CG {
+	namespace CGS {
 
 
 class Model {

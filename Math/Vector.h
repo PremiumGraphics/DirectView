@@ -127,6 +127,10 @@ public:
 		return *this;
 	}
 
+	Vector3d operator-() {
+		return Vector3d(-x, -y, -z);
+	}
+
 	Vector3d operator*(const float factor) const {
 		Vector3d vector(*this);
 		return vector.scale(factor);

@@ -6,7 +6,7 @@
 #include "../Graphics/ImageRGBA.h"
 
 namespace Crystal {
-	namespace CG {
+	namespace CGS {
 
 class Converter {
 public:

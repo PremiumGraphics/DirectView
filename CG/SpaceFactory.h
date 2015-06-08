@@ -8,7 +8,7 @@
 
 
 namespace Crystal {
-	namespace CG {
+	namespace CGS {
 
 template<typename T>
 using ScalarSpace3dSPtr = std::shared_ptr < Math::ScalarSpace3d<T> >;

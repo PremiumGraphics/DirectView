@@ -2,7 +2,7 @@
 #define __CRYSTAL_CG_APP_H__
 
 namespace Crystal {
-	namespace CG {
+	namespace CGS {
 
 class App : public wxApp
 {

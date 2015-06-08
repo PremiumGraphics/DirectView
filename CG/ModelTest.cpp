@@ -3,7 +3,7 @@
 #include "../CG/Model.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::CG;
+using namespace Crystal::CGS;
 
 TEST(SpaceFactoryTest, TestAddSpace)
 {

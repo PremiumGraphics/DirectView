@@ -15,7 +15,7 @@ namespace Crystal {
 	namespace Graphics {
 		class Color;
 	}
-	namespace CG {
+	namespace CGS {
 
 class View : public wxGLCanvas
 {

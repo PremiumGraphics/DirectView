@@ -6,7 +6,7 @@
 #include "../Graphics/ImageRGBA.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
+using namespace Crystal::CGS;
 
 wxColour Converter::toWxColor( const ColorRGB<float>& c )
 {

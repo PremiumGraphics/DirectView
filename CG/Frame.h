@@ -10,7 +10,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace CG {
+	namespace CGS {
 		class View;
 		class Model;
 

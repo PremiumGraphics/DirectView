@@ -9,7 +9,7 @@
 #include "Converter.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::CG;
+using namespace Crystal::CGS;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
