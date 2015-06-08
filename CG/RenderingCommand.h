@@ -2,6 +2,7 @@
 #define __CRYSTAL_CGS_RENDERING_COMMAND_H__
 
 #include "../Graphics/Polygon.h"
+#include "../Math/ScalarSpace.h"
 
 namespace Crystal{
 	namespace CGS {
@@ -25,21 +26,37 @@ struct RenderingCommand {
 
 	void build(const Graphics::PolygonSPtrList& polygons) {
 		for (const auto& p : polygons) {
-			positions = p->toPositionArray();
-			normals = p->toNormalArray();
-			colors = p->toColorArray();
+			const auto ps = p->toPositionArray();
+			const auto ns = p->toNormalArray();
+			const auto cs =  p->toColorArray();
+
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			normals.insert(normals.end(), ns.begin(), ns.end());
+			colors.insert(colors.end(), cs.begin(), cs.end());
 		}
 	}
 
-	float pointSize;
+	void build(const Math::ScalarSpace3d<float>& ss, const unsigned int id) {
+		const auto center = ss.getCenter();
+		const auto cs = ss.getCenter().toArray();
+		points.insert(points.end(), cs.begin(), cs.end());
+		ids.push_back(id);
+	}
 
-	std::vector< float > positions;
+	float getPointSize() const { return pointSize; }
+
 	std::vector< float > normals;
 	std::vector< float > texCoords;
 	std::vector< float > colors;
 	std::vector< int > ids;
 
 	std::vector< float > points;
+
+	std::vector< float > getPositions() const { return positions; }
+
+private:
+	float pointSize;
+	std::vector< float > positions;
 
 };
 

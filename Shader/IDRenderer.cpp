@@ -97,7 +97,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3 );
+	glDrawArrays(GL_POINTS, 0, positions.size() / 3 );
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

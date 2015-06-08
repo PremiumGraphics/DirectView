@@ -12,27 +12,27 @@ public:
 	explicit MainCommand(Model* model) :
 		model(model)
 	{
-		sf = model->getSpaceFactory();
+		sf = model->getBitSpaceFactory();
 	}
 
 	void createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		model->getSpaceFactory()->createBox(resx, resy, resz);
+		model->getBitSpaceFactory()->createBox(resx, resy, resz);
 		model->toPolygon();
 	}
 
 	void createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		model->getSpaceFactory()->createSphere(resx, resy, resz);
+		model->getBitSpaceFactory()->createSphere(resx, resy, resz);
 		model->toPolygon();
 	}
 
 	void createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		model->getSpaceFactory()->createCylinder(resx, resy, resz);
+		model->getBitSpaceFactory()->createCylinder(resx, resy, resz);
 		model->toPolygon();
 	}
 
 private:
 	Model* model;
-	SpaceFactory* sf;
+	BitSpaceFactory* sf;
 };
 
 class BooleanCommand {

@@ -29,7 +29,8 @@ public:
 
 	void clear()
 	{
-		factory.clear();
+		bsFactory.clear();
+		ssFactory.clear();
 		polygons.clear();
 	}
 
@@ -44,7 +45,7 @@ public:
 		polygons.clear();
 		gridCenters.clear();
 
-		for (const auto& ss : factory.getScalarSpaces() ) {
+		for (const auto& ss : ssFactory.getScalarSpaces() ) {
 			const auto triangles = mc.march(*ss, 0.5);
 
 			Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
@@ -59,7 +60,7 @@ public:
 			gridCenters.push_back(ss->getCenter());
 		}
 
-		for (const auto& bs : factory.getBitSpaces() ) {
+		for (const auto& bs : bsFactory.getBitSpaces() ) {
 			const auto& triangles = mc.march(*bs);
 
 			Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
@@ -75,7 +76,9 @@ public:
 		}
 	}
 
-	SpaceFactory* getSpaceFactory() { return &factory; }
+	BitSpaceFactory* getBitSpaceFactory() { return &bsFactory; }
+
+	ScalarSpaceFactory* getScalarSpaceFactory() { return &ssFactory; }
 
 	Graphics::PolygonSPtrList getPolygons() const { return polygons; }
 
@@ -86,8 +89,8 @@ private:
 
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
-	SpaceFactory factory;
-
+	BitSpaceFactory bsFactory;
+	ScalarSpaceFactory ssFactory;
 private:
 };
 

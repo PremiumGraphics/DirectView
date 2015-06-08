@@ -40,13 +40,11 @@ public:
 		ID,
 	};
 
-	void buildDisplayList();
-
 	void setMode( const MODE& m ) { this->mode = m; }
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { rCommand.pointSize; }
+	float getPointSize() const { rCommand.getPointSize(); }
 
 private:
 	MODE mode;

@@ -5,6 +5,9 @@
 #include "Space.h"
 #include "GridSpaceBase.h"
 
+#include <memory>
+#include <list>
+
 namespace Crystal {
 	namespace Math {
 
@@ -118,6 +121,11 @@ private:
 
 };
 
+template<typename T>
+using ScalarSpace3dSPtr = std::shared_ptr < ScalarSpace3d<T> > ;
+
+template<typename T>
+using ScalarSpace3dSPtrList = std::list < ScalarSpace3dSPtr<T> > ;
 	}
 }
 

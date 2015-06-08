@@ -11,11 +11,6 @@
 namespace Crystal {
 	namespace CGS {
 
-template<typename T>
-using ScalarSpace3dSPtr = std::shared_ptr < Math::ScalarSpace3d<T> >;
-
-template<typename T>
-using ScalarSpace3dSPtrList = std::list < ScalarSpace3dSPtr<T> >;
 
 template<typename T>
 using BitSpace3dSPtr = std::shared_ptr < Math::BitSpace3d<T> >;
@@ -27,25 +22,29 @@ template<typename T>
 using BitSpaceIdMap = std::map< BitSpace3dSPtr<T>, unsigned int >;
 
 template<typename T>
-using ScalarSpaceIdMap = std::map < ScalarSpace3dSPtr<T>, unsigned int > ;
+using IdBitSpacemap = std::map < unsigned int, BitSpace3dSPtr<T> > ;
 
-class SpaceFactory
+template<typename T>
+using ScalarSpaceIdMap = std::map < Math::ScalarSpace3dSPtr<T>, unsigned int > ;
+
+template<typename T>
+using IdScalarSpaceMap = std::map < unsigned int, Math::ScalarSpace3dSPtr<T> > ;
+
+class BitSpaceFactory
 {
 public:
-	SpaceFactory() :
+	BitSpaceFactory() :
 		nextId(0)
 	{}
 
 	void clear() {
 		bitSpaces.clear();
-		scalarSpaces.clear();
 		nextId = 0;
 	}
 
 
 	BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
 
-	ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
 
 	BitSpace3dSPtr<float> createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
 		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
@@ -81,27 +80,55 @@ public:
 
 	unsigned int getId(const BitSpace3dSPtr<float>& bs) { return bitIdMap[bs]; }
 
-	unsigned int getId(const ScalarSpace3dSPtr<float>& ss) { return scalarIdMap[ss]; }
-
-
-	void addScalarSpace(const ScalarSpace3dSPtr<float>& ss) {
-		scalarSpaces.push_back(ss);
-		scalarIdMap[ss] = nextId++;
-	}
 
 
 private:
 	BitSpace3dSPtrList<float> bitSpaces;
-	ScalarSpace3dSPtrList<float> scalarSpaces;
 	BitSpaceIdMap<float> bitIdMap;
-	ScalarSpaceIdMap<float> scalarIdMap;
+	IdBitSpacemap<float> idBitMap;
 	unsigned int nextId;
 
 	void addBitSpace(const BitSpace3dSPtr<float>& bs) {
 		bitSpaces.push_back(bs);
-		bitIdMap[bs] = nextId++;
+		bitIdMap[bs] = nextId;
+		idBitMap[nextId] = bs;
+		nextId++;
 	}
 
+
+};
+
+class ScalarSpaceFactory
+{
+public:
+	ScalarSpaceFactory() :
+		nextId(0)
+	{}
+
+	void clear() {
+		scalarSpaces.clear();
+		nextId = 0;
+	}
+
+	void addScalarSpace(const Math::ScalarSpace3dSPtr<float>& ss) {
+		scalarSpaces.push_back(ss);
+		scalarIdMap[ss] = nextId;
+		idScalarMap[nextId] = ss;
+		nextId++;
+	}
+
+	unsigned int getId(const Math::ScalarSpace3dSPtr<float>& ss) { return scalarIdMap[ss]; }
+
+	Math::ScalarSpace3dSPtr<float> getScalarSpace(const unsigned int id) { return idScalarMap[id]; }
+
+	Math::ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
+
+
+private:
+	Math::ScalarSpace3dSPtrList<float> scalarSpaces;
+	ScalarSpaceIdMap<float> scalarIdMap;
+	IdScalarSpaceMap<float> idScalarMap;
+	unsigned int nextId;
 
 };
 

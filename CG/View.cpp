@@ -121,6 +121,8 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
+
+		//model.getSpaceFactory()->getScalarSpace(r);
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -179,7 +181,12 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	buildDisplayList();
+	rCommand.clear();
+	rCommand.build(model.getPolygons());
+
+	for (const auto ss : model.getScalarSpaceFactory()->getScalarSpaces()) {
+		rCommand.build(*ss, model.getScalarSpaceFactory()->getId(ss));
+	}
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -190,7 +197,7 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.positions = rCommand.positions;
+		wireFrameRenderer.positions = rCommand.getPositions();
 		wireFrameRenderer.colors = rCommand.colors;
 		wireFrameRenderer.render(width, height, c );
 	}
@@ -199,18 +206,19 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.positions = rCommand.positions;
+		normalRenderer.positions = rCommand.getPositions();
 		normalRenderer.normals = rCommand.normals;
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		pointRenderer.positions = rCommand.points;
-		glPointSize(rCommand.pointSize);
+		glPointSize(rCommand.getPointSize());
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
 		idRenderer.positions = rCommand.points;
 		idRenderer.ids = rCommand.ids;
+		glPointSize(rCommand.getPointSize());
 		idRenderer.render(width, height, c );
 	}
 	else {
@@ -229,18 +237,5 @@ void View::build()
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();
-	*/
-}
-
-void View::buildDisplayList()
-{
-	rCommand.clear();
-	rCommand.build(model.getPolygons());
-
-	/*
-	for (const auto& p : bs.toEnabledPositions()) {
-			const auto pos = p.toArray();
-			points.insert(points.end(), pos.begin(), pos.end());
-	}
 	*/
 }
