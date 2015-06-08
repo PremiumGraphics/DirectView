@@ -612,6 +612,7 @@ void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
 	Command command(&model);
 	command.createSphere(20, 20, 20);
+	model.toPolygon();
 	view->Refresh();
 }
 
@@ -624,8 +625,8 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 	bs->setBox();
 	bs->not();
 
-	model.addBitSpace(bs);
-
+	
+	model.getSpaceFactory()->addBitSpace(bs);
 	model.toPolygon();
 
 
@@ -649,7 +650,7 @@ void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 	//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
 	ss->addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
 
-	model.addScalarSpace(ss);
+	model.getSpaceFactory()->addScalarSpace(ss);
 
 	model.toPolygon();
 

@@ -9,26 +9,14 @@
 #include "../Math/ScalarSpace.h"
 #include "../Math/MarchingCube.h"
 
+#include "SpaceFactory.h"
+
 #include <memory>
 #include <map>
 
 namespace Crystal {
 	namespace CG {
 
-template<typename T>
-using ScalarSpace3dSPtr = std::shared_ptr < Math::ScalarSpace3d<T> > ;
-
-template<typename T>
-using ScalarSpace3dSPtrList = std::list < ScalarSpace3dSPtr<T> > ;
-
-template<typename T>
-using BitSpace3dSPtr = std::shared_ptr < Math::BitSpace3d<T> > ;
-
-template<typename T>
-using BitSpace3dSPtrList = std::list < BitSpace3dSPtr<T> > ;
-
-//template<typename T>
-//using BitSpaceIdMap = std::map< BitSpace3dSPtr<T>, unsigned int > ;
 
 class Model {
 public:
@@ -41,17 +29,10 @@ public:
 
 	void clear()
 	{
-		bitSpaces.clear();
+		factory.clear();
 		polygons.clear();
 	}
 
-	void addBitSpace(const BitSpace3dSPtr<float>& bs) { bitSpaces.push_back(bs); }
-
-	BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
-
-	void addScalarSpace(const ScalarSpace3dSPtr<float>& ss) { scalarSpaces.push_back(ss); }
-
-	ScalarSpace3dSPtrList<float> getScalarSpaces() const { return scalarSpaces; }
 
 	Graphics::LightBuilderSPtr getLightBuilder() const { return lightBuilder; }
 
@@ -63,7 +44,7 @@ public:
 		polygons.clear();
 		gridCenters.clear();
 
-		for (const auto ss : scalarSpaces) {
+		for (const auto& ss : factory.getScalarSpaces() ) {
 			const auto triangles = mc.march(*ss, 0.5);
 
 			Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
@@ -78,7 +59,7 @@ public:
 			gridCenters.push_back(ss->getCenter());
 		}
 
-		for (const auto& bs : bitSpaces) {
+		for (const auto& bs : factory.getBitSpaces() ) {
 			const auto& triangles = mc.march(*bs);
 
 			Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
@@ -94,17 +75,20 @@ public:
 		}
 	}
 
+	SpaceFactory* getSpaceFactory() { return &factory; }
+
 	Graphics::PolygonSPtrVector getPolygons() const { return polygons; }
 
 private:
 	Graphics::PolygonSPtrVector polygons;
 	std::vector< Math::Vector3d<float > > gridCenters;
-	BitSpace3dSPtrList<float> bitSpaces;
-	ScalarSpace3dSPtrList<float> scalarSpaces;
 	Math::MarchingCube<float> mc;
 
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
+	SpaceFactory factory;
+
+private:
 };
 
 

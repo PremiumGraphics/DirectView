@@ -16,6 +16,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="SpaceFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
