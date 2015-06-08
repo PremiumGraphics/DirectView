@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../CG/Model.h"
+#include "../Command/Model.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Command;

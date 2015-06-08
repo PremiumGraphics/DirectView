@@ -4,8 +4,8 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Light.h"
 
-#include "Model.h"
-#include "Command.h"
+#include "../Command/Model.h"
+#include "../Command/Command.h"
 
 #include <memory>
 

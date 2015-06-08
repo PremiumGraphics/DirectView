@@ -14,12 +14,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="RenderingCommand.h" />
-    <ClInclude Include="SpacePickCommand.h" />
-    <ClInclude Include="ScalarSpaceFactory.h" />
-    <ClInclude Include="BitSpaceFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

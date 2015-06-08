@@ -154,15 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BitSpaceFactory.h" />
-    <ClInclude Include="Command.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ScalarSpaceFactory.h" />
-    <ClInclude Include="SpacePickCommand.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>

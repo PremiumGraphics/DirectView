@@ -11,7 +11,7 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
-#include "RenderingCommand.h"
+#include "../Command/RenderingCommand.h"
 
 namespace Crystal {
 	namespace Graphics {
