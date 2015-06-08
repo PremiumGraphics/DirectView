@@ -4,7 +4,7 @@
 #include "Model.h"
 
 namespace Crystal {
-	namespace CGS {
+	namespace Command {
 
 
 class MainCommand {

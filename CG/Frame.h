@@ -10,10 +10,11 @@
 #include <memory>
 
 namespace Crystal {
+	namespace Command {
+		class Model;
+	}
 	namespace CGS {
 		class View;
-		class Model;
-
 
 class Frame : public wxFrame//wxMDIParentFrame
 {
@@ -22,7 +23,7 @@ public:
 
 	~Frame();
 
-	Model& getModel() { return model; }
+	Command::Model& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -90,7 +91,7 @@ private:
 
 private:
 	View* view;
-	Model model;
+	Command::Model model;
 
 	wxLocale locale;
 

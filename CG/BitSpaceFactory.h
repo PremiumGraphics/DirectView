@@ -8,7 +8,7 @@
 
 
 namespace Crystal {
-	namespace CGS {
+	namespace Command {
 
 
 template<typename T>

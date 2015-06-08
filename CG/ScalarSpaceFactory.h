@@ -7,7 +7,7 @@
 
 
 namespace Crystal{
-	namespace CGS {
+	namespace Command {
 
 template<typename T>
 using ScalarSpaceIdMap = std::map < Math::ScalarSpace3dSPtr<T>, unsigned int >;

@@ -13,6 +13,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
+using namespace Crystal::Command;
 using namespace Crystal::CGS;
 
 enum {

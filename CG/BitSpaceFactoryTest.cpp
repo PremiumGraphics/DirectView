@@ -2,7 +2,7 @@
 
 #include "BitSpaceFactory.h"
 
-using namespace Crystal::CGS;
+using namespace Crystal::Command;
 
 TEST(BitSpaceFactoryTest, TestAddBitSpace)
 {

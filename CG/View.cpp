@@ -7,8 +7,10 @@
 #include "../Graphics/Polygon.h"
 
 #include "Converter.h"
+#include "Model.h"
 
 using namespace Crystal::Graphics;
+using namespace Crystal::Command;
 using namespace Crystal::CGS;
 
 

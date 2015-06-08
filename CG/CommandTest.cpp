@@ -3,7 +3,7 @@
 #include "Command.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::CGS;
+using namespace Crystal::Command;
 
 TEST(CommandTest, TestCreateBox)
 {
