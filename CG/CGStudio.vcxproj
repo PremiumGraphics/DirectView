@@ -160,6 +160,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ScalarSpaceFactory.h" />
     <ClInclude Include="SpaceFactory.h" />
     <ClInclude Include="SpacePickCommand.h" />
     <ClInclude Include="stdafx.h" />

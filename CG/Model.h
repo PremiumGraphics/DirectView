@@ -10,6 +10,7 @@
 #include "../Math/MarchingCube.h"
 
 #include "SpaceFactory.h"
+#include "ScalarSpaceFactory.h"
 
 #include <memory>
 #include <map>

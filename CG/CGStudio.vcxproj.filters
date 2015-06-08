@@ -19,6 +19,7 @@
     <ClInclude Include="SpaceFactory.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="SpacePickCommand.h" />
+    <ClInclude Include="ScalarSpaceFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

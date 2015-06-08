@@ -14,6 +14,7 @@
     <ClCompile Include="CommandTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />
     <ClCompile Include="RenderingCommandTest.cpp" />
+    <ClCompile Include="ScalarSpaceFactoryTest.cpp" />
     <ClCompile Include="SpaceFactoryTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
