@@ -17,6 +17,24 @@ namespace Crystal {
 	}
 	namespace CGS {
 
+struct RenderingCommand {
+	RenderingCommand() : pointSize(10)
+	{
+
+	}
+
+	float pointSize;
+
+	std::vector< float > positions;
+	std::vector< float > normals;
+	std::vector< float > texCoords;
+	std::vector< float > colors;
+	std::vector< int > ids;
+
+	std::vector< float > points;
+
+};
+
 class View : public wxGLCanvas
 {
 public:
@@ -44,7 +62,7 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { pointSize; }
+	float getPointSize() const { rCommand.pointSize; }
 
 private:
 	MODE mode;
@@ -78,15 +96,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	float pointSize;
-
-	std::vector< float > positions;
-	std::vector< float > normals;
-	std::vector< float > texCoords;
-	std::vector< float > colors;
-	std::vector< int > ids;
-
-	std::vector< float > points;
+	RenderingCommand rCommand;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

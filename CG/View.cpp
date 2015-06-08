@@ -22,7 +22,6 @@ View::View( Frame* parent, const int width, const int height, Model& model  )
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
-pointSize( 10.0f ),
 model( model )
 {
 	glContext.SetCurrent( *this );
@@ -191,8 +190,8 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.positions = positions;
-		wireFrameRenderer.colors = colors;
+		wireFrameRenderer.positions = rCommand.positions;
+		wireFrameRenderer.colors = rCommand.colors;
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
@@ -200,18 +199,18 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.positions = positions;
-		normalRenderer.normals = normals;
+		normalRenderer.positions = rCommand.positions;
+		normalRenderer.normals = rCommand.normals;
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		pointRenderer.positions = points;
-		glPointSize(pointSize);
+		pointRenderer.positions = rCommand.points;
+		glPointSize(rCommand.pointSize);
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.positions = points;
-		idRenderer.ids = ids;
+		idRenderer.positions = rCommand.points;
+		idRenderer.ids = rCommand.ids;
 		idRenderer.render(width, height, c );
 	}
 	else {
@@ -237,16 +236,15 @@ void View::build()
 
 void View::buildDisplayList()
 {
-
-	positions.clear();
-	normals.clear();
-	texCoords.clear();
-	colors.clear();
+	rCommand.positions.clear();
+	rCommand.normals.clear();
+	rCommand.texCoords.clear();
+	rCommand.colors.clear();
 
 	for (const auto& p : model.getPolygons()) {
-		positions = p->toPositionArray();
-		normals = p->toNormalArray();
-		colors = p->toColorArray();
+		rCommand.positions = p->toPositionArray();
+		rCommand.normals = p->toNormalArray();
+		rCommand.colors = p->toColorArray();
 	}
 
 	/*
