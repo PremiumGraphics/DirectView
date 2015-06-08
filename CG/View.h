@@ -11,29 +11,13 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
+#include "RenderingCommand.h"
+
 namespace Crystal {
 	namespace Graphics {
 		class Color;
 	}
 	namespace CGS {
-
-struct RenderingCommand {
-	RenderingCommand() : pointSize(10)
-	{
-
-	}
-
-	float pointSize;
-
-	std::vector< float > positions;
-	std::vector< float > normals;
-	std::vector< float > texCoords;
-	std::vector< float > colors;
-	std::vector< int > ids;
-
-	std::vector< float > points;
-
-};
 
 class View : public wxGLCanvas
 {

@@ -77,10 +77,10 @@ public:
 
 	SpaceFactory* getSpaceFactory() { return &factory; }
 
-	Graphics::PolygonSPtrVector getPolygons() const { return polygons; }
+	Graphics::PolygonSPtrList getPolygons() const { return polygons; }
 
 private:
-	Graphics::PolygonSPtrVector polygons;
+	Graphics::PolygonSPtrList polygons;
 	std::vector< Math::Vector3d<float > > gridCenters;
 	Math::MarchingCube<float> mc;
 

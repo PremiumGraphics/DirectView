@@ -158,6 +158,7 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SpaceFactory.h" />
     <ClInclude Include="stdafx.h" />

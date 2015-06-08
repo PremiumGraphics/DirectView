@@ -232,20 +232,10 @@ void View::build()
 	*/
 }
 
-#include "../Math/MarchingCube.h"
-
 void View::buildDisplayList()
 {
-	rCommand.positions.clear();
-	rCommand.normals.clear();
-	rCommand.texCoords.clear();
-	rCommand.colors.clear();
-
-	for (const auto& p : model.getPolygons()) {
-		rCommand.positions = p->toPositionArray();
-		rCommand.normals = p->toNormalArray();
-		rCommand.colors = p->toColorArray();
-	}
+	rCommand.clear();
+	rCommand.build(model.getPolygons());
 
 	/*
 	for (const auto& p : bs.toEnabledPositions()) {
