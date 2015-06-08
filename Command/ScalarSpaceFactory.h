@@ -28,12 +28,6 @@ public:
 		nextId = 0;
 	}
 
-	void add(const Math::ScalarSpace3dSPtr<float>& ss) {
-		spaces.push_back(ss);
-		spaceIdMap[ss] = nextId;
-		idSpaceMap[nextId] = ss;
-		nextId++;
-	}
 
 	unsigned int getId(const Math::ScalarSpace3dSPtr<float>& ss) {
 		if ( spaceIdMap.find(ss) == spaceIdMap.end()) {
@@ -49,6 +43,18 @@ public:
 		return idSpaceMap[id];
 	}
 
+	Math::ScalarSpace3dSPtr<float> create(const unsigned int resx, const unsigned int resy, const unsigned int resz)
+	{
+		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+		Math::Grid3d<float> grid(resx, resy, resz);
+		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(space, grid));
+		//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
+		//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
+		ss->addSmooth(Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5);
+		add(ss);
+		return ss;
+	}
+
 	Math::ScalarSpace3dSPtrList<float> getScalarSpaces() const { return spaces; }
 
 private:
@@ -56,6 +62,14 @@ private:
 	ScalarSpaceIdMap<float> spaceIdMap;
 	IdScalarSpaceMap<float> idSpaceMap;
 	unsigned int nextId;
+
+	void add(const Math::ScalarSpace3dSPtr<float>& ss) {
+		spaces.push_back(ss);
+		spaceIdMap[ss] = nextId;
+		idSpaceMap[nextId] = ss;
+		nextId++;
+	}
+
 
 };
 

@@ -608,17 +608,8 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-	Grid3d<float> grid(40, 40, 40);
-	ScalarSpace3dSPtr<float> ss( new ScalarSpace3d<float>(space, grid) );
-	//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
-	//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
-	ss->addSmooth(Vector3d<float>(0.5, 0.5, 0.5), 0.5);
-
-	model.getScalarSpaceFactory()->add(ss);
-
-	model.toPolygon();
-
+	MainCommand command(&model);
+	command.createScalar(40, 40, 40);
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
 }

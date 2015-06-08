@@ -6,11 +6,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Command;
 
-TEST(ScalarSpaceFactoryTest, TestGetId)
+TEST(ScalarSpaceFactoryTest, TestCreateCone)
 {
 	ScalarSpaceFactory factory;
 	EXPECT_EQ( -1, factory.getId(nullptr) );
-	ScalarSpace3dSPtr<float> ss = std::make_shared<ScalarSpace3d<float> >();
-	factory.add(ss);
+	const auto& ss = factory.createCone(5, 5, 5);
 	EXPECT_EQ(0, factory.getId(ss));
 }

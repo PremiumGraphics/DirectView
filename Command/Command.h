@@ -30,6 +30,12 @@ public:
 		model->toPolygon();
 	}
 
+	void createScalar(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		model->getScalarSpaceFactory()->create(resx, resy, resz);
+		model->toPolygon();
+	}
+
+
 private:
 	Model* model;
 	BitSpaceFactory* sf;

@@ -16,39 +16,39 @@ public:
 	~BitSpaceTransformCommand() = default;
 
 	BitSpaceTransformCommand& add(const Math::BitSpace3dSPtr<float>& space) {
-		selecteds.push_back(space);
+		spaces.push_back(space);
 		return (*this);
 	}
 
 	BitSpaceTransformCommand& remove(const Math::BitSpace3dSPtr<float>& space) {
-		selecteds.remove(space);
+		spaces.remove(space);
 		return (*this);
 	}
 
 	BitSpaceTransformCommand& clear() {
-		selecteds.clear();
+		spaces.clear();
 		return (*this);
 	}
 
 	BitSpaceTransformCommand& not() {
-		for (auto& b : selecteds) {
+		for (auto& b : spaces) {
 			b->not();
 		}
 		return (*this);
 	}
 
 	BitSpaceTransformCommand& and() {
-		if (selecteds.size() <= 1) {
+		if (spaces.size() <= 1) {
 			return *(this);
 		}
-		const auto& lhs = selecteds.front();
-		const auto& rhs = selecteds.back();
+		const auto& lhs = spaces.front();
+		const auto& rhs = spaces.back();
 		lhs->and(*rhs);
 		return (*this);
 	}
 
 	BitSpaceTransformCommand move(const Math::Vector3d<float>& vector) {
-		for (auto& b : selecteds) {
+		for (auto& b : spaces) {
 			b->move(vector);
 		}
 		return (*this);
@@ -56,10 +56,12 @@ public:
 
 	//Math::ScalarSpace3dSPtr<float> getSelected() { return  }
 
-	bool isEmpty() const { return selecteds.empty(); }
+	Math::BitSpace3dSPtrList<float> getSpaces() const { return spaces; }
+
+	bool isEmpty() const { return spaces.empty(); }
 
 private:
-	Math::BitSpace3dSPtrList<float> selecteds;
+	Math::BitSpace3dSPtrList<float> spaces;
 };
 	}
 }

@@ -44,7 +44,6 @@ public:
 
 	void toPolygon() {
 		polygons.clear();
-		gridCenters.clear();
 
 		for (const auto& ss : ssFactory.getScalarSpaces() ) {
 			const auto triangles = mc.march(*ss, 0.5);
@@ -57,8 +56,6 @@ public:
 				polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 			}
 			polygons.push_back(polygon);
-
-			gridCenters.push_back(ss->getCenter());
 		}
 
 		for (const auto& bs : bsFactory.getBitSpaces() ) {
@@ -72,8 +69,6 @@ public:
 				polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 			}
 			polygons.push_back(polygon);
-
-			gridCenters.push_back(bs->getCenter());
 		}
 	}
 
@@ -85,7 +80,6 @@ public:
 
 private:
 	Graphics::PolygonSPtrList polygons;
-	std::vector< Math::Vector3d<float > > gridCenters;
 	Math::MarchingCube<float> mc;
 
 	Graphics::CameraSPtr<float> camera;
