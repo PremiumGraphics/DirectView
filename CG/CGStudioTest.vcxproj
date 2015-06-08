@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="CommandTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />
+    <ClCompile Include="SpaceFactoryTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{81B09E8D-C1A8-4477-907A-ABB07883C9F8}</ProjectGuid>

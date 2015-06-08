@@ -8,7 +8,7 @@ using namespace Crystal::CGS;
 TEST(CommandTest, TestCreateBox)
 {
 	Model m;
-	Command command(&m);
+	MainCommand command(&m);
 	command.createBox(5,5,5);
 	EXPECT_EQ(1, m.getSpaceFactory()->getBitSpaces().size());
 }
@@ -16,8 +16,7 @@ TEST(CommandTest, TestCreateBox)
 TEST(CommandTest, TestCreateSphere)
 {
 	Model m;
-	SpaceFactory sf;
-	Command command(&m);
+	MainCommand command(&m);
 	command.createSphere(5, 5, 5);
 	EXPECT_EQ(1, m.getSpaceFactory()->getBitSpaces().size());
 }

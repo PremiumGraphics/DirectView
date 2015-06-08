@@ -610,7 +610,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	Command command(&model);
+	MainCommand command(&model);
 	command.createSphere(20, 20, 20);
 	model.toPolygon();
 	view->Refresh();
@@ -635,7 +635,7 @@ void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	Command command( &model );
+	MainCommand command( &model );
 	command.createBox(20,20,20);
 	view->Refresh();
 }
