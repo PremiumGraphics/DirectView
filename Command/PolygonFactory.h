@@ -8,10 +8,14 @@
 
 #include "../Math/MarchingCube.h"
 
+#include "../Util/UnCopyable.h"
+
+#include <memory>
+
 namespace Crystal {
 	namespace Command {
 
-class PolygonFactory final
+class PolygonFactory final : private UnCopyable
 {
 public:
 	PolygonFactory() {
@@ -69,6 +73,8 @@ private:
 
 	Math::MarchingCube<float> mc;
 };
+
+using PolygonFactorySPtr = std::shared_ptr< PolygonFactory > ;
 
 	}
 }

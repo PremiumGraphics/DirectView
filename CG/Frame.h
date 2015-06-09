@@ -1,17 +1,14 @@
 #ifndef __CRYSTAL_UI_FRAME_H__
 #define __CRYSTAL_UI_FRAME_H__
 
-#include "../Graphics/Camera.h"
-#include "../Graphics/Light.h"
-
-#include "../Command/Model.h"
-#include "../Command/PolygonFactory.h"
+#include "../Command/MainFactory.h"
+#include "../Command/MainCommand.h"
 
 #include <memory>
 
 namespace Crystal {
 	namespace Command {
-		class Model;
+		class MainFactory;
 	}
 	namespace UI {
 		class View;
@@ -23,7 +20,7 @@ public:
 
 	~Frame();
 
-	Command::Model& getModel() { return model; }
+	Command::MainFactory& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -91,10 +88,8 @@ private:
 
 private:
 	View* view;
-	Command::Model model;
-	Command::BitSpaceFactory bsFactory;
-	Command::ScalarSpaceFactory ssFactory;
-	Command::PolygonFactory polygonFactory;
+	Command::MainFactory model;
+	Command::MainCommand command;
 	
 	wxLocale locale;
 

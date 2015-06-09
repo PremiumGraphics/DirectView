@@ -7,7 +7,6 @@
 #include "../Graphics/Polygon.h"
 
 #include "Converter.h"
-#include "../Command/Model.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
@@ -19,7 +18,7 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, Model& model  )
+View::View( Frame* parent, const int width, const int height, MainFactory& model  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
@@ -154,7 +153,7 @@ void View::OnMouse( wxMouseEvent& event )
 			model.getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = model.getLights();
+			const LightSPtrList& lights = model.getLightFactory()->getLights();
 			for (const LightSPtr& l : lights) {
 				Vector3d<float> lpos = l->getPos();
 				lpos += pos;

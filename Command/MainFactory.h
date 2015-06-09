@@ -2,10 +2,6 @@
 #define __CRYSTAL_COMMAND_MODEL_H__
 
 #include "../Graphics/Camera.h"
-#include "../Graphics/Polygon.h"
-
-#include "../Math/ScalarSpace.h"
-#include "../Math/MarchingCube.h"
 
 #include "BitSpaceFactory.h"
 #include "ScalarSpaceFactory.h"
@@ -19,13 +15,14 @@ namespace Crystal {
 	namespace Command {
 
 
-class Model {
+class MainFactory {
 public:
-	Model() :
-		lightBuilder( std::make_shared< LightFactory >()),
-		camera( std::make_shared< Graphics::Camera<float> >() ),
-		bsFactory(std::make_shared< BitSpaceFactory >() ),
-		ssFactory(std::make_shared< ScalarSpaceFactory >() )
+	MainFactory() :
+		lightFactory(std::make_shared< LightFactory >()),
+		camera(std::make_shared< Graphics::Camera<float> >()),
+		bsFactory(std::make_shared< BitSpaceFactory >()),
+		ssFactory(std::make_shared< ScalarSpaceFactory >()),
+		polygonFactory(std::make_shared< PolygonFactory >())
 	{
 	}
 
@@ -33,31 +30,31 @@ public:
 	{
 		bsFactory->clear();
 		ssFactory->clear();
-		polygonFactory.clear();
+		polygonFactory->clear();
 	}
 
 
 	Graphics::CameraSPtr<float> getCamera() { return camera; }
 
-	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
+	LightFactorySPtr getLightFactory() { return lightFactory; }
 
 	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
 
 	ScalarSpaceFactorySPtr getScalarSpaceFactory() { return ssFactory; }
 
-	PolygonFactory* getPolygonFactory() { return &polygonFactory; }
+	PolygonFactorySPtr getPolygonFactory() { return polygonFactory; }
 
 private:
 	Graphics::CameraSPtr<float> camera;
-	LightFactorySPtr lightBuilder;
+	LightFactorySPtr lightFactory;
 	BitSpaceFactorySPtr bsFactory;
 	ScalarSpaceFactorySPtr ssFactory;
-	PolygonFactory polygonFactory;
+	PolygonFactorySPtr polygonFactory;
 private:
 };
 
 
-using ModelSPtr = std::shared_ptr < Model > ;
+using ModelSPtr = std::shared_ptr < MainFactory > ;
 	}
 }
 
