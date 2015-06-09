@@ -11,12 +11,12 @@ TEST(GridSpace3dTest, TestGetStart)
 	EXPECT_EQ(Vector3d<T>(0, 0, 0), gs.getStart());
 }
 
-TEST(GridSpace3dTest, TestaddSmooth)
+TEST(GridSpace3dTest, TestAddMetaball)
 {
 	using T = float;
 	Grid3d<T> grid(3,3,3);
 	ScalarSpace3d<T> gs(Space3d<T>::Unit(), grid);
-	gs.addSmooth(Vector3d<T>(0.5,0.5,0.5),0.5);
+	gs.add( Metaball<T>( Vector3d<T>(0.5,0.5,0.5),0.5 ));
 	//gs.setSmooth();
 }
 

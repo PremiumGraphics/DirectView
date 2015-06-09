@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Space.h"
 #include "GridSpaceBase.h"
+#include "Kernel.h"
 
 #include <memory>
 #include <list>
@@ -77,7 +78,9 @@ public:
 	}
 
 
-	void addSmooth(const Vector3d<T>& center, const T radius) {
+	void add(const Metaball<T>& metaball) {
+		const auto center = metaball.getCenter();
+		const auto radius = metaball.getRadius();
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {

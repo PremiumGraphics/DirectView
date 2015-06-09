@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_KERNEL_H__
 
 #include <math.h>
+#include "Vector.h"
 #include "Tolerance.h"
 
 namespace Crystal {
@@ -39,6 +40,28 @@ public:
 private:
 	T average;
 	T distribution;
+};
+
+template<typename T>
+class Metaball {
+public:
+	Metaball() :
+		radius(1)
+	{}
+
+	Metaball(const Vector3d<T>& center, const T radius) :
+		center( center ),
+		radius( radius )
+	{}
+
+
+	T getRadius() const { return radius; }
+
+	Vector3d<float> getCenter() const { return center; }
+
+private:
+	Vector3d<float> center;
+	T radius;
 };
 
 	}

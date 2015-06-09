@@ -50,7 +50,7 @@ public:
 		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(config.getSpace(), grid));
 		//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
 		//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
-		ss->addSmooth(Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5);
+		ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		add(ss);
 		return ss;
 	}
