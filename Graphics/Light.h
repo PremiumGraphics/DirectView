@@ -88,27 +88,6 @@ private:
 	Graphics::ColorRGB<float> color;
 };
 
-class LightBuilder
-{
-public:
-	LightSPtr build() {
-		LightSPtr l(new PointLight());
-		lights.push_back(l);
-		return l;
-	}
-
-	void clear(){ lights.clear(); }
-
-	void remove(LightSPtr l) { lights.remove(l); }
-
-	LightSPtrList getLights() const { return lights; }
-
-
-private:
-	LightSPtrList lights;
-};
-
-typedef std::shared_ptr< LightBuilder > LightBuilderSPtr;
 
 	}
 }

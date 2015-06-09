@@ -16,6 +16,7 @@
     <ClInclude Include="..\Command\RenderingCommand.h" />
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
     <ClInclude Include="BitSpaceTransformCommand.h" />
+    <ClInclude Include="LightFactory.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="ScalarSpaceTransformCommand.h" />
   </ItemGroup>
@@ -25,6 +26,7 @@
     <ClCompile Include="..\Command\RenderingCommandTest.cpp" />
     <ClCompile Include="..\Command\ScalarSpaceFactoryTest.cpp" />
     <ClCompile Include="BitSpaceTransformCommandTest.cpp" />
+    <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
