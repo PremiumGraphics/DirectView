@@ -89,6 +89,8 @@ private:
 
 	void OnCreatePolygon(wxRibbonButtonBarEvent& e);
 
+	void OnGridConfig(wxRibbonButtonBarEvent& e);
+
 private:
 	View* view;
 	Command::MainFactory model;

@@ -2,6 +2,7 @@
 #define __CRYSTAL_COMMAND_SCALAR_SPACE_FACTORY_H__
 
 #include "../Math/ScalarSpace.h"
+#include "GridConfig.h"
 
 #include <map>
 #include <memory>
@@ -43,10 +44,10 @@ public:
 		return idSpaceMap[id];
 	}
 
-	Math::ScalarSpace3dSPtr<float> create(const unsigned int resx, const unsigned int resy, const unsigned int resz)
+	Math::ScalarSpace3dSPtr<float> create(const GridConfig& config)
 	{
 		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
-		Math::Grid3d<float> grid(resx, resy, resz);
+		Math::Grid3d<float> grid(config.resx, config.resy, config.resz);
 		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(space, grid));
 		//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
 		//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);

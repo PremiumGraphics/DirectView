@@ -10,6 +10,7 @@ TEST(ScalarSpaceFactoryTest, TestCreateCone)
 {
 	ScalarSpaceFactory factory;
 	EXPECT_EQ( -1, factory.getId(nullptr) );
-	const auto& ss = factory.create(5, 5, 5);
+	GridConfig config(5, 5, 5);
+	const auto& ss = factory.create(config);
 	EXPECT_EQ(0, factory.getId(ss));
 }

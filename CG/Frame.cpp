@@ -10,6 +10,9 @@
 #include "../IO/OBJFile.h"
 #include "../IO/STLFile.h"
 
+#include "GridConfigDialog.h"
+
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
@@ -31,6 +34,8 @@ enum {
 
 	ID_GL_CONFIG,
 	ID_LOCALE,
+
+	ID_GRID_CONFIG,
 
 	ID_OFF_SCREEN_CONFIG,
 
@@ -168,7 +173,7 @@ Frame::Frame()
 	modelingBar->AddButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
@@ -176,6 +181,7 @@ Frame::Frame()
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
+	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_POLYGON, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
 
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
@@ -609,7 +615,8 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	const auto ss = model.getScalarSpaceFactory()->create(40, 40, 40);
+	Command::GridConfig config(40, 40, 40);
+	const auto ss = model.getScalarSpaceFactory()->create(config);
 	model.getPolygonFactory()->create(*ss);
 	view->Refresh();
 }
@@ -646,4 +653,13 @@ void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 		model.getPolygonFactory()->create(*ss);
 	}
 	view->Refresh();
+}
+
+
+void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
+{
+	GridConfigDialog dialog(this);
+	Command::GridConfig config(5, 5, 5);
+	dialog.set(config);
+	dialog.ShowModal();
 }

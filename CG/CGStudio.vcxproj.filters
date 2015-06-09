@@ -14,6 +14,7 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="GridConfigDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
