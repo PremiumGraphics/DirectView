@@ -4,7 +4,7 @@
 #include "../Math/ScalarSpace.h"
 
 #include <map>
-
+#include <memory>
 
 namespace Crystal{
 	namespace Command {
@@ -72,6 +72,8 @@ private:
 
 
 };
+
+using ScalarSpaceFactorySPtr = std::shared_ptr < ScalarSpaceFactory > ;
 
 	}
 }
