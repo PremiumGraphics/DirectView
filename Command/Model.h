@@ -24,13 +24,14 @@ class Model {
 public:
 	Model() :
 		lightBuilder( std::make_shared< Graphics::LightBuilder>()),
-		camera( std::make_shared< Graphics::Camera<float> >() )
+		camera( std::make_shared< Graphics::Camera<float> >() ),
+		bsFactory(std::make_shared< BitSpaceFactory >() )
 	{
 	}
 
 	void clear()
 	{
-		bsFactory.clear();
+		bsFactory->clear();
 		ssFactory.clear();
 		polygonFactory.clear();
 	}
@@ -42,7 +43,7 @@ public:
 
 	Graphics::LightSPtrList getLights() { return lightBuilder->getLights(); }
 
-	BitSpaceFactory* getBitSpaceFactory() { return &bsFactory; }
+	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
 
 	ScalarSpaceFactory* getScalarSpaceFactory() { return &ssFactory; }
 
@@ -51,7 +52,7 @@ public:
 private:
 	Graphics::CameraSPtr<float> camera;
 	Graphics::LightBuilderSPtr lightBuilder;
-	BitSpaceFactory bsFactory;
+	BitSpaceFactorySPtr bsFactory;
 	ScalarSpaceFactory ssFactory;
 	PolygonFactory polygonFactory;
 private:

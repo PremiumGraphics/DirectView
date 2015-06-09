@@ -83,8 +83,9 @@ private:
 		nextId++;
 	}
 
-
 };
+
+using BitSpaceFactorySPtr = std::shared_ptr<BitSpaceFactory >;
 
 
 	}
