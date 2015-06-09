@@ -24,9 +24,7 @@ enum {
 	ID_LIGHT_TRANSLATE,
 	ID_CAMERA_TRANSLATE,
 	//ID_PICK_VERTEX,
-	ID_POLYGON_TRANSLATE,
-	ID_POLYGON_ROTATE,
-	ID_POLYGON_SCALE,
+	ID_SPACE_TRANSFROM,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -45,6 +43,8 @@ enum {
 	ID_BOOLEAN_DIFF,
 	ID_BOOLEAN_INTERSECTION,
 	ID_BOOLEAN_NOT,
+
+	ID_CREATE_POLYGON,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -138,12 +138,13 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-	operation->AddButton(ID_POLYGON_TRANSLATE, "Translate", wxBitmap(32, 32));
-	operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
-	operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
+	operation->AddButton(ID_SPACE_TRANSFROM, "Translate", wxBitmap(32, 32));
+	//operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
+	//operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
+	Connect( ID_SPACE_TRANSFROM,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnSpaceTransform) );
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -168,13 +169,14 @@ Frame::Frame()
 	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
 	//Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
-
+	Connect(ID_CREATE_POLYGON, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
 
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
 	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
@@ -605,15 +607,12 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 	view->Refresh();
 }
 
-
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	const auto ss = model.getScalarSpaceFactory()->create(40, 40, 40);
 	model.getPolygonFactory()->create(*ss);
-	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
 }
-
 
 void Frame::OnBooleanUnion(wxRibbonButtonBarEvent& e)
 {
@@ -634,4 +633,17 @@ void Frame::OnBooleanIntersection(wxRibbonButtonBarEvent& e)
 void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("TODO:Not");
+}
+
+void Frame::OnSpaceTransform(wxRibbonButtonBarEvent& e)
+{
+	view->setMode(View::SPACE_TRANSFORM);
+}
+
+void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
+{
+	for (const ScalarSpace3dSPtr<float>& ss : model.getScalarSpaceFactory()->getScalarSpaces()) {
+		model.getPolygonFactory()->create(*ss);
+	}
+	view->Refresh();
 }

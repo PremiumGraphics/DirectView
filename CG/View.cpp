@@ -165,6 +165,9 @@ void View::OnMouse( wxMouseEvent& event )
 				l->setPos(lpos);
 			}
 		}
+		else if (mode == SPACE_TRANSFORM) {
+			ssTransformCmd->move(pos);
+		}
 		else {
 			assert( false );
 		}

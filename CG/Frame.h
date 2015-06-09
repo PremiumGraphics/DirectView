@@ -85,6 +85,9 @@ private:
 
 	void OnBooleanNot(wxRibbonButtonBarEvent& e);
 
+	void OnSpaceTransform(wxRibbonButtonBarEvent& e);
+
+	void OnCreatePolygon(wxRibbonButtonBarEvent& e);
 
 private:
 	View* view;
