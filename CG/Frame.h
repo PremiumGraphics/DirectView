@@ -5,7 +5,7 @@
 #include "../Graphics/Light.h"
 
 #include "../Command/Model.h"
-#include "../Command/Command.h"
+#include "../Command/PolygonFactory.h"
 
 #include <memory>
 
@@ -92,8 +92,10 @@ private:
 private:
 	View* view;
 	Command::Model model;
-	Command::MainCommand command;
-
+	Command::BitSpaceFactory bsFactory;
+	Command::ScalarSpaceFactory ssFactory;
+	Command::PolygonFactory polygonFactory;
+	
 	wxLocale locale;
 
 	wxDECLARE_NO_COPY_CLASS( Frame );

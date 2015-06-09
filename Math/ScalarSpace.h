@@ -37,7 +37,9 @@ private:
 template< typename T >
 class ScalarSpace3d : public GridSpaceBase<T> {
 public:
-	ScalarSpace3d() = default;
+	ScalarSpace3d() :
+		ScalarSpace3d(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2) )
+	{}
 
 	ScalarSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
 		GridSpaceBase( space_, grid.getSizes() ),

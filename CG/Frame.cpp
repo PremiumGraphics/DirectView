@@ -85,8 +85,7 @@ public:
 
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	command( &model )
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -587,26 +586,30 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	command.createSphere(20, 20, 20);
+	const auto bs = model.getBitSpaceFactory()->createSphere(20, 20, 20);
+	model.getPolygonFactory()->create(*bs);
 	view->Refresh();
 }
 
 void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
 {
-	command.createCylinder(20, 20, 20);
+	const auto bs = model.getBitSpaceFactory()->createCylinder(20, 20, 20);
+	model.getPolygonFactory()->create(*bs);
 	view->Refresh();
 }
 
 void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 {
-	command.createBox(20,20,20);
+	const auto bs = model.getBitSpaceFactory()->createBox(20, 20, 20);
+	model.getPolygonFactory()->create(*bs);
 	view->Refresh();
 }
 
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	command.createScalar(40, 40, 40);
+	const auto ss = model.getScalarSpaceFactory()->create(40, 40, 40);
+	model.getPolygonFactory()->create(*ss);
 	//model.getPolygonBuilder().build(10, cone);
 	view->Refresh();
 }

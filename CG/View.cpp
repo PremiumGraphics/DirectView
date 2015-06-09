@@ -184,7 +184,7 @@ void View::draw(const wxSize& size)
 	const int height = size.GetHeight();
 
 	rCommand.clear();
-	rCommand.build(model.getPolygons());
+	rCommand.build(model.getPolygonFactory()->getPolygons() );
 
 	for (const auto ss : model.getScalarSpaceFactory()->getScalarSpaces()) {
 		rCommand.build(*ss, model.getScalarSpaceFactory()->getId(ss));
