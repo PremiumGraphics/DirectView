@@ -28,6 +28,7 @@
     <ClCompile Include="..\Command\RenderingCommandTest.cpp" />
     <ClCompile Include="..\Command\ScalarSpaceFactoryTest.cpp" />
     <ClCompile Include="BitSpaceTransformCommandTest.cpp" />
+    <ClCompile Include="GridConfigTest.cpp" />
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MainFactoryTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />

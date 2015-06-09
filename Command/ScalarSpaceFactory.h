@@ -46,9 +46,8 @@ public:
 
 	Math::ScalarSpace3dSPtr<float> create(const GridConfig& config)
 	{
-		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
-		Math::Grid3d<float> grid(config.resx, config.resy, config.resz);
-		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(space, grid));
+		Math::Grid3d<float> grid(config.getResx(), config.getResy(), config.getResz());
+		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(config.getSpace(), grid));
 		//ss.addSmooth( Vector3d<float>(0.25, 0.5, 0.5), 0.5 );
 		//ss.addSmooth(Vector3d<float>(0.75, 0.5, 0.5), 0.5);
 		ss->addSmooth(Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5);

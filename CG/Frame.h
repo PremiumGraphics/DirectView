@@ -3,6 +3,7 @@
 
 #include "../Command/MainFactory.h"
 #include "../Command/MainCommand.h"
+#include "../Command/MainConfig.h"
 
 #include <memory>
 
@@ -95,9 +96,8 @@ private:
 	View* view;
 	Command::MainFactory model;
 	Command::MainCommand command;
+	Command::MainConfig config;
 	
-	wxLocale locale;
-
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
 };

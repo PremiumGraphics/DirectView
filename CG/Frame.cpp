@@ -615,8 +615,7 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
-	Command::GridConfig config(40, 40, 40);
-	const auto ss = model.getScalarSpaceFactory()->create(config);
+	const auto ss = model.getScalarSpaceFactory()->create( config.getGridConfig() );
 	model.getPolygonFactory()->create(*ss);
 	view->Refresh();
 }
@@ -659,7 +658,9 @@ void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 {
 	GridConfigDialog dialog(this);
-	Command::GridConfig config(5, 5, 5);
-	dialog.set(config);
-	dialog.ShowModal();
+	dialog.set(config.getGridConfig());
+	const auto result = dialog.ShowModal();
+	if (result == wxID_OK) {
+		config.setGridConfig(dialog.get());
+	}
 }
