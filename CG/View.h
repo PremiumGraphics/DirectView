@@ -13,6 +13,10 @@
 
 #include "../Command/RenderingCommand.h"
 
+#include "../Command/ScalarSpaceTransformCommand.h"
+
+#include "../Command/MainFactory.h"
+
 namespace Crystal {
 	namespace Graphics {
 		class Color;
@@ -22,7 +26,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View( Frame *frame, const int width, const int height, Command::MainFactory& model );
+	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::ScalarSpaceTransformCommandSPtr<float>& ssTransformCmd);
 
 	~View();
 
@@ -64,7 +68,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	Command::MainFactory& model;
+	const Command::MainFactory& factory;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;
@@ -79,6 +83,8 @@ private:
 	Shader::IDRenderer idRenderer;
 
 	Command::RenderingCommand rCommand;
+
+	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

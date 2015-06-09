@@ -34,15 +34,15 @@ public:
 	}
 
 
-	Graphics::CameraSPtr<float> getCamera() { return camera; }
+	Graphics::CameraSPtr<float> getCamera() const { return camera; }
 
-	LightFactorySPtr getLightFactory() { return lightFactory; }
+	LightFactorySPtr getLightFactory() const { return lightFactory; }
 
 	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
 
-	ScalarSpaceFactorySPtr getScalarSpaceFactory() { return ssFactory; }
+	ScalarSpaceFactorySPtr getScalarSpaceFactory() const { return ssFactory; }
 
-	PolygonFactorySPtr getPolygonFactory() { return polygonFactory; }
+	PolygonFactorySPtr getPolygonFactory() const { return polygonFactory; }
 
 private:
 	Graphics::CameraSPtr<float> camera;

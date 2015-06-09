@@ -18,12 +18,13 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, MainFactory& model  )
+View::View( Frame* parent, const int width, const int height, const MainFactory& factory, const ScalarSpaceTransformCommandSPtr<float>& ssTransformCommand  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
-model( model )
+factory( factory ),
+ssTransformCmd( ssTransformCommand )
 {
 	glContext.SetCurrent( *this );
 
@@ -69,7 +70,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	CameraSPtr<float> camera = model.getCamera();
+	CameraSPtr<float> camera = factory.getCamera();
 	Vector3d<float> pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -123,7 +124,11 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 
-		//model.getSpaceFactory()->getScalarSpace(r);
+		//ssTransformCmd->add()
+		const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getSpace(r);
+		if (selected != nullptr) {
+			ssTransformCmd->add(selected);
+		}
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -149,11 +154,11 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
-			model.getCamera()->move( pos );
-			model.getCamera()->addAngle( angle );
+			factory.getCamera()->move( pos );
+			factory.getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
-			const LightSPtrList& lights = model.getLightFactory()->getLights();
+			const LightSPtrList& lights = factory.getLightFactory()->getLights();
 			for (const LightSPtr& l : lights) {
 				Vector3d<float> lpos = l->getPos();
 				lpos += pos;
@@ -183,10 +188,10 @@ void View::draw(const wxSize& size)
 	const int height = size.GetHeight();
 
 	rCommand.clear();
-	rCommand.build(model.getPolygonFactory()->getPolygons() );
+	rCommand.build( factory.getPolygonFactory()->getPolygons() );
 
-	for (const auto ss : model.getScalarSpaceFactory()->getScalarSpaces()) {
-		rCommand.build(*ss, model.getScalarSpaceFactory()->getId(ss));
+	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
+		rCommand.build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -194,7 +199,7 @@ void View::draw(const wxSize& size)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	Camera<float> c = *(model.getCamera());
+	Camera<float> c = *(factory.getCamera());
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);

@@ -208,7 +208,7 @@ Frame::Frame()
 	const int width = 1600;//720;
 	const int height = 900;////480;
 
-	view = new View( this, width, height, model );
+	view = new View( this, width, height, model, command.getScalarSpaceTransformCommand() );
 
 	SetIcon(wxICON(sample));
 

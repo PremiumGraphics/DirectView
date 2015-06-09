@@ -3,11 +3,15 @@
 
 #include "../Math/ScalarSpace.h"
 
+#include "../Util/UnCopyable.h"
+
+#include <memory>
+
 namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class ScalarSpaceTransformCommand final
+class ScalarSpaceTransformCommand final : private UnCopyable
 {
 public:
 	ScalarSpaceTransformCommand() = default;
@@ -28,12 +32,20 @@ public:
 		return (*this);
 	}
 
+	ScalarSpaceTransformCommand& add(const Math::ScalarSpace3dSPtr<T>& ss) {
+		spaces.push_back(ss);
+		return (*this);
+	}
+
 
 	Math::ScalarSpace3dSPtrList<T> getSpaces() const { return spaces; }
 
 private:
 	Math::ScalarSpace3dSPtrList<T> spaces;
 };
+
+template<typename T>
+using ScalarSpaceTransformCommandSPtr = std::shared_ptr < ScalarSpaceTransformCommand<T> > ;
 	}
 }
 

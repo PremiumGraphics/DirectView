@@ -2,13 +2,15 @@
 #define __CRYSTAL_BIT_SPACE_TRANSFORM_COMMAND_H__
 
 #include "../Math/BitSpace.h"
+#include "../Util/UnCopyable.h"
 
 #include <list>
+#include <memory>
 
 namespace Crystal {
 	namespace Command {
 
-class BitSpaceTransformCommand
+class BitSpaceTransformCommand final : private UnCopyable
 {
 public:
 	BitSpaceTransformCommand() = default;
@@ -70,6 +72,8 @@ public:
 private:
 	Math::BitSpace3dSPtrList<float> spaces;
 };
+
+using BitSpaceTransformCommandSPtr = std::shared_ptr < BitSpaceTransformCommand > ;
 	}
 }
 
