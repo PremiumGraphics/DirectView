@@ -58,34 +58,6 @@ public:
 		return (*this);
 	}
 
-	std::vector<float> toPositionArray() const {
-		std::vector<float> positions;
-		for (const auto& v : vertices) {
-			const auto& ps = v->getPosition().toArray();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-		}
-		return positions;
-	}
-
-	std::vector<float> toNormalArray() const {
-		std::vector<float> normals;
-		for (const auto& v : vertices) {
-			const auto& ns = v->getNormal().toArray();
-			normals.insert(normals.end(), ns.begin(), ns.end());
-		}
-		return normals;
-	}
-
-	std::vector<float> toColorArray() const {
-		std::vector<float> results;
-		for (const auto& v : vertices) {
-			const auto& vs = v->getColor().toArray3();
-			results.insert(results.end(), vs.begin(), vs.end());
-		}
-		return results;
-	}
-
-
 private:
 	VertexSPtrVector<float> vertices;
 	HalfEdgeSPtrList<float> edges;

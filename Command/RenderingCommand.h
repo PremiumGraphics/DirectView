@@ -96,13 +96,16 @@ public:
 
 	void build(const Graphics::PolygonSPtrList<float>& polygons) {
 		for (const auto& p : polygons) {
-			const auto ps = p->toPositionArray();
-			const auto ns = p->toNormalArray();
+			for (const auto& v : p->getVertices()) {
+				const auto& ps = v->toPositionArray();
+				positions.insert(positions.end(), ps.begin(), ps.end());
+				const auto& ns = v->toNormalArray();
+				normals.insert(normals.end(), ns.begin(), ns.end());
 
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			normals.insert(normals.end(), ns.begin(), ns.end());
+			}
 		}
 	}
+
 
 	std::vector< float > getPositions() const { return positions; }
 
