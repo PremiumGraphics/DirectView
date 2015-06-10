@@ -11,6 +11,7 @@
 #include "../IO/STLFile.h"
 
 #include "GridConfigDialog.h"
+#include "MetaballConfigDialog.h"
 
 
 using namespace Crystal::Math;
@@ -663,4 +664,10 @@ void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 	if (result == wxID_OK) {
 		config.setGridConfig(dialog.get());
 	}
+}
+
+void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
+{
+	MetaballConfigDialog dialog(this);
+	dialog.ShowModal();
 }

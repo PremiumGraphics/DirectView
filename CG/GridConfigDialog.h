@@ -16,16 +16,13 @@ public:
 		wxDialog(parent, wxID_ANY, "GridConfig", wxDefaultPosition, wxSize( 700, 500 ))
 	{
 		resx = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxPoint(100,100));
-		resx->SetMin(8);
-		resx->SetMax( Command::GridConfig::MAXX);
+		resx->SetRange( Command::GridConfig::MINX, Command::GridConfig::MAXX);
 
 		resy = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-		resy->SetMin(8);
-		resy->SetMax( Command::GridConfig::MAXY);
+		resy->SetRange( Command::GridConfig::MINY, Command::GridConfig::MAXY);
 
 		resz = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-		resz->SetMin(8);
-		resz->SetMax( Command::GridConfig::MAXZ);
+		resz->SetRange( Command::GridConfig::MINZ, Command::GridConfig::MAXZ);
 
 		originx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100));
 		originy = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 200));

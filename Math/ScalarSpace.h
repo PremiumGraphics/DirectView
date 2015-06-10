@@ -86,10 +86,7 @@ public:
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
 					const auto& pos = toCenterPosition( x, y, z);
 					if (center.getDistanceSquared(pos) < radius * radius) {
-						const auto dist = pos.getDistance(center);
-						const auto v = 1.0f - dist / radius;
-						//const auto original = grid.get(x, y, z);
-						//grid.set(x, y, z, v + original);
+						const auto v = metaball.getValue(pos);
 						grid.add(x, y,z, v);
 					}
 				}

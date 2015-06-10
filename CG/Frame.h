@@ -92,6 +92,9 @@ private:
 
 	void OnGridConfig(wxRibbonButtonBarEvent& e);
 
+	void OnMetaballConfig(wxRibbonButtonBarEvent& e);
+
+
 private:
 	View* view;
 	Command::MainFactory model;

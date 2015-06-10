@@ -20,6 +20,8 @@
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="MainFactory.h" />
+    <ClInclude Include="MetaballConfig.h" />
+    <ClInclude Include="MetaballFactory.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="ScalarSpaceTransformCommand.h" />
   </ItemGroup>

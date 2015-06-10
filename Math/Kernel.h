@@ -1,7 +1,8 @@
 #ifndef __CRYSTAL_MATH_KERNEL_H__
 #define __CRYSTAL_MATH_KERNEL_H__
 
-#include <math.h>
+#include <memory>
+#include <list>
 #include "Vector.h"
 #include "Tolerance.h"
 
@@ -57,12 +58,25 @@ public:
 
 	T getRadius() const { return radius; }
 
-	Vector3d<float> getCenter() const { return center; }
+	Vector3d<T> getCenter() const { return center; }
+
+	T getValue(const Math::Vector3d<T>& pos) const
+	{
+		const auto dist = pos.getDistance(center);
+		const auto v = 1.0f - dist / radius;
+		return v;
+	}
 
 private:
 	Vector3d<float> center;
 	T radius;
 };
+
+template<typename T>
+using MetaballSPtr = std::shared_ptr < Metaball<T> > ;
+
+template<typename T>
+using MetaballSPtrList = std::list < MetaballSPtr<T> > ;
 
 	}
 }
