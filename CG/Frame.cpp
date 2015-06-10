@@ -171,15 +171,15 @@ Frame::Frame()
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
+	//modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
+	//modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_GRID, "Grid", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
-	Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
+	//Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
+	//Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
 	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateGrid));
 	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_POLYGON,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));

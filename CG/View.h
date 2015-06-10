@@ -49,7 +49,7 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { rCommand.getPointSize(); }
+	float getPointSize() const { pCommand.getPointSize(); }
 
 private:
 	MODE mode;
@@ -84,6 +84,7 @@ private:
 	Shader::IDRenderer idRenderer;
 
 	Command::RenderingCommand rCommand;
+	Command::PointRenderingCommand pCommand;
 
 	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 

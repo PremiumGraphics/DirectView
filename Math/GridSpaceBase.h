@@ -92,6 +92,18 @@ public:
 		return Vector3d<T>(xx, yy, zz);
 	}
 
+	Vector3dVector<T> toCenterPositions() const {
+		Vector3dVector<T> positions;
+		for (size_t x = 0; x < sizes[0]; ++x) {
+			for (size_t y = 0; y < sizes[1]; ++y) {
+				for (size_t z = 0; z < sizes[2]; ++z) {
+					positions.push_back( toCenterPosition(x, y, z) );
+				}
+			}
+		}
+		return positions;
+	}
+
 	Space3d<T> getOverlappedSpace(const Space3d<T>& rhs) const {
 		return space.getOverlapped(rhs);
 	}

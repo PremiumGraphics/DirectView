@@ -67,6 +67,20 @@ public:
 
 	Math::ScalarSpace3dSPtrList<float> getScalarSpaces() const { return spaces; }
 
+	Math::Vector3dVector<float> toCenterPositions() const {
+		Math::Vector3dVector<float> positions;
+		for (const auto& s : spaces) {
+			const auto& ps = s->toCenterPositions();
+			positions.insert(positions.end(), ps.begin(), ps.end());
+		}
+		return positions;
+		/*
+		for (const auto s : spaces) {
+			s->toCenterPosition();
+		}
+		*/
+	}
+
 private:
 	Math::ScalarSpace3dSPtrList<float> spaces;
 	ScalarSpaceIdMap<float> spaceIdMap;

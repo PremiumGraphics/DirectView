@@ -8,8 +8,9 @@ namespace Crystal{
 	namespace Command {
 
 
-struct RenderingCommand {
-	RenderingCommand() : pointSize(10)
+class RenderingCommand {
+public:
+	RenderingCommand()
 	{
 
 	}
@@ -19,8 +20,6 @@ struct RenderingCommand {
 		normals.clear();
 		texCoords.clear();
 		colors.clear();
-		ids.clear();
-		points.clear();
 	}
 
 
@@ -36,18 +35,7 @@ struct RenderingCommand {
 		}
 	}
 
-	void build(const Math::ScalarSpace3d<float>& ss, const unsigned int id) {
-		const auto center = ss.getCenter();
-		const auto cs = ss.getCenter().toArray();
-		points.insert(points.end(), cs.begin(), cs.end());
-		ids.push_back(id);
-	}
 
-	float getPointSize() const { return pointSize; }
-
-	std::vector< int > ids;
-
-	std::vector< float > points;
 
 	std::vector< float > getPositions() const { return positions; }
 
@@ -58,11 +46,46 @@ struct RenderingCommand {
 	std::vector< float > getColors() const { return colors; }
 
 private:
-	float pointSize;
 	std::vector< float > positions;
 	std::vector< float > normals;
 	std::vector< float > texCoords;
 	std::vector< float > colors;
+
+};
+
+class PointRenderingCommand
+{
+public:
+
+	PointRenderingCommand() :
+		pointSize(10)
+	{}
+
+	void clear() {
+		ids.clear();
+		points.clear();
+	}
+
+
+	void build(const Math::ScalarSpace3d<float>& ss, const unsigned int id) {
+		const auto center = ss.getCenter();
+		const auto cs = ss.getCenter().toArray();
+		points.insert(points.end(), cs.begin(), cs.end());
+		ids.push_back(id);
+	}
+
+
+
+	float getPointSize() const { return pointSize; }
+
+	std::vector<float> getPoints() const { return points; }
+
+	std::vector<int> getIds() const { return ids; }
+
+private:
+	float pointSize;
+	std::vector< float > points;
+	std::vector< int > ids;
 
 };
 

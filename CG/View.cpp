@@ -194,7 +194,7 @@ void View::draw(const wxSize& size)
 	rCommand.build( factory.getPolygonFactory()->getPolygons() );
 
 	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
-		rCommand.build(*ss, factory.getScalarSpaceFactory()->getId(ss));
+		pCommand.build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -220,14 +220,14 @@ void View::draw(const wxSize& size)
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		pointRenderer.positions = rCommand.points;
-		glPointSize(rCommand.getPointSize());
+		pointRenderer.positions = pCommand.getPoints();
+		glPointSize(pCommand.getPointSize());
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.positions = rCommand.points;
-		idRenderer.ids = rCommand.ids;
-		glPointSize(rCommand.getPointSize());
+		idRenderer.positions = pCommand.getPoints();
+		idRenderer.ids = pCommand.getIds();
+		glPointSize(pCommand.getPointSize());
 		idRenderer.render(width, height, c );
 	}
 	else {

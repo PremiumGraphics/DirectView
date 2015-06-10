@@ -23,11 +23,11 @@ TEST(RenderingCommandTest, TestBuildPolygon)
 	EXPECT_EQ(9, command.getPositions().size());
 }
 
-TEST(RenderingCommandTest, TestBuildScalarSpace)
+TEST(PointRenderingCommandTest, TestBuildScalarSpace)
 {
 	ScalarSpace3d<float> ss;
-	RenderingCommand command;
+	PointRenderingCommand command;
 	command.build(ss,0);
-	EXPECT_EQ(3, command.points.size());
-	EXPECT_EQ(1, command.ids.size());
+	EXPECT_EQ(3, command.getPoints().size());
+	EXPECT_EQ(1, command.getIds().size());
 }
