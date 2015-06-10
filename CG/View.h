@@ -83,7 +83,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	Command::RenderingCommand rCommand;
+	Command::WireFrameRenderingCommand wCommand;
 	Command::PointRenderingCommand pCommand;
 	Command::NormalRenderingCommand nCommand;
 

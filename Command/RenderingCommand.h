@@ -8,40 +8,42 @@ namespace Crystal{
 	namespace Command {
 
 
-class RenderingCommand {
+class WireFrameRenderingCommand {
 public:
-	RenderingCommand()
+	WireFrameRenderingCommand()
 	{
 
 	}
 
 	void clear() {
 		positions.clear();
-		texCoords.clear();
 		colors.clear();
 	}
 
 
 	void build(const Graphics::PolygonSPtrList<float>& polygons) {
+		// positions;
+		const auto cs = Graphics::ColorRGBA<float>::Blue().toArray3();
 		for (const auto& p : polygons) {
-			const auto ps = p->toPositionArray();
-			const auto ns = p->toNormalArray();
-			const auto cs =  p->toColorArray();
+			for (const auto& e : p->getEdges()) {
+				const auto& start = e->getStartPosition().toArray();
+				positions.insert(positions.end(), start.begin(), start.end());
+				colors.insert(colors.end(), cs.begin(), cs.end());
+				const auto& end = e->getEndPosition().toArray();
+				positions.insert(positions.end(), end.begin(), end.end());
+				colors.insert(colors.end(), cs.begin(), cs.end());
 
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			colors.insert(colors.end(), cs.begin(), cs.end());
+			}
+			//colors.insert(colors.end(), cs.begin(), cs.end());
 		}
 	}
 
 	std::vector< float > getPositions() const { return positions; }
 
-	std::vector< float > getTexCoords() const { return texCoords; }
-
 	std::vector< float > getColors() const { return colors; }
 
 private:
 	std::vector< float > positions;
-	std::vector< float > texCoords;
 	std::vector< float > colors;
 
 };

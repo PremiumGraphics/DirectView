@@ -190,8 +190,8 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	rCommand.clear();
-	rCommand.build( factory.getPolygonFactory()->getPolygons() );
+	wCommand.clear();
+	wCommand.build( factory.getPolygonFactory()->getPolygons() );
 
 	nCommand.clear();
 	nCommand.build( factory.getPolygonFactory()->getPolygons() );
@@ -210,8 +210,8 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.positions = rCommand.getPositions();
-		wireFrameRenderer.colors = rCommand.getColors();
+		wireFrameRenderer.positions = wCommand.getPositions();
+		wireFrameRenderer.colors = wCommand.getColors();
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {

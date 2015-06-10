@@ -12,6 +12,7 @@ using namespace Crystal::Graphics;
 
 using T = float;
 
+/*
 TEST(PolygonTest, TestAddLine)
 {
 	Polygon<T> p;
@@ -19,8 +20,12 @@ TEST(PolygonTest, TestAddLine)
 	EXPECT_EQ(2, p.getVertices().size());
 	EXPECT_EQ(1, p.getEdges().size());
 }
+*/
 
 TEST(PolygonTest, TestAddTriangle)
 {
-	EXPECT_EQ(3, Polygon<T>().add(Triangle<T>(), ColorRGBA<float>() ).getVertices().size());
+	Polygon<T> p;
+	p.add(Triangle<T>(), ColorRGBA<float>());
+	EXPECT_EQ(3, p.getVertices().size());
+	EXPECT_EQ(3, p.getEdges().size());
 }

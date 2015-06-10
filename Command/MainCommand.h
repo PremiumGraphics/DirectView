@@ -16,8 +16,6 @@ public:
 		ssTransformCommand(std::make_shared<ScalarSpaceTransformCommand<float> >())
 	{}
 
-	RenderingCommand renderingCommand;
-
 	BitSpaceTransformCommandSPtr getBitSpaceTransformCommand() const { return bsTransformCommand; }
 
 	ScalarSpaceTransformCommandSPtr<float> getScalarSpaceTransformCommand() const { return ssTransformCommand; }

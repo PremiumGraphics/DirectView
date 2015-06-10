@@ -29,6 +29,7 @@ public:
 
 	VertexSPtrVector<float> getVertices() const { return vertices; }
 
+	/*
 	Polygon& add(const Math::Vector3d<float>& v0, const Math::Vector3d<float>& v1, const ColorRGBA<float>& c) {
 		const VertexSPtrVector<float> vs = {
 			std::make_shared<Vertex<float> >(v0, Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(0, 0, 0), c),
@@ -40,6 +41,7 @@ public:
 
 		return (*this);
 	}
+	*/
 
 	Polygon& add(const Math::Triangle<float>& t, const ColorRGBA<float>& c) {
 		VertexSPtrVector<float> vs;
@@ -47,6 +49,9 @@ public:
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv0(), normal, Math::Vector3d<float>(0,0,0), c));
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv1(), normal, Math::Vector3d<float>(0,0,0), c));
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv2(), normal, Math::Vector3d<float>(0,0,0), c));
+
+		const HalfEdgeSPtrList<float>& es = HalfEdge<float>::createClosed(vs);
+		edges.insert(edges.end(), es.begin(), es.end());
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
 

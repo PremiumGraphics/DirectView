@@ -41,10 +41,10 @@ public:
 
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		for (const auto t : triangles) {
-			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
-			polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
-			polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
-			polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
+			polygon->add(t, Graphics::ColorRGBA<float>::Blue() );
+			//polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
+			//polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
+			//polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
 
@@ -56,10 +56,10 @@ public:
 
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		for (const auto t : triangles) {
-			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
-			polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
-			polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
-			polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
+			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
+			//polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
+			//polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
+			//polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
 

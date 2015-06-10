@@ -35,6 +35,10 @@ public:
 
 	VertexSPtr<T> getEndVertex() const { return end; }
 
+	Math::Vector3d<T> getStartPosition() const { return start->getPosition(); }
+
+	Math::Vector3d<T> getEndPosition() const { return end->getPosition(); }
+
 	bool isStart() const { return getPrev() == nullptr; }
 
 	bool isEnd() const { return getNext() == nullptr; }
@@ -64,6 +68,8 @@ public:
 		edges.push_back(std::make_shared< HalfEdge>(v2, v1));
 		return edges;
 	}
+
+
 
 private:
 	const VertexSPtr<T> start;
