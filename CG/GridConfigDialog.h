@@ -15,15 +15,22 @@ public:
 	GridConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "GridConfig", wxDefaultPosition, wxSize( 700, 500 ))
 	{
+		new wxStaticText(this, wxID_ANY, "Resolution", wxPoint(100, 0));
+
+
+		new wxStaticText(this, wxID_ANY, "X", wxPoint(0, 100));
 		resx = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxPoint(100,100));
 		resx->SetRange( Command::GridConfig::MINX, Command::GridConfig::MAXX);
 
+		new wxStaticText(this, wxID_ANY, "Y", wxPoint(0, 200));
 		resy = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 		resy->SetRange( Command::GridConfig::MINY, Command::GridConfig::MAXY);
 
+		new wxStaticText(this, wxID_ANY, "Z", wxPoint(0, 300));
 		resz = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
 		resz->SetRange( Command::GridConfig::MINZ, Command::GridConfig::MAXZ);
 
+		new wxStaticText(this, wxID_ANY, "Origin", wxPoint(300, 0));
 		originx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100));
 		originy = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 200));
 		originz = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 300));
@@ -32,6 +39,7 @@ public:
 		originy->SetRange(-10000, 10000);
 		originz->SetRange(-10000, 10000);
 
+		new wxStaticText(this, wxID_ANY, "Size", wxPoint(500, 0));
 		lengthx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(500, 100));
 		lengthy = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(500, 200));
 		lengthz = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(500, 300));
@@ -40,7 +48,8 @@ public:
 		lengthy->SetRange(-10000, 10000);
 		lengthz->SetRange(-10000, 10000);
 
-		new wxButton(this, wxID_OK, "OK", wxPoint( 100, 400));
+		new wxButton(this, wxID_OK, "OK", wxPoint( 400, 400));
+		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(500, 400));
 	}
 
 	void set(const Command::GridConfig& config) {

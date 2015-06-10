@@ -15,13 +15,24 @@ public:
 	MetaballConfigDialog(wxWindow* parent) :
 		wxDialog( parent, wxID_ANY, "MetaballConfig", wxDefaultPosition, wxSize( 700, 500))
 	{
+		new wxStaticText(this, wxID_ANY, "CenterX", wxPoint(0, 100));
 		posx = new wxSpinCtrlDouble( this, wxID_ANY, wxEmptyString, wxPoint(100,100) );
 		posx->SetRange(-10000, 10000);
+
+		new wxStaticText(this, wxID_ANY, "CenterY", wxPoint(0, 200));
 		posy = new wxSpinCtrlDouble( this, wxID_ANY, wxEmptyString, wxPoint(100,200) );
 		posy->SetRange(-10000, 10000);
+
+		new wxStaticText(this, wxID_ANY, "CenterZ", wxPoint(0, 300));
 		posz = new wxSpinCtrlDouble( this, wxID_ANY, wxEmptyString, wxPoint(100,300) );
 		posz->SetRange(-10000, 10000);
+
+		new wxStaticText(this, wxID_ANY, "Radius", wxPoint(0, 400));
 		radius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100,400));
+
+		new wxButton(this, wxID_OK, "OK", wxPoint(300, 300));
+		new wxButton(this, wxID_CANCEL, "CANCEL", wxPoint(300, 400));
+
 	}
 
 	void set(const Command::MetaballConfig& config) {

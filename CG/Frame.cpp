@@ -34,16 +34,15 @@ enum {
 	ID_EXPORT,
 
 	ID_GL_CONFIG,
-	ID_LOCALE,
 
 	ID_GRID_CONFIG,
 
 	ID_OFF_SCREEN_CONFIG,
 
-	ID_CREATE_SPHERE,
+	ID_CREATE_METABALL,
 	ID_CREATE_CYLINDER,
 	ID_CREATE_BOX,
-	ID_CREATE_CONE,
+	ID_CREATE_GRID,
 
 	ID_BOOLEAN_UNION,
 	ID_BOOLEAN_DIFF,
@@ -171,20 +170,19 @@ Frame::Frame()
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_GRID, "Grid", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
-	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
-	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
-	//Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
-	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
-	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCone));
-	Connect(ID_CREATE_CONE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
-	Connect(ID_CREATE_POLYGON, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
+	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
+	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
+	Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
+	Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
+	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateGrid));
+	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
+	Connect(ID_CREATE_POLYGON,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
 
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
 	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
@@ -212,8 +210,6 @@ Frame::Frame()
 
 
 	bar->Realize();
-
-	Connect( ID_LOCALE,		wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( Frame::OnLocale ) );
 	
 	const int width = 1600;//720;
 	const int height = 900;////480;
@@ -490,23 +486,6 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 	wxMessageBox( s );
 }
 
-void Frame::OnLocale( wxCommandEvent& )
-{
-	const wxString names[] =
-	{
-		"System default",
-		"Japanese",
-	};
-	const int index = wxGetSingleChoiceIndex
-		(
-		_("Language Choice"),
-		_("Language"),
-		WXSIZEOF( names ),
-		names
-		);
-	//locale.Init( m_lang, wxLOCALE_DONT_LOAD_DEFAULT)
-}
-
 #include "wx/numdlg.h"
 
 void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
@@ -594,15 +573,22 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
 	//const auto bs = model.getBitSpaceFactory()->createSphere(20, 20, 20);
 	//model.getPolygonFactory()->create(*bs);
 	//view->Refresh();
+
+	if (model.getScalarSpaceFactory()->getScalarSpaces().empty()) {
+		wxMessageBox("æ‚ÉƒOƒŠƒbƒh‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢.");
+		return;
+	}
+
 	const auto center = config.getMetaballConfig().getCenter();
 	const auto radius = config.getMetaballConfig().getRadius();
 	const auto metaball = std::make_shared<Metaball<float> >(center, radius);
 	model.getMetaballFactory()->add(metaball);
+
 	
 	const auto ss = model.getScalarSpaceFactory()->getScalarSpaces().front();
 	ss->add(*metaball);
@@ -624,7 +610,7 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 	view->Refresh();
 }
 
-void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
 	const auto ss = model.getScalarSpaceFactory()->create( config.getGridConfig() );
 	view->Refresh();

@@ -48,8 +48,6 @@ private:
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
-	void OnLocale( wxCommandEvent& );
-
 	void OnWireFrame( wxRibbonButtonBarEvent& e);
 
 	void OnPhong( wxRibbonButtonBarEvent& );
@@ -69,13 +67,13 @@ private:
 	void clear();
 
 
-	void OnCreateSphere(wxRibbonButtonBarEvent& e);
+	void OnCreateMetaball(wxRibbonButtonBarEvent& e);
 
 	void OnCreateCylinder(wxRibbonButtonBarEvent& e);
 
 	void OnCreateBox(wxRibbonButtonBarEvent& e);
 
-	void OnCreateCone(wxRibbonButtonBarEvent& e);
+	void OnCreateGrid(wxRibbonButtonBarEvent& e);
 
 
 	void OnBooleanUnion(wxRibbonButtonBarEvent& e);

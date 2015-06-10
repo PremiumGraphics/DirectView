@@ -16,6 +16,18 @@ using ScalarSpaceIdMap = std::map < Math::ScalarSpace3dSPtr<T>, unsigned int >;
 template<typename T>
 using IdScalarSpaceMap = std::map < unsigned int, Math::ScalarSpace3dSPtr<T> >;
 
+/*
+class FactoryBase {
+public:
+	FactoryBase() :
+		nextId(0)
+	{}
+
+	virtual ~FactoryBase() = default;
+
+	unsigned int nextId;
+};
+*/
 
 class ScalarSpaceFactory final
 {
