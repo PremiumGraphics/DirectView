@@ -7,6 +7,7 @@
 #include "ScalarSpaceFactory.h"
 #include "PolygonFactory.h"
 #include "LightFactory.h"
+#include "MetaballFactory.h"
 
 #include <memory>
 #include <map>
@@ -22,7 +23,8 @@ public:
 		camera(std::make_shared< Graphics::Camera<float> >()),
 		bsFactory(std::make_shared< BitSpaceFactory >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory >()),
-		polygonFactory(std::make_shared< PolygonFactory >())
+		polygonFactory(std::make_shared< PolygonFactory >()),
+		metaballFactory(std::make_shared< MetaballFactory<float> >())
 	{
 	}
 
@@ -31,6 +33,7 @@ public:
 		bsFactory->clear();
 		ssFactory->clear();
 		polygonFactory->clear();
+		metaballFactory->clear();
 	}
 
 
@@ -44,17 +47,19 @@ public:
 
 	PolygonFactorySPtr getPolygonFactory() const { return polygonFactory; }
 
+	MetaballFactorySPtr getMetaballFactory() const { return metaballFactory; }
+
 private:
 	Graphics::CameraSPtr<float> camera;
 	LightFactorySPtr lightFactory;
 	BitSpaceFactorySPtr bsFactory;
 	ScalarSpaceFactorySPtr ssFactory;
 	PolygonFactorySPtr polygonFactory;
-private:
+	MetaballFactorySPtr metaballFactory;
 };
 
 
-using ModelSPtr = std::shared_ptr < MainFactory > ;
+using MainFactorySPtr = std::shared_ptr < MainFactory > ;
 	}
 }
 

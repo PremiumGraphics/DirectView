@@ -171,13 +171,14 @@ Frame::Frame()
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_CONE, "Cone", wxImage(32, 32));
 	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphere));
+	Connect(ID_CREATE_SPHERE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	//Connect(ID_CREATE_SPHERE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSphereConfig));
 	Connect(ID_CREATE_CYLINDER, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	Connect(ID_CREATE_BOX, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
@@ -595,8 +596,17 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateSphere(wxRibbonButtonBarEvent& e)
 {
-	const auto bs = model.getBitSpaceFactory()->createSphere(20, 20, 20);
-	model.getPolygonFactory()->create(*bs);
+	//const auto bs = model.getBitSpaceFactory()->createSphere(20, 20, 20);
+	//model.getPolygonFactory()->create(*bs);
+	//view->Refresh();
+	const auto center = config.getMetaballConfig().getCenter();
+	const auto radius = config.getMetaballConfig().getRadius();
+	const auto metaball = std::make_shared<Metaball<float> >(center, radius);
+	model.getMetaballFactory()->add(metaball);
+	
+	const auto ss = model.getScalarSpaceFactory()->getScalarSpaces().front();
+	ss->add(*metaball);
+	model.getPolygonFactory()->create(*ss);
 	view->Refresh();
 }
 
@@ -617,7 +627,6 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateCone(wxRibbonButtonBarEvent& e)
 {
 	const auto ss = model.getScalarSpaceFactory()->create( config.getGridConfig() );
-	model.getPolygonFactory()->create(*ss);
 	view->Refresh();
 }
 
@@ -669,5 +678,6 @@ void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
 	MetaballConfigDialog dialog(this);
+	dialog.set(config.getMetaballConfig());
 	dialog.ShowModal();
 }

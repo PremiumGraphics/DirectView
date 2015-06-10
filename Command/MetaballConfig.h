@@ -9,6 +9,12 @@ namespace Crystal {
 class MetaballConfig
 {
 public:
+	MetaballConfig() :
+		radius(1)
+	{}
+
+	~MetaballConfig() = default;
+
 	MetaballConfig(const Math::Vector3d<float>& center, const float radius) :
 		center( center ),
 		radius( radius )

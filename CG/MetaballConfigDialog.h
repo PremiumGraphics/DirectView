@@ -13,7 +13,7 @@ class MetaballConfigDialog : public wxDialog
 {
 public:
 	MetaballConfigDialog(wxWindow* parent) :
-		wxDialog( parent, wxID_ANY, "MetaballConfig")
+		wxDialog( parent, wxID_ANY, "MetaballConfig", wxDefaultPosition, wxSize( 700, 500))
 	{
 		posx = new wxSpinCtrlDouble( this, wxID_ANY, wxEmptyString, wxPoint(100,100) );
 		posx->SetRange(-10000, 10000);
@@ -32,7 +32,13 @@ public:
 		radius->SetValue(config.getRadius());
 	}
 
-	//Command::MetaballConfig()
+	Command::MetaballConfig get() const {
+		const auto x = posx->GetValue();
+		const auto y = posy->GetValue();
+		const auto z = posz->GetValue();
+		const Math::Vector3d<float> center(x, y, z);
+		return Command::MetaballConfig(center, radius->GetValue());
+	}
 
 private:
 	wxSpinCtrlDouble* posx;

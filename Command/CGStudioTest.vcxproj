@@ -33,6 +33,7 @@
     <ClCompile Include="GridConfigTest.cpp" />
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MainFactoryTest.cpp" />
+    <ClCompile Include="MetaballFactoryTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="ScalarSpaceTransformCommandTest.cpp" />
   </ItemGroup>
