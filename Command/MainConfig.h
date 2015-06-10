@@ -3,6 +3,7 @@
 
 #include "GridConfig.h"
 #include "MetaballConfig.h"
+#include "RenderingConfig.h"
 
 namespace Crystal {
 	namespace Command {
@@ -17,9 +18,14 @@ public:
 
 	void setMetaballConfig(const MetaballConfig& config) { this->metaballConfig = config; }
 
+	RenderingConfig<float> getRenderingConfig() const { return renderingConfig; }
+
+	void setRenderingConfig(const RenderingConfig<float>& config) { this->renderingConfig = config; }
+
 private:
 	GridConfig gridConfig;
 	MetaballConfig metaballConfig;
+	RenderingConfig<float> renderingConfig;
 };
 	}
 }

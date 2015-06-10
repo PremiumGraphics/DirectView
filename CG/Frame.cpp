@@ -12,7 +12,7 @@
 
 #include "GridConfigDialog.h"
 #include "MetaballConfigDialog.h"
-
+#include "RenderingConfigDialog.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -153,7 +153,7 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
+	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
 	rendering->AddButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
 	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
@@ -161,6 +161,7 @@ Frame::Frame()
 	rendering->AddButton( ID_RENDERING_ID,			"ID",		wxImage("../Resource/point.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
@@ -580,7 +581,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	//view->Refresh();
 
 	if (model.getScalarSpaceFactory()->getScalarSpaces().empty()) {
-		wxMessageBox("æ‚ÉƒOƒŠƒbƒh‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢.");
+		wxMessageBox("Setup Grid");
 		return;
 	}
 
@@ -665,5 +666,11 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
 	MetaballConfigDialog dialog(this);
 	dialog.set(config.getMetaballConfig());
+	dialog.ShowModal();
+}
+
+void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
+{
+	RenderingConfigDialog dialog(this);
 	dialog.ShowModal();
 }

@@ -92,6 +92,7 @@ private:
 
 	void OnMetaballConfig(wxRibbonButtonBarEvent& e);
 
+	void OnWireFrameConfig(wxRibbonButtonBarEvent& e);
 
 private:
 	View* view;
