@@ -58,6 +58,14 @@ public:
 
 	std::vector<float> toColorArray() const { return color.toArray3(); }
 
+	static std::vector< std::shared_ptr< Vertex<T> > > create(const Math::Vector3dVector<T>& vv) {
+		std::vector< std::shared_ptr< Vertex<T> > > vertices;
+		for (const Math::Vector3d<T>& v : vv) {
+			vertices.push_back(std::make_shared< Vertex >(v));
+		}
+		return vertices;
+	}
+
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;

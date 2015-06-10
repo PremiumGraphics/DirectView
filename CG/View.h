@@ -85,6 +85,7 @@ private:
 
 	Command::RenderingCommand rCommand;
 	Command::PointRenderingCommand pCommand;
+	Command::NormalRenderingCommand nCommand;
 
 	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 

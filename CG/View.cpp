@@ -193,6 +193,10 @@ void View::draw(const wxSize& size)
 	rCommand.clear();
 	rCommand.build( factory.getPolygonFactory()->getPolygons() );
 
+	nCommand.clear();
+	nCommand.build( factory.getPolygonFactory()->getPolygons() );
+
+	pCommand.clear();
 	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
 		pCommand.build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
@@ -215,8 +219,8 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.positions = rCommand.getPositions();
-		normalRenderer.normals = rCommand.getNormals();
+		normalRenderer.positions = nCommand.getPositions();
+		normalRenderer.normals = nCommand.getNormals();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {

@@ -17,7 +17,6 @@ public:
 
 	void clear() {
 		positions.clear();
-		normals.clear();
 		texCoords.clear();
 		colors.clear();
 	}
@@ -30,16 +29,11 @@ public:
 			const auto cs =  p->toColorArray();
 
 			positions.insert(positions.end(), ps.begin(), ps.end());
-			normals.insert(normals.end(), ns.begin(), ns.end());
 			colors.insert(colors.end(), cs.begin(), cs.end());
 		}
 	}
 
-
-
 	std::vector< float > getPositions() const { return positions; }
-
-	std::vector< float > getNormals() const { return normals; }
 
 	std::vector< float > getTexCoords() const { return texCoords; }
 
@@ -47,7 +41,6 @@ public:
 
 private:
 	std::vector< float > positions;
-	std::vector< float > normals;
 	std::vector< float > texCoords;
 	std::vector< float > colors;
 
@@ -75,7 +68,6 @@ public:
 	}
 
 
-
 	float getPointSize() const { return pointSize; }
 
 	std::vector<float> getPoints() const { return points; }
@@ -86,6 +78,37 @@ private:
 	float pointSize;
 	std::vector< float > points;
 	std::vector< int > ids;
+
+};
+
+class NormalRenderingCommand
+{
+public:
+	NormalRenderingCommand() = default;
+
+
+	void clear() {
+		positions.clear();
+		normals.clear();
+	}
+
+	void build(const Graphics::PolygonSPtrList& polygons) {
+		for (const auto& p : polygons) {
+			const auto ps = p->toPositionArray();
+			const auto ns = p->toNormalArray();
+
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			normals.insert(normals.end(), ns.begin(), ns.end());
+		}
+	}
+
+	std::vector< float > getPositions() const { return positions; }
+
+	std::vector< float > getNormals() const { return normals; }
+
+private:
+	std::vector< float > positions;
+	std::vector< float > normals;
 
 };
 

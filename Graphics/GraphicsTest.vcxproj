@@ -17,6 +17,7 @@
     <ClCompile Include="ColorRGBAMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ColorRGBTest.cpp" />
+    <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
@@ -28,6 +29,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="ColorHSV.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="ImageRGB.h" />
     <ClInclude Include="ImageRGBA.h" />

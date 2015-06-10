@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_HALF_EDGE_H__
 
 #include <memory>
+#include <list>
 
 #include "Vertex.h"
 
@@ -12,6 +13,11 @@ template<typename T>
 class HalfEdge
 {
 public:
+	HalfEdge() :
+		start(nullptr),
+		end(nullptr)
+	{}
+
 	HalfEdge(const VertexSPtr<T>& start, const VertexSPtr<T>& end) :
 		start( start ),
 		end( end )
@@ -37,13 +43,40 @@ public:
 
 	bool isIsolated() const { return (getPrev() == this) && (getNext() == this); }
 
+	static std::list< std::shared_ptr<HalfEdge> > createOpen(const VertexSPtrVector<T>& vertices ) {
+		if (vertices.size() < 2) {
+			return std::list< std::shared_ptr<HalfEdge> >();
+		}
+		std::list< std::shared_ptr<HalfEdge> > edges;
+		for (size_t i = 0; i < vertices.size() - 1; ++i) {
+			edges.push_back(std::make_shared< HalfEdge >(vertices[i], vertices[i + 1]));
+		}
+		return edges;
+	}
+
+	static std::list< std::shared_ptr<HalfEdge> > createClosed(const VertexSPtrVector<T>& vertices) {
+		if (vertices.size() < 2) {
+			return std::list< std::shared_ptr<HalfEdge> >();
+		}
+		std::list< std::shared_ptr<HalfEdge> > edges = createOpen();
+		const VertexSPtr<T>& v1 = vertices.front();
+		const VertexSPtr<T>& v2 = vertices.back();
+		edges.push_back(std::make_shared< HalfEdge>(v2, v1));
+	}
+
 private:
-	const VertexSPtr<T>& start;
-	const VertexSPtr<T>& end;
+	const VertexSPtr<T> start;
+	const VertexSPtr<T> end;
 
 	std::shared_ptr<HalfEdge> prev;
 	std::shared_ptr<HalfEdge> next;
 };
+
+template<typename T>
+using HalfEdgeSPtr = std::shared_ptr < HalfEdge<T> > ;
+
+template<typename T>
+using HalfEdgeSPtrList = std::list < HalfEdgeSPtr<T> > ;
 	}
 }
 

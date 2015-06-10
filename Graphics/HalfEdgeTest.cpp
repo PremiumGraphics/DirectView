@@ -2,6 +2,7 @@
 
 #include "../Graphics/HalfEdge.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
 TEST(HalfEdgeTest, TestIsValid)
@@ -15,4 +16,11 @@ TEST(HalfEdgeTest, TestGetNext)
 {
 	HalfEdge<float> edge(nullptr, nullptr);
 	EXPECT_EQ(nullptr, edge.getNext());
+}
+
+TEST(HalfEdgeTest, TestCreateOpen)
+{
+	VertexSPtrVector<float> vs = Vertex<float>::create({ Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0) } );
+	HalfEdgeSPtrList<float> edges = HalfEdge<float>::createOpen(vs);
+	EXPECT_EQ(1, edges.size());
 }
