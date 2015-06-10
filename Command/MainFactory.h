@@ -23,7 +23,7 @@ public:
 		camera(std::make_shared< Graphics::Camera<float> >()),
 		bsFactory(std::make_shared< BitSpaceFactory >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory >()),
-		polygonFactory(std::make_shared< PolygonFactory >()),
+		polygonFactory(std::make_shared< PolygonFactory<float> >()),
 		metaballFactory(std::make_shared< MetaballFactory<float> >())
 	{
 	}
@@ -45,7 +45,7 @@ public:
 
 	ScalarSpaceFactorySPtr getScalarSpaceFactory() const { return ssFactory; }
 
-	PolygonFactorySPtr getPolygonFactory() const { return polygonFactory; }
+	PolygonFactorySPtr<float> getPolygonFactory() const { return polygonFactory; }
 
 	MetaballFactorySPtr getMetaballFactory() const { return metaballFactory; }
 
@@ -54,7 +54,7 @@ private:
 	LightFactorySPtr lightFactory;
 	BitSpaceFactorySPtr bsFactory;
 	ScalarSpaceFactorySPtr ssFactory;
-	PolygonFactorySPtr polygonFactory;
+	PolygonFactorySPtr<float> polygonFactory;
 	MetaballFactorySPtr metaballFactory;
 };
 

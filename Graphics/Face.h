@@ -7,7 +7,7 @@ namespace Crystal {
 	namespace Graphics {
 
 template<typename T>
-class Face
+class Face final
 {
 public:
 	void add(const HalfEdgeSPtr<T>& e) {
@@ -21,6 +21,7 @@ public:
 private:
 	HalfEdgeSPtrList<T> edges;
 };
+
 	}
 }
 

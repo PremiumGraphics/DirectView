@@ -11,11 +11,13 @@
 #include "Vertex.h"
 #include "Material.h"
 #include "ColorRGBA.h"
+#include "HalfEdge.h"
 
 namespace Crystal {
 	namespace Graphics {
 		class Material;
 
+template<typename T>
 class Polygon final : private UnCopyable {
 public:
 
@@ -23,11 +25,20 @@ public:
 
 	~Polygon() = default;
 
+	HalfEdgeSPtrList<float> getEdges() const { return edges; }
+
 	VertexSPtrVector<float> getVertices() const { return vertices; }
 
-	void add(const Math::Vector3d<float>& v0, const Math::Vector3d<float>& v1, const ColorRGBA<float>& c) {
-		vertices.push_back(std::make_shared<Vertex<float> >(v0, Math::Vector3d<float>(0,0,0), Math::Vector3d<float>(0, 0, 0), c));
-		vertices.push_back(std::make_shared<Vertex<float> >(v1, Math::Vector3d<float>(0,0,0), Math::Vector3d<float>(0, 0, 0), c));
+	Polygon& add(const Math::Vector3d<float>& v0, const Math::Vector3d<float>& v1, const ColorRGBA<float>& c) {
+		const VertexSPtrVector<float> vs = {
+			std::make_shared<Vertex<float> >(v0, Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(0, 0, 0), c),
+			std::make_shared<Vertex<float> >(v1, Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(0, 0, 0), c)
+		};
+
+		vertices.insert(vertices.end(), vs.begin(), vs.end());
+		edges.push_back(std::make_shared <HalfEdge<float> >(vs[0], vs[1]));
+
+		return (*this);
 	}
 
 	Polygon& add(const Math::Triangle<float>& t, const ColorRGBA<float>& c) {
@@ -36,7 +47,6 @@ public:
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv0(), normal, Math::Vector3d<float>(0,0,0), c));
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv1(), normal, Math::Vector3d<float>(0,0,0), c));
 		vs.push_back(std::make_shared<Vertex<float> >(t.getv2(), normal, Math::Vector3d<float>(0,0,0), c));
-
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
 
@@ -73,11 +83,17 @@ public:
 
 private:
 	VertexSPtrVector<float> vertices;
+	HalfEdgeSPtrList<float> edges;
 };
 
-typedef std::shared_ptr< Polygon > PolygonSPtr;
-typedef std::vector< PolygonSPtr > PolygonSPtrVector;
-typedef std::list< PolygonSPtr > PolygonSPtrList;
+template<typename T>
+using PolygonSPtr = std::shared_ptr< Polygon<T> >;
+
+template<typename T>
+using PolygonSPtrVector = std::vector< PolygonSPtr<T> >;
+
+template<typename T>
+using PolygonSPtrList = std::list< PolygonSPtr<T> >;
 
 	}
 }

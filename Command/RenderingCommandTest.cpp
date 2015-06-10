@@ -17,7 +17,7 @@ TEST(RenderingCommandTest, TestClear)
 TEST(RenderingCommandTest, TestBuildPolygon)
 {
 	RenderingCommand command;
-	PolygonSPtr polygon = std::make_shared<Polygon>();
+	PolygonSPtr<float> polygon = std::make_shared<Polygon<float> >();
 	polygon->add(Triangle<float>(), ColorRGBA<float>());
 	command.build({ polygon });
 	EXPECT_EQ(9, command.getPositions().size());

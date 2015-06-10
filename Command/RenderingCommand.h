@@ -22,7 +22,7 @@ public:
 	}
 
 
-	void build(const Graphics::PolygonSPtrList& polygons) {
+	void build(const Graphics::PolygonSPtrList<float>& polygons) {
 		for (const auto& p : polygons) {
 			const auto ps = p->toPositionArray();
 			const auto ns = p->toNormalArray();
@@ -92,7 +92,7 @@ public:
 		normals.clear();
 	}
 
-	void build(const Graphics::PolygonSPtrList& polygons) {
+	void build(const Graphics::PolygonSPtrList<float>& polygons) {
 		for (const auto& p : polygons) {
 			const auto ps = p->toPositionArray();
 			const auto ns = p->toNormalArray();

@@ -58,10 +58,11 @@ public:
 		if (vertices.size() < 2) {
 			return std::list< std::shared_ptr<HalfEdge> >();
 		}
-		std::list< std::shared_ptr<HalfEdge> > edges = createOpen();
+		std::list< std::shared_ptr<HalfEdge> > edges = createOpen(vertices);
 		const VertexSPtr<T>& v1 = vertices.front();
 		const VertexSPtr<T>& v2 = vertices.back();
 		edges.push_back(std::make_shared< HalfEdge>(v2, v1));
+		return edges;
 	}
 
 private:

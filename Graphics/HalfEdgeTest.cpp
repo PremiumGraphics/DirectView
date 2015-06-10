@@ -7,20 +7,32 @@ using namespace Crystal::Graphics;
 
 TEST(HalfEdgeTest, TestIsValid)
 {
-	const VertexSPtr<float> v1 = std::make_shared< Vertex<float> >();
-	EXPECT_FALSE( HalfEdge<float>(nullptr, nullptr).isValid() );
-	EXPECT_TRUE( HalfEdge<float>(v1, nullptr).isValid() );
+	using T = float;
+	const VertexSPtr<T> v1 = std::make_shared< Vertex<T> >();
+	EXPECT_FALSE( HalfEdge<T>(nullptr, nullptr).isValid() );
+	EXPECT_TRUE( HalfEdge<T>(v1, nullptr).isValid() );
 }
 
 TEST(HalfEdgeTest, TestGetNext)
 {
-	HalfEdge<float> edge(nullptr, nullptr);
+	using T = float;
+	const HalfEdge<T> edge(nullptr, nullptr);
 	EXPECT_EQ(nullptr, edge.getNext());
 }
 
 TEST(HalfEdgeTest, TestCreateOpen)
 {
-	VertexSPtrVector<float> vs = Vertex<float>::create({ Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0) } );
-	HalfEdgeSPtrList<float> edges = HalfEdge<float>::createOpen(vs);
+	using T = float;
+	const auto& vs = Vertex<T>::create({ Vector3d<T>(0, 0, 0), Vector3d<T>(1, 0, 0) } );
+	const auto& edges = HalfEdge<T>::createOpen(vs);
 	EXPECT_EQ(1, edges.size());
+	EXPECT_EQ(nullptr, edges.front()->getNext());
+}
+
+TEST(HalfEdgeTest, TestCreateClosed)
+{
+	using T = float;
+	const auto& vs = Vertex<T>::create({ Vector3d<T>(0, 0, 0), Vector3d<T>(1, 0, 0) });
+	const auto& edges = HalfEdge<T>::createClosed(vs);
+	EXPECT_EQ(2, edges.size());
 }

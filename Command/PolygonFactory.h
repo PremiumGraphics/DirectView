@@ -15,6 +15,7 @@
 namespace Crystal {
 	namespace Command {
 
+template<typename T>
 class PolygonFactory final : private UnCopyable
 {
 public:
@@ -24,7 +25,7 @@ public:
 
 	~PolygonFactory() = default;
 
-	PolygonFactory& add(Graphics::PolygonSPtr& p) {
+	PolygonFactory& add(Graphics::PolygonSPtr<float>& p) {
 		this->polygons.push_back(p);
 		return (*this);
 	}
@@ -34,11 +35,11 @@ public:
 		return (*this);
 	}
 
-	Graphics::PolygonSPtr create(const Math::ScalarSpace3d<float>& ss)
+	Graphics::PolygonSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
-		Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		for (const auto t : triangles) {
 			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
 			polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
@@ -50,10 +51,10 @@ public:
 		return polygon;
 	}
 
-	Graphics::PolygonSPtr create(const Math::BitSpace3d<float>& bs) {
+	Graphics::PolygonSPtr<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
-		Graphics::PolygonSPtr polygon = std::make_shared<Graphics::Polygon>();
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		for (const auto t : triangles) {
 			//p.add(t, Graphics::ColorRGBA<float>::Blue() );
 			polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
@@ -66,15 +67,16 @@ public:
 	}
 
 
-	Graphics::PolygonSPtrList getPolygons() const { return polygons; }
+	Graphics::PolygonSPtrList<T> getPolygons() const { return polygons; }
 
 private:
-	Graphics::PolygonSPtrList polygons;
+	Graphics::PolygonSPtrList<T> polygons;
 
-	Math::MarchingCube<float> mc;
+	Math::MarchingCube<T> mc;
 };
 
-using PolygonFactorySPtr = std::shared_ptr< PolygonFactory > ;
+template<typename T>
+using PolygonFactorySPtr = std::shared_ptr< PolygonFactory<T> > ;
 
 	}
 }
