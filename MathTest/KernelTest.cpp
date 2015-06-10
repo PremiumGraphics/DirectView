@@ -21,7 +21,7 @@ TEST(MetaballTest, TestGetRadius)
 {
 	using T = float;
 	EXPECT_EQ(1, Metaball <T>().getRadius());
-	EXPECT_EQ(10, Metaball<T>(Vector3d<T>(0, 0, 0), 10).getRadius());
+	EXPECT_EQ(10, Metaball<T>(Vector3d<T>(0, 0, 0), 10, 1).getRadius());
 }
 
 TEST(MetaballTest, TestGetCenter)

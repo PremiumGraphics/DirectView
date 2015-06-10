@@ -94,6 +94,8 @@ private:
 
 	void OnWireFrameConfig(wxRibbonButtonBarEvent& e);
 
+	void OnPhongConfig(wxRibbonButtonBarEvent& e);
+
 private:
 	View* view;
 	Command::MainFactory model;

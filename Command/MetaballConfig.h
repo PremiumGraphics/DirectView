@@ -10,14 +10,16 @@ class MetaballConfig
 {
 public:
 	MetaballConfig() :
-		radius(1)
+		radius(1),
+		charge(1)
 	{}
 
 	~MetaballConfig() = default;
 
-	MetaballConfig(const Math::Vector3d<float>& center, const float radius) :
+	MetaballConfig(const Math::Vector3d<float>& center, const float radius, const float charge) :
 		center( center ),
-		radius( radius )
+		radius( radius ),
+		charge( charge )
 	{
 	}
 
@@ -25,9 +27,12 @@ public:
 
 	float getRadius() const { return radius; }
 
+	float getCharge() const { return charge; }
+
 private:
 	Math::Vector3d<float> center;
 	float radius;
+	float charge;
 };
 	}
 }

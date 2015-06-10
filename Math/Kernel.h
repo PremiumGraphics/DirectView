@@ -47,12 +47,14 @@ template<typename T>
 class Metaball {
 public:
 	Metaball() :
-		radius(1)
+		radius(1),
+		charge(1)
 	{}
 
-	Metaball(const Vector3d<T>& center, const T radius) :
+	Metaball(const Vector3d<T>& center, const T radius, const T charge) :
 		center( center ),
-		radius( radius )
+		radius( radius ),
+		charge( charge )
 	{}
 
 
@@ -64,12 +66,13 @@ public:
 	{
 		const auto dist = pos.getDistance(center);
 		const auto v = 1.0f - dist / radius;
-		return v;
+		return v * charge;
 	}
 
 private:
 	Vector3d<float> center;
 	T radius;
+	T charge;
 };
 
 template<typename T>

@@ -13,7 +13,7 @@ class MetaballConfigDialog : public wxDialog
 {
 public:
 	MetaballConfigDialog(wxWindow* parent) :
-		wxDialog( parent, wxID_ANY, "MetaballConfig", wxDefaultPosition, wxSize( 700, 500))
+		wxDialog( parent, wxID_ANY, "MetaballConfig", wxDefaultPosition, wxSize( 700, 600))
 	{
 		new wxStaticText(this, wxID_ANY, "CenterX", wxPoint(0, 100));
 		posx = new wxSpinCtrlDouble( this, wxID_ANY, wxEmptyString, wxPoint(100,100) );
@@ -30,6 +30,10 @@ public:
 		new wxStaticText(this, wxID_ANY, "Radius", wxPoint(0, 400));
 		radius = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100,400));
 
+		new wxStaticText(this, wxID_ANY, "Charge", wxPoint(0, 500));
+		charge = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 500));
+		charge->SetRange(-100, 100);
+
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 300));
 		new wxButton(this, wxID_CANCEL, "CANCEL", wxPoint(300, 400));
 
@@ -41,6 +45,7 @@ public:
 		posy->SetValue(center.getY());
 		posz->SetValue(center.getZ());
 		radius->SetValue(config.getRadius());
+		charge->SetValue(config.getCharge());
 	}
 
 	Command::MetaballConfig get() const {
@@ -48,7 +53,7 @@ public:
 		const auto y = posy->GetValue();
 		const auto z = posz->GetValue();
 		const Math::Vector3d<float> center(x, y, z);
-		return Command::MetaballConfig(center, radius->GetValue());
+		return Command::MetaballConfig(center, radius->GetValue(), charge->GetValue());
 	}
 
 private:
@@ -56,6 +61,7 @@ private:
 	wxSpinCtrlDouble* posy;
 	wxSpinCtrlDouble* posz;
 	wxSpinCtrlDouble* radius;
+	wxSpinCtrlDouble* charge;
 };
 
 	}

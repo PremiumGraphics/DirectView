@@ -154,15 +154,16 @@ Frame::Frame()
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
-	rendering->AddButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
-	rendering->AddButton( ID_RENDERING_NORMAL,		"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
-	rendering->AddButton( ID_RENDERING_ID,			"ID",		wxImage("../Resource/point.png"));
+	rendering->AddHybridButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
+	rendering->AddHybridButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
+	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
+	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
+	rendering->AddHybridButton( ID_RENDERING_ID,		"ID",		wxImage("../Resource/point.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
+	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPhongConfig) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
@@ -175,7 +176,7 @@ Frame::Frame()
 	//modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	//modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_GRID, "Grid", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
@@ -587,7 +588,8 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 
 	const auto center = config.getMetaballConfig().getCenter();
 	const auto radius = config.getMetaballConfig().getRadius();
-	const auto metaball = std::make_shared<Metaball<float> >(center, radius);
+	const auto charge = config.getMetaballConfig().getCharge();
+	const auto metaball = std::make_shared<Metaball<float> >(center, radius, charge);
 	model.getMetaballFactory()->add(metaball);
 
 	
@@ -645,6 +647,7 @@ void Frame::OnSpaceTransform(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 {
+	model.getPolygonFactory()->clear();
 	for (const ScalarSpace3dSPtr<float>& ss : model.getScalarSpaceFactory()->getScalarSpaces()) {
 		model.getPolygonFactory()->create(*ss);
 	}
@@ -659,6 +662,7 @@ void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
 		config.setGridConfig(dialog.get());
+		OnCreateGrid(e);
 	}
 }
 
@@ -666,11 +670,20 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
 	MetaballConfigDialog dialog(this);
 	dialog.set(config.getMetaballConfig());
-	dialog.ShowModal();
+	const auto result = dialog.ShowModal();
+	if (result == wxID_OK) {
+		config.setMetaballConfig(dialog.get());
+		OnCreateMetaball(e);
+	}
 }
 
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	RenderingConfigDialog dialog(this);
 	dialog.ShowModal();
+}
+
+void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO");
 }
