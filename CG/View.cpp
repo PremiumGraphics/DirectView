@@ -18,13 +18,14 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const MainFactory& factory, const ScalarSpaceTransformCommandSPtr<float>& ssTransformCommand  )
+View::View( Frame* parent, const int width, const int height, const MainFactory& factory, const ScalarSpaceTransformCommandSPtr<float>& ssTransformCommand, const RenderingCommandSPtr<float>& rCommand  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
 factory( factory ),
-ssTransformCmd( ssTransformCommand )
+ssTransformCmd( ssTransformCommand ),
+rCommand( rCommand )
 {
 	glContext.SetCurrent( *this );
 
@@ -190,15 +191,12 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	wCommand.clear();
-	wCommand.build( factory.getPolygonFactory()->getPolygons() );
+	rCommand->clear();
+	rCommand->getWireframeCommand()->build( factory.getPolygonFactory()->getPolygons() );
+	rCommand->getNormalRenderingCommand()->build( factory.getPolygonFactory()->getPolygons() );
 
-	nCommand.clear();
-	nCommand.build( factory.getPolygonFactory()->getPolygons() );
-
-	pCommand.clear();
 	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
-		pCommand.build(*ss, factory.getScalarSpaceFactory()->getId(ss));
+		rCommand->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -210,8 +208,8 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth(1.0f);
-		wireFrameRenderer.positions = wCommand.getPositions();
-		wireFrameRenderer.colors = wCommand.getColors();
+		wireFrameRenderer.positions = rCommand->getWireframeCommand()->getPositions();
+		wireFrameRenderer.colors = rCommand->getWireframeCommand()->getColors();
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
@@ -219,19 +217,19 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		normalRenderer.positions = nCommand.getPositions();
-		normalRenderer.normals = nCommand.getNormals();
+		normalRenderer.positions = rCommand->getNormalRenderingCommand()->getPositions();
+		normalRenderer.normals = rCommand->getNormalRenderingCommand()->getNormals();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
-		pointRenderer.positions = pCommand.getPoints();
-		glPointSize(pCommand.getPointSize());
+		pointRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
+		glPointSize( getPointSize());
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.positions = pCommand.getPoints();
-		idRenderer.ids = pCommand.getIds();
-		glPointSize(pCommand.getPointSize());
+		idRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
+		idRenderer.ids = rCommand->getPointRenderingCommand()->getIds();
+		glPointSize( getPointSize());
 		idRenderer.render(width, height, c );
 	}
 	else {

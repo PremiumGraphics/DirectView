@@ -10,13 +10,13 @@ using namespace Crystal::Command;
 
 TEST(RenderingCommandTest, TestClear)
 {
-	WireFrameRenderingCommand<float,float> command;
+	WireFrameRenderingCommand<float> command;
 	command.clear();
 }
 
 TEST(RenderingCommandTest, TestBuildPolygon)
 {
-	WireFrameRenderingCommand<float,float> command;
+	WireFrameRenderingCommand<float> command;
 	PolygonSPtr<float> polygon = std::make_shared<Polygon<float> >();
 	polygon->add(Triangle<float>(), ColorRGBA<float>());
 	command.build({ polygon });

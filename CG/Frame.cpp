@@ -216,7 +216,7 @@ Frame::Frame()
 	const int width = 1600;//720;
 	const int height = 900;////480;
 
-	view = new View( this, width, height, model, command.getScalarSpaceTransformCommand() );
+	view = new View( this, width, height, model, command.getScalarSpaceTransformCommand(), command.getRenderingCommand() );
 
 	SetIcon(wxICON(sample));
 
@@ -253,12 +253,13 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	model.clear();
+	clear();
 }
 
 void Frame::clear()
 {
 	model.clear();
+	command.getRenderingCommand()->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )

@@ -26,7 +26,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::ScalarSpaceTransformCommandSPtr<float>& ssTransformCmd);
+	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::ScalarSpaceTransformCommandSPtr<float>& ssTransformCmd, const Command::RenderingCommandSPtr<float>& rCommand);
 
 	~View();
 
@@ -49,7 +49,7 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { pCommand.getPointSize(); }
+	float getPointSize() const { return rCommand->getPointRenderingCommand()->getPointSize(); }
 
 private:
 	MODE mode;
@@ -83,9 +83,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	Command::WireFrameRenderingCommand<float,float> wCommand;
-	Command::PointRenderingCommand<float> pCommand;
-	Command::NormalRenderingCommand<float> nCommand;
+	Command::RenderingCommandSPtr<float> rCommand;
 
 	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 

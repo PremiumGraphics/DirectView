@@ -9,7 +9,7 @@
 namespace Crystal{
 	namespace Command {
 
-template<typename T, typename ColorType>
+template<typename T>
 class WireFrameRenderingCommand {
 public:
 	WireFrameRenderingCommand()
@@ -25,7 +25,7 @@ public:
 
 	void build(const Graphics::PolygonSPtrList<T>& polygons) {
 		// positions;
-		const auto cs = Graphics::ColorRGBA<ColorType>::Blue().toArray3();
+		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
 		for (const auto& p : polygons) {
 			for (const auto& e : p->getEdges()) {
 				const auto& start = e->getStartPosition().toArray();
@@ -42,16 +42,16 @@ public:
 
 	std::vector< T > getPositions() const { return positions; }
 
-	std::vector< ColorType > getColors() const { return colors; }
+	std::vector< T > getColors() const { return colors; }
 
 private:
 	std::vector< T > positions;
-	std::vector< ColorType > colors;
+	std::vector< T > colors;
 
 };
 
-template<typename T, typename ColorType>
-using WireFrameRenderingCommandSPtr = std::shared_ptr < WireFrameRenderingCommand<T, ColorType> > ;
+template<typename T>
+using WireFrameRenderingCommandSPtr = std::shared_ptr < WireFrameRenderingCommand<T> > ;
 
 template<typename T>
 class PointRenderingCommand
@@ -128,16 +128,38 @@ private:
 template<typename T>
 using NormalRenderingCommandSPtr = std::shared_ptr < NormalRenderingCommand<T> > ;
 
+template<typename T>
 class RenderingCommand final : private UnCopyable
 {
 public:
+	RenderingCommand() :
+		wfRenderingCommand(std::make_shared<WireFrameRenderingCommand<T> >()),
+		pointRenderingCommand(std::make_shared<PointRenderingCommand<T> >()),
+		normalRenderingCommand(std::make_shared<NormalRenderingCommand<T> >())
+	{}
+
+	~RenderingCommand() = default;
+
+	WireFrameRenderingCommandSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
+
+	PointRenderingCommandSPtr<T> getPointRenderingCommand() const { return pointRenderingCommand; }
+	
+	NormalRenderingCommandSPtr<T> getNormalRenderingCommand() const { return  normalRenderingCommand; }
+
+	void clear() {
+		wfRenderingCommand->clear();
+		pointRenderingCommand->clear();
+		normalRenderingCommand->clear();
+	}
+
 private:
-	WireFrameRenderingCommandSPtr<float,float> wfRenderingCommand;
-	PointRenderingCommandSPtr<float> pointRenderingCommand;
-	NormalRenderingCommandSPtr<float> normalRenderingCommand;
+	WireFrameRenderingCommandSPtr<T> wfRenderingCommand;
+	PointRenderingCommandSPtr<T> pointRenderingCommand;
+	NormalRenderingCommandSPtr<T> normalRenderingCommand;
 };
 
-using RenderingCommandSPtr = std::shared_ptr < RenderingCommand >;
+template<typename T>
+using RenderingCommandSPtr = std::shared_ptr < RenderingCommand<T> >;
 
 	}
 }
