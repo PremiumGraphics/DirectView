@@ -15,15 +15,12 @@
     <ClInclude Include="..\Command\RenderingCommand.h" />
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
     <ClInclude Include="BitSpaceTransformCommand.h" />
-    <ClInclude Include="GridConfig.h" />
     <ClInclude Include="LightFactory.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="MainFactory.h" />
-    <ClInclude Include="MetaballConfig.h" />
     <ClInclude Include="MetaballFactory.h" />
     <ClInclude Include="PolygonFactory.h" />
-    <ClInclude Include="RenderingConfig.h" />
     <ClInclude Include="ScalarSpaceTransformCommand.h" />
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +28,6 @@
     <ClCompile Include="..\Command\RenderingCommandTest.cpp" />
     <ClCompile Include="..\Command\ScalarSpaceFactoryTest.cpp" />
     <ClCompile Include="BitSpaceTransformCommandTest.cpp" />
-    <ClCompile Include="GridConfigTest.cpp" />
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MainFactoryTest.cpp" />
     <ClCompile Include="MetaballFactoryTest.cpp" />

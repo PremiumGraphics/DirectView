@@ -4,7 +4,7 @@
 #include "wx/dialog.h"
 #include "wx/spinctrl.h"
 
-#include "../Command/MetaballConfig.h"
+#include "../Command/MainConfig.h"
 
 namespace Crystal {
 	namespace UI {
@@ -40,12 +40,12 @@ public:
 	}
 
 	void set(const Command::MetaballConfig& config) {
-		const auto center = config.getCenter();
+		const auto center = std::get<Command::MetaballConfigFields::Center>( config );
 		posx->SetValue(center.getX());
 		posy->SetValue(center.getY());
 		posz->SetValue(center.getZ());
-		radius->SetValue(config.getRadius());
-		charge->SetValue(config.getCharge());
+		radius->SetValue( std::get<Command::MetaballConfigFields::Radius>( config ) );
+		charge->SetValue( std::get<Command::MetaballConfigFields::Charge>( config ));
 	}
 
 	Command::MetaballConfig get() const {

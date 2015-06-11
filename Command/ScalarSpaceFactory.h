@@ -2,7 +2,7 @@
 #define __CRYSTAL_COMMAND_SCALAR_SPACE_FACTORY_H__
 
 #include "../Math/ScalarSpace.h"
-#include "GridConfig.h"
+#include "MainConfig.h"
 
 #include <map>
 #include <memory>
