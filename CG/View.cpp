@@ -18,13 +18,12 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const MainFactory& factory, const ScalarSpaceTransformCommandSPtr<float>& ssTransformCommand, const RenderingCommandSPtr<float>& rCommand  )
+View::View( Frame* parent, const int width, const int height, const MainFactory& factory, const RenderingCommandSPtr<float>& rCommand  )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
 factory( factory ),
-ssTransformCmd( ssTransformCommand ),
 rCommand( rCommand )
 {
 	glContext.SetCurrent( *this );
@@ -127,9 +126,11 @@ void View::OnMouse( wxMouseEvent& event )
 
 		//ssTransformCmd->add()
 		const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getSpace(r);
+		/*
 		if (selected != nullptr) {
 			ssTransformCmd->add(selected);
 		}
+		*/
 		//frame->selectedFace = frame->get
 		return;
 	}
@@ -167,7 +168,7 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 		}
 		else if (mode == SPACE_TRANSFORM) {
-			ssTransformCmd->move(pos);
+			//ssTransformCmd->move(pos);
 		}
 		else {
 			assert( false );
@@ -190,14 +191,6 @@ void View::draw(const wxSize& size)
 {
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
-
-	rCommand->clear();
-	rCommand->getWireframeCommand()->build( factory.getPolygonFactory()->getPolygons() );
-	rCommand->getNormalRenderingCommand()->build( factory.getPolygonFactory()->getPolygons() );
-
-	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
-		rCommand->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
-	}
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);

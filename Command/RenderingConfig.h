@@ -10,12 +10,14 @@ class RenderingConfig
 public:
 	RenderingConfig() :
 		pointSize(10),
-		lineWidth(10)
+		lineWidth(10),
+		drawBoundingBox(false)
 	{}
 
-	RenderingConfig(const T pointSize, const T lineWidth) :
+	RenderingConfig(const T pointSize, const T lineWidth, const T boundingBox) :
 		pointSize( pointSize),
-		lineWidth( lineWidth)
+		lineWidth( lineWidth),
+		boundingBox( boundingBox)
 	{
 	}
 
@@ -23,9 +25,14 @@ public:
 
 	T getLineWidth() const { return lineWidth; }
 
+	bool isShowBoundingBox() const { return drawBoundingBox; }
+
+	//bool isDrawBoundingBox() const { return }
+
 private:
 	T pointSize;
 	T lineWidth;
+	bool drawBoundingBox;
 };
 	}
 }

@@ -96,6 +96,8 @@ private:
 
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
+	void setRendering();
+
 private:
 	View* view;
 	Command::MainFactory model;

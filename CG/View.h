@@ -26,7 +26,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::ScalarSpaceTransformCommandSPtr<float>& ssTransformCmd, const Command::RenderingCommandSPtr<float>& rCommand);
+	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::RenderingCommandSPtr<float>& rCommand);
 
 	~View();
 
@@ -84,8 +84,6 @@ private:
 	Shader::IDRenderer idRenderer;
 
 	Command::RenderingCommandSPtr<float> rCommand;
-
-	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };
