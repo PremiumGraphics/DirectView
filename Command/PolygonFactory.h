@@ -35,6 +35,14 @@ public:
 		return (*this);
 	}
 
+	Graphics::PolygonSPtr<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		Math::Box<T> bb(ss.getStart(), ss.getEnd());
+		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
+		polygons.push_back(polygon);
+		return polygon;
+	}
+
 	Graphics::PolygonSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
@@ -42,9 +50,6 @@ public:
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue() );
-			//polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
-			//polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
-			//polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
 
@@ -57,9 +62,6 @@ public:
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
-			//polygon->add(t.getv0(), t.getv1(), Graphics::ColorRGBA<float>::Blue());
-			//polygon->add(t.getv1(), t.getv2(), Graphics::ColorRGBA<float>::Blue());
-			//polygon->add(t.getv2(), t.getv0(), Graphics::ColorRGBA<float>::Blue());
 		}
 		polygons.push_back(polygon);
 

@@ -258,6 +258,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
+	model.clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -616,6 +617,8 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
 	const auto ss = model.getScalarSpaceFactory()->create( config.getGridConfig() );
+	model.getPolygonFactory()->create(*ss);
+	model.getPolygonFactory()->createBoundingBox(*ss);
 	view->Refresh();
 }
 
