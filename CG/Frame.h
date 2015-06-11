@@ -21,7 +21,7 @@ public:
 
 	~Frame();
 
-	Command::MainFactory& getModel() { return model; }
+	Command::MainFactory& getModel() { return factory; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -100,7 +100,7 @@ private:
 
 private:
 	View* view;
-	Command::MainFactory model;
+	Command::MainFactory factory;
 	Command::MainCommand command;
 	Command::MainConfig config;
 	
