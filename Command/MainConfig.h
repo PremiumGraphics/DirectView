@@ -14,6 +14,11 @@ enum RenderingConfigFields{ PointSize, LineWidth, DrawBB };
 template<typename T>
 using RenderingConfig = std::tuple < T, T, bool >;
 
+template<typename T>
+static RenderingConfig<T> defaultRenderingConfig() {
+	return std::make_tuple(10.0f, 1.0f, true);
+}
+
 enum MetaballConfigFields{ Center, Radius, Charge };
 
 template<typename T>
@@ -25,6 +30,7 @@ using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::
 class MainConfig{
 public:
 	MainConfig() :
+		renderingConfig( defaultRenderingConfig<float>() ),
 		metaballConfig(std::make_tuple(Math::Vector3d<float>(0.0f,0.0f,0.0f),1.0f, 1.0f)),
 		gridConfig( std::make_tuple(20, 20, 20, Math::Space3d<float>::Unit()) )
 	{

@@ -16,6 +16,7 @@
 #include "../Command/ScalarSpaceTransformCommand.h"
 
 #include "../Command/MainFactory.h"
+#include "../Command/MainConfig.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -49,7 +50,11 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	float getPointSize() const { return rCommand->getPointRenderingCommand()->getPointSize(); }
+	void setConfig(const Command::RenderingConfig<float>& config) {
+		this->config = config;
+	}
+
+	float getPointSize() const { return std::get<Command::RenderingConfigFields::PointSize>(config); }
 
 private:
 	MODE mode;
@@ -84,6 +89,8 @@ private:
 	Shader::IDRenderer idRenderer;
 
 	Command::RenderingCommandSPtr<float> rCommand;
+
+	Command::RenderingConfig<float> config;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

@@ -7,9 +7,25 @@
 #include "../Util/UnCopyable.h"
 
 #include <memory>
+#include <tuple>
 
 namespace Crystal{
 	namespace Command {
+
+		/*
+template<typename T>
+using DrawablePoint = std::tuple < unsigned int, Math::Vector3d<T> > ;
+
+template<typename T>
+using DrawablePointVector = std::vector < DrawablePoint<T> > ;
+*/
+/*
+template<typename T>
+class DrawablePoints
+{
+	std::vector<float> points;
+};
+*/
 
 template<typename T>
 class DrawableFactory final : private UnCopyable{
@@ -43,7 +59,18 @@ public:
 
 	Graphics::PolygonSPtrList<T> getPolygons() const { return polygons; }
 
+	/*
+	void toPoints(const Graphics::VertexSPtrVector<T>& vs) {
+		for (const auto& v : vs) {
+			DrawablePoint<T> p( v->getId(), v->getPoint());
+			points.push_back(p);
+		}
+	}
+	*/
+
 private:
+	//DrawablePointVector<T> points;
+	Math::TriangleVector<T> triangles;
 	Graphics::PolygonSPtrList<T> polygons;
 };
 

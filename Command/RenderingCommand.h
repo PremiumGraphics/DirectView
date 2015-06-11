@@ -58,8 +58,7 @@ class PointRenderingCommand
 {
 public:
 
-	PointRenderingCommand() :
-		pointSize(10)
+	PointRenderingCommand()
 	{}
 
 	void clear() {
@@ -76,14 +75,11 @@ public:
 	}
 
 
-	float getPointSize() const { return pointSize; }
-
 	std::vector<T> getPoints() const { return points; }
 
 	std::vector<int> getIds() const { return ids; }
 
 private:
-	float pointSize;
 	std::vector< T > points;
 	std::vector< int > ids;
 };

@@ -704,6 +704,7 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 	dialog.set(config.getRenderingConfig());
 	if (dialog.ShowModal() == wxID_OK) {
 		config.setRenderingConfig( dialog.get() );
+		view->setConfig( dialog.get());
 		setRendering();
 	}
 }
