@@ -620,6 +620,7 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 	const auto ss = model.getScalarSpaceFactory()->create( config.getGridConfig() );
 	model.getPolygonFactory()->create(*ss);
 	model.getPolygonFactory()->createBoundingBox(*ss);
+	model.getPolygonFactory()->createGridCells(*ss);
 	view->Refresh();
 }
 

@@ -43,6 +43,19 @@ public:
 		return polygon;
 	}
 
+	Graphics::PolygonSPtr<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		const auto& cells = ss.toCells();
+		for (const auto& c : cells) {
+			const auto& space = c.getSpace();
+			Math::Box<T> bb(space.getStart(), space.getEnd());
+			polygon->add(bb, Graphics::ColorRGBA<float>::Black());
+			//polygon->add( )
+		}
+		polygons.push_back(polygon);
+		return polygon;
+	}
+
 	Graphics::PolygonSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
