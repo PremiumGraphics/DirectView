@@ -11,6 +11,17 @@ namespace Crystal {
 
 class GridConfigDialog : public wxDialog 
 {
+private:
+	enum LIMIT{
+		MINX = 8,
+		MINY = 8,
+		MINZ = 8,
+		MAXX = 255,
+		MAXY = 255,
+		MAXZ = 255,
+	};
+
+
 public:
 	GridConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "GridConfig", wxDefaultPosition, wxSize( 700, 500 ))
@@ -20,15 +31,15 @@ public:
 
 		new wxStaticText(this, wxID_ANY, "X", wxPoint(0, 100));
 		resx = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxPoint(100,100));
-		resx->SetRange( Command::GridConfig::MINX, Command::GridConfig::MAXX);
+		resx->SetRange( LIMIT::MINX, LIMIT::MAXX);
 
 		new wxStaticText(this, wxID_ANY, "Y", wxPoint(0, 200));
 		resy = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
-		resy->SetRange( Command::GridConfig::MINY, Command::GridConfig::MAXY);
+		resy->SetRange( LIMIT::MINY, LIMIT::MAXY);
 
 		new wxStaticText(this, wxID_ANY, "Z", wxPoint(0, 300));
 		resz = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
-		resz->SetRange( Command::GridConfig::MINZ, Command::GridConfig::MAXZ);
+		resz->SetRange( LIMIT::MINZ, LIMIT::MAXZ);
 
 		new wxStaticText(this, wxID_ANY, "Origin", wxPoint(300, 0));
 		originx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100));
@@ -53,11 +64,11 @@ public:
 	}
 
 	void set(const Command::GridConfig& config) {
-		resx->SetValue(config.getResx());
-		resy->SetValue(config.getResy());
-		resz->SetValue(config.getResz());
+		resx->SetValue( std::get<0>( config ));
+		resy->SetValue( std::get<1>( config ));
+		resz->SetValue( std::get<2>( config ));
 
-		const auto& space = config.getSpace();
+		const auto& space = std::get<3>( config );
 		originx->SetValue( space.getStart().getX() );
 		originy->SetValue( space.getStart().getY() );
 		originz->SetValue( space.getStart().getZ());

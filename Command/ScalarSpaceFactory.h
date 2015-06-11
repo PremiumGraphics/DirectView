@@ -58,8 +58,8 @@ public:
 
 	Math::ScalarSpace3dSPtr<float> create(const GridConfig& config)
 	{
-		Math::Grid3d<float> grid(config.getResx(), config.getResy(), config.getResz());
-		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>(config.getSpace(), grid));
+		Math::Grid3d<float> grid( std::get<0>(config), std::get<1>(config), std::get<2>( config));
+		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>( std::get<3>(config), grid));
 		//ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		add(ss);
 		return ss;
