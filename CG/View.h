@@ -83,9 +83,9 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	Command::WireFrameRenderingCommand wCommand;
-	Command::PointRenderingCommand pCommand;
-	Command::NormalRenderingCommand nCommand;
+	Command::WireFrameRenderingCommand<float,float> wCommand;
+	Command::PointRenderingCommand<float> pCommand;
+	Command::NormalRenderingCommand<float> nCommand;
 
 	Command::ScalarSpaceTransformCommandSPtr<float> ssTransformCmd;
 

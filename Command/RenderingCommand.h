@@ -1,13 +1,15 @@
 #ifndef __CRYSTAL_COMMAND_RENDERING_COMMAND_H__
 #define __CRYSTAL_COMMAND_RENDERING_COMMAND_H__
 
+#include <memory>
+
 #include "../Graphics/Polygon.h"
 #include "../Math/ScalarSpace.h"
 
 namespace Crystal{
 	namespace Command {
 
-
+template<typename T, typename ColorType>
 class WireFrameRenderingCommand {
 public:
 	WireFrameRenderingCommand()
@@ -21,9 +23,9 @@ public:
 	}
 
 
-	void build(const Graphics::PolygonSPtrList<float>& polygons) {
+	void build(const Graphics::PolygonSPtrList<T>& polygons) {
 		// positions;
-		const auto cs = Graphics::ColorRGBA<float>::Blue().toArray3();
+		const auto cs = Graphics::ColorRGBA<ColorType>::Blue().toArray3();
 		for (const auto& p : polygons) {
 			for (const auto& e : p->getEdges()) {
 				const auto& start = e->getStartPosition().toArray();
@@ -38,16 +40,20 @@ public:
 		}
 	}
 
-	std::vector< float > getPositions() const { return positions; }
+	std::vector< T > getPositions() const { return positions; }
 
-	std::vector< float > getColors() const { return colors; }
+	std::vector< ColorType > getColors() const { return colors; }
 
 private:
-	std::vector< float > positions;
-	std::vector< float > colors;
+	std::vector< T > positions;
+	std::vector< ColorType > colors;
 
 };
 
+template<typename T, typename ColorType>
+using WireFrameRenderingCommandSPtr = std::shared_ptr < WireFrameRenderingCommand<T, ColorType> > ;
+
+template<typename T>
 class PointRenderingCommand
 {
 public:
@@ -62,7 +68,7 @@ public:
 	}
 
 
-	void build(const Math::ScalarSpace3d<float>& ss, const unsigned int id) {
+	void build(const Math::ScalarSpace3d<T>& ss, const unsigned int id) {
 		const auto center = ss.getCenter();
 		const auto cs = ss.getCenter().toArray();
 		points.insert(points.end(), cs.begin(), cs.end());
@@ -72,29 +78,31 @@ public:
 
 	float getPointSize() const { return pointSize; }
 
-	std::vector<float> getPoints() const { return points; }
+	std::vector<T> getPoints() const { return points; }
 
 	std::vector<int> getIds() const { return ids; }
 
 private:
 	float pointSize;
-	std::vector< float > points;
+	std::vector< T > points;
 	std::vector< int > ids;
-
 };
 
+template<typename T>
+using PointRenderingCommandSPtr = std::shared_ptr < PointRenderingCommand<T> > ;
+
+template<typename T>
 class NormalRenderingCommand
 {
 public:
 	NormalRenderingCommand() = default;
-
 
 	void clear() {
 		positions.clear();
 		normals.clear();
 	}
 
-	void build(const Graphics::PolygonSPtrList<float>& polygons) {
+	void build(const Graphics::PolygonSPtrList<T>& polygons) {
 		for (const auto& p : polygons) {
 			for (const auto& v : p->getVertices()) {
 				const auto& ps = v->toPositionArray();
@@ -107,15 +115,29 @@ public:
 	}
 
 
-	std::vector< float > getPositions() const { return positions; }
+	std::vector< T > getPositions() const { return positions; }
 
-	std::vector< float > getNormals() const { return normals; }
+	std::vector< T > getNormals() const { return normals; }
 
 private:
-	std::vector< float > positions;
-	std::vector< float > normals;
+	std::vector< T > positions;
+	std::vector< T > normals;
 
 };
+
+template<typename T>
+using NormalRenderingCommandSPtr = std::shared_ptr < NormalRenderingCommand<T> > ;
+
+class RenderingCommand final : private UnCopyable
+{
+public:
+private:
+	WireFrameRenderingCommandSPtr<float,float> wfRenderingCommand;
+	PointRenderingCommandSPtr<float> pointRenderingCommand;
+	NormalRenderingCommandSPtr<float> normalRenderingCommand;
+};
+
+using RenderingCommandSPtr = std::shared_ptr < RenderingCommand >;
 
 	}
 }

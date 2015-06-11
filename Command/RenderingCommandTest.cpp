@@ -10,13 +10,13 @@ using namespace Crystal::Command;
 
 TEST(RenderingCommandTest, TestClear)
 {
-	WireFrameRenderingCommand command;
+	WireFrameRenderingCommand<float,float> command;
 	command.clear();
 }
 
 TEST(RenderingCommandTest, TestBuildPolygon)
 {
-	WireFrameRenderingCommand command;
+	WireFrameRenderingCommand<float,float> command;
 	PolygonSPtr<float> polygon = std::make_shared<Polygon<float> >();
 	polygon->add(Triangle<float>(), ColorRGBA<float>());
 	command.build({ polygon });
@@ -26,7 +26,7 @@ TEST(RenderingCommandTest, TestBuildPolygon)
 TEST(PointRenderingCommandTest, TestBuildScalarSpace)
 {
 	ScalarSpace3d<float> ss;
-	PointRenderingCommand command;
+	PointRenderingCommand<float> command;
 	command.build(ss,0);
 	EXPECT_EQ(3, command.getPoints().size());
 	EXPECT_EQ(1, command.getIds().size());
