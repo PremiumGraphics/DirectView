@@ -696,7 +696,10 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	RenderingConfigDialog dialog(this);
-	dialog.ShowModal();
+	dialog.set(config.getRenderingConfig());
+	if (dialog.ShowModal() == wxID_OK) {
+		config.setRenderingConfig( dialog.get() );
+	}
 }
 
 void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
