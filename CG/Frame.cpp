@@ -619,8 +619,8 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
 	const auto ss = factory.getScalarSpaceFactory()->create( config.getGridConfig() );
 	factory.getPolygonFactory()->create(*ss);
-	factory.getPolygonFactory()->createBoundingBox(*ss);
-	factory.getPolygonFactory()->createGridCells(*ss);
+	factory.getDrawableFactory()->createBoundingBox(*ss);
+	factory.getDrawableFactory()->createGridCells(*ss);
 
 	setRendering();
 }
@@ -633,6 +633,11 @@ void Frame::setRendering()
 
 	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
 		command.getRenderingCommand()->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
+	}
+
+	const bool b = std::get< Command::RenderingConfigFields::DrawBB >(config.getRenderingConfig());
+	if (b) {
+		command.getRenderingCommand()->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
 	}
 	view->Refresh();
 
@@ -699,6 +704,7 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 	dialog.set(config.getRenderingConfig());
 	if (dialog.ShowModal() == wxID_OK) {
 		config.setRenderingConfig( dialog.get() );
+		setRendering();
 	}
 }
 

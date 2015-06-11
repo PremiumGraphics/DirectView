@@ -29,6 +29,7 @@ public:
 	void set(const Command::RenderingConfig<float>& config) {
 		pointSize->SetValue( std::get<Command::RenderingConfigFields::PointSize>(config) );
 		lineWidth->SetValue( std::get<Command::RenderingConfigFields::LineWidth>(config) );
+		drawBB->SetValue(std::get<Command::RenderingConfigFields::DrawBB>(config));
 	}
 
 	Command::RenderingConfig<float> get() {

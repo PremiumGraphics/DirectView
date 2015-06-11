@@ -15,6 +15,7 @@
     <ClInclude Include="..\Command\RenderingCommand.h" />
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
     <ClInclude Include="BitSpaceTransformCommand.h" />
+    <ClInclude Include="DrawableFactory.h" />
     <ClInclude Include="LightFactory.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="MainConfig.h" />

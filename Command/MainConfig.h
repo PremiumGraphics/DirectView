@@ -15,7 +15,9 @@ template<typename T>
 using RenderingConfig = std::tuple < T, T, bool >;
 
 enum MetaballConfigFields{ Center, Radius, Charge };
-using MetaballConfig = std::tuple < Math::Vector3d<float>, float, float >;
+
+template<typename T>
+using MetaballConfig = std::tuple < Math::Vector3d<T>, T, T >;
 
 enum GridConfigFields{ Resx, Resy, Resz, Space };
 using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::Space3d<float> > ;
@@ -33,9 +35,9 @@ public:
 
 	void setGridConfig(const GridConfig& config) { this->gridConfig = config; }
 
-	MetaballConfig getMetaballConfig() const { return metaballConfig; }
+	MetaballConfig<float> getMetaballConfig() const { return metaballConfig; }
 
-	void setMetaballConfig(const MetaballConfig& config) { this->metaballConfig = config; }
+	void setMetaballConfig(const MetaballConfig<float>& config) { this->metaballConfig = config; }
 
 	RenderingConfig<float> getRenderingConfig() const { return renderingConfig; }
 
@@ -43,7 +45,7 @@ public:
 
 private:
 	GridConfig gridConfig;
-	MetaballConfig metaballConfig;
+	MetaballConfig<float> metaballConfig;
 	RenderingConfig<float> renderingConfig;
 };
 	}
