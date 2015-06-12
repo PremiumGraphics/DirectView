@@ -7,6 +7,7 @@
 #include "../Math/ScalarSpace.h"
 
 #include "ScalarSpaceFactory.h"
+#include "PolygonFactory.h"
 
 namespace Crystal{
 	namespace Command {
@@ -25,10 +26,11 @@ public:
 	}
 
 
-	void build(const Graphics::PolygonSPtrList<T>& polygons) {
+	void build(const PolygonIdList<T>& polygons) {
 		// positions;
 		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
-		for (const auto& p : polygons) {
+		for (const auto& pp : polygons) {
+			const auto p = pp.getPolygon();
 			for (const auto& e : p->getEdges()) {
 				const auto& start = e->getStartPosition().toArray();
 				positions.insert(positions.end(), start.begin(), start.end());
@@ -100,8 +102,9 @@ public:
 		normals.clear();
 	}
 
-	void build(const Graphics::PolygonSPtrList<T>& polygons) {
-		for (const auto& p : polygons) {
+	void build(const PolygonIdList<T>& polygons) {
+		for (const auto& pp : polygons) {
+			const auto& p = pp.getPolygon();
 			for (const auto& v : p->getVertices()) {
 				const auto& ps = v->toPositionArray();
 				positions.insert(positions.end(), ps.begin(), ps.end());
@@ -138,7 +141,7 @@ public:
 
 	~RenderingBuffer() = default;
 
-	void add(const Graphics::PolygonSPtrList<T>& polygons) {
+	void add(const PolygonIdList<T>& polygons) {
 		clear();
 		wfRenderingCommand->build(polygons);
 		normalRenderingCommand->build(polygons);

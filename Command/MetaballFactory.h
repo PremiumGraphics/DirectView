@@ -14,36 +14,65 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
+class MetaballId
+{
+public:
+	MetaballId(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
+		metaball(metaball),
+		id(id)
+	{}
+
+	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
+
+	unsigned int getId() const { return id; }
+
+private:
+	Math::MetaballSPtr<T> metaball;
+	unsigned int id;
+};
+
+template<typename T>
+using MetaballIdList = std::list < MetaballId<T> > ;
+
+template<typename T>
 class MetaballFactory final : private UnCopyable
 {
 public:
-	MetaballFactory() = default;
+	MetaballFactory() :
+		nextId(0)
+	{
+
+	}
 
 	~MetaballFactory() = default;
 
 	MetaballFactory& clear() {
 		balls.clear();
+		nextId = 0;
 		return (*this);
 	}
 
-	MetaballFactory& add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back(ball);
-		return (*this);
-	}
-
-	Math::MetaballSPtr<T> create(const MetaballConfig<T>& config) {
+	MetaballId<T> create(const MetaballConfig<T>& config) {
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
-		const auto metaball = std::make_shared<Metaball<T> >(center, radius, charge);
-		add(metaball);
-		return metaball;
+		const auto metaball = std::make_shared<Math::Metaball<T> >(center, radius, charge);
+		return add(metaball);
 	}
 
-	Math::MetaballSPtrList<T> getBalls() const { return balls; }
+	MetaballIdList<T> getBalls() const { return balls; }
+
+	unsigned int getNextId() const { return nextId; }
 
 private:
-	Math::MetaballSPtrList<T> balls;
+	MetaballIdList<T> balls;
+	unsigned int nextId;
+
+	MetaballId<T> add(const Math::MetaballSPtr<T>& ball) {
+		balls.push_back(MetaballId<T>(ball, nextId++));
+		return balls.back();
+	}
+
 };
 
 using MetaballFactorySPtr = std::shared_ptr < MetaballFactory<float> > ;

@@ -2,7 +2,7 @@
 #define __CRSYTAL_GRAPHICS_DRAWABLE_FACTORY_H__
 
 #include "../Math/ScalarSpace.h"
-#include "../Graphics/Polygon.h"
+#include "PolygonFactory.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -20,15 +20,14 @@ public:
 		return (*this);
 	}
 
-	Graphics::PolygonSPtr<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+	PolygonId<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
-		polygons.push_back(polygon);
-		return polygon;
+		return add(polygon);
 	}
 
-	Graphics::PolygonSPtr<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+	PolygonId<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
@@ -37,11 +36,10 @@ public:
 			polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 			//polygon->add( )
 		}
-		polygons.push_back(polygon);
-		return polygon;
+		return add(polygon);
 	}
 
-	Graphics::PolygonSPtrList<T> getPolygons() const { return polygons; }
+	PolygonIdList<T> getPolygons() const { return polygons; }
 
 	/*
 	void toPoints(const Graphics::VertexSPtrVector<T>& vs) {
@@ -55,7 +53,14 @@ public:
 private:
 	//DrawablePointVector<T> points;
 	Math::TriangleVector<T> triangles;
-	Graphics::PolygonSPtrList<T> polygons;
+	PolygonIdList<T> polygons;
+
+	unsigned int nextId;
+
+	PolygonId<T> add(const Graphics::PolygonSPtr<T>& p) {
+		polygons.push_back(PolygonId<T>(p, nextId++));
+		return polygons.back();
+	}
 };
 
 template<typename T>

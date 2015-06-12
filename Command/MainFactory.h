@@ -39,10 +39,10 @@ public:
 		drawableFactory->clear();
 	}
 
-	void add(const Math::Metaball<float>& metaball)
+	void add(const MetaballId<float>& metaball)
 	{
 		auto ss = ssFactory->getScalarSpaces().front();
-		ss.getScalarSpace()->add(metaball);
+		ss.getScalarSpace()->add(*metaball.getMetaball());
 		polygonFactory->create(*ss.getScalarSpace());
 	}
 

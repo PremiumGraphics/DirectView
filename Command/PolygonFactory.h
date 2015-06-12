@@ -16,26 +16,43 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
+class PolygonId {
+public:
+	PolygonId(const Graphics::PolygonSPtr<T>& polygon, const unsigned int id) :
+		id( id ),
+		polygon( polygon )
+	{}
+
+	unsigned int getId() const { return id; }
+
+	Graphics::PolygonSPtr<T> getPolygon() const { return polygon; }
+
+private:
+	unsigned int id;
+	Graphics::PolygonSPtr<T> polygon;
+};
+
+template<typename T>
+using PolygonIdList = std::list < PolygonId<T> > ;
+
+template<typename T>
 class PolygonFactory final : private UnCopyable
 {
 public:
-	PolygonFactory() {
+	PolygonFactory() :
+		nextId(0)
+	{
 		mc.buildTable();
 	}
 
 	~PolygonFactory() = default;
-
-	PolygonFactory& add(Graphics::PolygonSPtr<float>& p) {
-		this->polygons.push_back(p);
-		return (*this);
-	}
 
 	PolygonFactory& clear() {
 		this->polygons.clear();
 		return (*this);
 	}
 
-	Graphics::PolygonSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
+	PolygonId<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
@@ -43,30 +60,33 @@ public:
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue() );
 		}
-		polygons.push_back(polygon);
-
-		return polygon;
+		return add(polygon);
 	}
 
-	Graphics::PolygonSPtr<T> create(const Math::BitSpace3d<float>& bs) {
+	PolygonId<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
 		}
-		polygons.push_back(polygon);
-
-		return polygon;
+		return add(polygon);
 	}
 
 
-	Graphics::PolygonSPtrList<T> getPolygons() const { return polygons; }
+	PolygonIdList<T> getPolygons() const { return polygons; }
 
 private:
-	Graphics::PolygonSPtrList<T> polygons;
+	PolygonIdList<T> polygons;
+	unsigned int nextId;
 
 	Math::MarchingCube<T> mc;
+
+	PolygonId<T> add(Graphics::PolygonSPtr<float>& p) {
+		this->polygons.push_back( PolygonId<float>( p, nextId++) );
+		return polygons.back();
+	}
+
 };
 
 template<typename T>
