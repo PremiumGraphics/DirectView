@@ -216,7 +216,7 @@ Frame::Frame()
 	const int width = 1600;//720;
 	const int height = 900;////480;
 
-	view = new View( this, width, height, factory, command.getRenderingCommand() );
+	view = new View( this, width, height, factory, command.getRenderingBuffer() );
 
 	SetIcon(wxICON(sample));
 
@@ -259,7 +259,7 @@ Frame::~Frame()
 void Frame::clear()
 {
 	factory.clear();
-	command.getRenderingCommand()->clear();
+	command.clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -627,17 +627,18 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	command.getRenderingCommand()->clear();
-	command.getRenderingCommand()->getWireframeCommand()->build(factory.getPolygonFactory()->getPolygons());
-	command.getRenderingCommand()->getNormalRenderingCommand()->build(factory.getPolygonFactory()->getPolygons());
+	const auto& buffer = command.getRenderingBuffer();
+	buffer->clear();
+	buffer->getWireframeCommand()->build(factory.getPolygonFactory()->getPolygons());
+	buffer->getNormalRenderingCommand()->build(factory.getPolygonFactory()->getPolygons());
 
-	for (const auto ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
-		command.getRenderingCommand()->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
+	for (const auto& ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
+		buffer->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
 
 	const bool b = config.getRenderingConfig().drawBB();
 	if (b) {
-		command.getRenderingCommand()->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
+		buffer->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
 	}
 	view->Refresh();
 
