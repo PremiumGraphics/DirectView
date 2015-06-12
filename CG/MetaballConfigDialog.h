@@ -40,12 +40,12 @@ public:
 	}
 
 	void set(const Command::MetaballConfig<float>& config) {
-		const auto center = std::get<Command::MetaballConfigFields::Center>( config );
+		const auto& center = config.getCenter();
 		posx->SetValue(center.getX());
 		posy->SetValue(center.getY());
 		posz->SetValue(center.getZ());
-		radius->SetValue( std::get<Command::MetaballConfigFields::Radius>( config ) );
-		charge->SetValue( std::get<Command::MetaballConfigFields::Charge>( config ));
+		radius->SetValue( config.getRadius() );
+		charge->SetValue( config.getCharge() );
 	}
 
 	Command::MetaballConfig<float> get() const {

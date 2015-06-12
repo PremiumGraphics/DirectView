@@ -42,10 +42,37 @@ private:
 	bool drawBB_;
 };
 
-enum MetaballConfigFields{ Center, Radius, Charge };
-
 template<typename T>
-using MetaballConfig = std::tuple < Math::Vector3d<T>, T, T >;
+class MetaballConfig {
+public:
+	MetaballConfig()
+	{
+		setDefault();
+	}
+
+	MetaballConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
+		center(center),
+		radius(radius),
+		charge(charge)
+	{}
+
+	void setDefault() {
+		center = Math::Vector3d<T>(0, 0, 0);
+		radius = 1;
+		charge = 1;
+	}
+
+	Math::Vector3d<T> getCenter() const { return center; }
+
+	T getRadius() const { return radius; }
+
+	T getCharge() const { return charge; }
+
+private:
+	Math::Vector3d<T> center;
+	T radius;
+	T charge;
+};
 
 enum GridConfigFields{ Resx, Resy, Resz, Space };
 using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::Space3d<float> > ;
@@ -53,7 +80,6 @@ using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::
 class MainConfig{
 public:
 	MainConfig() :
-		metaballConfig(std::make_tuple(Math::Vector3d<float>(0.0f,0.0f,0.0f),1.0f, 1.0f)),
 		gridConfig( std::make_tuple(20, 20, 20, Math::Space3d<float>::Unit()) )
 	{
 
