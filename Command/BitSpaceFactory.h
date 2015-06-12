@@ -17,7 +17,7 @@ using BitSpaceIdMap = std::map< Math::BitSpace3dSPtr<T>, unsigned int >;
 template<typename T>
 using IdBitSpacemap = std::map < unsigned int, Math::BitSpace3dSPtr<T> > ;
 
-
+template<typename T>
 class BitSpaceFactory
 {
 public:
@@ -31,33 +31,33 @@ public:
 	}
 
 
-	Math::BitSpace3dSPtrList<float> getBitSpaces() const { return bitSpaces; }
+	Math::BitSpace3dSPtrList<T> getBitSpaces() const { return bitSpaces; }
 
 
-	Math::BitSpace3dSPtr<float> createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+	Math::BitSpace3dSPtr<T> createBox(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		Math::Space3d<T> space(Math::Vector3d<T>(0, 0, 0), Math::Vector3d<T>(1, 1, 1));
 
 		Math::Bitmap3d bmp(resx, resy, resz);
-		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<T> bs(new Math::BitSpace3d<T>(space, bmp));
 		bs->setBox();
 		addBitSpace(bs);
 		return bs;
 	}
 
-	Math::BitSpace3dSPtr<float> createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+	Math::BitSpace3dSPtr<T> createSphere(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		Math::Space3d<T> space(Math::Vector3d<T>(0, 0, 0), Math::Vector3d<T>(1, 1, 1));
 
 		Math::Bitmap3d bmp(20, 20, 20);
-		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<T> bs(new Math::BitSpace3d<T>(space, bmp));
 		bs->setSphere();
 		addBitSpace(bs);
 		return bs;
 	}
 
-	Math::BitSpace3dSPtr<float> createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
-		Math::Space3d<float> space(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+	Math::BitSpace3dSPtr<T> createCylinder(const unsigned int resx, const unsigned int resy, const unsigned int resz) {
+		Math::Space3d<T> space(Math::Vector3d<T>(0, 0, 0), Math::Vector3d<T>(1, 1, 1));
 		Math::Bitmap3d bmp(20, 20, 20);
-		Math::BitSpace3dSPtr<float> bs(new Math::BitSpace3d<float>(space, bmp));
+		Math::BitSpace3dSPtr<T> bs(new Math::BitSpace3d<T>(space, bmp));
 		bs->setBox();
 		bs->not();
 		addBitSpace(bs);
@@ -66,17 +66,17 @@ public:
 	}
 
 
-	unsigned int getId(const Math::BitSpace3dSPtr<float>& bs) { return bitIdMap[bs]; }
+	unsigned int getId(const Math::BitSpace3dSPtr<T>& bs) { return bitIdMap[bs]; }
 
 
 
 private:
-	Math::BitSpace3dSPtrList<float> bitSpaces;
-	BitSpaceIdMap<float> bitIdMap;
-	IdBitSpacemap<float> idBitMap;
+	Math::BitSpace3dSPtrList<T> bitSpaces;
+	BitSpaceIdMap<T> bitIdMap;
+	IdBitSpacemap<T> idBitMap;
 	unsigned int nextId;
 
-	void addBitSpace(const Math::BitSpace3dSPtr<float>& bs) {
+	void addBitSpace(const Math::BitSpace3dSPtr<T>& bs) {
 		bitSpaces.push_back(bs);
 		bitIdMap[bs] = nextId;
 		idBitMap[nextId] = bs;
@@ -85,7 +85,8 @@ private:
 
 };
 
-using BitSpaceFactorySPtr = std::shared_ptr<BitSpaceFactory >;
+template<typename T>
+using BitSpaceFactorySPtr = std::shared_ptr<BitSpaceFactory<T> >;
 
 
 	}

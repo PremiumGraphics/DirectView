@@ -20,9 +20,9 @@ template<typename T>
 class MainFactory {
 public:
 	MainFactory() :
-		lightFactory(std::make_shared< LightFactory >()),
+		lightFactory(std::make_shared< LightFactory<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		bsFactory(std::make_shared< BitSpaceFactory >()),
+		bsFactory(std::make_shared< BitSpaceFactory<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
 		metaballFactory(std::make_shared< MetaballFactory<T> >()),
@@ -62,9 +62,9 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	LightFactorySPtr getLightFactory() const { return lightFactory; }
+	LightFactorySPtr<T> getLightFactory() const { return lightFactory; }
 
-	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
+	BitSpaceFactorySPtr<T> getBitSpaceFactory() const { return bsFactory; }
 
 	ScalarSpaceFactorySPtr<T> getScalarSpaceFactory() const { return ssFactory; }
 
@@ -78,8 +78,8 @@ public:
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	LightFactorySPtr lightFactory;
-	BitSpaceFactorySPtr bsFactory;
+	LightFactorySPtr<T> lightFactory;
+	BitSpaceFactorySPtr<T> bsFactory;
 	ScalarSpaceFactorySPtr<T> ssFactory;
 	PolygonFactorySPtr<T> polygonFactory;
 	MetaballFactorySPtr<T> metaballFactory;

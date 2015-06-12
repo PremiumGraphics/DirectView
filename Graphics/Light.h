@@ -11,11 +11,11 @@
 namespace Crystal {
 	namespace Graphics {
 
-
+template<typename T>
 class PointLight {
 public:
 	PointLight() :
-		pos( Math::Vector3d<float>( 1.0f, 1.0f, 1.0f ) ),
+		pos( Math::Vector3d<T>( 1.0f, 1.0f, 1.0f ) ),
 		diffuse( ColorRGB<float>::Red() ),
 		specular( ColorRGB<float>::Green() ),
 		isSelected( true )
@@ -45,15 +45,18 @@ public:
 	bool isSelected;
 
 private:
-	Math::Vector3d<float> pos;
+	Math::Vector3d<T> pos;
 
 	Graphics::ColorRGB<float> diffuse;
 	Graphics::ColorRGB<float> specular;
 };
 
-typedef std::shared_ptr< PointLight > LightSPtr;
-typedef std::list < LightSPtr > LightSPtrList;
+template<typename T>
+using LightSPtr = std::shared_ptr< PointLight<T> >;
+template<typename T>
+using LightSPtrList = std::list < LightSPtr<T> > ;
 
+template<typename T>
 class DirectionalLight {
 public:
 	DirectionalLight() :
@@ -69,11 +72,12 @@ public:
 	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
 
 private:
-	Math::Vector3d<float> direction;
+	Math::Vector3d<T> direction;
 
 	Graphics::ColorRGB<float> color;
 };
 
+template<typename T>
 class AmbientLight {
 public:
 	AmbientLight() :

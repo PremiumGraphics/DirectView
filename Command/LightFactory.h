@@ -8,27 +8,28 @@
 namespace Crystal {
 	namespace Command {
 
+template<typename T>
 class LightFactory final : private UnCopyable
 {
 public:
-	Graphics::LightSPtr build() {
-		Graphics::LightSPtr l(new Graphics::PointLight());
+	Graphics::LightSPtr<T> build() {
+		Graphics::LightSPtr<T> l(new Graphics::PointLight<T>());
 		lights.push_back(l);
 		return l;
 	}
 
 	void clear(){ lights.clear(); }
 
-	void remove(Graphics::LightSPtr l) { lights.remove(l); }
+	void remove(Graphics::LightSPtr<T> l) { lights.remove(l); }
 
-	Graphics::LightSPtrList getLights() const { return lights; }
+	Graphics::LightSPtrList<T> getLights() const { return lights; }
 
 private:
-	Graphics::LightSPtrList lights;
-
+	Graphics::LightSPtrList<T> lights;
 };
 
-using LightFactorySPtr = std::shared_ptr< LightFactory >;
+template<typename T>
+using LightFactorySPtr = std::shared_ptr< LightFactory<T> >;
 
 	}
 }

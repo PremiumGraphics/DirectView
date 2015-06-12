@@ -6,12 +6,12 @@ using namespace Crystal::Graphics;
 
 TEST(AmbientLightTest, TestConstruct )
 {
-	AmbientLight l;
+	AmbientLight<float> l;
 	EXPECT_EQ( ColorRGB<float>::White(), l.getColor() );
 }
 
 TEST(DirectionalLightTest, TestConstruct)
 {
-	DirectionalLight l;
+	DirectionalLight<float> l;
 	EXPECT_EQ(ColorRGB<float>::White(), l.getColor());
 }
