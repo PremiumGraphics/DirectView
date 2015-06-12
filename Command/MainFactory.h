@@ -43,7 +43,6 @@ public:
 	{
 		auto ss = ssFactory->getScalarSpaces().front();
 		ss.getScalarSpace()->add(*metaball.getMetaball());
-		polygonFactory->create(*ss.getScalarSpace());
 	}
 
 	void add(const GridConfig& config)
@@ -54,6 +53,12 @@ public:
 		getDrawableFactory()->createGridCells(*ss.getScalarSpace());
 	}
 
+	void polygonize()
+	{
+		for (const auto& s : getScalarSpaceFactory()->getScalarSpaces()) {
+			getPolygonFactory()->create(*s.getScalarSpace());
+		}
+	}
 
 	Graphics::CameraSPtr<float> getCamera() const { return camera; }
 

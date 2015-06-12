@@ -587,6 +587,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	const auto& mConfig = config.getMetaballConfig();
 	const auto& metaball = factory.getMetaballFactory()->create( mConfig );
 	factory.add(metaball);
+	OnCreatePolygon(e);
 	setRendering();
 }
 
@@ -655,6 +656,8 @@ void Frame::OnSpaceTransform(wxRibbonButtonBarEvent& e)
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 {
 	factory.getPolygonFactory()->clear();
+	factory.polygonize();
+	//factory.getPolygonFactory()->create(*ss.getScalarSpace());
 	setRendering();
 }
 
