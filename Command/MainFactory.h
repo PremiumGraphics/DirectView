@@ -41,9 +41,9 @@ public:
 
 	void add(const Math::Metaball<float>& metaball)
 	{
-		const auto ss = ssFactory->getScalarSpaces().front();
-		ss->add(metaball);
-		polygonFactory->create(*ss);
+		auto ss = ssFactory->getScalarSpaces().front();
+		ss.getScalarSpace()->add(metaball);
+		polygonFactory->create(*ss.getScalarSpace());
 	}
 
 

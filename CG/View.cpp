@@ -125,7 +125,7 @@ void View::OnMouse( wxMouseEvent& event )
 		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
 
 		//ssTransformCmd->add()
-		const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getSpace(r);
+		//const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getScalarSpaces(r);
 		/*
 		if (selected != nullptr) {
 			ssTransformCmd->add(selected);

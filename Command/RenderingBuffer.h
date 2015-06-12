@@ -6,6 +6,8 @@
 #include "../Graphics/Polygon.h"
 #include "../Math/ScalarSpace.h"
 
+#include "ScalarSpaceFactory.h"
+
 namespace Crystal{
 	namespace Command {
 
@@ -141,6 +143,13 @@ public:
 		wfRenderingCommand->build(polygons);
 		normalRenderingCommand->build(polygons);
 	}
+
+	void add(const ScalarSpaceIdList<T>& sss) {
+		for (const auto& ss : sss) {
+			pointRenderingCommand->build(*ss.getScalarSpace(), ss.getId());
+		}
+	}
+
 
 	WireFrameRenderingBufferSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
 
