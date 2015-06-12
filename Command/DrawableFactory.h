@@ -7,7 +7,6 @@
 #include "../Util/UnCopyable.h"
 
 #include <memory>
-#include <tuple>
 
 namespace Crystal{
 	namespace Command {

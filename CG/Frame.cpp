@@ -579,10 +579,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	//const auto bs = model.getBitSpaceFactory()->createSphere(20, 20, 20);
-	//model.getPolygonFactory()->create(*bs);
-	//view->Refresh();
-
 	if (factory.getScalarSpaceFactory()->getScalarSpaces().empty()) {
 		wxMessageBox("Setup Grid");
 		return;
@@ -590,10 +586,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 
 	const auto& mConfig = config.getMetaballConfig();
 	const auto& metaball = factory.getMetaballFactory()->create( mConfig );
-	
-	const auto ss = factory.getScalarSpaceFactory()->getScalarSpaces().front();
-	ss->add(*metaball);
-	factory.getPolygonFactory()->create(*ss);
+	factory.add(*metaball);
 	setRendering();
 }
 
@@ -624,9 +617,7 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 void Frame::setRendering()
 {
 	const auto& buffer = command.getRenderingBuffer();
-	buffer->clear();
-	buffer->getWireframeCommand()->build(factory.getPolygonFactory()->getPolygons());
-	buffer->getNormalRenderingCommand()->build(factory.getPolygonFactory()->getPolygons());
+	buffer->add( factory.getPolygonFactory()->getPolygons());
 
 	for (const auto& ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
 		buffer->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));

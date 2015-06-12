@@ -39,6 +39,13 @@ public:
 		drawableFactory->clear();
 	}
 
+	void add(const Math::Metaball<float>& metaball)
+	{
+		const auto ss = ssFactory->getScalarSpaces().front();
+		ss->add(metaball);
+		polygonFactory->create(*ss);
+	}
+
 
 	Graphics::CameraSPtr<float> getCamera() const { return camera; }
 

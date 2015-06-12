@@ -136,6 +136,12 @@ public:
 
 	~RenderingBuffer() = default;
 
+	void add(const Graphics::PolygonSPtrList<T>& polygons) {
+		clear();
+		wfRenderingCommand->build(polygons);
+		normalRenderingCommand->build(polygons);
+	}
+
 	WireFrameRenderingBufferSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
 
 	PointRenderingBufferSPtr<T> getPointRenderingCommand() const { return pointRenderingCommand; }
