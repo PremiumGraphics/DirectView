@@ -3,7 +3,7 @@
 
 #include "BitSpaceTransformCommand.h"
 #include "ScalarSpaceTransformCommand.h"
-#include "RenderingCommand.h"
+#include "RenderingBuffer.h"
 
 #include "../Util/UnCopyable.h"
 

@@ -11,9 +11,7 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
-#include "../Command/RenderingCommand.h"
-
-#include "../Command/ScalarSpaceTransformCommand.h"
+#include "../Command/RenderingBuffer.h"
 
 #include "../Command/MainFactory.h"
 #include "../Command/MainConfig.h"

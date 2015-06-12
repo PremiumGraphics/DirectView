@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "RenderingCommand.h"
+#include "RenderingBuffer.h"
 
 #include "../Graphics/Polygon.h"
 
