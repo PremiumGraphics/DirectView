@@ -102,7 +102,7 @@ private:
 	View* view;
 	Command::MainFactory factory;
 	Command::MainCommand command;
-	Command::MainConfig config;
+	Command::MainConfig<float> config;
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

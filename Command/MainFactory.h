@@ -46,6 +46,14 @@ public:
 		polygonFactory->create(*ss.getScalarSpace());
 	}
 
+	void add(const GridConfig& config)
+	{
+		const auto ss = getScalarSpaceFactory()->create(config);
+		getPolygonFactory()->create(*(ss.getScalarSpace()));
+		getDrawableFactory()->createBoundingBox(*ss.getScalarSpace());
+		getDrawableFactory()->createGridCells(*ss.getScalarSpace());
+	}
+
 
 	Graphics::CameraSPtr<float> getCamera() const { return camera; }
 

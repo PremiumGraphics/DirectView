@@ -77,6 +77,7 @@ private:
 enum GridConfigFields{ Resx, Resy, Resz, Space };
 using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::Space3d<float> > ;
 
+template<typename T>
 class MainConfig{
 public:
 	MainConfig() :
@@ -89,18 +90,18 @@ public:
 
 	void setGridConfig(const GridConfig& config) { this->gridConfig = config; }
 
-	MetaballConfig<float> getMetaballConfig() const { return metaballConfig; }
+	MetaballConfig<T> getMetaballConfig() const { return metaballConfig; }
 
-	void setMetaballConfig(const MetaballConfig<float>& config) { this->metaballConfig = config; }
+	void setMetaballConfig(const MetaballConfig<T>& config) { this->metaballConfig = config; }
 
-	RenderingConfig<float> getRenderingConfig() const { return renderingConfig; }
+	RenderingConfig<T> getRenderingConfig() const { return renderingConfig; }
 
-	void setRenderingConfig(const RenderingConfig<float>& config) { this->renderingConfig = config; }
+	void setRenderingConfig(const RenderingConfig<T>& config) { this->renderingConfig = config; }
 
 private:
 	GridConfig gridConfig;
-	MetaballConfig<float> metaballConfig;
-	RenderingConfig<float> renderingConfig;
+	MetaballConfig<T> metaballConfig;
+	RenderingConfig<T> renderingConfig;
 };
 	}
 }

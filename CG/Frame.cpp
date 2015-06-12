@@ -606,10 +606,7 @@ void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
-	const auto ss = factory.getScalarSpaceFactory()->create( config.getGridConfig() );
-	factory.getPolygonFactory()->create( *( ss.getScalarSpace() ) );
-	factory.getDrawableFactory()->createBoundingBox(*ss.getScalarSpace());
-	factory.getDrawableFactory()->createGridCells(*ss.getScalarSpace());
+	factory.add( config.getGridConfig() );
 
 	setRendering();
 }
@@ -618,12 +615,7 @@ void Frame::setRendering()
 {
 	const auto& buffer = command.getRenderingBuffer();
 	buffer->add( factory.getPolygonFactory()->getPolygons());
-	buffer->add(factory.getScalarSpaceFactory()->getScalarSpaces());
-	/*
-	for (const auto& ss : factory.getScalarSpaceFactory()->getScalarSpaces()) {
-		buffer->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
-	}
-	*/
+	buffer->add( factory.getScalarSpaceFactory()->getScalarSpaces());
 
 	const bool b = config.getRenderingConfig().drawBB();
 	if (b) {
