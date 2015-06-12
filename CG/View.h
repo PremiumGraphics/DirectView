@@ -54,7 +54,7 @@ public:
 		this->config = config;
 	}
 
-	float getPointSize() const { return std::get<Command::RenderingConfigFields::PointSize>(config); }
+	float getPointSize() const { return config.getPointSize(); }
 
 private:
 	MODE mode;

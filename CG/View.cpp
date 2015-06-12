@@ -24,8 +24,7 @@ glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
 factory( factory ),
-rCommand( rCommand ),
-config( Command::defaultRenderingConfig<float>() )
+rCommand( rCommand )
 {
 	glContext.SetCurrent( *this );
 

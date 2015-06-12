@@ -9,15 +9,38 @@
 namespace Crystal {
 	namespace Command {
 
-enum RenderingConfigFields{ PointSize, LineWidth, DrawBB };
-
 template<typename T>
-using RenderingConfig = std::tuple < T, T, bool >;
+class RenderingConfig {
+public:
+	RenderingConfig()
+	{
+		setDefault();
+	}
 
-template<typename T>
-static RenderingConfig<T> defaultRenderingConfig() {
-	return std::make_tuple(10.0f, 1.0f, true);
-}
+	RenderingConfig(const T pointSize, const T lineWidth, const bool drawBB_) :
+		pointSize( pointSize ),
+		lineWidth( lineWidth ),
+		drawBB_( drawBB_ )
+	{
+	}
+
+	void setDefault() {
+		pointSize = 10;
+		lineWidth = 1;
+		drawBB_ = true;
+	}
+
+	T getPointSize() const { return pointSize; }
+
+	T getLineWidth() const { return lineWidth; }
+
+	bool drawBB() const { return drawBB_; }
+	
+private:
+	T pointSize;
+	T lineWidth;
+	bool drawBB_;
+};
 
 enum MetaballConfigFields{ Center, Radius, Charge };
 
@@ -30,7 +53,6 @@ using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::
 class MainConfig{
 public:
 	MainConfig() :
-		renderingConfig( defaultRenderingConfig<float>() ),
 		metaballConfig(std::make_tuple(Math::Vector3d<float>(0.0f,0.0f,0.0f),1.0f, 1.0f)),
 		gridConfig( std::make_tuple(20, 20, 20, Math::Space3d<float>::Unit()) )
 	{

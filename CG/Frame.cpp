@@ -635,7 +635,7 @@ void Frame::setRendering()
 		command.getRenderingCommand()->getPointRenderingCommand()->build(*ss, factory.getScalarSpaceFactory()->getId(ss));
 	}
 
-	const bool b = std::get< Command::RenderingConfigFields::DrawBB >(config.getRenderingConfig());
+	const bool b = config.getRenderingConfig().drawBB();
 	if (b) {
 		command.getRenderingCommand()->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
 	}
