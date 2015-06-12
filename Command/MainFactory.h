@@ -23,7 +23,7 @@ public:
 		lightFactory(std::make_shared< LightFactory >()),
 		camera(std::make_shared< Graphics::Camera<float> >()),
 		bsFactory(std::make_shared< BitSpaceFactory >()),
-		ssFactory(std::make_shared< ScalarSpaceFactory >()),
+		ssFactory(std::make_shared< ScalarSpaceFactory<float> >()),
 		polygonFactory(std::make_shared< PolygonFactory<float> >()),
 		metaballFactory(std::make_shared< MetaballFactory<float> >()),
 		drawableFactory(std::make_shared< DrawableFactory<float> >())
@@ -41,7 +41,7 @@ public:
 
 	void add(const MetaballId<float>& metaball)
 	{
-		auto ss = ssFactory->getScalarSpaces().front();
+		auto ss = ssFactory->getSpaces().front();
 		ss.getScalarSpace()->add(*metaball.getMetaball());
 	}
 
@@ -55,7 +55,7 @@ public:
 
 	void polygonize()
 	{
-		for (const auto& s : getScalarSpaceFactory()->getScalarSpaces()) {
+		for (const auto& s : getScalarSpaceFactory()->getSpaces()) {
 			getPolygonFactory()->create(*s.getScalarSpace());
 		}
 	}
@@ -66,7 +66,7 @@ public:
 
 	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
 
-	ScalarSpaceFactorySPtr getScalarSpaceFactory() const { return ssFactory; }
+	ScalarSpaceFactorySPtr<float> getScalarSpaceFactory() const { return ssFactory; }
 
 	PolygonFactorySPtr<float> getPolygonFactory() const { return polygonFactory; }
 
@@ -80,7 +80,7 @@ private:
 	Graphics::CameraSPtr<float> camera;
 	LightFactorySPtr lightFactory;
 	BitSpaceFactorySPtr bsFactory;
-	ScalarSpaceFactorySPtr ssFactory;
+	ScalarSpaceFactorySPtr<float> ssFactory;
 	PolygonFactorySPtr<float> polygonFactory;
 	MetaballFactorySPtr metaballFactory;
 	DrawableFactorySPtr<float> drawableFactory;

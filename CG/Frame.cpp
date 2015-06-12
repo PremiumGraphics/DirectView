@@ -579,7 +579,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (factory.getScalarSpaceFactory()->getScalarSpaces().empty()) {
+	if (factory.getScalarSpaceFactory()->getSpaces().empty()) {
 		wxMessageBox("Setup Grid");
 		return;
 	}
@@ -616,7 +616,7 @@ void Frame::setRendering()
 {
 	const auto& buffer = command.getRenderingBuffer();
 	buffer->add( factory.getPolygonFactory()->getPolygons());
-	buffer->add( factory.getScalarSpaceFactory()->getScalarSpaces());
+	buffer->add( factory.getScalarSpaceFactory()->getSpaces());
 	buffer->add( factory.getMetaballFactory()->getBalls() );
 
 	const bool b = config.getRenderingConfig().drawBB();

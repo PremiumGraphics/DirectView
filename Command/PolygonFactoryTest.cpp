@@ -17,5 +17,7 @@ TEST(PolygonFactoryTest, TestCreate)
 	const auto& p2 = factory.create(ScalarSpace3d<float>());
 	EXPECT_EQ(1, p2.getId());
 
+	EXPECT_EQ( p2.getPolygon(), factory.find(1) );
+	EXPECT_EQ( nullptr, factory.find(2) );
 }
 

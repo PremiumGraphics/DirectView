@@ -8,7 +8,7 @@ using namespace Crystal::Command;
 
 TEST(ScalarSpaceFactoryTest, TestCreateCone)
 {
-	ScalarSpaceFactory factory;
+	ScalarSpaceFactory<float> factory;
 	const auto config = std::make_tuple(5, 5, 5, Space3d<float>( Vector3d<float>(0,0,0), Vector3d<float>(1,1,1) ) );
 	const auto& ss = factory.create(config);
 	EXPECT_EQ(0, ss.getId());

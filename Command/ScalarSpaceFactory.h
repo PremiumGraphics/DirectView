@@ -31,6 +31,7 @@ private:
 template<typename T>
 using ScalarSpaceIdList = std::list < ScalarSpaceId<T> > ;
 
+template<typename T>
 class ScalarSpaceFactory final
 {
 public:
@@ -43,21 +44,31 @@ public:
 		nextId = 0;
 	}
 
-	ScalarSpaceId<float> create(const GridConfig& config)
+	ScalarSpaceId<T> create(const GridConfig& config)
 	{
-		Math::Grid3d<float> grid( std::get<0>(config), std::get<1>(config), std::get<2>( config));
-		Math::ScalarSpace3dSPtr<float> ss(new Math::ScalarSpace3d<float>( std::get<3>(config), grid));
+		Math::Grid3d<T> grid( std::get<0>(config), std::get<1>(config), std::get<2>( config));
+		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>( std::get<3>(config), grid));
 		//ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		return add(ss);
 	}
 
-	ScalarSpaceIdList<float> getScalarSpaces() const { return spaces; }
+	ScalarSpaceIdList<T> getSpaces() const { return spaces; }
+
+	Math::ScalarSpace3dSPtr<T> find(const unsigned int id) {
+		for (const auto& s: spaces) {
+			if (s.getId() == id) {
+				return s.getScalarSpace();
+			}
+		}
+		return nullptr;
+	}
+
 
 private:
-	ScalarSpaceIdList<float> spaces;
+	ScalarSpaceIdList<T> spaces;
 	unsigned int nextId;
 
-	ScalarSpaceId<float> add(const Math::ScalarSpace3dSPtr<float>& ss) {
+	ScalarSpaceId<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
 		spaces.push_back( ScalarSpaceId<float>( nextId++, ss) );
 		return spaces.back();
 	}
@@ -65,7 +76,8 @@ private:
 
 };
 
-using ScalarSpaceFactorySPtr = std::shared_ptr < ScalarSpaceFactory > ;
+template<typename T>
+using ScalarSpaceFactorySPtr = std::shared_ptr < ScalarSpaceFactory<T> > ;
 
 	}
 }

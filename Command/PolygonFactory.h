@@ -74,6 +74,15 @@ public:
 		return add(polygon);
 	}
 
+	Graphics::PolygonSPtr<T> find(const unsigned int id) {
+		for (const auto& p : polygons) {
+			if (p.getId() == id) {
+				return p.getPolygon();
+			}
+		}
+		return nullptr;
+	}
+
 
 	PolygonIdList<T> getPolygons() const { return polygons; }
 
