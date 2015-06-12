@@ -16,19 +16,19 @@ public:
 	MainCommand() :
 		bsTransformCommand(std::make_shared<BitSpaceTransformCommand>()),
 		ssTransformCommand(std::make_shared<ScalarSpaceTransformCommand<float> >()),
-		renderingCommand(std::make_shared<RenderingCommand<float>>() )
+		renderingCommand(std::make_shared<RenderingBuffer<float>>() )
 	{}
 
 	BitSpaceTransformCommandSPtr getBitSpaceTransformCommand() const { return bsTransformCommand; }
 
 	ScalarSpaceTransformCommandSPtr<float> getScalarSpaceTransformCommand() const { return ssTransformCommand; }
 
-	RenderingCommandSPtr<float> getRenderingCommand() const { return renderingCommand; }
+	RenderingBufferSPtr<float> getRenderingCommand() const { return renderingCommand; }
 
 private:
 	BitSpaceTransformCommandSPtr bsTransformCommand;
 	ScalarSpaceTransformCommandSPtr<float> ssTransformCommand;
-	RenderingCommandSPtr<float> renderingCommand;
+	RenderingBufferSPtr<float> renderingCommand;
 };
 
 	}

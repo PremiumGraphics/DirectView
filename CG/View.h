@@ -27,7 +27,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::RenderingCommandSPtr<float>& rCommand);
+	View(Frame *frame, const int width, const int height, const Command::MainFactory& factory, const Command::RenderingBufferSPtr<float>& rCommand);
 
 	~View();
 
@@ -88,8 +88,7 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
-	Command::RenderingCommandSPtr<float> rCommand;
-
+	Command::RenderingBufferSPtr<float> rCommand;
 	Command::RenderingConfig<float> config;
 
 	wxDECLARE_NO_COPY_CLASS( View );

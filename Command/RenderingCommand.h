@@ -10,9 +10,9 @@ namespace Crystal{
 	namespace Command {
 
 template<typename T>
-class WireFrameRenderingCommand {
+class WireFrameRenderingBuffer {
 public:
-	WireFrameRenderingCommand()
+	WireFrameRenderingBuffer()
 	{
 
 	}
@@ -51,14 +51,14 @@ private:
 };
 
 template<typename T>
-using WireFrameRenderingCommandSPtr = std::shared_ptr < WireFrameRenderingCommand<T> > ;
+using WireFrameRenderingBufferSPtr = std::shared_ptr < WireFrameRenderingBuffer<T> > ;
 
 template<typename T>
-class PointRenderingCommand
+class PointRenderingBuffer
 {
 public:
 
-	PointRenderingCommand()
+	PointRenderingBuffer()
 	{}
 
 	void clear() {
@@ -85,13 +85,13 @@ private:
 };
 
 template<typename T>
-using PointRenderingCommandSPtr = std::shared_ptr < PointRenderingCommand<T> > ;
+using PointRenderingBufferSPtr = std::shared_ptr < PointRenderingBuffer<T> > ;
 
 template<typename T>
-class NormalRenderingCommand
+class NormalRenderingBuffer
 {
 public:
-	NormalRenderingCommand() = default;
+	NormalRenderingBuffer() = default;
 
 	void clear() {
 		positions.clear();
@@ -122,25 +122,25 @@ private:
 };
 
 template<typename T>
-using NormalRenderingCommandSPtr = std::shared_ptr < NormalRenderingCommand<T> > ;
+using NormalRenderingBufferSPtr = std::shared_ptr < NormalRenderingBuffer<T> > ;
 
 template<typename T>
-class RenderingCommand final : private UnCopyable
+class RenderingBuffer final : private UnCopyable
 {
 public:
-	RenderingCommand() :
-		wfRenderingCommand(std::make_shared<WireFrameRenderingCommand<T> >()),
-		pointRenderingCommand(std::make_shared<PointRenderingCommand<T> >()),
-		normalRenderingCommand(std::make_shared<NormalRenderingCommand<T> >())
+	RenderingBuffer() :
+		wfRenderingCommand(std::make_shared<WireFrameRenderingBuffer<T> >()),
+		pointRenderingCommand(std::make_shared<PointRenderingBuffer<T> >()),
+		normalRenderingCommand(std::make_shared<NormalRenderingBuffer<T> >())
 	{}
 
-	~RenderingCommand() = default;
+	~RenderingBuffer() = default;
 
-	WireFrameRenderingCommandSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
+	WireFrameRenderingBufferSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
 
-	PointRenderingCommandSPtr<T> getPointRenderingCommand() const { return pointRenderingCommand; }
+	PointRenderingBufferSPtr<T> getPointRenderingCommand() const { return pointRenderingCommand; }
 	
-	NormalRenderingCommandSPtr<T> getNormalRenderingCommand() const { return  normalRenderingCommand; }
+	NormalRenderingBufferSPtr<T> getNormalRenderingCommand() const { return  normalRenderingCommand; }
 
 	void clear() {
 		wfRenderingCommand->clear();
@@ -149,13 +149,13 @@ public:
 	}
 
 private:
-	WireFrameRenderingCommandSPtr<T> wfRenderingCommand;
-	PointRenderingCommandSPtr<T> pointRenderingCommand;
-	NormalRenderingCommandSPtr<T> normalRenderingCommand;
+	WireFrameRenderingBufferSPtr<T> wfRenderingCommand;
+	PointRenderingBufferSPtr<T> pointRenderingCommand;
+	NormalRenderingBufferSPtr<T> normalRenderingCommand;
 };
 
 template<typename T>
-using RenderingCommandSPtr = std::shared_ptr < RenderingCommand<T> >;
+using RenderingBufferSPtr = std::shared_ptr < RenderingBuffer<T> >;
 
 	}
 }
