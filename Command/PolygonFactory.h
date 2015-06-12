@@ -49,6 +49,7 @@ public:
 
 	PolygonFactory& clear() {
 		this->polygons.clear();
+		nextId = 0;
 		return (*this);
 	}
 

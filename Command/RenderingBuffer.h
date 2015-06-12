@@ -8,6 +8,7 @@
 
 #include "ScalarSpaceFactory.h"
 #include "PolygonFactory.h"
+#include "MetaballFactory.h"
 
 namespace Crystal{
 	namespace Command {
@@ -78,6 +79,12 @@ public:
 		ids.push_back(id);
 	}
 
+	void build(const MetaballId<T>& ball) {
+		const auto center = ball.getMetaball()->getCenter();
+		const auto cs = center.toArray();
+		points.insert(points.end(), cs.begin(), cs.end());
+		ids.push_back(ball.getId());
+	}
 
 	std::vector<T> getPoints() const { return points; }
 
@@ -153,6 +160,11 @@ public:
 		}
 	}
 
+	void add(const MetaballIdList<T>& balls) {
+		for (const auto& b : balls) {
+			pointRenderingCommand->build(b);
+		}
+	}
 
 	WireFrameRenderingBufferSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
 

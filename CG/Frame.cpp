@@ -616,6 +616,7 @@ void Frame::setRendering()
 	const auto& buffer = command.getRenderingBuffer();
 	buffer->add( factory.getPolygonFactory()->getPolygons());
 	buffer->add( factory.getScalarSpaceFactory()->getScalarSpaces());
+	buffer->add( factory.getMetaballFactory()->getBalls() );
 
 	const bool b = config.getRenderingConfig().drawBB();
 	if (b) {
