@@ -45,7 +45,7 @@ public:
 		ss.getScalarSpace()->add(*metaball.getMetaball());
 	}
 
-	void add(const GridConfig& config)
+	void add(const GridConfig<T>& config)
 	{
 		const auto ss = getScalarSpaceFactory()->create(config);
 		getPolygonFactory()->create(*(ss.getScalarSpace()));

@@ -74,21 +74,52 @@ private:
 	T charge;
 };
 
-enum GridConfigFields{ Resx, Resy, Resz, Space };
-using GridConfig = std::tuple < unsigned int, unsigned int, unsigned int, Math::Space3d<float> > ;
+template<typename T>
+class GridConfig {
+public:
+	GridConfig() {
+		setDefault();
+	}
+
+	GridConfig(const unsigned int resx, const unsigned int resy, const unsigned int resz, const Math::Space3d<T>& space) :
+		resx(resx),
+		resy(resy),
+		resz(resz),
+		space(space)
+	{}
+
+	unsigned int getResx() const { return resx; }
+
+	unsigned int getResy() const { return resy; }
+
+	unsigned int getResz() const { return resz; }
+
+	Math::Space3d<T> getSpace() const { return space; }
+
+	void setDefault() {
+		resx = 20;
+		resy = 20;
+		resz = 20;
+		space = Math::Space3d<T>::Unit();
+	}
+
+private:
+	unsigned int resx;
+	unsigned int resy;
+	unsigned int resz;
+	Math::Space3d<T> space;
+};
 
 template<typename T>
 class MainConfig{
 public:
-	MainConfig() :
-		gridConfig( std::make_tuple(20, 20, 20, Math::Space3d<float>::Unit()) )
+	MainConfig()
 	{
-
 	}
 
-	GridConfig getGridConfig() const { return gridConfig; }
+	GridConfig<T> getGridConfig() const { return gridConfig; }
 
-	void setGridConfig(const GridConfig& config) { this->gridConfig = config; }
+	void setGridConfig(const GridConfig<T>& config) { this->gridConfig = config; }
 
 	MetaballConfig<T> getMetaballConfig() const { return metaballConfig; }
 
@@ -99,7 +130,7 @@ public:
 	void setRenderingConfig(const RenderingConfig<T>& config) { this->renderingConfig = config; }
 
 private:
-	GridConfig gridConfig;
+	GridConfig<T> gridConfig;
 	MetaballConfig<T> metaballConfig;
 	RenderingConfig<T> renderingConfig;
 };

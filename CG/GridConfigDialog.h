@@ -62,12 +62,12 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(500, 400));
 	}
 
-	void set(const Command::GridConfig& config) {
-		resx->SetValue( std::get<0>( config ));
-		resy->SetValue( std::get<1>( config ));
-		resz->SetValue( std::get<2>( config ));
+	void set(const Command::GridConfig<float>& config) {
+		resx->SetValue( config.getResx() );
+		resy->SetValue( config.getResy() );
+		resz->SetValue( config.getResz() );
 
-		const auto& space = std::get<3>( config );
+		const auto& space = config.getSpace();
 		originx->SetValue( space.getStart().getX() );
 		originy->SetValue( space.getStart().getY() );
 		originz->SetValue( space.getStart().getZ());
@@ -78,11 +78,11 @@ public:
 		lengthz->SetValue(length.getZ());
 	}
 
-	Command::GridConfig get() const {
+	Command::GridConfig<float> get() const {
 		const auto x = resx->GetValue();
 		const auto y = resy->GetValue();
 		const auto z = resz->GetValue();
-		return Command::GridConfig(x, y, z, getSpace());
+		return Command::GridConfig<float>(x, y, z, getSpace());
 	}
 
 	//void OnOk() 

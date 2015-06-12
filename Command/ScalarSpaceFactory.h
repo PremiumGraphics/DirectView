@@ -44,10 +44,10 @@ public:
 		nextId = 0;
 	}
 
-	ScalarSpaceId<T> create(const GridConfig& config)
+	ScalarSpaceId<T> create(const GridConfig<T>& config)
 	{
-		Math::Grid3d<T> grid( std::get<0>(config), std::get<1>(config), std::get<2>( config));
-		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>( std::get<3>(config), grid));
+		Math::Grid3d<T> grid( config.getResx(), config.getResy(), config.getResz());
+		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>( config.getSpace(), grid));
 		//ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		return add(ss);
 	}
