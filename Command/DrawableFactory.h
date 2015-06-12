@@ -12,21 +12,6 @@
 namespace Crystal{
 	namespace Command {
 
-		/*
-template<typename T>
-using DrawablePoint = std::tuple < unsigned int, Math::Vector3d<T> > ;
-
-template<typename T>
-using DrawablePointVector = std::vector < DrawablePoint<T> > ;
-*/
-/*
-template<typename T>
-class DrawablePoints
-{
-	std::vector<float> points;
-};
-*/
-
 template<typename T>
 class DrawableFactory final : private UnCopyable{
 public:

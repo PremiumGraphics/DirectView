@@ -28,7 +28,6 @@ public:
 	{
 		new wxStaticText(this, wxID_ANY, "Resolution", wxPoint(100, 0));
 
-
 		new wxStaticText(this, wxID_ANY, "X", wxPoint(0, 100));
 		resx = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxPoint(100,100));
 		resx->SetRange( LIMIT::MINX, LIMIT::MAXX);

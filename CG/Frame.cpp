@@ -589,12 +589,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	}
 
 	const auto& mConfig = config.getMetaballConfig();
-	const auto& center = mConfig.getCenter();
-	const auto radius = mConfig.getRadius();
-	const auto charge = mConfig.getCharge();
-	const auto metaball = std::make_shared<Metaball<float> >(center, radius, charge);
-	factory.getMetaballFactory()->add(metaball);
-
+	const auto& metaball = factory.getMetaballFactory()->create( mConfig );
 	
 	const auto ss = factory.getScalarSpaceFactory()->getScalarSpaces().front();
 	ss->add(*metaball);
