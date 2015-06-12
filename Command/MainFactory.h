@@ -16,17 +16,17 @@
 namespace Crystal {
 	namespace Command {
 
-
+template<typename T>
 class MainFactory {
 public:
 	MainFactory() :
 		lightFactory(std::make_shared< LightFactory >()),
-		camera(std::make_shared< Graphics::Camera<float> >()),
+		camera(std::make_shared< Graphics::Camera<T> >()),
 		bsFactory(std::make_shared< BitSpaceFactory >()),
-		ssFactory(std::make_shared< ScalarSpaceFactory<float> >()),
-		polygonFactory(std::make_shared< PolygonFactory<float> >()),
-		metaballFactory(std::make_shared< MetaballFactory<float> >()),
-		drawableFactory(std::make_shared< DrawableFactory<float> >())
+		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
+		polygonFactory(std::make_shared< PolygonFactory<T> >()),
+		metaballFactory(std::make_shared< MetaballFactory<T> >()),
+		drawableFactory(std::make_shared< DrawableFactory<T> >())
 	{
 	}
 
@@ -39,7 +39,7 @@ public:
 		drawableFactory->clear();
 	}
 
-	void add(const MetaballId<float>& metaball)
+	void add(const MetaballId<T>& metaball)
 	{
 		auto ss = ssFactory->getSpaces().front();
 		ss.getScalarSpace()->add(*metaball.getMetaball());
@@ -60,34 +60,34 @@ public:
 		}
 	}
 
-	Graphics::CameraSPtr<float> getCamera() const { return camera; }
+	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
 	LightFactorySPtr getLightFactory() const { return lightFactory; }
 
 	BitSpaceFactorySPtr getBitSpaceFactory() const { return bsFactory; }
 
-	ScalarSpaceFactorySPtr<float> getScalarSpaceFactory() const { return ssFactory; }
+	ScalarSpaceFactorySPtr<T> getScalarSpaceFactory() const { return ssFactory; }
 
-	PolygonFactorySPtr<float> getPolygonFactory() const { return polygonFactory; }
+	PolygonFactorySPtr<T> getPolygonFactory() const { return polygonFactory; }
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
-	MetaballFactorySPtr getMetaballFactory() const { return metaballFactory; }
+	MetaballFactorySPtr<T> getMetaballFactory() const { return metaballFactory; }
 
-	DrawableFactorySPtr<float> getDrawableFactory() const { return drawableFactory; }
+	DrawableFactorySPtr<T> getDrawableFactory() const { return drawableFactory; }
 
 private:
-	Graphics::CameraSPtr<float> camera;
+	Graphics::CameraSPtr<T> camera;
 	LightFactorySPtr lightFactory;
 	BitSpaceFactorySPtr bsFactory;
-	ScalarSpaceFactorySPtr<float> ssFactory;
-	PolygonFactorySPtr<float> polygonFactory;
-	MetaballFactorySPtr metaballFactory;
-	DrawableFactorySPtr<float> drawableFactory;
+	ScalarSpaceFactorySPtr<T> ssFactory;
+	PolygonFactorySPtr<T> polygonFactory;
+	MetaballFactorySPtr<T> metaballFactory;
+	DrawableFactorySPtr<T> drawableFactory;
 };
 
-
-using MainFactorySPtr = std::shared_ptr < MainFactory > ;
+template<typename T>
+using MainFactorySPtr = std::shared_ptr < MainFactory<T> > ;
 	}
 }
 

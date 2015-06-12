@@ -75,7 +75,8 @@ private:
 
 };
 
-using MetaballFactorySPtr = std::shared_ptr < MetaballFactory<float> > ;
+template<typename T>
+using MetaballFactorySPtr = std::shared_ptr < MetaballFactory<T> > ;
 	}
 }
 

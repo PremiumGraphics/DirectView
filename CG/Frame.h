@@ -8,9 +8,6 @@
 #include <memory>
 
 namespace Crystal {
-	namespace Command {
-		class MainFactory;
-	}
 	namespace UI {
 		class View;
 
@@ -21,7 +18,7 @@ public:
 
 	~Frame();
 
-	Command::MainFactory& getModel() { return factory; }
+	Command::MainFactory<float>& getModel() { return factory; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -100,7 +97,7 @@ private:
 
 private:
 	View* view;
-	Command::MainFactory factory;
+	Command::MainFactory<float> factory;
 	Command::MainCommand command;
 	Command::MainConfig<float> config;
 	
