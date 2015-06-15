@@ -4,7 +4,7 @@
 
 using namespace Crystal::Command;
 
-TEST(MetaballFactoryTest, TestCreate)
+TEST(MetaballModelTest, TestCreate)
 {
 	MetaballObjectModel<float> factory;
 

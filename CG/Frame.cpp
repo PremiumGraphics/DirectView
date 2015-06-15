@@ -168,7 +168,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
-	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
 	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
@@ -188,6 +188,7 @@ Frame::Frame()
 	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_POLYGON,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
 
+	/*
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
 	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
 	booleanBar->AddButton(ID_BOOLEAN_UNION, "Union", wxImage("../Resource/union.png") );
@@ -199,7 +200,7 @@ Frame::Frame()
 	Connect(ID_BOOLEAN_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanDiff));
 	Connect(ID_BOOLEAN_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanIntersection));
 	Connect(ID_BOOLEAN_NOT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanNot));
-
+	*/
 
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );

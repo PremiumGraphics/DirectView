@@ -3,7 +3,7 @@
 
 #include "../Graphics/Camera.h"
 
-#include "ScalarSpaceFactory.h"
+#include "ScalarSpaceModel.h"
 #include "PolygonFactory.h"
 #include "LightFactory.h"
 #include "MetaballModel.h"
@@ -19,26 +19,26 @@ template<typename T>
 class Model {
 public:
 	Model() :
-		lightFactory(std::make_shared< LightModel<T> >()),
+		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
-		polygonFactory(std::make_shared< PolygonFactory<T> >()),
-		metaballFactory(std::make_shared< MetaballObjectModel<T> >()),
+		scalarSpace(std::make_shared< ScalarSpaceModel<T> >()),
+		polygon(std::make_shared< PolygonFactory<T> >()),
+		metaball(std::make_shared< MetaballObjectModel<T> >()),
 		renderingBuffer(std::make_shared< RenderingBuffer<T> >())
 	{
 	}
 
 	void clear()
 	{
-		ssFactory->clear();
-		polygonFactory->clear();
-		metaballFactory->clear();
+		scalarSpace->clear();
+		polygon->clear();
+		metaball->clear();
 		renderingBuffer->clear();
 	}
 
 	void add(const MetaballObject<T>& metaball)
 	{
-		auto ss = ssFactory->getSpaces().front();
+		auto ss = scalarSpace->getSpaces().front();
 		ss->getSpace()->add(*metaball.getMetaball());
 	}
 
@@ -59,21 +59,21 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	LightFactorySPtr<T> getLightFactory() const { return lightFactory; }
+	LightFactorySPtr<T> getLightFactory() const { return light; }
 
-	ScalarSpaceFactorySPtr<T> getScalarSpaceFactory() const { return ssFactory; }
+	ScalarSpaceModelSPtr<T> getScalarSpaceFactory() const { return scalarSpace; }
 
-	PolygonFactorySPtr<T> getPolygonFactory() const { return polygonFactory; }
+	PolygonFactorySPtr<T> getPolygonFactory() const { return polygon; }
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
-	MetaballModelSPtr<T> getMetaballFactory() const { return metaballFactory; }
+	MetaballModelSPtr<T> getMetaballFactory() const { return metaball; }
 
 	RenderingBufferSPtr<T> getRenderingBuffer() const { return renderingBuffer; }
 
 
 	Object* find(const int id) {
-		if (ssFactory == nullptr) {
+		if (scalarSpace == nullptr) {
 			return nullptr;
 		}
 		/*
@@ -88,10 +88,10 @@ public:
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	LightFactorySPtr<T> lightFactory;
-	ScalarSpaceFactorySPtr<T> ssFactory;
-	PolygonFactorySPtr<T> polygonFactory;
-	MetaballModelSPtr<T> metaballFactory;
+	LightFactorySPtr<T> light;
+	ScalarSpaceModelSPtr<T> scalarSpace;
+	PolygonFactorySPtr<T> polygon;
+	MetaballModelSPtr<T> metaball;
 	RenderingBufferSPtr<T> renderingBuffer;
 };
 

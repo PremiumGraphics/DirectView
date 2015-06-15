@@ -13,7 +13,7 @@
 
 #include "../Command/RenderingBuffer.h"
 
-#include "../Command/MainFactory.h"
+#include "../Command/Model.h"
 #include "../Command/MainConfig.h"
 
 namespace Crystal {

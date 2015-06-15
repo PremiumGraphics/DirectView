@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_SCALAR_SPACE_FACTORY_H__
-#define __CRYSTAL_COMMAND_SCALAR_SPACE_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_SCALAR_SPACE_MODEL_H__
+#define __CRYSTAL_COMMAND_SCALAR_SPACE_MODEL_H__
 
 #include "../Math/ScalarSpace.h"
 #include "MainConfig.h"
@@ -41,13 +41,13 @@ using ScalarSpaceObjectSPtrList = std::list < ScalarSpaceObjectSPtr<T> > ;
 
 
 template<typename T>
-class ScalarSpaceFactory final : public ObjectFactory
+class ScalarSpaceModel final : public ObjectFactory
 {
 public:
-	ScalarSpaceFactory()
+	ScalarSpaceModel()
 	{}
 
-	~ScalarSpaceFactory(){};
+	~ScalarSpaceModel(){};
 
 	void clear() {
 		ObjectFactory::clear();
@@ -86,7 +86,7 @@ private:
 };
 
 template<typename T>
-using ScalarSpaceFactorySPtr = std::shared_ptr < ScalarSpaceFactory<T> > ;
+using ScalarSpaceModelSPtr = std::shared_ptr < ScalarSpaceModel<T> > ;
 
 	}
 }

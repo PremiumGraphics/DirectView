@@ -11,24 +11,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="LightFactory.h" />
     <ClInclude Include="MainConfig.h" />
-    <ClInclude Include="MainFactory.h" />
     <ClInclude Include="MetaballModel.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="RenderingBuffer.h" />
     <ClInclude Include="RenderingConfig.h" />
+    <ClInclude Include="ScalarSpaceModel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Command\ScalarSpaceFactoryTest.cpp" />
     <ClCompile Include="LightFactoryTest.cpp" />
-    <ClCompile Include="MainFactoryTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
+    <ClCompile Include="ModelTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="RenderingBufferTest.cpp" />
+    <ClCompile Include="ScalarSpaceModelTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{81B09E8D-C1A8-4477-907A-ABB07883C9F8}</ProjectGuid>
