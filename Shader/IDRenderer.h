@@ -23,6 +23,7 @@ public:
 	void build();
 
 	std::vector<float> positions;
+	std::vector<int> types;
 	std::vector<int> ids;
 
 private:
@@ -30,6 +31,7 @@ private:
 		GLuint projectionMatrix;
 		GLuint modelviewMatrix;
 		GLuint position;
+		GLuint type;
 		GLuint id;
 	};
 

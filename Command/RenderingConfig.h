@@ -12,24 +12,29 @@ public:
 		setDefault();
 	}
 
-	WireframeConfig( const T lineWidth, const bool drawBB_) :
+	WireframeConfig( const T lineWidth, const bool drawBB_, const bool drawPlane_) :
 		lineWidth(lineWidth),
-		drawBB_(drawBB_)
+		drawBB_(drawBB_),
+		drawPlane_(drawPlane_)
 	{
 	}
 
 	void setDefault() {
 		lineWidth = 1;
 		drawBB_ = true;
+		drawPlane_ = true;
 	}
 
 	T getLineWidth() const { return lineWidth; }
 
 	bool drawBB() const { return drawBB_; }
 
+	bool drawPlane() const { return drawPlane_; }
+
 private:
 	T lineWidth;
 	bool drawBB_;
+	bool drawPlane_;
 };
 
 template<typename T>

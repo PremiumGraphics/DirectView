@@ -17,8 +17,7 @@ public:
 	PointLight() :
 		pos( Math::Vector3d<T>( 1.0f, 1.0f, 1.0f ) ),
 		diffuse( ColorRGB<float>::Red() ),
-		specular( ColorRGB<float>::Green() ),
-		isSelected( true )
+		specular( ColorRGB<float>::Green() )
 	{
 	}
 
@@ -38,11 +37,6 @@ public:
 	Math::Vector3d<float> getPos() const { return pos; }
 
 	void setPos(const Math::Vector3d<float>& pos) { this->pos = pos; }
-
-	void setName(const std::string& name) { this->name = name; }
-
-	std::string name;
-	bool isSelected;
 
 private:
 	Math::Vector3d<T> pos;

@@ -122,7 +122,7 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char r = image.GetRed(position.x, position.y);
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
-		wxMessageBox(wxString::Format("%d %d %d vertex id = %d face id = %d polygon id = %d", r, g, b, r, g, b));
+		wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 
 		//ssTransformCmd->add()
 		//const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getScalarSpaces(r);
@@ -199,10 +199,11 @@ void View::draw(const wxSize& size)
 
 	Camera<float> c = *(factory.getCamera());
 
-	glLineWidth(getLineWidth());
 	glPointSize(getPointSize());
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
+		const auto& wConfig = config.getWireframeConfig();
+		glLineWidth( wConfig.getLineWidth() );
 		wireFrameRenderer.positions = rCommand->getWireframeCommand()->getPositions();
 		wireFrameRenderer.colors = rCommand->getWireframeCommand()->getColors();
 		wireFrameRenderer.render(width, height, c );
@@ -212,18 +213,22 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		glLineWidth( getLineWidth() );
+		const auto nConfig = config.getNormalConfig();
+		glLineWidth( nConfig.getLineWidth() );
 		normalRenderer.positions = rCommand->getNormalRenderingCommand()->getPositions();
 		normalRenderer.normals = rCommand->getNormalRenderingCommand()->getNormals();
-		normalRenderer.scale = config.getNormalConfig().getNormalScale();
+		normalRenderer.scale = nConfig.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
+		const auto& pConfig = config.getPointConfig();
+		glPointSize( pConfig.getPointSize() );
 		pointRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
 		idRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
+		idRenderer.types = rCommand->getPointRenderingCommand()->getTypes();
 		idRenderer.ids = rCommand->getPointRenderingCommand()->getIds();
 		idRenderer.render(width, height, c );
 	}

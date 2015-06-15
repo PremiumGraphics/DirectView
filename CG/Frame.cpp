@@ -621,12 +621,10 @@ void Frame::setRendering()
 	buffer->add( factory.getScalarSpaceFactory()->getSpaces());
 	buffer->add( factory.getMetaballFactory()->getBalls() );
 
-	/*
-	const bool b = config.getRenderingConfig().get RenderingConfig().drawBB();
+	const bool b = config.getRenderingConfig().getWireframeConfig().drawBB();
 	if (b) {
-		buffer->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
+		buffer->getWireframeCommand()->build( factory.getDrawableFactory()->getPolygons() );
 	}
-	*/
 	view->Refresh();
 
 }

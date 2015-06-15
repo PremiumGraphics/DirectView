@@ -10,14 +10,16 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
 
-//SmoothRenderer::SmoothRenderer()
-//{
-//}
-//
-//SmoothRenderer::~SmoothRenderer()
-//{
-//}
-//
+/*
+SmoothRenderer::SmoothRenderer()
+{
+}
+
+SmoothRenderer::~SmoothRenderer()
+{
+}
+*/
+
 //void SmoothRenderer::build()
 //{
 //	Shader vShader;

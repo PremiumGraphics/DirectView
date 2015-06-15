@@ -59,6 +59,8 @@ public:
 		return (*this);
 	}
 
+	//Polygon* add(const Math::Quad)
+
 	Polygon& add(const Math::Box<T>& box, const ColorRGBA<float>& c) {
 		const auto minx = box.getMinX();
 		const auto miny = box.getMinY();

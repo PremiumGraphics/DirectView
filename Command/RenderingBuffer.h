@@ -68,6 +68,7 @@ public:
 
 	void clear() {
 		ids.clear();
+		types.clear();
 		points.clear();
 	}
 
@@ -76,6 +77,7 @@ public:
 		const auto center = ss.getCenter();
 		const auto cs = ss.getCenter().toArray();
 		points.insert(points.end(), cs.begin(), cs.end());
+		types.push_back(0);
 		ids.push_back(id);
 	}
 
@@ -83,15 +85,19 @@ public:
 		const auto center = ball.getMetaball()->getCenter();
 		const auto cs = center.toArray();
 		points.insert(points.end(), cs.begin(), cs.end());
+		types.push_back(1);
 		ids.push_back(ball.getId());
 	}
 
 	std::vector<T> getPoints() const { return points; }
 
+	std::vector<int> getTypes() const { return types; }
+
 	std::vector<int> getIds() const { return ids; }
 
 private:
 	std::vector< T > points;
+	std::vector< int > types;
 	std::vector< int > ids;
 };
 
