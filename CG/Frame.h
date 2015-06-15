@@ -2,7 +2,6 @@
 #define __CRYSTAL_UI_FRAME_H__
 
 #include "../Command/MainFactory.h"
-#include "../Command/MainCommand.h"
 #include "../Command/MainConfig.h"
 
 #include <memory>
@@ -99,7 +98,6 @@ private:
 private:
 	View* view;
 	Command::MainFactory<float> factory;
-	Command::MainCommand command;
 	Command::MainConfig<float> config;
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );

@@ -218,7 +218,7 @@ Frame::Frame()
 	const int width = 1600;//720;
 	const int height = 900;////480;
 
-	view = new View( this, width, height, factory, command.getRenderingBuffer() );
+	view = new View( this, width, height, factory, factory.getRenderingBuffer() );
 
 	SetIcon(wxICON(sample));
 
@@ -261,7 +261,6 @@ Frame::~Frame()
 void Frame::clear()
 {
 	factory.clear();
-	command.clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -602,7 +601,7 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	const auto& buffer = command.getRenderingBuffer();
+	const auto& buffer = factory.getRenderingBuffer();
 	buffer->add( factory.getPolygonFactory()->getPolygons());
 	buffer->add( factory.getScalarSpaceFactory()->getSpaces());
 	buffer->add( factory.getMetaballFactory()->getBalls() );
