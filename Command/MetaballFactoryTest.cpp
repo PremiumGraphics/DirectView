@@ -6,7 +6,7 @@ using namespace Crystal::Command;
 
 TEST(MetaballFactoryTest, TestCreate)
 {
-	MetaballFactory<float> factory;
+	MetaballObjectFactory<float> factory;
 
 	const auto actual = factory.create(MetaballConfig<float>());
 	EXPECT_EQ(0, actual.getId());

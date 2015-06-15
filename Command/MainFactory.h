@@ -23,7 +23,7 @@ public:
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
-		metaballFactory(std::make_shared< MetaballFactory<T> >()),
+		metaballFactory(std::make_shared< MetaballObjectFactory<T> >()),
 		drawableFactory(std::make_shared< DrawableFactory<T> >())
 	{
 	}
@@ -36,7 +36,7 @@ public:
 		drawableFactory->clear();
 	}
 
-	void add(const MetaballId<T>& metaball)
+	void add(const MetaballObject<T>& metaball)
 	{
 		auto ss = ssFactory->getSpaces().front();
 		ss.getScalarSpace()->add(*metaball.getMetaball());

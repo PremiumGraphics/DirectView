@@ -19,10 +19,10 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class PolygonId : public Object
+class PolygonObject : public Object
  {
 public:
-	PolygonId(const Graphics::PolygonSPtr<T>& polygon, const unsigned int id) :
+	PolygonObject(const Graphics::PolygonSPtr<T>& polygon, const unsigned int id) :
 		Object(id),
 		polygon( polygon )
 	{}
@@ -34,10 +34,10 @@ private:
 };
 
 template<typename T>
-using PolygonIdList = std::list < PolygonId<T> > ;
+using PolygonIdList = std::list < PolygonObject<T> > ;
 
 template<typename T>
-class PolygonFactory final : public FactoryBase, private UnCopyable
+class PolygonFactory final : public ObjectFactory, private UnCopyable
 {
 public:
 	PolygonFactory()
@@ -48,12 +48,12 @@ public:
 	~PolygonFactory() = default;
 
 	PolygonFactory& clear() {
-		FactoryBase::clear();
+		ObjectFactory::clear();
 		this->polygons.clear();
 		return (*this);
 	}
 
-	PolygonId<T> create(const Math::ScalarSpace3d<float>& ss)
+	PolygonObject<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
@@ -64,7 +64,7 @@ public:
 		return add(polygon);
 	}
 
-	PolygonId<T> create(const Math::BitSpace3d<float>& bs) {
+	PolygonObject<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
@@ -91,8 +91,8 @@ private:
 
 	Math::MarchingCube<T> mc;
 
-	PolygonId<T> add(Graphics::PolygonSPtr<float>& p) {
-		this->polygons.push_back( PolygonId<float>( p, getNextId() ) );
+	PolygonObject<T> add(Graphics::PolygonSPtr<float>& p) {
+		this->polygons.push_back( PolygonObject<float>( p, getNextId() ) );
 		return polygons.back();
 	}
 

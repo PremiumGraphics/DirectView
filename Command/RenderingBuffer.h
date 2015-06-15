@@ -81,7 +81,7 @@ public:
 		ids.push_back(id);
 	}
 
-	void build(const MetaballId<T>& ball) {
+	void build(const MetaballObject<T>& ball) {
 		const auto center = ball.getMetaball()->getCenter();
 		const auto cs = center.toArray();
 		points.insert(points.end(), cs.begin(), cs.end());
@@ -166,7 +166,7 @@ public:
 		}
 	}
 
-	void add(const MetaballIdList<T>& balls) {
+	void add(const MetaballObjectList<T>& balls) {
 		for (const auto& b : balls) {
 			pointRenderingCommand->build(b);
 		}

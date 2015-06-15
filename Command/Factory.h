@@ -1,16 +1,16 @@
-#ifndef __CRYSTAL_COMMAND_FACTORY_H__
-#define __CRYSTAL_COMMAND_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_OBJECT_FACTORY_H__
+#define __CRYSTAL_COMMAND_OBJECT_FACTORY_H__
 
 namespace Crystal {
 	namespace Command {
 
-class FactoryBase {
+class ObjectFactory {
 public:
-	FactoryBase() :
+	ObjectFactory() :
 		nextId(0)
 	{}
 
-	virtual ~FactoryBase(){};
+	virtual ~ObjectFactory(){};
 
 	void clear() {
 		nextId = 0;

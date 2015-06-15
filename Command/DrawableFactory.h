@@ -20,14 +20,14 @@ public:
 		return (*this);
 	}
 
-	PolygonId<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObject<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
-	PolygonId<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObject<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
@@ -57,8 +57,8 @@ private:
 
 	unsigned int nextId;
 
-	PolygonId<T> add(const Graphics::PolygonSPtr<T>& p) {
-		polygons.push_back(PolygonId<T>(p, nextId++));
+	PolygonObject<T> add(const Graphics::PolygonSPtr<T>& p) {
+		polygons.push_back(PolygonObject<T>(p, nextId++));
 		return polygons.back();
 	}
 };

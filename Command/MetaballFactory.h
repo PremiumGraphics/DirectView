@@ -16,10 +16,10 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class MetaballId final : public Object
+class MetaballObject final : public Object
 {
 public:
-	MetaballId(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
+	MetaballObject(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
 		Object( id ),
 		metaball(metaball)
 	{}
@@ -31,26 +31,26 @@ private:
 };
 
 template<typename T>
-using MetaballIdList = std::list < MetaballId<T> > ;
+using MetaballObjectList = std::list < MetaballObject<T> > ;
 
 template<typename T>
-class MetaballFactory final : public FactoryBase, private UnCopyable
+class MetaballObjectFactory final : public ObjectFactory, private UnCopyable
 {
 public:
-	MetaballFactory()
+	MetaballObjectFactory()
 	{
 
 	}
 
-	~MetaballFactory() = default;
+	~MetaballObjectFactory() = default;
 
-	MetaballFactory& clear() {
-		FactoryBase::clear();
+	MetaballObjectFactory& clear() {
+		ObjectFactory::clear();
 		balls.clear();
 		return (*this);
 	}
 
-	MetaballId<T> create(const MetaballConfig<T>& config) {
+	MetaballObject<T> create(const MetaballConfig<T>& config) {
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
@@ -58,9 +58,9 @@ public:
 		return add(metaball);
 	}
 
-	MetaballIdList<T> getBalls() const { return balls; }
+	MetaballObjectList<T> getBalls() const { return balls; }
 
-	MetaballId<T> find(const unsigned int id) {
+	MetaballObject<T> find(const unsigned int id) {
 		for (const auto& b : balls) {
 			if (b.getId() == id) {
 				return b.getMetaball();
@@ -71,17 +71,17 @@ public:
 
 
 private:
-	MetaballIdList<T> balls;
+	MetaballObjectList<T> balls;
 
-	MetaballId<T> add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back(MetaballId<T>(ball, getNextId()));
+	MetaballObject<T> add(const Math::MetaballSPtr<T>& ball) {
+		balls.push_back(MetaballObject<T>(ball, getNextId()));
 		return balls.back();
 	}
 
 };
 
 template<typename T>
-using MetaballFactorySPtr = std::shared_ptr < MetaballFactory<T> > ;
+using MetaballFactorySPtr = std::shared_ptr < MetaballObjectFactory<T> > ;
 	}
 }
 

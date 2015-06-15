@@ -14,15 +14,15 @@ namespace Crystal{
 
 
 template<typename T>
-class ScalarSpaceId final : public Object
+class ScalarSpaceObject final : public Object
 {
 public:
-	ScalarSpaceId(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
+	ScalarSpaceObject(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
 		Object( id ),
 		ss( ss )
 	{}
 
-	~ScalarSpaceId(){}
+	~ScalarSpaceObject(){}
 
 	Math::ScalarSpace3dSPtr<T> getScalarSpace() const { return ss; }
 
@@ -31,11 +31,11 @@ private:
 };
 
 template<typename T>
-using ScalarSpaceIdList = std::list < ScalarSpaceId<T> > ;
+using ScalarSpaceIdList = std::list < ScalarSpaceObject<T> > ;
 
 
 template<typename T>
-class ScalarSpaceFactory final : public FactoryBase
+class ScalarSpaceFactory final : public ObjectFactory
 {
 public:
 	ScalarSpaceFactory()
@@ -44,11 +44,11 @@ public:
 	~ScalarSpaceFactory(){};
 
 	void clear() {
-		FactoryBase::clear();
+		ObjectFactory::clear();
 		spaces.clear();
 	}
 
-	ScalarSpaceId<T> create(const GridConfig<T>& config)
+	ScalarSpaceObject<T> create(const GridConfig<T>& config)
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
 		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>(config.getSpace(), grid));
@@ -58,7 +58,7 @@ public:
 
 	ScalarSpaceIdList<T> getSpaces() const { return spaces; }
 
-	ScalarSpaceId<T>* find(const unsigned int id) {
+	ScalarSpaceObject<T>* find(const unsigned int id) {
 		for (auto& s: spaces) {
 			if (s.getId() == id) {
 				return &s;
@@ -71,8 +71,8 @@ public:
 private:
 	ScalarSpaceIdList<T> spaces;
 
-	ScalarSpaceId<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
-		spaces.push_back( ScalarSpaceId<float>( getNextId(), ss) );
+	ScalarSpaceObject<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
+		spaces.push_back( ScalarSpaceObject<float>( getNextId(), ss) );
 		return spaces.back();
 	}
 
