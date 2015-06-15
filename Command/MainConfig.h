@@ -6,68 +6,11 @@
 #include "../Math/Vector.h"
 #include "../Math/Space.h"
 
+#include "RenderingConfig.h"
+
 namespace Crystal {
 	namespace Command {
 
-template<typename T>
-class WireframeConfig {
-public:
-	WireframeConfig()
-	{
-		setDefault();
-	}
-
-	WireframeConfig(const T pointSize, const T lineWidth, const bool drawBB_) :
-		pointSize( pointSize ),
-		lineWidth( lineWidth ),
-		drawBB_( drawBB_ )
-	{
-	}
-
-	void setDefault() {
-		pointSize = 10;
-		lineWidth = 1;
-		drawBB_ = true;
-	}
-
-	T getPointSize() const { return pointSize; }
-
-	T getLineWidth() const { return lineWidth; }
-
-	bool drawBB() const { return drawBB_; }
-	
-private:
-	T pointSize;
-	T lineWidth;
-	bool drawBB_;
-};
-
-template<typename T>
-class NormalConfig {
-public:
-	NormalConfig()
-	{
-		setDefault();
-	}
-
-	NormalConfig(const T normalScale, const T lineWidth) :
-		normalScale( normalScale ),
-		lineWidth( lineWidth )
-	{}
-
-	void setDefault() {
-		normalScale = 1.0f;
-		lineWidth = 1.0f;
-	}
-
-	T getNormalScale() const { return normalScale; }
-
-	T getLineWidth() const { return lineWidth; }
-
-private:
-	T normalScale;
-	T lineWidth;
-};
 
 template<typename T>
 class MetaballConfig {
