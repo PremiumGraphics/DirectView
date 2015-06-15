@@ -20,6 +20,7 @@
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="MainFactory.h" />
     <ClInclude Include="MetaballFactory.h" />
+    <ClInclude Include="PickCommand.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="RenderingBuffer.h" />
     <ClInclude Include="RenderingConfig.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MainFactoryTest.cpp" />
     <ClCompile Include="MetaballFactoryTest.cpp" />
+    <ClCompile Include="PickCommandTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="RenderingBufferTest.cpp" />
     <ClCompile Include="ScalarSpaceTransformCommandTest.cpp" />

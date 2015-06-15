@@ -11,37 +11,70 @@ namespace Crystal{
 	namespace Command {
 
 template<typename T>
-class ScalarSpaceId
+class ObjectIdBase {
+public:
+	ObjectIdBase (const unsigned int id) :
+		id( id )
+	{}
+
+	virtual ~ObjectIdBase(){}
+
+	unsigned int getId() const { return id; }
+
+private:
+	unsigned int id;
+};
+
+template<typename T>
+class ScalarSpaceId final : public ObjectIdBase<T>
 {
 public:
 	ScalarSpaceId(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
-		id( id ),
+		ObjectIdBase( id ),
 		ss( ss )
 	{}
 
-	unsigned int getId() const { return id; }
+	~ScalarSpaceId(){}
 
 	Math::ScalarSpace3dSPtr<T> getScalarSpace() const { return ss; }
 
 private:
-	unsigned int id;
 	Math::ScalarSpace3dSPtr<T> ss;
 };
 
 template<typename T>
 using ScalarSpaceIdList = std::list < ScalarSpaceId<T> > ;
 
-template<typename T>
-class ScalarSpaceFactory final
-{
+class FactoryBase {
 public:
-	ScalarSpaceFactory() :
+	FactoryBase() :
 		nextId(0)
 	{}
 
+	virtual ~FactoryBase(){};
+
 	void clear() {
-		spaces.clear();
 		nextId = 0;
+	}
+
+	unsigned int getNextId() { return nextId++; }
+
+private:
+	unsigned int nextId;
+};
+
+template<typename T>
+class ScalarSpaceFactory final : public FactoryBase
+{
+public:
+	ScalarSpaceFactory()
+	{}
+	
+	~ScalarSpaceFactory(){};
+
+	void clear() {
+		FactoryBase::clear();
+		spaces.clear();
 	}
 
 	ScalarSpaceId<T> create(const GridConfig<T>& config)
@@ -66,10 +99,9 @@ public:
 
 private:
 	ScalarSpaceIdList<T> spaces;
-	unsigned int nextId;
 
 	ScalarSpaceId<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
-		spaces.push_back( ScalarSpaceId<float>( nextId++, ss) );
+		spaces.push_back( ScalarSpaceId<float>( getNextId(), ss) );
 		return spaces.back();
 	}
 
