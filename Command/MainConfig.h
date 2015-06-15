@@ -43,6 +43,33 @@ private:
 };
 
 template<typename T>
+class NormalConfig {
+public:
+	NormalConfig()
+	{
+		setDefault();
+	}
+
+	NormalConfig(const T normalScale, const T lineWidth) :
+		normalScale( normalScale ),
+		lineWidth( lineWidth )
+	{}
+
+	void setDefault() {
+		normalScale = 1.0f;
+		lineWidth = 1.0f;
+	}
+
+	T getNormalScale() const { return normalScale; }
+
+	T getLineWidth() const { return lineWidth; }
+
+private:
+	T normalScale;
+	T lineWidth;
+};
+
+template<typename T>
 class MetaballConfig {
 public:
 	MetaballConfig()
@@ -129,10 +156,15 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<T>& config) { this->renderingConfig = config; }
 
+	NormalConfig<T> getNormalConfig() const { return normalConfig; }
+
+	void setNormalConfig(const NormalConfig<T>& config) { this->normalConfig = config; }
+
 private:
 	GridConfig<T> gridConfig;
 	MetaballConfig<T> metaballConfig;
 	RenderingConfig<T> renderingConfig;
+	NormalConfig<T> normalConfig;
 };
 	}
 }

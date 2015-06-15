@@ -199,8 +199,10 @@ void View::draw(const wxSize& size)
 
 	Camera<float> c = *(factory.getCamera());
 
+	glLineWidth(getLineWidth());
+	glPointSize(getPointSize());
+
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		glLineWidth(1.0f);
 		wireFrameRenderer.positions = rCommand->getWireframeCommand()->getPositions();
 		wireFrameRenderer.colors = rCommand->getWireframeCommand()->getColors();
 		wireFrameRenderer.render(width, height, c );
@@ -216,13 +218,11 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		pointRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
-		glPointSize( getPointSize());
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
 		idRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
 		idRenderer.ids = rCommand->getPointRenderingCommand()->getIds();
-		glPointSize( getPointSize());
 		idRenderer.render(width, height, c );
 	}
 	else {

@@ -52,8 +52,6 @@ public:
 		this->config = config;
 	}
 
-	float getPointSize() const { return config.getPointSize(); }
-
 private:
 	MODE mode;
 
@@ -88,6 +86,10 @@ private:
 
 	Command::RenderingBufferSPtr<float> rCommand;
 	Command::RenderingConfig<float> config;
+
+	float getPointSize() const { return config.getPointSize(); }
+
+	float getLineWidth() const { return config.getLineWidth(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

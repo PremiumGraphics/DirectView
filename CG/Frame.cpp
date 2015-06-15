@@ -166,6 +166,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPhongConfig) );
 	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
+	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
 	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
@@ -694,6 +695,17 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 		setRendering();
 	}
 }
+
+void Frame::OnNormalConfig(wxRibbonButtonBarEvent& e)
+{
+	NormalConfigDialog<float> dialog(this);
+	dialog.set(config.getNormalConfig());
+	if (dialog.ShowModal() == wxID_OK) {
+		config.setNormalConfig( dialog.get());
+		setRendering();
+	}
+}
+
 
 void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
 {

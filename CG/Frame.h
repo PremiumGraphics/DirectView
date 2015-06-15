@@ -91,6 +91,8 @@ private:
 
 	void OnWireFrameConfig(wxRibbonButtonBarEvent& e);
 
+	void OnNormalConfig(wxRibbonButtonBarEvent& e);
+
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
 	void setRendering();
