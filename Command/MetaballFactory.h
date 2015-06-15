@@ -5,18 +5,18 @@
 #include <memory>
 
 #include "../Math/Kernel.h"
-
 #include "../Util/UnCopyable.h"
 
 #include "MainConfig.h"
 
 #include "Object.h"
+#include "Factory.h"
 
 namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class MetaballId final : public Object<T>
+class MetaballId final : public Object
 {
 public:
 	MetaballId(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
@@ -34,11 +34,10 @@ template<typename T>
 using MetaballIdList = std::list < MetaballId<T> > ;
 
 template<typename T>
-class MetaballFactory final : private UnCopyable
+class MetaballFactory final : public FactoryBase, private UnCopyable
 {
 public:
-	MetaballFactory() :
-		nextId(0)
+	MetaballFactory()
 	{
 
 	}
@@ -46,8 +45,8 @@ public:
 	~MetaballFactory() = default;
 
 	MetaballFactory& clear() {
+		FactoryBase::clear();
 		balls.clear();
-		nextId = 0;
 		return (*this);
 	}
 
@@ -61,14 +60,21 @@ public:
 
 	MetaballIdList<T> getBalls() const { return balls; }
 
-	unsigned int getNextId() const { return nextId; }
+	MetaballId<T> find(const unsigned int id) {
+		for (const auto& b : balls) {
+			if (b.getId() == id) {
+				return b.getMetaball();
+			}
+		}
+		return nullptr;
+	}
+
 
 private:
 	MetaballIdList<T> balls;
-	unsigned int nextId;
 
 	MetaballId<T> add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back(MetaballId<T>(ball, nextId++));
+		balls.push_back(MetaballId<T>(ball, getNextId()));
 		return balls.back();
 	}
 

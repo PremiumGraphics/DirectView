@@ -9,12 +9,6 @@
 namespace Crystal {
 	namespace Command {
 
-enum class PickType {
-	ScalarSpace = 0,
-	Metaball = 1,
-	Light = 2,	
-	Polygon = 3,
-};
 
 template<typename T>
 class PickCommand{
@@ -26,11 +20,15 @@ public:
 		ballFactory( ballFactory )
 	{}
 
-	Math::ScalarSpace3dSPtr<T> find(const int id) {
+	Object* find(const int id) {
 		if (ssFactory == nullptr) {
-			return nullptr;
+			return NullObject();
 		}
-		return ssFactory->find(id);
+		const auto ptr = ssFactory->find(id);
+		if (ptr != nullptr) {
+			return ptr;
+		}
+		//const auto ptr2 = ballFactory->find()
 	}
 	//fromPickType(const int type, const int id) {
 	//}

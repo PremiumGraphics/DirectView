@@ -5,6 +5,7 @@
 #include "MainConfig.h"
 
 #include "Object.h"
+#include "Factory.h"
 
 #include <memory>
 
@@ -13,7 +14,7 @@ namespace Crystal{
 
 
 template<typename T>
-class ScalarSpaceId final : public Object<T>
+class ScalarSpaceId final : public Object
 {
 public:
 	ScalarSpaceId(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
@@ -32,23 +33,6 @@ private:
 template<typename T>
 using ScalarSpaceIdList = std::list < ScalarSpaceId<T> > ;
 
-class FactoryBase {
-public:
-	FactoryBase() :
-		nextId(0)
-	{}
-
-	virtual ~FactoryBase(){};
-
-	void clear() {
-		nextId = 0;
-	}
-
-	unsigned int getNextId() { return nextId++; }
-
-private:
-	unsigned int nextId;
-};
 
 template<typename T>
 class ScalarSpaceFactory final : public FactoryBase
