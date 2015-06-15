@@ -71,6 +71,18 @@ public:
 
 	DrawableFactorySPtr<T> getDrawableFactory() const { return drawableFactory; }
 
+	Object* find(const int id) {
+		if (ssFactory == nullptr) {
+			return nullptr;
+		}
+		const auto ptr = ssFactory->find(id);
+		if (ptr != nullptr) {
+			return ptr;
+		}
+		return nullptr;
+		//const auto ptr2 = ballFactory->find()
+	}
+
 private:
 	Graphics::CameraSPtr<T> camera;
 	LightFactorySPtr<T> lightFactory;

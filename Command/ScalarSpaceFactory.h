@@ -40,7 +40,7 @@ class ScalarSpaceFactory final : public FactoryBase
 public:
 	ScalarSpaceFactory()
 	{}
-	
+
 	~ScalarSpaceFactory(){};
 
 	void clear() {
@@ -50,18 +50,18 @@ public:
 
 	ScalarSpaceId<T> create(const GridConfig<T>& config)
 	{
-		Math::Grid3d<T> grid( config.getResx(), config.getResy(), config.getResz());
-		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>( config.getSpace(), grid));
+		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
+		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>(config.getSpace(), grid));
 		//ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		return add(ss);
 	}
 
 	ScalarSpaceIdList<T> getSpaces() const { return spaces; }
 
-	Math::ScalarSpace3dSPtr<T> find(const unsigned int id) {
-		for (const auto& s: spaces) {
+	ScalarSpaceId<T>* find(const unsigned int id) {
+		for (auto& s: spaces) {
 			if (s.getId() == id) {
-				return s.getScalarSpace();
+				return &s;
 			}
 		}
 		return nullptr;

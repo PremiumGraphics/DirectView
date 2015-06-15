@@ -12,23 +12,24 @@
 
 #include <memory>
 
+#include "Object.h"
+#include "Factory.h"
+
 namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class PolygonId {
+class PolygonId : public Object
+ {
 public:
 	PolygonId(const Graphics::PolygonSPtr<T>& polygon, const unsigned int id) :
-		id( id ),
+		Object(id),
 		polygon( polygon )
 	{}
-
-	unsigned int getId() const { return id; }
 
 	Graphics::PolygonSPtr<T> getPolygon() const { return polygon; }
 
 private:
-	unsigned int id;
 	Graphics::PolygonSPtr<T> polygon;
 };
 
@@ -36,11 +37,10 @@ template<typename T>
 using PolygonIdList = std::list < PolygonId<T> > ;
 
 template<typename T>
-class PolygonFactory final : private UnCopyable
+class PolygonFactory final : public FactoryBase, private UnCopyable
 {
 public:
-	PolygonFactory() :
-		nextId(0)
+	PolygonFactory()
 	{
 		mc.buildTable();
 	}
@@ -48,8 +48,8 @@ public:
 	~PolygonFactory() = default;
 
 	PolygonFactory& clear() {
+		FactoryBase::clear();
 		this->polygons.clear();
-		nextId = 0;
 		return (*this);
 	}
 
@@ -88,12 +88,11 @@ public:
 
 private:
 	PolygonIdList<T> polygons;
-	unsigned int nextId;
 
 	Math::MarchingCube<T> mc;
 
 	PolygonId<T> add(Graphics::PolygonSPtr<float>& p) {
-		this->polygons.push_back( PolygonId<float>( p, nextId++) );
+		this->polygons.push_back( PolygonId<float>( p, getNextId() ) );
 		return polygons.back();
 	}
 

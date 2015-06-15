@@ -13,14 +13,16 @@ public:
 		Polygon = 3,
 	};
 
-
 	Object(const unsigned int id) :
-		id(id)
+		id(id),
+		visible(true)
 	{}
 
 	virtual ~Object(){}
 
 	unsigned int getId() const { return id; }
+
+	bool isVisiable() const { return visible; }
 
 	//ScalarSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
 	//	for (auto& b : spaces) {
@@ -44,6 +46,7 @@ public:
 
 private:
 	unsigned int id;
+	bool visible;
 };
 
 class NullObject : public Object{
