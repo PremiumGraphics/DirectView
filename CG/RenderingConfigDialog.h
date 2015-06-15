@@ -8,10 +8,10 @@
 namespace Crystal {
 	namespace Graphics {
 
-class RenderingConfigDialog : public wxDialog
+class WireframeConfigDialog : public wxDialog
 {
 public:
-	RenderingConfigDialog(wxWindow* parent) :
+	WireframeConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "RenderingConfig", wxDefaultPosition, wxSize( 500, 500 ) )
 	{
 		new wxStaticText(this, wxID_ANY, "PointSize", wxPoint(0, 100));
@@ -27,16 +27,16 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Command::RenderingConfig<float>& config) {
+	void set(const Command::WireframeConfig<float>& config) {
 		pointSize->SetValue( config.getPointSize() );
 		lineWidth->SetValue( config.getLineWidth() );
 		drawBB->SetValue( config.drawBB() );
 	}
 
-	Command::RenderingConfig<float> get() {
+	Command::WireframeConfig<float> get() {
 		const auto p = pointSize->GetValue();
 		const auto l = lineWidth->GetValue();
-		return Command::RenderingConfig<float>(p, l, drawBB->GetValue());
+		return Command::WireframeConfig<float>(p, l, drawBB->GetValue());
 	}
 
 private:

@@ -48,7 +48,7 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	void setConfig(const Command::RenderingConfig<float>& config) {
+	void setConfig(const Command::WireframeConfig<float>& config) {
 		this->config = config;
 	}
 
@@ -89,7 +89,7 @@ private:
 	Shader::IDRenderer idRenderer;
 
 	Command::RenderingBufferSPtr<float> rCommand;
-	Command::RenderingConfig<float> config;
+	Command::WireframeConfig<float> config;
 	Command::NormalConfig<float> nc;
 
 	float getPointSize() const { return config.getPointSize(); }

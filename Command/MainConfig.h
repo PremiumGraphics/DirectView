@@ -10,14 +10,14 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class RenderingConfig {
+class WireframeConfig {
 public:
-	RenderingConfig()
+	WireframeConfig()
 	{
 		setDefault();
 	}
 
-	RenderingConfig(const T pointSize, const T lineWidth, const bool drawBB_) :
+	WireframeConfig(const T pointSize, const T lineWidth, const bool drawBB_) :
 		pointSize( pointSize ),
 		lineWidth( lineWidth ),
 		drawBB_( drawBB_ )
@@ -152,9 +152,9 @@ public:
 
 	void setMetaballConfig(const MetaballConfig<T>& config) { this->metaballConfig = config; }
 
-	RenderingConfig<T> getRenderingConfig() const { return renderingConfig; }
+	WireframeConfig<T> getRenderingConfig() const { return renderingConfig; }
 
-	void setRenderingConfig(const RenderingConfig<T>& config) { this->renderingConfig = config; }
+	void setRenderingConfig(const WireframeConfig<T>& config) { this->renderingConfig = config; }
 
 	NormalConfig<T> getNormalConfig() const { return normalConfig; }
 
@@ -163,7 +163,7 @@ public:
 private:
 	GridConfig<T> gridConfig;
 	MetaballConfig<T> metaballConfig;
-	RenderingConfig<T> renderingConfig;
+	WireframeConfig<T> renderingConfig;
 	NormalConfig<T> normalConfig;
 };
 	}
