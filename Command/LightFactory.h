@@ -47,7 +47,7 @@ private:
 };
 
 template<typename T>
-using LightFactorySPtr = std::shared_ptr< LightModel<T> >;
+using LightModelSPtr = std::shared_ptr< LightModel<T> >;
 
 	}
 }

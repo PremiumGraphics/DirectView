@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_COMMAND_OBJECT_H__
 #define __CRYSTAL_COMMAND_OBJECT_H__
 
+#include "../Math/Vector.h"
+
 namespace Crystal {
 	namespace Command {
 
@@ -12,6 +14,7 @@ public:
 		Metaball = 1,
 		Light = 2,
 		Polygon = 3,
+		Camera = 4,
 	};
 
 	explicit Object(const unsigned int id) :

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraModel.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="LightFactory.h" />
     <ClInclude Include="MainConfig.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="ScalarSpaceModel.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraModelTest.cpp" />
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />

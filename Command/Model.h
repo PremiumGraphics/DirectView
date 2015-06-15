@@ -59,7 +59,7 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	LightFactorySPtr<T> getLightFactory() const { return light; }
+	LightModelSPtr<T> getLightFactory() const { return light; }
 
 	ScalarSpaceModelSPtr<T> getScalarSpaceFactory() const { return scalarSpace; }
 
@@ -88,7 +88,7 @@ public:
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	LightFactorySPtr<T> light;
+	LightModelSPtr<T> light;
 	ScalarSpaceModelSPtr<T> scalarSpace;
 	PolygonFactorySPtr<T> polygon;
 	MetaballModelSPtr<T> metaball;
