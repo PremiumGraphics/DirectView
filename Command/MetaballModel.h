@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_METABALL_FACTORY_H__
-#define __CRYSTAL_COMMAND_METABALL_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_METABALL_MODEL_H__
+#define __CRYSTAL_COMMAND_METABALL_MODEL_H__
 
 #include <list>
 #include <memory>
@@ -46,17 +46,17 @@ template<typename T>
 using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
 template<typename T>
-class MetaballObjectFactory final : public ObjectFactory, private UnCopyable
+class MetaballObjectModel final : public ObjectFactory, private UnCopyable
 {
 public:
-	MetaballObjectFactory()
+	MetaballObjectModel()
 	{
 
 	}
 
-	~MetaballObjectFactory() = default;
+	~MetaballObjectModel() = default;
 
-	MetaballObjectFactory& clear() {
+	MetaballObjectModel& clear() {
 		ObjectFactory::clear();
 		balls.clear();
 		return (*this);
@@ -95,7 +95,7 @@ private:
 };
 
 template<typename T>
-using MetaballFactorySPtr = std::shared_ptr < MetaballObjectFactory<T> > ;
+using MetaballObjectModelSPtr = std::shared_ptr < MetaballObjectModel<T> > ;
 	}
 }
 

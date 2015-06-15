@@ -8,7 +8,7 @@
 
 #include "ScalarSpaceFactory.h"
 #include "PolygonFactory.h"
-#include "MetaballFactory.h"
+#include "MetaballModel.h"
 
 namespace Crystal{
 	namespace Command {

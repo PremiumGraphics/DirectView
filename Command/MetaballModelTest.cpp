@@ -1,12 +1,12 @@
 #include "gtest/gtest.h"
 
-#include "MetaballFactory.h"
+#include "MetaballModel.h"
 
 using namespace Crystal::Command;
 
 TEST(MetaballFactoryTest, TestCreate)
 {
-	MetaballObjectFactory<float> factory;
+	MetaballObjectModel<float> factory;
 
 	const auto actual = factory.create(MetaballConfig<float>());
 	EXPECT_EQ(0, actual->getId());

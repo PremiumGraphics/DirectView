@@ -6,7 +6,7 @@
 #include "ScalarSpaceFactory.h"
 #include "PolygonFactory.h"
 #include "LightFactory.h"
-#include "MetaballFactory.h"
+#include "MetaballModel.h"
 #include "RenderingBuffer.h"
 
 #include <memory>
@@ -23,7 +23,7 @@ public:
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
-		metaballFactory(std::make_shared< MetaballObjectFactory<T> >()),
+		metaballFactory(std::make_shared< MetaballObjectModel<T> >()),
 		renderingBuffer(std::make_shared< RenderingBuffer<T> >())
 	{
 	}
@@ -67,7 +67,7 @@ public:
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
-	MetaballFactorySPtr<T> getMetaballFactory() const { return metaballFactory; }
+	MetaballObjectModelSPtr<T> getMetaballFactory() const { return metaballFactory; }
 
 	RenderingBufferSPtr<T> getRenderingBuffer() const { return renderingBuffer; }
 
@@ -91,7 +91,7 @@ private:
 	LightFactorySPtr<T> lightFactory;
 	ScalarSpaceFactorySPtr<T> ssFactory;
 	PolygonFactorySPtr<T> polygonFactory;
-	MetaballFactorySPtr<T> metaballFactory;
+	MetaballObjectModelSPtr<T> metaballFactory;
 	RenderingBufferSPtr<T> renderingBuffer;
 };
 
