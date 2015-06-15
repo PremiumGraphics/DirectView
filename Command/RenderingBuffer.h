@@ -27,14 +27,14 @@ public:
 	}
 
 
-	void build(const PolygonObjectList<T>& polygons) {
+	void build(const PolygonObjectSPtrList<T>& polygons) {
 		// positions;
 		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
 		for (const auto& pp : polygons) {
-			if (!pp.isVisible()) {
+			if (!pp->isVisible()) {
 				continue;
 			}
-			const auto p = pp.getPolygon();
+			const auto p = pp->getPolygon();
 			for (const auto& e : p->getEdges()) {
 				const auto& start = e->getStartPosition().toArray();
 				positions.insert(positions.end(), start.begin(), start.end());
@@ -118,9 +118,9 @@ public:
 		normals.clear();
 	}
 
-	void build(const PolygonObjectList<T>& polygons) {
+	void build(const PolygonObjectSPtrList<T>& polygons) {
 		for (const auto& pp : polygons) {
-			const auto& p = pp.getPolygon();
+			const auto& p = pp->getPolygon();
 			for (const auto& v : p->getVertices()) {
 				const auto& ps = v->toPositionArray();
 				positions.insert(positions.end(), ps.begin(), ps.end());
@@ -157,7 +157,7 @@ public:
 
 	~RenderingBuffer() = default;
 
-	void add(const PolygonObjectList<T>& polygons) {
+	void add(const PolygonObjectSPtrList<T>& polygons) {
 		clear();
 		wfRenderingCommand->build(polygons);
 		normalRenderingCommand->build(polygons);

@@ -37,7 +37,10 @@ private:
 };
 
 template<typename T>
-using PolygonObjectList = std::list < PolygonObject<T> > ;
+using PolygonObjectSPtr = std::shared_ptr < PolygonObject<T> > ;
+
+template<typename T>
+using PolygonObjectSPtrList = std::list < PolygonObjectSPtr<T> > ;
 
 template<typename T>
 class PolygonFactory final : public ObjectFactory, private UnCopyable
@@ -56,7 +59,7 @@ public:
 		return (*this);
 	}
 
-	PolygonObject<T> create(const Math::ScalarSpace3d<float>& ss)
+	PolygonObjectSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
@@ -67,7 +70,7 @@ public:
 		return add(polygon);
 	}
 
-	PolygonObject<T> create(const Math::BitSpace3d<float>& bs) {
+	PolygonObjectSPtr<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
@@ -77,14 +80,14 @@ public:
 		return add(polygon);
 	}
 
-	PolygonObject<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObjectSPtr<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
-	PolygonObject<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObjectSPtr<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
@@ -99,23 +102,23 @@ public:
 
 	Graphics::PolygonSPtr<T> find(const unsigned int id) {
 		for (const auto& p : polygons) {
-			if (p.getId() == id) {
-				return p.getPolygon();
+			if (p->getId() == id) {
+				return p->getPolygon();
 			}
 		}
 		return nullptr;
 	}
 
 
-	PolygonObjectList<T> getPolygons() const { return polygons; }
+	PolygonObjectSPtrList<T> getPolygons() const { return polygons; }
 
 private:
-	PolygonObjectList<T> polygons;
+	PolygonObjectSPtrList<T> polygons;
 
 	Math::MarchingCube<T> mc;
 
-	PolygonObject<T> add(Graphics::PolygonSPtr<float>& p) {
-		this->polygons.push_back( PolygonObject<float>( p, getNextId() ) );
+	PolygonObjectSPtr<T> add(Graphics::PolygonSPtr<float>& p) {
+		this->polygons.push_back( std::make_shared< PolygonObject<float> >( p, getNextId() ) );
 		return polygons.back();
 	}
 
