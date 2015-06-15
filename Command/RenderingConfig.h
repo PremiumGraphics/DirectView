@@ -76,11 +76,11 @@ template<typename T>
 class RenderingConfig {
 public:
 	RenderingConfig() :
-		wxConfig( std::make_shared< WireframeConfig<T> ),
-		nConfig(std::make_shared < NormalConfig<T>  )
+		wfConfig( std::make_shared< WireframeConfig<T> >() ),
+		nConfig(std::make_shared < NormalConfig<T> >()  )
 	{}
 
-	WireframeConfig<T> getWireframeConfig() const { return wfConfig; }
+	WireframeConfigSPtr<T> getWireframeConfig() const { return wfConfig; }
 
 	NormalConfigSPtr<T> getNormalConfig() const { return nConfig; }
 
@@ -90,7 +90,7 @@ public:
 	}
 
 private:
-	WireframeConfig<T> wfConfig;
+	WireframeConfigSPtr<T> wfConfig;
 	NormalConfigSPtr<T> nConfig;
 };
 

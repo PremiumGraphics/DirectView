@@ -620,10 +620,12 @@ void Frame::setRendering()
 	buffer->add( factory.getScalarSpaceFactory()->getSpaces());
 	buffer->add( factory.getMetaballFactory()->getBalls() );
 
-	const bool b = config.getRenderingConfig().drawBB();
+	/*
+	const bool b = config.getRenderingConfig().get RenderingConfig().drawBB();
 	if (b) {
 		buffer->getWireframeCommand()->build(factory.getDrawableFactory()->getPolygons());
 	}
+	*/
 	view->Refresh();
 
 }
@@ -688,10 +690,12 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
-	dialog.set(config.getRenderingConfig());
+	RenderingConfigSPtr<float> rConfig = config.getRenderingConfig();
+	WireframeConfigSPtr<float> wfConfig = rConfig->getWireframeConfig();
+	dialog.set( *wfConfig);
 	if (dialog.ShowModal() == wxID_OK) {
-		config.setRenderingConfig( dialog.get() );
-		view->setConfig( dialog.get());
+		*wfConfig = dialog.get();
+		view->setConfig(*wfConfig);
 		setRendering();
 	}
 }
@@ -699,10 +703,13 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnNormalConfig(wxRibbonButtonBarEvent& e)
 {
 	NormalConfigDialog<float> dialog(this);
-	dialog.set(config.getNormalConfig());
+	RenderingConfigSPtr<float> rConfig = config.getRenderingConfig();
+	NormalConfigSPtr<float> nConfig = rConfig->getNormalConfig();
+
+	dialog.set(*nConfig);
 	if (dialog.ShowModal() == wxID_OK) {
-		config.setNormalConfig( dialog.get());
-		view->setNormalConfig(dialog.get());
+		*nConfig = dialog.get();
+		view->setNormalConfig(*nConfig);
 		setRendering();
 	}
 }

@@ -83,7 +83,8 @@ private:
 template<typename T>
 class MainConfig{
 public:
-	MainConfig()
+	MainConfig() :
+		renderingConfig(std::make_shared<RenderingConfig<T> >() )
 	{
 	}
 
@@ -95,19 +96,12 @@ public:
 
 	void setMetaballConfig(const MetaballConfig<T>& config) { this->metaballConfig = config; }
 
-	WireframeConfig<T> getRenderingConfig() const { return renderingConfig; }
-
-	void setRenderingConfig(const WireframeConfig<T>& config) { this->renderingConfig = config; }
-
-	NormalConfig<T> getNormalConfig() const { return normalConfig; }
-
-	void setNormalConfig(const NormalConfig<T>& config) { this->normalConfig = config; }
+	RenderingConfigSPtr<T> getRenderingConfig() const { return renderingConfig;}
 
 private:
 	GridConfig<T> gridConfig;
 	MetaballConfig<T> metaballConfig;
-	WireframeConfig<T> renderingConfig;
-	NormalConfig<T> normalConfig;
+	RenderingConfigSPtr<T> renderingConfig;
 };
 	}
 }
