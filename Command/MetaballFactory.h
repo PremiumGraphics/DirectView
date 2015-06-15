@@ -10,25 +10,24 @@
 
 #include "MainConfig.h"
 
+#include "Object.h"
+
 namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class MetaballId
+class MetaballId final : public Object<T>
 {
 public:
 	MetaballId(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
-		metaball(metaball),
-		id(id)
+		Object( id ),
+		metaball(metaball)
 	{}
 
 	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
 
-	unsigned int getId() const { return id; }
-
 private:
 	Math::MetaballSPtr<T> metaball;
-	unsigned int id;
 };
 
 template<typename T>

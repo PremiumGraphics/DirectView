@@ -20,6 +20,7 @@
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="MainFactory.h" />
     <ClInclude Include="MetaballFactory.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="PickCommand.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="RenderingBuffer.h" />

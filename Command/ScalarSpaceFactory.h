@@ -4,33 +4,20 @@
 #include "../Math/ScalarSpace.h"
 #include "MainConfig.h"
 
-#include <map>
+#include "Object.h"
+
 #include <memory>
 
 namespace Crystal{
 	namespace Command {
 
-template<typename T>
-class ObjectIdBase {
-public:
-	ObjectIdBase (const unsigned int id) :
-		id( id )
-	{}
-
-	virtual ~ObjectIdBase(){}
-
-	unsigned int getId() const { return id; }
-
-private:
-	unsigned int id;
-};
 
 template<typename T>
-class ScalarSpaceId final : public ObjectIdBase<T>
+class ScalarSpaceId final : public Object<T>
 {
 public:
 	ScalarSpaceId(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
-		ObjectIdBase( id ),
+		Object( id ),
 		ss( ss )
 	{}
 
