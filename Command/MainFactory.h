@@ -7,7 +7,6 @@
 #include "PolygonFactory.h"
 #include "LightFactory.h"
 #include "MetaballFactory.h"
-#include "DrawableFactory.h"
 
 #include <memory>
 #include <map>
@@ -23,8 +22,7 @@ public:
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
-		metaballFactory(std::make_shared< MetaballObjectFactory<T> >()),
-		drawableFactory(std::make_shared< DrawableFactory<T> >())
+		metaballFactory(std::make_shared< MetaballObjectFactory<T> >())
 	{
 	}
 
@@ -33,7 +31,6 @@ public:
 		ssFactory->clear();
 		polygonFactory->clear();
 		metaballFactory->clear();
-		drawableFactory->clear();
 	}
 
 	void add(const MetaballObject<T>& metaball)
@@ -46,8 +43,8 @@ public:
 	{
 		const auto ss = getScalarSpaceFactory()->create(config);
 		getPolygonFactory()->create(*(ss.getScalarSpace()));
-		getDrawableFactory()->createBoundingBox(*ss.getScalarSpace());
-		getDrawableFactory()->createGridCells(*ss.getScalarSpace());
+		getPolygonFactory()->createBoundingBox(*ss.getScalarSpace());
+		getPolygonFactory()->createGridCells(*ss.getScalarSpace());
 	}
 
 	void polygonize()
@@ -69,7 +66,6 @@ public:
 
 	MetaballFactorySPtr<T> getMetaballFactory() const { return metaballFactory; }
 
-	DrawableFactorySPtr<T> getDrawableFactory() const { return drawableFactory; }
 
 	Object* find(const int id) {
 		if (ssFactory == nullptr) {
@@ -89,7 +85,6 @@ private:
 	ScalarSpaceFactorySPtr<T> ssFactory;
 	PolygonFactorySPtr<T> polygonFactory;
 	MetaballFactorySPtr<T> metaballFactory;
-	DrawableFactorySPtr<T> drawableFactory;
 };
 
 template<typename T>

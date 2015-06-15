@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Command\ScalarSpaceFactory.h" />
-    <ClInclude Include="DrawableFactory.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="LightFactory.h" />
     <ClInclude Include="MainCommand.h" />

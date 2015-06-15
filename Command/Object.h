@@ -22,7 +22,7 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	bool isVisiable() const { return visible; }
+	bool isVisible() const { return visible; }
 
 	//ScalarSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
 	//	for (auto& b : spaces) {

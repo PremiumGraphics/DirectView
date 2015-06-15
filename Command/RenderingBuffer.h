@@ -27,10 +27,13 @@ public:
 	}
 
 
-	void build(const PolygonIdList<T>& polygons) {
+	void build(const PolygonObjectList<T>& polygons) {
 		// positions;
 		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
 		for (const auto& pp : polygons) {
+			if (!pp.isVisible()) {
+				continue;
+			}
 			const auto p = pp.getPolygon();
 			for (const auto& e : p->getEdges()) {
 				const auto& start = e->getStartPosition().toArray();
@@ -115,7 +118,7 @@ public:
 		normals.clear();
 	}
 
-	void build(const PolygonIdList<T>& polygons) {
+	void build(const PolygonObjectList<T>& polygons) {
 		for (const auto& pp : polygons) {
 			const auto& p = pp.getPolygon();
 			for (const auto& v : p->getVertices()) {
@@ -154,7 +157,7 @@ public:
 
 	~RenderingBuffer() = default;
 
-	void add(const PolygonIdList<T>& polygons) {
+	void add(const PolygonObjectList<T>& polygons) {
 		clear();
 		wfRenderingCommand->build(polygons);
 		normalRenderingCommand->build(polygons);

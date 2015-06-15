@@ -34,7 +34,7 @@ private:
 };
 
 template<typename T>
-using PolygonIdList = std::list < PolygonObject<T> > ;
+using PolygonObjectList = std::list < PolygonObject<T> > ;
 
 template<typename T>
 class PolygonFactory final : public ObjectFactory, private UnCopyable
@@ -74,6 +74,26 @@ public:
 		return add(polygon);
 	}
 
+	PolygonObject<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		Math::Box<T> bb(ss.getStart(), ss.getEnd());
+		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
+		return add(polygon);
+	}
+
+	PolygonObject<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		const auto& cells = ss.toCells();
+		for (const auto& c : cells) {
+			const auto& space = c.getSpace();
+			Math::Box<T> bb(space.getStart(), space.getEnd());
+			polygon->add(bb, Graphics::ColorRGBA<float>::Black());
+			//polygon->add( )
+		}
+		return add(polygon);
+	}
+
+
 	Graphics::PolygonSPtr<T> find(const unsigned int id) {
 		for (const auto& p : polygons) {
 			if (p.getId() == id) {
@@ -84,10 +104,10 @@ public:
 	}
 
 
-	PolygonIdList<T> getPolygons() const { return polygons; }
+	PolygonObjectList<T> getPolygons() const { return polygons; }
 
 private:
-	PolygonIdList<T> polygons;
+	PolygonObjectList<T> polygons;
 
 	Math::MarchingCube<T> mc;
 
