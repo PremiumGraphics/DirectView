@@ -57,6 +57,10 @@ public:
 		charge( charge )
 	{}
 
+	Metaball& move(const Vector3d<T>& vector) {
+		center += vector;
+		return (*this);
+	}
 
 	T getRadius() const { return radius; }
 

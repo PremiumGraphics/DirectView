@@ -18,6 +18,8 @@ class LightObject : public Object
 	{
 	}
 
+	Type getType() const { return Type::Light; }
+
 	Graphics::LightSPtr<T> getLight() const { return light; }
 
 private:

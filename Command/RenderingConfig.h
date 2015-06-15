@@ -108,8 +108,8 @@ public:
 	void setPointConfig(const PointConfig<T>& config) { pConfig = config; }
 
 	void init() {
-		wfConfig->init();
-		nConfig->init();
+		wfConfig.init();
+		nConfig.init();
 		pConfig.init();
 	}
 

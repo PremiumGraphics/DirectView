@@ -29,6 +29,12 @@ public:
 
 	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
 
+	virtual void move(const Math::Vector3d<float>& vector) override
+	{
+		metaball->move(vector);
+	};
+
+
 private:
 	Math::MetaballSPtr<T> metaball;
 };
@@ -74,6 +80,8 @@ public:
 		}
 		return nullptr;
 	}
+
+
 
 
 private:

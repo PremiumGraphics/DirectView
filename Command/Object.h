@@ -20,7 +20,7 @@ public:
 		selected(false)
 	{}
 
-	virtual ~Object(){}
+	virtual ~Object(){};
 
 	virtual Type getType() const = 0;
 
@@ -30,11 +30,19 @@ public:
 
 	bool isInvisible() const { return !isVisible(); }
 
-	bool setVisible() { visible = true; }
+	void setVisible() { visible = true; }
 
-	bool setInvisible() { visible = false; }
+	void setInvisible() { visible = false; }
 
 	bool isSelected() const { return selected; }
+
+	void setSelect() { selected = true; }
+
+	void setUnselect() { selected = false; }
+
+	std::string getName() const { return name; }
+
+	virtual void move(const Math::Vector3d<float>& vector){};
 
 	//ScalarSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
 	//	for (auto& b : spaces) {
@@ -60,6 +68,7 @@ private:
 	unsigned int id;
 	bool visible;
 	bool selected;
+	std::string name;
 };
 
 class NullObject : public Object{
