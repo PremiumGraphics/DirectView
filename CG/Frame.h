@@ -66,9 +66,6 @@ private:
 
 	void OnCreateMetaball(wxRibbonButtonBarEvent& e);
 
-	void OnCreateCylinder(wxRibbonButtonBarEvent& e);
-
-	void OnCreateBox(wxRibbonButtonBarEvent& e);
 
 	void OnCreateGrid(wxRibbonButtonBarEvent& e);
 

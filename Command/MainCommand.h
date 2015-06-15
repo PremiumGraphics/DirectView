@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_COMMAND_MAIN_COMMAND_H__
 #define __CRYSTAL_COMMAND_MAIN_COMMAND_H__
 
-#include "BitSpaceTransformCommand.h"
 #include "RenderingBuffer.h"
 
 #include "../Util/UnCopyable.h"
@@ -13,7 +12,6 @@ class MainCommand final : private UnCopyable
 {
 public:
 	MainCommand() :
-		bsTransformCommand(std::make_shared<BitSpaceTransformCommand>()),
 		renderingBuffer(std::make_shared<RenderingBuffer<float>>() )
 	{}
 
@@ -21,12 +19,9 @@ public:
 		renderingBuffer->clear();
 	}
 
-	BitSpaceTransformCommandSPtr getBitSpaceTransformCommand() const { return bsTransformCommand; }
-
 	RenderingBufferSPtr<float> getRenderingBuffer() const { return renderingBuffer; }
 
 private:
-	BitSpaceTransformCommandSPtr bsTransformCommand;
 	RenderingBufferSPtr<float> renderingBuffer;
 };
 

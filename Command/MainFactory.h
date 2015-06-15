@@ -3,7 +3,6 @@
 
 #include "../Graphics/Camera.h"
 
-#include "BitSpaceFactory.h"
 #include "ScalarSpaceFactory.h"
 #include "PolygonFactory.h"
 #include "LightFactory.h"
@@ -22,7 +21,6 @@ public:
 	MainFactory() :
 		lightFactory(std::make_shared< LightFactory<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		bsFactory(std::make_shared< BitSpaceFactory<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
 		metaballFactory(std::make_shared< MetaballFactory<T> >()),
@@ -32,7 +30,6 @@ public:
 
 	void clear()
 	{
-		bsFactory->clear();
 		ssFactory->clear();
 		polygonFactory->clear();
 		metaballFactory->clear();
@@ -64,8 +61,6 @@ public:
 
 	LightFactorySPtr<T> getLightFactory() const { return lightFactory; }
 
-	BitSpaceFactorySPtr<T> getBitSpaceFactory() const { return bsFactory; }
-
 	ScalarSpaceFactorySPtr<T> getScalarSpaceFactory() const { return ssFactory; }
 
 	PolygonFactorySPtr<T> getPolygonFactory() const { return polygonFactory; }
@@ -79,7 +74,6 @@ public:
 private:
 	Graphics::CameraSPtr<T> camera;
 	LightFactorySPtr<T> lightFactory;
-	BitSpaceFactorySPtr<T> bsFactory;
 	ScalarSpaceFactorySPtr<T> ssFactory;
 	PolygonFactorySPtr<T> polygonFactory;
 	MetaballFactorySPtr<T> metaballFactory;

@@ -593,20 +593,6 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	setRendering();
 }
 
-void Frame::OnCreateCylinder(wxRibbonButtonBarEvent& e)
-{
-	const auto bs = factory.getBitSpaceFactory()->createCylinder(20, 20, 20);
-	factory.getPolygonFactory()->create(*bs);
-	setRendering();
-}
-
-void Frame::OnCreateBox(wxRibbonButtonBarEvent& e)
-{
-	const auto bs = factory.getBitSpaceFactory()->createBox(20, 20, 20);
-	factory.getPolygonFactory()->create(*bs);
-	setRendering();
-}
-
 void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
 	factory.add( config.getGridConfig() );
