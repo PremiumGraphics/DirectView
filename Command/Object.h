@@ -7,22 +7,34 @@ namespace Crystal {
 class Object {
 public:
 	enum class Type {
+		NullType = -1,
 		ScalarSpace = 0,
 		Metaball = 1,
 		Light = 2,
 		Polygon = 3,
 	};
 
-	Object(const unsigned int id) :
+	explicit Object(const unsigned int id) :
 		id(id),
-		visible(true)
+		visible(true),
+		selected(false)
 	{}
 
 	virtual ~Object(){}
 
+	virtual Type getType() const = 0;
+
 	unsigned int getId() const { return id; }
 
 	bool isVisible() const { return visible; }
+
+	bool isInvisible() const { return !isVisible(); }
+
+	bool setVisible() { visible = true; }
+
+	bool setInvisible() { visible = false; }
+
+	bool isSelected() const { return selected; }
 
 	//ScalarSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
 	//	for (auto& b : spaces) {
@@ -47,12 +59,16 @@ public:
 private:
 	unsigned int id;
 	bool visible;
+	bool selected;
 };
 
 class NullObject : public Object{
 	NullObject() :
 		Object(-1)
 	{}
+
+	Type getType() const { return Type::NullType; }
+
 
 	~NullObject(){}
 };

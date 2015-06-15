@@ -24,6 +24,9 @@ public:
 		metaball(metaball)
 	{}
 
+	Type getType() const { return Type::Metaball; }
+
+
 	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
 
 private:
@@ -31,7 +34,10 @@ private:
 };
 
 template<typename T>
-using MetaballObjectList = std::list < MetaballObject<T> > ;
+using MetaballObjectSPtr = std::shared_ptr < MetaballObject<T> > ;
+
+template<typename T>
+using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
 template<typename T>
 class MetaballObjectFactory final : public ObjectFactory, private UnCopyable
@@ -50,7 +56,7 @@ public:
 		return (*this);
 	}
 
-	MetaballObject<T> create(const MetaballConfig<T>& config) {
+	MetaballObjectSPtr<T> create(const MetaballConfig<T>& config) {
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
@@ -58,7 +64,7 @@ public:
 		return add(metaball);
 	}
 
-	MetaballObjectList<T> getBalls() const { return balls; }
+	MetaballObjectSPtrList<T> getBalls() const { return balls; }
 
 	MetaballObject<T> find(const unsigned int id) {
 		for (const auto& b : balls) {
@@ -71,10 +77,10 @@ public:
 
 
 private:
-	MetaballObjectList<T> balls;
+	MetaballObjectSPtrList<T> balls;
 
-	MetaballObject<T> add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back(MetaballObject<T>(ball, getNextId()));
+	MetaballObjectSPtr<T> add(const Math::MetaballSPtr<T>& ball) {
+		balls.push_back( std::make_shared< MetaballObject<T> >(ball, getNextId()));
 		return balls.back();
 	}
 

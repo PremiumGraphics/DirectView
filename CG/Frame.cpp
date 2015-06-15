@@ -588,7 +588,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 
 	const auto& mConfig = config.getMetaballConfig();
 	const auto& metaball = factory.getMetaballFactory()->create( mConfig );
-	factory.add(metaball);
+	factory.add(*metaball);
 	OnCreatePolygon(e);
 	setRendering();
 }

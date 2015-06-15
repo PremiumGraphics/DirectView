@@ -5,8 +5,24 @@
 
 #include "../Util/UnCopyable.h"
 
+#include "Object.h"
+
 namespace Crystal {
 	namespace Command {
+
+template<typename T>
+class LightObject : public Object
+{
+	LightObject(const Graphics::LightSPtr<T>& light) :
+		light( light )
+	{
+	}
+
+	Graphics::LightSPtr<T> getLight() const { return light; }
+
+private:
+	Graphics::LightSPtr<T> light;
+};
 
 template<typename T>
 class LightFactory final : private UnCopyable

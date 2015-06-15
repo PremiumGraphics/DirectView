@@ -24,6 +24,9 @@ public:
 
 	~ScalarSpaceObject(){}
 
+	Type getType() const { return Type::ScalarSpace; }
+
+
 	Math::ScalarSpace3dSPtr<T> getScalarSpace() const { return ss; }
 
 private:

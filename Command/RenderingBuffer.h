@@ -169,9 +169,9 @@ public:
 		}
 	}
 
-	void add(const MetaballObjectList<T>& balls) {
+	void add(const MetaballObjectSPtrList<T>& balls) {
 		for (const auto& b : balls) {
-			pointRenderingCommand->build(b);
+			pointRenderingCommand->build(*b);
 		}
 	}
 

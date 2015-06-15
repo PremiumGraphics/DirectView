@@ -27,6 +27,9 @@ public:
 		polygon( polygon )
 	{}
 
+	Type getType() const { return Type::Polygon; }
+
+
 	Graphics::PolygonSPtr<T> getPolygon() const { return polygon; }
 
 private:
