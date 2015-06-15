@@ -78,14 +78,14 @@ public:
 	}
 
 	PolygonObject<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
 	PolygonObject<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
 			const auto& space = c.getSpace();

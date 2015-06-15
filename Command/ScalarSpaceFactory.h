@@ -27,14 +27,17 @@ public:
 	Type getType() const { return Type::ScalarSpace; }
 
 
-	Math::ScalarSpace3dSPtr<T> getScalarSpace() const { return ss; }
+	Math::ScalarSpace3dSPtr<T> getSpace() const { return ss; }
 
 private:
 	Math::ScalarSpace3dSPtr<T> ss;
 };
 
 template<typename T>
-using ScalarSpaceIdList = std::list < ScalarSpaceObject<T> > ;
+using ScalarSpaceObjectSPtr = std::shared_ptr < ScalarSpaceObject<T> > ;
+
+template<typename T>
+using ScalarSpaceObjectSPtrList = std::list < ScalarSpaceObjectSPtr<T> > ;
 
 
 template<typename T>
@@ -51,7 +54,7 @@ public:
 		spaces.clear();
 	}
 
-	ScalarSpaceObject<T> create(const GridConfig<T>& config)
+	ScalarSpaceObjectSPtr<T> create(const GridConfig<T>& config)
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
 		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>(config.getSpace(), grid));
@@ -59,12 +62,12 @@ public:
 		return add(ss);
 	}
 
-	ScalarSpaceIdList<T> getSpaces() const { return spaces; }
+	ScalarSpaceObjectSPtrList<T> getSpaces() const { return spaces; }
 
-	ScalarSpaceObject<T>* find(const unsigned int id) {
-		for (auto& s: spaces) {
-			if (s.getId() == id) {
-				return &s;
+	ScalarSpaceObjectSPtr<T> find(const unsigned int id) {
+		for (const auto& s: spaces) {
+			if (s->getId() == id) {
+				return s;
 			}
 		}
 		return nullptr;
@@ -72,10 +75,10 @@ public:
 
 
 private:
-	ScalarSpaceIdList<T> spaces;
+	ScalarSpaceObjectSPtrList<T> spaces;
 
-	ScalarSpaceObject<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
-		spaces.push_back( ScalarSpaceObject<float>( getNextId(), ss) );
+	ScalarSpaceObjectSPtr<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
+		spaces.push_back( std::make_shared< ScalarSpaceObject<float> >( getNextId(), ss) );
 		return spaces.back();
 	}
 

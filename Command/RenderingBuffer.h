@@ -163,9 +163,9 @@ public:
 		normalRenderingCommand->build(polygons);
 	}
 
-	void add(const ScalarSpaceIdList<T>& sss) {
+	void add(const ScalarSpaceObjectSPtrList<T>& sss) {
 		for (const auto& ss : sss) {
-			pointRenderingCommand->build(*ss.getScalarSpace(), ss.getId());
+			pointRenderingCommand->build(*ss->getSpace(), ss->getId());
 		}
 	}
 

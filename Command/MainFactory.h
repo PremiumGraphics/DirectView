@@ -36,21 +36,21 @@ public:
 	void add(const MetaballObject<T>& metaball)
 	{
 		auto ss = ssFactory->getSpaces().front();
-		ss.getScalarSpace()->add(*metaball.getMetaball());
+		ss->getSpace()->add(*metaball.getMetaball());
 	}
 
 	void add(const GridConfig<T>& config)
 	{
 		const auto ss = getScalarSpaceFactory()->create(config);
-		getPolygonFactory()->create(*(ss.getScalarSpace()));
-		getPolygonFactory()->createBoundingBox(*ss.getScalarSpace());
-		getPolygonFactory()->createGridCells(*ss.getScalarSpace());
+		getPolygonFactory()->create(*(ss->getSpace()));
+		getPolygonFactory()->createBoundingBox(*ss->getSpace());
+		getPolygonFactory()->createGridCells(*ss->getSpace());
 	}
 
 	void polygonize()
 	{
 		for (const auto& s : getScalarSpaceFactory()->getSpaces()) {
-			getPolygonFactory()->create(*s.getScalarSpace());
+			getPolygonFactory()->create(*s->getSpace());
 		}
 	}
 
@@ -71,10 +71,12 @@ public:
 		if (ssFactory == nullptr) {
 			return nullptr;
 		}
+		/*
 		const auto ptr = ssFactory->find(id);
 		if (ptr != nullptr) {
-			return ptr;
+			return ptr->get();
 		}
+		*/
 		return nullptr;
 		//const auto ptr2 = ballFactory->find()
 	}
