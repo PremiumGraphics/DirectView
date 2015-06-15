@@ -35,7 +35,7 @@ public:
 		charge->SetRange(-100, 100);
 
 		new wxButton(this, wxID_OK, "OK", wxPoint(300, 300));
-		new wxButton(this, wxID_CANCEL, "CANCEL", wxPoint(300, 400));
+		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 
 	}
 

@@ -95,6 +95,8 @@ private:
 
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
+	void OnPointConfig(wxRibbonButtonBarEvent& e);
+
 	void setRendering();
 
 private:

@@ -168,6 +168,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
+	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
 	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
@@ -690,12 +691,14 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
-	RenderingConfigSPtr<float> rConfig = config.getRenderingConfig();
-	WireframeConfigSPtr<float> wfConfig = rConfig->getWireframeConfig();
-	dialog.set( *wfConfig);
+	RenderingConfig<float> rConfig = config.getRenderingConfig();
+	WireframeConfig<float> wfConfig = rConfig.getWireframeConfig();
+	dialog.set( wfConfig);
 	if (dialog.ShowModal() == wxID_OK) {
-		*wfConfig = dialog.get();
-		view->setConfig(*wfConfig);
+		wfConfig = dialog.get();
+		rConfig.setWireframeConfig(wfConfig);
+		config.setRenderingConfig(rConfig);
+		view->setConfig(config.getRenderingConfig());
 		setRendering();
 	}
 }
@@ -703,19 +706,34 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnNormalConfig(wxRibbonButtonBarEvent& e)
 {
 	NormalConfigDialog<float> dialog(this);
-	RenderingConfigSPtr<float> rConfig = config.getRenderingConfig();
-	NormalConfigSPtr<float> nConfig = rConfig->getNormalConfig();
+	RenderingConfig<float> rConfig = config.getRenderingConfig();
+	NormalConfig<float>& nConfig = rConfig.getNormalConfig();
 
-	dialog.set(*nConfig);
+	dialog.set(nConfig);
 	if (dialog.ShowModal() == wxID_OK) {
-		*nConfig = dialog.get();
-		view->setNormalConfig(*nConfig);
+		nConfig = dialog.get();
+		rConfig.setNormalConfig(nConfig);
+		view->setConfig(config.getRenderingConfig());
 		setRendering();
 	}
 }
 
-
 void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("TODO");
+}
+
+void Frame::OnPointConfig(wxRibbonButtonBarEvent& e)
+{
+	PointConfigDialog<float> dialog(this);
+	RenderingConfig<float> rConfig = config.getRenderingConfig();
+	PointConfig<float> pConfig = rConfig.getPointConfig();
+	dialog.set(rConfig.getPointConfig());
+	if (dialog.ShowModal() == wxID_OK) {
+		pConfig = dialog.get();
+		rConfig.setPointConfig(pConfig);
+		config.setRenderingConfig(rConfig);
+		view->setConfig(config.getRenderingConfig());
+		setRendering();
+	}
 }

@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_COMMAND_RENDERING_CONFIG_H__
 #define __CRYSTAL_COMMAND_RENDERING_CONFIG_H__
 
-#include <memory>
-
 namespace Crystal {
 	namespace Command {
 
@@ -14,33 +12,25 @@ public:
 		setDefault();
 	}
 
-	WireframeConfig(const T pointSize, const T lineWidth, const bool drawBB_) :
-		pointSize(pointSize),
+	WireframeConfig( const T lineWidth, const bool drawBB_) :
 		lineWidth(lineWidth),
 		drawBB_(drawBB_)
 	{
 	}
 
 	void setDefault() {
-		pointSize = 10;
 		lineWidth = 1;
 		drawBB_ = true;
 	}
-
-	T getPointSize() const { return pointSize; }
 
 	T getLineWidth() const { return lineWidth; }
 
 	bool drawBB() const { return drawBB_; }
 
 private:
-	T pointSize;
 	T lineWidth;
 	bool drawBB_;
 };
-
-template<typename T>
-using WireframeConfigSPtr = std::shared_ptr < WireframeConfig<T> >;
 
 template<typename T>
 class NormalConfig {
@@ -69,33 +59,60 @@ private:
 	T lineWidth;
 };
 
+
 template<typename T>
-using NormalConfigSPtr = std::shared_ptr < NormalConfig<T> > ;
+class PointConfig
+{
+public:
+	PointConfig()
+	{
+		setDefault();
+	}
+
+	explicit PointConfig(const T pointSize) :
+		pointSize( pointSize )
+	{}
+
+	void setDefault() {
+		pointSize = 10;
+	}
+
+	T getPointSize() const { return pointSize; }
+
+private:
+	T pointSize;
+};
+
 
 template<typename T>
 class RenderingConfig {
 public:
-	RenderingConfig() :
-		wfConfig( std::make_shared< WireframeConfig<T> >() ),
-		nConfig(std::make_shared < NormalConfig<T> >()  )
+	RenderingConfig()
 	{}
 
-	WireframeConfigSPtr<T> getWireframeConfig() const { return wfConfig; }
+	WireframeConfig<T> getWireframeConfig() const { return wfConfig; }
 
-	NormalConfigSPtr<T> getNormalConfig() const { return nConfig; }
+	void setWireframeConfig(const WireframeConfig<T>& config) { wfConfig = config; }
+
+	NormalConfig<T> getNormalConfig() const { return nConfig; }
+
+	void setNormalConfig(const NormalConfig<T>& config) { nConfig = config; }
+
+	PointConfig<T> getPointConfig() const { return pConfig; }
+
+	void setPointConfig(const PointConfig<T>& config) { pConfig = config; }
 
 	void init() {
-		wfConfig.init();
-		nConfig.init();
+		wfConfig->init();
+		nConfig->init();
+		pConfig.init();
 	}
 
 private:
-	WireframeConfigSPtr<T> wfConfig;
-	NormalConfigSPtr<T> nConfig;
+	WireframeConfig<T> wfConfig;
+	NormalConfig<T> nConfig;
+	PointConfig<T> pConfig;
 };
-
-template<typename T>
-using RenderingConfigSPtr = std::shared_ptr < RenderingConfig<T> >;
 	}
 }
 

@@ -14,8 +14,6 @@ public:
 	WireframeConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "RenderingConfig", wxDefaultPosition, wxSize( 500, 500 ) )
 	{
-		new wxStaticText(this, wxID_ANY, "PointSize", wxPoint(0, 100));
-		pointSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
 
 		new wxStaticText(this, wxID_ANY, "LineWidth", wxPoint(0, 200));
 		lineWidth = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
@@ -28,15 +26,12 @@ public:
 	}
 
 	void set(const Command::WireframeConfig<float>& config) {
-		pointSize->SetValue( config.getPointSize() );
 		lineWidth->SetValue( config.getLineWidth() );
 		drawBB->SetValue( config.drawBB() );
 	}
 
 	Command::WireframeConfig<float> get() {
-		const auto p = pointSize->GetValue();
-		const auto l = lineWidth->GetValue();
-		return Command::WireframeConfig<float>(p, l, drawBB->GetValue());
+		return Command::WireframeConfig<float>( lineWidth->GetValue(), drawBB->GetValue());
 	}
 
 private:
@@ -52,8 +47,6 @@ public:
 	NormalConfigDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "NormalConfig", wxDefaultPosition, wxSize(500, 500))
 	{
-		//new wxStaticText(this, wxID_ANY, "PointSize", wxPoint(0, 100));
-		//pointSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
 
 		new wxStaticText(this, wxID_ANY, "LineWidth", wxPoint(0, 200));
 		lineWidth = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
@@ -80,9 +73,33 @@ public:
 	}
 
 private:
-	//wxSpinCtrlDouble* pointSize;
 	wxSpinCtrlDouble* lineWidth;
 	wxSpinCtrlDouble* normalScale;
+};
+
+template<typename T>
+class PointConfigDialog : public wxDialog
+{
+public:
+	PointConfigDialog(wxWindow* parent) :
+		wxDialog(parent, wxID_ANY, "PointConfig", wxDefaultPosition, wxSize(500, 500))
+	{
+		new wxStaticText(this, wxID_ANY, "PointSize", wxPoint(0, 100));
+		pointSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
+	}
+
+	void set(const Command::PointConfig<T>& config) {
+		pointSize->SetValue(config.getPointSize());
+	}
+
+	Command::PointConfig<T> get() {
+		const auto size = pointSize->GetValue();
+		return Command::PointConfig<T>(size);
+	}
+
+private:
+	wxSpinCtrlDouble* pointSize;
+
 };
 
 	}

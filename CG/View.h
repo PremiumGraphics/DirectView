@@ -48,12 +48,8 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	void setConfig(const Command::WireframeConfig<float>& config) {
+	void setConfig(const Command::RenderingConfig<float>& config) {
 		this->config = config;
-	}
-
-	void setNormalConfig(const Command::NormalConfig<float>& nc) {
-		this->nc = nc;
 	}
 
 private:
@@ -88,13 +84,14 @@ private:
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
 
+	Command::RenderingConfig<float> config;
+
+	float getPointSize() const { return config.getPointConfig().getPointSize(); }
+
+	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
+
+
 	Command::RenderingBufferSPtr<float> rCommand;
-	Command::WireframeConfig<float> config;
-	Command::NormalConfig<float> nc;
-
-	float getPointSize() const { return config.getPointSize(); }
-
-	float getLineWidth() const { return config.getLineWidth(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };
