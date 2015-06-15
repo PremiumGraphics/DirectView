@@ -74,9 +74,9 @@ public:
 	}
 
 	Command::NormalConfig<T> get() {
-		const auto l = lineWidth->GetValue();
 		const auto n = normalScale->GetValue();
-		return Command::NormalConfig<T>(l, n);
+		const auto l = lineWidth->GetValue();
+		return Command::NormalConfig<T>(n, l);
 	}
 
 private:

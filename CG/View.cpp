@@ -212,8 +212,10 @@ void View::draw(const wxSize& size)
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
+		glLineWidth( nc.getLineWidth() );
 		normalRenderer.positions = rCommand->getNormalRenderingCommand()->getPositions();
 		normalRenderer.normals = rCommand->getNormalRenderingCommand()->getNormals();
+		normalRenderer.scale = nc.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {

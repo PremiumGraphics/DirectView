@@ -13,7 +13,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-NormalRenderer::NormalRenderer()
+NormalRenderer::NormalRenderer() :
+scale( 1.0f)
 {
 }
 
@@ -132,7 +133,7 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	vectorLocation = glGetAttribLocation(shader.getId(), "vector");
 	glVertexAttribPointer(vectorLocation, 3, GL_FLOAT, GL_FALSE, 0, &(normals.front()));
-	ShaderUtil::setUniform(shader.getId(), "scale", 1.0f);
+	ShaderUtil::setUniform(shader.getId(), "scale", scale);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

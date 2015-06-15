@@ -52,6 +52,10 @@ public:
 		this->config = config;
 	}
 
+	void setNormalConfig(const Command::NormalConfig<float>& nc) {
+		this->nc = nc;
+	}
+
 private:
 	MODE mode;
 
@@ -86,6 +90,7 @@ private:
 
 	Command::RenderingBufferSPtr<float> rCommand;
 	Command::RenderingConfig<float> config;
+	Command::NormalConfig<float> nc;
 
 	float getPointSize() const { return config.getPointSize(); }
 

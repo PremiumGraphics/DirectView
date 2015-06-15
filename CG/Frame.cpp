@@ -702,6 +702,7 @@ void Frame::OnNormalConfig(wxRibbonButtonBarEvent& e)
 	dialog.set(config.getNormalConfig());
 	if (dialog.ShowModal() == wxID_OK) {
 		config.setNormalConfig( dialog.get());
+		view->setNormalConfig(dialog.get());
 		setRendering();
 	}
 }

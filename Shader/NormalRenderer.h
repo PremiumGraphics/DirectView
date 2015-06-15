@@ -27,6 +27,7 @@ public:
 
 	std::vector<float> positions;
 	std::vector<float> normals;
+	float scale;
 
 private:
 	Graphics::ShaderObject shader;
