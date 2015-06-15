@@ -7,6 +7,6 @@ using namespace Crystal::Command;
 
 TEST(MainFactoryTest, TestFind)
 {
-	MainFactory<float> factory;
+	Model<float> factory;
 	factory.find(0);
 }

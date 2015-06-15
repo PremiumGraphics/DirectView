@@ -27,7 +27,7 @@ private:
 };
 
 template<typename T>
-class LightFactory final : private UnCopyable
+class LightModel final : private UnCopyable
 {
 public:
 	Graphics::LightSPtr<T> build() {
@@ -47,7 +47,7 @@ private:
 };
 
 template<typename T>
-using LightFactorySPtr = std::shared_ptr< LightFactory<T> >;
+using LightFactorySPtr = std::shared_ptr< LightModel<T> >;
 
 	}
 }

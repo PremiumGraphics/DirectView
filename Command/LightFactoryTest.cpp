@@ -8,14 +8,14 @@ using namespace Crystal::Graphics;
 
 TEST(LightFactoryTest, TestBuild)
 {
-	LightFactory<float> factory;
+	LightModel<float> factory;
 	factory.build();
 	EXPECT_EQ(1, factory.getLights().size());
 }
 
 TEST(LightBuilderTest, TestRemove)
 {
-	LightFactory<float> factory;
+	LightModel<float> factory;
 	factory.build();
 	LightSPtr<float> l = factory.build();
 	factory.remove(l);

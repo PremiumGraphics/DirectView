@@ -81,9 +81,6 @@ public:
 		return nullptr;
 	}
 
-
-
-
 private:
 	MetaballObjectSPtrList<T> balls;
 
@@ -95,7 +92,7 @@ private:
 };
 
 template<typename T>
-using MetaballObjectModelSPtr = std::shared_ptr < MetaballObjectModel<T> > ;
+using MetaballModelSPtr = std::shared_ptr < MetaballObjectModel<T> > ;
 	}
 }
 

@@ -16,10 +16,10 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class MainFactory {
+class Model {
 public:
-	MainFactory() :
-		lightFactory(std::make_shared< LightFactory<T> >()),
+	Model() :
+		lightFactory(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		ssFactory(std::make_shared< ScalarSpaceFactory<T> >()),
 		polygonFactory(std::make_shared< PolygonFactory<T> >()),
@@ -67,7 +67,7 @@ public:
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
-	MetaballObjectModelSPtr<T> getMetaballFactory() const { return metaballFactory; }
+	MetaballModelSPtr<T> getMetaballFactory() const { return metaballFactory; }
 
 	RenderingBufferSPtr<T> getRenderingBuffer() const { return renderingBuffer; }
 
@@ -91,12 +91,12 @@ private:
 	LightFactorySPtr<T> lightFactory;
 	ScalarSpaceFactorySPtr<T> ssFactory;
 	PolygonFactorySPtr<T> polygonFactory;
-	MetaballObjectModelSPtr<T> metaballFactory;
+	MetaballModelSPtr<T> metaballFactory;
 	RenderingBufferSPtr<T> renderingBuffer;
 };
 
 template<typename T>
-using MainFactorySPtr = std::shared_ptr < MainFactory<T> > ;
+using ModelSPtr = std::shared_ptr < Model<T> > ;
 	}
 }
 
