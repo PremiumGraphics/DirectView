@@ -77,7 +77,10 @@ private:
 
 	void OnBooleanNot(wxRibbonButtonBarEvent& e);
 
-	void OnSpaceTransform(wxRibbonButtonBarEvent& e);
+	void OnTranslate(wxRibbonButtonBarEvent& e);
+
+	void OnRotate(wxRibbonButtonBarEvent& e);
+
 
 	void OnCreatePolygon(wxRibbonButtonBarEvent& e);
 

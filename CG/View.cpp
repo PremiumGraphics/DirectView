@@ -169,7 +169,7 @@ void View::OnMouse( wxMouseEvent& event )
 			}
 			*/
 		}
-		else if (mode == SPACE_TRANSFORM) {
+		else if (mode == TRANSLATE) {
 			//ssTransformCmd->move(pos);
 		}
 		else {

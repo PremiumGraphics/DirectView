@@ -28,17 +28,15 @@ enum {
 
 	ID_CREATE_LIGHT,
 	ID_CAMERA_TRANSLATE,
-	//ID_PICK_VERTEX,
-	ID_SPACE_TRANSFROM,
 
 	ID_IMPORT,
 	ID_EXPORT,
 
 	ID_GL_CONFIG,
 
-	//ID_GRID_CONFIG,
-
-	ID_OFF_SCREEN_CONFIG,
+	ID_SELECTED_TRANSLATE,
+	ID_SELECTED_SCALE,
+	ID_SELECTED_ROTATE,
 
 	ID_CREATE_METABALL,
 	ID_CREATE_CYLINDER,
@@ -144,14 +142,14 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-	operation->AddButton(ID_SPACE_TRANSFROM, "Translate", wxBitmap(32, 32));
-	//operation->AddButton(ID_POLYGON_ROTATE, "Rotate", wxImage(32, 32));
-	//operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
+	operation->AddButton( ID_SELECTED_TRANSLATE, "Translate",	wxBitmap(32, 32) );
+	operation->AddButton( ID_SELECTED_ROTATE,	"Rotate",		wxImage(32, 32) );
+	operation->AddButton( ID_SELECTED_SCALE,	"Scale",		wxImage(32, 32) );
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_LIGHT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
 	Connect( ID_CREATE_LIGHT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
-	Connect( ID_SPACE_TRANSFROM,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnSpaceTransform) );
+	Connect( ID_SELECTED_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnTranslate) );
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -640,9 +638,13 @@ void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
 	wxMessageBox("TODO:Not");
 }
 
-void Frame::OnSpaceTransform(wxRibbonButtonBarEvent& e)
+void Frame::OnTranslate(wxRibbonButtonBarEvent& e)
 {
-	view->setMode(View::SPACE_TRANSFORM);
+	view->setMode(View::TRANSLATE);
+}
+
+void Frame::OnRotate(wxRibbonButtonBarEvent& e)
+{
 }
 
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
