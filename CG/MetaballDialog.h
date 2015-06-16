@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_UI_METABALL_CONFIG_DIALOG_H__
-#define __CRYSTAL_UI_METABALL_CONFIG_DIALOG_H__
+#ifndef __CRYSTAL_UI_METABALL_DIALOG_H__
+#define __CRYSTAL_UI_METABALL_DIALOG_H__
 
 #include "wx/dialog.h"
 #include "wx/spinctrl.h"
@@ -9,10 +9,10 @@
 namespace Crystal {
 	namespace UI {
 
-class MetaballConfigDialog : public wxDialog
+class MetaballDialog : public wxDialog
 {
 public:
-	MetaballConfigDialog(wxWindow* parent) :
+	MetaballDialog(wxWindow* parent) :
 		wxDialog( parent, wxID_ANY, "MetaballConfig", wxDefaultPosition, wxSize( 700, 600))
 	{
 		new wxStaticText(this, wxID_ANY, "CenterX", wxPoint(0, 100));

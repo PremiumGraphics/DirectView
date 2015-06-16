@@ -158,7 +158,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GridDialog.h" />
     <ClInclude Include="LightDialog.h" />
-    <ClInclude Include="MetaballConfigDialog.h" />
+    <ClInclude Include="MetaballDialog.h" />
     <ClInclude Include="RenderingConfigDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

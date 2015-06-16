@@ -97,6 +97,8 @@ private:
 
 	void OnLightConfig(wxRibbonButtonBarEvent& e);
 
+	void OnCameraConfig(wxRibbonButtonBarEvent& e);
+
 private:
 	View* view;
 	Command::ModelSPtr<float> model;

@@ -11,7 +11,7 @@
 #include "../IO/STLFile.h"
 
 #include "GridDialog.h"
-#include "MetaballConfigDialog.h"
+#include "MetaballDialog.h"
 #include "RenderingConfigDialog.h"
 #include "LightDialog.h"
 
@@ -24,10 +24,8 @@ using namespace Crystal::UI;
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
 
-	ID_CAMERA_CONFIG,
-
 	ID_CREATE_LIGHT,
-	ID_CAMERA_TRANSLATE,
+	ID_CAMERA,
 
 	ID_IMPORT,
 	ID_EXPORT,
@@ -105,7 +103,6 @@ Frame::Frame()
 
 	bar->SetArtProvider( new wxRibbonAUIArtProvider );
 
-	Connect( ID_CAMERA_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 
 	wxRibbonPage* page = new wxRibbonPage( bar, wxNewId(), wxT("Polygon") );
 	//wxRibbonPanel* panel = new wxRibbonPanel( page, wxID_ANY, wxT("Polygon") );
@@ -138,20 +135,22 @@ Frame::Frame()
 
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
+	operation->AddHybridButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddHybridButton( ID_CREATE_LIGHT,"Light",	wxImage("../Resource/star.png") );
-	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
+	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 	operation->AddButton( ID_SELECTED_TRANSLATE, "Translate",	wxBitmap(32, 32) );
 	operation->AddButton( ID_SELECTED_ROTATE,	"Rotate",		wxImage(32, 32) );
 	operation->AddButton( ID_SELECTED_SCALE,	"Scale",		wxImage(32, 32) );
 
+	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
+	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraConfig));
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_CREATE_LIGHT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
-	Connect( ID_CREATE_LIGHT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
+	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
+	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
 	Connect( ID_SELECTED_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnTranslate) );
-	Connect(ID_SELECTED_SCALE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnScale));
+	Connect( ID_SELECTED_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnScale));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -667,7 +666,7 @@ void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
-	MetaballConfigDialog dialog(this);
+	MetaballDialog dialog(this);
 	dialog.set(config.getMetaballConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
@@ -728,7 +727,13 @@ void Frame::OnPointConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnLightConfig(wxRibbonButtonBarEvent& e)
 {
-	DirectionalLightDialog dialog(this);
+	//DirectionalLightDialog dialog(this);
+	//dialog.ShowModal();
+	AmbientLightDialog dialog(this);
 	dialog.ShowModal();
 }
 
+void Frame::OnCameraConfig(wxRibbonButtonBarEvent& e)
+{
+	;
+}
