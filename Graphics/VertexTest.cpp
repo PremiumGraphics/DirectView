@@ -13,3 +13,11 @@ TEST(VertexTest, TestConstruct)
 	EXPECT_EQ( Vector3d<T>(0.0, 0.0, 0.0), v.getPosition() );
 	EXPECT_EQ( Vector3d<T>(0.0, 0.0, 0.0), v.getTexCoord() );
 }
+
+TEST(VertexTest, TestMove)
+{
+	Vertex<T> v(Vector3d<T>(3, 2, 1));
+	v.move(Vector3d<T>(1, 2, 3));
+
+	EXPECT_EQ(Vector3d<T>(4, 4, 4), v.getPosition());
+}

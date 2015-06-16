@@ -50,6 +50,10 @@ public:
 
 	ColorRGBA<T> getColor() const { return color; }
 
+	void move(const Math::Vector3d<T>& v) {
+		position += v;
+	}
+
 	std::vector<float> toPositionArray() const { return position.toArray(); }
 
 	std::vector<float> toNormalArray() const { return normal.toArray(); }

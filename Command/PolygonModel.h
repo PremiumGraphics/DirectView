@@ -29,6 +29,11 @@ public:
 
 	Type getType() const { return Type::Polygon; }
 
+	virtual void move(const Math::Vector3d<float>& vector) override
+	{
+		polygon->move(vector);
+	};
+
 
 	Graphics::PolygonSPtr<T> getPolygon() const { return polygon; }
 
@@ -43,7 +48,7 @@ template<typename T>
 using PolygonObjectSPtrList = std::list < PolygonObjectSPtr<T> > ;
 
 template<typename T>
-class PolygonModel final : public ObjectFactory, private UnCopyable
+class PolygonModel final : public ModelBase, private UnCopyable
 {
 public:
 	PolygonModel()
@@ -54,7 +59,7 @@ public:
 	~PolygonModel() = default;
 
 	PolygonModel& clear() {
-		ObjectFactory::clear();
+		ModelBase::clear();
 		this->polygons.clear();
 		return (*this);
 	}
@@ -100,15 +105,22 @@ public:
 	}
 
 
-	Graphics::PolygonSPtr<T> find(const unsigned int id) {
+	PolygonObjectSPtr<T> find(const unsigned int id) {
 		for (const auto& p : polygons) {
 			if (p->getId() == id) {
-				return p->getPolygon();
+				return p;
 			}
 		}
 		return nullptr;
 	}
 
+	void remove(const unsigned int id) override {
+		const auto& p = find(id);
+		if (p == nullptr) {
+			return;
+		}
+		polygons.remove(p);
+	}
 
 	PolygonObjectSPtrList<T> getPolygons() const { return polygons; }
 

@@ -92,6 +92,12 @@ public:
 		return (*this);
 	}
 
+	void move(const Math::Vector3d<T>& vector) {
+		for (auto& v : vertices) {
+			v->move(vector);
+		}
+	}
+
 private:
 	VertexSPtrVector<T> vertices;
 	HalfEdgeSPtrList<T> edges;

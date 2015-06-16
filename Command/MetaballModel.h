@@ -46,7 +46,7 @@ template<typename T>
 using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
 template<typename T>
-class MetaballObjectModel final : public ObjectFactory, private UnCopyable
+class MetaballObjectModel final : public ModelBase, private UnCopyable
 {
 public:
 	MetaballObjectModel()
@@ -57,7 +57,7 @@ public:
 	~MetaballObjectModel() = default;
 
 	MetaballObjectModel& clear() {
-		ObjectFactory::clear();
+		ModelBase::clear();
 		balls.clear();
 		return (*this);
 	}
@@ -72,14 +72,23 @@ public:
 
 	MetaballObjectSPtrList<T> getBalls() const { return balls; }
 
-	MetaballObject<T> find(const unsigned int id) {
+	MetaballObjectSPtr<T> find(const unsigned int id) {
 		for (const auto& b : balls) {
-			if (b.getId() == id) {
-				return b.getMetaball();
+			if (b->getId() == id) {
+				return b;
 			}
 		}
 		return nullptr;
 	}
+
+	void remove(const unsigned int id) override {
+		const auto& b = find(id);
+		if (b == nullptr) {
+			return;
+		}
+		balls.remove(b);
+	}
+
 
 private:
 	MetaballObjectSPtrList<T> balls;

@@ -1,22 +1,24 @@
-#ifndef __CRYSTAL_COMMAND_OBJECT_FACTORY_H__
-#define __CRYSTAL_COMMAND_OBJECT_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_MODEL_BASE_H__
+#define __CRYSTAL_COMMAND_MODEL_BASE_H__
 
 namespace Crystal {
 	namespace Command {
 
-class ObjectFactory {
+class ModelBase {
 public:
-	ObjectFactory() :
+	ModelBase() :
 		nextId(0)
 	{}
 
-	virtual ~ObjectFactory(){};
+	virtual ~ModelBase(){};
 
 	void clear() {
 		nextId = 0;
 	}
 
 	unsigned int getNextId() { return nextId++; }
+
+	virtual void remove(const unsigned int id) = 0;
 
 private:
 	unsigned int nextId;

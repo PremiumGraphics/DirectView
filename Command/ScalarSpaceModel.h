@@ -41,7 +41,7 @@ using ScalarSpaceObjectSPtrList = std::list < ScalarSpaceObjectSPtr<T> > ;
 
 
 template<typename T>
-class ScalarSpaceModel final : public ObjectFactory
+class ScalarSpaceModel final : public ModelBase
 {
 public:
 	ScalarSpaceModel()
@@ -50,7 +50,7 @@ public:
 	~ScalarSpaceModel(){};
 
 	void clear() {
-		ObjectFactory::clear();
+		ModelBase::clear();
 		spaces.clear();
 	}
 
@@ -71,6 +71,14 @@ public:
 			}
 		}
 		return nullptr;
+	}
+
+	void remove(const unsigned int id) override {
+		const auto& s = find(id);
+		if (s == nullptr) {
+			return;
+		}
+		spaces.remove(s);
 	}
 
 
