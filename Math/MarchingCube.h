@@ -48,10 +48,10 @@ public:
 	}
 	*/
 
-	TriangleVector<T> march(const ScalarSpace3d<T>& ss, const T isolevel)
+	TriangleVector<T> march(const Volume3d<T>& ss, const T isolevel)
 	{
 		TriangleVector<T> triangles;
-		const std::vector< ScalarCell3d<T,T> >& cells = ss.toCells();
+		const std::vector< VolumeCell3d<T,T> >& cells = ss.toCells();
 		for (const auto c : cells) {
 			const auto ts = build(c.getSpace(), c.getValues(), isolevel);
 			triangles.insert(triangles.end(), ts.begin(), ts.end());

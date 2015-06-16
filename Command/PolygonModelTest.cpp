@@ -11,10 +11,10 @@ TEST(PolygonModelTest, TestCreate)
 	PolygonModel<float> factory;
 	//ScalarSpace3d<float> ss;
 
-	const auto& p = factory.create(ScalarSpace3d<float>());
+	const auto& p = factory.create(Volume3d<float>());
 	EXPECT_EQ(0, p->getId());
 
-	const auto& p2 = factory.create(ScalarSpace3d<float>());
+	const auto& p2 = factory.create(Volume3d<float>());
 	EXPECT_EQ(1, p2->getId());
 
 	EXPECT_EQ( p2, factory.find(1) );

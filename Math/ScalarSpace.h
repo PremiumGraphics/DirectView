@@ -13,10 +13,10 @@ namespace Crystal {
 	namespace Math {
 
 template< typename T, typename ValueType >
-class ScalarCell3d
+class VolumeCell3d
 {
 public:
-	ScalarCell3d(const Space3d<T>& space, const std::array< ValueType, 8>& values) :
+	VolumeCell3d(const Space3d<T>& space, const std::array< ValueType, 8>& values) :
 		space(space),
 		values(values)
 	{}
@@ -36,13 +36,13 @@ private:
 
 
 template< typename T >
-class ScalarSpace3d : public GridSpaceBase<T> {
+class Volume3d : public GridSpaceBase<T> {
 public:
-	ScalarSpace3d() :
-		ScalarSpace3d(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2) )
+	Volume3d() :
+		Volume3d(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2) )
 	{}
 
-	ScalarSpace3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
+	Volume3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
 		GridSpaceBase( space_, grid.getSizes() ),
 		grid( grid )
 	{
@@ -51,8 +51,8 @@ public:
 	Grid3d<T> getGrid() const { return grid; }
 
 
-	std::vector< ScalarCell3d<T, T> > toCells() const {
-		std::vector< ScalarCell3d<T, T> > cells;
+	std::vector< VolumeCell3d<T, T> > toCells() const {
+		std::vector< VolumeCell3d<T, T> > cells;
 
 		const auto lengths = getUnitLengths();
 		const Space3d<T>& innerSpace = getSpace().offset(lengths);
@@ -71,7 +71,7 @@ public:
 		assert(spaces.size() == values.size());
 
 		for (size_t i = 0; i < spaces.size(); ++i) {
-			ScalarCell3d<T, T> c( spaces[i], values[i]);
+			VolumeCell3d<T, T> c( spaces[i], values[i]);
 			cells.push_back(c);
 		}
 		return cells;
@@ -94,18 +94,18 @@ public:
 		}
 	}
 
-	ScalarSpace3d getOverlapped(const Space3d<T>& rhs) const {
-		return ScalarSpace3d(getOverlappedSpace(rhs), getOverlappedGrid(rhs));
+	Volume3d getOverlapped(const Space3d<T>& rhs) const {
+		return Volume3d(getOverlappedSpace(rhs), getOverlappedGrid(rhs));
 	}
 
-	ScalarSpace3d add(const ScalarSpace3d<T>& rhs) const {
-		const ScalarSpace3d& ss = getOverlapped(rhs.getSpace());
+	Volume3d add(const Volume3d<T>& rhs) const {
+		const Volume3d& ss = getOverlapped(rhs.getSpace());
 		ss.getGrid().add(rhs.getGrid());
 		return ss;
 	}
 
-	ScalarSpace3d sub(const ScalarSpace3d<T>& rhs) const {
-		const ScalarSpace3d& ss = getOverlapped(rhs.getSpace());
+	Volume3d sub(const Volume3d<T>& rhs) const {
+		const Volume3d& ss = getOverlapped(rhs.getSpace());
 		ss.getGrid().sub(rhs.getGrid());
 		return ss;
 	}
@@ -124,10 +124,10 @@ private:
 };
 
 template<typename T>
-using ScalarSpace3dSPtr = std::shared_ptr < ScalarSpace3d<T> > ;
+using Volume3dSPtr = std::shared_ptr < Volume3d<T> > ;
 
 template<typename T>
-using ScalarSpace3dSPtrList = std::list < ScalarSpace3dSPtr<T> > ;
+using Volume3dSPtrList = std::list < Volume3dSPtr<T> > ;
 	}
 }
 

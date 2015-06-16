@@ -26,7 +26,7 @@ TEST(RenderingCommandTest, TestBuildPolygon)
 
 TEST(PointRenderingCommandTest, TestBuildScalarSpace)
 {
-	ScalarSpace3d<float> ss;
+	Volume3d<float> ss;
 	PointRenderingBuffer<float> command;
 	command.build(ss,0);
 	EXPECT_EQ(3, command.getPoints().size());

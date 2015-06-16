@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_SCALAR_SPACE_MODEL_H__
-#define __CRYSTAL_COMMAND_SCALAR_SPACE_MODEL_H__
+#ifndef __CRYSTAL_COMMAND_VOLUME_MODEL_H__
+#define __CRYSTAL_COMMAND_VOLUME_MODEL_H__
 
 #include "../Math/ScalarSpace.h"
 #include "MainConfig.h"
@@ -17,20 +17,20 @@ template<typename T>
 class VolumeObject final : public Object
 {
 public:
-	VolumeObject(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
+	VolumeObject(const unsigned int id, const Math::Volume3dSPtr<T>& ss) :
 		Object( id ),
 		ss( ss )
 	{}
 
 	~VolumeObject(){}
 
-	Type getType() const { return Type::ScalarSpace; }
+	Type getType() const { return Type::VOLUME; }
 
 
-	Math::ScalarSpace3dSPtr<T> getSpace() const { return ss; }
+	Math::Volume3dSPtr<T> getSpace() const { return ss; }
 
 private:
-	Math::ScalarSpace3dSPtr<T> ss;
+	Math::Volume3dSPtr<T> ss;
 };
 
 template<typename T>
@@ -57,7 +57,7 @@ public:
 	VolumeObjectSPtr<T> create(const GridConfig<T>& config)
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
-		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>(config.getSpace(), grid));
+		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.getSpace(), grid));
 		//ss->add( Math::Metaball<float>( Math::Vector3d<float>(0.5, 0.5, 0.5), 0.5) );
 		return add(ss);
 	}
@@ -85,7 +85,7 @@ public:
 private:
 	VolumeObjectSPtrList<T> spaces;
 
-	VolumeObjectSPtr<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
+	VolumeObjectSPtr<T> add(const Math::Volume3dSPtr<T>& ss) {
 		spaces.push_back( std::make_shared< VolumeObject<float> >( getNextId(), ss) );
 		return spaces.back();
 	}

@@ -76,7 +76,7 @@ public:
 	}
 
 
-	void build(const Math::ScalarSpace3d<T>& ss, const unsigned int id) {
+	void build(const Math::Volume3d<T>& ss, const unsigned int id) {
 		const auto center = ss.getCenter();
 		const auto cs = ss.getCenter().toArray();
 		points.insert(points.end(), cs.begin(), cs.end());

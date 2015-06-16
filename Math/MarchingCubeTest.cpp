@@ -194,7 +194,7 @@ TEST(MarchingCubeTest, TestMarchScalarSpace)
 
 	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(10, 10, 10));
 	const Grid3d<float> grid(2,2,2);
-	ScalarSpace3d<float> ss(s, grid);
+	Volume3d<float> ss(s, grid);
 
 	mc.march(ss, 0.5);
 }

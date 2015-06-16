@@ -64,7 +64,7 @@ public:
 		return (*this);
 	}
 
-	PolygonObjectSPtr<T> create(const Math::ScalarSpace3d<float>& ss)
+	PolygonObjectSPtr<T> create(const Math::Volume3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
@@ -85,14 +85,14 @@ public:
 		return add(polygon);
 	}
 
-	PolygonObjectSPtr<T> createBoundingBox(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObjectSPtr<T> createBoundingBox(const Math::Volume3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
-	PolygonObjectSPtr<T> createGridCells(const Math::ScalarSpace3d<T>& ss) {
+	PolygonObjectSPtr<T> createGridCells(const Math::Volume3d<T>& ss) {
 		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {

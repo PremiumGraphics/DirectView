@@ -10,7 +10,7 @@ class Object {
 public:
 	enum class Type {
 		NullType = -1,
-		ScalarSpace = 0,
+		VOLUME = 0,
 		Metaball = 1,
 		Light = 2,
 		Polygon = 3,
