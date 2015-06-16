@@ -36,7 +36,7 @@ private:
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
-	void OnLightTranslate( wxRibbonButtonBarEvent& );
+	void OnCreateLight( wxRibbonButtonBarEvent& );
 
 	//void OnPick(wxRibbonButtonBarEvent&);
 
@@ -92,6 +92,8 @@ private:
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
 	void OnPointConfig(wxRibbonButtonBarEvent& e);
+
+	void OnLightConfig(wxRibbonButtonBarEvent& e);
 
 	void setRendering();
 

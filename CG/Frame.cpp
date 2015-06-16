@@ -13,6 +13,7 @@
 #include "GridConfigDialog.h"
 #include "MetaballConfigDialog.h"
 #include "RenderingConfigDialog.h"
+#include "LightDialog.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -25,7 +26,7 @@ enum {
 
 	ID_CAMERA_CONFIG,
 
-	ID_LIGHT_TRANSLATE,
+	ID_CREATE_LIGHT,
 	ID_CAMERA_TRANSLATE,
 	//ID_PICK_VERTEX,
 	ID_SPACE_TRANSFROM,
@@ -35,7 +36,7 @@ enum {
 
 	ID_GL_CONFIG,
 
-	ID_GRID_CONFIG,
+	//ID_GRID_CONFIG,
 
 	ID_OFF_SCREEN_CONFIG,
 
@@ -139,7 +140,7 @@ Frame::Frame()
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_CAMERA_TRANSLATE,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddButton( ID_LIGHT_TRANSLATE,	"Light",	wxImage("../Resource/star.png") );
+	operation->AddHybridButton( ID_CREATE_LIGHT,"Light",	wxImage("../Resource/star.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Zoom",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
@@ -148,7 +149,8 @@ Frame::Frame()
 	//operation->AddButton(ID_POLYGON_SCALE, "Scale", wxImage(32, 32));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_LIGHT_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnLightTranslate ) );
+	Connect( ID_CREATE_LIGHT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
+	Connect( ID_CREATE_LIGHT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
 	Connect( ID_SPACE_TRANSFROM,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnSpaceTransform) );
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
@@ -355,7 +357,7 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 	view->setMode( View::CAMERA_TRANSLATE );
 }
 
-void Frame::OnLightTranslate( wxRibbonButtonBarEvent& )
+void Frame::OnCreateLight( wxRibbonButtonBarEvent& )
 {
 	view->setMode( View::LIGHT_TRANSLATE );
 }
@@ -723,3 +725,10 @@ void Frame::OnPointConfig(wxRibbonButtonBarEvent& e)
 		setRendering();
 	}
 }
+
+void Frame::OnLightConfig(wxRibbonButtonBarEvent& e)
+{
+	DirectionalLightDialog dialog(this);
+	dialog.ShowModal();
+}
+

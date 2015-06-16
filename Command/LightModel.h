@@ -6,6 +6,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "Object.h"
+#include "Factory.h"
 
 namespace Crystal {
 	namespace Command {
@@ -27,23 +28,39 @@ private:
 };
 
 template<typename T>
-class LightModel final : private UnCopyable
+using LightObjectSPtr = std::shared_ptr < LightObject<T> >;
+
+template<typename T>
+using LightObjectSPtrList = std::list < LightObjectSPtr<T> > ;
+
+template<typename T>
+class LightModel final : public ModelBase
 {
 public:
+	/*
 	Graphics::LightSPtr<T> build() {
 		Graphics::LightSPtr<T> l(new Graphics::PointLight<T>());
 		lights.push_back(l);
 		return l;
 	}
+	*/
 
-	void clear(){ lights.clear(); }
+	void clear(){
+		ModelBase::clear();
+		lights.clear();
+	}
 
 	void remove(Graphics::LightSPtr<T> l) { lights.remove(l); }
 
-	Graphics::LightSPtrList<T> getLights() const { return lights; }
+	void remove(const unsigned int id) override {
+		;
+
+	}
+
+	LightObjectSPtrList<T> getLights() const { return lights; }
 
 private:
-	Graphics::LightSPtrList<T> lights;
+	LightObjectSPtrList<T> lights;
 };
 
 template<typename T>

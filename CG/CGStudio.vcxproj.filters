@@ -17,6 +17,7 @@
     <ClInclude Include="GridConfigDialog.h" />
     <ClInclude Include="MetaballConfigDialog.h" />
     <ClInclude Include="RenderingConfigDialog.h" />
+    <ClInclude Include="LightDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

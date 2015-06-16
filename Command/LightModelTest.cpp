@@ -6,14 +6,15 @@ using namespace Crystal::Command;
 using namespace Crystal::Graphics;
 
 
-TEST(LightFactoryTest, TestBuild)
+/*
+TEST(LightModelTest, TestBuild)
 {
 	LightModel<float> factory;
 	factory.build();
 	EXPECT_EQ(1, factory.getLights().size());
 }
 
-TEST(LightBuilderTest, TestRemove)
+TEST(LightModelTest, TestRemove)
 {
 	LightModel<float> factory;
 	factory.build();
@@ -21,3 +22,4 @@ TEST(LightBuilderTest, TestRemove)
 	factory.remove(l);
 	EXPECT_EQ(1, factory.getLights().size());
 }
+*/

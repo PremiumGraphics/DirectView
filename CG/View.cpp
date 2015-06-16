@@ -160,12 +160,14 @@ void View::OnMouse( wxMouseEvent& event )
 			factory.getCamera()->addAngle( angle );
 		}
 		else if( mode == LIGHT_TRANSLATE ) {
+			/*
 			const LightSPtrList<float>& lights = factory.getLightFactory()->getLights();
 			for (const auto& l : lights) {
 				Vector3d<float> lpos = l->getPos();
 				lpos += pos;
 				l->setPos(lpos);
 			}
+			*/
 		}
 		else if (mode == SPACE_TRANSFORM) {
 			//ssTransformCmd->move(pos);
