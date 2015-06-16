@@ -15,6 +15,9 @@ public:
 	{
 		color = new wxColourPickerCtrl(this, wxID_ANY, wxColour(), wxPoint(100, 100 ) );
 		//wxSpinCtrlDouble* pos;
+
+		new wxButton(this, wxID_OK, "OK", wxPoint(300, 300));
+		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
 private:

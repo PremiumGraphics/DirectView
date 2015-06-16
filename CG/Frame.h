@@ -58,9 +58,6 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void clear();
-
-
 	void OnCreateMetaball(wxRibbonButtonBarEvent& e);
 
 
@@ -105,6 +102,8 @@ private:
 	Command::MainConfig<float> config;
 
 	void setRendering();
+
+	void clear();
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

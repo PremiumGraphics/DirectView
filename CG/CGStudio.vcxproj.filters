@@ -14,8 +14,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RenderingConfigDialog.h" />
-    <ClInclude Include="MetaballDialog.h" />
     <ClInclude Include="CameraDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
@@ -26,6 +24,9 @@
       <Filter>Dialog</Filter>
     </ClInclude>
     <ClInclude Include="RenderingDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaballDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
   </ItemGroup>
