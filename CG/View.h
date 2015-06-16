@@ -71,7 +71,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	const Command::ModelSPtr<float>& factory;
+	const Command::ModelSPtr<float>& model;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;
@@ -91,7 +91,7 @@ private:
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
 
-	Command::RenderingBufferSPtr<float> getBuffer() { return factory->getRenderingBuffer(); }
+	Command::RenderingBufferSPtr<float> getBuffer() { return model->getRenderingBuffer(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

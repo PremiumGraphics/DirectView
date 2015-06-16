@@ -18,12 +18,12 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const ModelSPtr<float>& factory )
+View::View( Frame* parent, const int width, const int height, const ModelSPtr<float>& model )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
-factory( factory )
+model( model )
 {
 	glContext.SetCurrent( *this );
 
@@ -36,13 +36,10 @@ factory( factory )
 	Connect( wxEVT_SIZE, wxSizeEventHandler( View::OnSize ) );
 
 	build();
-
-	//texture = new TextureObject( pixels, 2, 1 );
 }
 
 View::~View()
 {
-	//delete texture;
 }
 
 #include "../Math/Vector.h"
@@ -69,7 +66,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	CameraSPtr<float> camera = factory->getCamera();
+	CameraSPtr<float> camera = model->getCamera();
 	Vector3d<float> pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -155,12 +152,18 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
-			factory->getCamera()->move( pos );
-			factory->getCamera()->addAngle( angle );
+			model->getCamera()->move( pos );
+			model->getCamera()->addAngle( angle );
 		}
 		else if (mode == TRANSLATE) {
-			factory->translate(pos);
+			model->translate(pos);
 			//ssTransformCmd->move(pos);
+		}
+		else if (mode == ROTATE) {
+			model->rotate(angle);
+		}
+		else if (mode == SCALE) {
+			model->scale(pos);
 		}
 		else {
 			assert( false );
@@ -189,7 +192,7 @@ void View::draw(const wxSize& size)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	Camera<float> c = *(factory->getCamera());
+	Camera<float> c = *(model->getCamera());
 
 	glPointSize(getPointSize());
 

@@ -61,6 +61,14 @@ public:
 		;
 	}
 
+	void rotate(const Math::Vector3d<T>& v) {
+		;
+	}
+
+	void scale(const Math::Vector3d<T>& s) {
+		;
+	}
+
 	void setRendering() {
 		const auto& buffer = getRenderingBuffer();
 		buffer->add( getPolygonFactory()->getPolygons());
