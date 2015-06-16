@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_POLYGON_FACTORY_H__
-#define __CRYSTAL_GRAPHICS_POLYGON_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_POLYGON_MODEL_H__
+#define __CRYSTAL_COMMAND_POLYGON_MODEL_H__
 
 #include "../Graphics/Polygon.h"
 
@@ -43,17 +43,17 @@ template<typename T>
 using PolygonObjectSPtrList = std::list < PolygonObjectSPtr<T> > ;
 
 template<typename T>
-class PolygonFactory final : public ObjectFactory, private UnCopyable
+class PolygonModel final : public ObjectFactory, private UnCopyable
 {
 public:
-	PolygonFactory()
+	PolygonModel()
 	{
 		mc.buildTable();
 	}
 
-	~PolygonFactory() = default;
+	~PolygonModel() = default;
 
-	PolygonFactory& clear() {
+	PolygonModel& clear() {
 		ObjectFactory::clear();
 		this->polygons.clear();
 		return (*this);
@@ -125,7 +125,7 @@ private:
 };
 
 template<typename T>
-using PolygonFactorySPtr = std::shared_ptr< PolygonFactory<T> > ;
+using PolygonFactorySPtr = std::shared_ptr< PolygonModel<T> > ;
 
 	}
 }

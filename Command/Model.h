@@ -4,7 +4,7 @@
 #include "../Graphics/Camera.h"
 
 #include "ScalarSpaceModel.h"
-#include "PolygonFactory.h"
+#include "PolygonModel.h"
 #include "LightFactory.h"
 #include "MetaballModel.h"
 #include "RenderingBuffer.h"
@@ -22,7 +22,7 @@ public:
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		scalarSpace(std::make_shared< ScalarSpaceModel<T> >()),
-		polygon(std::make_shared< PolygonFactory<T> >()),
+		polygon(std::make_shared< PolygonModel<T> >()),
 		metaball(std::make_shared< MetaballObjectModel<T> >()),
 		renderingBuffer(std::make_shared< RenderingBuffer<T> >())
 	{

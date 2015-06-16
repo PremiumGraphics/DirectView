@@ -7,7 +7,7 @@
 #include "../Math/ScalarSpace.h"
 
 #include "ScalarSpaceModel.h"
-#include "PolygonFactory.h"
+#include "PolygonModel.h"
 #include "MetaballModel.h"
 
 namespace Crystal{

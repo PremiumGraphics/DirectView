@@ -18,7 +18,7 @@
     <ClInclude Include="MetaballModel.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="PolygonFactory.h" />
+    <ClInclude Include="PolygonModel.h" />
     <ClInclude Include="RenderingBuffer.h" />
     <ClInclude Include="RenderingConfig.h" />
     <ClInclude Include="ScalarSpaceModel.h" />
@@ -28,7 +28,7 @@
     <ClCompile Include="LightFactoryTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />
-    <ClCompile Include="PolygonFactoryTest.cpp" />
+    <ClCompile Include="PolygonModelTest.cpp" />
     <ClCompile Include="RenderingBufferTest.cpp" />
     <ClCompile Include="ScalarSpaceModelTest.cpp" />
   </ItemGroup>

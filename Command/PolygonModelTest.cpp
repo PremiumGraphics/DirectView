@@ -1,14 +1,14 @@
 #include "gtest/gtest.h"
 
-#include "PolygonFactory.h"
+#include "PolygonModel.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
-TEST(PolygonFactoryTest, TestCreate)
+TEST(PolygonModelTest, TestCreate)
 {
-	PolygonFactory<float> factory;
+	PolygonModel<float> factory;
 	//ScalarSpace3d<float> ss;
 
 	const auto& p = factory.create(ScalarSpace3d<float>());
