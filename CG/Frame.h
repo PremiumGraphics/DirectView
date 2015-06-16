@@ -79,6 +79,7 @@ private:
 
 	void OnRotate(wxRibbonButtonBarEvent& e);
 
+	void OnScale(wxRibbonButtonBarEvent& e);
 
 	void OnCreatePolygon(wxRibbonButtonBarEvent& e);
 
@@ -96,12 +97,12 @@ private:
 
 	void OnLightConfig(wxRibbonButtonBarEvent& e);
 
-	void setRendering();
-
 private:
 	View* view;
 	Command::ModelSPtr<float> model;
 	Command::MainConfig<float> config;
+
+	void setRendering();
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

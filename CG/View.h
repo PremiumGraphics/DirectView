@@ -33,6 +33,7 @@ public:
 		CAMERA_TRANSLATE,
 		TRANSLATE,
 		ROTATE,
+		SCALE,
 		//PICK_VERTEX,
 	};
 

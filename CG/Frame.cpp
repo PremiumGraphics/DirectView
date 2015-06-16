@@ -151,6 +151,7 @@ Frame::Frame()
 	Connect( ID_CREATE_LIGHT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
 	Connect( ID_CREATE_LIGHT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
 	Connect( ID_SELECTED_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnTranslate) );
+	Connect(ID_SELECTED_SCALE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnScale));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -603,17 +604,7 @@ void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	const auto& buffer = model->getRenderingBuffer();
-	buffer->add( model->getPolygonFactory()->getPolygons());
-	buffer->add( model->getScalarSpaceFactory()->getSpaces());
-	buffer->add( model->getMetaballFactory()->getBalls() );
-
-	/*
-	const bool b = config.getRenderingConfig().getWireframeConfig().drawBB();
-	if (b) {
-		buffer->getWireframeCommand()->build( model.getDrawableFactory()->getPolygons() );
-	}
-	*/
+	model->setRendering();
 	view->Refresh();
 
 }
@@ -646,6 +637,12 @@ void Frame::OnTranslate(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRotate(wxRibbonButtonBarEvent& e)
 {
+	view->setMode(View::ROTATE);
+}
+
+void Frame::OnScale(wxRibbonButtonBarEvent& e)
+{
+	view->setMode(View::SCALE);
 }
 
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
