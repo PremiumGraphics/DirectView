@@ -163,7 +163,7 @@ public:
 		normalRenderingCommand->build(polygons);
 	}
 
-	void add(const ScalarSpaceObjectSPtrList<T>& sss) {
+	void add(const VolumeObjectSPtrList<T>& sss) {
 		for (const auto& ss : sss) {
 			pointRenderingCommand->build(*ss->getSpace(), ss->getId());
 		}

@@ -46,9 +46,9 @@ private:
 };
 
 template<typename T>
-using LightSPtr = std::shared_ptr< PointLight<T> >;
+using PointLightSPtr = std::shared_ptr< PointLight<T> >;
 template<typename T>
-using LightSPtrList = std::list < LightSPtr<T> > ;
+using PointLightSPtrList = std::list < PointLightSPtr<T> > ;
 
 template<typename T>
 class DirectionalLight {

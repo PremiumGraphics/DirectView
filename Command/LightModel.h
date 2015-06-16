@@ -14,17 +14,22 @@ namespace Crystal {
 template<typename T>
 class LightObject : public Object
 {
-	LightObject(const Graphics::LightSPtr<T>& light) :
+	LightObject(const Graphics::PointLightSPtr<T>& light) :
 		light( light )
 	{
 	}
 
 	Type getType() const { return Type::Light; }
 
-	Graphics::LightSPtr<T> getLight() const { return light; }
+	Graphics::PointLightSPtr<T> getLight() const { return light; }
+
+	void move(const Math::Vector3d<T>& vector) override
+	{
+		//light->move(vector);
+	}
 
 private:
-	Graphics::LightSPtr<T> light;
+	Graphics::PointLightSPtr<T> light;
 };
 
 template<typename T>
@@ -50,7 +55,7 @@ public:
 		lights.clear();
 	}
 
-	void remove(Graphics::LightSPtr<T> l) { lights.remove(l); }
+	void remove(Graphics::PointLightSPtr<T> l) { lights.remove(l); }
 
 	void remove(const unsigned int id) override {
 		;

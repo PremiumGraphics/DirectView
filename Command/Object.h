@@ -47,25 +47,7 @@ public:
 
 	virtual void move(const Math::Vector3d<float>& vector){};
 
-	//ScalarSpaceTransformCommand& move(const Math::Vector3d<float>& vector) {
-	//	for (auto& b : spaces) {
-	//		b->move(vector);
-	//	}
-	//	return (*this);
-	//}
-
-	//ScalarSpaceTransformCommand& scale(const Math::Vector3d<float>& scale) {
-	//	for (auto& b : spaces) {
-	//		b->scale(scale);
-	//	}
-	//	return (*this);
-	//}
-
-	//ScalarSpaceTransformCommand& add(const Math::ScalarSpace3dSPtr<T>& ss) {
-	//	spaces.push_back(ss);
-	//	return (*this);
-	//}
-
+	virtual void scale(const Math::Vector3d<float>& vector){};
 
 private:
 	unsigned int id;

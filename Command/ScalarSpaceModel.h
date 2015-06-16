@@ -14,15 +14,15 @@ namespace Crystal{
 
 
 template<typename T>
-class ScalarSpaceObject final : public Object
+class VolumeObject final : public Object
 {
 public:
-	ScalarSpaceObject(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
+	VolumeObject(const unsigned int id, const Math::ScalarSpace3dSPtr<T>& ss) :
 		Object( id ),
 		ss( ss )
 	{}
 
-	~ScalarSpaceObject(){}
+	~VolumeObject(){}
 
 	Type getType() const { return Type::ScalarSpace; }
 
@@ -34,27 +34,27 @@ private:
 };
 
 template<typename T>
-using ScalarSpaceObjectSPtr = std::shared_ptr < ScalarSpaceObject<T> > ;
+using VolumeObjectSPtr = std::shared_ptr < VolumeObject<T> > ;
 
 template<typename T>
-using ScalarSpaceObjectSPtrList = std::list < ScalarSpaceObjectSPtr<T> > ;
+using VolumeObjectSPtrList = std::list < VolumeObjectSPtr<T> > ;
 
 
 template<typename T>
-class ScalarSpaceModel final : public ModelBase
+class VolumeModel final : public ModelBase
 {
 public:
-	ScalarSpaceModel()
+	VolumeModel()
 	{}
 
-	~ScalarSpaceModel(){};
+	~VolumeModel(){};
 
 	void clear() {
 		ModelBase::clear();
 		spaces.clear();
 	}
 
-	ScalarSpaceObjectSPtr<T> create(const GridConfig<T>& config)
+	VolumeObjectSPtr<T> create(const GridConfig<T>& config)
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
 		Math::ScalarSpace3dSPtr<T> ss(new Math::ScalarSpace3d<T>(config.getSpace(), grid));
@@ -62,9 +62,9 @@ public:
 		return add(ss);
 	}
 
-	ScalarSpaceObjectSPtrList<T> getSpaces() const { return spaces; }
+	VolumeObjectSPtrList<T> getSpaces() const { return spaces; }
 
-	ScalarSpaceObjectSPtr<T> find(const unsigned int id) {
+	VolumeObjectSPtr<T> find(const unsigned int id) {
 		for (const auto& s: spaces) {
 			if (s->getId() == id) {
 				return s;
@@ -83,10 +83,10 @@ public:
 
 
 private:
-	ScalarSpaceObjectSPtrList<T> spaces;
+	VolumeObjectSPtrList<T> spaces;
 
-	ScalarSpaceObjectSPtr<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
-		spaces.push_back( std::make_shared< ScalarSpaceObject<float> >( getNextId(), ss) );
+	VolumeObjectSPtr<T> add(const Math::ScalarSpace3dSPtr<T>& ss) {
+		spaces.push_back( std::make_shared< VolumeObject<float> >( getNextId(), ss) );
 		return spaces.back();
 	}
 
@@ -94,7 +94,7 @@ private:
 };
 
 template<typename T>
-using ScalarSpaceModelSPtr = std::shared_ptr < ScalarSpaceModel<T> > ;
+using VolumeModelSPtr = std::shared_ptr < VolumeModel<T> > ;
 
 	}
 }

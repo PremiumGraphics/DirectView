@@ -2,6 +2,7 @@
 #define __CRYSTAL_COMMAND_CAMERA_MODEL_H__
 
 #include "Object.h"
+#include "Factory.h"
 
 #include "../Graphics/Camera.h"
 
@@ -30,6 +31,13 @@ private:
 
 template<typename T>
 using CameraObjectSPtr = std::shared_ptr < CameraObject<T> > ;
+
+/*
+template<typename T>
+class CameraModel {
+
+};
+*/
 	}
 }
 
