@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IO", "IO\IO.vcxproj", "{028
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsTest", "Graphics\GraphicsTest.vcxproj", "{237CD933-92AB-4D20-A554-78F84819FE5D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "MathTest\MathTest.vcxproj", "{E7634880-87E0-4EF1-99FA-E9871BC1B152}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "Math\MathTest.vcxproj", "{E7634880-87E0-4EF1-99FA-E9871BC1B152}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IOTest", "IO\IOTest.vcxproj", "{6BF13D86-6D76-43D6-B608-943F8E8102D5}"
 	ProjectSection(ProjectDependencies) = postProject
