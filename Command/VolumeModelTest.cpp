@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-#include "../Math/ScalarSpace.h"
 #include "VolumeModel.h"
 
 using namespace Crystal::Math;

@@ -22,12 +22,12 @@
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
-    <ClCompile Include="ScalarSpaceTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
+    <ClCompile Include="VolumeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Bitmap.h" />
@@ -41,12 +41,12 @@
     <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Matrix.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
-    <ClInclude Include="..\Math\ScalarSpace.h" />
     <ClInclude Include="..\Math\Space.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="Volume.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>

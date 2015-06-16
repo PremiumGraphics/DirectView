@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_SCALAR_SPACE_H__
-#define __CRYSTAL_MATH_SCALAR_SPACE_H__
+#ifndef __CRYSTAL_MATH_VOLUME_H__
+#define __CRYSTAL_MATH_VOLUME_H__
 
 #include "Grid.h"
 #include "Space.h"

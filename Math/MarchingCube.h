@@ -12,7 +12,7 @@
 #include <array>
 #include "Bitmap.h"
 #include "BitSpace.h"
-#include "ScalarSpace.h"
+#include "Volume.h"
 
 namespace Crystal {
 	namespace Math {

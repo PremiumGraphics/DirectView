@@ -3,7 +3,7 @@
 
 #include "../Graphics/Polygon.h"
 
-#include "../Math/ScalarSpace.h"
+#include "../Math/Volume.h"
 #include "../Math/BitSpace.h"
 
 #include "../Math/MarchingCube.h"

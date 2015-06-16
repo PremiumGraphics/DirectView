@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_COMMAND_VOLUME_MODEL_H__
 #define __CRYSTAL_COMMAND_VOLUME_MODEL_H__
 
-#include "../Math/ScalarSpace.h"
+#include "../Math/Volume.h"
 #include "MainConfig.h"
 
 #include "Object.h"

@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "../Graphics/Polygon.h"
-#include "../Math/ScalarSpace.h"
 
 #include "VolumeModel.h"
 #include "PolygonModel.h"
