@@ -12,8 +12,9 @@
 
 #include "GridDialog.h"
 #include "MetaballDialog.h"
-#include "RenderingConfigDialog.h"
+#include "RenderingDialog.h"
 #include "LightDialog.h"
+#include "CameraDialog.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -735,5 +736,6 @@ void Frame::OnLightConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCameraConfig(wxRibbonButtonBarEvent& e)
 {
-	;
+	CameraDialog dialog(this);
+	dialog.ShowModal();
 }

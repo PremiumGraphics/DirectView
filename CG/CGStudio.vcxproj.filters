@@ -15,13 +15,26 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RenderingConfigDialog.h" />
-    <ClInclude Include="LightDialog.h" />
-    <ClInclude Include="GridDialog.h" />
     <ClInclude Include="MetaballDialog.h" />
+    <ClInclude Include="CameraDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="GridDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
       <UniqueIdentifier>{3a66a511-0479-4b75-8f20-340c7e675bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{b2d04a9a-14b6-4af7-ac57-8a7dd2c84052}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
