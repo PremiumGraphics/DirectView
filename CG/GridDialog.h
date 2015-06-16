@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_UI_GRID_CONFIG_DIALOG_H__
-#define __CRYSTAL_UI_GRID_CONFIG_DIALOG_H__
+#ifndef __CRYSTAL_UI_GRID_DIALOG_H__
+#define __CRYSTAL_UI_GRID_DIALOG_H__
 
 #include "wx/dialog.h"
 #include "wx/spinctrl.h"
@@ -9,7 +9,7 @@
 namespace Crystal {
 	namespace UI {
 
-class GridConfigDialog : public wxDialog 
+class GridDialog : public wxDialog 
 {
 private:
 	enum LIMIT{
@@ -23,7 +23,7 @@ private:
 
 
 public:
-	GridConfigDialog(wxWindow* parent) :
+	GridDialog(wxWindow* parent) :
 		wxDialog(parent, wxID_ANY, "GridConfig", wxDefaultPosition, wxSize( 700, 500 ))
 	{
 		new wxStaticText(this, wxID_ANY, "Resolution", wxPoint(100, 0));

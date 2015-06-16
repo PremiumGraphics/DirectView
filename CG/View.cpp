@@ -18,7 +18,7 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const Model<float>& factory )
+View::View( Frame* parent, const int width, const int height, const ModelSPtr<float>& factory )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
@@ -69,7 +69,7 @@ void View::OnPaint( wxPaintEvent& )
 
 void View::OnKeyDown(wxKeyEvent& event)
 {
-	CameraSPtr<float> camera = factory.getCamera();
+	CameraSPtr<float> camera = factory->getCamera();
 	Vector3d<float> pos = camera->getPos();
 
 	switch ( event.GetKeyCode() ) {
@@ -155,10 +155,11 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		
 		if( mode == CAMERA_TRANSLATE ) {
-			factory.getCamera()->move( pos );
-			factory.getCamera()->addAngle( angle );
+			factory->getCamera()->move( pos );
+			factory->getCamera()->addAngle( angle );
 		}
 		else if (mode == TRANSLATE) {
+			factory->translate(pos);
 			//ssTransformCmd->move(pos);
 		}
 		else {
@@ -188,7 +189,7 @@ void View::draw(const wxSize& size)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	Camera<float> c = *(factory.getCamera());
+	Camera<float> c = *(factory->getCamera());
 
 	glPointSize(getPointSize());
 

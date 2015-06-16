@@ -10,7 +10,7 @@
 #include "../IO/OBJFile.h"
 #include "../IO/STLFile.h"
 
-#include "GridConfigDialog.h"
+#include "GridDialog.h"
 #include "MetaballConfigDialog.h"
 #include "RenderingConfigDialog.h"
 #include "LightDialog.h"
@@ -89,7 +89,8 @@ public:
 
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
+	model(std::make_shared< Model<float> >())
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -261,7 +262,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	model.clear();
+	model->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -581,31 +582,31 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (model.getScalarSpaceFactory()->getSpaces().empty()) {
+	if (model->getScalarSpaceFactory()->getSpaces().empty()) {
 		wxMessageBox("Setup Grid");
 		return;
 	}
 
 	const auto& mConfig = config.getMetaballConfig();
-	const auto& metaball = model.getMetaballFactory()->create( mConfig );
-	model.add(*metaball);
+	const auto& metaball = model->getMetaballFactory()->create( mConfig );
+	model->add(*metaball);
 	OnCreatePolygon(e);
 	setRendering();
 }
 
 void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
-	model.add( config.getGridConfig() );
+	model->add( config.getGridConfig() );
 
 	setRendering();
 }
 
 void Frame::setRendering()
 {
-	const auto& buffer = model.getRenderingBuffer();
-	buffer->add( model.getPolygonFactory()->getPolygons());
-	buffer->add( model.getScalarSpaceFactory()->getSpaces());
-	buffer->add( model.getMetaballFactory()->getBalls() );
+	const auto& buffer = model->getRenderingBuffer();
+	buffer->add( model->getPolygonFactory()->getPolygons());
+	buffer->add( model->getScalarSpaceFactory()->getSpaces());
+	buffer->add( model->getMetaballFactory()->getBalls() );
 
 	/*
 	const bool b = config.getRenderingConfig().getWireframeConfig().drawBB();
@@ -649,8 +650,8 @@ void Frame::OnRotate(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 {
-	model.getPolygonFactory()->clear();
-	model.polygonize();
+	model->getPolygonFactory()->clear();
+	model->polygonize();
 	//model.getPolygonFactory()->create(*ss.getScalarSpace());
 	setRendering();
 }
@@ -658,7 +659,7 @@ void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 
 void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 {
-	GridConfigDialog dialog(this);
+	GridDialog dialog(this);
 	dialog.set(config.getGridConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {

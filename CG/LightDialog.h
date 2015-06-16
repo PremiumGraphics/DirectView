@@ -11,10 +11,15 @@ class AmbientLightDialog : public wxDialog
 {
 public:
 	AmbientLightDialog(wxWindow* parent) :
-		wxDialog( parent, wxID_ANY, "AmbientLight" )
+		wxDialog( parent, wxID_ANY, "AmbientLight", wxDefaultPosition, wxSize( 500, 500 ) )
 	{
+		color = new wxColourPickerCtrl(this, wxID_ANY, wxColour(), wxPoint(100, 100 ) );
 		//wxSpinCtrlDouble* pos;
 	}
+
+private:
+	wxColourPickerCtrl* color;
+
 };
 
 class DirectionalLightDialog : public wxDialog

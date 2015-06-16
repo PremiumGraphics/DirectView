@@ -25,7 +25,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::Model<float>& factory);
+	View(Frame *frame, const int width, const int height, const Command::ModelSPtr<float>& factory);
 
 	~View();
 
@@ -70,7 +70,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	const Command::Model<float>& factory;
+	const Command::ModelSPtr<float>& factory;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;
@@ -90,7 +90,7 @@ private:
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
 
-	Command::RenderingBufferSPtr<float> getBuffer() { return factory.getRenderingBuffer(); }
+	Command::RenderingBufferSPtr<float> getBuffer() { return factory->getRenderingBuffer(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

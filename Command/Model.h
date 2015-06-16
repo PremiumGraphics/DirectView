@@ -57,6 +57,10 @@ public:
 		}
 	}
 
+	void translate(const Math::Vector3d<T>& v) {
+		;
+	}
+
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
 	LightModelSPtr<T> getLightFactory() const { return light; }
