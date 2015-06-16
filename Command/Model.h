@@ -3,7 +3,7 @@
 
 #include "../Graphics/Camera.h"
 
-#include "ScalarSpaceModel.h"
+#include "VolumeModel.h"
 #include "PolygonModel.h"
 #include "LightModel.h"
 #include "MetaballModel.h"

@@ -6,7 +6,7 @@
 #include "../Graphics/Polygon.h"
 #include "../Math/ScalarSpace.h"
 
-#include "ScalarSpaceModel.h"
+#include "VolumeModel.h"
 #include "PolygonModel.h"
 #include "MetaballModel.h"
 
