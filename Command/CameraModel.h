@@ -2,7 +2,6 @@
 #define __CRYSTAL_COMMAND_CAMERA_MODEL_H__
 
 #include "Object.h"
-#include "Factory.h"
 
 #include "../Graphics/Camera.h"
 

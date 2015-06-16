@@ -3,6 +3,8 @@
 
 #include "../Math/Vector.h"
 
+#include "../Util/UnCopyable.h"
+
 namespace Crystal {
 	namespace Command {
 
@@ -66,6 +68,27 @@ class NullObject : public Object{
 
 	~NullObject(){}
 };
+
+class ModelBase : private UnCopyable {
+public:
+	ModelBase() :
+		nextId(0)
+	{}
+
+	virtual ~ModelBase(){};
+
+	void clear() {
+		nextId = 0;
+	}
+
+	unsigned int getNextId() { return nextId++; }
+
+	virtual void remove(const unsigned int id) = 0;
+
+private:
+	unsigned int nextId;
+};
+
 	}
 }
 

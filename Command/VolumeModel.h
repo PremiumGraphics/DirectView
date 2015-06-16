@@ -5,7 +5,6 @@
 #include "MainConfig.h"
 
 #include "Object.h"
-#include "Factory.h"
 
 #include <memory>
 

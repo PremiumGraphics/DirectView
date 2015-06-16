@@ -13,7 +13,6 @@
 #include <memory>
 
 #include "Object.h"
-#include "Factory.h"
 
 namespace Crystal {
 	namespace Command {
