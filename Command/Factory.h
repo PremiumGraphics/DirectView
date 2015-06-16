@@ -1,10 +1,12 @@
 #ifndef __CRYSTAL_COMMAND_MODEL_BASE_H__
 #define __CRYSTAL_COMMAND_MODEL_BASE_H__
 
+#include "../Util/UnCopyable.h"
+
 namespace Crystal {
 	namespace Command {
 
-class ModelBase {
+class ModelBase : private UnCopyable {
 public:
 	ModelBase() :
 		nextId(0)

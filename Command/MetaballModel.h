@@ -5,7 +5,6 @@
 #include <memory>
 
 #include "../Math/Kernel.h"
-#include "../Util/UnCopyable.h"
 
 #include "MainConfig.h"
 
@@ -46,7 +45,7 @@ template<typename T>
 using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
 template<typename T>
-class MetaballObjectModel final : public ModelBase, private UnCopyable
+class MetaballObjectModel final : public ModelBase
 {
 public:
 	MetaballObjectModel()

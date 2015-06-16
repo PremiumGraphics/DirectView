@@ -48,7 +48,7 @@ template<typename T>
 using PolygonObjectSPtrList = std::list < PolygonObjectSPtr<T> > ;
 
 template<typename T>
-class PolygonModel final : public ModelBase, private UnCopyable
+class PolygonModel final : public ModelBase
 {
 public:
 	PolygonModel()
