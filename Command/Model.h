@@ -5,7 +5,7 @@
 
 #include "ScalarSpaceModel.h"
 #include "PolygonModel.h"
-#include "LightFactory.h"
+#include "LightModel.h"
 #include "MetaballModel.h"
 #include "RenderingBuffer.h"
 
@@ -63,7 +63,7 @@ public:
 
 	ScalarSpaceModelSPtr<T> getScalarSpaceFactory() const { return scalarSpace; }
 
-	PolygonFactorySPtr<T> getPolygonFactory() const { return polygon; }
+	PolygonModelSPtr<T> getPolygonFactory() const { return polygon; }
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
@@ -90,7 +90,7 @@ private:
 	Graphics::CameraSPtr<T> camera;
 	LightModelSPtr<T> light;
 	ScalarSpaceModelSPtr<T> scalarSpace;
-	PolygonFactorySPtr<T> polygon;
+	PolygonModelSPtr<T> polygon;
 	MetaballModelSPtr<T> metaball;
 	RenderingBufferSPtr<T> renderingBuffer;
 };

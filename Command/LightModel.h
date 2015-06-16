@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_LIGHT_FACTORY_H__
-#define __CRSYTAL_COMMAND_LIGHT_FACTORY_H__
+#ifndef __CRYSTAL_COMMAND_LIGHT_MODEL_H__
+#define __CRSYTAL_COMMAND_LIGHT_MODEL_H__
 
 #include "../Graphics/Light.h"
 

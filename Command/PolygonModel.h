@@ -125,7 +125,7 @@ private:
 };
 
 template<typename T>
-using PolygonFactorySPtr = std::shared_ptr< PolygonModel<T> > ;
+using PolygonModelSPtr = std::shared_ptr< PolygonModel<T> > ;
 
 	}
 }

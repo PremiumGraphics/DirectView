@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "LightFactory.h"
+#include "LightModel.h"
 
 using namespace Crystal::Command;
 using namespace Crystal::Graphics;

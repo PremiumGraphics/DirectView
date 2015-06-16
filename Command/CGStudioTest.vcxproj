@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClInclude Include="CameraModel.h" />
     <ClInclude Include="Factory.h" />
-    <ClInclude Include="LightFactory.h" />
+    <ClInclude Include="LightModel.h" />
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="MetaballModel.h" />
     <ClInclude Include="Model.h" />
@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraModelTest.cpp" />
-    <ClCompile Include="LightFactoryTest.cpp" />
+    <ClCompile Include="LightModelTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
     <ClCompile Include="ModelTest.cpp" />
     <ClCompile Include="PolygonModelTest.cpp" />
