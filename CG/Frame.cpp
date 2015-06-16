@@ -219,7 +219,7 @@ Frame::Frame()
 	const int width = 1600;//720;
 	const int height = 900;////480;
 
-	view = new View( this, width, height, factory, factory.getRenderingBuffer() );
+	view = new View( this, width, height, model );
 
 	SetIcon(wxICON(sample));
 
@@ -261,7 +261,7 @@ Frame::~Frame()
 
 void Frame::clear()
 {
-	factory.clear();
+	model.clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -357,7 +357,7 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 
 void Frame::OnCreateLight( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::LIGHT_TRANSLATE );
+	view->setMode( View::TRANSLATE );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -410,8 +410,8 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 			return;
 		}
 
-		//PolygonFactory factory( model.getPolygonBuilder() );
-		//PolygonSPtrList g = factory.create(file);
+		//PolygonFactory model( model.getPolygonBuilder() );
+		//PolygonSPtrList g = model.create(file);
 		view->Refresh();
 
 		OnCameraFit( e );
@@ -581,36 +581,36 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (factory.getScalarSpaceFactory()->getSpaces().empty()) {
+	if (model.getScalarSpaceFactory()->getSpaces().empty()) {
 		wxMessageBox("Setup Grid");
 		return;
 	}
 
 	const auto& mConfig = config.getMetaballConfig();
-	const auto& metaball = factory.getMetaballFactory()->create( mConfig );
-	factory.add(*metaball);
+	const auto& metaball = model.getMetaballFactory()->create( mConfig );
+	model.add(*metaball);
 	OnCreatePolygon(e);
 	setRendering();
 }
 
 void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
 {
-	factory.add( config.getGridConfig() );
+	model.add( config.getGridConfig() );
 
 	setRendering();
 }
 
 void Frame::setRendering()
 {
-	const auto& buffer = factory.getRenderingBuffer();
-	buffer->add( factory.getPolygonFactory()->getPolygons());
-	buffer->add( factory.getScalarSpaceFactory()->getSpaces());
-	buffer->add( factory.getMetaballFactory()->getBalls() );
+	const auto& buffer = model.getRenderingBuffer();
+	buffer->add( model.getPolygonFactory()->getPolygons());
+	buffer->add( model.getScalarSpaceFactory()->getSpaces());
+	buffer->add( model.getMetaballFactory()->getBalls() );
 
 	/*
 	const bool b = config.getRenderingConfig().getWireframeConfig().drawBB();
 	if (b) {
-		buffer->getWireframeCommand()->build( factory.getDrawableFactory()->getPolygons() );
+		buffer->getWireframeCommand()->build( model.getDrawableFactory()->getPolygons() );
 	}
 	*/
 	view->Refresh();
@@ -649,9 +649,9 @@ void Frame::OnRotate(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 {
-	factory.getPolygonFactory()->clear();
-	factory.polygonize();
-	//factory.getPolygonFactory()->create(*ss.getScalarSpace());
+	model.getPolygonFactory()->clear();
+	model.polygonize();
+	//model.getPolygonFactory()->create(*ss.getScalarSpace());
 	setRendering();
 }
 

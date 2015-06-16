@@ -25,13 +25,12 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::Model<float>& factory, const Command::RenderingBufferSPtr<float>& rCommand);
+	View(Frame *frame, const int width, const int height, const Command::Model<float>& factory);
 
 	~View();
 
 	enum MODE{
 		CAMERA_TRANSLATE,
-		LIGHT_TRANSLATE,
 		TRANSLATE,
 		ROTATE,
 		//PICK_VERTEX,
@@ -91,8 +90,7 @@ private:
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
 
-
-	Command::RenderingBufferSPtr<float> rCommand;
+	Command::RenderingBufferSPtr<float> getBuffer() { return factory.getRenderingBuffer(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

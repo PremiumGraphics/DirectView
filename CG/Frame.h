@@ -17,7 +17,7 @@ public:
 
 	~Frame();
 
-	Command::Model<float>& getModel() { return factory; }
+	Command::Model<float>& getModel() { return model; }
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -102,7 +102,7 @@ private:
 
 private:
 	View* view;
-	Command::Model<float> factory;
+	Command::Model<float> model;
 	Command::MainConfig<float> config;
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );

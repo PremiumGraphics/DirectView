@@ -18,13 +18,12 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const Model<float>& factory, const RenderingBufferSPtr<float>& rCommand )
+View::View( Frame* parent, const int width, const int height, const Model<float>& factory )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
 renderingMode( WIRE_FRAME ),
-factory( factory ),
-rCommand( rCommand )
+factory( factory )
 {
 	glContext.SetCurrent( *this );
 
@@ -159,16 +158,6 @@ void View::OnMouse( wxMouseEvent& event )
 			factory.getCamera()->move( pos );
 			factory.getCamera()->addAngle( angle );
 		}
-		else if( mode == LIGHT_TRANSLATE ) {
-			/*
-			const LightSPtrList<float>& lights = factory.getLightFactory()->getLights();
-			for (const auto& l : lights) {
-				Vector3d<float> lpos = l->getPos();
-				lpos += pos;
-				l->setPos(lpos);
-			}
-			*/
-		}
 		else if (mode == TRANSLATE) {
 			//ssTransformCmd->move(pos);
 		}
@@ -205,9 +194,10 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		const auto& wConfig = config.getWireframeConfig();
+		const auto& wfCommand = getBuffer()->getWireframeCommand();
 		glLineWidth( wConfig.getLineWidth() );
-		wireFrameRenderer.positions = rCommand->getWireframeCommand()->getPositions();
-		wireFrameRenderer.colors = rCommand->getWireframeCommand()->getColors();
+		wireFrameRenderer.positions = wfCommand->getPositions();
+		wireFrameRenderer.colors = wfCommand->getColors();
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {
@@ -216,22 +206,25 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		const auto nConfig = config.getNormalConfig();
+		const auto& nCommand = getBuffer()->getNormalRenderingCommand();
 		glLineWidth( nConfig.getLineWidth() );
-		normalRenderer.positions = rCommand->getNormalRenderingCommand()->getPositions();
-		normalRenderer.normals = rCommand->getNormalRenderingCommand()->getNormals();
+		normalRenderer.positions = nCommand->getPositions();
+		normalRenderer.normals = nCommand->getNormals();
 		normalRenderer.scale = nConfig.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		const auto& pConfig = config.getPointConfig();
+		const auto& pCommand = getBuffer()->getPointRenderingCommand();
 		glPointSize( pConfig.getPointSize() );
-		pointRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
+		pointRenderer.positions = pCommand->getPoints();
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		idRenderer.positions = rCommand->getPointRenderingCommand()->getPoints();
-		idRenderer.types = rCommand->getPointRenderingCommand()->getTypes();
-		idRenderer.ids = rCommand->getPointRenderingCommand()->getIds();
+		const auto& pCommand = getBuffer()->getPointRenderingCommand();
+		idRenderer.positions = pCommand->getPoints();
+		idRenderer.types = pCommand->getTypes();
+		idRenderer.ids = pCommand->getIds();
 		idRenderer.render(width, height, c );
 	}
 	else {
