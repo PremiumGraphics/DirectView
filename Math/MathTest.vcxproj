@@ -47,7 +47,6 @@
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
-    <ClInclude Include="..\Math\Volume.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>
