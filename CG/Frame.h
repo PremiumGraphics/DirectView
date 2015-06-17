@@ -42,15 +42,17 @@ private:
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
-	void OnWireFrame( wxRibbonButtonBarEvent& e);
+	void OnRenderWireFrame( wxRibbonButtonBarEvent& e);
 
 	void OnPhong( wxRibbonButtonBarEvent& );
 
-	void OnFlat( wxRibbonButtonBarEvent& );
+	void OnRenderSurface( wxRibbonButtonBarEvent& );
 
-	void OnNormal(wxRibbonButtonBarEvent&);
+	void OnRenderNormal(wxRibbonButtonBarEvent&);
 
 	void OnPoint(wxRibbonButtonBarEvent&);
+
+	void OnRenderingVolume(wxRibbonBarEvent&);
 
 	void OnID(wxRibbonButtonBarEvent&);
 

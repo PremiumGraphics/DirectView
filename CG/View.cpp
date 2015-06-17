@@ -19,7 +19,7 @@ View::View( Frame* parent, const int width, const int height, const ModelSPtr<fl
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( WIRE_FRAME ),
+renderingMode( RENDERING_MODE::WIRE_FRAME ),
 model( model )
 {
 	glContext.SetCurrent( *this );
@@ -179,10 +179,19 @@ void View::OnSize(wxSizeEvent& e)
 	draw( e.GetSize() );
 }
 
-void View::set(const SurfaceModelSPtr<float>& model)
+void View::set(const Model<float>& model)
 {
 	wireFrameRenderer.clear();
 	normalRenderer.clear();
+	pointRenderer.clear();
+
+	set( model.getSurfaceModel() );
+	set( model.getVolumeModel() );
+	set( model.getMetaballModel() );
+}
+
+void View::set(const SurfaceModelSPtr<float>& model)
+{
 	for (const auto& p : model->getPolygons()) {
 		if (p->isVisible()) {
 			wireFrameRenderer.build(*(p->getPolygon()));
@@ -193,7 +202,6 @@ void View::set(const SurfaceModelSPtr<float>& model)
 
 void View::set(const VolumeModelSPtr<float>& model)
 {
-	pointRenderer.clear();
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
 			pointRenderer.build( *(b->getSpace()), b->getId());
@@ -204,7 +212,6 @@ void View::set(const VolumeModelSPtr<float>& model)
 
 void View::set(const MetaballModelSPtr<float>& model)
 {
-	//pointRenderer.clear();
 	for (const auto& b : model->getBalls()) {
 		if (b->isVisible()) {
 			pointRenderer.build((*b->getMetaball()), b->getId());
@@ -232,7 +239,7 @@ void View::draw(const wxSize& size)
 		glLineWidth( wConfig.getLineWidth() );
 		wireFrameRenderer.render(width, height, c );
 	}
-	else if( renderingMode == RENDERING_MODE::FLAT ) {
+	else if( renderingMode == RENDERING_MODE::SURFACE ) {
 		surfaceRenderer.render(width, height, c );
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}

@@ -48,9 +48,9 @@ enum {
 	ID_CREATE_SURFACE,
 
 	ID_RENDERING_WIREFRAME,
-	ID_RENDERING_FLAT,
-	ID_RENDERING_PHONG,
+	ID_RENDERING_SURFACE,
 	ID_RENDERING_NORMAL,
+	ID_RENDERING_VOLUME,
 	ID_RENDERING_POINT,
 	ID_RENDERING_ID,
 
@@ -154,18 +154,16 @@ Frame::Frame()
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddHybridButton( ID_RENDERING_PHONG,		"Phong",	wxImage("../Resource/surface.png"));
-	rendering->AddHybridButton( ID_RENDERING_FLAT,		"Flat",		wxImage("../Resource/surface.png") );
+	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
 	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
 	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
+	rendering->AddHybridButton( ID_RENDERING_VOLUME,	"Volume",	wxImage("../Resource/point.png"));
 	rendering->AddHybridButton( ID_RENDERING_ID,		"ID",		wxImage("../Resource/point.png"));
 
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnWireFrame ) );
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
-	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPhong ) );
-	Connect( ID_RENDERING_PHONG,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPhongConfig) );
-	Connect( ID_RENDERING_FLAT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFlat ) );
-	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormal) );
+	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderSurface ) );
+	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderNormal) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
@@ -491,7 +489,7 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 #include "wx/numdlg.h"
 
-void Frame::OnWireFrame( wxRibbonButtonBarEvent& e)
+void Frame::OnRenderWireFrame( wxRibbonButtonBarEvent& e)
 {
 	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
 	view->Refresh();
@@ -503,13 +501,13 @@ void Frame::OnPhong( wxRibbonButtonBarEvent& )
 //	view->Refresh();
 }
 
-void Frame::OnFlat( wxRibbonButtonBarEvent& )
+void Frame::OnRenderSurface( wxRibbonButtonBarEvent& )
 {
-	view->setRenderingMode( View::RENDERING_MODE::FLAT );
+	view->setRenderingMode( View::RENDERING_MODE::SURFACE );
 	view->Refresh();
 }
 
-void Frame::OnNormal(wxRibbonButtonBarEvent&)
+void Frame::OnRenderNormal(wxRibbonButtonBarEvent&)
 {
 	view->setRenderingMode( View::RENDERING_MODE::NORMAL );
 	view->Refresh();
@@ -520,6 +518,13 @@ void Frame::OnPoint(wxRibbonButtonBarEvent&)
 	view->setRenderingMode(View::RENDERING_MODE::POINT);
 	view->Refresh();
 }
+
+void Frame::OnRenderingVolume(wxRibbonBarEvent&)
+{
+	view->setRenderingMode(View::RENDERING_MODE::VOLUME);
+	view->Refresh();
+}
+
 
 void Frame::OnID(wxRibbonButtonBarEvent&)
 {
@@ -592,9 +597,7 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	view->set( model->getSurfaceModel() );
-	view->set( model->getVolumeModel() );
-	view->set( model->getMetaballModel());
+	view->set( *model );
 	view->Refresh();
 
 }

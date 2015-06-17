@@ -35,11 +35,12 @@ public:
 		//PICK_VERTEX,
 	};
 
-	enum RENDERING_MODE {
+	enum class RENDERING_MODE {
 		WIRE_FRAME,
-		FLAT,
+		SURFACE,
 		NORMAL,
 		POINT,
+		VOLUME,
 		ID,
 	};
 
@@ -51,11 +52,8 @@ public:
 		this->config = config;
 	}
 
-	void set(const Command::SurfaceModelSPtr<float>& model);
+	void set(const Command::Model<float>& model);
 
-	void set(const Command::VolumeModelSPtr<float>& model);
-
-	void set(const Command::MetaballModelSPtr<float>& model);
 	//void set(const Command::VolumeModelSPtr<float>& model);
 
 
@@ -96,6 +94,13 @@ private:
 	float getPointSize() const { return config.getPointConfig().getPointSize(); }
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
+
+	void set(const Command::SurfaceModelSPtr<float>& model);
+
+	void set(const Command::VolumeModelSPtr<float>& model);
+
+	void set(const Command::MetaballModelSPtr<float>& model);
+
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

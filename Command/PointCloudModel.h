@@ -38,7 +38,7 @@ using PointCloudObjectSPtr = std::shared_ptr < PointCloudObject<T> > ;
 template<typename T>
 using PointCloudObjectSPtrList = std::list < PointCloudObjectSPtr<T> > ;
 
-
+/*
 template<typename T>
 class PointCloudModel final : public ModelBase
 {
@@ -49,12 +49,23 @@ public:
 
 	void clear() {
 		ModelBase::clear();
+		objects.clear();
+	}
 
+	PointCloudObjectSPtr create() {
+		return Point
 	}
 
 private:
 	PointCloudObjectSPtrList<T> objects;
+
+	PointCloudObjectSPtr<T> add(const Graphics::PointCloudSPtr<T>& pointCloud) {
+		objects.push_back(std::make_shared< PointCloudObject<float> >(getNextId(), pointCloud));
+		return spaces.back();
+	}
+
 };
+*/
 	}
 }
 
