@@ -61,7 +61,7 @@ private:
 	void OnCreateMetaball(wxRibbonButtonBarEvent& e);
 
 
-	void OnCreateGrid(wxRibbonButtonBarEvent& e);
+	void OnCreateVolume(wxRibbonButtonBarEvent& e);
 
 
 	void OnBooleanUnion(wxRibbonButtonBarEvent& e);

@@ -10,7 +10,7 @@
 #include "../IO/OBJFile.h"
 #include "../IO/STLFile.h"
 
-#include "GridDialog.h"
+#include "VolumeDialog.h"
 #include "MetaballDialog.h"
 #include "RenderingDialog.h"
 #include "LightDialog.h"
@@ -38,9 +38,7 @@ enum {
 	ID_SELECTED_ROTATE,
 
 	ID_CREATE_METABALL,
-	ID_CREATE_CYLINDER,
-	ID_CREATE_BOX,
-	ID_CREATE_GRID,
+	ID_CREATE_VOLUME,
 
 	ID_BOOLEAN_UNION,
 	ID_BOOLEAN_DIFF,
@@ -179,15 +177,15 @@ Frame::Frame()
 	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
 	//modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	//modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_GRID, "Grid", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_VOLUME, "Volume", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	//Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
 	//Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
-	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateGrid));
-	Connect(ID_CREATE_GRID,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
+	Connect(ID_CREATE_VOLUME,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
+	Connect(ID_CREATE_VOLUME,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_POLYGON,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
 
 	/*
@@ -595,7 +593,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	setRendering();
 }
 
-void Frame::OnCreateGrid(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
 	model->add( config.getGridConfig() );
 
@@ -656,12 +654,12 @@ void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
 
 void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 {
-	GridDialog dialog(this);
+	VolumeDialog dialog(this);
 	dialog.set(config.getGridConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
 		config.setGridConfig(dialog.get());
-		OnCreateGrid(e);
+		OnCreateVolume(e);
 	}
 }
 

@@ -20,13 +20,13 @@
     <ClInclude Include="LightDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="GridDialog.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="RenderingDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
     <ClInclude Include="MetaballDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VolumeDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
   </ItemGroup>
