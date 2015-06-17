@@ -21,7 +21,7 @@ template<typename T>
 class PolygonObject : public Object
  {
 public:
-	PolygonObject(const Graphics::PolygonSPtr<T>& polygon, const unsigned int id) :
+	PolygonObject(const Graphics::SurfaceSPtr<T>& polygon, const unsigned int id) :
 		Object(id),
 		polygon( polygon )
 	{}
@@ -34,10 +34,10 @@ public:
 	};
 
 
-	Graphics::PolygonSPtr<T> getPolygon() const { return polygon; }
+	Graphics::SurfaceSPtr<T> getPolygon() const { return polygon; }
 
 private:
-	Graphics::PolygonSPtr<T> polygon;
+	Graphics::SurfaceSPtr<T> polygon;
 };
 
 template<typename T>
@@ -67,7 +67,7 @@ public:
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<float> >();
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue() );
 		}
@@ -77,7 +77,7 @@ public:
 	PolygonObjectSPtr<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
 		for (const auto t : triangles) {
 			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
 		}
@@ -85,14 +85,14 @@ public:
 	}
 
 	PolygonObjectSPtr<T> createBoundingBox(const Math::Volume3d<T>& ss) {
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
 	PolygonObjectSPtr<T> createGridCells(const Math::Volume3d<T>& ss) {
-		Graphics::PolygonSPtr<T> polygon = std::make_shared<Graphics::Polygon<T> >();
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
 			const auto& space = c.getSpace();
@@ -128,7 +128,7 @@ private:
 
 	Math::MarchingCube<T> mc;
 
-	PolygonObjectSPtr<T> add(Graphics::PolygonSPtr<float>& p) {
+	PolygonObjectSPtr<T> add(Graphics::SurfaceSPtr<float>& p) {
 		this->polygons.push_back( std::make_shared< PolygonObject<float> >( p, getNextId() ) );
 		return polygons.back();
 	}

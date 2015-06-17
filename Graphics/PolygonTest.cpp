@@ -24,7 +24,7 @@ TEST(PolygonTest, TestAddLine)
 
 TEST(PolygonTest, TestAddTriangle)
 {
-	Polygon<T> p;
+	Surface<T> p;
 	p.add(Triangle<T>(), ColorRGBA<float>());
 	EXPECT_EQ(3, p.getVertices().size());
 	EXPECT_EQ(3, p.getEdges().size());
@@ -32,7 +32,7 @@ TEST(PolygonTest, TestAddTriangle)
 
 TEST(PolygonTest, TestAddBox)
 {
-	Polygon<T> p;
+	Surface<T> p;
 	p.add(Box<T>(), ColorRGBA<float>());
 	EXPECT_EQ(8, p.getVertices().size());
 	EXPECT_EQ(12, p.getEdges().size());

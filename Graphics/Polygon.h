@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_POLYGON_H__
-#define __CRYSTAL_GRAPHICS_POLYGON_H__
+#ifndef __CRYSTAL_GRAPHICS_SURFACE_H__
+#define __CRYSTAL_GRAPHICS_SURFACE_H__
 
 #include <vector>
 #include <memory>
@@ -19,12 +19,12 @@ namespace Crystal {
 		class Material;
 
 template<typename T>
-class Polygon final : private UnCopyable {
+class Surface final : private UnCopyable {
 public:
 
-	Polygon() = default;
+	Surface() = default;
 
-	~Polygon() = default;
+	~Surface() = default;
 
 	HalfEdgeSPtrList<float> getEdges() const { return edges; }
 
@@ -44,7 +44,7 @@ public:
 	}
 	*/
 
-	Polygon& add(const Math::Triangle<T>& t, const ColorRGBA<float>& c) {
+	Surface& add(const Math::Triangle<T>& t, const ColorRGBA<float>& c) {
 		const auto normal = t.getNormal();
 		VertexSPtrVector<T> vs;
 		vs.push_back(std::make_shared<Vertex<T> >(t.getv0(), normal, Math::Vector3d<float>(0, 0, 0), c));
@@ -61,7 +61,7 @@ public:
 
 	//Polygon* add(const Math::Quad)
 
-	Polygon& add(const Math::Box<T>& box, const ColorRGBA<float>& c) {
+	Surface& add(const Math::Box<T>& box, const ColorRGBA<float>& c) {
 		const auto minx = box.getMinX();
 		const auto miny = box.getMinY();
 		const auto minz = box.getMinZ();
@@ -104,13 +104,13 @@ private:
 };
 
 template<typename T>
-using PolygonSPtr = std::shared_ptr< Polygon<T> >;
+using SurfaceSPtr = std::shared_ptr< Surface<T> >;
 
 template<typename T>
-using PolygonSPtrVector = std::vector< PolygonSPtr<T> >;
+using SurfaceSPtrVector = std::vector< SurfaceSPtr<T> >;
 
 template<typename T>
-using PolygonSPtrList = std::list< PolygonSPtr<T> >;
+using SurfaceSPtrList = std::list< SurfaceSPtr<T> >;
 
 	}
 }
