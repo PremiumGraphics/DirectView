@@ -4,7 +4,7 @@
 #include "../Graphics/Camera.h"
 
 #include "VolumeModel.h"
-#include "PolygonModel.h"
+#include "SurfaceModel.h"
 #include "LightModel.h"
 #include "MetaballModel.h"
 #include "RenderingBuffer.h"

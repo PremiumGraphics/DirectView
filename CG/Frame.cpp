@@ -45,7 +45,7 @@ enum {
 	ID_BOOLEAN_INTERSECTION,
 	ID_BOOLEAN_NOT,
 
-	ID_CREATE_POLYGON,
+	ID_CREATE_SURFACE,
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_FLAT,
@@ -178,15 +178,13 @@ Frame::Frame()
 	//modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
 	//modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_VOLUME, "Volume", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_POLYGON, "Polygon", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_SURFACE, "Surface", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
-	//Connect(ID_CREATE_CYLINDER,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateCylinder));
-	//Connect(ID_CREATE_BOX,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateBox));
-	Connect(ID_CREATE_VOLUME,				wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
-	Connect(ID_CREATE_VOLUME,				wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
-	Connect(ID_CREATE_POLYGON,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreatePolygon));
+	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
+	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
+	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
 
 	/*
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
@@ -589,7 +587,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 	const auto& mConfig = config.getMetaballConfig();
 	const auto& metaball = model->getMetaballFactory()->create( mConfig );
 	model->add(*metaball);
-	OnCreatePolygon(e);
+	OnCreateSurface(e);
 	setRendering();
 }
 
@@ -643,7 +641,7 @@ void Frame::OnScale(wxRibbonButtonBarEvent& e)
 	view->setMode(View::SCALE);
 }
 
-void Frame::OnCreatePolygon(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 {
 	model->getPolygonFactory()->clear();
 	model->polygonize();

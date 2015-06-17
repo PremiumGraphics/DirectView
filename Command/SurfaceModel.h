@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_POLYGON_MODEL_H__
-#define __CRYSTAL_COMMAND_POLYGON_MODEL_H__
+#ifndef __CRYSTAL_COMMAND_SURFACE_MODEL_H__
+#define __CRYSTAL_COMMAND_SURFACE_MODEL_H__
 
 #include "../Graphics/Surface.h"
 
@@ -7,8 +7,6 @@
 #include "../Math/BitSpace.h"
 
 #include "../Math/MarchingCube.h"
-
-#include "../Util/UnCopyable.h"
 
 #include <memory>
 

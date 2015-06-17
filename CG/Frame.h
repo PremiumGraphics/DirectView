@@ -78,7 +78,7 @@ private:
 
 	void OnScale(wxRibbonButtonBarEvent& e);
 
-	void OnCreatePolygon(wxRibbonButtonBarEvent& e);
+	void OnCreateSurface(wxRibbonButtonBarEvent& e);
 
 	void OnGridConfig(wxRibbonButtonBarEvent& e);
 

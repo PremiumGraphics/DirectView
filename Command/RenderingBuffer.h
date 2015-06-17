@@ -6,7 +6,7 @@
 #include "../Graphics/Surface.h"
 
 #include "VolumeModel.h"
-#include "PolygonModel.h"
+#include "SurfaceModel.h"
 #include "MetaballModel.h"
 
 namespace Crystal{

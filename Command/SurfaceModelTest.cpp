@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "PolygonModel.h"
+#include "SurfaceModel.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
