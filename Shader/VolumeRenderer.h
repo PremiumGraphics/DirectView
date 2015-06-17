@@ -17,9 +17,9 @@ class VolumeRenderer final : private UnCopyable
 {
 public:
 
-	VolumeRenderer();
+	VolumeRenderer() = default;
 
-	~VolumeRenderer();
+	~VolumeRenderer() = default;
 
 	void build();
 

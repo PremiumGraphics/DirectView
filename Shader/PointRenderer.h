@@ -30,15 +30,6 @@ public:
 		points.clear();
 	}
 
-
-	void build(const Math::Volume3d<float>& ss, const unsigned int id) {
-		const auto center = ss.getCenter();
-		const auto cs = ss.getCenter().toArray();
-		points.insert(points.end(), cs.begin(), cs.end());
-		types.push_back(0);
-	//	ids.push_back(id);
-	}
-
 	void build(const Math::Metaball<float>& ball, const unsigned int id) {
 		const auto center = ball.getCenter();
 		const auto cs = center.toArray();

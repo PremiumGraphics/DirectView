@@ -19,38 +19,40 @@ PointRenderer::~PointRenderer()
 
 namespace {
 	GLuint positionLocation = 0;
-}
-static std::stringstream getVertexSource()
-{
-	std::stringstream stream;
-	stream
-		<< "#version 150" << std::endl
-		<< "in vec3 position;" << std::endl
-		<< "out vec3 vColor;" << std::endl
-		<< "uniform mat4 projectionMatrix;" << std::endl
-		<< "uniform mat4 modelviewMatrix;" << std::endl
-		<< "void main(void)" << std::endl
-		<< "{" << std::endl
-		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
-		<< "	vColor = vec3( 0.0, 0.0, 1.0);" << std::endl
-		<< "}" << std::endl;
-	return stream;
-}
+
+	static std::stringstream getVertexSource()
+	{
+		std::stringstream stream;
+		stream
+			<< "#version 150" << std::endl
+			<< "in vec3 position;" << std::endl
+			<< "out vec3 vColor;" << std::endl
+			<< "uniform mat4 projectionMatrix;" << std::endl
+			<< "uniform mat4 modelviewMatrix;" << std::endl
+			<< "void main(void)" << std::endl
+			<< "{" << std::endl
+			<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );" << std::endl
+			<< "	vColor = vec3( 0.0, 0.0, 1.0);" << std::endl
+			<< "}" << std::endl;
+		return stream;
+	}
 
 
-static std::stringstream getFragmentSource()
-{
-	std::stringstream stream;
-	stream
-		<< "#version 150" << std::endl
-		<< "in vec3 vColor;" << std::endl
-		<< "out vec4 fragColor;" << std::endl
-		<< "void main(void)" << std::endl
-		<< "{" << std::endl
-		<< "	fragColor.rgb = vColor;" << std::endl
-		<< "	fragColor.a = 1.0;" << std::endl
-		<< "}" << std::endl;
-	return stream;
+	static std::stringstream getFragmentSource()
+	{
+		std::stringstream stream;
+		stream
+			<< "#version 150" << std::endl
+			<< "in vec3 vColor;" << std::endl
+			<< "out vec4 fragColor;" << std::endl
+			<< "void main(void)" << std::endl
+			<< "{" << std::endl
+			<< "	fragColor.rgb = vColor;" << std::endl
+			<< "	fragColor.a = 1.0;" << std::endl
+			<< "}" << std::endl;
+		return stream;
+	}
+
 }
 
 void PointRenderer::build()

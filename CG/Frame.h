@@ -52,7 +52,7 @@ private:
 
 	void OnPoint(wxRibbonButtonBarEvent&);
 
-	void OnRenderingVolume(wxRibbonBarEvent&);
+	void OnRenderingVolume(wxRibbonButtonBarEvent&);
 
 	void OnID(wxRibbonButtonBarEvent&);
 

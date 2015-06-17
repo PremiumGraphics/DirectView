@@ -167,6 +167,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnPoint) );
 	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
+	Connect(ID_RENDERING_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
 	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
@@ -519,7 +520,7 @@ void Frame::OnPoint(wxRibbonButtonBarEvent&)
 	view->Refresh();
 }
 
-void Frame::OnRenderingVolume(wxRibbonBarEvent&)
+void Frame::OnRenderingVolume(wxRibbonButtonBarEvent&)
 {
 	view->setRenderingMode(View::RENDERING_MODE::VOLUME);
 	view->Refresh();

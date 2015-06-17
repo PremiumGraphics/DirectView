@@ -184,6 +184,7 @@ void View::set(const Model<float>& model)
 	wireFrameRenderer.clear();
 	normalRenderer.clear();
 	pointRenderer.clear();
+	vRenderer.clear();
 
 	set( model.getSurfaceModel() );
 	set( model.getVolumeModel() );
@@ -204,7 +205,7 @@ void View::set(const VolumeModelSPtr<float>& model)
 {
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
-			pointRenderer.build( *(b->getSpace()), b->getId());
+			vRenderer.build( *(b->getSpace()) );
 		}
 	}
 
@@ -254,6 +255,9 @@ void View::draw(const wxSize& size)
 		glPointSize( pConfig.getPointSize() );
 		pointRenderer.render(width, height, &c );
 	}
+	else if (renderingMode == RENDERING_MODE::VOLUME) {
+		vRenderer.render(width, height, c);
+	}
 	else if (renderingMode == RENDERING_MODE::ID) {
 		/*
 		const auto& pCommand = getBuffer()->getPointRenderingCommand();
@@ -276,6 +280,7 @@ void View::build()
 	pointRenderer.build();
 	idRenderer.build();
 	surfaceRenderer.build();
+	vRenderer.build();
 	/*
 	wireFrameRenderer.build();
 	flatRenderer.build();

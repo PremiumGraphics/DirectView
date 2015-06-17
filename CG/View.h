@@ -10,6 +10,7 @@
 #include "../Shader/IDRenderer.h"
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
+#include "../Shader/VolumeRenderer.h"
 
 #include "../Command/Model.h"
 #include "../Command/MainConfig.h"
@@ -88,6 +89,7 @@ private:
 	Graphics::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
+	Shader::VolumeRenderer vRenderer;
 
 	Command::RenderingConfig<float> config;
 
