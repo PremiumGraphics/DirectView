@@ -55,10 +55,9 @@ public:
 
 	~SurfaceModel() = default;
 
-	SurfaceModel& clear() {
+	void clear() {
 		ModelBase::clear();
 		this->polygons.clear();
-		return (*this);
 	}
 
 	SurfaceObjectSPtr<T> create(const Math::Volume3d<float>& ss)

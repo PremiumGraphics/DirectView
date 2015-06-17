@@ -17,6 +17,7 @@ public:
 		Light = 2,
 		Polygon = 3,
 		Camera = 4,
+		PointCloud = 5,
 	};
 
 	explicit Object(const unsigned int id) :

@@ -36,6 +36,7 @@
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="PointCloud.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Wireframe.h" />
