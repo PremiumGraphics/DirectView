@@ -33,11 +33,13 @@ public:
 		metaball->clear();
 	}
 
+	/*
 	void add(const MetaballObject<T>& metaball)
 	{
 		auto ss = volume->getSpaces().front();
 		ss->getSpace()->add(*metaball.getMetaball());
 	}
+	*/
 
 	void add(const GridConfig<T>& config)
 	{
@@ -47,8 +49,18 @@ public:
 		getSurfaceModel()->createGridCells(*ss->getSpace());
 	}
 
+	void toVolume() {
+		for (const auto& b : metaball->getBalls()) {
+			for (const auto& s : volume->getSpaces()) {
+				const auto& m = b->getMetaball();
+				s->getSpace()->add(*(m));
+			}
+		}
+	}
+
 	void polygonize()
 	{
+		toVolume();
 		for (const auto& s : getVolumeModel()->getSpaces()) {
 			getSurfaceModel()->create(*s->getSpace());
 		}

@@ -578,15 +578,8 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (model->getVolumeModel()->getSpaces().empty()) {
-		wxMessageBox("Setup Grid");
-		return;
-	}
-
 	const auto& mConfig = config.getMetaballConfig();
 	const auto& metaball = model->getMetaballModel()->create( mConfig );
-	model->add(*metaball);
-	OnCreateSurface(e);
 	setRendering();
 }
 
@@ -644,6 +637,13 @@ void Frame::OnScale(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 {
+	if (model->getVolumeModel()->getSpaces().empty()) {
+		wxMessageBox("Setup Grid");
+		return;
+	}
+
+	model->toVolume();
+
 	model->getSurfaceModel()->clear();
 	model->polygonize();
 	//model.getPolygonFactory()->create(*ss.getScalarSpace());
