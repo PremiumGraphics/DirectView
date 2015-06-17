@@ -2,7 +2,7 @@
 
 #include "RenderingBuffer.h"
 
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;

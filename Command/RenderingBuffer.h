@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 #include "VolumeModel.h"
 #include "PolygonModel.h"

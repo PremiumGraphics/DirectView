@@ -6,7 +6,7 @@
 
 #include "../Shader/ShaderObject.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 namespace Crystal {
 	namespace Shader {

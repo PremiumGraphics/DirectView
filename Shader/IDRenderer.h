@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "ShaderObject.h"
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
 
 namespace Crystal {

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 #include <memory>
 

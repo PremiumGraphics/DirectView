@@ -22,7 +22,7 @@
     <ClCompile Include="ImageRGBATest.cpp" />
     <ClCompile Include="ImageRGBTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
-    <ClCompile Include="PolygonTest.cpp" />
+    <ClCompile Include="SurfaceTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="ImageRGBA.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="Polygon.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

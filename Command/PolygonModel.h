@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_COMMAND_POLYGON_MODEL_H__
 #define __CRYSTAL_COMMAND_POLYGON_MODEL_H__
 
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 #include "../Math/Volume.h"
 #include "../Math/BitSpace.h"

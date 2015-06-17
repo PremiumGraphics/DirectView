@@ -1,10 +1,7 @@
 #include <stdafx.h>
 #include "View.h"
 
-#include "../Math/Matrix.h"
-#include "../Math/Quaternion.h"
-
-#include "../Graphics/Polygon.h"
+#include "../Graphics/Surface.h"
 
 #include "Converter.h"
 
