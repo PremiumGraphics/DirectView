@@ -46,6 +46,8 @@ public:
 
 	void setUnselect() { selected = false; }
 
+	void changeSelected() { selected = !selected; }
+
 	std::string getName() const { return name; }
 
 	virtual void move(const Math::Vector3d<float>& vector){};

@@ -22,6 +22,7 @@ void IDRenderer::build()
 		"in vec3 position;					\n"
 		"in int type;						\n"
 		"in int id;							\n"
+		"in int isSelected;					\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
@@ -30,7 +31,7 @@ void IDRenderer::build()
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
 		"	color.r = type / 255.0;			\n"
 		"	color.g = id / 255.0;			\n"
-		"	color.b = 0;					\n"
+		"	color.b = isSelected;					\n"
 		"}\n"
 		;
 
@@ -70,6 +71,7 @@ IDRenderer::Location IDRenderer::getLocations()
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.type = glGetAttribLocation(shader.getId(), "type");
 	location.id = glGetAttribLocation(shader.getId(), "id");
+	location.isSelected = glGetAttribLocation(shader.getId(), "isSelected");
 	//location.faceId = glGetAttribLocation(shader.getId(), "faceId");
 	//location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
 
@@ -96,16 +98,19 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()) );
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()) );
+	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3 );
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 

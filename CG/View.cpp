@@ -117,6 +117,11 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char b = image.GetBlue(position.x, position.y);
 		wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 
+		const Object::Type& type = static_cast<Object::Type>(r);
+		const unsigned int id = g;
+		model->changeSelected(type, id);
+		this->set(*model);
+		Refresh();
 		//ssTransformCmd->add()
 		//const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getScalarSpaces(r);
 		/*
@@ -219,7 +224,8 @@ void View::set(const MetaballModelSPtr<float>& model)
 			pointRenderer.add((*b->getMetaball()), b->getId());
 			const auto center = b->getMetaball()->getCenter();
 			const int type = static_cast<int>( b->getType() );
-			idRenderer.add(center, type, b->getId());
+			const int isSelected = b->isSelected();
+			idRenderer.add(center, type, b->getId(), isSelected);
 		}
 	}
 }

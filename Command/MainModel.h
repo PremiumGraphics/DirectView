@@ -89,18 +89,11 @@ public:
 	MetaballModelSPtr<T> getMetaballModel() const { return metaball; }
 
 
-	Object* find(const int id) {
-		if (volume == nullptr) {
-			return nullptr;
+	void changeSelected(const Object::Type& type, const unsigned int id) {
+		if (type == Object::Type::Metaball) {
+			auto selected = metaball->find(id);
+			selected->changeSelected();
 		}
-		/*
-		const auto ptr = ssFactory->find(id);
-		if (ptr != nullptr) {
-			return ptr->get();
-		}
-		*/
-		return nullptr;
-		//const auto ptr2 = ballFactory->find()
 	}
 
 private:
@@ -109,6 +102,8 @@ private:
 	VolumeModelSPtr<T> volume;
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
+
+	std::list<Object*> selectedObjects;
 };
 
 template<typename T>
