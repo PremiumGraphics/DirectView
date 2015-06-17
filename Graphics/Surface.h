@@ -44,7 +44,7 @@ public:
 	}
 	*/
 
-	Surface& add(const Math::Triangle<T>& t, const ColorRGBA<float>& c) {
+	void add(const Math::Triangle<T>& t, const ColorRGBA<float>& c) {
 		const auto normal = t.getNormal();
 		VertexSPtrVector<T> vs;
 		vs.push_back(std::make_shared<Vertex<T> >(t.getv0(), normal, Math::Vector3d<float>(0, 0, 0), c));
@@ -55,13 +55,11 @@ public:
 		edges.insert(edges.end(), es.begin(), es.end());
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
-
-		return (*this);
 	}
 
 	//Polygon* add(const Math::Quad)
 
-	Surface& add(const Math::Box<T>& box, const ColorRGBA<float>& c) {
+	void add(const Math::Box<T>& box, const ColorRGBA<float>& c) {
 		const auto minx = box.getMinX();
 		const auto miny = box.getMinY();
 		const auto minz = box.getMinZ();
@@ -87,9 +85,7 @@ public:
 		edges.push_back( std::make_shared<HalfEdge<T> >(vs[0], vs[4]));
 		edges.push_back( std::make_shared<HalfEdge<T> >(vs[1], vs[5]));
 		edges.push_back( std::make_shared<HalfEdge<T> >(vs[2], vs[6]));
-		edges.push_back(std::make_shared<HalfEdge<T> >(vs[3], vs[7]));
-
-		return (*this);
+		edges.push_back( std::make_shared<HalfEdge<T> >(vs[3], vs[7]));
 	}
 
 	void move(const Math::Vector3d<T>& vector) {

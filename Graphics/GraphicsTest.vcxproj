@@ -24,6 +24,7 @@
     <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="SurfaceTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
+    <ClCompile Include="WireframeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="Wireframe.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{237CD933-92AB-4D20-A554-78F84819FE5D}</ProjectGuid>

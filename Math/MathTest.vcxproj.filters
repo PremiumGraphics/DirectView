@@ -18,6 +18,7 @@
     <ClCompile Include="GridSpaseBaseTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="VolumeTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -37,5 +38,6 @@
     <ClInclude Include="..\Math\Kernel.h" />
     <ClInclude Include="..\Math\GridSpaceBase.h" />
     <ClInclude Include="Volume.h" />
+    <ClInclude Include="Line.h" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@
     <ClCompile Include="GridSpaseBaseTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
