@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_UI_FRAME_H__
 #define __CRYSTAL_UI_FRAME_H__
 
-#include "../Command/Model.h"
+#include "../Command/MainModel.h"
 #include "../Command/MainConfig.h"
 
 #include <memory>
@@ -102,7 +102,7 @@ private:
 
 private:
 	View* view;
-	Command::ModelSPtr<float> model;
+	Command::MainModelSPtr<float> model;
 	Command::MainConfig<float> config;
 
 	void setRendering();

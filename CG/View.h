@@ -12,7 +12,7 @@
 #include "../Shader/SmoothRenderer.h"
 #include "../Shader/VolumeRenderer.h"
 
-#include "../Command/Model.h"
+#include "../Command/MainModel.h"
 #include "../Command/MainConfig.h"
 
 namespace Crystal {
@@ -24,7 +24,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::ModelSPtr<float>& factory);
+	View(Frame *frame, const int width, const int height, const Command::MainModelSPtr<float>& factory);
 
 	~View();
 
@@ -53,7 +53,7 @@ public:
 		this->config = config;
 	}
 
-	void set(const Command::Model<float>& model);
+	void set(const Command::MainModel<float>& model);
 
 	//void set(const Command::VolumeModelSPtr<float>& model);
 
@@ -76,7 +76,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	const Command::ModelSPtr<float>& model;
+	const Command::MainModelSPtr<float>& model;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;

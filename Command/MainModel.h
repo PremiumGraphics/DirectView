@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_MODEL_H__
-#define __CRYSTAL_COMMAND_MODEL_H__
+#ifndef __CRYSTAL_COMMAND_MAIN_MODEL_H__
+#define __CRYSTAL_COMMAND_MAIN_MODEL_H__
 
 #include "../Graphics/Camera.h"
 
@@ -15,9 +15,9 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class Model {
+class MainModel {
 public:
-	Model() :
+	MainModel() :
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		volume(std::make_shared< VolumeModel<T> >()),
@@ -112,7 +112,7 @@ private:
 };
 
 template<typename T>
-using ModelSPtr = std::shared_ptr < Model<T> > ;
+using MainModelSPtr = std::shared_ptr < MainModel<T> > ;
 	}
 }
 

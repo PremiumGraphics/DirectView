@@ -14,8 +14,8 @@
     <ClInclude Include="CameraModel.h" />
     <ClInclude Include="LightModel.h" />
     <ClInclude Include="MainConfig.h" />
+    <ClInclude Include="MainModel.h" />
     <ClInclude Include="MetaballModel.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PointCloudModel.h" />
     <ClInclude Include="RenderingConfig.h" />
@@ -25,8 +25,8 @@
   <ItemGroup>
     <ClCompile Include="CameraModelTest.cpp" />
     <ClCompile Include="LightModelTest.cpp" />
+    <ClCompile Include="MainModelTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
-    <ClCompile Include="ModelTest.cpp" />
     <ClCompile Include="PointCloudModelTest.cpp" />
     <ClCompile Include="SurfaceModelTest.cpp" />
     <ClCompile Include="VolumeModelTest.cpp" />

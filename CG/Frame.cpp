@@ -87,7 +87,7 @@ public:
 
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	model(std::make_shared< Model<float> >())
+	model(std::make_shared< MainModel<float> >())
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
