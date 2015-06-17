@@ -20,37 +20,37 @@ public:
 	Model() :
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		scalarSpace(std::make_shared< VolumeModel<T> >()),
-		polygon(std::make_shared< SurfaceModel<T> >()),
+		volume(std::make_shared< VolumeModel<T> >()),
+		surface(std::make_shared< SurfaceModel<T> >()),
 		metaball(std::make_shared< MetaballObjectModel<T> >())
 	{
 	}
 
 	void clear()
 	{
-		scalarSpace->clear();
-		polygon->clear();
+		volume->clear();
+		surface->clear();
 		metaball->clear();
 	}
 
 	void add(const MetaballObject<T>& metaball)
 	{
-		auto ss = scalarSpace->getSpaces().front();
+		auto ss = volume->getSpaces().front();
 		ss->getSpace()->add(*metaball.getMetaball());
 	}
 
 	void add(const GridConfig<T>& config)
 	{
-		const auto ss = getScalarSpaceFactory()->create(config);
-		getPolygonFactory()->create(*(ss->getSpace()));
-		getPolygonFactory()->createBoundingBox(*ss->getSpace());
-		getPolygonFactory()->createGridCells(*ss->getSpace());
+		const auto ss = getVolumeModel()->create(config);
+		getSurfaceModel()->create(*(ss->getSpace()));
+		getSurfaceModel()->createBoundingBox(*ss->getSpace());
+		getSurfaceModel()->createGridCells(*ss->getSpace());
 	}
 
 	void polygonize()
 	{
-		for (const auto& s : getScalarSpaceFactory()->getSpaces()) {
-			getPolygonFactory()->create(*s->getSpace());
+		for (const auto& s : getVolumeModel()->getSpaces()) {
+			getSurfaceModel()->create(*s->getSpace());
 		}
 	}
 
@@ -68,19 +68,17 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	LightModelSPtr<T> getLightFactory() const { return light; }
+	LightModelSPtr<T> getLightModel() const { return light; }
 
-	VolumeModelSPtr<T> getScalarSpaceFactory() const { return scalarSpace; }
+	VolumeModelSPtr<T> getVolumeModel() const { return volume; }
 
-	SurfaceModelSPtr<T> getPolygonFactory() const { return polygon; }
+	SurfaceModelSPtr<T> getSurfaceModel() const { return surface; }
 
-	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
-
-	MetaballModelSPtr<T> getMetaballFactory() const { return metaball; }
+	MetaballModelSPtr<T> getMetaballModel() const { return metaball; }
 
 
 	Object* find(const int id) {
-		if (scalarSpace == nullptr) {
+		if (volume == nullptr) {
 			return nullptr;
 		}
 		/*
@@ -96,8 +94,8 @@ public:
 private:
 	Graphics::CameraSPtr<T> camera;
 	LightModelSPtr<T> light;
-	VolumeModelSPtr<T> scalarSpace;
-	SurfaceModelSPtr<T> polygon;
+	VolumeModelSPtr<T> volume;
+	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 };
 
