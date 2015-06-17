@@ -599,8 +599,9 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	model->setRendering();
 	view->set( model->getPolygonFactory() );
+	view->set( model->getScalarSpaceFactory() );
+	view->set( model->getMetaballFactory());
 	view->Refresh();
 
 }

@@ -69,7 +69,7 @@ void PointRenderer::build()
 
 void PointRenderer::render(const int width, const int height, const Camera<float>* camera)
 {
-	if (positions.empty()) {
+	if (points.empty()) {
 		return;
 	}
 
@@ -88,11 +88,11 @@ void PointRenderer::render(const int width, const int height, const Camera<float
 	ShaderUtil::setUniformMatrix(shader.getId(), "projectionMatrix", perspectiveMatrix);
 	ShaderUtil::setUniformMatrix(shader.getId(), "modelviewMatrix", modelviewMatrix);
 
-	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, &(points.front()));
 
 	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	glDrawArrays(GL_POINTS, 0, points.size() / 3);
 
 	glDisableVertexAttribArray(0);
 

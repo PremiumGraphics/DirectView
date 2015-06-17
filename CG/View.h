@@ -55,6 +55,12 @@ public:
 
 	void set(const Command::SurfaceModelSPtr<float>& model);
 
+	void set(const Command::VolumeModelSPtr<float>& model);
+
+	void set(const Command::MetaballModelSPtr<float>& model);
+	//void set(const Command::VolumeModelSPtr<float>& model);
+
+
 private:
 	MODE mode;
 

@@ -189,6 +189,27 @@ void View::set(const SurfaceModelSPtr<float>& model)
 	}
 }
 
+void View::set(const VolumeModelSPtr<float>& model)
+{
+	pointRenderer.clear();
+	for (const auto& b : model->getSpaces()) {
+		if (b->isVisible()) {
+			pointRenderer.build( *(b->getSpace()), b->getId());
+		}
+	}
+
+}
+
+void View::set(const MetaballModelSPtr<float>& model)
+{
+	//pointRenderer.clear();
+	for (const auto& b : model->getBalls()) {
+		if (b->isVisible()) {
+			pointRenderer.build((*b->getMetaball()), b->getId());
+		}
+	}
+}
+
 
 void View::draw(const wxSize& size)
 {
@@ -224,17 +245,17 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RENDERING_MODE::POINT) {
 		const auto& pConfig = config.getPointConfig();
-		const auto& pCommand = getBuffer()->getPointRenderingCommand();
 		glPointSize( pConfig.getPointSize() );
-		pointRenderer.positions = pCommand->getPoints();
 		pointRenderer.render(width, height, &c );
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
+		/*
 		const auto& pCommand = getBuffer()->getPointRenderingCommand();
 		idRenderer.positions = pCommand->getPoints();
 		idRenderer.types = pCommand->getTypes();
 		idRenderer.ids = pCommand->getIds();
 		idRenderer.render(width, height, c );
+		*/
 	}
 	else {
 		assert( false );
