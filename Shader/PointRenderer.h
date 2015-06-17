@@ -12,7 +12,8 @@
 namespace Crystal {
 	namespace Shader {
 
-class PointRenderer {
+class PointRenderer final
+{
 public:
 
 	PointRenderer();

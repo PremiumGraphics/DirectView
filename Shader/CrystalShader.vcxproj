@@ -80,6 +80,7 @@
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
+    <ClCompile Include="VolumeRenderer.cpp" />
     <ClCompile Include="WireFrameRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,7 @@
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SmoothRenderer.h" />
+    <ClInclude Include="VolumeRenderer.h" />
     <ClInclude Include="WireFrameRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
