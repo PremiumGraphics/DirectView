@@ -65,11 +65,6 @@ public:
 			getSurfaceModel()->create(*s->getSpace());
 		}
 	}
-
-	void translate(const Math::Vector3d<T>& v) {
-		;
-	}
-
 	void rotate(const Math::Vector3d<T>& v) {
 		;
 	}
@@ -92,9 +87,17 @@ public:
 	void changeSelected(const Object::Type& type, const unsigned int id) {
 		if (type == Object::Type::Metaball) {
 			auto selected = metaball->find(id);
-			selected->changeSelected();
+			if (selected != nullptr) {
+				selected->changeSelected();
+			}
 		}
 	}
+
+
+	void move(const Math::Vector3d<T>& vector) {
+		metaball->move(vector);
+	}
+
 
 private:
 	Graphics::CameraSPtr<T> camera;
@@ -103,7 +106,6 @@ private:
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 
-	std::list<Object*> selectedObjects;
 };
 
 template<typename T>

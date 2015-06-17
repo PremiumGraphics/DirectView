@@ -158,7 +158,8 @@ void View::OnMouse( wxMouseEvent& event )
 			model->getCamera()->addAngle( angle );
 		}
 		else if (mode == TRANSLATE) {
-			model->translate(pos);
+			model->move(pos);
+			this->set(*model);
 			//ssTransformCmd->move(pos);
 		}
 		else if (mode == ROTATE) {

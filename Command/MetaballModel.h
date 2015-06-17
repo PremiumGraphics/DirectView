@@ -87,6 +87,13 @@ public:
 		balls.remove(b);
 	}
 
+	void move(const Math::Vector3d<T>& vector) {
+		for (const auto& b : balls) {
+			if (b->isSelected()) {
+				b->move(vector);
+			}
+		}
+	}
 
 private:
 	MetaballObjectSPtrList<T> balls;
