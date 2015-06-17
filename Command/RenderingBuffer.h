@@ -26,7 +26,7 @@ public:
 	}
 
 
-	void build(const PolygonObjectSPtrList<T>& polygons) {
+	void build(const SurfaceObjectSPtrList<T>& polygons) {
 		// positions;
 		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
 		for (const auto& pp : polygons) {
@@ -117,7 +117,7 @@ public:
 		normals.clear();
 	}
 
-	void build(const PolygonObjectSPtrList<T>& polygons) {
+	void build(const SurfaceObjectSPtrList<T>& polygons) {
 		for (const auto& pp : polygons) {
 			const auto& p = pp->getPolygon();
 			for (const auto& v : p->getVertices()) {
@@ -156,7 +156,7 @@ public:
 
 	~RenderingBuffer() = default;
 
-	void add(const PolygonObjectSPtrList<T>& polygons) {
+	void add(const SurfaceObjectSPtrList<T>& polygons) {
 		clear();
 		wfRenderingCommand->build(polygons);
 		normalRenderingCommand->build(polygons);

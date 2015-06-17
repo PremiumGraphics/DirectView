@@ -22,7 +22,7 @@ public:
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		scalarSpace(std::make_shared< VolumeModel<T> >()),
-		polygon(std::make_shared< PolygonModel<T> >()),
+		polygon(std::make_shared< SurfaceModel<T> >()),
 		metaball(std::make_shared< MetaballObjectModel<T> >()),
 		renderingBuffer(std::make_shared< RenderingBuffer<T> >())
 	{
@@ -82,7 +82,7 @@ public:
 
 	VolumeModelSPtr<T> getScalarSpaceFactory() const { return scalarSpace; }
 
-	PolygonModelSPtr<T> getPolygonFactory() const { return polygon; }
+	SurfaceModelSPtr<T> getPolygonFactory() const { return polygon; }
 
 	//PolygonFactorySPtr<float> getDrawableFactory() const { return supportFactory; }
 
@@ -109,7 +109,7 @@ private:
 	Graphics::CameraSPtr<T> camera;
 	LightModelSPtr<T> light;
 	VolumeModelSPtr<T> scalarSpace;
-	PolygonModelSPtr<T> polygon;
+	SurfaceModelSPtr<T> polygon;
 	MetaballModelSPtr<T> metaball;
 	RenderingBufferSPtr<T> renderingBuffer;
 };

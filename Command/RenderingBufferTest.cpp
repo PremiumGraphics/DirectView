@@ -19,7 +19,7 @@ TEST(RenderingCommandTest, TestBuildPolygon)
 	WireFrameRenderingBuffer<float> command;
 	SurfaceSPtr<float> polygon = std::make_shared<Surface<float> >();
 	polygon->add(Triangle<float>(), ColorRGBA<float>());
-	PolygonObjectSPtr<float> pid = std::make_shared<PolygonObject<float> >(polygon, 0);
+	SurfaceObjectSPtr<float> pid = std::make_shared<SurfaceObject<float> >(polygon, 0);
 	command.build({ pid });
 	EXPECT_EQ(18, command.getPositions().size());
 }

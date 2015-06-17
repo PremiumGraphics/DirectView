@@ -8,7 +8,7 @@ using namespace Crystal::Command;
 
 TEST(PolygonModelTest, TestCreate)
 {
-	PolygonModel<float> factory;
+	SurfaceModel<float> factory;
 	//ScalarSpace3d<float> ss;
 
 	const auto& p = factory.create(Volume3d<float>());

@@ -18,10 +18,10 @@ namespace Crystal {
 	namespace Command {
 
 template<typename T>
-class PolygonObject : public Object
+class SurfaceObject : public Object
  {
 public:
-	PolygonObject(const Graphics::SurfaceSPtr<T>& polygon, const unsigned int id) :
+	SurfaceObject(const Graphics::SurfaceSPtr<T>& polygon, const unsigned int id) :
 		Object(id),
 		polygon( polygon )
 	{}
@@ -41,29 +41,29 @@ private:
 };
 
 template<typename T>
-using PolygonObjectSPtr = std::shared_ptr < PolygonObject<T> > ;
+using SurfaceObjectSPtr = std::shared_ptr < SurfaceObject<T> > ;
 
 template<typename T>
-using PolygonObjectSPtrList = std::list < PolygonObjectSPtr<T> > ;
+using SurfaceObjectSPtrList = std::list < SurfaceObjectSPtr<T> > ;
 
 template<typename T>
-class PolygonModel final : public ModelBase
+class SurfaceModel final : public ModelBase
 {
 public:
-	PolygonModel()
+	SurfaceModel()
 	{
 		mc.buildTable();
 	}
 
-	~PolygonModel() = default;
+	~SurfaceModel() = default;
 
-	PolygonModel& clear() {
+	SurfaceModel& clear() {
 		ModelBase::clear();
 		this->polygons.clear();
 		return (*this);
 	}
 
-	PolygonObjectSPtr<T> create(const Math::Volume3d<float>& ss)
+	SurfaceObjectSPtr<T> create(const Math::Volume3d<float>& ss)
 	{
 		const auto triangles = mc.march(ss, 0.5);
 
@@ -74,7 +74,7 @@ public:
 		return add(polygon);
 	}
 
-	PolygonObjectSPtr<T> create(const Math::BitSpace3d<float>& bs) {
+	SurfaceObjectSPtr<T> create(const Math::BitSpace3d<float>& bs) {
 		const auto& triangles = mc.march(bs);
 
 		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
@@ -84,14 +84,14 @@ public:
 		return add(polygon);
 	}
 
-	PolygonObjectSPtr<T> createBoundingBox(const Math::Volume3d<T>& ss) {
+	SurfaceObjectSPtr<T> createBoundingBox(const Math::Volume3d<T>& ss) {
 		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
 		Math::Box<T> bb(ss.getStart(), ss.getEnd());
 		polygon->add(bb, Graphics::ColorRGBA<float>::Black());
 		return add(polygon);
 	}
 
-	PolygonObjectSPtr<T> createGridCells(const Math::Volume3d<T>& ss) {
+	SurfaceObjectSPtr<T> createGridCells(const Math::Volume3d<T>& ss) {
 		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
 		const auto& cells = ss.toCells();
 		for (const auto& c : cells) {
@@ -104,7 +104,7 @@ public:
 	}
 
 
-	PolygonObjectSPtr<T> find(const unsigned int id) {
+	SurfaceObjectSPtr<T> find(const unsigned int id) {
 		for (const auto& p : polygons) {
 			if (p->getId() == id) {
 				return p;
@@ -121,22 +121,22 @@ public:
 		polygons.remove(p);
 	}
 
-	PolygonObjectSPtrList<T> getPolygons() const { return polygons; }
+	SurfaceObjectSPtrList<T> getPolygons() const { return polygons; }
 
 private:
-	PolygonObjectSPtrList<T> polygons;
+	SurfaceObjectSPtrList<T> polygons;
 
 	Math::MarchingCube<T> mc;
 
-	PolygonObjectSPtr<T> add(Graphics::SurfaceSPtr<float>& p) {
-		this->polygons.push_back( std::make_shared< PolygonObject<float> >( p, getNextId() ) );
+	SurfaceObjectSPtr<T> add(Graphics::SurfaceSPtr<float>& p) {
+		this->polygons.push_back( std::make_shared< SurfaceObject<float> >( p, getNextId() ) );
 		return polygons.back();
 	}
 
 };
 
 template<typename T>
-using PolygonModelSPtr = std::shared_ptr< PolygonModel<T> > ;
+using SurfaceModelSPtr = std::shared_ptr< SurfaceModel<T> > ;
 
 	}
 }
