@@ -600,6 +600,7 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 void Frame::setRendering()
 {
 	model->setRendering();
+	view->set( model->getPolygonFactory() );
 	view->Refresh();
 
 }

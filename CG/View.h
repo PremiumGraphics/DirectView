@@ -53,6 +53,8 @@ public:
 		this->config = config;
 	}
 
+	void set(const Command::SurfaceModelSPtr<float>& model);
+
 private:
 	MODE mode;
 

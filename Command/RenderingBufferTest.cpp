@@ -8,21 +8,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
-TEST(RenderingCommandTest, TestClear)
-{
-	WireFrameRenderingBuffer<float> command;
-	command.clear();
-}
 
-TEST(RenderingCommandTest, TestBuildPolygon)
-{
-	WireFrameRenderingBuffer<float> command;
-	SurfaceSPtr<float> polygon = std::make_shared<Surface<float> >();
-	polygon->add(Triangle<float>(), ColorRGBA<float>());
-	SurfaceObjectSPtr<float> pid = std::make_shared<SurfaceObject<float> >(polygon, 0);
-	command.build({ pid });
-	EXPECT_EQ(18, command.getPositions().size());
-}
 
 TEST(PointRenderingCommandTest, TestBuildScalarSpace)
 {

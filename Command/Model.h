@@ -71,7 +71,7 @@ public:
 
 	void setRendering() {
 		const auto& buffer = getRenderingBuffer();
-		buffer->add( getPolygonFactory()->getPolygons());
+		//buffer->add( getPolygonFactory()->getPolygons());
 		buffer->add( getScalarSpaceFactory()->getSpaces());
 		buffer->add( getMetaballFactory()->getBalls());
 	}

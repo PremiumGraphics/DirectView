@@ -179,6 +179,17 @@ void View::OnSize(wxSizeEvent& e)
 	draw( e.GetSize() );
 }
 
+void View::set(const SurfaceModelSPtr<float>& model)
+{
+	wireFrameRenderer.clear();
+	for (const auto& p : model->getPolygons()) {
+		if (p->isVisible()) {
+			wireFrameRenderer.build( *(p->getPolygon() ) );
+		}
+	}
+}
+
+
 void View::draw(const wxSize& size)
 {
 	const int width = size.GetWidth();
@@ -195,10 +206,7 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		const auto& wConfig = config.getWireframeConfig();
-		const auto& wfCommand = getBuffer()->getWireframeCommand();
 		glLineWidth( wConfig.getLineWidth() );
-		wireFrameRenderer.positions = wfCommand->getPositions();
-		wireFrameRenderer.colors = wfCommand->getColors();
 		wireFrameRenderer.render(width, height, c );
 	}
 	else if( renderingMode == RENDERING_MODE::FLAT ) {

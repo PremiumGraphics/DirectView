@@ -23,8 +23,24 @@ public:
 
 	void build();
 
-	std::vector< float > positions;
-	std::vector< float > colors;
+	void clear() {
+		positions.clear();
+		colors.clear();
+	}
+
+	void build(const Graphics::Surface<float>& s) {
+		// positions;
+		const auto cs = Graphics::ColorRGBA<float>::Blue().toArray3();
+		for (const auto& e : s.getEdges()) {
+			const auto& start = e->getStartPosition().toArray();
+			positions.insert(positions.end(), start.begin(), start.end());
+			colors.insert(colors.end(), cs.begin(), cs.end());
+			const auto& end = e->getEndPosition().toArray();
+			positions.insert(positions.end(), end.begin(), end.end());
+			colors.insert(colors.end(), cs.begin(), cs.end());
+		}
+			//colors.insert(colors.end(), cs.begin(), cs.end());
+	}
 
 private:
 	struct Location {
@@ -37,6 +53,10 @@ private:
 	Location getLocations();
 
 	Graphics::ShaderObject shader;
+
+	std::vector< float > positions;
+	std::vector< float > colors;
+
 };
 
 class SurfaceRenderer {

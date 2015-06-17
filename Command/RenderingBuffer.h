@@ -13,54 +13,6 @@ namespace Crystal{
 	namespace Command {
 
 template<typename T>
-class WireFrameRenderingBuffer {
-public:
-	WireFrameRenderingBuffer()
-	{
-
-	}
-
-	void clear() {
-		positions.clear();
-		colors.clear();
-	}
-
-
-	void build(const SurfaceObjectSPtrList<T>& polygons) {
-		// positions;
-		const auto cs = Graphics::ColorRGBA<T>::Blue().toArray3();
-		for (const auto& pp : polygons) {
-			if (!pp->isVisible()) {
-				continue;
-			}
-			const auto p = pp->getPolygon();
-			for (const auto& e : p->getEdges()) {
-				const auto& start = e->getStartPosition().toArray();
-				positions.insert(positions.end(), start.begin(), start.end());
-				colors.insert(colors.end(), cs.begin(), cs.end());
-				const auto& end = e->getEndPosition().toArray();
-				positions.insert(positions.end(), end.begin(), end.end());
-				colors.insert(colors.end(), cs.begin(), cs.end());
-
-			}
-			//colors.insert(colors.end(), cs.begin(), cs.end());
-		}
-	}
-
-	std::vector< T > getPositions() const { return positions; }
-
-	std::vector< T > getColors() const { return colors; }
-
-private:
-	std::vector< T > positions;
-	std::vector< T > colors;
-
-};
-
-template<typename T>
-using WireFrameRenderingBufferSPtr = std::shared_ptr < WireFrameRenderingBuffer<T> > ;
-
-template<typename T>
 class PointRenderingBuffer
 {
 public:
@@ -149,7 +101,6 @@ class RenderingBuffer final : private UnCopyable
 {
 public:
 	RenderingBuffer() :
-		wfRenderingCommand(std::make_shared<WireFrameRenderingBuffer<T> >()),
 		pointRenderingCommand(std::make_shared<PointRenderingBuffer<T> >()),
 		normalRenderingCommand(std::make_shared<NormalRenderingBuffer<T> >())
 	{}
@@ -174,20 +125,17 @@ public:
 		}
 	}
 
-	WireFrameRenderingBufferSPtr<T> getWireframeCommand() const { return wfRenderingCommand; }
 
 	PointRenderingBufferSPtr<T> getPointRenderingCommand() const { return pointRenderingCommand; }
 	
 	NormalRenderingBufferSPtr<T> getNormalRenderingCommand() const { return  normalRenderingCommand; }
 
 	void clear() {
-		wfRenderingCommand->clear();
 		pointRenderingCommand->clear();
 		normalRenderingCommand->clear();
 	}
 
 private:
-	WireFrameRenderingBufferSPtr<T> wfRenderingCommand;
 	PointRenderingBufferSPtr<T> pointRenderingCommand;
 	NormalRenderingBufferSPtr<T> normalRenderingCommand;
 };
