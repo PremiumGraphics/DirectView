@@ -175,8 +175,6 @@ Frame::Frame()
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
-	//modelingBar->AddButton(ID_CREATE_CYLINDER, "Cylinder", wxImage(32, 32));
-	//modelingBar->AddButton(ID_CREATE_BOX, "Box", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_VOLUME, "Volume", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SURFACE, "Surface", wxImage(32, 32));
 
@@ -185,6 +183,7 @@ Frame::Frame()
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
+	Connect(ID_CREATE_SURFACE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSurfaceConfig));
 
 	/*
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
@@ -647,6 +646,11 @@ void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 	model->polygonize();
 	//model.getPolygonFactory()->create(*ss.getScalarSpace());
 	setRendering();
+}
+
+void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
+{
+	wxMessageBox("TODO");
 }
 
 
