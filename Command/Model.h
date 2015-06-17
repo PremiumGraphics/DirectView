@@ -7,7 +7,6 @@
 #include "SurfaceModel.h"
 #include "LightModel.h"
 #include "MetaballModel.h"
-#include "RenderingBuffer.h"
 
 #include <memory>
 #include <map>
@@ -23,8 +22,7 @@ public:
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		scalarSpace(std::make_shared< VolumeModel<T> >()),
 		polygon(std::make_shared< SurfaceModel<T> >()),
-		metaball(std::make_shared< MetaballObjectModel<T> >()),
-		renderingBuffer(std::make_shared< RenderingBuffer<T> >())
+		metaball(std::make_shared< MetaballObjectModel<T> >())
 	{
 	}
 
@@ -33,7 +31,6 @@ public:
 		scalarSpace->clear();
 		polygon->clear();
 		metaball->clear();
-		renderingBuffer->clear();
 	}
 
 	void add(const MetaballObject<T>& metaball)
@@ -81,8 +78,6 @@ public:
 
 	MetaballModelSPtr<T> getMetaballFactory() const { return metaball; }
 
-	RenderingBufferSPtr<T> getRenderingBuffer() const { return renderingBuffer; }
-
 
 	Object* find(const int id) {
 		if (scalarSpace == nullptr) {
@@ -104,7 +99,6 @@ private:
 	VolumeModelSPtr<T> scalarSpace;
 	SurfaceModelSPtr<T> polygon;
 	MetaballModelSPtr<T> metaball;
-	RenderingBufferSPtr<T> renderingBuffer;
 };
 
 template<typename T>

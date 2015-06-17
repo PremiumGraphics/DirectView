@@ -11,8 +11,6 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
-#include "../Command/RenderingBuffer.h"
-
 #include "../Command/Model.h"
 #include "../Command/MainConfig.h"
 
@@ -98,8 +96,6 @@ private:
 	float getPointSize() const { return config.getPointConfig().getPointSize(); }
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
-
-	Command::RenderingBufferSPtr<float> getBuffer() { return model->getRenderingBuffer(); }
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

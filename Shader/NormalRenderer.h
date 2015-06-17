@@ -8,6 +8,7 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
+#include "../Graphics/Surface.h"
 
 #include <memory>
 
@@ -25,9 +26,27 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera);
 
-	std::vector<float> positions;
-	std::vector<float> normals;
 	float scale;
+
+	void clear() {
+		positions.clear();
+		normals.clear();
+	}
+
+	void build(const Graphics::Surface<float >& s) {
+			for (const auto& v : s.getVertices()) {
+				const auto& ps = v->toPositionArray();
+				positions.insert(positions.end(), ps.begin(), ps.end());
+				const auto& ns = v->toNormalArray();
+				normals.insert(normals.end(), ns.begin(), ns.end());
+
+		}
+	}
+
+private:
+	std::vector< float > positions;
+	std::vector< float > normals;
+
 
 private:
 	Graphics::ShaderObject shader;

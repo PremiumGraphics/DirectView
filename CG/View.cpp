@@ -182,9 +182,11 @@ void View::OnSize(wxSizeEvent& e)
 void View::set(const SurfaceModelSPtr<float>& model)
 {
 	wireFrameRenderer.clear();
+	normalRenderer.clear();
 	for (const auto& p : model->getPolygons()) {
 		if (p->isVisible()) {
-			wireFrameRenderer.build( *(p->getPolygon() ) );
+			wireFrameRenderer.build(*(p->getPolygon()));
+			normalRenderer.build(*(p->getPolygon()));
 		}
 	}
 }
@@ -236,10 +238,7 @@ void View::draw(const wxSize& size)
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		const auto nConfig = config.getNormalConfig();
-		const auto& nCommand = getBuffer()->getNormalRenderingCommand();
 		glLineWidth( nConfig.getLineWidth() );
-		normalRenderer.positions = nCommand->getPositions();
-		normalRenderer.normals = nCommand->getNormals();
 		normalRenderer.scale = nConfig.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
