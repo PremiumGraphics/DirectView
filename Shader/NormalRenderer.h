@@ -33,13 +33,12 @@ public:
 		normals.clear();
 	}
 
-	void build(const Graphics::Surface<float >& s) {
-			for (const auto& v : s.getVertices()) {
-				const auto& ps = v->toPositionArray();
-				positions.insert(positions.end(), ps.begin(), ps.end());
-				const auto& ns = v->toNormalArray();
-				normals.insert(normals.end(), ns.begin(), ns.end());
-
+	void add(const Graphics::Surface<float >& s) {
+		for (const auto& v : s.getVertices()) {
+			const auto& ps = v->toPositionArray();
+			positions.insert(positions.end(), ps.begin(), ps.end());
+			const auto& ns = v->toNormalArray();
+			normals.insert(normals.end(), ns.begin(), ns.end());
 		}
 	}
 

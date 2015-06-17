@@ -29,7 +29,7 @@ public:
 		points.clear();
 	}
 
-	void build(const Math::Volume3d<float>& ss) {
+	void add(const Math::Volume3d<float>& ss) {
 		const auto cells = ss.toCells();
 		for (const auto& c : ss.toCells()) {
 			const auto cs = c.getSpace().getCenter().toArray();

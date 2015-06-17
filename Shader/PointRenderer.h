@@ -25,17 +25,13 @@ public:
 	void render(const int width, const int height, const Graphics::Camera<float>* camera);
 
 	void clear() {
-	//	ids.clear();
-	//	types.clear();
 		points.clear();
 	}
 
-	void build(const Math::Metaball<float>& ball, const unsigned int id) {
+	void add(const Math::Metaball<float>& ball, const unsigned int id) {
 		const auto center = ball.getCenter();
 		const auto cs = center.toArray();
 		points.insert(points.end(), cs.begin(), cs.end());
-	//	types.push_back(1);
-	//	ids.push_back(ball.getId());
 	}
 
 private:

@@ -28,7 +28,7 @@ public:
 		colors.clear();
 	}
 
-	void build(const Graphics::Surface<float>& s) {
+	void add(const Graphics::Surface<float>& s) {
 		// positions;
 		const auto cs = Graphics::ColorRGBA<float>::Blue().toArray3();
 		for (const auto& e : s.getEdges()) {

@@ -185,6 +185,7 @@ void View::set(const MainModel<float>& model)
 	normalRenderer.clear();
 	pointRenderer.clear();
 	vRenderer.clear();
+	idRenderer.clear();
 
 	set( model.getSurfaceModel() );
 	set( model.getVolumeModel() );
@@ -195,8 +196,8 @@ void View::set(const SurfaceModelSPtr<float>& model)
 {
 	for (const auto& p : model->getPolygons()) {
 		if (p->isVisible()) {
-			wireFrameRenderer.build(*(p->getPolygon()));
-			normalRenderer.build(*(p->getPolygon()));
+			wireFrameRenderer.add(*(p->getPolygon()));
+			normalRenderer.add(*(p->getPolygon()));
 		}
 	}
 }
@@ -205,7 +206,7 @@ void View::set(const VolumeModelSPtr<float>& model)
 {
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
-			vRenderer.build( *(b->getSpace()) );
+			vRenderer.add( *(b->getSpace()) );
 		}
 	}
 
@@ -215,7 +216,10 @@ void View::set(const MetaballModelSPtr<float>& model)
 {
 	for (const auto& b : model->getBalls()) {
 		if (b->isVisible()) {
-			pointRenderer.build((*b->getMetaball()), b->getId());
+			pointRenderer.add((*b->getMetaball()), b->getId());
+			const auto center = b->getMetaball()->getCenter();
+			const int type = static_cast<int>( b->getType() );
+			idRenderer.add(center, type, b->getId());
 		}
 	}
 }
@@ -259,13 +263,9 @@ void View::draw(const wxSize& size)
 		vRenderer.render(width, height, c);
 	}
 	else if (renderingMode == RENDERING_MODE::ID) {
-		/*
-		const auto& pCommand = getBuffer()->getPointRenderingCommand();
-		idRenderer.positions = pCommand->getPoints();
-		idRenderer.types = pCommand->getTypes();
-		idRenderer.ids = pCommand->getIds();
+		const auto& pConfig = config.getPointConfig();
+		glPointSize(pConfig.getPointSize());
 		idRenderer.render(width, height, c );
-		*/
 	}
 	else {
 		assert( false );
@@ -275,14 +275,9 @@ void View::draw(const wxSize& size)
 void View::build()
 {
 	wireFrameRenderer.build();
-	//smoothRenderer.build();
 	normalRenderer.build();
 	pointRenderer.build();
 	idRenderer.build();
 	surfaceRenderer.build();
 	vRenderer.build();
-	/*
-	wireFrameRenderer.build();
-	flatRenderer.build();
-	*/
 }

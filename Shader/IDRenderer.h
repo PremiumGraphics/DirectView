@@ -22,9 +22,18 @@ public:
 
 	void build();
 
-	std::vector<float> positions;
-	std::vector<int> types;
-	std::vector<int> ids;
+	void add(const Math::Vector3d<float>& v, const unsigned int type, const unsigned int id) {
+		const auto& cs = v.toArray();
+		positions.insert(positions.end(), cs.begin(), cs.end());
+		types.push_back(type);
+		ids.push_back(id);
+	}
+
+	void clear() {
+		positions.clear();
+		types.clear();
+		ids.clear();
+	}
 
 private:
 	struct Location {
@@ -36,6 +45,11 @@ private:
 	};
 
 	Location getLocations();
+
+
+	std::vector<float> positions;
+	std::vector<int> types;
+	std::vector<int> ids;
 
 
 	Graphics::ShaderObject shader;
