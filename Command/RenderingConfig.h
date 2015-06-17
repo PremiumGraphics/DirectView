@@ -2,7 +2,7 @@
 #define __CRYSTAL_COMMAND_RENDERING_CONFIG_H__
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class WireframeConfig {

@@ -24,7 +24,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::MainModelSPtr<float>& factory);
+	View(Frame *frame, const int width, const int height, const Model::MainModelSPtr<float>& factory);
 
 	~View();
 
@@ -49,11 +49,11 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	void setConfig(const Command::RenderingConfig<float>& config) {
+	void setConfig(const Model::RenderingConfig<float>& config) {
 		this->config = config;
 	}
 
-	void set(const Command::MainModel<float>& model);
+	void set(const Model::MainModel<float>& model);
 
 	//void set(const Command::VolumeModelSPtr<float>& model);
 
@@ -76,7 +76,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	const Command::MainModelSPtr<float>& model;
+	const Model::MainModelSPtr<float>& model;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;
@@ -91,17 +91,17 @@ private:
 	Shader::IDRenderer idRenderer;
 	Shader::VolumeRenderer vRenderer;
 
-	Command::RenderingConfig<float> config;
+	Model::RenderingConfig<float> config;
 
 	float getPointSize() const { return config.getPointConfig().getPointSize(); }
 
 	float getLineWidth() const { return config.getWireframeConfig().getLineWidth(); }
 
-	void set(const Command::SurfaceModelSPtr<float>& model);
+	void set(const Model::SurfaceModelSPtr<float>& model);
 
-	void set(const Command::VolumeModelSPtr<float>& model);
+	void set(const Model::VolumeModelSPtr<float>& model);
 
-	void set(const Command::MetaballModelSPtr<float>& model);
+	void set(const Model::MetaballModelSPtr<float>& model);
 
 
 	wxDECLARE_NO_COPY_CLASS( View );

@@ -8,7 +8,7 @@
 #include "../Graphics/PointCloud.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class PointCloudObject final : public Object

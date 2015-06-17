@@ -3,7 +3,7 @@
 #include "../Command/MainModel.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 
 TEST(MainFactoryTest, TestFind)
 {

@@ -39,7 +39,7 @@ public:
 
 	}
 
-	void set(const Command::MetaballConfig<float>& config) {
+	void set(const Model::MetaballConfig<float>& config) {
 		const auto& center = config.getCenter();
 		posx->SetValue(center.getX());
 		posy->SetValue(center.getY());
@@ -48,12 +48,12 @@ public:
 		charge->SetValue( config.getCharge() );
 	}
 
-	Command::MetaballConfig<float> get() const {
+	Model::MetaballConfig<float> get() const {
 		const auto x = posx->GetValue();
 		const auto y = posy->GetValue();
 		const auto z = posz->GetValue();
 		const Math::Vector3d<float> center(x, y, z);
-		return Command::MetaballConfig<float>(center, radius->GetValue(), charge->GetValue());
+		return Model::MetaballConfig<float>(center, radius->GetValue(), charge->GetValue());
 	}
 
 private:

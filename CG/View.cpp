@@ -6,7 +6,7 @@
 #include "Converter.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 using namespace Crystal::UI;
 
 

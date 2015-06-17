@@ -2,7 +2,7 @@
 
 #include "LightModel.h"
 
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 using namespace Crystal::Graphics;
 
 

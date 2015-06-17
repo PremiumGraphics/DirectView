@@ -29,7 +29,7 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Command::CameraObject<float>& camera) {
+	void set(const Model::CameraObject<float>& camera) {
 		const auto& c = camera.getCamera();
 		posx->SetValue(c->getPos().getX());
 		posy->SetValue(c->getPos().getY());

@@ -6,7 +6,7 @@
 #include "../Graphics/Camera.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class CameraObject : public Object {

@@ -3,7 +3,7 @@
 #include "VolumeModel.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 
 TEST(ScalarSpaceFactoryTest, TestCreate)
 {

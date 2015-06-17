@@ -2,7 +2,7 @@
 
 #include "MetaballModel.h"
 
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 
 TEST(MetaballModelTest, TestCreate)
 {

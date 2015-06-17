@@ -8,7 +8,7 @@
 #include "Object.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class LightObject : public Object

@@ -11,7 +11,7 @@
 #include "Object.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class MetaballObject final : public Object

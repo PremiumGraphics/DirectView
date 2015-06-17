@@ -4,7 +4,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 
 TEST(PolygonModelTest, TestCreate)
 {

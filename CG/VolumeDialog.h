@@ -62,7 +62,7 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(500, 400));
 	}
 
-	void set(const Command::GridConfig<float>& config) {
+	void set(const Model::GridConfig<float>& config) {
 		resx->SetValue( config.getResx() );
 		resy->SetValue( config.getResy() );
 		resz->SetValue( config.getResz() );
@@ -78,11 +78,11 @@ public:
 		lengthz->SetValue(length.getZ());
 	}
 
-	Command::GridConfig<float> get() const {
+	Model::GridConfig<float> get() const {
 		const auto x = resx->GetValue();
 		const auto y = resy->GetValue();
 		const auto z = resz->GetValue();
-		return Command::GridConfig<float>(x, y, z, getSpace());
+		return Model::GridConfig<float>(x, y, z, getSpace());
 	}
 
 	//void OnOk() 

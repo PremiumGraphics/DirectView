@@ -9,7 +9,7 @@
 #include "RenderingConfig.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 
 template<typename T>

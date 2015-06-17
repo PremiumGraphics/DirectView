@@ -3,7 +3,7 @@
 #include "PointCloudModel.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::Command;
+using namespace Crystal::Model;
 
 TEST(PointCloudObjectTest, Test)
 {

@@ -102,8 +102,8 @@ private:
 
 private:
 	View* view;
-	Command::MainModelSPtr<float> model;
-	Command::MainConfig<float> config;
+	Model::MainModelSPtr<float> model;
+	Model::MainConfig<float> config;
 
 	void setRendering();
 

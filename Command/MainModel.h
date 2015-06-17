@@ -12,7 +12,7 @@
 #include <map>
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 template<typename T>
 class MainModel {

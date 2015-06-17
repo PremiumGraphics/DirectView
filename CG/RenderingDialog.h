@@ -28,14 +28,14 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Command::WireframeConfig<float>& config) {
+	void set(const Model::WireframeConfig<float>& config) {
 		lineWidth->SetValue( config.getLineWidth() );
 		drawBB->SetValue( config.drawBB() );
 		drawPlane->SetValue( config.drawPlane() );
 	}
 
-	Command::WireframeConfig<float> get() {
-		return Command::WireframeConfig<float>( lineWidth->GetValue(), drawBB->GetValue(), drawPlane->GetValue());
+	Model::WireframeConfig<float> get() {
+		return Model::WireframeConfig<float>( lineWidth->GetValue(), drawBB->GetValue(), drawPlane->GetValue());
 	}
 
 private:
@@ -66,15 +66,15 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Command::NormalConfig<T>& config) {
+	void set(const Model::NormalConfig<T>& config) {
 		lineWidth->SetValue(config.getLineWidth());
 		normalScale->SetValue(config.getNormalScale());
 	}
 
-	Command::NormalConfig<T> get() {
+	Model::NormalConfig<T> get() {
 		const auto n = normalScale->GetValue();
 		const auto l = lineWidth->GetValue();
-		return Command::NormalConfig<T>(n, l);
+		return Model::NormalConfig<T>(n, l);
 	}
 
 private:
@@ -96,13 +96,13 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Command::PointConfig<T>& config) {
+	void set(const Model::PointConfig<T>& config) {
 		pointSize->SetValue(config.getPointSize());
 	}
 
-	Command::PointConfig<T> get() {
+	Model::PointConfig<T> get() {
 		const auto size = pointSize->GetValue();
-		return Command::PointConfig<T>(size);
+		return Model::PointConfig<T>(size);
 	}
 
 private:

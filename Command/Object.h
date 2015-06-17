@@ -6,7 +6,7 @@
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {
-	namespace Command {
+	namespace Model {
 
 class Object {
 public:
