@@ -12,3 +12,11 @@ TEST(WireframeTest, TestTriangle)
 	wf.add(t);
 	EXPECT_EQ(3, wf.getLines().size());
 }
+
+TEST(WireframeTest, TestAddBox)
+{
+	Box<float> b;
+	Wireframe<float> frame;
+	frame.add(b);
+	EXPECT_EQ(12, frame.getLines().size());
+}
