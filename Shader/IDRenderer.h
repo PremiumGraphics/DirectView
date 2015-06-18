@@ -7,18 +7,25 @@
 #include "ShaderObject.h"
 #include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
+#include "../Util/UnCopyable.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class IDRenderer {
+class IDRenderer final : private UnCopyable
+{
 public:
+	enum class Mode{
+		POINTS,
+		LINES,
+		TRIANGLES,
+	};
 
-	IDRenderer();
+	IDRenderer() = default;
 
-	~IDRenderer();
+	~IDRenderer() = default;
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Mode mode);
 
 	void build();
 

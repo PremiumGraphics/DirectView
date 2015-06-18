@@ -52,8 +52,6 @@ private:
 
 	void OnPoint(wxRibbonButtonBarEvent&);
 
-	void OnRenderingVolume(wxRibbonButtonBarEvent&);
-
 	void OnID(wxRibbonButtonBarEvent&);
 
 	void OnCameraFit( wxRibbonButtonBarEvent& e );

@@ -8,9 +8,7 @@
 #include "../Shader/WireFrameRenderer.h"
 #include "../Shader/NormalRenderer.h"
 #include "../Shader/IDRenderer.h"
-#include "../Shader/PointRenderer.h"
 #include "../Shader/SmoothRenderer.h"
-#include "../Shader/VolumeRenderer.h"
 
 #include "../Command/MainModel.h"
 #include "../Command/MainConfig.h"
@@ -41,7 +39,6 @@ public:
 		SURFACE,
 		NORMAL,
 		POINT,
-		VOLUME,
 		ID,
 	};
 
@@ -87,9 +84,7 @@ private:
 	Shader::SurfaceRenderer surfaceRenderer;
 	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
-	Shader::PointRenderer pointRenderer;
 	Shader::IDRenderer idRenderer;
-	Shader::VolumeRenderer vRenderer;
 
 	Model::RenderingConfig<float> config;
 

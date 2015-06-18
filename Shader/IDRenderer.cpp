@@ -6,14 +6,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-IDRenderer::IDRenderer()
-{
-}
-
-IDRenderer::~IDRenderer()
-{
-}
-
 void IDRenderer::build()
 {
 	Graphics::Shader vShader;
@@ -79,7 +71,7 @@ IDRenderer::Location IDRenderer::getLocations()
 }
 
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera)
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const Mode mode)
 {
 	if (positions.empty()) {
 		return;
@@ -108,7 +100,18 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
 
-	glDrawArrays(GL_POINTS, 0, positions.size() / 3 );
+	if (mode == Mode::POINTS) {
+		glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	}
+	else if (mode == Mode::LINES) {
+		glDrawArrays(GL_LINES, 0, positions.size() / 3);
+	}
+	else if (mode == Mode::TRIANGLES) {
+		glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
+	}
+	else {
+		assert(false);
+	}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

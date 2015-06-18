@@ -122,14 +122,7 @@ void View::OnMouse( wxMouseEvent& event )
 		model->changeSelected(type, id);
 		this->set(*model);
 		Refresh();
-		//ssTransformCmd->add()
-		//const Math::ScalarSpace3dSPtr<float>& selected = factory.getScalarSpaceFactory()->getScalarSpaces(r);
-		/*
-		if (selected != nullptr) {
-			ssTransformCmd->add(selected);
-		}
-		*/
-		//frame->selectedFace = frame->get
+
 		return;
 	}
 
@@ -189,8 +182,6 @@ void View::set(const MainModel<float>& model)
 {
 	wireFrameRenderer.clear();
 	normalRenderer.clear();
-	pointRenderer.clear();
-	vRenderer.clear();
 	idRenderer.clear();
 
 	set( model.getSurfaceModel() );
@@ -212,8 +203,6 @@ void View::set(const VolumeModelSPtr<float>& model)
 {
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
-			vRenderer.add( *(b->getSpace()) );
-
 			const auto& ss = b->getSpace();
 			const auto& cells = ss->toCells();
 			for (const auto& c : cells) {
@@ -231,7 +220,6 @@ void View::set(const MetaballModelSPtr<float>& model)
 {
 	for (const auto& b : model->getBalls()) {
 		if (b->isVisible()) {
-			pointRenderer.add((*b->getMetaball()), b->getId());
 			const auto center = b->getMetaball()->getCenter();
 			const int type = static_cast<int>( b->getType() );
 			const int isSelected = b->isSelected();
@@ -270,18 +258,10 @@ void View::draw(const wxSize& size)
 		normalRenderer.scale = nConfig.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
-	else if (renderingMode == RENDERING_MODE::POINT) {
-		const auto& pConfig = config.getPointConfig();
-		glPointSize( pConfig.getPointSize() );
-		pointRenderer.render(width, height, &c );
-	}
-	else if (renderingMode == RENDERING_MODE::VOLUME) {
-		vRenderer.render(width, height, c);
-	}
 	else if (renderingMode == RENDERING_MODE::ID) {
 		const auto& pConfig = config.getPointConfig();
 		glPointSize(pConfig.getPointSize());
-		idRenderer.render(width, height, c );
+		idRenderer.render(width, height, c, Shader::IDRenderer::Mode::POINTS );
 	}
 	else {
 		assert( false );
@@ -292,8 +272,6 @@ void View::build()
 {
 	wireFrameRenderer.build();
 	normalRenderer.build();
-	pointRenderer.build();
 	idRenderer.build();
 	surfaceRenderer.build();
-	vRenderer.build();
 }
