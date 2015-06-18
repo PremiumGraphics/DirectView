@@ -146,6 +146,14 @@ TEST(SpaceTest, TestMove)
 		);
 }
 
+TEST(SpaceTest, TestScale)
+{
+	using T = float;
+
+	Space3d<T> s(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+	s.scale(Vector3d<T>(1, 2, 4));
+}
+
 /*
 
 TEST(SpaceTest, TestEquals)

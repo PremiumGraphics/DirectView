@@ -155,18 +155,18 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
+	rendering->AddHybridButton(ID_RENDERING_POINT, "Point", wxImage("../Resource/point.png"));
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
 	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
 
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderSurface ) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderNormal) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
-	//Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
-	Connect( ID_RENDERING_POINT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
@@ -512,16 +512,9 @@ void Frame::OnRenderNormal(wxRibbonButtonBarEvent&)
 	view->Refresh();
 }
 
-void Frame::OnPoint(wxRibbonButtonBarEvent&)
+void Frame::OnRenderingPoint(wxRibbonButtonBarEvent&)
 {
 	view->setRenderingMode(View::RENDERING_MODE::POINT);
-	view->Refresh();
-}
-
-
-void Frame::OnID(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::ID);
 	view->Refresh();
 }
 

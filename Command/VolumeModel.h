@@ -37,12 +37,10 @@ public:
 		;
 	};
 
-	/*
 	virtual void scale(const Math::Vector3d<float>& s) override
 	{
 		ss->scale(s);
 	}
-	*/
 
 private:
 	Math::Volume3dSPtr<T> ss;
@@ -115,13 +113,13 @@ public:
 		}
 	}
 
-	/*
-	void scale(const Math::Vector3d<&>& s) {
+	void scale(const Math::Vector3d<T>& s) {
 		for (auto& s : spaces) {
-			s->
+			if (s->isSelected()) {
+				s->scale(s);
+			}
 		}
 	}
-	*/
 
 
 private:

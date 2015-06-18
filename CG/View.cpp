@@ -5,6 +5,7 @@
 
 #include "Converter.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Model;
 using namespace Crystal::UI;
@@ -19,7 +20,7 @@ View::View( Frame* parent, const int width, const int height, const MainModelSPt
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( RENDERING_MODE::WIRE_FRAME ),
+renderingMode( RENDERING_MODE::POINT ),
 model( model )
 {
 	glContext.SetCurrent( *this );
@@ -39,9 +40,6 @@ View::~View()
 {
 }
 
-#include "../Math/Vector.h"
-
-using namespace Crystal::Math;
 
 
 void View::OnPaint( wxPaintEvent& )
@@ -265,7 +263,7 @@ void View::draw(const wxSize& size)
 		normalRenderer.scale = nConfig.getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
-	else if (renderingMode == RENDERING_MODE::ID) {
+	else if (renderingMode == RENDERING_MODE::POINT) {
 		const auto& pConfig = config.getPointConfig();
 		glPointSize(pConfig.getPointSize());
 		idRenderer.render(width, height, c, pointBuffer );

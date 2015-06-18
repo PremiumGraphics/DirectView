@@ -50,9 +50,7 @@ private:
 
 	void OnRenderNormal(wxRibbonButtonBarEvent&);
 
-	void OnPoint(wxRibbonButtonBarEvent&);
-
-	void OnID(wxRibbonButtonBarEvent&);
+	void OnRenderingPoint(wxRibbonButtonBarEvent&);
 
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 

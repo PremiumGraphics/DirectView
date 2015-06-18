@@ -38,7 +38,6 @@ public:
 		SURFACE,
 		NORMAL,
 		POINT,
-		ID,
 	};
 
 	void setMode( const MODE& m ) { this->mode = m; }
