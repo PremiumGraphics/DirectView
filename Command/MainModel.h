@@ -116,10 +116,9 @@ public:
 	}
 
 	void scale(const Math::Vector3d<T>& s) {
-		/*
 		volume->scale(s);
-		surface->scale(s);
-		*/
+
+		//surface->scale(s);
 	}
 
 

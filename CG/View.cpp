@@ -155,9 +155,11 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		else if (mode == ROTATE) {
 			model->rotate(angle);
+			this->set(*model);
 		}
 		else if (mode == SCALE) {
-			model->scale(pos);
+			model->scale(Vector3d<float>(1,1,1) + pos*0.01);
+			this->set(*model);
 		}
 		else {
 			assert( false );

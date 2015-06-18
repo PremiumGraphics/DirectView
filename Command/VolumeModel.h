@@ -113,10 +113,10 @@ public:
 		}
 	}
 
-	void scale(const Math::Vector3d<T>& s) {
-		for (auto& s : spaces) {
+	void scale(const Math::Vector3d<T>& v) {
+		for (const auto& s : spaces) {
 			if (s->isSelected()) {
-				s->scale(s);
+				s->scale(v);
 			}
 		}
 	}
