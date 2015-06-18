@@ -23,6 +23,10 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::PointBuffer<float>& buffer);
 
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::LineBuffer<float>& buffer);
+
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::TriangleBuffer<float>& buffer);
+
 	void build();
 
 private:
@@ -36,6 +40,9 @@ private:
 	};
 
 	Location getLocations();
+
+
+	void down();
 
 
 	/*

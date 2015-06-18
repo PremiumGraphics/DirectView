@@ -74,6 +74,20 @@ public:
 		//positions.add( surface.)
 	}
 };
+
+template<typename T>
+class TriangleBuffer : public BufferBase < T >
+{
+public:
+	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
+		for (const auto& v : surface.getVertices()) {
+			const auto pos = v->getPosition();
+			addPosition(pos, type, id, isSelected);
+		}
+		//positions.add( surface.)
+	}
+
+};
 	}
 }
 

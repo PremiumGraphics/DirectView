@@ -183,6 +183,8 @@ void View::set(const MainModel<float>& model)
 	wireFrameRenderer.clear();
 	normalRenderer.clear();
 	pointBuffer.clear();
+	lineBuffer.clear();
+	triangleBuffer.clear();
 
 	set( model.getSurfaceModel() );
 	set( model.getVolumeModel() );
@@ -198,7 +200,9 @@ void View::set(const SurfaceModelSPtr<float>& model)
 			const auto& surface = p->getPolygon();
 			const int type = static_cast<int>(p->getType());
 			const int isSelected = p->isSelected();
-			pointBuffer.add(*surface, type, p->getId(),isSelected );
+			//pointBuffer.add(*surface, type, p->getId(),isSelected );
+			lineBuffer.add(*surface, type, p->getId(), isSelected );
+			triangleBuffer.add(*surface, type, p->getId(), isSelected);
 		}
 	}
 }
@@ -213,7 +217,7 @@ void View::set(const VolumeModelSPtr<float>& model)
 				const auto center = c.getSpace().getCenter();
 				const int type = static_cast<int>(b->getType());
 				const int isSelected = b->isSelected();
-				pointBuffer.addPosition(center, type, b->getId(), isSelected);
+				//pointBuffer.addPosition(center, type, b->getId(), isSelected);
 			}
 		}
 	}
@@ -250,11 +254,12 @@ void View::draw(const wxSize& size)
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		const auto& wConfig = config.getWireframeConfig();
 		glLineWidth( wConfig.getLineWidth() );
-		wireFrameRenderer.render(width, height, c );
+		//wireFrameRenderer.render(width, height, c );
+		idRenderer.render(width, height, c, lineBuffer);
 	}
 	else if( renderingMode == RENDERING_MODE::SURFACE ) {
-		surfaceRenderer.render(width, height, c );
-		glClear(GL_DEPTH_BUFFER_BIT);
+		idRenderer.render(width, height, c, triangleBuffer);
+		//surfaceRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
 		const auto nConfig = config.getNormalConfig();

@@ -118,6 +118,15 @@ public:
 		polygons.remove(p);
 	}
 
+	void move(const Math::Vector3d<T>& vector) {
+		for (const auto& s : polygons) {
+			if (s->isSelected()) {
+				s->move(vector);
+			}
+		}
+	}
+
+
 	SurfaceObjectSPtrList<T> getPolygons() const { return polygons; }
 
 private:

@@ -76,6 +76,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	if (buffer.isEmpty()) {
 		return;
 	}
+
 	const auto& positions = buffer.getPositions();
 	const auto& types = buffer.getTypes();
 	const auto& ids = buffer.getIds();
@@ -84,7 +85,13 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
-	assert(GL_NO_ERROR == glGetError());
+	//assert(GL_NO_ERROR == glGetError());
+	const auto error = glGetError();
+	if (error != GL_NO_ERROR) {
+		assert(false);
+		//G glGetString(error);
+
+	}
 
 	glViewport(0, 0, width, height);
 
@@ -96,8 +103,8 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()) );
-	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()) );
+	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
+	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
 	glEnableVertexAttribArray(0);
@@ -105,18 +112,127 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
 
-	//if (mode == Mode::POINTS) {
-		glDrawArrays(GL_POINTS, 0, positions.size() / 3);
-	//}
-	//else if (mode == Mode::LINES) {
-	//	glDrawArrays(GL_LINES, 0, positions.size() / 3);
-	//}
-	//else if (mode == Mode::TRIANGLES) {
-	//	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
-	//}
-	//else {
-	//	assert(false);
-	//}
+	//const auto positions = buffer.getPositions();
+
+
+	assert(glGetError() == GL_NO_ERROR);
+	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
+
+	assert(glGetError() == GL_NO_ERROR);
+
+	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+	assert(glGetError() == GL_NO_ERROR);
+
+	glUseProgram(0);
+	assert(glGetError() == GL_NO_ERROR);
+
+}
+
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer)
+{
+	if (buffer.isEmpty()) {
+		return;
+	}
+	const auto& positions = buffer.getPositions();
+	const auto& types = buffer.getTypes();
+	const auto& ids = buffer.getIds();
+	const auto& isSelecteds = buffer.getIsSelecteds();
+
+	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
+	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
+
+	//assert(GL_NO_ERROR == glGetError());
+	const auto error = glGetError();
+	if (error != GL_NO_ERROR) {
+		assert(false);
+		//G glGetString(error);
+
+	}
+
+	glViewport(0, 0, width, height);
+
+	glUseProgram(shader.getId());
+
+	const Location& location = getLocations();
+
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
+	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+
+
+	//const auto positions = buffer.getPositions();
+
+	glDrawArrays(GL_LINES, 0, positions.size() / 3);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
+
+	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+	glUseProgram(0);
+
+
+}
+
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
+{
+	if (buffer.isEmpty()) {
+		return;
+	}
+
+	const auto& positions = buffer.getPositions();
+	const auto& types = buffer.getTypes();
+	const auto& ids = buffer.getIds();
+	const auto& isSelecteds = buffer.getIsSelecteds();
+
+	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
+	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
+
+	//assert(GL_NO_ERROR == glGetError());
+	const auto error = glGetError();
+	if (error != GL_NO_ERROR) {
+		assert(false);
+		//G glGetString(error);
+
+	}
+
+	glViewport(0, 0, width, height);
+
+	glUseProgram(shader.getId());
+
+	const Location& location = getLocations();
+
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
+	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
+	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+
+	//positions = buffer.getPositions();
+
+	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -126,4 +242,6 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	glUseProgram(0);
+
+
 }

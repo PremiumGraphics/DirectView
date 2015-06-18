@@ -45,8 +45,8 @@ public:
 	{
 		const auto ss = getVolumeModel()->create(config);
 		getSurfaceModel()->create(*(ss->getSpace()));
-		getSurfaceModel()->createBoundingBox(*ss->getSpace());
-		getSurfaceModel()->createGridCells(*ss->getSpace());
+		//getSurfaceModel()->createBoundingBox(*ss->getSpace());
+		//getSurfaceModel()->createGridCells(*ss->getSpace());
 	}
 
 	void toVolume() {
@@ -97,12 +97,19 @@ public:
 				selected->changeSelected();
 			}
 		}
+		else if (type == Object::Type::Polygon) {
+			const auto selected = surface->find(id);
+			if (selected != nullptr) {
+				selected->changeSelected();
+			}
+		}
 	}
 
 
 	void move(const Math::Vector3d<T>& vector) {
 		metaball->move(vector);
 		volume->move(vector);
+		surface->move(vector);
 	}
 
 	void deleteSelected() {

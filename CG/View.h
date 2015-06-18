@@ -100,6 +100,8 @@ private:
 
 
 	Graphics::PointBuffer<float> pointBuffer;
+	Graphics::LineBuffer<float> lineBuffer;
+	Graphics::TriangleBuffer<float> triangleBuffer;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };
