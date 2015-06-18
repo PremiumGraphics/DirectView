@@ -3,6 +3,7 @@
 
 #include "../Graphics/Surface.h"
 #include "../Math/Volume.h"
+#include "../Math/Line.h"
 
 #include <vector>
 
@@ -67,7 +68,6 @@ template<typename T>
 class LineBuffer : public BufferBase < T >
 {
 public:
-	/*
 	void add(const Math::Volume3d<T>& volume, const int type, const int id, const int isSelected) {
 		const auto minx = volume.getStart().getX();
 		const auto miny = volume.getStart().getY();
@@ -75,8 +75,38 @@ public:
 		const auto maxx = volume.getEnd().getX();
 		const auto maxy = volume.getEnd().getY();
 		const auto maxz = volume.getEnd().getZ();
+	
+		const Math::Vector3dVector<T> vs = {
+			Math::Vector3d<T>(minx, miny, minz),
+			Math::Vector3d<T>(maxx, miny, minz),
+			Math::Vector3d<T>(maxx, maxy, minz),
+			Math::Vector3d<T>(minx, maxy, minz),
+			Math::Vector3d<T>(minx, miny, maxz),
+			Math::Vector3d<T>(maxx, miny, maxz),
+			Math::Vector3d<T>(maxx, maxy, maxz),
+			Math::Vector3d<T>(minx, maxy, maxz)
+		};
+
+		const Math::Line3dVector<T> lines{
+			Math::Line3d<T>(vs[0], vs[1]),
+			Math::Line3d<T>(vs[1], vs[2]),
+			Math::Line3d<T>(vs[2], vs[3]),
+			Math::Line3d<T>(vs[3], vs[0]),
+			Math::Line3d<T>(vs[4], vs[5]),
+			Math::Line3d<T>(vs[5], vs[6]),
+			Math::Line3d<T>(vs[6], vs[7]),
+			Math::Line3d<T>(vs[7], vs[4]),
+			Math::Line3d<T>(vs[0], vs[4]),
+			Math::Line3d<T>(vs[1], vs[5]),
+			Math::Line3d<T>(vs[2], vs[6]),
+			Math::Line3d<T>(vs[3], vs[7])
+		};
+
+		for (const auto& l : lines) {
+			add(l, type, id, isSelected);
+		}
 	}
-	*/
+
 
 	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
 		for (const auto& e : surface.getEdges()) {
@@ -84,6 +114,11 @@ public:
 			addPosition(e->getEndPosition(), type, id, isSelected);
 		}
 		//positions.add( surface.)
+	}
+
+	void add(const Math::Line3d<T>& line, const int type, const int id, const int isSelected) {
+		addPosition(line.getStart(), type, id, isSelected);
+		addPosition(line.getEnd(), type, id, isSelected);
 	}
 };
 

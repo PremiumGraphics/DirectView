@@ -208,13 +208,9 @@ void View::set(const VolumeModelSPtr<float>& model)
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
 			const auto& ss = b->getSpace();
-			const auto& cells = ss->toCells();
-			for (const auto& c : cells) {
-				const auto center = c.getSpace().getCenter();
-				const int type = static_cast<int>(b->getType());
-				const int isSelected = b->isSelected();
-				//pointBuffer.addPosition(center, type, b->getId(), isSelected);
-			}
+			const int type = static_cast<int>(b->getType());
+			const int isSelected = b->isSelected();
+			lineBuffer.add(*ss, type, b->getId(), isSelected);
 		}
 	}
 
