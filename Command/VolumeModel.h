@@ -37,6 +37,12 @@ public:
 		;
 	};
 
+	/*
+	virtual void scale(const Math::Vector3d<float>& s) override
+	{
+		ss->scale(s);
+	}
+	*/
 
 private:
 	Math::Volume3dSPtr<T> ss;
@@ -108,6 +114,14 @@ public:
 			++iter;
 		}
 	}
+
+	/*
+	void scale(const Math::Vector3d<&>& s) {
+		for (auto& s : spaces) {
+			s->
+		}
+	}
+	*/
 
 
 private:

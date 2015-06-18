@@ -69,9 +69,6 @@ public:
 		;
 	}
 
-	void scale(const Math::Vector3d<T>& s) {
-		;
-	}
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
@@ -115,6 +112,14 @@ public:
 	void deleteSelected() {
 		metaball->deleteSelected();
 		volume->deleteSelected();
+		surface->deleteSelected();
+	}
+
+	void scale(const Math::Vector3d<T>& s) {
+		/*
+		volume->scale(s);
+		surface->scale(s);
+		*/
 	}
 
 

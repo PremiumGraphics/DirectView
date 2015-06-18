@@ -57,7 +57,7 @@ public:
 
 	void clear() {
 		ModelBase::clear();
-		this->polygons.clear();
+		this->surfaces.clear();
 	}
 
 	SurfaceObjectSPtr<T> create(const Math::Volume3d<float>& ss)
@@ -102,7 +102,7 @@ public:
 
 
 	SurfaceObjectSPtr<T> find(const unsigned int id) {
-		for (const auto& p : polygons) {
+		for (const auto& p : surfaces) {
 			if (p->getId() == id) {
 				return p;
 			}
@@ -115,28 +115,39 @@ public:
 		if (p == nullptr) {
 			return;
 		}
-		polygons.remove(p);
+		surfaces.remove(p);
 	}
 
 	void move(const Math::Vector3d<T>& vector) {
-		for (const auto& s : polygons) {
+		for (const auto& s : surfaces) {
 			if (s->isSelected()) {
 				s->move(vector);
 			}
 		}
 	}
 
+	void deleteSelected() {
+		for (auto iter = surfaces.begin(); iter != surfaces.end();) {
+			const auto ball = (*iter);
+			if (ball->isSelected()) {
+				iter = surfaces.erase(iter);
+				continue;
+			}
+			++iter;
+		}
+	}
 
-	SurfaceObjectSPtrList<T> getPolygons() const { return polygons; }
+
+	SurfaceObjectSPtrList<T> getPolygons() const { return surfaces; }
 
 private:
-	SurfaceObjectSPtrList<T> polygons;
+	SurfaceObjectSPtrList<T> surfaces;
 
 	Math::MarchingCube<T> mc;
 
 	SurfaceObjectSPtr<T> add(Graphics::SurfaceSPtr<float>& p) {
-		this->polygons.push_back( std::make_shared< SurfaceObject<float> >( p, getNextId() ) );
-		return polygons.back();
+		this->surfaces.push_back( std::make_shared< SurfaceObject<float> >( p, getNextId() ) );
+		return surfaces.back();
 	}
 
 };

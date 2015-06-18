@@ -198,7 +198,7 @@ void View::set(const SurfaceModelSPtr<float>& model)
 			const auto& surface = p->getPolygon();
 			const int type = static_cast<int>(p->getType());
 			const int isSelected = p->isSelected();
-			//pointBuffer.add(*surface, type, p->getId(),isSelected );
+			pointBuffer.add(*surface, type, p->getId(),isSelected );
 			lineBuffer.add(*surface, type, p->getId(), isSelected );
 			triangleBuffer.add(*surface, type, p->getId(), isSelected);
 		}

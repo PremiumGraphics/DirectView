@@ -52,7 +52,7 @@ enum {
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_SURFACE,
 	ID_RENDERING_NORMAL,
-	ID_RENDERING_ID,
+	ID_RENDERING_POINT,
 
 	ID_CAMERA_FIT,
 
@@ -158,7 +158,7 @@ Frame::Frame()
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
 	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
-	rendering->AddHybridButton( ID_RENDERING_ID,		"ID",		wxImage("../Resource/point.png"));
+	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point",	wxImage("../Resource/point.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
@@ -166,7 +166,7 @@ Frame::Frame()
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderNormal) );
 	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNormalConfig));
 	//Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
-	Connect( ID_RENDERING_ID,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
+	Connect( ID_RENDERING_POINT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnID ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
@@ -648,7 +648,6 @@ void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 
 	model->toVolume();
 
-	model->getSurfaceModel()->clear();
 	model->polygonize();
 	//model.getPolygonFactory()->create(*ss.getScalarSpace());
 	setRendering();

@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_BUFFER_H__
 
 #include "../Graphics/Surface.h"
+#include "../Math/Volume.h"
 
 #include <vector>
 
@@ -66,6 +67,17 @@ template<typename T>
 class LineBuffer : public BufferBase < T >
 {
 public:
+	/*
+	void add(const Math::Volume3d<T>& volume, const int type, const int id, const int isSelected) {
+		const auto minx = volume.getStart().getX();
+		const auto miny = volume.getStart().getY();
+		const auto minz = volume.getStart().getZ();
+		const auto maxx = volume.getEnd().getX();
+		const auto maxy = volume.getEnd().getY();
+		const auto maxz = volume.getEnd().getZ();
+	}
+	*/
+
 	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
 		for (const auto& e : surface.getEdges()) {
 			addPosition(e->getStartPosition(), type, id, isSelected);
