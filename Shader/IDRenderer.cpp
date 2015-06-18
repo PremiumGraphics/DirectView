@@ -107,29 +107,13 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
 
 	//const auto positions = buffer.getPositions();
+	up();
 
-
-	assert(glGetError() == GL_NO_ERROR);
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	glDisableVertexAttribArray(3);
 
-	assert(glGetError() == GL_NO_ERROR);
-
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
-
-	assert(glGetError() == GL_NO_ERROR);
-
-	glUseProgram(0);
-	assert(glGetError() == GL_NO_ERROR);
+	down();
 
 }
 
@@ -168,25 +152,13 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
-
+	up();
 
 	//const auto positions = buffer.getPositions();
 
 	glDrawArrays(GL_LINES, 0, positions.size() / 3);
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	glDisableVertexAttribArray(3);
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
-
-	glUseProgram(0);
-
-
+	down();
 }
 
 void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
@@ -225,15 +197,26 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
+	up();
 
 	//positions = buffer.getPositions();
 
 	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
 
+	down();
+}
+
+void IDRenderer::up()
+{
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+
+}
+
+void IDRenderer::down()
+{
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);

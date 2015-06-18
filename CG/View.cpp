@@ -180,7 +180,6 @@ void View::OnSize(wxSizeEvent& e)
 
 void View::set(const MainModel<float>& model)
 {
-	wireFrameRenderer.clear();
 	normalRenderer.clear();
 	pointBuffer.clear();
 	lineBuffer.clear();
@@ -195,7 +194,6 @@ void View::set(const SurfaceModelSPtr<float>& model)
 {
 	for (const auto& p : model->getPolygons()) {
 		if (p->isVisible()) {
-			wireFrameRenderer.add(*(p->getPolygon()));
 			normalRenderer.add(*(p->getPolygon()));
 			const auto& surface = p->getPolygon();
 			const int type = static_cast<int>(p->getType());
@@ -279,8 +277,6 @@ void View::draw(const wxSize& size)
 
 void View::build()
 {
-	wireFrameRenderer.build();
 	normalRenderer.build();
 	idRenderer.build();
-	surfaceRenderer.build();
 }

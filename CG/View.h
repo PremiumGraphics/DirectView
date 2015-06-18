@@ -5,7 +5,6 @@
 
 #include "Frame.h"
 
-#include "../Shader/WireFrameRenderer.h"
 #include "../Shader/NormalRenderer.h"
 #include "../Shader/IDRenderer.h"
 #include "../Shader/SmoothRenderer.h"
@@ -80,8 +79,6 @@ private:
 	
 	void build();
 
-	Shader::WireFrameRenderer wireFrameRenderer;
-	Shader::SurfaceRenderer surfaceRenderer;
 	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
 	Shader::IDRenderer idRenderer;

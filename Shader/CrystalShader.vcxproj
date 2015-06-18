@@ -79,7 +79,6 @@
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
-    <ClCompile Include="WireFrameRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -87,7 +86,6 @@
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SmoothRenderer.h" />
-    <ClInclude Include="WireFrameRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

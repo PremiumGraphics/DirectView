@@ -41,6 +41,7 @@ private:
 
 	Location getLocations();
 
+	void up();
 
 	void down();
 
