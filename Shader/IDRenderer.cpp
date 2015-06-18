@@ -71,7 +71,7 @@ IDRenderer::Location IDRenderer::getLocations()
 }
 
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const Mode mode)
+void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -105,18 +105,18 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
 
-	if (mode == Mode::POINTS) {
+	//if (mode == Mode::POINTS) {
 		glDrawArrays(GL_POINTS, 0, positions.size() / 3);
-	}
-	else if (mode == Mode::LINES) {
-		glDrawArrays(GL_LINES, 0, positions.size() / 3);
-	}
-	else if (mode == Mode::TRIANGLES) {
-		glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
-	}
-	else {
-		assert(false);
-	}
+	//}
+	//else if (mode == Mode::LINES) {
+	//	glDrawArrays(GL_LINES, 0, positions.size() / 3);
+	//}
+	//else if (mode == Mode::TRIANGLES) {
+	//	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
+	//}
+	//else {
+	//	assert(false);
+	//}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

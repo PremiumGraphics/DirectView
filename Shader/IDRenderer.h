@@ -16,27 +16,14 @@ namespace Crystal {
 class IDRenderer final : private UnCopyable
 {
 public:
-	enum class Mode{
-		POINTS,
-		LINES,
-		TRIANGLES,
-	};
 
 	IDRenderer() = default;
 
 	~IDRenderer() = default;
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Mode mode);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::PointBuffer<float>& buffer);
 
 	void build();
-
-	void add(const Math::Vector3d<float>& v, const unsigned int type, const unsigned int id, const unsigned int isSelected) {
-		buffer.add(v, type, id, isSelected);
-	}
-
-	void clear() {
-		buffer.clear();
-	}
 
 private:
 	struct Location {
@@ -51,7 +38,6 @@ private:
 	Location getLocations();
 
 
-	Graphics::BufferBase<float> buffer;
 	/*
 	std::vector<float> positions;
 	std::vector<int> types;

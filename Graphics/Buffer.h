@@ -12,7 +12,10 @@ template<typename T>
 class BufferBase
 {
 public:
-	void add(const Math::Vector3d<T>& position, const int type, const int id, const int isSelected) {
+
+	virtual ~BufferBase() = default;
+
+	void addPosition(const Math::Vector3d<T>& position, const int type, const int id, const int isSelected) {
 		const auto& poss = position.toArray();
 		positions.insert(positions.end(), poss.begin(), poss.end());
 		types.push_back(type);
@@ -49,8 +52,12 @@ private:
 template<typename T>
 class PointBuffer : public BufferBase<T>
 {
-
-	void add(const Surface<T>& surface) {
+public:
+	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
+		for (const auto& v : surface.getVertices()) {
+			const auto pos = v->getPosition();
+			addPosition( pos, type, id, isSelected);
+		}
 		//positions.add( surface.)
 	}
 };
@@ -58,7 +65,14 @@ class PointBuffer : public BufferBase<T>
 template<typename T>
 class LineBuffer : public BufferBase < T >
 {
-
+public:
+	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
+		for (const auto& e : surface.getEdges()) {
+			addPosition(e->getStartPosition(), type, id, isSelected);
+			addPosition(e->getEndPosition(), type, id, isSelected);
+		}
+		//positions.add( surface.)
+	}
 };
 	}
 }

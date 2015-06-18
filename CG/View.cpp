@@ -182,7 +182,7 @@ void View::set(const MainModel<float>& model)
 {
 	wireFrameRenderer.clear();
 	normalRenderer.clear();
-	idRenderer.clear();
+	pointBuffer.clear();
 
 	set( model.getSurfaceModel() );
 	set( model.getVolumeModel() );
@@ -195,6 +195,10 @@ void View::set(const SurfaceModelSPtr<float>& model)
 		if (p->isVisible()) {
 			wireFrameRenderer.add(*(p->getPolygon()));
 			normalRenderer.add(*(p->getPolygon()));
+			const auto& surface = p->getPolygon();
+			const int type = static_cast<int>(p->getType());
+			const int isSelected = p->isSelected();
+			pointBuffer.add(*surface, type, p->getId(),isSelected );
 		}
 	}
 }
@@ -209,7 +213,7 @@ void View::set(const VolumeModelSPtr<float>& model)
 				const auto center = c.getSpace().getCenter();
 				const int type = static_cast<int>(b->getType());
 				const int isSelected = b->isSelected();
-				idRenderer.add(center, type, b->getId(), isSelected);
+				pointBuffer.addPosition(center, type, b->getId(), isSelected);
 			}
 		}
 	}
@@ -223,7 +227,7 @@ void View::set(const MetaballModelSPtr<float>& model)
 			const auto center = b->getMetaball()->getCenter();
 			const int type = static_cast<int>( b->getType() );
 			const int isSelected = b->isSelected();
-			idRenderer.add(center, type, b->getId(), isSelected);
+			pointBuffer.addPosition(center, type, b->getId(), isSelected);
 		}
 	}
 }
@@ -261,7 +265,7 @@ void View::draw(const wxSize& size)
 	else if (renderingMode == RENDERING_MODE::ID) {
 		const auto& pConfig = config.getPointConfig();
 		glPointSize(pConfig.getPointSize());
-		idRenderer.render(width, height, c, Shader::IDRenderer::Mode::POINTS );
+		idRenderer.render(width, height, c, pointBuffer );
 	}
 	else {
 		assert( false );

@@ -99,6 +99,8 @@ private:
 	void set(const Model::MetaballModelSPtr<float>& model);
 
 
+	Graphics::PointBuffer<float> pointBuffer;
+
 	wxDECLARE_NO_COPY_CLASS( View );
 };
 
