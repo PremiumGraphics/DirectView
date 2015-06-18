@@ -73,9 +73,14 @@ IDRenderer::Location IDRenderer::getLocations()
 
 void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const Mode mode)
 {
-	if (positions.empty()) {
+	if (buffer.isEmpty()) {
 		return;
 	}
+	const auto& positions = buffer.getPositions();
+	const auto& types = buffer.getTypes();
+	const auto& ids = buffer.getIds();
+	const auto& isSelecteds = buffer.getIsSelecteds();
+
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
