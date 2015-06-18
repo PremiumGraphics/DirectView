@@ -25,8 +25,18 @@ public:
 
 	Type getType() const { return Type::VOLUME; }
 
-
 	Math::Volume3dSPtr<T> getSpace() const { return ss; }
+
+	virtual void move(const Math::Vector3d<float>& vector) override
+	{
+		ss->move(vector);
+	};
+
+	virtual void rotate(const Math::Vector3d<float>& center, const Math::Vector3d<float>& angle) override
+	{
+		;
+	};
+
 
 private:
 	Math::Volume3dSPtr<T> ss;
@@ -78,6 +88,14 @@ public:
 			return;
 		}
 		spaces.remove(s);
+	}
+
+	void move(const Math::Vector3d<T>& vector) {
+		for (const auto& s : spaces) {
+			if (s->isSelected()) {
+				s->move(vector);
+			}
+		}
 	}
 
 

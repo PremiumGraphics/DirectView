@@ -70,7 +70,7 @@ public:
 		resx = 20;
 		resy = 20;
 		resz = 20;
-		space = Math::Space3d<T>::Unit();
+		space = Math::Space3d<T>( Math::Vector3d<T>(-1,-1,-1 ), Math::Vector3d<T>(2,2,2) );
 	}
 
 private:

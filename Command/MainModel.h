@@ -86,7 +86,13 @@ public:
 
 	void changeSelected(const Object::Type& type, const unsigned int id) {
 		if (type == Object::Type::Metaball) {
-			auto selected = metaball->find(id);
+			const auto selected = metaball->find(id);
+			if (selected != nullptr) {
+				selected->changeSelected();
+			}
+		}
+		else if (type == Object::Type::VOLUME) {
+			const auto selected = volume->find(id);
 			if (selected != nullptr) {
 				selected->changeSelected();
 			}
@@ -96,6 +102,7 @@ public:
 
 	void move(const Math::Vector3d<T>& vector) {
 		metaball->move(vector);
+		volume->move(vector);
 	}
 
 

@@ -11,13 +11,13 @@ namespace Crystal {
 class Object {
 public:
 	enum class Type {
-		NullType = -1,
-		VOLUME = 0,
-		Metaball = 1,
-		Light = 2,
-		Polygon = 3,
-		Camera = 4,
-		PointCloud = 5,
+		NullType = 0,
+		VOLUME = 1,
+		Metaball = 2,
+		Light = 3,
+		Polygon = 4,
+		Camera = 5,
+		PointCloud = 6,
 	};
 
 	explicit Object(const unsigned int id) :
@@ -53,6 +53,8 @@ public:
 	virtual void move(const Math::Vector3d<float>& vector){};
 
 	virtual void scale(const Math::Vector3d<float>& vector){};
+
+	virtual void rotate(const Math::Vector3d<float>& center, const Math::Vector3d<float>& angle){};
 
 private:
 	unsigned int id;

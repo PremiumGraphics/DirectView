@@ -213,6 +213,15 @@ void View::set(const VolumeModelSPtr<float>& model)
 	for (const auto& b : model->getSpaces()) {
 		if (b->isVisible()) {
 			vRenderer.add( *(b->getSpace()) );
+
+			const auto& ss = b->getSpace();
+			const auto& cells = ss->toCells();
+			for (const auto& c : cells) {
+				const auto center = c.getSpace().getCenter();
+				const int type = static_cast<int>(b->getType());
+				const int isSelected = b->isSelected();
+				idRenderer.add(center, type, b->getId(), isSelected);
+			}
 		}
 	}
 
