@@ -102,6 +102,17 @@ public:
 		}
 	}
 
+	void deleteSelected() {
+		for (auto iter = balls.begin(); iter != balls.end(); ) {
+			const auto ball = (*iter);
+			if (ball->isSelected()) {
+				iter = balls.erase(iter);
+				continue;
+			}
+			++iter;
+		}
+	}
+
 private:
 	MetaballObjectSPtrList<T> balls;
 

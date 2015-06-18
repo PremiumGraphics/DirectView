@@ -80,6 +80,9 @@ private:
 
 	void OnScale(wxRibbonButtonBarEvent& e);
 
+	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
+
+
 	void OnCreateSurface(wxRibbonButtonBarEvent& e);
 
 	void OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e);

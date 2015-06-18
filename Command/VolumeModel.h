@@ -98,6 +98,17 @@ public:
 		}
 	}
 
+	void deleteSelected() {
+		for (auto iter = spaces.begin(); iter != spaces.end();) {
+			const auto ball = (*iter);
+			if (ball->isSelected()) {
+				iter = spaces.erase(iter);
+				continue;
+			}
+			++iter;
+		}
+	}
+
 
 private:
 	VolumeObjectSPtrList<T> spaces;

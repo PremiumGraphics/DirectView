@@ -105,6 +105,11 @@ public:
 		volume->move(vector);
 	}
 
+	void deleteSelected() {
+		metaball->deleteSelected();
+		volume->deleteSelected();
+	}
+
 
 private:
 	Graphics::CameraSPtr<T> camera;
