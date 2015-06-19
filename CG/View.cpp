@@ -158,7 +158,7 @@ void View::OnMouse( wxMouseEvent& event )
 			this->set(*model);
 		}
 		else if (mode == SCALE) {
-			model->scale(Vector3d<float>(1,1,1) + pos*0.01);
+			model->scale(Vector3d<float>(1,1,1) + pos*0.01f);
 			this->set(*model);
 		}
 		else {
@@ -251,8 +251,7 @@ void View::draw(const wxSize& size)
 		//wireFrameRenderer.render(width, height, c );
 		wireframeRenderer.render(width, height, c, lineBuffer);
 
-		const auto& pConfig = config.getPointConfig();
-		glPointSize(pConfig.getPointSize());
+		glPointSize( this->getPointSize() );
 		wireframeRenderer.render(width, height, c, pointBuffer);
 	}
 	else if( renderingMode == RENDERING_MODE::SURFACE ) {
@@ -260,9 +259,8 @@ void View::draw(const wxSize& size)
 		//surfaceRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		const auto nConfig = config.getNormalConfig();
-		glLineWidth( nConfig.getLineWidth() );
-		normalRenderer.scale = nConfig.getNormalScale();
+		glLineWidth( getLineWidth() );
+		normalRenderer.scale = getNormalScale();
 		normalRenderer.render(width, height, c );
 	}
 	else {

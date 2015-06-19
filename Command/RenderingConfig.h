@@ -12,7 +12,8 @@ public:
 		setDefault();
 	}
 
-	WireframeConfig( const T lineWidth, const bool drawBB_, const bool drawPlane_) :
+	WireframeConfig( const T pointSize, const T lineWidth, const bool drawBB_, const bool drawPlane_) :
+		pointSize( pointSize ),
 		lineWidth(lineWidth),
 		drawBB_(drawBB_),
 		drawPlane_(drawPlane_)
@@ -20,72 +21,31 @@ public:
 	}
 
 	void setDefault() {
-		lineWidth = 1;
+		normalScale = 1;
+		lineWidth = 10;
 		drawBB_ = true;
 		drawPlane_ = true;
+		pointSize = 10;
 	}
 
+	T getPointSize() const { return pointSize; }
+
 	T getLineWidth() const { return lineWidth; }
+
+	T getNormalScale() const { return normalScale; }
+
 
 	bool drawBB() const { return drawBB_; }
 
 	bool drawPlane() const { return drawPlane_; }
 
 private:
+	T pointSize;
 	T lineWidth;
+	T normalScale;
+
 	bool drawBB_;
 	bool drawPlane_;
-};
-
-template<typename T>
-class NormalConfig {
-public:
-	NormalConfig()
-	{
-		setDefault();
-	}
-
-	NormalConfig(const T normalScale, const T lineWidth) :
-		normalScale(normalScale),
-		lineWidth(lineWidth)
-	{}
-
-	void setDefault() {
-		normalScale = 1;
-		lineWidth = 1;
-	}
-
-	T getNormalScale() const { return normalScale; }
-
-	T getLineWidth() const { return lineWidth; }
-
-private:
-	T normalScale;
-	T lineWidth;
-};
-
-
-template<typename T>
-class PointConfig
-{
-public:
-	PointConfig()
-	{
-		setDefault();
-	}
-
-	explicit PointConfig(const T pointSize) :
-		pointSize( pointSize )
-	{}
-
-	void setDefault() {
-		pointSize = 10;
-	}
-
-	T getPointSize() const { return pointSize; }
-
-private:
-	T pointSize;
 };
 
 
@@ -99,24 +59,12 @@ public:
 
 	void setWireframeConfig(const WireframeConfig<T>& config) { wfConfig = config; }
 
-	NormalConfig<T> getNormalConfig() const { return nConfig; }
-
-	void setNormalConfig(const NormalConfig<T>& config) { nConfig = config; }
-
-	PointConfig<T> getPointConfig() const { return pConfig; }
-
-	void setPointConfig(const PointConfig<T>& config) { pConfig = config; }
-
 	void init() {
 		wfConfig.init();
-		nConfig.init();
-		pConfig.init();
 	}
 
 private:
 	WireframeConfig<T> wfConfig;
-	NormalConfig<T> nConfig;
-	PointConfig<T> pConfig;
 };
 	}
 }
