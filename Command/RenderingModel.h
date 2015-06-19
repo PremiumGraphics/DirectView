@@ -20,21 +20,24 @@ public:
 	void setDefault() {
 		normalScale = 1;
 		lineWidth = 1;
-		drawBB_ = true;
+		drawBB = true;
 		drawPlane_ = true;
 		pointSize = 10;
+		drawSurface = true;
+		drawInstance = true;
 	}
 
 	T pointSize;
 	T lineWidth;
 	T normalScale;
 
-	bool drawBB_;
+	bool drawBB;
 	bool drawPlane_;
 
 	bool drawSurface;
 	bool drawVolume;
 	bool drawMetaball;
+	bool drawInstance;
 };
 
 
@@ -64,7 +67,8 @@ public:
 		if (!config.drawSurface) {
 			return;
 		}
-		for (const auto& p : model->getPolygons()) {
+
+		for (const auto& p : model->getSurfaces()) {
 			if (p->isVisible()) {
 				//normalRenderer.add(*(p->getPolygon()));
 				const auto& surface = p->getPolygon();

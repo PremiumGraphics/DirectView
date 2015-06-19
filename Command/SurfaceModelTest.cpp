@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Model;
 
-TEST(PolygonModelTest, TestCreate)
+TEST(SurfaceModelTest, TestCreate)
 {
 	SurfaceModel<float> factory;
 	//ScalarSpace3d<float> ss;
@@ -20,4 +20,3 @@ TEST(PolygonModelTest, TestCreate)
 	EXPECT_EQ( p2, factory.find(1) );
 	EXPECT_EQ( nullptr, factory.find(2) );
 }
-

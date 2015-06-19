@@ -548,18 +548,18 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (model->getVolumeModel()->getSpaces().empty()) {
+	if (model->getVolume()->getSpaces().empty()) {
 		wxMessageBox("Setup Grid");
 		return;
 	}
 	model->getMetaballModel()->create();
-	model->polygonize();
+	model->buildSurface();
 	setRendering();
 }
 
 void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
-	model->getVolumeModel()->create();
+	model->getVolume()->create();
 	setRendering();
 }
 
@@ -622,16 +622,9 @@ void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 {
-	if (model->getVolumeModel()->getSpaces().empty()) {
-		wxMessageBox("Setup Grid");
-		return;
-	}
-
-	model->toVolume();
-
-	model->polygonize();
-	//model.getPolygonFactory()->create(*ss.getScalarSpace());
-	setRendering();
+	wxMessageBox("ŽÀ‘Ì‰»‚³‚ê‚Ä‚¢‚È‚¢ƒ|ƒŠƒSƒ“‚ðŽÀ‘Ì‰»‚µ‚Ü‚·");
+	model->instanciateSurface();
+	//setRendering();
 }
 
 void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
@@ -643,10 +636,10 @@ void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnVolumeConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
-	dialog.set( model->getVolumeModel()->getConfig());
+	dialog.set( model->getVolume()->getConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model->getVolumeModel()->setConfig(dialog.get());
+		model->getVolume()->setConfig(dialog.get());
 		OnCreateVolume(e);
 	}
 }

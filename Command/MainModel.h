@@ -67,14 +67,19 @@ public:
 		}
 	}
 
-	void polygonize()
+	void buildSurface()
 	{
-		getSurfaceModel()->clear();
+		getSurface()->clear();
 		toVolume();
-		for (const auto& s : getVolumeModel()->getSpaces()) {
-			getSurfaceModel()->create(*s->getSpace());
+		for (const auto& s : getVolume()->getSpaces()) {
+			getSurface()->create(*s->getSpace());
 		}
 	}
+
+	void instanciateSurface() {
+		getSurface()->instanciate();
+	}
+
 	void rotate(const Math::Vector3d<T>& v) {
 		;
 	}
@@ -82,11 +87,11 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	LightModelSPtr<T> getLightModel() const { return light; }
+	LightModelSPtr<T> getLight() const { return light; }
 
-	VolumeModelSPtr<T> getVolumeModel() const { return volume; }
+	VolumeModelSPtr<T> getVolume() const { return volume; }
 
-	SurfaceModelSPtr<T> getSurfaceModel() const { return surface; }
+	SurfaceModelSPtr<T> getSurface() const { return surface; }
 
 	MetaballModelSPtr<T> getMetaballModel() const { return metaball; }
 
@@ -145,8 +150,8 @@ public:
 		//normalRenderer.clear();
 		rendering->clear();
 
-		rendering->set(getSurfaceModel());
-		rendering->set(getVolumeModel());
+		rendering->set(getSurface());
+		rendering->set(getVolume());
 		rendering->set(getMetaballModel());
 	}
 
@@ -157,7 +162,7 @@ public:
 		}
 		else if (getUIMode() == SELECTED_TRANSLATE) {
 			move(pos);
-			polygonize();
+			buildSurface();
 			setRendering();
 			//ssTransformCmd->move(pos);
 		}

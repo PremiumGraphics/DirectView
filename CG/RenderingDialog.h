@@ -28,10 +28,10 @@ public:
 		new wxStaticText(this, wxID_ANY, "Surface", wxPoint(300, 100));
 		drawSurface = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
 
-		new wxStaticText(this, wxID_ANY, "Metaball", wxPoint(300, 200));
+		new wxStaticText(this, wxID_ANY, "Metaball", wxPoint(300, 300));
 		drawMetaball = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 200));
 
-		new wxStaticText(this, wxID_ANY, "Volume", wxPoint(300, 300));
+		new wxStaticText(this, wxID_ANY, "Volume", wxPoint(300, 400));
 		drawVolume = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 300));
 
 		new wxButton( this, wxID_OK, "OK", wxPoint(300,500) );
@@ -41,7 +41,7 @@ public:
 	void set(const Model::RenderingConfig<float>& config) {
 		pointSize->SetValue(config.pointSize );
 		lineWidth->SetValue( config.lineWidth );
-		drawBB->SetValue( config.drawBB_ );
+		drawBB->SetValue( config.drawBB );
 		drawPlane->SetValue( config.drawPlane_ );
 		drawSurface->SetValue(config.drawSurface);
 		drawMetaball->SetValue(config.drawMetaball);
@@ -52,7 +52,7 @@ public:
 		Model::RenderingConfig<float> config;
 		config.pointSize = pointSize->GetValue();
 		config.lineWidth = lineWidth->GetValue();
-		config.drawBB_ = drawBB->GetValue();
+		config.drawBB = drawBB->GetValue();
 		config.drawPlane_ = drawPlane->GetValue();
 		config.drawSurface = drawSurface->GetValue();
 		config.drawMetaball = drawMetaball->GetValue();
