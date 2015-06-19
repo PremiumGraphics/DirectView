@@ -173,7 +173,7 @@ Frame::Frame()
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
-	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
+	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
 	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSurfaceConfig));
 
@@ -639,7 +639,7 @@ void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
 }
 
 
-void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
+void Frame::OnVolumeConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
 	dialog.set( model->getVolumeModel()->getConfig());

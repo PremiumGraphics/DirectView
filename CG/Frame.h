@@ -80,7 +80,7 @@ private:
 
 	void OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e);
 
-	void OnGridConfig(wxRibbonButtonBarEvent& e);
+	void OnVolumeConfig(wxRibbonButtonBarEvent& e);
 
 	void OnMetaballConfig(wxRibbonButtonBarEvent& e);
 

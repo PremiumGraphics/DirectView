@@ -48,6 +48,16 @@ public:
 	{
 	}
 
+	void setValue(const T v) {
+		for (size_t x = 0; x < grid.getSizeX(); ++x) {
+			for (size_t y = 0; y < grid.getSizeY(); ++y) {
+				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
+					grid.set(x, y, z, v);
+				}
+			}
+		}
+	}
+
 	Grid3d<T> getGrid() const { return grid; }
 
 

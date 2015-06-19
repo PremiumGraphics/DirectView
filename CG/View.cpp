@@ -150,6 +150,7 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		else if (mode == TRANSLATE) {
 			model->move(pos);
+			model->polygonize();
 			model->setRendering();
 			//ssTransformCmd->move(pos);
 		}

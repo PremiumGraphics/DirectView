@@ -44,6 +44,9 @@ public:
 	*/
 
 	void toVolume() {
+		for (const auto& s : volume->getSpaces()) {
+			s->getSpace()->setValue(0);
+		}
 		for (const auto& b : metaball->getBalls()) {
 			for (const auto& s : volume->getSpaces()) {
 				const auto& m = b->getMetaball();
@@ -54,6 +57,7 @@ public:
 
 	void polygonize()
 	{
+		getSurfaceModel()->clear();
 		toVolume();
 		for (const auto& s : getVolumeModel()->getSpaces()) {
 			getSurfaceModel()->create(*s->getSpace());
