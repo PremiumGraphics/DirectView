@@ -156,6 +156,12 @@ public:
 		}
 	}
 
+	void clearSelected() {
+		for (auto& b : spaces) {
+			b->setUnSelect();
+		}
+	}
+
 	VolumeConfig<T> getConfig() const { return config; }
 
 	void setConfig(const VolumeConfig<T>& config) { this->config = config; }

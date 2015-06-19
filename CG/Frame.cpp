@@ -33,9 +33,10 @@ enum {
 
 	ID_GL_CONFIG,
 
-	ID_SELECTED_TRANSLATE,
+	ID_SELECTED_MOVE,
 	ID_SELECTED_SCALE,
 	ID_SELECTED_ROTATE,
+	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
 	ID_CREATE_METABALL,
@@ -136,19 +137,25 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-	operation->AddButton( ID_SELECTED_TRANSLATE, "Translate",	wxBitmap(32, 32) );
-	operation->AddButton( ID_SELECTED_ROTATE,	"Rotate",		wxImage(32, 32) );
-	operation->AddButton( ID_SELECTED_SCALE,	"Scale",		wxImage(32, 32) );
-	operation->AddButton( ID_SELECTED_DELETE,	"Delete",		wxImage(32, 32) );
 
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraConfig));
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
 	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
-	Connect( ID_SELECTED_TRANSLATE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnTranslate) );
-	Connect( ID_SELECTED_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnScale));
-	Connect( ID_SELECTED_DELETE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
+
+	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
+	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
+	selection->AddButton(ID_SELECTED_MOVE, "Move", wxBitmap(32, 32));
+	selection->AddButton(ID_SELECTED_ROTATE, "Rotate", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_SCALE, "Scale", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_CLEAR, "Clear", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_DELETE, "Delete", wxImage(32, 32));
+
+	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
+	Connect(ID_SELECTED_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedScale));
+	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
+	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -163,7 +170,7 @@ Frame::Frame()
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_VOLUME, "Volume", wxImage(32, 32));
+	modelingBar->AddHybridButton(ID_CREATE_VOLUME,	"Volume", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SURFACE, "Surface", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
@@ -584,19 +591,25 @@ void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
 	wxMessageBox("TODO:Not");
 }
 
-void Frame::OnTranslate(wxRibbonButtonBarEvent& e)
+void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
 {
-	model->setUIMode(Model::UIMode::TRANSLATE);
+	model->setUIMode(Model::UIMode::SELECTED_TRANSLATE);
 }
 
 void Frame::OnRotate(wxRibbonButtonBarEvent& e)
 {
-	model->setUIMode(Model::UIMode::ROTATE);
+	model->setUIMode(Model::UIMode::SELECTED_ROTATE);
 }
 
-void Frame::OnScale(wxRibbonButtonBarEvent& e)
+void Frame::OnSelectedScale(wxRibbonButtonBarEvent& e)
 {
-	model->setUIMode(Model::UIMode::SCALE);
+	model->setUIMode(Model::UIMode::SELECTED_SCALE);
+}
+
+void Frame::OnSelectedClear(wxRibbonButtonBarEvent& e)
+{
+	model->clearSelected();
+	setRendering();
 }
 
 void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)

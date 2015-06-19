@@ -142,6 +142,12 @@ public:
 		}
 	}
 
+	void clearSelected() {
+		for (auto& b : balls) {
+			b->setUnSelect();
+		}
+	}
+
 	MetaballConfig<T> getConfig() const { return config; }
 
 	void setConfig(const MetaballConfig<T>& config) { this->config = config; }

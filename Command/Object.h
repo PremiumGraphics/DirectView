@@ -44,7 +44,7 @@ public:
 
 	void setSelect() { selected = true; }
 
-	void setUnselect() { selected = false; }
+	void setUnSelect() { selected = false; }
 
 	void changeSelected() { selected = !selected; }
 

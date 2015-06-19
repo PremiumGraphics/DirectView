@@ -65,11 +65,13 @@ private:
 
 	void OnBooleanNot(wxRibbonButtonBarEvent& e);
 
-	void OnTranslate(wxRibbonButtonBarEvent& e);
+	void OnSelectedMove(wxRibbonButtonBarEvent& e);
 
 	void OnRotate(wxRibbonButtonBarEvent& e);
 
-	void OnScale(wxRibbonButtonBarEvent& e);
+	void OnSelectedScale(wxRibbonButtonBarEvent& e);
+
+	void OnSelectedClear(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
 

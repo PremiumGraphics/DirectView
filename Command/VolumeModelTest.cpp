@@ -5,10 +5,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Model;
 
-TEST(ScalarSpaceFactoryTest, TestCreate)
+TEST(VolumeModelTest, TestCreate)
 {
-	VolumeModel<float> factory;
+	VolumeModel<float> model;
 	const VolumeConfig<float> config(5, 5, 5, Space3d<float>( Vector3d<float>(0,0,0), Vector3d<float>(1,1,1) ) );
-	const auto& ss = factory.create(config);
+	model.setConfig(config);
+	const auto& ss = model.create();
 	EXPECT_EQ(0, ss->getId());
 }

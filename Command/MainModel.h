@@ -2,6 +2,7 @@
 #define __CRYSTAL_COMMAND_MAIN_MODEL_H__
 
 #include "../Graphics/Camera.h"
+#include "../Util/UnCopyable.h"
 
 #include "VolumeModel.h"
 #include "SurfaceModel.h"
@@ -15,21 +16,19 @@
 namespace Crystal {
 	namespace Model {
 
-enum UIMode{
+enum UIMode
+{
 	CAMERA_TRANSLATE,
-	TRANSLATE,
-	ROTATE,
-	SCALE,
-	//PICK_VERTEX,
+	SELECTED_TRANSLATE,
+	SELECTED_ROTATE,
+	SELECTED_SCALE,
 };
 
 
 template<typename T>
-class MainModel {
+class MainModel final : private UnCopyable
+{
 public:
-
-
-
 	MainModel() :
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
@@ -128,6 +127,12 @@ public:
 		surface->deleteSelected();
 	}
 
+	void clearSelected() {
+		metaball->clearSelected();
+		volume->clearSelected();
+		//surface->clearSelected();
+	}
+
 	void scale(const Math::Vector3d<T>& s) {
 		volume->scale(s);
 
@@ -143,6 +148,30 @@ public:
 		rendering->set(getSurfaceModel());
 		rendering->set(getVolumeModel());
 		rendering->set(getMetaballModel());
+	}
+
+	void move(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& angle) {
+		if (getUIMode() == CAMERA_TRANSLATE) {
+			getCamera()->move(pos);
+			getCamera()->addAngle(angle);
+		}
+		else if (getUIMode() == SELECTED_TRANSLATE) {
+			move(pos);
+			polygonize();
+			setRendering();
+			//ssTransformCmd->move(pos);
+		}
+		else if (getUIMode() == SELECTED_ROTATE) {
+			rotate(angle);
+			setRendering();
+		}
+		else if (getUIMode() == SELECTED_SCALE) {
+			scale(Vector3d<float>(1, 1, 1) + pos*0.01f);
+			setRendering();
+		}
+		else {
+			assert(false);
+		}
 	}
 
 	UIMode getUIMode() const { return uiMode; }
