@@ -102,7 +102,7 @@ public:
 		spaces.clear();
 	}
 
-	VolumeObjectSPtr<T> create(const VolumeConfig<T>& config)
+	VolumeObjectSPtr<T> create()
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
 		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.getSpace(), grid));
@@ -156,6 +156,10 @@ public:
 		}
 	}
 
+	VolumeConfig<T> getConfig() const { return config; }
+
+	void setConfig(const VolumeConfig<T>& config) { this->config = config; }
+
 
 private:
 	VolumeObjectSPtrList<T> spaces;
@@ -165,6 +169,7 @@ private:
 		return spaces.back();
 	}
 
+	VolumeConfig<T> config;
 
 };
 

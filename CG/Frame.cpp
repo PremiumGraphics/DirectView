@@ -558,16 +558,13 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	const auto& mConfig = model->getMetaballConfig();
-	const auto& metaball = model->getMetaballModel()->create( mConfig );
+	model->getMetaballModel()->create();
 	setRendering();
 }
 
 void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
-	const auto& gConfig = model->getVolumeConfig();
-	model->getVolumeModel()->create(gConfig);
-
+	model->getVolumeModel()->create();
 	setRendering();
 }
 
@@ -645,10 +642,10 @@ void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
-	dialog.set( model->getVolumeConfig());
+	dialog.set( model->getVolumeModel()->getConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model->setVolumeConfig(dialog.get());
+		model->getVolumeModel()->setConfig(dialog.get());
 		OnCreateVolume(e);
 	}
 }
@@ -656,10 +653,10 @@ void Frame::OnGridConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
 	MetaballDialog dialog(this);
-	dialog.set(model->getMetaballConfig());
+	dialog.set(model->getMetaballModel()->getConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model->setMetaballConfig(dialog.get());
+		model->getMetaballModel()->setConfig(dialog.get());
 		OnCreateMetaball(e);
 	}
 }

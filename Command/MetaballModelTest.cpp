@@ -8,11 +8,11 @@ TEST(MetaballModelTest, TestCreate)
 {
 	MetaballObjectModel<float> factory;
 
-	const auto actual = factory.create(MetaballConfig<float>());
+	const auto actual = factory.create();
 	EXPECT_EQ(0, actual->getId());
 	EXPECT_EQ(1, factory.getBalls().size());
 
-	const auto ball2 = factory.create(MetaballConfig<float>());
+	const auto ball2 = factory.create();
 	EXPECT_EQ(1, ball2->getId());
 	EXPECT_EQ(2, factory.getBalls().size());
 

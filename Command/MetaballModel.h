@@ -96,7 +96,7 @@ public:
 		return (*this);
 	}
 
-	MetaballObjectSPtr<T> create(const MetaballConfig<T>& config) {
+	MetaballObjectSPtr<T> create() {
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
@@ -142,6 +142,11 @@ public:
 		}
 	}
 
+	MetaballConfig<T> getConfig() const { return config; }
+
+	void setConfig(const MetaballConfig<T>& config) { this->config = config; }
+
+
 private:
 	MetaballObjectSPtrList<T> balls;
 
@@ -149,6 +154,8 @@ private:
 		balls.push_back( std::make_shared< MetaballObject<T> >(ball, getNextId()));
 		return balls.back();
 	}
+
+	MetaballConfig<T> config;
 
 };
 
