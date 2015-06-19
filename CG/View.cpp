@@ -20,7 +20,6 @@ View::View( Frame* parent, const int width, const int height, const MainModelSPt
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
 mode( CAMERA_TRANSLATE ),
-renderingMode( RENDERING_MODE::WIRE_FRAME ),
 model( model )
 {
 	glContext.SetCurrent( *this );
@@ -195,21 +194,16 @@ void View::draw(const wxSize& size)
 
 	glPointSize(getPointSize());
 
-	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
+	if( model->getRenderingModel()->getMode() == Model::RenderingModel<float>::Mode::WIRE_FRAME ) {
 		glLineWidth( getLineWidth() );
 		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getLineBuffer() );
 
 		glPointSize( this->getPointSize() );
 		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getPointBuffer());
 	}
-	else if( renderingMode == RENDERING_MODE::SURFACE ) {
+	else if (model->getRenderingModel()->getMode() == Model::RenderingModel<float>::Mode::SURFACE) {
 		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getTriangleBuffer());
 		//surfaceRenderer.render(width, height, c );
-	}
-	else if (renderingMode == RENDERING_MODE::NORMAL) {
-		glLineWidth( getLineWidth() );
-		normalRenderer.scale = getNormalScale();
-		normalRenderer.render(width, height, c );
 	}
 	else {
 		assert( false );

@@ -19,7 +19,7 @@ public:
 
 	void setDefault() {
 		normalScale = 1;
-		lineWidth = 10;
+		lineWidth = 1;
 		drawBB_ = true;
 		drawPlane_ = true;
 		pointSize = 10;
@@ -42,6 +42,16 @@ template<typename T>
 class RenderingModel {
 
 public:
+	RenderingModel() :
+	mode( Mode::WIRE_FRAME)
+	{
+	}
+
+	enum class Mode {
+		WIRE_FRAME,
+		SURFACE,
+	};
+
 
 	void clear(){
 		pointBuffer.clear();
@@ -60,7 +70,7 @@ public:
 				const auto& surface = p->getPolygon();
 				const int type = static_cast<int>(p->getType());
 				const int isSelected = p->isSelected();
-				pointBuffer.add(*surface, type, p->getId(), isSelected);
+				//pointBuffer.add(*surface, type, p->getId(), isSelected);
 				lineBuffer.add(*surface, type, p->getId(), isSelected);
 				triangleBuffer.add(*surface, type, p->getId(), isSelected);
 			}
@@ -109,11 +119,16 @@ public:
 
 	RenderingConfig<float> getConfig() const { return config; }
 
+	void setMode(const Mode m) { this->mode = m; }
+
+	Mode getMode() const { return mode; }
+
 private:
 	Graphics::PointBuffer<float> pointBuffer;
 	Graphics::LineBuffer<float> lineBuffer;
 	Graphics::TriangleBuffer<float> triangleBuffer;
 	RenderingConfig<float> config;
+	Mode mode;
 };
 
 template<typename T>

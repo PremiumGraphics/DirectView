@@ -45,9 +45,7 @@ private:
 
 	void OnPhong( wxRibbonButtonBarEvent& );
 
-	void OnRenderSurface( wxRibbonButtonBarEvent& );
-
-	void OnRenderNormal(wxRibbonButtonBarEvent&);
+	void OnRenderingSurface( wxRibbonButtonBarEvent& );
 
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 

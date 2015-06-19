@@ -41,7 +41,6 @@ enum {
 	ID_CREATE_METABALL,
 	ID_CREATE_VOLUME,
 
-
 	ID_BOOLEAN_UNION,
 	ID_BOOLEAN_DIFF,
 	ID_BOOLEAN_INTERSECTION,
@@ -51,7 +50,6 @@ enum {
 
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_SURFACE,
-	ID_RENDERING_NORMAL,
 
 	ID_CAMERA_FIT,
 
@@ -156,12 +154,10 @@ Frame::Frame()
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
-	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
-	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderSurface ) );
-	Connect( ID_RENDERING_NORMAL,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderNormal) );
+	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderingSurface ) );
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
@@ -485,25 +481,13 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderWireFrame( wxRibbonButtonBarEvent& e)
 {
-	view->setRenderingMode(View::RENDERING_MODE::WIRE_FRAME);
+	model->getRenderingModel()->setMode(Model::RenderingModel<float>::Mode::WIRE_FRAME);
 	view->Refresh();
 }
 
-void Frame::OnPhong( wxRibbonButtonBarEvent& )
+void Frame::OnRenderingSurface( wxRibbonButtonBarEvent& )
 {
-//	view->setRenderingMode( View::RENDERING_MODE::PHONG );
-//	view->Refresh();
-}
-
-void Frame::OnRenderSurface( wxRibbonButtonBarEvent& )
-{
-	view->setRenderingMode( View::RENDERING_MODE::SURFACE );
-	view->Refresh();
-}
-
-void Frame::OnRenderNormal(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode( View::RENDERING_MODE::NORMAL );
+	model->getRenderingModel()->setMode(Model::RenderingModel<float>::Mode::SURFACE);
 	view->Refresh();
 }
 
@@ -558,7 +542,12 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
+	if (model->getVolumeModel()->getSpaces().empty()) {
+		wxMessageBox("Setup Grid");
+		return;
+	}
 	model->getMetaballModel()->create();
+	model->polygonize();
 	setRendering();
 }
 

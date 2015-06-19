@@ -32,21 +32,12 @@ public:
 		//PICK_VERTEX,
 	};
 
-	enum class RENDERING_MODE {
-		WIRE_FRAME,
-		SURFACE,
-		NORMAL,
-	};
 
 	void setMode( const MODE& m ) { this->mode = m; }
-
-	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
 
 private:
 	MODE mode;
-
-	RENDERING_MODE renderingMode;
 
 	void OnPaint( wxPaintEvent& );
 
