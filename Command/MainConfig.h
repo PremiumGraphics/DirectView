@@ -10,19 +10,11 @@ namespace Crystal {
 	namespace Model {
 
 template<typename T>
-class RenderingConfig {
+struct RenderingConfig {
 public:
 	RenderingConfig()
 	{
 		setDefault();
-	}
-
-	RenderingConfig(const T pointSize, const T lineWidth, const bool drawBB_, const bool drawPlane_) :
-		pointSize(pointSize),
-		lineWidth(lineWidth),
-		drawBB_(drawBB_),
-		drawPlane_(drawPlane_)
-	{
 	}
 
 	void setDefault() {
@@ -33,24 +25,16 @@ public:
 		pointSize = 10;
 	}
 
-	T getPointSize() const { return pointSize; }
-
-	T getLineWidth() const { return lineWidth; }
-
-	T getNormalScale() const { return normalScale; }
-
-
-	bool drawBB() const { return drawBB_; }
-
-	bool drawPlane() const { return drawPlane_; }
-
-private:
 	T pointSize;
 	T lineWidth;
 	T normalScale;
 
 	bool drawBB_;
 	bool drawPlane_;
+
+	bool drawSurface;
+	bool drawVolume;
+	bool drawMetaball;
 };
 
 

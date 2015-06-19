@@ -12,7 +12,7 @@ class WireframeConfigDialog : public wxDialog
 {
 public:
 	WireframeConfigDialog(wxWindow* parent) :
-		wxDialog(parent, wxID_ANY, "RenderingConfig", wxDefaultPosition, wxSize( 500, 500 ) )
+		wxDialog(parent, wxID_ANY, "RenderingConfig", wxDefaultPosition, wxSize( 700, 700 ) )
 	{
 		new wxStaticText(this, wxID_ANY, "PointSize", wxPoint(0, 100));
 		pointSize = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 100));
@@ -27,20 +27,39 @@ public:
 		new wxStaticText(this, wxID_ANY, "Plane", wxPoint(0, 400));
 		drawPlane = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
 
+		new wxStaticText(this, wxID_ANY, "Surface", wxPoint(300, 100));
+		drawSurface = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
 
-		new wxButton( this, wxID_OK, "OK", wxPoint(300,300) );
-		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
+		new wxStaticText(this, wxID_ANY, "Metaball", wxPoint(300, 200));
+		drawMetaball = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 200));
+
+		new wxStaticText(this, wxID_ANY, "Volume", wxPoint(300, 300));
+		drawVolume = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 300));
+
+		new wxButton( this, wxID_OK, "OK", wxPoint(300,500) );
+		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(400, 500));
 	}
 
 	void set(const Model::RenderingConfig<float>& config) {
-		pointSize->SetValue(config.getPointSize());
-		lineWidth->SetValue( config.getLineWidth() );
-		drawBB->SetValue( config.drawBB() );
-		drawPlane->SetValue( config.drawPlane() );
+		pointSize->SetValue(config.pointSize );
+		lineWidth->SetValue( config.lineWidth );
+		drawBB->SetValue( config.drawBB_ );
+		drawPlane->SetValue( config.drawPlane_ );
+		drawSurface->SetValue(config.drawSurface);
+		drawMetaball->SetValue(config.drawMetaball);
+		drawVolume->SetValue(config.drawVolume);
 	}
 
 	Model::RenderingConfig<float> get() {
-		return Model::RenderingConfig<float>( pointSize->GetValue(), lineWidth->GetValue(), drawBB->GetValue(), drawPlane->GetValue());
+		Model::RenderingConfig<float> config;
+		config.pointSize = pointSize->GetValue();
+		config.lineWidth = lineWidth->GetValue();
+		config.drawBB_ = drawBB->GetValue();
+		config.drawPlane_ = drawPlane->GetValue();
+		config.drawSurface = drawSurface->GetValue();
+		config.drawMetaball = drawMetaball->GetValue();
+		config.drawVolume = drawVolume->GetValue();
+		return config;
 	}
 
 private:
@@ -48,6 +67,9 @@ private:
 	wxSpinCtrlDouble* lineWidth;
 	wxCheckBox* drawBB;
 	wxCheckBox* drawPlane;
+	wxCheckBox* drawSurface;
+	wxCheckBox* drawVolume;
+	wxCheckBox* drawMetaball;
 };
 
 	}

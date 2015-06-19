@@ -27,12 +27,10 @@ public:
 
 	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
 
-	/*
 	virtual void move(const Math::Vector3d<float>& vector) override
 	{
 		metaball->move(vector);
 	};
-	*/
 
 	virtual void rotate(const Math::Vector3d<float>& center, const Math::Vector3d<float>& angle) override
 	{

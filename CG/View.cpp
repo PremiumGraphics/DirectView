@@ -185,9 +185,15 @@ void View::set(const MainModel<float>& model)
 	lineBuffer.clear();
 	triangleBuffer.clear();
 
-	set( model.getSurfaceModel() );
-	set( model.getVolumeModel() );
-	set( model.getMetaballModel() );
+	if (config.drawSurface) {
+		set(model.getSurfaceModel());
+	}
+	if (config.drawVolume) {
+		set(model.getVolumeModel());
+	}
+	if (config.drawMetaball) {
+		set(model.getMetaballModel());
+	}
 }
 
 void View::set(const SurfaceModelSPtr<float>& model)

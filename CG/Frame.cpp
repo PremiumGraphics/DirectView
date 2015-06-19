@@ -175,7 +175,7 @@ Frame::Frame()
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnGridConfig));
 	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
-	Connect(ID_CREATE_SURFACE, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSurfaceConfig));
+	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSurfaceConfig));
 
 	/*
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
@@ -565,7 +565,8 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
-	model->add( config.getGridConfig() );
+	const auto& gConfig = config.getGridConfig();
+	model->getVolumeModel()->create(gConfig);
 
 	setRendering();
 }

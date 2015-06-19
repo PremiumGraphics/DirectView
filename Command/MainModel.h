@@ -8,6 +8,8 @@
 #include "LightModel.h"
 #include "MetaballModel.h"
 
+#include "MainConfig.h"
+
 #include <memory>
 #include <map>
 
@@ -34,20 +36,12 @@ public:
 	}
 
 	/*
-	void add(const MetaballObject<T>& metaball)
-	{
-		auto ss = volume->getSpaces().front();
-		ss->getSpace()->add(*metaball.getMetaball());
-	}
-	*/
-
 	void add(const GridConfig<T>& config)
 	{
 		const auto ss = getVolumeModel()->create(config);
 		getSurfaceModel()->create(*(ss->getSpace()));
-		//getSurfaceModel()->createBoundingBox(*ss->getSpace());
-		//getSurfaceModel()->createGridCells(*ss->getSpace());
 	}
+	*/
 
 	void toVolume() {
 		for (const auto& b : metaball->getBalls()) {

@@ -83,11 +83,11 @@ private:
 
 	Model::RenderingConfig<float> config;
 
-	float getPointSize() const { return config.getPointSize(); }
+	float getPointSize() const { return config.pointSize; }
 
-	float getLineWidth() const { return config.getLineWidth(); }
+	float getLineWidth() const { return config.lineWidth; }
 
-	float getNormalScale() const { return config.getNormalScale(); }
+	float getNormalScale() const { return config.normalScale; }
 
 	void set(const Model::SurfaceModelSPtr<float>& model);
 
