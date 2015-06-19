@@ -10,7 +10,6 @@
 #include "../Shader/SmoothRenderer.h"
 
 #include "../Command/MainModel.h"
-#include "../Command/MainConfig.h"
 
 namespace Crystal {
 	namespace Graphics {

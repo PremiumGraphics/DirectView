@@ -2,7 +2,6 @@
 #define __CRYSTAL_COMMAND_VOLUME_MODEL_H__
 
 #include "../Math/Volume.h"
-#include "MainConfig.h"
 
 #include "Object.h"
 
@@ -10,6 +9,42 @@
 
 namespace Crystal{
 	namespace Model {
+
+template<typename T>
+class VolumeConfig {
+public:
+	VolumeConfig() {
+		setDefault();
+	}
+
+	VolumeConfig(const unsigned int resx, const unsigned int resy, const unsigned int resz, const Math::Space3d<T>& space) :
+		resx(resx),
+		resy(resy),
+		resz(resz),
+		space(space)
+	{}
+
+	unsigned int getResx() const { return resx; }
+
+	unsigned int getResy() const { return resy; }
+
+	unsigned int getResz() const { return resz; }
+
+	Math::Space3d<T> getSpace() const { return space; }
+
+	void setDefault() {
+		resx = 20;
+		resy = 20;
+		resz = 20;
+		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
+	}
+
+private:
+	unsigned int resx;
+	unsigned int resy;
+	unsigned int resz;
+	Math::Space3d<T> space;
+};
 
 
 template<typename T>
@@ -67,7 +102,7 @@ public:
 		spaces.clear();
 	}
 
-	VolumeObjectSPtr<T> create(const GridConfig<T>& config)
+	VolumeObjectSPtr<T> create(const VolumeConfig<T>& config)
 	{
 		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
 		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.getSpace(), grid));

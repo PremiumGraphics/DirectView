@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_MODEL_RENDERING_MODEL_H_
 #define __CRYSTAL_MODEL_RENDERING_MODEL_H_
 
-#include "MainConfig.h"
-
 #include "../Graphics/Buffer.h"
 
 #include "../Util/UnCopyable.h"

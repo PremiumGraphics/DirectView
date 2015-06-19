@@ -3,8 +3,6 @@
 
 #include "stdafx.h"
 
-#include "../Command/MainConfig.h"
-
 namespace Crystal {
 	namespace Graphics {
 

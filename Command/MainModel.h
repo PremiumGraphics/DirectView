@@ -9,8 +9,6 @@
 #include "MetaballModel.h"
 #include "RenderingModel.h"
 
-#include "MainConfig.h"
-
 #include <memory>
 #include <map>
 
@@ -130,6 +128,13 @@ public:
 		rendering->set(getMetaballModel());
 	}
 
+	VolumeConfig<T> getVolumeConfig() const { return vConfig; }
+
+	void setVolumeConfig(const VolumeConfig<T>& config) { this->vConfig = config; }
+
+	MetaballConfig<T> getMetaballConfig() const { return metaballConfig; }
+
+	void setMetaballConfig(const MetaballConfig<T>& config) { this->metaballConfig = config; }
 
 private:
 	Graphics::CameraSPtr<T> camera;
@@ -138,7 +143,8 @@ private:
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 	RenderingModelSPtr<T> rendering;
-
+	VolumeConfig<T> vConfig;
+	MetaballConfig<T> metaballConfig;
 
 };
 

@@ -6,12 +6,43 @@
 
 #include "../Math/Kernel.h"
 
-#include "MainConfig.h"
-
 #include "Object.h"
 
 namespace Crystal {
 	namespace Model {
+
+template<typename T>
+class MetaballConfig {
+public:
+	MetaballConfig()
+	{
+		setDefault();
+	}
+
+	MetaballConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
+		center(center),
+		radius(radius),
+		charge(charge)
+	{}
+
+	void setDefault() {
+		center = Math::Vector3d<T>(0, 0, 0);
+		radius = 1;
+		charge = 1;
+	}
+
+	Math::Vector3d<T> getCenter() const { return center; }
+
+	T getRadius() const { return radius; }
+
+	T getCharge() const { return charge; }
+
+private:
+	Math::Vector3d<T> center;
+	T radius;
+	T charge;
+};
+
 
 template<typename T>
 class MetaballObject final : public Object

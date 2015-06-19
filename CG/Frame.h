@@ -2,7 +2,6 @@
 #define __CRYSTAL_UI_FRAME_H__
 
 #include "../Command/MainModel.h"
-#include "../Command/MainConfig.h"
 
 #include <memory>
 
@@ -96,7 +95,6 @@ private:
 private:
 	View* view;
 	Model::MainModelSPtr<float> model;
-	Model::MainConfig<float> config;
 
 	void setRendering();
 
