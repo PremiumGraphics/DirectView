@@ -152,6 +152,26 @@ public:
 		}
 	}
 
+	SurfaceObjectSPtrList<T> getUnInstances() const {
+		SurfaceObjectSPtrList<T> uninstances;
+		for (const auto& s : surfaces) {
+			if (!s->isInstance()) {
+				uninstances.push_back(s);
+			}
+		}
+		return uninstances;
+	}
+
+
+	SurfaceObjectSPtrList<T> getInstances() const {
+		SurfaceObjectSPtrList<T> instances;
+		for (const auto& s : surfaces) {
+			if (s->isInstance()) {
+				instances.push_back(s);
+			}
+		}
+		return instances;
+	}
 
 	SurfaceObjectSPtrList<T> getSurfaces() const { return surfaces; }
 

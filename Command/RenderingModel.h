@@ -75,8 +75,12 @@ public:
 				const int type = static_cast<int>(p->getType());
 				const int isSelected = p->isSelected();
 				//pointBuffer.add(*surface, type, p->getId(), isSelected);
-				lineBuffer.add(*surface, type, p->getId(), isSelected);
-				triangleBuffer.add(*surface, type, p->getId(), isSelected);
+				if (p->isInstance()) {
+					triangleBuffer.add(*surface, type, p->getId(), isSelected);
+				}
+				else {
+					lineBuffer.add(*surface, type, p->getId(), isSelected);
+				}
 			}
 		}
 	}
