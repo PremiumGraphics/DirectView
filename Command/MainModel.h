@@ -15,9 +15,21 @@
 namespace Crystal {
 	namespace Model {
 
+enum UIMode{
+	CAMERA_TRANSLATE,
+	TRANSLATE,
+	ROTATE,
+	SCALE,
+	//PICK_VERTEX,
+};
+
+
 template<typename T>
 class MainModel {
 public:
+
+
+
 	MainModel() :
 		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
@@ -26,6 +38,7 @@ public:
 		metaball(std::make_shared< MetaballObjectModel<T> >()),
 		rendering(std::make_shared< RenderingModel<T> >() )
 	{
+		uiMode = CAMERA_TRANSLATE;
 	}
 
 	void clear()
@@ -132,7 +145,9 @@ public:
 		rendering->set(getMetaballModel());
 	}
 
+	UIMode getUIMode() const { return uiMode; }
 
+	void setUIMode(const UIMode m) { this->uiMode = m; }
 
 private:
 	Graphics::CameraSPtr<T> camera;
@@ -141,6 +156,8 @@ private:
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 	RenderingModelSPtr<T> rendering;
+
+	UIMode uiMode;
 
 };
 

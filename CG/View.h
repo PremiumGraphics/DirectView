@@ -24,20 +24,8 @@ public:
 
 	~View();
 
-	enum MODE{
-		CAMERA_TRANSLATE,
-		TRANSLATE,
-		ROTATE,
-		SCALE,
-		//PICK_VERTEX,
-	};
-
-
-	void setMode( const MODE& m ) { this->mode = m; }
-
 
 private:
-	MODE mode;
 
 	void OnPaint( wxPaintEvent& );
 

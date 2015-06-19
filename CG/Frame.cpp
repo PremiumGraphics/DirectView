@@ -337,12 +337,11 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::CAMERA_TRANSLATE );
+	model->setUIMode(Model::UIMode::CAMERA_TRANSLATE);
 }
 
 void Frame::OnCreateLight( wxRibbonButtonBarEvent& )
 {
-	view->setMode( View::TRANSLATE );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -587,17 +586,17 @@ void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
 
 void Frame::OnTranslate(wxRibbonButtonBarEvent& e)
 {
-	view->setMode(View::TRANSLATE);
+	model->setUIMode(Model::UIMode::TRANSLATE);
 }
 
 void Frame::OnRotate(wxRibbonButtonBarEvent& e)
 {
-	view->setMode(View::ROTATE);
+	model->setUIMode(Model::UIMode::ROTATE);
 }
 
 void Frame::OnScale(wxRibbonButtonBarEvent& e)
 {
-	view->setMode(View::SCALE);
+	model->setUIMode(Model::UIMode::SCALE);
 }
 
 void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)

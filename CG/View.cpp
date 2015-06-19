@@ -19,7 +19,6 @@ END_EVENT_TABLE()
 View::View( Frame* parent, const int width, const int height, const MainModelSPtr<float>& model )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
 glContext( this ),// width, height ),
-mode( CAMERA_TRANSLATE ),
 model( model )
 {
 	glContext.SetCurrent( *this );
@@ -143,21 +142,21 @@ void View::OnMouse( wxMouseEvent& event )
 			pos += Vector3d<float>( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
 		}
 		
-		if( mode == CAMERA_TRANSLATE ) {
+		if( model->getUIMode() == CAMERA_TRANSLATE ) {
 			model->getCamera()->move( pos );
 			model->getCamera()->addAngle( angle );
 		}
-		else if (mode == TRANSLATE) {
+		else if (model->getUIMode() == TRANSLATE) {
 			model->move(pos);
 			model->polygonize();
 			model->setRendering();
 			//ssTransformCmd->move(pos);
 		}
-		else if (mode == ROTATE) {
+		else if (model->getUIMode() == ROTATE) {
 			model->rotate(angle);
 			model->setRendering();
 		}
-		else if (mode == SCALE) {
+		else if (model->getUIMode() == SCALE) {
 			model->scale(Vector3d<float>(1,1,1) + pos*0.01f);
 			model->setRendering();
 		}
