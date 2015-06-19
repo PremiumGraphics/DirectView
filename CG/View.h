@@ -43,10 +43,6 @@ public:
 
 	void setRenderingMode( const RENDERING_MODE& m ) { this->renderingMode = m; }
 
-	void setConfig(const Model::RenderingConfig<float>& config) {
-		this->config = config;
-	}
-
 
 private:
 	MODE mode;
@@ -77,13 +73,11 @@ private:
 	Graphics::NormalRenderer normalRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
 
-	Model::RenderingConfig<float> config;
+	float getPointSize() const { return model->getRenderingModel()->getConfig().pointSize; }
 
-	float getPointSize() const { return config.pointSize; }
+	float getLineWidth() const { return model->getRenderingModel()->getConfig().lineWidth; }
 
-	float getLineWidth() const { return config.lineWidth; }
-
-	float getNormalScale() const { return config.normalScale; }
+	float getNormalScale() const { return model->getRenderingModel()->getConfig().normalScale; }
 
 
 	wxDECLARE_NO_COPY_CLASS( View );

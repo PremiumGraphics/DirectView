@@ -120,20 +120,14 @@ public:
 	}
 
 
-	void set(const RenderingConfig<T>& config)
+	void setRendering()
 	{
 		//normalRenderer.clear();
 		rendering->clear();
 
-		if (config.drawSurface) {
-			rendering->set(getSurfaceModel());
-		}
-		if (config.drawVolume) {
-			rendering->set(getVolumeModel());
-		}
-		if (config.drawMetaball) {
-			rendering->set(getMetaballModel());
-		}
+		rendering->set(getSurfaceModel());
+		rendering->set(getVolumeModel());
+		rendering->set(getMetaballModel());
 	}
 
 
@@ -144,6 +138,8 @@ private:
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 	RenderingModelSPtr<T> rendering;
+
+
 };
 
 template<typename T>

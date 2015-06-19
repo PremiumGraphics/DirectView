@@ -9,34 +9,6 @@
 namespace Crystal {
 	namespace Model {
 
-template<typename T>
-struct RenderingConfig {
-public:
-	RenderingConfig()
-	{
-		setDefault();
-	}
-
-	void setDefault() {
-		normalScale = 1;
-		lineWidth = 10;
-		drawBB_ = true;
-		drawPlane_ = true;
-		pointSize = 10;
-	}
-
-	T pointSize;
-	T lineWidth;
-	T normalScale;
-
-	bool drawBB_;
-	bool drawPlane_;
-
-	bool drawSurface;
-	bool drawVolume;
-	bool drawMetaball;
-};
-
 
 template<typename T>
 class MetaballConfig {
@@ -121,14 +93,9 @@ public:
 
 	void setMetaballConfig(const MetaballConfig<T>& config) { this->metaballConfig = config; }
 
-	RenderingConfig<T> getRenderingConfig() const { return renderingConfig;}
-
-	void setRenderingConfig(const RenderingConfig<T>& config) { this->renderingConfig = config; }
-
 private:
 	GridConfig<T> gridConfig;
 	MetaballConfig<T> metaballConfig;
-	RenderingConfig<T> renderingConfig;
 };
 	}
 }

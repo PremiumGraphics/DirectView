@@ -573,7 +573,7 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	model->set( config.getRenderingConfig() );
+	model->setRendering();
 	view->Refresh();
 
 }
@@ -667,12 +667,11 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
-	RenderingConfig<float> rConfig = config.getRenderingConfig();
+	RenderingConfig<float> rConfig = model->getRenderingModel()->getConfig();
 	dialog.set( rConfig);
 	if (dialog.ShowModal() == wxID_OK) {
 		rConfig = dialog.get();
-		config.setRenderingConfig(rConfig);
-		view->setConfig(config.getRenderingConfig());
+		model->getRenderingModel()->setConfig(rConfig);
 		setRendering();
 	}
 }

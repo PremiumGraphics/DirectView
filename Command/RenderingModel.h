@@ -10,6 +10,36 @@
 namespace Crystal{
 	namespace Model {
 
+
+template<typename T>
+struct RenderingConfig {
+public:
+	RenderingConfig()
+	{
+		setDefault();
+	}
+
+	void setDefault() {
+		normalScale = 1;
+		lineWidth = 10;
+		drawBB_ = true;
+		drawPlane_ = true;
+		pointSize = 10;
+	}
+
+	T pointSize;
+	T lineWidth;
+	T normalScale;
+
+	bool drawBB_;
+	bool drawPlane_;
+
+	bool drawSurface;
+	bool drawVolume;
+	bool drawMetaball;
+};
+
+
 template<typename T>
 class RenderingModel {
 
@@ -23,6 +53,9 @@ public:
 
 	void set(const SurfaceModelSPtr<float>& model)
 	{
+		if (!config.drawSurface) {
+			return;
+		}
 		for (const auto& p : model->getPolygons()) {
 			if (p->isVisible()) {
 				//normalRenderer.add(*(p->getPolygon()));
@@ -38,6 +71,9 @@ public:
 
 	void set(const VolumeModelSPtr<float>& model)
 	{
+		if (!config.drawVolume) {
+			return;
+		}
 		for (const auto& b : model->getSpaces()) {
 			if (b->isVisible()) {
 				const auto& ss = b->getSpace();
@@ -51,6 +87,9 @@ public:
 
 	void set(const MetaballModelSPtr<float>& model)
 	{
+		if (!config.drawMetaball) {
+			return;
+		}
 		for (const auto& b : model->getBalls()) {
 			if (b->isVisible()) {
 				const auto center = b->getMetaball()->getCenter();
@@ -68,13 +107,15 @@ public:
 
 	Graphics::TriangleBuffer<float> getTriangleBuffer() const { return triangleBuffer; }
 
+	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
+	RenderingConfig<float> getConfig() const { return config; }
 
 private:
 	Graphics::PointBuffer<float> pointBuffer;
 	Graphics::LineBuffer<float> lineBuffer;
 	Graphics::TriangleBuffer<float> triangleBuffer;
-
+	RenderingConfig<float> config;
 };
 
 template<typename T>

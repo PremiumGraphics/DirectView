@@ -118,7 +118,7 @@ void View::OnMouse( wxMouseEvent& event )
 		const Object::Type& type = static_cast<Object::Type>(r);
 		const unsigned int id = g;
 		model->changeSelected(type, id);
-		model->set(config);
+		model->setRendering();
 		Refresh();
 
 		return;
@@ -150,16 +150,16 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		else if (mode == TRANSLATE) {
 			model->move(pos);
-			model->set(config);
+			model->setRendering();
 			//ssTransformCmd->move(pos);
 		}
 		else if (mode == ROTATE) {
 			model->rotate(angle);
-			model->set(config);
+			model->setRendering();
 		}
 		else if (mode == SCALE) {
 			model->scale(Vector3d<float>(1,1,1) + pos*0.01f);
-			model->set(config);
+			model->setRendering();
 		}
 		else {
 			assert( false );
