@@ -52,7 +52,6 @@ enum {
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_SURFACE,
 	ID_RENDERING_NORMAL,
-	ID_RENDERING_POINT,
 
 	ID_CAMERA_FIT,
 
@@ -155,13 +154,10 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddHybridButton(ID_RENDERING_POINT, "Point", wxImage("../Resource/point.png"));
 	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
 	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
 	rendering->AddHybridButton( ID_RENDERING_NORMAL,	"Normal",	wxImage("../Resource/arrow-1-down-right.png"));
 
-	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
-	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnPointConfig));
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderSurface ) );
@@ -512,12 +508,6 @@ void Frame::OnRenderNormal(wxRibbonButtonBarEvent&)
 	view->Refresh();
 }
 
-void Frame::OnRenderingPoint(wxRibbonButtonBarEvent&)
-{
-	view->setRenderingMode(View::RENDERING_MODE::POINT);
-	view->Refresh();
-}
-
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
 	/*
@@ -707,21 +697,6 @@ void Frame::OnNormalConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("TODO");
-}
-
-void Frame::OnPointConfig(wxRibbonButtonBarEvent& e)
-{
-	PointConfigDialog<float> dialog(this);
-	RenderingConfig<float> rConfig = config.getRenderingConfig();
-	PointConfig<float> pConfig = rConfig.getPointConfig();
-	dialog.set(rConfig.getPointConfig());
-	if (dialog.ShowModal() == wxID_OK) {
-		pConfig = dialog.get();
-		rConfig.setPointConfig(pConfig);
-		config.setRenderingConfig(rConfig);
-		view->setConfig(config.getRenderingConfig());
-		setRendering();
-	}
 }
 
 void Frame::OnLightConfig(wxRibbonButtonBarEvent& e)

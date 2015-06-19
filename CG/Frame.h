@@ -50,8 +50,6 @@ private:
 
 	void OnRenderNormal(wxRibbonButtonBarEvent&);
 
-	void OnRenderingPoint(wxRibbonButtonBarEvent&);
-
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
@@ -92,8 +90,6 @@ private:
 	void OnNormalConfig(wxRibbonButtonBarEvent& e);
 
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
-
-	void OnPointConfig(wxRibbonButtonBarEvent& e);
 
 	void OnLightConfig(wxRibbonButtonBarEvent& e);
 

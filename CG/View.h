@@ -37,7 +37,6 @@ public:
 		WIRE_FRAME,
 		SURFACE,
 		NORMAL,
-		POINT,
 	};
 
 	void setMode( const MODE& m ) { this->mode = m; }
@@ -80,7 +79,7 @@ private:
 
 	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
-	Shader::IDRenderer idRenderer;
+	Shader::IDRenderer wireframeRenderer;
 
 	Model::RenderingConfig<float> config;
 
