@@ -118,7 +118,7 @@ void View::OnMouse( wxMouseEvent& event )
 		const Object::Type& type = static_cast<Object::Type>(r);
 		const unsigned int id = g;
 		model->changeSelected(type, id);
-		this->set(*model);
+		model->set(config);
 		Refresh();
 
 		return;
@@ -150,16 +150,16 @@ void View::OnMouse( wxMouseEvent& event )
 		}
 		else if (mode == TRANSLATE) {
 			model->move(pos);
-			this->set(*model);
+			model->set(config);
 			//ssTransformCmd->move(pos);
 		}
 		else if (mode == ROTATE) {
 			model->rotate(angle);
-			this->set(*model);
+			model->set(config);
 		}
 		else if (mode == SCALE) {
 			model->scale(Vector3d<float>(1,1,1) + pos*0.01f);
-			this->set(*model);
+			model->set(config);
 		}
 		else {
 			assert( false );
@@ -178,63 +178,6 @@ void View::OnSize(wxSizeEvent& e)
 	draw( e.GetSize() );
 }
 
-void View::set(const MainModel<float>& model)
-{
-	normalRenderer.clear();
-	pointBuffer.clear();
-	lineBuffer.clear();
-	triangleBuffer.clear();
-
-	if (config.drawSurface) {
-		set(model.getSurfaceModel());
-	}
-	if (config.drawVolume) {
-		set(model.getVolumeModel());
-	}
-	if (config.drawMetaball) {
-		set(model.getMetaballModel());
-	}
-}
-
-void View::set(const SurfaceModelSPtr<float>& model)
-{
-	for (const auto& p : model->getPolygons()) {
-		if (p->isVisible()) {
-			normalRenderer.add(*(p->getPolygon()));
-			const auto& surface = p->getPolygon();
-			const int type = static_cast<int>(p->getType());
-			const int isSelected = p->isSelected();
-			pointBuffer.add(*surface, type, p->getId(),isSelected );
-			lineBuffer.add(*surface, type, p->getId(), isSelected );
-			triangleBuffer.add(*surface, type, p->getId(), isSelected);
-		}
-	}
-}
-
-void View::set(const VolumeModelSPtr<float>& model)
-{
-	for (const auto& b : model->getSpaces()) {
-		if (b->isVisible()) {
-			const auto& ss = b->getSpace();
-			const int type = static_cast<int>(b->getType());
-			const int isSelected = b->isSelected();
-			lineBuffer.add(*ss, type, b->getId(), isSelected);
-		}
-	}
-
-}
-
-void View::set(const MetaballModelSPtr<float>& model)
-{
-	for (const auto& b : model->getBalls()) {
-		if (b->isVisible()) {
-			const auto center = b->getMetaball()->getCenter();
-			const int type = static_cast<int>( b->getType() );
-			const int isSelected = b->isSelected();
-			pointBuffer.addPosition(center, type, b->getId(), isSelected);
-		}
-	}
-}
 
 
 void View::draw(const wxSize& size)
@@ -253,13 +196,13 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth( getLineWidth() );
-		wireframeRenderer.render(width, height, c, lineBuffer);
+		wireframeRenderer.render(width, height, c, model->getLineBuffer() );
 
 		glPointSize( this->getPointSize() );
-		wireframeRenderer.render(width, height, c, pointBuffer);
+		wireframeRenderer.render(width, height, c, model->getPointBuffer());
 	}
 	else if( renderingMode == RENDERING_MODE::SURFACE ) {
-		wireframeRenderer.render(width, height, c, triangleBuffer);
+		wireframeRenderer.render(width, height, c, model->getTriangleBuffer());
 		//surfaceRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {

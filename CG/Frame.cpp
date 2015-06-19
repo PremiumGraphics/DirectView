@@ -573,7 +573,7 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 
 void Frame::setRendering()
 {
-	view->set( *model );
+	model->set( config.getRenderingConfig() );
 	view->Refresh();
 
 }

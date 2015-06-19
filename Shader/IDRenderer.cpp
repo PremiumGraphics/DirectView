@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void IDRenderer::build()
+void WireframeRenderer::build()
 {
 	Graphics::Shader vShader;
 	const std::string vStr =
@@ -53,9 +53,9 @@ void IDRenderer::build()
 
 }
 
-IDRenderer::Location IDRenderer::getLocations()
+WireframeRenderer::Location WireframeRenderer::getLocations()
 {
-	IDRenderer::Location location;
+	WireframeRenderer::Location location;
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
@@ -71,7 +71,7 @@ IDRenderer::Location IDRenderer::getLocations()
 }
 
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -117,7 +117,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 
 }
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -161,7 +161,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	down();
 }
 
-void IDRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -206,7 +206,7 @@ void IDRenderer::render(const int width, const int height, const Camera<float>& 
 	down();
 }
 
-void IDRenderer::up()
+void WireframeRenderer::up()
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -215,7 +215,7 @@ void IDRenderer::up()
 
 }
 
-void IDRenderer::down()
+void WireframeRenderer::down()
 {
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

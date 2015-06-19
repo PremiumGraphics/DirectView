@@ -13,13 +13,13 @@
 namespace Crystal {
 	namespace Shader {
 
-class IDRenderer final : private UnCopyable
+class WireframeRenderer final : private UnCopyable
 {
 public:
 
-	IDRenderer() = default;
+	WireframeRenderer() = default;
 
-	~IDRenderer() = default;
+	~WireframeRenderer() = default;
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::PointBuffer<float>& buffer);
 

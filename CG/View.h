@@ -47,10 +47,6 @@ public:
 		this->config = config;
 	}
 
-	void set(const Model::MainModel<float>& model);
-
-	//void set(const Command::VolumeModelSPtr<float>& model);
-
 
 private:
 	MODE mode;
@@ -79,7 +75,7 @@ private:
 
 	//Graphics::SmoothRenderer smoothRenderer;
 	Graphics::NormalRenderer normalRenderer;
-	Shader::IDRenderer wireframeRenderer;
+	Shader::WireframeRenderer wireframeRenderer;
 
 	Model::RenderingConfig<float> config;
 
@@ -89,16 +85,6 @@ private:
 
 	float getNormalScale() const { return config.normalScale; }
 
-	void set(const Model::SurfaceModelSPtr<float>& model);
-
-	void set(const Model::VolumeModelSPtr<float>& model);
-
-	void set(const Model::MetaballModelSPtr<float>& model);
-
-
-	Graphics::PointBuffer<float> pointBuffer;
-	Graphics::LineBuffer<float> lineBuffer;
-	Graphics::TriangleBuffer<float> triangleBuffer;
 
 	wxDECLARE_NO_COPY_CLASS( View );
 };

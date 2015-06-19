@@ -10,6 +10,8 @@
 
 #include "MainConfig.h"
 
+#include "../Graphics/Buffer.h"
+
 #include <memory>
 #include <map>
 
@@ -115,6 +117,30 @@ public:
 		//surface->scale(s);
 	}
 
+	void set(const RenderingConfig<T>& config)
+	{
+		//normalRenderer.clear();
+		pointBuffer.clear();
+		lineBuffer.clear();
+		triangleBuffer.clear();
+
+		if (config.drawSurface) {
+			set( getSurfaceModel());
+		}
+		if (config.drawVolume) {
+			set( getVolumeModel());
+		}
+		if (config.drawMetaball) {
+			set( getMetaballModel());
+		}
+	}
+
+	Graphics::PointBuffer<float> getPointBuffer() const { return pointBuffer; }
+
+	Graphics::LineBuffer<float> getLineBuffer() const { return lineBuffer; }
+
+	Graphics::TriangleBuffer<float> getTriangleBuffer() const { return triangleBuffer; }
+
 
 private:
 	Graphics::CameraSPtr<T> camera;
@@ -122,6 +148,53 @@ private:
 	VolumeModelSPtr<T> volume;
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
+
+	Graphics::PointBuffer<float> pointBuffer;
+	Graphics::LineBuffer<float> lineBuffer;
+	Graphics::TriangleBuffer<float> triangleBuffer;
+
+
+
+	void set(const SurfaceModelSPtr<float>& model)
+	{
+		for (const auto& p : model->getPolygons()) {
+			if (p->isVisible()) {
+				//normalRenderer.add(*(p->getPolygon()));
+				const auto& surface = p->getPolygon();
+				const int type = static_cast<int>(p->getType());
+				const int isSelected = p->isSelected();
+				pointBuffer.add(*surface, type, p->getId(), isSelected);
+				lineBuffer.add(*surface, type, p->getId(), isSelected);
+				triangleBuffer.add(*surface, type, p->getId(), isSelected);
+			}
+		}
+	}
+
+	void set(const VolumeModelSPtr<float>& model)
+	{
+		for (const auto& b : model->getSpaces()) {
+			if (b->isVisible()) {
+				const auto& ss = b->getSpace();
+				const int type = static_cast<int>(b->getType());
+				const int isSelected = b->isSelected();
+				lineBuffer.add(*ss, type, b->getId(), isSelected);
+			}
+		}
+
+	}
+
+	void set(const MetaballModelSPtr<float>& model)
+	{
+		for (const auto& b : model->getBalls()) {
+			if (b->isVisible()) {
+				const auto center = b->getMetaball()->getCenter();
+				const int type = static_cast<int>(b->getType());
+				const int isSelected = b->isSelected();
+				pointBuffer.addPosition(center, type, b->getId(), isSelected);
+			}
+		}
+	}
+
 
 };
 
