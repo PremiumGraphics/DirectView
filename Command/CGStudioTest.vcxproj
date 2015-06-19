@@ -18,6 +18,7 @@
     <ClInclude Include="MetaballModel.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PointCloudModel.h" />
+    <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="SurfaceModel.h" />
     <ClInclude Include="VolumeModel.h" />
   </ItemGroup>

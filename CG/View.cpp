@@ -196,13 +196,13 @@ void View::draw(const wxSize& size)
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
 		glLineWidth( getLineWidth() );
-		wireframeRenderer.render(width, height, c, model->getLineBuffer() );
+		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getLineBuffer() );
 
 		glPointSize( this->getPointSize() );
-		wireframeRenderer.render(width, height, c, model->getPointBuffer());
+		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getPointBuffer());
 	}
 	else if( renderingMode == RENDERING_MODE::SURFACE ) {
-		wireframeRenderer.render(width, height, c, model->getTriangleBuffer());
+		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getTriangleBuffer());
 		//surfaceRenderer.render(width, height, c );
 	}
 	else if (renderingMode == RENDERING_MODE::NORMAL) {
