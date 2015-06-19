@@ -32,15 +32,15 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(300, 400));
 	}
 
-	void set(const Model::WireframeConfig<float>& config) {
+	void set(const Model::RenderingConfig<float>& config) {
 		pointSize->SetValue(config.getPointSize());
 		lineWidth->SetValue( config.getLineWidth() );
 		drawBB->SetValue( config.drawBB() );
 		drawPlane->SetValue( config.drawPlane() );
 	}
 
-	Model::WireframeConfig<float> get() {
-		return Model::WireframeConfig<float>( pointSize->GetValue(), lineWidth->GetValue(), drawBB->GetValue(), drawPlane->GetValue());
+	Model::RenderingConfig<float> get() {
+		return Model::RenderingConfig<float>( pointSize->GetValue(), lineWidth->GetValue(), drawBB->GetValue(), drawPlane->GetValue());
 	}
 
 private:

@@ -667,11 +667,9 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
 	RenderingConfig<float> rConfig = config.getRenderingConfig();
-	WireframeConfig<float> wfConfig = rConfig.getWireframeConfig();
-	dialog.set( wfConfig);
+	dialog.set( rConfig);
 	if (dialog.ShowModal() == wxID_OK) {
-		wfConfig = dialog.get();
-		rConfig.setWireframeConfig(wfConfig);
+		rConfig = dialog.get();
 		config.setRenderingConfig(rConfig);
 		view->setConfig(config.getRenderingConfig());
 		setRendering();

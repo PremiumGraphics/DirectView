@@ -246,9 +246,7 @@ void View::draw(const wxSize& size)
 	glPointSize(getPointSize());
 
 	if( renderingMode == RENDERING_MODE::WIRE_FRAME ) {
-		const auto& wConfig = config.getWireframeConfig();
-		glLineWidth( wConfig.getLineWidth() );
-		//wireFrameRenderer.render(width, height, c );
+		glLineWidth( getLineWidth() );
 		wireframeRenderer.render(width, height, c, lineBuffer);
 
 		glPointSize( this->getPointSize() );
