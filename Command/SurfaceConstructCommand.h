@@ -33,6 +33,10 @@ public:
 		return surfaces.back();
 	}
 
+	Graphics::SurfaceSPtrList<T> getSurfaces() { return surfaces; }
+
+	void clear() { surfaces.clear(); }
+
 	/*
 	Graphics::SurfaceSPtr<T> create(const Math::BitSpace3d<float>& bs) {
 	const auto& triangles = mc.march(bs);

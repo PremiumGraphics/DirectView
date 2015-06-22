@@ -17,8 +17,7 @@ class SurfaceObject : public Object
 public:
 	SurfaceObject(const Graphics::SurfaceSPtr<T>& polygon, const unsigned int id) :
 		Object(id),
-		polygon( polygon ),
-		instantiated( false )
+		polygon( polygon )
 	{}
 
 	Type getType() const { return Type::Polygon; }
@@ -28,15 +27,10 @@ public:
 		polygon->move(vector);
 	};
 
-	void instanciate() { instantiated = true; }
-
-	bool isInstance() const { return instantiated; }
-
 	Graphics::SurfaceSPtr<T> getPolygon() const { return polygon; }
 
 private:
 	Graphics::SurfaceSPtr<T> polygon;
-	bool instantiated;
 };
 
 template<typename T>
@@ -119,12 +113,6 @@ public:
 				continue;
 			}
 			++iter;
-		}
-	}
-
-	void instanciate() {
-		for (const auto& s : surfaces) {
-			s->instanciate();
 		}
 	}
 

@@ -31,9 +31,9 @@ class MainModel final : private UnCopyable
 {
 public:
 	MainModel() :
-		camera(std::make_shared< Graphics::Camera<T> >())
+		camera(std::make_shared< Graphics::Camera<T> >()),
+		uiMode( CAMERA_TRANSLATE )
 	{
-		uiMode = CAMERA_TRANSLATE;
 	}
 
 	void clear()
@@ -42,14 +42,6 @@ public:
 		surface.clear();
 		metaball.clear();
 	}
-
-	/*
-	void add(const GridConfig<T>& config)
-	{
-		const auto ss = getVolumeModel()->create(config);
-		getSurfaceModel()->create(*(ss->getSpace()));
-	}
-	*/
 
 	void toVolume() {
 		for (const auto& s : volume.getSpaces()) {
@@ -71,13 +63,13 @@ public:
 	void buildSurface()
 	{
 		//getSurface()->clear();
-		surface.clear();
+		surfaceConstructCommand.clear();
 		toVolume();
 		for (const auto& s : volume.getSpaces()) {
 			//getSurface()->create(*s->getSpace());
 			const auto ss = surfaceConstructCommand.create(*s->getSpace());
-			surface.add(ss);
 		}
+		setRendering();
 	}
 
 	void createVolume() {
@@ -89,7 +81,11 @@ public:
 	}
 
 	void instanciateSurface() {
-		surface.instanciate();
+		for (const auto& s : surfaceConstructCommand.getSurfaces() ) {
+			surface.add(s);
+		}
+		surfaceConstructCommand.clear();
+		setRendering();
 	}
 
 	void rotate(const Math::Vector3d<T>& v) {
@@ -170,6 +166,10 @@ public:
 		rendering.set(metaball);
 		rendering.set(volume);
 		rendering.set(surface);
+		for (const auto& s : surfaceConstructCommand.getSurfaces()) {
+			rendering.add(*s);
+		}
+
 	}
 
 	//Graphics::PointBuffer getPointBuffer() { }

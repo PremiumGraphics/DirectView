@@ -23,7 +23,7 @@ public:
 		normalScale = 1;
 		lineWidth = 1;
 		drawBB = true;
-		drawPlane_ = true;
+		drawPlane = true;
 		pointSize = 10;
 		drawSurface = true;
 		drawInstance = true;
@@ -34,7 +34,7 @@ public:
 	T normalScale;
 
 	bool drawBB;
-	bool drawPlane_;
+	bool drawPlane;
 
 	bool drawSurface;
 	bool drawVolume;
@@ -73,14 +73,13 @@ public:
 				const int type = static_cast<int>(p->getType());
 				const int isSelected = p->isSelected();
 				//pointBuffer.add(*surface, type, p->getId(), isSelected);
-				if (p->isInstance()) {
-					triangleBuffer.add(*surface, type, p->getId(), isSelected);
-				}
-				else {
-					lineBuffer.add(*surface, type, p->getId(), isSelected);
-				}
+				triangleBuffer.add(*surface, type, p->getId(), isSelected);
 			}
 		}
+	}
+
+	void add(const Graphics::Surface<T>& surface) {
+		lineBuffer.add(surface, -1, -1, false);
 	}
 
 	void set(const VolumeModel<T>& volume) {
@@ -130,9 +129,10 @@ public:
 
 			//			glPointSize( this->getPointSize());
 			wireframeRenderer.render(width, height, camera, pointBuffer);
+			wireframeRenderer.render(width, height, camera, triangleBuffer);
+
 		}
 		else if ( getMode() == RenderingCommand<float>::Mode::SURFACE) {
-			wireframeRenderer.render(width, height, camera, triangleBuffer);
 			//surfaceRenderer.render(width, height, c );
 		}
 		else {
@@ -161,8 +161,6 @@ private:
 
 };
 
-template<typename T>
-using RenderingModelSPtr = std::shared_ptr < RenderingCommand<T> > ;
 	}
 }
 

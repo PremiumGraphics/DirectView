@@ -42,7 +42,7 @@ public:
 		pointSize->SetValue(config.pointSize );
 		lineWidth->SetValue( config.lineWidth );
 		drawBB->SetValue( config.drawBB );
-		drawPlane->SetValue( config.drawPlane_ );
+		drawPlane->SetValue( config.drawPlane );
 		drawSurface->SetValue(config.drawSurface);
 		drawMetaball->SetValue(config.drawMetaball);
 		drawVolume->SetValue(config.drawVolume);
@@ -53,7 +53,7 @@ public:
 		config.pointSize = pointSize->GetValue();
 		config.lineWidth = lineWidth->GetValue();
 		config.drawBB = drawBB->GetValue();
-		config.drawPlane_ = drawPlane->GetValue();
+		config.drawPlane = drawPlane->GetValue();
 		config.drawSurface = drawSurface->GetValue();
 		config.drawMetaball = drawMetaball->GetValue();
 		config.drawVolume = drawVolume->GetValue();
