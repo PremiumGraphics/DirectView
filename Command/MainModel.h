@@ -33,7 +33,7 @@ public:
 	MainModel() :
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		volume(std::make_shared< VolumeModel<T> >()),
-		rendering(std::make_shared< RenderingModel<T> >() )
+		rendering(std::make_shared< RenderingCommand<T> >() )
 	{
 		uiMode = CAMERA_TRANSLATE;
 	}
@@ -157,12 +157,16 @@ public:
 	void setRendering()
 	{
 		//normalRenderer.clear();
-		rendering->clear();
+		surfaceView.clear();
+		volumeView.clear();
+		metaballView.clear();
 
-		rendering->set( surface );
-		rendering->set(getVolume());
-		rendering->set( metaball );
+		surfaceView.set(surface);
+		volumeView.set(volume);
+		metaballView.set(metaball);
 	}
+
+	//Graphics::PointBuffer getPointBuffer() { }
 
 	void move(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& angle) {
 		if (getUIMode() == CAMERA_TRANSLATE) {
@@ -188,6 +192,22 @@ public:
 		}
 	}
 
+	Graphics::PointBuffer<T> getPointBuffer() const {
+		auto p1 = metaballView.getPointBuffer();
+		return p1;
+	}
+
+	Graphics::LineBuffer<T> getLineBuffer() const {
+		auto l1 = volumeView.getLineBuffer();
+		const auto& l2 = surfaceView.getLineBuffer();
+		l1.add(l2);
+		return l1;
+	}
+
+	Graphics::TriangleBuffer<T> getTriangleBuffer() const {
+		return surfaceView.getTriangleBuffer();
+	}
+
 	UIMode getUIMode() const { return uiMode; }
 
 	void setUIMode(const UIMode m) { this->uiMode = m; }
@@ -200,6 +220,9 @@ private:
 	MetaballModel<T> metaball;
 	RenderingModelSPtr<T> rendering;
 	SurfaceConstructCommand<T> surfaceConstructCommand;
+	SurfaceView<T> surfaceView;
+	VolumeView<T> volumeView;
+	MetaballView<T> metaballView;
 
 	UIMode uiMode;
 

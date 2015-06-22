@@ -487,13 +487,13 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderWireFrame( wxRibbonButtonBarEvent& e)
 {
-	model->getRenderingModel()->setMode(Model::RenderingModel<float>::Mode::WIRE_FRAME);
+	model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::WIRE_FRAME);
 	view->Refresh();
 }
 
 void Frame::OnRenderingSurface( wxRibbonButtonBarEvent& )
 {
-	model->getRenderingModel()->setMode(Model::RenderingModel<float>::Mode::SURFACE);
+	model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::SURFACE);
 	view->Refresh();
 }
 

@@ -173,15 +173,19 @@ void View::draw(const wxSize& size)
 
 	glPointSize(getPointSize());
 
-	if( model->getRenderingModel()->getMode() == Model::RenderingModel<float>::Mode::WIRE_FRAME ) {
+	const auto& points = model->getPointBuffer();
+	const auto& lines = model->getLineBuffer();
+	const auto& triangles = model->getTriangleBuffer();
+
+	if( model->getRenderingModel()->getMode() == Model::RenderingCommand<float>::Mode::WIRE_FRAME ) {
 		glLineWidth( getLineWidth() );
-		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getLineBuffer() );
+		wireframeRenderer.render(width, height, c, model->getLineBuffer() );
 
 		glPointSize( this->getPointSize() );
-		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getPointBuffer());
+		wireframeRenderer.render(width, height, c, model->getPointBuffer());
 	}
-	else if (model->getRenderingModel()->getMode() == Model::RenderingModel<float>::Mode::SURFACE) {
-		wireframeRenderer.render(width, height, c, model->getRenderingModel()->getTriangleBuffer());
+	else if (model->getRenderingModel()->getMode() == Model::RenderingCommand<float>::Mode::SURFACE) {
+		wireframeRenderer.render(width, height, c, model->getTriangleBuffer());
 		//surfaceRenderer.render(width, height, c );
 	}
 	else {

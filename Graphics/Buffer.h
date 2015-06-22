@@ -33,6 +33,17 @@ public:
 
 	std::vector<int> getIsSelecteds() const { return isSelecteds; }
 
+	void add(const BufferBase& rhs) {
+		const auto ps_ = rhs.getPositions();
+		const auto types_ = rhs.getTypes();
+		const auto ids_ = rhs.getIds();
+		const auto isSelecteds_ = rhs.getIsSelecteds();
+		positions.insert(positions.end(), ps_.begin(), ps_.end());
+		types.insert(types.end(), types_.begin(), types_.end());
+		ids.insert(ids.end(), ids_.begin(), ids_.end());
+		isSelecteds.insert(isSelecteds.end(), isSelecteds_.begin(), isSelecteds_.end());
+	}
+
 	void clear() {
 		positions.clear();
 		types.clear();
@@ -121,6 +132,10 @@ public:
 	void add(const Math::Line3d<T>& line, const int type, const int id, const int isSelected) {
 		addPosition(line.getStart(), type, id, isSelected);
 		addPosition(line.getEnd(), type, id, isSelected);
+	}
+
+	void add(const LineBuffer<T>& rhs) {
+		BufferBase::add(rhs);
 	}
 };
 
