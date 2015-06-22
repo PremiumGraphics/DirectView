@@ -10,6 +10,7 @@
 #include "../Math/Triangle.h"
 #include "../Math/Box.h"
 #include "Vertex.h"
+#include "Face.h"
 #include "Material.h"
 #include "ColorRGBA.h"
 #include "HalfEdge.h"
@@ -29,6 +30,8 @@ public:
 	HalfEdgeSPtrList<float> getEdges() const { return edges; }
 
 	VertexSPtrVector<float> getVertices() const { return vertices; }
+
+	FaceSPtrList<T> getFaces() const { return faces; }
 
 	/*
 	Polygon& add(const Math::Vector3d<float>& v0, const Math::Vector3d<float>& v1, const ColorRGBA<float>& c) {
@@ -55,6 +58,8 @@ public:
 		edges.insert(edges.end(), es.begin(), es.end());
 
 		vertices.insert(vertices.end(), vs.begin(), vs.end() );
+		FaceSPtr<T> f = std::make_shared<Face<T> >(es);
+		faces.push_back(f);
 	}
 
 	//Polygon* add(const Math::Quad)
@@ -97,6 +102,7 @@ public:
 private:
 	VertexSPtrVector<T> vertices;
 	HalfEdgeSPtrList<T> edges;
+	FaceSPtrList<T> faces;
 };
 
 template<typename T>

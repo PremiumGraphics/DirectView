@@ -11,25 +11,21 @@ template<typename T>
 class FileExportCommand final
 {
 public:
-	void exportToSTL(const std::string& filename) {
+	void exportToSTL(const std::string& filename, const Graphics::SurfaceSPtrList<T>& surfaces) {
 		IO::STLFile file;
 
-		const Math::Vector3d<T> normal1(0.0, 0.0, 1.0);
-		const Math::Vector3dVector<T> positions1 = {
-			Vector3d<T>(0.0, 0.0, 1.0),
-			Vector3d<T>(1.0, 0.0, 1.0),
-			Vector3d<T>(0.0, 1.0, 1.0)
-		};
-		const Math::Vector3d<T> normal2(0.0, 0.0, 1.0);
-		const Math::Vector3dVector<T> positions2 = {
-			Vector3d<T>(1.0, 1.0, 1.0),
-			Vector3d<T>(0.0, 1.0, 1.0),
-			Vector3d<T>(1.0, 0.0, 1.0)
-		};
-		const STLCellVector cells{
-			STLCell(positions1, normal1),
-			STLCell(positions2, normal2)
-		};
+		IO::STLCellVector cells;
+		for (const auto& s : surfaces) {
+			for (const Graphics::FaceSPtr<T>& f : s->getFaces()) {
+				Math::Vector3dVector<T> positions;
+				for (const auto& e : f->getEdges()) {
+					positions.push_back( e->getStartPosition() );
+				}
+				const auto normal = f->getNormal();
+				STLCell cell(positions, normal);
+				cells.push_back(cell);
+			}
+		}
 
 		file.setTitle("TestTitle");
 		file.setCells(cells);

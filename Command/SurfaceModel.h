@@ -15,22 +15,22 @@ template<typename T>
 class SurfaceObject : public Object
  {
 public:
-	SurfaceObject(const Graphics::SurfaceSPtr<T>& polygon, const unsigned int id) :
+	SurfaceObject(const Graphics::SurfaceSPtr<T>& surface, const unsigned int id) :
 		Object(id),
-		polygon( polygon )
+		surface( surface )
 	{}
 
 	Type getType() const { return Type::Polygon; }
 
 	virtual void move(const Math::Vector3d<float>& vector) override
 	{
-		polygon->move(vector);
+		surface->move(vector);
 	};
 
-	Graphics::SurfaceSPtr<T> getPolygon() const { return polygon; }
+	Graphics::SurfaceSPtr<T> getSurface() const { return surface; }
 
 private:
-	Graphics::SurfaceSPtr<T> polygon;
+	Graphics::SurfaceSPtr<T> surface;
 };
 
 template<typename T>
@@ -114,27 +114,6 @@ public:
 			}
 			++iter;
 		}
-	}
-
-	SurfaceObjectSPtrList<T> getUnInstances() const {
-		SurfaceObjectSPtrList<T> uninstances;
-		for (const auto& s : surfaces) {
-			if (!s->isInstance()) {
-				uninstances.push_back(s);
-			}
-		}
-		return uninstances;
-	}
-
-
-	SurfaceObjectSPtrList<T> getInstances() const {
-		SurfaceObjectSPtrList<T> instances;
-		for (const auto& s : surfaces) {
-			if (s->isInstance()) {
-				instances.push_back(s);
-			}
-		}
-		return instances;
 	}
 
 	SurfaceObjectSPtrList<T> getSurfaces() const { return surfaces; }

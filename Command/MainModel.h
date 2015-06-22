@@ -73,7 +73,11 @@ public:
 
 	void doExport(const std::string& filename) const {
 		FileExportCommand<T> command;
-		command.exportToSTL(filename);
+		Graphics::SurfaceSPtrList<T> ss;
+		for (const auto s : surface.getSurfaces()) {
+			ss.push_back(s->getSurface());
+		}
+		command.exportToSTL(filename, ss);
 	}
 
 	void createVolume() {

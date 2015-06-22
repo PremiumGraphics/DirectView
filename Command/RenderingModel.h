@@ -71,7 +71,7 @@ public:
 		for (const auto& p : surface.getSurfaces()) {
 			if (p->isVisible()) {
 				//normalRenderer.add(*(p->getPolygon()));
-				const auto& surface = p->getPolygon();
+				const auto& surface = p->getSurface();
 				const int type = static_cast<int>(p->getType());
 				const int isSelected = p->isSelected();
 				//pointBuffer.add(*surface, type, p->getId(), isSelected);
