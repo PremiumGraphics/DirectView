@@ -50,12 +50,52 @@ template<typename T>
 using SurfaceObjectSPtrList = std::list < SurfaceObjectSPtr<T> > ;
 
 template<typename T>
+class SurfaceConstructCommand final : private UnCopyable
+{
+public:
+	SurfaceConstructCommand()
+	{
+		mc.buildTable();
+	}
+
+	~SurfaceConstructCommand() = default;
+
+	Graphics::SurfaceSPtr<T> create(const Math::Volume3d<float>& ss)
+	{
+		const auto triangles = mc.march(ss, 0.5);
+
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
+		for (const auto t : triangles) {
+			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
+		}
+		surfaces.push_back(polygon);
+		return surfaces.back();
+	}
+
+	/*
+	Graphics::SurfaceSPtr<T> create(const Math::BitSpace3d<float>& bs) {
+		const auto& triangles = mc.march(bs);
+
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
+		for (const auto t : triangles) {
+			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
+		}
+		surfaces.push_back(polygon);
+		return surfaces.back();
+	}
+	*/
+
+private:
+	Math::MarchingCube<T> mc;
+	Graphics::SurfaceSPtrList<T> surfaces;
+};
+
+template<typename T>
 class SurfaceModel final : public ModelBase
 {
 public:
 	SurfaceModel()
 	{
-		mc.buildTable();
 	}
 
 	~SurfaceModel() = default;
@@ -69,26 +109,6 @@ public:
 		this->surfaces.insert( this->surfaces.end(), objects.begin(), objects.end() );
 	}
 
-	SurfaceObjectSPtr<T> create(const Math::Volume3d<float>& ss)
-	{
-		const auto triangles = mc.march(ss, 0.5);
-
-		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
-		for (const auto t : triangles) {
-			polygon->add(t, Graphics::ColorRGBA<float>::Blue() );
-		}
-		return add(polygon);
-	}
-
-	SurfaceObjectSPtr<T> create(const Math::BitSpace3d<float>& bs) {
-		const auto& triangles = mc.march(bs);
-
-		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
-		for (const auto t : triangles) {
-			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
-		}
-		return add(polygon);
-	}
 
 	SurfaceObjectSPtr<T> createBoundingBox(const Math::Volume3d<T>& ss) {
 		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<T> >();
@@ -175,15 +195,14 @@ public:
 
 	SurfaceObjectSPtrList<T> getSurfaces() const { return surfaces; }
 
-private:
-	SurfaceObjectSPtrList<T> surfaces;
-
-	Math::MarchingCube<T> mc;
-
-	SurfaceObjectSPtr<T> add(Graphics::SurfaceSPtr<float>& p) {
-		this->surfaces.push_back( std::make_shared< SurfaceObject<float> >( p, getNextId() ) );
+	SurfaceObjectSPtr<T> add(const Graphics::SurfaceSPtr<float>& p) {
+		this->surfaces.push_back(std::make_shared< SurfaceObject<float> >(p, getNextId()));
 		return surfaces.back();
 	}
+
+
+private:
+	SurfaceObjectSPtrList<T> surfaces;
 
 };
 

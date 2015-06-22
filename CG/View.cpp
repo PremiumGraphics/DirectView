@@ -139,7 +139,7 @@ void View::OnMouse( wxMouseEvent& event )
 		else if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			pos += Vector3d<float>( diff.x * 0.1f, diff.y * 0.1f, 0.0f );	
+			pos += Vector3d<float>( diff.x * 0.1f, -(diff.y * 0.1f), 0.0f );	
 		}
 		
 		model->move(pos, angle);

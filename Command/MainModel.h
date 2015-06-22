@@ -69,10 +69,12 @@ public:
 
 	void buildSurface()
 	{
-		getSurface()->clear();
+		//getSurface()->clear();
 		toVolume();
 		for (const auto& s : getVolume()->getSpaces()) {
-			getSurface()->create(*s->getSpace());
+			//getSurface()->create(*s->getSpace());
+			const auto ss = surfaceConstructCommand.create(*s->getSpace());
+			surface->add(ss);
 		}
 	}
 
@@ -190,6 +192,7 @@ private:
 	SurfaceModelSPtr<T> surface;
 	MetaballModelSPtr<T> metaball;
 	RenderingModelSPtr<T> rendering;
+	SurfaceConstructCommand<T> surfaceConstructCommand;
 
 	UIMode uiMode;
 

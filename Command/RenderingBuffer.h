@@ -1,0 +1,6 @@
+#ifndef __CRYSTAL_MODEL_RENDERING_MODEL_H_
+#define __CRYSTAL_MODEL_RENDERING_MODEL_H_
+
+
+
+#endif
