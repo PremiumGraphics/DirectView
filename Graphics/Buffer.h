@@ -82,13 +82,18 @@ class LineBuffer : public BufferBase < T >
 {
 public:
 	void add(const Math::Volume3d<T>& volume, const int type, const int id, const int isSelected) {
-		const auto minx = volume.getStart().getX();
-		const auto miny = volume.getStart().getY();
-		const auto minz = volume.getStart().getZ();
-		const auto maxx = volume.getEnd().getX();
-		const auto maxy = volume.getEnd().getY();
-		const auto maxz = volume.getEnd().getZ();
-	
+		const Math::Box<T> v(volume.getStart(), volume.getEnd());
+		add(v, type, id, isSelected);
+	}
+
+	void add(const Math::Box<T>& box, const int type, const int id, const int isSelected) {
+		const auto minx = box.getMinX();
+		const auto miny = box.getMinY();
+		const auto minz = box.getMinZ();
+		const auto maxx = box.getMaxX();
+		const auto maxy = box.getMaxY();
+		const auto maxz = box.getMaxZ();
+
 		const Math::Vector3dVector<T> vs = {
 			Math::Vector3d<T>(minx, miny, minz),
 			Math::Vector3d<T>(maxx, miny, minz),
@@ -118,8 +123,8 @@ public:
 		for (const auto& l : lines) {
 			add(l, type, id, isSelected);
 		}
-	}
 
+	}
 
 	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
 		for (const auto& e : surface.getEdges()) {

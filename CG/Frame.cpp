@@ -622,7 +622,7 @@ void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("ŽÀ‘Ì‰»‚³‚ê‚Ä‚¢‚È‚¢ƒ|ƒŠƒSƒ“‚ðŽÀ‘Ì‰»‚µ‚Ü‚·");
-	model->instanciateSurface();
+	model->instanciateSurfaces();
 	setRendering();
 }
 

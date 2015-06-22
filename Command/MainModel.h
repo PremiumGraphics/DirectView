@@ -57,12 +57,10 @@ public:
 
 	void createMetaball() {
 		metaball.create();
-		buildSurface();
+		createSurface();
 	}
 
-	void buildSurface()
-	{
-		//getSurface()->clear();
+	void createSurface() {
 		surfaceConstructCommand.clear();
 		toVolume();
 		for (const auto& s : volume.getSpaces()) {
@@ -80,7 +78,7 @@ public:
 		return volume.getSpaces().empty();
 	}
 
-	void instanciateSurface() {
+	void instanciateSurfaces() {
 		for (const auto& s : surfaceConstructCommand.getSurfaces() ) {
 			surface.add(s);
 		}
@@ -103,9 +101,6 @@ public:
 
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
-
-	//SurfaceModelSPtr<T> getSurface() const { return surface; }
-
 
 	void changeSelected(const Object::Type& type, const unsigned int id) {
 		if (type == Object::Type::Metaball) {
@@ -163,9 +158,9 @@ public:
 
 	void setRendering() {
 		rendering.clear();
-		rendering.set(metaball);
-		rendering.set(volume);
-		rendering.set(surface);
+		rendering.add(metaball);
+		rendering.add(volume);
+		rendering.add(surface);
 		for (const auto& s : surfaceConstructCommand.getSurfaces()) {
 			rendering.add(*s);
 		}
@@ -181,7 +176,7 @@ public:
 		}
 		else if (getUIMode() == SELECTED_TRANSLATE) {
 			move(pos);
-			buildSurface();
+			createSurface();
 			setRendering();
 			//ssTransformCmd->move(pos);
 		}

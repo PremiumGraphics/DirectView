@@ -27,6 +27,7 @@ public:
 		pointSize = 10;
 		drawSurface = true;
 		drawInstance = true;
+		drawCells = true;
 	}
 
 	T pointSize;
@@ -40,6 +41,7 @@ public:
 	bool drawVolume;
 	bool drawMetaball;
 	bool drawInstance;
+	bool drawCells;
 };
 
 
@@ -64,7 +66,7 @@ public:
 		triangleBuffer.clear();
 	}
 
-	void set(const SurfaceModel<T>& surface)
+	void add(const SurfaceModel<T>& surface)
 	{
 		for (const auto& p : surface.getSurfaces()) {
 			if (p->isVisible()) {
@@ -82,19 +84,30 @@ public:
 		lineBuffer.add(surface, -1, -1, false);
 	}
 
-	void set(const VolumeModel<T>& volume) {
+	void add(const VolumeModel<T>& volume) {
 		for (const auto& b : volume.getSpaces()) {
 			if (b->isVisible()) {
 				const auto& ss = b->getSpace();
 				const int type = static_cast<int>(b->getType());
 				const int isSelected = b->isSelected();
 				lineBuffer.add(*ss, type, b->getId(), isSelected);
+				if (config.drawCells) {
+					addCells(*ss);
+				}
 			}
 		}
-
 	}
 
-	void set(const MetaballModel<T>& metaball) {
+	void addCells(const Math::Volume3d<T>& v) {
+		const auto& cells = v.toCells();
+		for (const auto c : cells) {
+			const auto& space = c.getSpace();
+			const Math::Box<T> box(space.getStart(), space.getEnd());
+			lineBuffer.add(box, -1, -1, false);
+		}
+	}
+
+	void add(const MetaballModel<T>& metaball) {
 		for (const auto& b : metaball.getBalls()) {
 			if (b->isVisible()) {
 				const auto center = b->getMetaball()->getCenter();
