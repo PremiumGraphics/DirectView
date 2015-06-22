@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraModel.h" />
+    <ClInclude Include="FileExportCommand.h" />
     <ClInclude Include="LightModel.h" />
     <ClInclude Include="MainModel.h" />
     <ClInclude Include="MetaballModel.h" />

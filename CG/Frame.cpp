@@ -7,9 +7,6 @@
 
 #include "wx/filename.h"
 
-#include "../IO/OBJFile.h"
-#include "../IO/STLFile.h"
-
 #include "VolumeDialog.h"
 #include "MetaballDialog.h"
 #include "RenderingDialog.h"
@@ -370,6 +367,7 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 
 	wxFileName fn( filename );
 
+	/*
 	const wxString& ext = fn.GetExt();
 	if( ext == "obj" ) {
 		wxString path = fn.GetPath( false );
@@ -407,18 +405,19 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 
 		OnCameraFit( e );
 	}
+	*/
 }
 
 
 void Frame::OnExport( wxRibbonButtonBarEvent& e )
 {
-	const wxString filename = wxFileSelector
+	const wxString& filename = wxFileSelector
 		(
 		wxT("Export"),
 		wxEmptyString,
 		wxEmptyString,
 		wxEmptyString,
-		"OBJ files (*.obj)|*.obj|"
+		//"OBJ files (*.obj)|*.obj|"
 		"STL files (*.stl)|*.stl",
 		wxFD_SAVE
 		);
@@ -427,26 +426,21 @@ void Frame::OnExport( wxRibbonButtonBarEvent& e )
 		return;
 	}
 
-	wxFileName fn( filename );
-	wxString path = fn.GetPath( false );
-	wxString name = fn.GetName() + "."  + fn.GetExt();
-	const wxString& ext = fn.GetExt();
+	//wxFileName fn( filename );
+	//wxString path = fn.GetPath( false );
+	//wxString name = fn.GetName() + "."  + fn.GetExt();
+	//const wxString& ext = fn.GetExt();
 
-	if( ext == "obj" ) {
-		OBJFile file;
-		/*const bool isOk = file.write( path.ToStdString(), name.ToStdString() );
-		if( !isOk ) {
-			wxMessageBox(wxT("エクスポートに失敗しました。"), wxEmptyString, wxICON_WARNING );
-		}
-		*/
+	std::string str;
+	for (size_t i = 0; i < filename.Length(); ++i) {
+		const char s = filename.GetChar(i);
+		str += s;
 	}
+	model->doExport(str);
 	/*
-	else if( ext == "stl" || ext == "STL" ) {
-		STLFile stl;
-		const bool isOk = stl.save( filename.ToStdString(), model );
-		if( !isOk ) {
-			wxMessageBox(wxT("エクスポートに失敗しました。"), wxEmptyString, wxICON_WARNING );
-		}
+	if( ext == "stl" || ext == "STL" ) {
+		const auto str = filename.ToStdString();
+		//model->doExport(str);
 	}
 	*/
 }

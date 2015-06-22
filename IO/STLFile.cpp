@@ -81,6 +81,16 @@ bool STLFile::readASCII(std::istream& stream)
 	return true;
 }
 
+bool STLFile::writeASCII(const std::string& filename)
+{
+	std::ofstream stream;
+	stream.open(filename);
+	if (!stream.is_open()) {
+		return false;
+	}
+
+	return writeASCII(stream);
+}
 
 bool STLFile::writeASCII(std::ostream& stream)
 {

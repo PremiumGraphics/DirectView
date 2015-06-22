@@ -56,6 +56,8 @@ public:
 
 	bool readASCII(std::istream& stream);
 
+	bool writeASCII(const std::string& filename);
+
 	bool writeASCII(std::ostream& stream);
 
 	bool readBinary(const std::string& filename);

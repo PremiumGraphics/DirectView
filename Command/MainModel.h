@@ -10,6 +10,7 @@
 #include "MetaballModel.h"
 #include "RenderingModel.h"
 #include "SurfaceConstructCommand.h"
+#include "FileExportCommand.h"
 
 #include <memory>
 #include <map>
@@ -68,6 +69,11 @@ public:
 			const auto ss = surfaceConstructCommand.create(*s->getSpace());
 		}
 		setRendering();
+	}
+
+	void doExport(const std::string& filename) const {
+		FileExportCommand<T> command;
+		command.exportToSTL(filename);
 	}
 
 	void createVolume() {
