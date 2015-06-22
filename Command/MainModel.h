@@ -9,6 +9,7 @@
 #include "LightModel.h"
 #include "MetaballModel.h"
 #include "RenderingModel.h"
+#include "SurfaceConstructCommand.h"
 
 #include <memory>
 #include <map>
@@ -30,7 +31,6 @@ class MainModel final : private UnCopyable
 {
 public:
 	MainModel() :
-		light(std::make_shared< LightModel<T> >()),
 		camera(std::make_shared< Graphics::Camera<T> >()),
 		volume(std::make_shared< VolumeModel<T> >()),
 		rendering(std::make_shared< RenderingModel<T> >() )
@@ -92,8 +92,6 @@ public:
 
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
-
-	LightModelSPtr<T> getLight() const { return light; }
 
 	VolumeModelSPtr<T> getVolume() const { return volume; }
 
@@ -196,7 +194,7 @@ public:
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	LightModelSPtr<T> light;
+	LightModel<T> light;
 	VolumeModelSPtr<T> volume;
 	SurfaceModel<T> surface;
 	MetaballModel<T> metaball;

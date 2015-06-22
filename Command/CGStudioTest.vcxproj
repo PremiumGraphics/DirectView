@@ -18,6 +18,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PointCloudModel.h" />
     <ClInclude Include="RenderingModel.h" />
+    <ClInclude Include="SurfaceConstructCommand.h" />
     <ClInclude Include="SurfaceModel.h" />
     <ClInclude Include="VolumeModel.h" />
   </ItemGroup>
@@ -27,7 +28,6 @@
     <ClCompile Include="MainModelTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
     <ClCompile Include="PointCloudModelTest.cpp" />
-    <ClCompile Include="SurfaceModelTest.cpp" />
     <ClCompile Include="VolumeModelTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -20,7 +20,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Model::MainModelSPtr<float>& factory);
+	View(Frame *frame, const int width, const int height, const Model::MainModelSPtr<float>& model);
 
 	~View();
 
