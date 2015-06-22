@@ -2,6 +2,8 @@
 #define __CRYSTAL_MODEL_RENDERING_MODEL_H_
 
 #include "../Graphics/Buffer.h"
+#include "../Shader/IDRenderer.h"
+#include "../Shader/NormalRenderer.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -40,98 +42,6 @@ public:
 	bool drawInstance;
 };
 
-template<typename T>
-class ViewBase {
-public:
-
-
-	void clear(){
-		pointBuffer.clear();
-		lineBuffer.clear();
-		triangleBuffer.clear();
-	}
-
-
-	void add(const Graphics::LineBuffer<T>& lines) {
-		lineBuffer.add(lines);
-	}
-
-	void add(const Graphics::TriangleBuffer<T>& triangles) {
-		triangleBuffer.add(triangles);
-	}
-
-	Graphics::PointBuffer<float> getPointBuffer() const { return pointBuffer; }
-
-	Graphics::LineBuffer<float> getLineBuffer() const { return lineBuffer; }
-
-	Graphics::TriangleBuffer<float> getTriangleBuffer() const { return triangleBuffer; }
-
-protected:
-	Graphics::PointBuffer<float> pointBuffer;
-	Graphics::LineBuffer<float> lineBuffer;
-	Graphics::TriangleBuffer<float> triangleBuffer;
-
-};
-
-template<typename T>
-class SurfaceView final : public ViewBase<T> {
-public:
-	void set(const SurfaceModel<float>& model)
-	{
-
-		for (const auto& p : model.getSurfaces()) {
-			if (p->isVisible()) {
-				//normalRenderer.add(*(p->getPolygon()));
-				const auto& surface = p->getPolygon();
-				const int type = static_cast<int>(p->getType());
-				const int isSelected = p->isSelected();
-				//pointBuffer.add(*surface, type, p->getId(), isSelected);
-				if (p->isInstance()) {
-					triangleBuffer.add(*surface, type, p->getId(), isSelected);
-				}
-				else {
-					lineBuffer.add(*surface, type, p->getId(), isSelected);
-				}
-			}
-		}
-	}
-};
-
-template<typename T>
-class VolumeView : public ViewBase < T >
-{
-public:
-	void set(const VolumeModelSPtr<float>& model)
-	{
-		for (const auto& b : model->getSpaces()) {
-			if (b->isVisible()) {
-				const auto& ss = b->getSpace();
-				const int type = static_cast<int>(b->getType());
-				const int isSelected = b->isSelected();
-				lineBuffer.add(*ss, type, b->getId(), isSelected);
-			}
-		}
-
-	}
-
-};
-
-template<typename T>
-class MetaballView : public ViewBase < T >
-{
-public:
-	void set(const MetaballModel<float>& model)
-	{
-		for (const auto& b : model.getBalls()) {
-			if (b->isVisible()) {
-				const auto center = b->getMetaball()->getCenter();
-				const int type = static_cast<int>(b->getType());
-				const int isSelected = b->isSelected();
-				pointBuffer.addPosition(center, type, b->getId(), isSelected);
-			}
-		}
-	}
-};
 
 template<typename T>
 class RenderingCommand
@@ -148,6 +58,54 @@ public:
 		SURFACE,
 	};
 
+	void clear(){
+		pointBuffer.clear();
+		lineBuffer.clear();
+		triangleBuffer.clear();
+	}
+
+	void set(const SurfaceModel<T>& surface)
+	{
+		for (const auto& p : surface.getSurfaces()) {
+			if (p->isVisible()) {
+				//normalRenderer.add(*(p->getPolygon()));
+				const auto& surface = p->getPolygon();
+				const int type = static_cast<int>(p->getType());
+				const int isSelected = p->isSelected();
+				//pointBuffer.add(*surface, type, p->getId(), isSelected);
+				if (p->isInstance()) {
+					triangleBuffer.add(*surface, type, p->getId(), isSelected);
+				}
+				else {
+					lineBuffer.add(*surface, type, p->getId(), isSelected);
+				}
+			}
+		}
+	}
+
+	void set(const VolumeModelSPtr<T>& volume) {
+		for (const auto& b : volume->getSpaces()) {
+			if (b->isVisible()) {
+				const auto& ss = b->getSpace();
+				const int type = static_cast<int>(b->getType());
+				const int isSelected = b->isSelected();
+				lineBuffer.add(*ss, type, b->getId(), isSelected);
+			}
+		}
+
+	}
+
+	void set(const MetaballModel<T>& metaball) {
+		for (const auto& b : metaball.getBalls()) {
+			if (b->isVisible()) {
+				const auto center = b->getMetaball()->getCenter();
+				const int type = static_cast<int>(b->getType());
+				const int isSelected = b->isSelected();
+				pointBuffer.addPosition(center, type, b->getId(), isSelected);
+			}
+		}
+
+	}
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
@@ -157,13 +115,50 @@ public:
 
 	Mode getMode() const { return mode; }
 
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
+
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+
+		glPointSize(getConfig().pointSize);
+
+		if ( getMode() == RenderingCommand<float>::Mode::WIRE_FRAME) {
+			glLineWidth(getConfig().lineWidth);
+			wireframeRenderer.render(width, height, camera, lineBuffer);
+
+			//			glPointSize( this->getPointSize());
+			wireframeRenderer.render(width, height, camera, pointBuffer);
+		}
+		else if ( getMode() == RenderingCommand<float>::Mode::SURFACE) {
+			wireframeRenderer.render(width, height, camera, triangleBuffer);
+			//surfaceRenderer.render(width, height, c );
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void buildRenderer() {
+		normalRenderer.build();
+		wireframeRenderer.build();
+	}
+
+
+
 private:
 	RenderingConfig<float> config;
 	Mode mode;
 
-	SurfaceView<T> surface;
-	VolumeView<T> volume;
-	MetaballView<T> metaball;
+	Graphics::NormalRenderer normalRenderer;
+	Shader::WireframeRenderer wireframeRenderer;
+
+	Graphics::PointBuffer<float> pointBuffer;
+	Graphics::LineBuffer<float> lineBuffer;
+	Graphics::TriangleBuffer<float> triangleBuffer;
+
+
 };
 
 template<typename T>

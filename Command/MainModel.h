@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_COMMAND_MAIN_MODEL_H__
 #define __CRYSTAL_COMMAND_MAIN_MODEL_H__
 
-#include "../Shader/IDRenderer.h"
-#include "../Shader/NormalRenderer.h"
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
 
@@ -91,6 +89,15 @@ public:
 		;
 	}
 
+	void buildRenderer() {
+		rendering.buildRenderer();
+	}
+
+
+	void render(const int width, const int height) {
+		rendering.render(width, height, *camera);
+	}
+
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
@@ -153,16 +160,11 @@ public:
 		metaball.setConfig(config);
 	}
 
-	void setRendering()
-	{
-		//normalRenderer.clear();
-		surfaceView.clear();
-		volumeView.clear();
-		metaballView.clear();
-
-		surfaceView.set(surface);
-		volumeView.set(volume);
-		metaballView.set(metaball);
+	void setRendering() {
+		rendering.clear();
+		rendering.set(metaball);
+		rendering.set(volume);
+		rendering.set(surface);
 	}
 
 	//Graphics::PointBuffer getPointBuffer() { }
@@ -191,21 +193,6 @@ public:
 		}
 	}
 
-	Graphics::PointBuffer<T> getPointBuffer() const {
-		auto p1 = metaballView.getPointBuffer();
-		return p1;
-	}
-
-	Graphics::LineBuffer<T> getLineBuffer() const {
-		auto l1 = volumeView.getLineBuffer();
-		const auto& l2 = surfaceView.getLineBuffer();
-		l1.add(l2);
-		return l1;
-	}
-
-	Graphics::TriangleBuffer<T> getTriangleBuffer() const {
-		return surfaceView.getTriangleBuffer();
-	}
 
 	UIMode getUIMode() const { return uiMode; }
 
@@ -215,39 +202,6 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<T>& config) { rendering.setConfig(config); }
 
-	void render(const int width, const int height) {
-
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
-
-		glPointSize( rendering.getConfig().pointSize);
-
-		const auto& points = getPointBuffer();
-		const auto& lines = getLineBuffer();
-		const auto& triangles = getTriangleBuffer();
-
-		if (rendering.getMode() == RenderingCommand<float>::Mode::WIRE_FRAME) {
-			glLineWidth(rendering.getConfig().lineWidth);
-			wireframeRenderer.render(width, height, *camera, getLineBuffer());
-
-//			glPointSize( this->getPointSize());
-			wireframeRenderer.render(width, height, *camera, getPointBuffer());
-		}
-		else if (rendering.getMode() == RenderingCommand<float>::Mode::SURFACE) {
-			wireframeRenderer.render(width, height, *camera, getTriangleBuffer());
-			//surfaceRenderer.render(width, height, c );
-		}
-		else {
-			assert(false);
-		}
-	}
-
-	void buildRenderer() {
-		normalRenderer.build();
-		wireframeRenderer.build();
-	}
 
 private:
 	Graphics::CameraSPtr<T> camera;
@@ -257,13 +211,6 @@ private:
 	MetaballModel<T> metaball;
 	RenderingCommand<T> rendering;
 	SurfaceConstructCommand<T> surfaceConstructCommand;
-	SurfaceView<T> surfaceView;
-	VolumeView<T> volumeView;
-	MetaballView<T> metaballView;
-
-	Graphics::NormalRenderer normalRenderer;
-	Shader::WireframeRenderer wireframeRenderer;
-
 
 	UIMode uiMode;
 
