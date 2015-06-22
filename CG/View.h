@@ -45,17 +45,7 @@ private:
 
 	wxPoint mouseStart;
 	
-	void build();
-
 	//Graphics::SmoothRenderer smoothRenderer;
-	Graphics::NormalRenderer normalRenderer;
-	Shader::WireframeRenderer wireframeRenderer;
-
-	float getPointSize() const { return model->getRenderingModel()->getConfig().pointSize; }
-
-	float getLineWidth() const { return model->getRenderingModel()->getConfig().lineWidth; }
-
-	float getNormalScale() const { return model->getRenderingModel()->getConfig().normalScale; }
 
 
 	wxDECLARE_NO_COPY_CLASS( View );

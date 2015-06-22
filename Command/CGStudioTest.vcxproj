@@ -25,7 +25,6 @@
   <ItemGroup>
     <ClCompile Include="CameraModelTest.cpp" />
     <ClCompile Include="LightModelTest.cpp" />
-    <ClCompile Include="MainModelTest.cpp" />
     <ClCompile Include="MetaballModelTest.cpp" />
     <ClCompile Include="PointCloudModelTest.cpp" />
     <ClCompile Include="VolumeModelTest.cpp" />

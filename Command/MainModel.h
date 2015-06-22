@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_COMMAND_MAIN_MODEL_H__
 #define __CRYSTAL_COMMAND_MAIN_MODEL_H__
 
+#include "../Shader/IDRenderer.h"
+#include "../Shader/NormalRenderer.h"
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
 
@@ -32,8 +34,7 @@ class MainModel final : private UnCopyable
 public:
 	MainModel() :
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		volume(std::make_shared< VolumeModel<T> >()),
-		rendering(std::make_shared< RenderingCommand<T> >() )
+		volume(std::make_shared< VolumeModel<T> >())
 	{
 		uiMode = CAMERA_TRANSLATE;
 	}
@@ -96,8 +97,6 @@ public:
 	VolumeModelSPtr<T> getVolume() const { return volume; }
 
 	//SurfaceModelSPtr<T> getSurface() const { return surface; }
-
-	RenderingModelSPtr<T> getRenderingModel() const { return rendering; }
 
 
 	void changeSelected(const Object::Type& type, const unsigned int id) {
@@ -212,17 +211,59 @@ public:
 
 	void setUIMode(const UIMode m) { this->uiMode = m; }
 
+	RenderingConfig<T> getRenderingConfig() const { return rendering.getConfig(); }
+
+	void setRenderingConfig(const RenderingConfig<T>& config) { rendering.setConfig(config); }
+
+	void render(const int width, const int height) {
+
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+
+		glPointSize( rendering.getConfig().pointSize);
+
+		const auto& points = getPointBuffer();
+		const auto& lines = getLineBuffer();
+		const auto& triangles = getTriangleBuffer();
+
+		if (rendering.getMode() == RenderingCommand<float>::Mode::WIRE_FRAME) {
+			glLineWidth(rendering.getConfig().lineWidth);
+			wireframeRenderer.render(width, height, *camera, getLineBuffer());
+
+//			glPointSize( this->getPointSize());
+			wireframeRenderer.render(width, height, *camera, getPointBuffer());
+		}
+		else if (rendering.getMode() == RenderingCommand<float>::Mode::SURFACE) {
+			wireframeRenderer.render(width, height, *camera, getTriangleBuffer());
+			//surfaceRenderer.render(width, height, c );
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void buildRenderer() {
+		normalRenderer.build();
+		wireframeRenderer.build();
+	}
+
 private:
 	Graphics::CameraSPtr<T> camera;
 	LightModel<T> light;
 	VolumeModelSPtr<T> volume;
 	SurfaceModel<T> surface;
 	MetaballModel<T> metaball;
-	RenderingModelSPtr<T> rendering;
+	RenderingCommand<T> rendering;
 	SurfaceConstructCommand<T> surfaceConstructCommand;
 	SurfaceView<T> surfaceView;
 	VolumeView<T> volumeView;
 	MetaballView<T> metaballView;
+
+	Graphics::NormalRenderer normalRenderer;
+	Shader::WireframeRenderer wireframeRenderer;
+
 
 	UIMode uiMode;
 

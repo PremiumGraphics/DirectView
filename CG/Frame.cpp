@@ -487,14 +487,14 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderWireFrame( wxRibbonButtonBarEvent& e)
 {
-	model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::WIRE_FRAME);
-	view->Refresh();
+	//model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::WIRE_FRAME);
+	//view->Refresh();
 }
 
 void Frame::OnRenderingSurface( wxRibbonButtonBarEvent& )
 {
-	model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::SURFACE);
-	view->Refresh();
+	//model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::SURFACE);
+	//view->Refresh();
 }
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
@@ -657,11 +657,11 @@ void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
-	RenderingConfig<float> rConfig = model->getRenderingModel()->getConfig();
+	RenderingConfig<float> rConfig = model->getRenderingConfig();
 	dialog.set( rConfig);
 	if (dialog.ShowModal() == wxID_OK) {
 		rConfig = dialog.get();
-		model->getRenderingModel()->setConfig(rConfig);
+		model->setRenderingConfig(rConfig);
 		setRendering();
 	}
 }

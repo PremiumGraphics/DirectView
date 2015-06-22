@@ -31,7 +31,7 @@ model( model )
 	//Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
 	Connect( wxEVT_SIZE, wxSizeEventHandler( View::OnSize ) );
 
-	build();
+	model->buildRenderer();
 }
 
 View::~View()
@@ -164,37 +164,5 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
-	Camera<float> c = *(model->getCamera());
-
-	glPointSize(getPointSize());
-
-	const auto& points = model->getPointBuffer();
-	const auto& lines = model->getLineBuffer();
-	const auto& triangles = model->getTriangleBuffer();
-
-	if( model->getRenderingModel()->getMode() == Model::RenderingCommand<float>::Mode::WIRE_FRAME ) {
-		glLineWidth( getLineWidth() );
-		wireframeRenderer.render(width, height, c, model->getLineBuffer() );
-
-		glPointSize( this->getPointSize() );
-		wireframeRenderer.render(width, height, c, model->getPointBuffer());
-	}
-	else if (model->getRenderingModel()->getMode() == Model::RenderingCommand<float>::Mode::SURFACE) {
-		wireframeRenderer.render(width, height, c, model->getTriangleBuffer());
-		//surfaceRenderer.render(width, height, c );
-	}
-	else {
-		assert( false );
-	}
-}
-
-void View::build()
-{
-	normalRenderer.build();
-	wireframeRenderer.build();
+	model->render(width, height);
 }
