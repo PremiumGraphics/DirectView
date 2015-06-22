@@ -83,8 +83,8 @@ public:
 		}
 	}
 
-	void set(const VolumeModelSPtr<T>& volume) {
-		for (const auto& b : volume->getSpaces()) {
+	void set(const VolumeModel<T>& volume) {
+		for (const auto& b : volume.getSpaces()) {
 			if (b->isVisible()) {
 				const auto& ss = b->getSpace();
 				const int type = static_cast<int>(b->getType());

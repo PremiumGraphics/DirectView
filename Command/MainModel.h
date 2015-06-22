@@ -31,15 +31,14 @@ class MainModel final : private UnCopyable
 {
 public:
 	MainModel() :
-		camera(std::make_shared< Graphics::Camera<T> >()),
-		volume(std::make_shared< VolumeModel<T> >())
+		camera(std::make_shared< Graphics::Camera<T> >())
 	{
 		uiMode = CAMERA_TRANSLATE;
 	}
 
 	void clear()
 	{
-		volume->clear();
+		volume.clear();
 		surface.clear();
 		metaball.clear();
 	}
@@ -53,11 +52,11 @@ public:
 	*/
 
 	void toVolume() {
-		for (const auto& s : volume->getSpaces()) {
+		for (const auto& s : volume.getSpaces()) {
 			s->getSpace()->setValue(0);
 		}
 		for (const auto& b : metaball.getBalls()) {
-			for (const auto& s : volume->getSpaces()) {
+			for (const auto& s : volume.getSpaces()) {
 				const auto& m = b->getMetaball();
 				s->getSpace()->add(*(m));
 			}
@@ -74,11 +73,19 @@ public:
 		//getSurface()->clear();
 		surface.clear();
 		toVolume();
-		for (const auto& s : getVolume()->getSpaces()) {
+		for (const auto& s : volume.getSpaces()) {
 			//getSurface()->create(*s->getSpace());
 			const auto ss = surfaceConstructCommand.create(*s->getSpace());
 			surface.add(ss);
 		}
+	}
+
+	void createVolume() {
+		volume.create();
+	}
+
+	bool canNotCreateMetaball() {
+		return volume.getSpaces().empty();
 	}
 
 	void instanciateSurface() {
@@ -101,8 +108,6 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	VolumeModelSPtr<T> getVolume() const { return volume; }
-
 	//SurfaceModelSPtr<T> getSurface() const { return surface; }
 
 
@@ -114,7 +119,7 @@ public:
 			}
 		}
 		else if (type == Object::Type::VOLUME) {
-			const auto selected = volume->find(id);
+			const auto selected = volume.find(id);
 			if (selected != nullptr) {
 				selected->changeSelected();
 			}
@@ -130,24 +135,24 @@ public:
 
 	void move(const Math::Vector3d<T>& vector) {
 		metaball.move(vector);
-		volume->move(vector);
+		volume.move(vector);
 		surface.move(vector);
 	}
 
 	void deleteSelected() {
 		metaball.deleteSelected();
-		volume->deleteSelected();
+		volume.deleteSelected();
 		surface.deleteSelected();
 	}
 
 	void clearSelected() {
 		metaball.clearSelected();
-		volume->clearSelected();
+		volume.clearSelected();
 		//surface->clearSelected();
 	}
 
 	void scale(const Math::Vector3d<T>& s) {
-		volume->scale(s);
+		volume.scale(s);
 
 		//surface->scale(s);
 	}
@@ -202,11 +207,14 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<T>& config) { rendering.setConfig(config); }
 
+	VolumeConfig<T> getVolumeConfig() const { return volume.getConfig(); }
+
+	void setVolumeConfig(const VolumeConfig<T>& config) { volume.setConfig(config); }
 
 private:
 	Graphics::CameraSPtr<T> camera;
 	LightModel<T> light;
-	VolumeModelSPtr<T> volume;
+	VolumeModel<T> volume;
 	SurfaceModel<T> surface;
 	MetaballModel<T> metaball;
 	RenderingCommand<T> rendering;
