@@ -22,13 +22,6 @@
     <ClInclude Include="SurfaceModel.h" />
     <ClInclude Include="VolumeModel.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CameraModelTest.cpp" />
-    <ClCompile Include="LightModelTest.cpp" />
-    <ClCompile Include="MetaballModelTest.cpp" />
-    <ClCompile Include="PointCloudModelTest.cpp" />
-    <ClCompile Include="VolumeModelTest.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{81B09E8D-C1A8-4477-907A-ABB07883C9F8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
