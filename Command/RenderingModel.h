@@ -62,13 +62,13 @@ public:
 		triangleBuffer.clear();
 	}
 
-	void set(const SurfaceModelSPtr<float>& model)
+	void set(const SurfaceModel<float>& model)
 	{
 		if (!config.drawSurface) {
 			return;
 		}
 
-		for (const auto& p : model->getSurfaces()) {
+		for (const auto& p : model.getSurfaces()) {
 			if (p->isVisible()) {
 				//normalRenderer.add(*(p->getPolygon()));
 				const auto& surface = p->getPolygon();
@@ -101,12 +101,12 @@ public:
 
 	}
 
-	void set(const MetaballModelSPtr<float>& model)
+	void set(const MetaballModel<float>& model)
 	{
 		if (!config.drawMetaball) {
 			return;
 		}
-		for (const auto& b : model->getBalls()) {
+		for (const auto& b : model.getBalls()) {
 			if (b->isVisible()) {
 				const auto center = b->getMetaball()->getCenter();
 				const int type = static_cast<int>(b->getType());

@@ -6,7 +6,7 @@ using namespace Crystal::Model;
 
 TEST(MetaballModelTest, TestCreate)
 {
-	MetaballObjectModel<float> factory;
+	MetaballModel<float> factory;
 
 	const auto actual = factory.create();
 	EXPECT_EQ(0, actual->getId());

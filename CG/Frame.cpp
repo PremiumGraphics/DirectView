@@ -552,8 +552,7 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 		wxMessageBox("Setup Grid");
 		return;
 	}
-	model->getMetaballModel()->create();
-	model->buildSurface();
+	model->createMetaball();
 	setRendering();
 }
 
@@ -647,10 +646,10 @@ void Frame::OnVolumeConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
 {
 	MetaballDialog dialog(this);
-	dialog.set(model->getMetaballModel()->getConfig());
+	dialog.set(model->getMetaballConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model->getMetaballModel()->setConfig(dialog.get());
+		model->setMetaballConfig(dialog.get());
 		OnCreateMetaball(e);
 	}
 }

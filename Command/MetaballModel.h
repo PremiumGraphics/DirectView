@@ -80,17 +80,17 @@ template<typename T>
 using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
 template<typename T>
-class MetaballObjectModel final : public ModelBase
+class MetaballModel final : public ModelBase
 {
 public:
-	MetaballObjectModel()
+	MetaballModel()
 	{
 
 	}
 
-	~MetaballObjectModel() = default;
+	~MetaballModel() = default;
 
-	MetaballObjectModel& clear() {
+	MetaballModel& clear() {
 		ModelBase::clear();
 		balls.clear();
 		return (*this);
@@ -166,7 +166,7 @@ private:
 };
 
 template<typename T>
-using MetaballModelSPtr = std::shared_ptr < MetaballObjectModel<T> > ;
+using MetaballModelSPtr = std::shared_ptr < MetaballModel<T> > ;
 	}
 }
 
