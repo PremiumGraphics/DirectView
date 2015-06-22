@@ -27,7 +27,7 @@ public:
 		pointSize = 10;
 		drawSurface = true;
 		drawInstance = true;
-		drawCells = true;
+		drawCells = false;
 	}
 
 	T pointSize;
@@ -46,19 +46,13 @@ public:
 
 
 template<typename T>
-class RenderingCommand
+class RenderingCommand final : UnCopyable
 {
 
 public:
-	RenderingCommand() :
-	mode( Mode::WIRE_FRAME)
-	{
-	}
+	RenderingCommand() = default;
 
-	enum class Mode {
-		WIRE_FRAME,
-		SURFACE,
-	};
+	~RenderingCommand() = default;
 
 	void clear(){
 		pointBuffer.clear();
@@ -123,10 +117,6 @@ public:
 
 	RenderingConfig<float> getConfig() const { return config; }
 
-	void setMode(const Mode m) { this->mode = m; }
-
-	Mode getMode() const { return mode; }
-
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
 
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -136,21 +126,11 @@ public:
 
 		glPointSize(getConfig().pointSize);
 
-		if ( getMode() == RenderingCommand<float>::Mode::WIRE_FRAME) {
-			glLineWidth(getConfig().lineWidth);
-			wireframeRenderer.render(width, height, camera, lineBuffer);
+		glLineWidth(getConfig().lineWidth);
+		wireframeRenderer.render(width, height, camera, lineBuffer);
 
-			//			glPointSize( this->getPointSize());
-			wireframeRenderer.render(width, height, camera, pointBuffer);
-			wireframeRenderer.render(width, height, camera, triangleBuffer);
-
-		}
-		else if ( getMode() == RenderingCommand<float>::Mode::SURFACE) {
-			//surfaceRenderer.render(width, height, c );
-		}
-		else {
-			assert(false);
-		}
+		wireframeRenderer.render(width, height, camera, pointBuffer);
+		wireframeRenderer.render(width, height, camera, triangleBuffer);
 	}
 
 	void buildRenderer() {
@@ -161,15 +141,14 @@ public:
 
 
 private:
-	RenderingConfig<float> config;
-	Mode mode;
+	RenderingConfig<T> config;
 
 	Graphics::NormalRenderer normalRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
 
-	Graphics::PointBuffer<float> pointBuffer;
-	Graphics::LineBuffer<float> lineBuffer;
-	Graphics::TriangleBuffer<float> triangleBuffer;
+	Graphics::PointBuffer<T> pointBuffer;
+	Graphics::LineBuffer<T> lineBuffer;
+	Graphics::TriangleBuffer<T> triangleBuffer;
 
 
 };

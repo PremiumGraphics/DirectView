@@ -12,14 +12,10 @@ namespace Crystal {
 template< typename T >
 class Camera{
 public:
-	Camera() :
-		near_( 1.0f ),
-		far_( 10.0f ),
-		left( -0.5f ),
-		right( 0.5f ),
-		bottom( 0.0f ),
-		top( 1.0f )
-	{}
+	Camera()
+	{
+		init();
+	}
 
 	Camera( const T near__, const T far__, const T left, const T right, const T bottom, const T top ) :
 		near_( near__ ),
@@ -29,6 +25,17 @@ public:
 		bottom( bottom ),
 		top( top )
 	{}
+
+	void init()
+	{
+		near_ = (1.0f);
+		far_ = (10.0f);
+		left = (-0.5f);
+		right = (0.5f);
+		bottom = (0.0f);
+		top = (1.0f);
+		pos = Math::Vector3d<T>::Zero();
+	}
 
 	Math::Matrix4d<T> getModelviewMatrix() const {
 		Math::Matrix4d<T> matrix;
@@ -117,10 +124,10 @@ private:
 	T far_;
 	Math::Vector3d<T> pos;
 
-	const T left;
-	const T	right;
-	const T bottom;
-	const T top;
+	T left;
+	T right;
+	T bottom;
+	T top;
 
 	Math::Vector3d<T> angle;
 };

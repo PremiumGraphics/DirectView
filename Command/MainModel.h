@@ -61,6 +61,16 @@ public:
 		createSurface();
 	}
 
+	void fitCamera() {
+		camera->init();
+	}
+
+	/*
+	Math::Box<T> getBoundingBox() const {
+		return Math::Box<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(1, 1, 1));
+	}
+	*/
+
 	void createSurface() {
 		surfaceConstructCommand.clear();
 		toVolume();

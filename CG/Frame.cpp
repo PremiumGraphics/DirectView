@@ -191,10 +191,12 @@ Frame::Frame()
 	Connect(ID_BOOLEAN_NOT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanNot));
 	*/
 
+	/*
 	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
 	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
 	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
 	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
+	*/
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -493,15 +495,8 @@ void Frame::OnRenderingSurface( wxRibbonButtonBarEvent& )
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
-	/*
-	const Math::Vector3d& center = getModel()->getPolygonModel()->getCenter();
-	Camera<float>* camera = getModel()->getCamera();
-	camera->setPos( -1.0 * center );
-	const float minZ = getModel()->getPolygonModel()->getBoundingBox().getMinZ();
-	//camera->setPos( .setZ( camera->pos.getZ() - minZ );
-	camera->setAngle( Math::Vector3d( 0.0, 0.0, 0.0 ) );
+	model->fitCamera();
 	view->Refresh();
-	*/
 }
 
 void Frame::OnCapture( wxRibbonButtonBarEvent& e )
