@@ -27,6 +27,8 @@ public:
 
 	std::vector<T> getPositions() const { return positions; }
 
+	std::vector<T> getNormals() const { return normals; }
+
 	std::vector<int> getTypes() const { return types; }
 
 	std::vector<int> getIds() const { return ids; }
@@ -57,6 +59,7 @@ public:
 
 private:
 	std::vector<T> positions;
+	std::vector<T> normals;
 	std::vector<int> types;
 	std::vector<int> ids;
 	std::vector<int> isSelecteds;

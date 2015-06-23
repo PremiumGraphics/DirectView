@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_POLYGON_RENDERER_H__
-#define __CRYSTAL_GRAPHICS_POLYGON_RENDERER_H__
+#ifndef __CRYSTAL_GRAPHICS_SMOOTH_RENDERER_H__
+#define __CRYSTAL_GRAPHICS_SMOOTH_RENDERER_H__
 
 #include <map>
 #include <vector>
@@ -9,20 +9,21 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Material.h"
+#include "../Graphics/Buffer.h"
 
 namespace Crystal {
 	namespace Graphics {
 
-		/*
-class SmoothRenderer {
+class SmoothRenderer final {
 public:
 
-	SmoothRenderer();
+	SmoothRenderer() = default;
 
-	~SmoothRenderer();
+	~SmoothRenderer() = default;
 
 	void build();
 
+	/*
 	struct Param {
 		std::vector<float> positions;
 		std::vector<float> normals;
@@ -35,8 +36,9 @@ public:
 		std::vector<float> matDiffuse;
 		float shininess;
 	};
+	*/
 
-	void render(const int width, const int height, const Camera<float>& camera, const DisplayList<float>& list, const LightSPtrList& lights, const std::list<Material*>& materials );
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::TriangleBuffer<float>& buffer);
 
 private:
 	Graphics::ShaderObject shader;
@@ -51,12 +53,11 @@ private:
 		GLuint matSpecular;
 		GLuint matDiffuse;
 		GLuint shininess;
-		GLuint lightSize;
 	};
 
 	Location getLocations();
 };
-	*/
+
 
 	}
 }
