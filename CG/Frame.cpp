@@ -34,11 +34,6 @@ enum {
 	ID_CREATE_METABALL,
 	ID_CREATE_VOLUME,
 
-	ID_BOOLEAN_UNION,
-	ID_BOOLEAN_DIFF,
-	ID_BOOLEAN_INTERSECTION,
-	ID_BOOLEAN_NOT,
-
 	ID_RENDERING_WIREFRAME,
 
 	ID_CAMERA_FIT,
@@ -157,26 +152,6 @@ Frame::Frame()
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 
-	/*
-	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
-	wxRibbonButtonBar* booleanBar = new wxRibbonButtonBar(booleanPanel);
-	booleanBar->AddButton(ID_BOOLEAN_UNION, "Union", wxImage("../Resource/union.png") );
-	booleanBar->AddButton(ID_BOOLEAN_DIFF, "Diff", wxImage("../Resource/diff.png"));
-	booleanBar->AddButton(ID_BOOLEAN_INTERSECTION, "Inters", wxImage("../Resource/intersection.png"));
-	booleanBar->AddButton(ID_BOOLEAN_NOT, "Not", wxImage(32, 32));
-
-	Connect(ID_BOOLEAN_UNION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanUnion));
-	Connect(ID_BOOLEAN_DIFF, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanDiff));
-	Connect(ID_BOOLEAN_INTERSECTION, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanIntersection));
-	Connect(ID_BOOLEAN_NOT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBooleanNot));
-	*/
-
-	/*
-	wxRibbonPanel* animationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Movie") );
-	wxRibbonButtonBar *toolbar2 = new wxRibbonButtonBar( animationPanel );
-	toolbar2->AddButton( wxID_ANY, "Play", wxImage("../Resource/MD-play.png") );
-	toolbar2->AddButton( wxID_ANY, "Stop", wxImage("../Resource/MD-stop.png") );
-	*/
 
 	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ƒwƒ‹ƒv"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
@@ -528,27 +503,6 @@ void Frame::setRendering()
 
 }
 
-void Frame::OnBooleanUnion(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO:Union");
-}
-
-void Frame::OnBooleanDiff(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO:Diff");
-}
-
-void Frame::OnBooleanIntersection(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO:Intersection");
-
-}
-
-void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO:Not");
-}
-
 void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
 {
 	model->setUIMode(Model::UIMode::SELECTED_TRANSLATE);
@@ -575,5 +529,6 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 	if (result == wxID_OK) {
 		model->setVolumeConfig(dialog.get());
 		model->createVolume(dialog.get());
+		setRendering();
 	}
 }

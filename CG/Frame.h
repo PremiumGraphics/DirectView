@@ -52,15 +52,6 @@ private:
 
 	void OnCreateVolume(wxRibbonButtonBarEvent& e);
 
-
-	void OnBooleanUnion(wxRibbonButtonBarEvent& e);
-
-	void OnBooleanDiff(wxRibbonButtonBarEvent& e);
-
-	void OnBooleanIntersection(wxRibbonButtonBarEvent& e);
-
-	void OnBooleanNot(wxRibbonButtonBarEvent& e);
-
 	void OnSelectedMove(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedClear(wxRibbonButtonBarEvent& e);
