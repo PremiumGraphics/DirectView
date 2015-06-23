@@ -23,9 +23,8 @@ public:
 	void setDefault() {
 		normalScale = 1;
 		lineWidth = 1;
-		drawBB = true;
 		pointSize = 20;
-		drawSurface = true;
+		enableLight = false;
 		drawCells = false;
 		drawNormal = false;
 	}
@@ -34,9 +33,7 @@ public:
 	T lineWidth;
 	T normalScale;
 
-	bool drawBB;
-
-	bool drawSurface;
+	bool enableLight;
 	bool drawVolume;
 	bool drawCells;
 	bool drawNormal;
@@ -122,16 +119,17 @@ public:
 		glPointSize(getConfig().pointSize);
 
 		glLineWidth(getConfig().lineWidth);
-		/*
+
 		wireframeRenderer.render(width, height, camera, lineBuffer);
 
 		wireframeRenderer.render(width, height, camera, pointBuffer);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 
 		normalRenderer.render(width, height, camera,pointBuffer);
-		*/
 
-		smoothRenderer.render(width, height, camera, triangleBuffer);
+		if (config.enableLight) {
+			smoothRenderer.render(width, height, camera, triangleBuffer);
+		}
 	}
 
 	void buildRenderer() {

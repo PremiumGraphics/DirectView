@@ -19,14 +19,8 @@ public:
 		new wxStaticText(this, wxID_ANY, "LineWidth", wxPoint(0, 200));
 		lineWidth = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 200));
 
-		new wxStaticText(this, wxID_ANY, "BoundingBox", wxPoint(0, 300));
-		drawBB = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(100, 300) );
-
-		new wxStaticText(this, wxID_ANY, "Plane", wxPoint(0, 400));
-		drawPlane = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
-
 		new wxStaticText(this, wxID_ANY, "Surface", wxPoint(300, 100));
-		drawSurface = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
+		enableLight = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
 
 		new wxStaticText(this, wxID_ANY, "Normal", wxPoint(300, 200));
 		drawNormal = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 200));
@@ -46,8 +40,7 @@ public:
 	void set(const Model::RenderingConfig<float>& config) {
 		pointSize->SetValue(config.pointSize );
 		lineWidth->SetValue( config.lineWidth );
-		drawBB->SetValue( config.drawBB );
-		drawSurface->SetValue(config.drawSurface);
+		enableLight->SetValue(config.enableLight);
 		drawVolume->SetValue(config.drawVolume);
 		drawCells->SetValue(config.drawCells);
 		drawNormal->SetValue(config.drawNormal);
@@ -57,8 +50,7 @@ public:
 		Model::RenderingConfig<float> config;
 		config.pointSize = pointSize->GetValue();
 		config.lineWidth = lineWidth->GetValue();
-		config.drawBB = drawBB->GetValue();
-		config.drawSurface = drawSurface->GetValue();
+		config.enableLight = enableLight->GetValue();
 		config.drawVolume = drawVolume->GetValue();
 		config.drawCells = drawCells->GetValue();
 		config.drawNormal = drawNormal->GetValue();
@@ -68,9 +60,7 @@ public:
 private:
 	wxSpinCtrlDouble* pointSize;
 	wxSpinCtrlDouble* lineWidth;
-	wxCheckBox* drawBB;
-	wxCheckBox* drawPlane;
-	wxCheckBox* drawSurface;
+	wxCheckBox* enableLight;
 	wxCheckBox* drawVolume;
 	wxCheckBox* drawCells;
 	wxCheckBox* drawNormal;
