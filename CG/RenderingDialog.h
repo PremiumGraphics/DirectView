@@ -28,9 +28,6 @@ public:
 		new wxStaticText(this, wxID_ANY, "Surface", wxPoint(300, 100));
 		drawSurface = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
 
-		new wxStaticText(this, wxID_ANY, "Metaball", wxPoint(300, 200));
-		drawMetaball = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 200));
-
 		new wxStaticText(this, wxID_ANY, "Volume", wxPoint(300, 300));
 		drawVolume = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 300));
 
@@ -46,9 +43,7 @@ public:
 		pointSize->SetValue(config.pointSize );
 		lineWidth->SetValue( config.lineWidth );
 		drawBB->SetValue( config.drawBB );
-		drawPlane->SetValue( config.drawPlane );
 		drawSurface->SetValue(config.drawSurface);
-		drawMetaball->SetValue(config.drawMetaball);
 		drawVolume->SetValue(config.drawVolume);
 		drawCells->SetValue(config.drawCells);
 	}
@@ -58,9 +53,7 @@ public:
 		config.pointSize = pointSize->GetValue();
 		config.lineWidth = lineWidth->GetValue();
 		config.drawBB = drawBB->GetValue();
-		config.drawPlane = drawPlane->GetValue();
 		config.drawSurface = drawSurface->GetValue();
-		config.drawMetaball = drawMetaball->GetValue();
 		config.drawVolume = drawVolume->GetValue();
 		config.drawCells = drawCells->GetValue();
 		return config;
@@ -74,7 +67,6 @@ private:
 	wxCheckBox* drawSurface;
 	wxCheckBox* drawVolume;
 	wxCheckBox* drawCells;
-	wxCheckBox* drawMetaball;
 };
 
 	}

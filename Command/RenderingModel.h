@@ -23,10 +23,8 @@ public:
 		normalScale = 1;
 		lineWidth = 1;
 		drawBB = true;
-		drawPlane = true;
 		pointSize = 20;
 		drawSurface = true;
-		drawInstance = true;
 		drawCells = false;
 	}
 
@@ -35,12 +33,9 @@ public:
 	T normalScale;
 
 	bool drawBB;
-	bool drawPlane;
 
 	bool drawSurface;
 	bool drawVolume;
-	bool drawMetaball;
-	bool drawInstance;
 	bool drawCells;
 };
 
@@ -80,17 +75,10 @@ public:
 		lineBuffer.add(surface, -1, -1, false);
 	}
 
-	void add(const VolumeModel<T>& volume) {
-		for (const auto& b : volume.getSpaces()) {
-			if (b->isVisible()) {
-				const auto& ss = b->getSpace();
-				const int type = static_cast<int>(b->getType());
-				const int isSelected = b->isSelected();
-				lineBuffer.add(*ss, type, b->getId(), isSelected);
-				if (config.drawCells) {
-					addCells(*ss);
-				}
-			}
+	void add(const Math::Volume3d<T>& volume) {
+		lineBuffer.add(volume, -1, -1, 0);
+		if (config.drawCells) {
+			addCells(volume);
 		}
 	}
 
@@ -103,14 +91,12 @@ public:
 		}
 	}
 
-	void add(const MetaballModel<T>& metaball) {
+	void add(const ParticleModel<T>& metaball) {
 		for (const auto& b : metaball.getBalls()) {
-			if (b->isVisible()) {
-				const auto center = b->getMetaball()->getCenter();
-				const int type = static_cast<int>(b->getType());
-				const int isSelected = b->isSelected();
-				pointBuffer.addPosition(center, type, b->getId(), isSelected);
-			}
+			const auto center = b->getMetaball()->getCenter();
+			const int type = static_cast<int>(b->getType());
+			const int isSelected = b->isSelected();
+			pointBuffer.addPosition(center, type, b->getId(), isSelected);
 		}
 
 	}

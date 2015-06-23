@@ -12,14 +12,14 @@ namespace Crystal {
 	namespace Model {
 
 template<typename T>
-class MetaballConfig {
+class ParticleConfig {
 public:
-	MetaballConfig()
+	ParticleConfig()
 	{
 		setDefault();
 	}
 
-	MetaballConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
+	ParticleConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
 		center(center),
 		radius(radius),
 		charge(charge)
@@ -79,19 +79,21 @@ using MetaballObjectSPtr = std::shared_ptr < MetaballObject<T> > ;
 template<typename T>
 using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
 
+
 template<typename T>
-class MetaballModel final : public ModelBase
+class ParticleModel final : private UnCopyable
 {
 public:
-	MetaballModel()
+	ParticleModel() :
+		nextId(0)
 	{
 
 	}
 
-	~MetaballModel() = default;
+	~ParticleModel() = default;
 
-	MetaballModel& clear() {
-		ModelBase::clear();
+	ParticleModel& clear() {
+		nextId = 0;
 		balls.clear();
 		return (*this);
 	}
@@ -115,7 +117,7 @@ public:
 		return nullptr;
 	}
 
-	void remove(const unsigned int id) override {
+	void remove(const unsigned int id)  {
 		const auto& b = find(id);
 		if (b == nullptr) {
 			return;
@@ -148,25 +150,27 @@ public:
 		}
 	}
 
-	MetaballConfig<T> getConfig() const { return config; }
+	ParticleConfig<T> getConfig() const { return config; }
 
-	void setConfig(const MetaballConfig<T>& config) { this->config = config; }
+	void setConfig(const ParticleConfig<T>& config) { this->config = config; }
 
 
 private:
 	MetaballObjectSPtrList<T> balls;
 
 	MetaballObjectSPtr<T> add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back( std::make_shared< MetaballObject<T> >(ball, getNextId()));
+		balls.push_back( std::make_shared< MetaballObject<T> >(ball, nextId++));
 		return balls.back();
 	}
 
-	MetaballConfig<T> config;
+	ParticleConfig<T> config;
+	unsigned int nextId;
+
 
 };
 
 template<typename T>
-using MetaballModelSPtr = std::shared_ptr < MetaballModel<T> > ;
+using MetaballModelSPtr = std::shared_ptr < ParticleModel<T> > ;
 	}
 }
 

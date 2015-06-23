@@ -22,7 +22,6 @@ public:
 
 	explicit Object(const unsigned int id) :
 		id(id),
-		visible(true),
 		selected(false)
 	{}
 
@@ -32,14 +31,6 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	bool isVisible() const { return visible; }
-
-	bool isInvisible() const { return !isVisible(); }
-
-	void setVisible() { visible = true; }
-
-	void setInvisible() { visible = false; }
-
 	bool isSelected() const { return selected; }
 
 	void setSelect() { selected = true; }
@@ -47,8 +38,6 @@ public:
 	void setUnSelect() { selected = false; }
 
 	void changeSelected() { selected = !selected; }
-
-	std::string getName() const { return name; }
 
 	virtual void move(const Math::Vector3d<float>& vector){};
 
@@ -58,40 +47,7 @@ public:
 
 private:
 	unsigned int id;
-	bool visible;
 	bool selected;
-	std::string name;
-};
-
-class NullObject : public Object{
-	NullObject() :
-		Object(-1)
-	{}
-
-	Type getType() const { return Type::NullType; }
-
-
-	~NullObject(){}
-};
-
-class ModelBase : private UnCopyable {
-public:
-	ModelBase() :
-		nextId(0)
-	{}
-
-	virtual ~ModelBase(){};
-
-	void clear() {
-		nextId = 0;
-	}
-
-	unsigned int getNextId() { return nextId++; }
-
-	virtual void remove(const unsigned int id){};
-
-private:
-	unsigned int nextId;
 };
 
 	}

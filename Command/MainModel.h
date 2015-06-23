@@ -4,7 +4,6 @@
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
 
-#include "VolumeModel.h"
 #include "MetaballModel.h"
 #include "RenderingModel.h"
 #include "FileExportCommand.h"
@@ -22,6 +21,42 @@ enum UIMode
 	SELECTED_TRANSLATE,
 };
 
+template<typename T>
+class VolumeConfig {
+public:
+	VolumeConfig() {
+		setDefault();
+	}
+
+	VolumeConfig(const unsigned int resx, const unsigned int resy, const unsigned int resz, const Math::Space3d<T>& space) :
+		resx(resx),
+		resy(resy),
+		resz(resz),
+		space(space)
+	{}
+
+	unsigned int getResx() const { return resx; }
+
+	unsigned int getResy() const { return resy; }
+
+	unsigned int getResz() const { return resz; }
+
+	Math::Space3d<T> getSpace() const { return space; }
+
+	void setDefault() {
+		resx = 20;
+		resy = 20;
+		resz = 20;
+		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
+	}
+
+private:
+	unsigned int resx;
+	unsigned int resy;
+	unsigned int resz;
+	Math::Space3d<T> space;
+};
+
 
 template<typename T>
 class MainModel final : private UnCopyable
@@ -29,26 +64,23 @@ class MainModel final : private UnCopyable
 public:
 	MainModel() :
 		camera(std::make_shared< Graphics::Camera<T> >()),
+		volume(std::make_shared< Math::Volume3d<T> >()),
 		uiMode( CAMERA_TRANSLATE )
 	{
+		createVolume(vConfig);
 	}
 
 	void clear()
 	{
-		volume.clear();
 		surface.clear();
 		metaball.clear();
 	}
 
 	void toVolume() {
-		for (const auto& s : volume.getSpaces()) {
-			s->getSpace()->setValue(0);
-		}
+		volume->setValue(0);
 		for (const auto& b : metaball.getBalls()) {
-			for (const auto& s : volume.getSpaces()) {
-				const auto& m = b->getMetaball();
-				s->getSpace()->add(*(m));
-			}
+			const auto& m = b->getMetaball();
+			volume->add(*(m));
 		}
 	}
 
@@ -70,10 +102,7 @@ public:
 	void createSurface() {
 		surface.clear();
 		toVolume();
-		for (const auto& s : volume.getSpaces()) {
-			//getSurface()->create(*s->getSpace());
-			const auto ss = surface.create(*s->getSpace());
-		}
+		const auto ss = surface.create(*volume);
 		setRendering();
 	}
 
@@ -82,12 +111,10 @@ public:
 		command.exportToSTL(filename, surface.getSurfaces());
 	}
 
-	void createVolume() {
-		volume.create();
-	}
-
-	bool canNotCreateMetaball() {
-		return volume.getSpaces().empty();
+	void createVolume(const VolumeConfig<T>& config) {
+		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
+		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.getSpace(), grid));
+		volume = ss;
 	}
 
 	void buildRenderer() {
@@ -124,18 +151,18 @@ public:
 		metaball.clearSelected();
 	}
 
-	MetaballConfig<T> getMetaballConfig() const {
+	ParticleConfig<T> getMetaballConfig() const {
 		return metaball.getConfig();
 	}
 
-	void setMetaballConfig(const MetaballConfig<T>& config) {
+	void setMetaballConfig(const ParticleConfig<T>& config) {
 		metaball.setConfig(config);
 	}
 
 	void setRendering() {
 		rendering.clear();
 		rendering.add(metaball);
-		rendering.add(volume);
+		rendering.add(*volume);
 		for (const auto& s : surface.getSurfaces()) {
 			rendering.add(*s);
 		}
@@ -169,17 +196,18 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<T>& config) { rendering.setConfig(config); }
 
-	VolumeConfig<T> getVolumeConfig() const { return volume.getConfig(); }
+	VolumeConfig<T> getVolumeConfig() const { return vConfig; }
 
-	void setVolumeConfig(const VolumeConfig<T>& config) { volume.setConfig(config); }
+	void setVolumeConfig(const VolumeConfig<T>& config) { vConfig = config; }
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	VolumeModel<T> volume;
-	MetaballModel<T> metaball;
+	Math::Volume3dSPtr<T> volume;
+	ParticleModel<T> metaball;
 	RenderingCommand<T> rendering;
 	SurfaceConstructCommand<T> surface;
 	UIMode uiMode;
+	VolumeConfig<T> vConfig;
 
 };
 

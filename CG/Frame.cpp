@@ -39,10 +39,7 @@ enum {
 	ID_BOOLEAN_INTERSECTION,
 	ID_BOOLEAN_NOT,
 
-	ID_CREATE_SURFACE,
-
 	ID_RENDERING_WIREFRAME,
-	ID_RENDERING_SURFACE,
 
 	ID_CAMERA_FIT,
 
@@ -135,7 +132,7 @@ Frame::Frame()
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
 	selection->AddButton(ID_SELECTED_MOVE, "Move", wxBitmap(32, 32));
-	selection->AddButton(ID_SELECTED_CLEAR, "Clear", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_CLEAR, "Unselect", wxImage(32, 32));
 	selection->AddButton(ID_SELECTED_DELETE, "Delete", wxImage(32, 32));
 
 	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
@@ -144,26 +141,21 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"WireFrame", wxImage("../Resource/wireframe.png") );
-	rendering->AddHybridButton( ID_RENDERING_SURFACE,	"Surface",	wxImage("../Resource/surface.png") );
+	rendering->AddButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
 
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderWireFrame ) );
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
-	Connect( ID_RENDERING_SURFACE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderingSurface ) );
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRendering ) );
+	//Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_VOLUME,	"Volume", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_SURFACE, "Surface", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_METABALL, "Particle", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_VOLUME,	"Grid", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
 	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
-	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
-	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
-	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateSurfaceConfig));
+	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 
 	/*
 	wxRibbonPanel* booleanPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Boolean"));
@@ -208,16 +200,6 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	/*
-	polygonProperty = new PolygonProperty(parent, wxSize(300, 100), model.getPolygonBuilder()->getMaterialBuilder()->getMaterials());
-	materialProperty = new MaterialProperty(parent, wxSize(300, 100));
-	lightProperty = new LightProperty(parent, wxSize(300, 100));
-
-	polygonTree = new PolygonTree(parent, wxPoint(0, 0), wxSize(300, 100), polygonProperty, *model.getPolygonBuilder());
-	materialTree = new MaterialTree(parent, wxPoint(0, 300), wxSize(300, 100), materialProperty, model.getPolygonBuilder()->getMaterialBuilder());
-	lightTree = new LightTree(parent, wxPoint(0, 600), wxSize(300, 100), lightProperty, model.getLightBuilder());
-	*/
-
 	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -231,6 +213,9 @@ Frame::Frame()
 	SetSizer( vSizer );
 	
 	Show();
+
+	setRendering();
+
 }
 
 Frame::~Frame()
@@ -469,16 +454,17 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 #include "wx/numdlg.h"
 
-void Frame::OnRenderWireFrame( wxRibbonButtonBarEvent& e)
+void Frame::OnRendering( wxRibbonButtonBarEvent& e)
 {
-	//model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::WIRE_FRAME);
-	//view->Refresh();
-}
-
-void Frame::OnRenderingSurface( wxRibbonButtonBarEvent& )
-{
-	//model->getRenderingModel()->setMode(Model::RenderingCommand<float>::Mode::SURFACE);
-	//view->Refresh();
+	WireframeConfigDialog dialog(this);
+	RenderingConfig<float> rConfig = model->getRenderingConfig();
+	dialog.set(rConfig);
+	if (dialog.ShowModal() == wxID_OK) {
+		rConfig = dialog.get();
+		model->setRenderingConfig(rConfig);
+		setRendering();
+	}
+	view->Refresh();
 }
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
@@ -525,10 +511,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	if (model->canNotCreateMetaball()) {
-		wxMessageBox("Setup Grid");
-		return;
-	}
 	MetaballDialog dialog(this);
 	dialog.set(model->getMetaballConfig());
 	const auto result = dialog.ShowModal();
@@ -536,12 +518,6 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 		model->setMetaballConfig(dialog.get());
 	}
 	model->createMetaball();
-	setRendering();
-}
-
-void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
-{
-	model->createVolume();
 	setRendering();
 }
 
@@ -591,39 +567,13 @@ void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
 	//view->setMode(View::SCALE);
 }
 
-
-void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("ŽÀ‘Ì‰»‚³‚ê‚Ä‚¢‚È‚¢ƒ|ƒŠƒSƒ“‚ðŽÀ‘Ì‰»‚µ‚Ü‚·");
-	//model->instanciateSurfaces();
-	setRendering();
-}
-
-void Frame::OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO");
-}
-
-
-void Frame::OnVolumeConfig(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
-	dialog.set( model->getVolumeConfig());
+	dialog.set(model->getVolumeConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
 		model->setVolumeConfig(dialog.get());
-		OnCreateVolume(e);
-	}
-}
-
-void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
-{
-	WireframeConfigDialog dialog(this);
-	RenderingConfig<float> rConfig = model->getRenderingConfig();
-	dialog.set( rConfig);
-	if (dialog.ShowModal() == wxID_OK) {
-		rConfig = dialog.get();
-		model->setRenderingConfig(rConfig);
-		setRendering();
+		model->createVolume(dialog.get());
 	}
 }

@@ -41,11 +41,7 @@ private:
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
-	void OnRenderWireFrame( wxRibbonButtonBarEvent& e);
-
-	void OnPhong( wxRibbonButtonBarEvent& );
-
-	void OnRenderingSurface( wxRibbonButtonBarEvent& );
+	void OnRendering( wxRibbonButtonBarEvent& e);
 
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
@@ -71,10 +67,6 @@ private:
 
 	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
 
-
-	void OnCreateSurface(wxRibbonButtonBarEvent& e);
-
-	void OnCreateSurfaceConfig(wxRibbonButtonBarEvent& e);
 
 	void OnVolumeConfig(wxRibbonButtonBarEvent& e);
 
