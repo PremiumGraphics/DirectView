@@ -159,12 +159,12 @@ Frame::Frame()
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddHybridButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_METABALL, "Metaball", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_VOLUME,	"Volume", wxImage(32, 32));
 	modelingBar->AddHybridButton(ID_CREATE_SURFACE, "Surface", wxImage(32, 32));
 
 	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
-	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
+	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 	Connect(ID_CREATE_SURFACE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateSurface));
@@ -534,6 +534,12 @@ void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 		wxMessageBox("Setup Grid");
 		return;
 	}
+	MetaballDialog dialog(this);
+	dialog.set(model->getMetaballConfig());
+	const auto result = dialog.ShowModal();
+	if (result == wxID_OK) {
+		model->setMetaballConfig(dialog.get());
+	}
 	model->createMetaball();
 	setRendering();
 }
@@ -604,7 +610,7 @@ void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
 void Frame::OnCreateSurface(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("ŽÀ‘Ì‰»‚³‚ê‚Ä‚¢‚È‚¢ƒ|ƒŠƒSƒ“‚ðŽÀ‘Ì‰»‚µ‚Ü‚·");
-	model->instanciateSurfaces();
+	//model->instanciateSurfaces();
 	setRendering();
 }
 
@@ -625,17 +631,6 @@ void Frame::OnVolumeConfig(wxRibbonButtonBarEvent& e)
 	}
 }
 
-void Frame::OnMetaballConfig(wxRibbonButtonBarEvent& e)
-{
-	MetaballDialog dialog(this);
-	dialog.set(model->getMetaballConfig());
-	const auto result = dialog.ShowModal();
-	if (result == wxID_OK) {
-		model->setMetaballConfig(dialog.get());
-		OnCreateMetaball(e);
-	}
-}
-
 void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
@@ -646,9 +641,4 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 		model->setRenderingConfig(rConfig);
 		setRendering();
 	}
-}
-
-void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
-{
-	wxMessageBox("TODO");
 }

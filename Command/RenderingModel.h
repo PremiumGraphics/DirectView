@@ -24,7 +24,7 @@ public:
 		lineWidth = 1;
 		drawBB = true;
 		drawPlane = true;
-		pointSize = 10;
+		pointSize = 20;
 		drawSurface = true;
 		drawInstance = true;
 		drawCells = false;
@@ -60,6 +60,7 @@ public:
 		triangleBuffer.clear();
 	}
 
+	/*
 	void add(const SurfaceModel<T>& surface)
 	{
 		for (const auto& p : surface.getSurfaces()) {
@@ -73,6 +74,7 @@ public:
 			}
 		}
 	}
+	*/
 
 	void add(const Graphics::Surface<T>& surface) {
 		lineBuffer.add(surface, -1, -1, false);

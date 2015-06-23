@@ -33,7 +33,7 @@ public:
 		return surfaces.back();
 	}
 
-	Graphics::SurfaceSPtrList<T> getSurfaces() { return surfaces; }
+	Graphics::SurfaceSPtrList<T> getSurfaces() const { return surfaces; }
 
 	void clear() { surfaces.clear(); }
 

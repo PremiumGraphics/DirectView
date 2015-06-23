@@ -82,11 +82,7 @@ private:
 
 	void OnVolumeConfig(wxRibbonButtonBarEvent& e);
 
-	void OnMetaballConfig(wxRibbonButtonBarEvent& e);
-
 	void OnWireFrameConfig(wxRibbonButtonBarEvent& e);
-
-	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
 private:
 	View* view;

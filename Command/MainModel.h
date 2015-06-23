@@ -5,11 +5,10 @@
 #include "../Util/UnCopyable.h"
 
 #include "VolumeModel.h"
-#include "SurfaceModel.h"
 #include "MetaballModel.h"
 #include "RenderingModel.h"
-#include "SurfaceConstructCommand.h"
 #include "FileExportCommand.h"
+#include "SurfaceConstructCommand.h"
 
 #include <memory>
 #include <map>
@@ -71,22 +70,18 @@ public:
 	*/
 
 	void createSurface() {
-		surfaceConstructCommand.clear();
+		surface.clear();
 		toVolume();
 		for (const auto& s : volume.getSpaces()) {
 			//getSurface()->create(*s->getSpace());
-			const auto ss = surfaceConstructCommand.create(*s->getSpace());
+			const auto ss = surface.create(*s->getSpace());
 		}
 		setRendering();
 	}
 
 	void doExport(const std::string& filename) const {
 		FileExportCommand<T> command;
-		Graphics::SurfaceSPtrList<T> ss;
-		for (const auto s : surface.getSurfaces()) {
-			ss.push_back(s->getSurface());
-		}
-		command.exportToSTL(filename, ss);
+		command.exportToSTL(filename, surface.getSurfaces());
 	}
 
 	void createVolume() {
@@ -95,18 +90,6 @@ public:
 
 	bool canNotCreateMetaball() {
 		return volume.getSpaces().empty();
-	}
-
-	void instanciateSurfaces() {
-		for (const auto& s : surfaceConstructCommand.getSurfaces() ) {
-			surface.add(s);
-		}
-		surfaceConstructCommand.clear();
-		setRendering();
-	}
-
-	void rotate(const Math::Vector3d<T>& v) {
-		;
 	}
 
 	void buildRenderer() {
@@ -134,31 +117,22 @@ public:
 				selected->changeSelected();
 			}
 		}
-		else if (type == Object::Type::Polygon) {
-			const auto selected = surface.find(id);
-			if (selected != nullptr) {
-				selected->changeSelected();
-			}
-		}
 	}
 
 
 	void move(const Math::Vector3d<T>& vector) {
 		metaball.move(vector);
 		volume.move(vector);
-		surface.move(vector);
 	}
 
 	void deleteSelected() {
 		metaball.deleteSelected();
 		volume.deleteSelected();
-		surface.deleteSelected();
 	}
 
 	void clearSelected() {
 		metaball.clearSelected();
 		volume.clearSelected();
-		//surface->clearSelected();
 	}
 
 	void scale(const Math::Vector3d<T>& s) {
@@ -179,8 +153,7 @@ public:
 		rendering.clear();
 		rendering.add(metaball);
 		rendering.add(volume);
-		rendering.add(surface);
-		for (const auto& s : surfaceConstructCommand.getSurfaces()) {
+		for (const auto& s : surface.getSurfaces()) {
 			rendering.add(*s);
 		}
 
@@ -200,8 +173,6 @@ public:
 			//ssTransformCmd->move(pos);
 		}
 		else if (getUIMode() == SELECTED_ROTATE) {
-			rotate(angle);
-			setRendering();
 		}
 		else if (getUIMode() == SELECTED_SCALE) {
 			scale(Vector3d<float>(1, 1, 1) + pos*0.01f);
@@ -228,11 +199,9 @@ public:
 private:
 	Graphics::CameraSPtr<T> camera;
 	VolumeModel<T> volume;
-	SurfaceModel<T> surface;
 	MetaballModel<T> metaball;
 	RenderingCommand<T> rendering;
-	SurfaceConstructCommand<T> surfaceConstructCommand;
-
+	SurfaceConstructCommand<T> surface;
 	UIMode uiMode;
 
 };
