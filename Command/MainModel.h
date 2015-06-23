@@ -142,10 +142,12 @@ public:
 	}
 
 	void deleteSelected() {
+		surface.clear();
 		metaball.deleteSelected();
 	}
 
 	void clearSelected() {
+		surface.clear();
 		metaball.clearSelected();
 	}
 
