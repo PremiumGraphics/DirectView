@@ -17,10 +17,11 @@ public:
 
 	virtual ~BufferBase() = default;
 
-	void addPosition(const Math::Vector3d<T>& position, const int type, const int id, const int isSelected) {
+	void addPosition(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const int id, const int isSelected) {
 		const auto& poss = position.toArray();
 		positions.insert(positions.end(), poss.begin(), poss.end());
-		types.push_back(type);
+		const auto& norms = normal.toArray();
+		normals.insert(normals.end(), norms.begin(), norms.end());
 		ids.push_back(id);
 		isSelecteds.push_back(isSelected);
 	}
@@ -29,15 +30,13 @@ public:
 
 	std::vector<T> getNormals() const { return normals; }
 
-	std::vector<int> getTypes() const { return types; }
-
 	std::vector<int> getIds() const { return ids; }
 
 	std::vector<int> getIsSelecteds() const { return isSelecteds; }
 
+	/*
 	void add(const BufferBase& rhs) {
 		const auto ps_ = rhs.getPositions();
-		const auto types_ = rhs.getTypes();
 		const auto ids_ = rhs.getIds();
 		const auto isSelecteds_ = rhs.getIsSelecteds();
 		positions.insert(positions.end(), ps_.begin(), ps_.end());
@@ -45,10 +44,11 @@ public:
 		ids.insert(ids.end(), ids_.begin(), ids_.end());
 		isSelecteds.insert(isSelecteds.end(), isSelecteds_.begin(), isSelecteds_.end());
 	}
+	*/
 
 	void clear() {
 		positions.clear();
-		types.clear();
+		normals.clear();
 		ids.clear();
 		isSelecteds.clear();
 	}
@@ -60,7 +60,6 @@ public:
 private:
 	std::vector<T> positions;
 	std::vector<T> normals;
-	std::vector<int> types;
 	std::vector<int> ids;
 	std::vector<int> isSelecteds;
 };
@@ -69,15 +68,13 @@ template<typename T>
 class PointBuffer : public BufferBase<T>
 {
 public:
-	/*
-	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
-		for (const auto& v : surface.getVertices()) {
-			const auto pos = v->getPosition();
-			addPosition( pos, type, id, isSelected);
+	void add(const Surface<T>& surface, const int id, const int isSelected) {
+		for (const auto& e : surface.getEdges()) {
+			addPosition(e->getStartPosition(), e->getStartVertex()->getNormal(), id, isSelected);
+			//addPosition(e->getEndPosition(), e->getEndVertex()->getNormal(), id, isSelected);
 		}
 		//positions.add( surface.)
 	}
-	*/
 };
 
 template<typename T>
@@ -131,19 +128,15 @@ public:
 
 	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
 		for (const auto& e : surface.getEdges()) {
-			addPosition(e->getStartPosition(), type, id, isSelected);
-			addPosition(e->getEndPosition(), type, id, isSelected);
+			addPosition(e->getStartPosition(), e->getStartVertex()->getNormal(), id, isSelected);
+			addPosition(e->getEndPosition(), e->getEndVertex()->getNormal(), id, isSelected);
 		}
 		//positions.add( surface.)
 	}
 
 	void add(const Math::Line3d<T>& line, const int type, const int id, const int isSelected) {
-		addPosition(line.getStart(), type, id, isSelected);
-		addPosition(line.getEnd(), type, id, isSelected);
-	}
-
-	void add(const LineBuffer<T>& rhs) {
-		BufferBase::add(rhs);
+		addPosition(line.getStart(), Math::Vector3d<T>::Zero(),id, isSelected);
+		addPosition(line.getEnd(), Math::Vector3d<T>::Zero(),id, isSelected);
 	}
 };
 
@@ -154,7 +147,8 @@ public:
 	void add(const Surface<T>& surface, const int type, const int id, const int isSelected) {
 		for (const auto& v : surface.getVertices()) {
 			const auto pos = v->getPosition();
-			addPosition(pos, type, id, isSelected);
+			const auto norms = v->getNormal();
+			addPosition(pos, norms, id, isSelected);
 		}
 		//positions.add( surface.)
 	}

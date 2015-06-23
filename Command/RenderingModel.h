@@ -26,6 +26,7 @@ public:
 		pointSize = 20;
 		drawSurface = true;
 		drawCells = false;
+		drawNormal = false;
 	}
 
 	T pointSize;
@@ -37,6 +38,7 @@ public:
 	bool drawSurface;
 	bool drawVolume;
 	bool drawCells;
+	bool drawNormal;
 };
 
 
@@ -73,6 +75,9 @@ public:
 
 	void add(const Graphics::Surface<T>& surface) {
 		lineBuffer.add(surface, -1, -1, false);
+		if (config.drawNormal) {
+			pointBuffer.add(surface, -1, false);
+		}
 	}
 
 	void add(const Math::Volume3d<T>& volume) {
@@ -96,7 +101,7 @@ public:
 			const auto center = b->getMetaball()->getCenter();
 			const int type = static_cast<int>(b->getType());
 			const int isSelected = b->isSelected();
-			pointBuffer.addPosition(center, type, b->getId(), isSelected);
+			pointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), isSelected);
 		}
 
 	}
@@ -119,6 +124,8 @@ public:
 
 		wireframeRenderer.render(width, height, camera, pointBuffer);
 		wireframeRenderer.render(width, height, camera, triangleBuffer);
+
+		normalRenderer.render(width, height, camera,pointBuffer);
 	}
 
 	void buildRenderer() {

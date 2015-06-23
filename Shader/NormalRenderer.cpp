@@ -109,8 +109,10 @@ void NormalRenderer::build()
 	//positionLocation = glGetUniformLocation( shader.getId(), "position" );
 }
 
-void NormalRenderer::render(const int width, const int height, const Camera<float>& camera )
+void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer )
 {
+	const auto& positions = buffer.getPositions();
+	const auto& normals = buffer.getNormals();
 	if (positions.empty() || normals.empty()) {
 		return;
 	}
@@ -142,8 +144,6 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 	glDisableVertexAttribArray(1);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
-
-	glBindTexture(GL_TEXTURE_1D, 0);
 
 	glUseProgram(0);
 

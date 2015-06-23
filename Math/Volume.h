@@ -94,9 +94,12 @@ public:
 		//const Math::Vector3d<T> startPosition( center.getX()
 		const Index3d startIndex = toIndex(metaball.getMinPosition());
 		const Index3d endIndex = toIndex(metaball.getMaxPosition());
-		for (size_t x = startIndex[0]; x < endIndex[0]; ++x) {
-			for (size_t y = startIndex[1]; y < endIndex[1]; ++y) {
-				for (size_t z = startIndex[2]; z < endIndex[2]; ++z) {
+		//for (size_t x = startIndex[0]; x < endIndex[0]; ++x) {
+		//	for (size_t y = startIndex[1]; y < endIndex[1]; ++y) {
+		//		for (size_t z = startIndex[2]; z < endIndex[2]; ++z) {
+		for (size_t x = 0; x < getSizeX(); ++x ) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
 					const auto& pos = toCenterPosition( x, y, z);
 					if (center.getDistanceSquared(pos) < radius * radius) {
 						const auto v = metaball.getValue(pos);

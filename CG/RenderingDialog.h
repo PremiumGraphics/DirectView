@@ -28,6 +28,10 @@ public:
 		new wxStaticText(this, wxID_ANY, "Surface", wxPoint(300, 100));
 		drawSurface = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 100));
 
+		new wxStaticText(this, wxID_ANY, "Normal", wxPoint(300, 200));
+		drawNormal = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 200));
+
+
 		new wxStaticText(this, wxID_ANY, "Volume", wxPoint(300, 300));
 		drawVolume = new wxCheckBox(this, wxID_ANY, wxEmptyString, wxPoint(400, 300));
 
@@ -46,6 +50,7 @@ public:
 		drawSurface->SetValue(config.drawSurface);
 		drawVolume->SetValue(config.drawVolume);
 		drawCells->SetValue(config.drawCells);
+		drawNormal->SetValue(config.drawNormal);
 	}
 
 	Model::RenderingConfig<float> get() {
@@ -56,6 +61,7 @@ public:
 		config.drawSurface = drawSurface->GetValue();
 		config.drawVolume = drawVolume->GetValue();
 		config.drawCells = drawCells->GetValue();
+		config.drawNormal = drawNormal->GetValue();
 		return config;
 	}
 
@@ -67,6 +73,7 @@ private:
 	wxCheckBox* drawSurface;
 	wxCheckBox* drawVolume;
 	wxCheckBox* drawCells;
+	wxCheckBox* drawNormal;
 };
 
 	}

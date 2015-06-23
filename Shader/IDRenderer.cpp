@@ -12,7 +12,6 @@ void WireframeRenderer::build()
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
-		"in int type;						\n"
 		"in int id;							\n"
 		"in int isSelected;					\n"
 		"out vec3 color;					\n"
@@ -21,9 +20,9 @@ void WireframeRenderer::build()
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
-		"	color.r = type / 255.0;			\n"
+		"	color.r = isSelected;			\n"
 		"	color.g = id / 255.0;			\n"
-		"	color.b = isSelected;					\n"
+		"	color.b = 0;					\n"
 		"}\n"
 		;
 
@@ -61,7 +60,6 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
-	location.type = glGetAttribLocation(shader.getId(), "type");
 	location.id = glGetAttribLocation(shader.getId(), "id");
 	location.isSelected = glGetAttribLocation(shader.getId(), "isSelected");
 	//location.faceId = glGetAttribLocation(shader.getId(), "faceId");
@@ -78,7 +76,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	}
 
 	const auto& positions = buffer.getPositions();
-	const auto& types = buffer.getTypes();
 	const auto& ids = buffer.getIds();
 	const auto& isSelecteds = buffer.getIsSelecteds();
 
@@ -103,7 +100,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
@@ -123,7 +119,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 		return;
 	}
 	const auto& positions = buffer.getPositions();
-	const auto& types = buffer.getTypes();
 	const auto& ids = buffer.getIds();
 	const auto& isSelecteds = buffer.getIsSelecteds();
 
@@ -148,7 +143,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
@@ -168,7 +162,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	}
 
 	const auto& positions = buffer.getPositions();
-	const auto& types = buffer.getTypes();
 	const auto& ids = buffer.getIds();
 	const auto& isSelecteds = buffer.getIsSelecteds();
 
@@ -193,7 +186,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.type, 1, GL_INT, 0, &(types.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
@@ -211,8 +203,6 @@ void WireframeRenderer::up()
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
-
 }
 
 void WireframeRenderer::down()
@@ -220,7 +210,6 @@ void WireframeRenderer::down()
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
-	glDisableVertexAttribArray(3);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 

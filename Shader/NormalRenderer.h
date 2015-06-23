@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "ShaderObject.h"
+#include "../Graphics/Buffer.h"
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"
@@ -24,23 +25,9 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::PointBuffer<float>& buffer);
 
 	float scale;
-
-	void clear() {
-		positions.clear();
-		normals.clear();
-	}
-
-	void add(const Graphics::Surface<float >& s) {
-		for (const auto& v : s.getVertices()) {
-			const auto& ps = v->toPositionArray();
-			positions.insert(positions.end(), ps.begin(), ps.end());
-			const auto& ns = v->toNormalArray();
-			normals.insert(normals.end(), ns.begin(), ns.end());
-		}
-	}
 
 private:
 	std::vector< float > positions;

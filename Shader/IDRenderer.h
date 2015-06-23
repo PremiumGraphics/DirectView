@@ -34,7 +34,6 @@ private:
 		GLuint projectionMatrix;
 		GLuint modelviewMatrix;
 		GLuint position;
-		GLuint type;
 		GLuint id;
 		GLuint isSelected;
 	};
