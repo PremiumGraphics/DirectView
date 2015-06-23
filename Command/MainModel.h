@@ -6,7 +6,6 @@
 
 #include "VolumeModel.h"
 #include "SurfaceModel.h"
-#include "LightModel.h"
 #include "MetaballModel.h"
 #include "RenderingModel.h"
 #include "SurfaceConstructCommand.h"
@@ -228,7 +227,6 @@ public:
 
 private:
 	Graphics::CameraSPtr<T> camera;
-	LightModel<T> light;
 	VolumeModel<T> volume;
 	SurfaceModel<T> surface;
 	MetaballModel<T> metaball;

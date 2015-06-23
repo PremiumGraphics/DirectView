@@ -154,10 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="CameraDialog.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="LightDialog.h" />
     <ClInclude Include="MetaballDialog.h" />
     <ClInclude Include="RenderingDialog.h" />
     <ClInclude Include="resource.h" />

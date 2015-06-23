@@ -88,10 +88,6 @@ private:
 
 	void OnPhongConfig(wxRibbonButtonBarEvent& e);
 
-	void OnLightConfig(wxRibbonButtonBarEvent& e);
-
-	void OnCameraConfig(wxRibbonButtonBarEvent& e);
-
 private:
 	View* view;
 	Model::MainModelSPtr<float> model;

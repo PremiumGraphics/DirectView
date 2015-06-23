@@ -10,8 +10,6 @@
 #include "VolumeDialog.h"
 #include "MetaballDialog.h"
 #include "RenderingDialog.h"
-#include "LightDialog.h"
-#include "CameraDialog.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -22,7 +20,6 @@ using namespace Crystal::UI;
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
 
-	ID_CREATE_LIGHT,
 	ID_CAMERA,
 
 	ID_IMPORT,
@@ -129,17 +126,13 @@ Frame::Frame()
 
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddHybridButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddHybridButton( ID_CREATE_LIGHT,"Light",	wxImage("../Resource/star.png") );
+	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
-	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraConfig));
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCreateLight ) );
-	Connect( ID_CREATE_LIGHT,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnLightConfig));
 
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
@@ -658,18 +651,4 @@ void Frame::OnWireFrameConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnPhongConfig(wxRibbonButtonBarEvent& e)
 {
 	wxMessageBox("TODO");
-}
-
-void Frame::OnLightConfig(wxRibbonButtonBarEvent& e)
-{
-	//DirectionalLightDialog dialog(this);
-	//dialog.ShowModal();
-	AmbientLightDialog dialog(this);
-	dialog.ShowModal();
-}
-
-void Frame::OnCameraConfig(wxRibbonButtonBarEvent& e)
-{
-	CameraDialog dialog(this);
-	dialog.ShowModal();
 }
