@@ -26,10 +26,10 @@ void SmoothRenderer::build()
 		"{\n"
 		"	vec3 n = normalize( normal );	\n"
 		"	vec3 s = normalize( lightPosition - eyePosition );						\n"
-		"	vec3 v = normalize( vec3( -eyePosition) );				\n;"
-		"   vec3 diffuseColor = max(dot(s, n), 0.0) * material.diffuse;		\n"
+		"   vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);		\n"
+		"   vec3 ambientColor = vec3( 0.2, 0.2, 0.2); \n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );	\n"
-		"	vColor = diffuseColor;				\n"
+		"	vColor = diffuseColor + ambientColor;				\n"
 		"}\n"
 		;
 
@@ -69,9 +69,9 @@ void SmoothRenderer::render(const int width, const int height, const Camera<floa
 {
 	const std::vector<float>& positions = buffer.getPositions();
 	const std::vector<float>& normals = buffer.getNormals();
-	const std::vector<float> projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
-	const std::vector<float> modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
-	const std::vector<float> eyePos = camera.getPos().toArray();
+	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
+	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
+	const std::vector<float>& eyePos = camera.getPos().toArray();
 
 	glViewport(0, 0, width, height);
 

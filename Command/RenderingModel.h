@@ -4,6 +4,7 @@
 #include "../Graphics/Buffer.h"
 #include "../Shader/IDRenderer.h"
 #include "../Shader/NormalRenderer.h"
+#include "../Shader/SmoothRenderer.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -78,6 +79,7 @@ public:
 		if (config.drawNormal) {
 			pointBuffer.add(surface, -1, false);
 		}
+		triangleBuffer.add(surface, -1, -1, false);
 	}
 
 	void add(const Math::Volume3d<T>& volume) {
@@ -120,26 +122,31 @@ public:
 		glPointSize(getConfig().pointSize);
 
 		glLineWidth(getConfig().lineWidth);
+		/*
 		wireframeRenderer.render(width, height, camera, lineBuffer);
 
 		wireframeRenderer.render(width, height, camera, pointBuffer);
-		wireframeRenderer.render(width, height, camera, triangleBuffer);
+		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 
 		normalRenderer.render(width, height, camera,pointBuffer);
+		*/
+
+		smoothRenderer.render(width, height, camera, triangleBuffer);
 	}
 
 	void buildRenderer() {
 		normalRenderer.build();
 		wireframeRenderer.build();
+		smoothRenderer.build();
 	}
-
-
 
 private:
 	RenderingConfig<T> config;
 
 	Graphics::NormalRenderer normalRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
+	Graphics::SmoothRenderer smoothRenderer;
+	
 
 	Graphics::PointBuffer<T> pointBuffer;
 	Graphics::LineBuffer<T> lineBuffer;
