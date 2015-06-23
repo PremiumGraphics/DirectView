@@ -66,6 +66,12 @@ public:
 
 	Vector3d<T> getCenter() const { return center; }
 
+	Vector3d<T> getMinPosition() const { return Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
+
+	Vector3d<T> getMaxPosition() const { return Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
+
+	//Space3d<T> getSpace() const { return Space3d<T>( ) }
+
 	T getValue(const Math::Vector3d<T>& pos) const
 	{
 		const auto dist = pos.getDistance(center);

@@ -6,8 +6,6 @@
 
 #include "../Math/Kernel.h"
 
-#include "Object.h"
-
 namespace Crystal {
 	namespace Model {
 
@@ -43,34 +41,41 @@ private:
 	T charge;
 };
 
-
 template<typename T>
-class MetaballObject final : public Object
+class MetaballObject final : private UnCopyable
 {
 public:
 	MetaballObject(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
-		Object( id ),
-		metaball(metaball)
+		id( id ),
+		metaball(metaball),
+		selected(true)
 	{}
 
-	Type getType() const { return Type::Metaball; }
+	int getType() const { return 2; }
+
+	unsigned int getId() const { return id; }
+
+	bool isSelected() const { return selected; }
+
+	void setSelect() { selected = true; }
+
+	void setUnSelect() { selected = false; }
+
+	void changeSelected() { selected = !selected; }
 
 
 	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
 
-	virtual void move(const Math::Vector3d<float>& vector) override
+	void move(const Math::Vector3d<float>& vector)
 	{
 		metaball->move(vector);
-	};
-
-	virtual void rotate(const Math::Vector3d<float>& center, const Math::Vector3d<float>& angle) override
-	{
-		;
 	};
 
 
 private:
 	Math::MetaballSPtr<T> metaball;
+	unsigned int id;
+	bool selected;
 };
 
 template<typename T>

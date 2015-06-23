@@ -14,7 +14,6 @@
     <ClInclude Include="FileExportCommand.h" />
     <ClInclude Include="MainModel.h" />
     <ClInclude Include="MetaballModel.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="SurfaceConstructCommand.h" />
   </ItemGroup>

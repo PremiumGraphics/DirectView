@@ -129,12 +129,10 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	void changeSelected(const Object::Type& type, const unsigned int id) {
-		if (type == Object::Type::Metaball) {
-			const auto selected = metaball.find(id);
-			if (selected != nullptr) {
-				selected->changeSelected();
-			}
+	void changeSelected(const unsigned int id) {
+		const auto selected = metaball.find(id);
+		if (selected != nullptr) {
+			selected->changeSelected();
 		}
 	}
 
