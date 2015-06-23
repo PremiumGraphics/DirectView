@@ -20,8 +20,6 @@ enum UIMode
 {
 	CAMERA_TRANSLATE,
 	SELECTED_TRANSLATE,
-	SELECTED_ROTATE,
-	SELECTED_SCALE,
 };
 
 
@@ -111,34 +109,19 @@ public:
 				selected->changeSelected();
 			}
 		}
-		else if (type == Object::Type::VOLUME) {
-			const auto selected = volume.find(id);
-			if (selected != nullptr) {
-				selected->changeSelected();
-			}
-		}
 	}
 
 
 	void move(const Math::Vector3d<T>& vector) {
 		metaball.move(vector);
-		volume.move(vector);
 	}
 
 	void deleteSelected() {
 		metaball.deleteSelected();
-		volume.deleteSelected();
 	}
 
 	void clearSelected() {
 		metaball.clearSelected();
-		volume.clearSelected();
-	}
-
-	void scale(const Math::Vector3d<T>& s) {
-		volume.scale(s);
-
-		//surface->scale(s);
 	}
 
 	MetaballConfig<T> getMetaballConfig() const {
@@ -171,12 +154,6 @@ public:
 			createSurface();
 			setRendering();
 			//ssTransformCmd->move(pos);
-		}
-		else if (getUIMode() == SELECTED_ROTATE) {
-		}
-		else if (getUIMode() == SELECTED_SCALE) {
-			scale(Vector3d<float>(1, 1, 1) + pos*0.01f);
-			setRendering();
 		}
 		else {
 			assert(false);

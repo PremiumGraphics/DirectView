@@ -112,56 +112,6 @@ public:
 
 	VolumeObjectSPtrList<T> getSpaces() const { return spaces; }
 
-	VolumeObjectSPtr<T> find(const unsigned int id) {
-		for (const auto& s: spaces) {
-			if (s->getId() == id) {
-				return s;
-			}
-		}
-		return nullptr;
-	}
-
-	void remove(const unsigned int id) override {
-		const auto& s = find(id);
-		if (s == nullptr) {
-			return;
-		}
-		spaces.remove(s);
-	}
-
-	void move(const Math::Vector3d<T>& vector) {
-		for (const auto& s : spaces) {
-			if (s->isSelected()) {
-				s->move(vector);
-			}
-		}
-	}
-
-	void deleteSelected() {
-		for (auto iter = spaces.begin(); iter != spaces.end();) {
-			const auto ball = (*iter);
-			if (ball->isSelected()) {
-				iter = spaces.erase(iter);
-				continue;
-			}
-			++iter;
-		}
-	}
-
-	void scale(const Math::Vector3d<T>& v) {
-		for (const auto& s : spaces) {
-			if (s->isSelected()) {
-				s->scale(v);
-			}
-		}
-	}
-
-	void clearSelected() {
-		for (auto& b : spaces) {
-			b->setUnSelect();
-		}
-	}
-
 	VolumeConfig<T> getConfig() const { return config; }
 
 	void setConfig(const VolumeConfig<T>& config) { this->config = config; }

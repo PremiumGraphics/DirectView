@@ -88,7 +88,7 @@ public:
 
 	unsigned int getNextId() { return nextId++; }
 
-	virtual void remove(const unsigned int id) = 0;
+	virtual void remove(const unsigned int id){};
 
 private:
 	unsigned int nextId;

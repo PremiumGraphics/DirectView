@@ -28,8 +28,6 @@ enum {
 	ID_GL_CONFIG,
 
 	ID_SELECTED_MOVE,
-	ID_SELECTED_SCALE,
-	ID_SELECTED_ROTATE,
 	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
@@ -137,13 +135,10 @@ Frame::Frame()
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
 	selection->AddButton(ID_SELECTED_MOVE, "Move", wxBitmap(32, 32));
-	selection->AddButton(ID_SELECTED_ROTATE, "Rotate", wxImage(32, 32));
-	selection->AddButton(ID_SELECTED_SCALE, "Scale", wxImage(32, 32));
 	selection->AddButton(ID_SELECTED_CLEAR, "Clear", wxImage(32, 32));
 	selection->AddButton(ID_SELECTED_DELETE, "Delete", wxImage(32, 32));
 
 	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
-	Connect(ID_SELECTED_SCALE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedScale));
 	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
 	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
 
@@ -581,16 +576,6 @@ void Frame::OnBooleanNot(wxRibbonButtonBarEvent& e)
 void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
 {
 	model->setUIMode(Model::UIMode::SELECTED_TRANSLATE);
-}
-
-void Frame::OnRotate(wxRibbonButtonBarEvent& e)
-{
-	model->setUIMode(Model::UIMode::SELECTED_ROTATE);
-}
-
-void Frame::OnSelectedScale(wxRibbonButtonBarEvent& e)
-{
-	model->setUIMode(Model::UIMode::SELECTED_SCALE);
 }
 
 void Frame::OnSelectedClear(wxRibbonButtonBarEvent& e)

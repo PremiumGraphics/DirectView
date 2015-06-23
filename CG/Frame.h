@@ -67,10 +67,6 @@ private:
 
 	void OnSelectedMove(wxRibbonButtonBarEvent& e);
 
-	void OnRotate(wxRibbonButtonBarEvent& e);
-
-	void OnSelectedScale(wxRibbonButtonBarEvent& e);
-
 	void OnSelectedClear(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
