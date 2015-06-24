@@ -17,10 +17,10 @@
     <ClInclude Include="RenderingDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="MetaballDialog.h">
+    <ClInclude Include="VolumeDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="VolumeDialog.h">
+    <ClInclude Include="ParticleDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
   </ItemGroup>

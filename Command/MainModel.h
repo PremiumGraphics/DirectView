@@ -5,7 +5,7 @@
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
 
-#include "MetaballModel.h"
+#include "ParticleModel.h"
 #include "RenderingModel.h"
 #include "FileExportCommand.h"
 
@@ -74,19 +74,19 @@ public:
 	void clear()
 	{
 		surfaces.clear();
-		metaball.clear();
+		particle.clear();
 	}
 
 	void toVolume() {
 		volume->setValue(0);
-		for (const auto& b : metaball.getParticles()) {
+		for (const auto& b : particle.getParticles()) {
 			const auto& m = b->getMetaball();
 			volume->add(*(m));
 		}
 	}
 
 	void createMetaball() {
-		metaball.create();
+		particle.create();
 		createSurface();
 	}
 
@@ -144,7 +144,7 @@ public:
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
 	void changeSelected(const unsigned int id) {
-		const auto selected = metaball.find(id);
+		const auto selected = particle.find(id);
 		if (selected != nullptr) {
 			selected->changeSelected();
 		}
@@ -152,30 +152,30 @@ public:
 
 
 	void move(const Math::Vector3d<T>& vector) {
-		metaball.move(vector);
+		particle.move(vector);
 	}
 
 	void deleteSelected() {
 		surfaces.clear();
-		metaball.deleteSelected();
+		particle.deleteSelected();
 	}
 
 	void clearSelected() {
 		surfaces.clear();
-		metaball.clearSelected();
+		particle.clearSelected();
 	}
 
 	ParticleConfig<T> getMetaballConfig() const {
-		return metaball.getConfig();
+		return particle.getConfig();
 	}
 
 	void setMetaballConfig(const ParticleConfig<T>& config) {
-		metaball.setConfig(config);
+		particle.setConfig(config);
 	}
 
 	void setRendering() {
 		rendering.clear();
-		rendering.add(metaball);
+		rendering.add(particle);
 		rendering.add(*volume);
 		for (const auto& s : surfaces) {
 			rendering.add(*s);
@@ -217,7 +217,7 @@ public:
 private:
 	Graphics::CameraSPtr<T> camera;
 	Math::Volume3dSPtr<T> volume;
-	ParticleModel<T> metaball;
+	ParticleModel<T> particle;
 	RenderingCommand<T> rendering;
 	Math::MarchingCube<T> mc;
 	Graphics::SurfaceSPtrList<T> surfaces;

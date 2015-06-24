@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_METABALL_MODEL_H__
-#define __CRYSTAL_COMMAND_METABALL_MODEL_H__
+#ifndef __CRYSTAL_COMMAND_PARTICLE_MODEL_H__
+#define __CRYSTAL_COMMAND_PARTICLE_MODEL_H__
 
 #include <list>
 #include <memory>

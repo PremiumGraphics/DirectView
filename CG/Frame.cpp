@@ -8,7 +8,7 @@
 #include "wx/filename.h"
 
 #include "VolumeDialog.h"
-#include "MetaballDialog.h"
+#include "ParticleDialog.h"
 #include "RenderingDialog.h"
 
 using namespace Crystal::Math;

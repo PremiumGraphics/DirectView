@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClInclude Include="FileExportCommand.h" />
     <ClInclude Include="MainModel.h" />
-    <ClInclude Include="MetaballModel.h" />
+    <ClInclude Include="ParticleModel.h" />
     <ClInclude Include="RenderingModel.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
