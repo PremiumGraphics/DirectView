@@ -164,6 +164,10 @@ public:
 		particle.clearSelected();
 	}
 
+	void selectAll() {
+		particle.selectAll();
+	}
+
 	ParticleConfig<T> getMetaballConfig() const {
 		return particle.getConfig();
 	}

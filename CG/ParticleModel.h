@@ -155,6 +155,13 @@ public:
 		}
 	}
 
+	void selectAll() {
+		for (auto& b : balls) {
+			b->setSelect();
+		}
+	}
+
+
 	ParticleConfig<T> getConfig() const { return config; }
 
 	void setConfig(const ParticleConfig<T>& config) { this->config = config; }

@@ -23,9 +23,15 @@
     <ClInclude Include="ParticleDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="MainModel.h" />
-    <ClInclude Include="ParticleModel.h" />
-    <ClInclude Include="RenderingModel.h" />
+    <ClInclude Include="MainModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="Dialog">
       <UniqueIdentifier>{b2d04a9a-14b6-4af7-ac57-8a7dd2c84052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{dff8f1f3-c3f8-4815-93e8-0a22b169d32e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

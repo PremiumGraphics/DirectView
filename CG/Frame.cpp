@@ -29,6 +29,7 @@ enum {
 
 	ID_SELECTED_MOVE,
 	ID_SELECTED_EDIT,
+	ID_SELECT_ALL,
 	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
@@ -129,11 +130,13 @@ Frame::Frame()
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
 	selection->AddButton(ID_SELECTED_MOVE,		"Move", wxImage("../Resource/8-direction.png"));
 	//selection->AddButton(ID_SELECTED_EDIT,		"Edit", wxBitmap(32, 32));
-	selection->AddButton(ID_SELECTED_CLEAR,		"Unselect", wxImage(32, 32));
+	selection->AddButton(ID_SELECT_ALL,			"AllOn", wxImage("../Resource/switch-on.png"));
+	selection->AddButton(ID_SELECTED_CLEAR,		"AllOff", wxImage("../Resource/switch-off.png"));
 	selection->AddButton(ID_SELECTED_DELETE,	"Delete", wxImage("../Resource/delete.png"));
 
 	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
 	//Connect(ID_SELECTED_EDIT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedEdit));
+	Connect(ID_SELECT_ALL, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectAll));
 	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
 	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
 
@@ -468,6 +471,13 @@ void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
 {
 	model->setUIMode(Model::UIMode::SELECTED_TRANSLATE);
 }
+
+void Frame::OnSelectAll(wxRibbonButtonBarEvent& e)
+{
+	model->selectAll();
+	setRendering();
+}
+
 
 void Frame::OnSelectedClear(wxRibbonButtonBarEvent& e)
 {

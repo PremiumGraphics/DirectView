@@ -52,6 +52,8 @@ private:
 
 	void OnSelectedEdit(wxRibbonButtonBarEvent& e);
 
+	void OnSelectAll(wxRibbonButtonBarEvent& e);
+
 	void OnSelectedClear(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
