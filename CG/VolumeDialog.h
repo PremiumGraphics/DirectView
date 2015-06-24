@@ -4,6 +4,8 @@
 #include "wx/dialog.h"
 #include "wx/spinctrl.h"
 
+#include "../Command/MainModel.h"
+
 namespace Crystal {
 	namespace UI {
 
@@ -38,6 +40,10 @@ public:
 		resz = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
 		resz->SetRange( LIMIT::MINZ, LIMIT::MAXZ);
 
+		new wxStaticText(this, wxID_ANY, "Threshold", wxPoint(0, 400));
+		threshold = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
+		threshold->SetRange(0.0, 1.0);
+
 		new wxStaticText(this, wxID_ANY, "Origin", wxPoint(300, 0));
 		originx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100));
 		originy = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 200));
@@ -61,14 +67,15 @@ public:
 	}
 
 	void set(const Model::VolumeConfig<float>& config) {
-		resx->SetValue( config.getResx() );
-		resy->SetValue( config.getResy() );
-		resz->SetValue( config.getResz() );
+		resx->SetValue( config.resx );
+		resy->SetValue( config.resy );
+		resz->SetValue( config.resz );
 
-		const auto& space = config.getSpace();
+		const auto& space = config.space;
 		originx->SetValue( space.getStart().getX() );
 		originy->SetValue( space.getStart().getY() );
 		originz->SetValue( space.getStart().getZ());
+		threshold->SetValue(config.threshold);
 
 		const auto& length = space.getLengths();
 		lengthx->SetValue(length.getX());
@@ -77,10 +84,13 @@ public:
 	}
 
 	Model::VolumeConfig<float> get() const {
-		const auto x = resx->GetValue();
-		const auto y = resy->GetValue();
-		const auto z = resz->GetValue();
-		return Model::VolumeConfig<float>(x, y, z, getSpace());
+		Model::VolumeConfig<float> config;
+		config.resx = resx->GetValue();
+		config.resy = resy->GetValue();
+		config.resz = resz->GetValue();
+		config.space = getSpace();
+		config.threshold = threshold->GetValue();
+		return config;
 	}
 
 	//void OnOk() 
@@ -98,6 +108,7 @@ private:
 	wxSpinCtrlDouble* lengthy;
 	wxSpinCtrlDouble* lengthz;
 
+	wxSpinCtrlDouble* threshold;
 
 	Math::Space3d<float> getSpace() const {
 		Math::Vector3d<float> origin(

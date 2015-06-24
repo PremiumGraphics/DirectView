@@ -111,9 +111,8 @@ void View::OnMouse( wxMouseEvent& event )
 		const unsigned char r = image.GetRed(position.x, position.y);
 		const unsigned char g = image.GetGreen(position.x, position.y);
 		const unsigned char b = image.GetBlue(position.x, position.y);
-		wxMessageBox(wxString::Format("%d %d %d", r, g, b));
+		//wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 
-		//const Object::Type& type = static_cast<Object::Type>(r);
 		const unsigned int id = g;
 		model->changeSelected(id);
 		model->setRendering();

@@ -28,6 +28,7 @@ enum {
 	ID_GL_CONFIG,
 
 	ID_SELECTED_MOVE,
+	ID_SELECTED_EDIT,
 	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
@@ -126,11 +127,13 @@ Frame::Frame()
 
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
-	selection->AddButton(ID_SELECTED_MOVE, "Move", wxBitmap(32, 32));
-	selection->AddButton(ID_SELECTED_CLEAR, "Unselect", wxImage(32, 32));
-	selection->AddButton(ID_SELECTED_DELETE, "Delete", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_MOVE,		"Move", wxBitmap(32, 32));
+	selection->AddButton(ID_SELECTED_EDIT,		"Edit", wxBitmap(32, 32));
+	selection->AddButton(ID_SELECTED_CLEAR,		"Unselect", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_DELETE,	"Delete", wxImage(32, 32));
 
 	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
+	Connect(ID_SELECTED_EDIT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedEdit));
 	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
 	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
 
@@ -292,10 +295,6 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 {
 	model->setUIMode(Model::UIMode::CAMERA_TRANSLATE);
-}
-
-void Frame::OnCreateLight( wxRibbonButtonBarEvent& )
-{
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -502,6 +501,14 @@ void Frame::setRendering()
 	view->Refresh();
 
 }
+
+void Frame::OnSelectedEdit(wxRibbonButtonBarEvent& e)
+{
+	//model->editSelected();
+	ParticleDialog dialog(this);
+	dialog.ShowModal();
+}
+
 
 void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
 {

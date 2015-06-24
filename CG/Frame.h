@@ -33,10 +33,6 @@ private:
 
 	void OnCameraTranslate( wxRibbonButtonBarEvent& );
 
-	void OnCreateLight( wxRibbonButtonBarEvent& );
-
-	//void OnPick(wxRibbonButtonBarEvent&);
-
 	void OnAbout( wxRibbonButtonBarEvent& );
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
@@ -53,6 +49,8 @@ private:
 	void OnCreateVolume(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedMove(wxRibbonButtonBarEvent& e);
+
+	void OnSelectedEdit(wxRibbonButtonBarEvent& e);
 
 	void OnSelectedClear(wxRibbonButtonBarEvent& e);
 

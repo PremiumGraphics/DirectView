@@ -28,32 +28,18 @@ public:
 		setDefault();
 	}
 
-	VolumeConfig(const unsigned int resx, const unsigned int resy, const unsigned int resz, const Math::Space3d<T>& space) :
-		resx(resx),
-		resy(resy),
-		resz(resz),
-		space(space)
-	{}
-
-	unsigned int getResx() const { return resx; }
-
-	unsigned int getResy() const { return resy; }
-
-	unsigned int getResz() const { return resz; }
-
-	Math::Space3d<T> getSpace() const { return space; }
-
 	void setDefault() {
 		resx = 20;
 		resy = 20;
 		resz = 20;
+		threshold = 0.5;
 		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
 	}
 
-private:
 	unsigned int resx;
 	unsigned int resy;
 	unsigned int resz;
+	double threshold;
 	Math::Space3d<T> space;
 };
 
@@ -110,7 +96,7 @@ public:
 
 	Graphics::SurfaceSPtr<T> create(const Math::Volume3d<float>& ss)
 	{
-		const auto& triangles = mc.march(ss, 0.5);
+		const auto& triangles = mc.march(ss, vConfig.threshold);
 
 		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
 		for (const auto t : triangles) {
@@ -142,9 +128,10 @@ public:
 	}
 
 	void createVolume(const VolumeConfig<T>& config) {
-		Math::Grid3d<T> grid(config.getResx(), config.getResy(), config.getResz());
-		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.getSpace(), grid));
+		Math::Grid3d<T> grid(config.resx, config.resy, config.resz);
+		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.space, grid));
 		volume = ss;
+		createSurface();
 	}
 
 	void buildRenderer() {
