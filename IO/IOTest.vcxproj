@@ -15,6 +15,7 @@
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
+    <ClCompile Include="PLYFileTest.cpp" />
     <ClCompile Include="STLFileTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
