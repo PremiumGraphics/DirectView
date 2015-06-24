@@ -486,7 +486,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
 {
-	MetaballDialog dialog(this);
+	ParticleDialog dialog(this);
 	dialog.set(model->getMetaballConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {

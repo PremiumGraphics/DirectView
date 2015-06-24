@@ -13,10 +13,10 @@ void WireframeRenderer::build()
 		"#version 150						\n"
 		"in vec3 position;					\n"
 		"in int id;							\n"
-		"in int isSelected;					\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
+		"uniform int isSelected;			\n"
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
@@ -58,18 +58,16 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
+	location.isSelected = glGetUniformLocation(shader.getId(), "isSelected");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.id = glGetAttribLocation(shader.getId(), "id");
-	location.isSelected = glGetAttribLocation(shader.getId(), "isSelected");
-	//location.faceId = glGetAttribLocation(shader.getId(), "faceId");
-	//location.polygonId = glGetAttribLocation(shader.getId(), "polygonId");
 
 	return location;
 }
 
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer, const bool isSelected)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -98,10 +96,10 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
-	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
 
 	//const auto positions = buffer.getPositions();
@@ -113,7 +111,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer, const bool isSelected)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -141,10 +139,10 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
-	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
 	up();
 
@@ -155,7 +153,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	down();
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer, const bool isSelected)
 {
 	if (buffer.isEmpty()) {
 		return;
@@ -184,10 +182,10 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
-	glVertexAttribIPointer(location.isSelected, 1, GL_INT, 0, &(isSelecteds.front()));
 
 	up();
 

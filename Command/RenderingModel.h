@@ -51,6 +51,7 @@ public:
 
 	void clear(){
 		pointBuffer.clear();
+		selectedPointBuffer.clear();
 		lineBuffer.clear();
 		triangleBuffer.clear();
 	}
@@ -98,9 +99,12 @@ public:
 	void add(const ParticleModel<T>& metaball) {
 		for (const auto& b : metaball.getParticles()) {
 			const auto center = b->getMetaball()->getCenter();
-			const int type = static_cast<int>(b->getType());
-			const int isSelected = b->isSelected();
-			pointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), isSelected);
+			if (b->isSelected()) {
+				selectedPointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), 1);
+			}
+			else {
+				pointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), 0);
+			}
 		}
 
 	}
@@ -120,9 +124,10 @@ public:
 
 		glLineWidth(getConfig().lineWidth);
 
-		wireframeRenderer.render(width, height, camera, lineBuffer);
+		wireframeRenderer.render(width, height, camera, lineBuffer, false);
 
-		wireframeRenderer.render(width, height, camera, pointBuffer);
+		wireframeRenderer.render(width, height, camera, pointBuffer, false);
+		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 
 		normalRenderer.render(width, height, camera,pointBuffer);
@@ -149,6 +154,8 @@ private:
 	Graphics::PointBuffer<T> pointBuffer;
 	Graphics::LineBuffer<T> lineBuffer;
 	Graphics::TriangleBuffer<T> triangleBuffer;
+
+	Graphics::PointBuffer<T> selectedPointBuffer;
 
 
 };
