@@ -48,6 +48,13 @@ public:
 	{
 	}
 
+	Volume3d(const Particle3d<T>& particle, const Grid3d<T>& grid) :
+		GridSpaceBase(particle.getBoundingSpace(), grid.getSizes()),
+		grid( grid )
+	{
+		add(particle);
+	}
+
 	void setValue(const T v) {
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
@@ -64,7 +71,7 @@ public:
 	std::vector< VolumeCell3d<T, T> > toCells() const {
 		std::vector< VolumeCell3d<T, T> > cells;
 
-		const auto lengths = getUnitLengths();
+		const auto& lengths = getUnitLengths();
 		const Space3d<T>& innerSpace = getSpace().offset(lengths);
 		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
 
@@ -92,8 +99,8 @@ public:
 		const auto center = metaball.getCenter();
 		const auto radius = metaball.getRadius();
 		//const Math::Vector3d<T> startPosition( center.getX()
-		const Index3d startIndex = toIndex(metaball.getMinPosition());
-		const Index3d endIndex = toIndex(metaball.getMaxPosition());
+		//const Index3d startIndex = toIndex(metaball.getMinPosition());
+		//const Index3d endIndex = toIndex(metaball.getMaxPosition());
 		//for (size_t x = startIndex[0]; x < endIndex[0]; ++x) {
 		//	for (size_t y = startIndex[1]; y < endIndex[1]; ++y) {
 		//		for (size_t z = startIndex[2]; z < endIndex[2]; ++z) {
@@ -126,6 +133,14 @@ public:
 		return ss;
 	}
 
+	/*
+	Volume3d createAdd(const Volume3d<T>& rhs) const {
+		const auto space = getSpace().createBoundingSpace(rhs.getSpace());
+		const auto grid1 = grid;
+		grid1.add(rhs.getGrid());
+		return Volume3d(space, grid1);
+	}
+	*/
 
 private:
 	Grid3d<T> grid;

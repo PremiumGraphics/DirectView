@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileExportCommand.h" />
     <ClInclude Include="MainModel.h" />
     <ClInclude Include="ParticleModel.h" />
     <ClInclude Include="RenderingModel.h" />
