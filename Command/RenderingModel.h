@@ -96,7 +96,7 @@ public:
 	}
 
 	void add(const ParticleModel<T>& metaball) {
-		for (const auto& b : metaball.getBalls()) {
+		for (const auto& b : metaball.getParticles()) {
 			const auto center = b->getMetaball()->getCenter();
 			const int type = static_cast<int>(b->getType());
 			const int isSelected = b->isSelected();

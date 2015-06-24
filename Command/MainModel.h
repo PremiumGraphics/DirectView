@@ -79,7 +79,7 @@ public:
 
 	void toVolume() {
 		volume->setValue(0);
-		for (const auto& b : metaball.getBalls()) {
+		for (const auto& b : metaball.getParticles()) {
 			const auto& m = b->getMetaball();
 			volume->add(*(m));
 		}

@@ -42,10 +42,10 @@ private:
 };
 
 template<typename T>
-class MetaballObject final : private UnCopyable
+class ParticleObject final : private UnCopyable
 {
 public:
-	MetaballObject(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
+	ParticleObject(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
 		id( id ),
 		metaball(metaball),
 		selected(true)
@@ -79,10 +79,10 @@ private:
 };
 
 template<typename T>
-using MetaballObjectSPtr = std::shared_ptr < MetaballObject<T> > ;
+using ParticleObjectSPtr = std::shared_ptr < ParticleObject<T> > ;
 
 template<typename T>
-using MetaballObjectSPtrList = std::list < MetaballObjectSPtr<T> > ;
+using ParticleObjectSPtrList = std::list < ParticleObjectSPtr<T> > ;
 
 
 template<typename T>
@@ -103,7 +103,7 @@ public:
 		return (*this);
 	}
 
-	MetaballObjectSPtr<T> create() {
+	ParticleObjectSPtr<T> create() {
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
@@ -111,9 +111,9 @@ public:
 		return add(metaball);
 	}
 
-	MetaballObjectSPtrList<T> getBalls() const { return balls; }
+	ParticleObjectSPtrList<T> getParticles() const { return balls; }
 
-	MetaballObjectSPtr<T> find(const unsigned int id) {
+	ParticleObjectSPtr<T> find(const unsigned int id) {
 		for (const auto& b : balls) {
 			if (b->getId() == id) {
 				return b;
@@ -161,21 +161,19 @@ public:
 
 
 private:
-	MetaballObjectSPtrList<T> balls;
+	ParticleObjectSPtrList<T> balls;
 
-	MetaballObjectSPtr<T> add(const Math::MetaballSPtr<T>& ball) {
-		balls.push_back( std::make_shared< MetaballObject<T> >(ball, nextId++));
+	ParticleObjectSPtr<T> add(const Math::MetaballSPtr<T>& ball) {
+		balls.push_back( std::make_shared< ParticleObject<T> >(ball, nextId++));
 		return balls.back();
 	}
 
 	ParticleConfig<T> config;
 	unsigned int nextId;
-
-
 };
 
 template<typename T>
-using MetaballModelSPtr = std::shared_ptr < ParticleModel<T> > ;
+using ParticleModelSPtr = std::shared_ptr < ParticleModel<T> > ;
 	}
 }
 
