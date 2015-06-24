@@ -5,6 +5,7 @@
 #include <list>
 
 #include "Vector.h"
+#include "Space.h"
 
 namespace Crystal {
 	namespace Math {
@@ -31,6 +32,8 @@ public:
 
 	T getRadius() const { return radius; }
 
+	T getDiameter() const { return 2 * radius; }
+
 	Vector3d<T> getCenter() const { return center; }
 
 	Vector3d<T> getMinPosition() const { return Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
@@ -46,6 +49,12 @@ public:
 		return v * charge;
 	}
 
+	Space3d<T> getSpace() const {
+		const auto& start = getMinPosition();
+		const Vector3d<T> length(getDiameter(), getDiameter(), getDiameter());
+		return Space3d<T>(start, length);
+	}
+
 private:
 	Vector3d<float> center;
 	T radius;
@@ -53,10 +62,10 @@ private:
 };
 
 template<typename T>
-using MetaballSPtr = std::shared_ptr < Particle3d<T> > ;
+using ParticleSPtr = std::shared_ptr < Particle3d<T> > ;
 
 template<typename T>
-using MetaballSPtrList = std::list < MetaballSPtr<T> > ;
+using ParticleSPtrList = std::list < ParticleSPtr<T> > ;
 
 
 	}

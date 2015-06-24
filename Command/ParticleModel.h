@@ -45,7 +45,7 @@ template<typename T>
 class ParticleObject final : private UnCopyable
 {
 public:
-	ParticleObject(const Math::MetaballSPtr<T>& metaball, const unsigned int id) :
+	ParticleObject(const Math::ParticleSPtr<T>& metaball, const unsigned int id) :
 		id( id ),
 		metaball(metaball),
 		selected(true)
@@ -64,7 +64,7 @@ public:
 	void changeSelected() { selected = !selected; }
 
 
-	Math::MetaballSPtr<T> getMetaball() const { return metaball; }
+	Math::ParticleSPtr<T> getMetaball() const { return metaball; }
 
 	void move(const Math::Vector3d<float>& vector)
 	{
@@ -73,7 +73,7 @@ public:
 
 
 private:
-	Math::MetaballSPtr<T> metaball;
+	Math::ParticleSPtr<T> metaball;
 	unsigned int id;
 	bool selected;
 };
@@ -163,7 +163,7 @@ public:
 private:
 	ParticleObjectSPtrList<T> balls;
 
-	ParticleObjectSPtr<T> add(const Math::MetaballSPtr<T>& ball) {
+	ParticleObjectSPtr<T> add(const Math::ParticleSPtr<T>& ball) {
 		balls.push_back( std::make_shared< ParticleObject<T> >(ball, nextId++));
 		return balls.back();
 	}

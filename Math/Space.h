@@ -177,6 +177,17 @@ public:
 		return Space3d<T>(origin + v * 0.5, vector - v);
 	}
 
+	Space3d getBoundingSpace(const Space3d& rhs) const {
+		const auto minx = std::min<T>(this->getStart().getX(), rhs.getStart().getX());
+		const auto miny = std::min<T>(this->getStart().getY(), rhs.getStart().getY());
+		const auto minz = std::min<T>(this->getStart().getZ(), rhs.getStart().getZ());
+
+		const auto maxx = std::max<T>(this->getEnd().getX(), rhs.getEnd().getX());
+		const auto maxy = std::max<T>(this->getEnd().getY(), rhs.getEnd().getY());
+		const auto maxz = std::max<T>(this->getEnd().getZ(), rhs.getEnd().getZ());
+		const Vector3d<T> lengths(maxx - minx, maxy - miny, maxz - minz);
+		return Space3d<T>(Vector3d<T>(minx, miny, minz), lengths);
+	}
 
 private:
 	Vector3d<T> origin;

@@ -90,7 +90,16 @@ TEST(SpaceTest, TestGetOveralpped)
 		const auto rhs = Space3d<T>(Vector3d<T>(10, 10, 10), Vector3d<T>(10, 10, 10));
 		EXPECT_EQ( Space3d<T>(), lhs.getOverlapped(rhs));
 	}
+}
 
+TEST(SpaceTest, TestGetBoundingSpace)
+{
+	using T = float;
+	{
+		const auto& lhs = Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+		const auto& rhs = Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(10, 10, 10));
+		EXPECT_EQ(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(15, 15, 15)), lhs.getBoundingSpace(rhs));
+	}
 }
 
 TEST(SpaceTest, TestToArray)
