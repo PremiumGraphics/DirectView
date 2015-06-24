@@ -107,7 +107,7 @@ public:
 		const auto& center = config.getCenter();
 		const auto radius = config.getRadius();
 		const auto charge = config.getCharge();
-		const auto metaball = std::make_shared<Math::Metaball<T> >(center, radius, charge);
+		const auto metaball = std::make_shared<Math::Particle3d<T> >(center, radius, charge);
 		return add(metaball);
 	}
 

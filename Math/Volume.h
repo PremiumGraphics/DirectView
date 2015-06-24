@@ -4,7 +4,7 @@
 #include "Grid.h"
 #include "Space.h"
 #include "GridSpaceBase.h"
-#include "Kernel.h"
+#include "Particle.h"
 
 #include <memory>
 #include <list>
@@ -88,7 +88,7 @@ public:
 	}
 
 
-	void add(const Metaball<T>& metaball) {
+	void add(const Particle3d<T>& metaball) {
 		const auto center = metaball.getCenter();
 		const auto radius = metaball.getRadius();
 		//const Math::Vector3d<T> startPosition( center.getX()

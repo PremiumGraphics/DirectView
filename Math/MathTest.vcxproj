@@ -22,6 +22,7 @@
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -16,7 +16,7 @@ TEST(GridSpace3dTest, TestAddMetaball)
 	using T = float;
 	Grid3d<T> grid(3,3,3);
 	Volume3d<T> gs(Space3d<T>::Unit(), grid);
-	gs.add( Metaball<T>( Vector3d<T>(0.5,0.5,0.5),0.5, 1 ));
+	gs.add( Particle3d<T>( Vector3d<T>(0.5,0.5,0.5),0.5, 1 ));
 	//gs.setSmooth();
 }
 
