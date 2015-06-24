@@ -9,7 +9,7 @@
 #include "../Shader/IDRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 
-#include "../Command/MainModel.h"
+#include "MainModel.h"
 
 namespace Crystal {
 	namespace Graphics {

@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_UI_FRAME_H__
 #define __CRYSTAL_UI_FRAME_H__
 
-#include "../Command/MainModel.h"
+#include "MainModel.h"
 
 #include <memory>
 
@@ -43,7 +43,7 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnCreateMetaball(wxRibbonButtonBarEvent& e);
+	void OnCreateParticle(wxRibbonButtonBarEvent& e);
 
 
 	void OnCreateVolume(wxRibbonButtonBarEvent& e);
@@ -66,8 +66,6 @@ private:
 	Model::MainModelSPtr<float> model;
 
 	void setRendering();
-
-	void clear();
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

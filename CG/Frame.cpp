@@ -32,7 +32,7 @@ enum {
 	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
-	ID_CREATE_METABALL,
+	ID_CREATE_PARTICLE,
 	ID_CREATE_VOLUME,
 
 	ID_RENDERING_WIREFRAME,
@@ -95,7 +95,7 @@ Frame::Frame()
 	toolbar->AddButton( wxID_NEW,	"New",		wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ) );
 	toolbar->AddButton( wxID_OPEN,	"Open",		wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ));
 	toolbar->AddButton( wxID_SAVE,	"Save",		wxImage("../Resource/save.png") );
-	toolbar->AddButton( wxID_ANY,	"Save As",	wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
+	toolbar->AddButton( wxID_SAVEAS,"Save As",	wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
 	toolbar->AddButton( wxID_CLOSE, "Close",	wxImage("../Resource/cancel.png"));
 
 
@@ -127,13 +127,13 @@ Frame::Frame()
 
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
-	selection->AddButton(ID_SELECTED_MOVE,		"Move", wxBitmap(32, 32));
-	selection->AddButton(ID_SELECTED_EDIT,		"Edit", wxBitmap(32, 32));
+	selection->AddButton(ID_SELECTED_MOVE,		"Move", wxImage("../Resource/8-direction.png"));
+	//selection->AddButton(ID_SELECTED_EDIT,		"Edit", wxBitmap(32, 32));
 	selection->AddButton(ID_SELECTED_CLEAR,		"Unselect", wxImage(32, 32));
-	selection->AddButton(ID_SELECTED_DELETE,	"Delete", wxImage(32, 32));
+	selection->AddButton(ID_SELECTED_DELETE,	"Delete", wxImage("../Resource/delete.png"));
 
 	Connect(ID_SELECTED_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedMove));
-	Connect(ID_SELECTED_EDIT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedEdit));
+	//Connect(ID_SELECTED_EDIT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedEdit));
 	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
 	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
 
@@ -147,10 +147,10 @@ Frame::Frame()
 	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
 	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
 	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_METABALL, "Particle", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_VOLUME,	"Grid", wxImage(32, 32));
+	modelingBar->AddButton(ID_CREATE_PARTICLE, "Particle", wxImage("../Resource/point.png"));
+	modelingBar->AddButton(ID_CREATE_VOLUME,	"Grid", wxImage("../Resource/grid.png"));
 
-	Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateMetaball));
+	Connect(ID_CREATE_PARTICLE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateParticle));
 	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
@@ -198,12 +198,6 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	clear();
-}
-
-void Frame::clear()
-{
-	model->clear();
 }
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
@@ -215,9 +209,8 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 		return;
 	}
 
-	clear();
+	model->clear();
 	view->Refresh();
-
 }
 
 void Frame::OnClose( wxRibbonButtonBarEvent& )
@@ -238,6 +231,9 @@ void Frame::OnAbout( wxRibbonButtonBarEvent& )
 
 void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 {
+	wxMessageBox("TODO: ファイルフォーマット作成中");
+
+	/*
 	const wxString& filename = wxFileSelector
 		(
 		wxT("Import"),
@@ -251,25 +247,19 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 	if ( filename.empty() ) {
 		return;
 	}
-
-
-	//CGSFile file;
-	const bool isOk = false;//file.save( filename.ToStdString() );
-	if( isOk ) {
-		wxMessageBox( wxT("保存しました。") );
-	}
-	else {
-		wxMessageBox( wxT("保存に失敗しました。") );
-	}
+	*/
 }
 
 void Frame::OnFileSaveAs( wxRibbonButtonBarEvent& e )
 {
-	wxMessageBox("TODO");
+	wxMessageBox("TODO: ファイルフォーマット作成中");
 }
 
 void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 {
+	wxMessageBox("TODO: ファイルフォーマット作成中");
+
+	/*
 	const wxString& filename = wxFileSelector
 		(
 		wxT("Import"),
@@ -299,6 +289,9 @@ void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
 {
+	wxMessageBox("TODO");
+
+	/*
 	const wxString& filename = wxFileSelector
 		(
 		wxT("Import"),
@@ -315,46 +308,7 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 	}
 
 	wxFileName fn( filename );
-
-	/*
-	const wxString& ext = fn.GetExt();
-	if( ext == "obj" ) {
-		wxString path = fn.GetPath( false );
-		wxString name = fn.GetName() + "."  + fn.GetExt();
-
-		OBJFileReader reader;
-		OBJFile file = reader.read( path.ToStdString(), name.ToStdString() );
-		if( file.isValid() ) {
-			wxMessageBox( wxT("インポートに成功しました。") );
-		}
-		else {
-			wxMessageBox( wxT("インポートに失敗しました。"), wxEmptyString, wxICON_WARNING );
-			return;
-		}
-		//model->getPolygonModel()->polygons = obj.getPolygons();
-		//const MTLFile& mtl = obj.getMTLFile();
-		view->Refresh();
-
-		OnCameraFit( e );
-	}
-	else if( ext == "stl" || ext == "STL" ) {
-		STLFile file;
-		const bool isOK = file.read( filename.ToStdString() );
-		if (isOK) {
-			wxMessageBox(wxT("インポートに成功しました。"));
-		}
-		else {
-			wxMessageBox(wxT("インポートに失敗しました。"), wxEmptyString, wxICON_WARNING);
-			return;
-		}
-
-		//PolygonFactory model( model.getPolygonBuilder() );
-		//PolygonSPtrList g = model.create(file);
-		view->Refresh();
-
-		OnCameraFit( e );
-	}
-	*/
+*/
 }
 
 
@@ -483,7 +437,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnCreateMetaball(wxRibbonButtonBarEvent& e)
+void Frame::OnCreateParticle(wxRibbonButtonBarEvent& e)
 {
 	ParticleDialog dialog(this);
 	dialog.set(model->getMetaballConfig());
@@ -525,7 +479,6 @@ void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
 {
 	model->deleteSelected();
 	setRendering();
-	//view->setMode(View::SCALE);
 }
 
 void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)

@@ -63,14 +63,6 @@ public:
 		particle.clear();
 	}
 
-	void toVolume() {
-		volume->setValue(0);
-		for (const auto& b : particle.getParticles()) {
-			const auto& m = b->getMetaball();
-			volume->add(*(m));
-		}
-	}
-
 	void createMetaball() {
 		particle.create();
 		createSurface();
@@ -88,7 +80,11 @@ public:
 
 	void createSurface() {
 		surfaces.clear();
-		toVolume();
+		volume->setValue(0);
+		for (const auto& p : particle.getParticles()) {
+			const auto& m = p->getParticle();
+			volume->add(*(m));
+		}
 		const auto& ss = create(*volume);
 		setRendering();
 	}
@@ -111,7 +107,7 @@ public:
 
 		IO::STLCellVector cells;
 		for (const auto& s : surfaces) {
-			for (const Graphics::FaceSPtr<T>& f : s->getFaces()) {
+			for (const auto& f : s->getFaces()) {
 				Math::Vector3dVector<T> positions;
 				for (const auto& e : f->getEdges()) {
 					positions.push_back(e->getStartPosition());

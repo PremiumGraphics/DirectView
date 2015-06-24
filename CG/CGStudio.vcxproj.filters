@@ -23,6 +23,9 @@
     <ClInclude Include="ParticleDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="MainModel.h" />
+    <ClInclude Include="ParticleModel.h" />
+    <ClInclude Include="RenderingModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

@@ -64,7 +64,7 @@ public:
 	void changeSelected() { selected = !selected; }
 
 
-	Math::ParticleSPtr<T> getMetaball() const { return metaball; }
+	Math::ParticleSPtr<T> getParticle() const { return metaball; }
 
 	void move(const Math::Vector3d<float>& vector)
 	{

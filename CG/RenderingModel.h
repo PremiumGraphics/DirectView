@@ -98,7 +98,7 @@ public:
 
 	void add(const ParticleModel<T>& metaball) {
 		for (const auto& b : metaball.getParticles()) {
-			const auto center = b->getMetaball()->getCenter();
+			const auto& center = b->getParticle()->getCenter();
 			if (b->isSelected()) {
 				selectedPointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), 1);
 			}
@@ -114,27 +114,26 @@ public:
 	RenderingConfig<float> getConfig() const { return config; }
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
-
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 
 		glPointSize(getConfig().pointSize);
-
 		glLineWidth(getConfig().lineWidth);
 
 		wireframeRenderer.render(width, height, camera, lineBuffer, false);
-
 		wireframeRenderer.render(width, height, camera, pointBuffer, false);
-		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
-		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 
-		normalRenderer.render(width, height, camera,pointBuffer);
+		normalRenderer.render(width, height, camera, pointBuffer);
 
 		if (config.enableLight) {
 			smoothRenderer.render(width, height, camera, triangleBuffer);
 		}
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
+		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 	}
 
 	void buildRenderer() {
