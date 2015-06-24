@@ -15,7 +15,6 @@
     <ClInclude Include="MainModel.h" />
     <ClInclude Include="MetaballModel.h" />
     <ClInclude Include="RenderingModel.h" />
-    <ClInclude Include="SurfaceConstructCommand.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{81B09E8D-C1A8-4477-907A-ABB07883C9F8}</ProjectGuid>

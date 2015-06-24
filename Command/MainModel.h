@@ -1,13 +1,13 @@
 #ifndef __CRYSTAL_COMMAND_MAIN_MODEL_H__
 #define __CRYSTAL_COMMAND_MAIN_MODEL_H__
 
+#include "../Math/MarchingCube.h"
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
 
 #include "MetaballModel.h"
 #include "RenderingModel.h"
 #include "FileExportCommand.h"
-#include "SurfaceConstructCommand.h"
 
 #include <memory>
 #include <map>
@@ -67,12 +67,13 @@ public:
 		volume(std::make_shared< Math::Volume3d<T> >()),
 		uiMode( CAMERA_TRANSLATE )
 	{
+		mc.buildTable();
 		createVolume(vConfig);
 	}
 
 	void clear()
 	{
-		surface.clear();
+		surfaces.clear();
 		metaball.clear();
 	}
 
@@ -100,15 +101,28 @@ public:
 	*/
 
 	void createSurface() {
-		surface.clear();
+		surfaces.clear();
 		toVolume();
-		const auto ss = surface.create(*volume);
+		const auto& ss = create(*volume);
 		setRendering();
+	}
+
+
+	Graphics::SurfaceSPtr<T> create(const Math::Volume3d<float>& ss)
+	{
+		const auto& triangles = mc.march(ss, 0.5);
+
+		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
+		for (const auto t : triangles) {
+			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
+		}
+		surfaces.push_back(polygon);
+		return surfaces.back();
 	}
 
 	void doExport(const std::string& filename) const {
 		FileExportCommand<T> command;
-		command.exportToSTL(filename, surface.getSurfaces());
+		command.exportToSTL(filename, surfaces);
 	}
 
 	void createVolume(const VolumeConfig<T>& config) {
@@ -142,12 +156,12 @@ public:
 	}
 
 	void deleteSelected() {
-		surface.clear();
+		surfaces.clear();
 		metaball.deleteSelected();
 	}
 
 	void clearSelected() {
-		surface.clear();
+		surfaces.clear();
 		metaball.clearSelected();
 	}
 
@@ -163,7 +177,7 @@ public:
 		rendering.clear();
 		rendering.add(metaball);
 		rendering.add(*volume);
-		for (const auto& s : surface.getSurfaces()) {
+		for (const auto& s : surfaces) {
 			rendering.add(*s);
 		}
 
@@ -205,7 +219,8 @@ private:
 	Math::Volume3dSPtr<T> volume;
 	ParticleModel<T> metaball;
 	RenderingCommand<T> rendering;
-	SurfaceConstructCommand<T> surface;
+	Math::MarchingCube<T> mc;
+	Graphics::SurfaceSPtrList<T> surfaces;
 	UIMode uiMode;
 	VolumeConfig<T> vConfig;
 
