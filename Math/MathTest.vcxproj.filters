@@ -21,6 +21,7 @@
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="DensityTest.cpp" />
+    <ClCompile Include="RangeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />

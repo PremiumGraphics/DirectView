@@ -25,6 +25,7 @@
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="RangeTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
