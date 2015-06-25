@@ -174,7 +174,7 @@ public:
 		for (size_t i = 0; i < ps.size(); ++i) {
 			const auto& pss = ps[i].toArray();
 			positions.insert(positions.end(), pss.begin(), pss.end());
-			values.push_back( range.getNormalized( vs[i] ));
+			values.push_back( vs[i] );
 		}
 		//positions.add( surface.)
 	}

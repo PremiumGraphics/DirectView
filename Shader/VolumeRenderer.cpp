@@ -20,10 +20,10 @@ void VolumeRenderer::build()
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
-		"	color.r = 0;			\n"
-		"	color.g = 0;			\n"
-		"	color.b = 1;					\n"
-		"	color.a = density;		\n"
+		"	color.r = (density <0) ? 1 : 0;		\n"
+		"	color.g = 0.0;			\n"
+		"	color.b = (density >0) ? 1 : 0;					\n"
+		"	color.a = abs(density);		\n"
 		"}\n"
 		;
 
