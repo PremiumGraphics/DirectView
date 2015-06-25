@@ -168,6 +168,10 @@ public:
 		rendering.buildRenderer();
 	}
 
+	void reverseParticleCharge() {
+		particle.reverseCharge();
+	}
+
 
 	void render(const int width, const int height) {
 		rendering.render(width, height, *camera);
@@ -200,7 +204,6 @@ public:
 		else if (getUIMode() == PARTICLE_TRANSLATE) {
 			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
 			particle.move(v);
-			particle.addCharge(right.getX());
 			particle.addRadius(right.getY());
 			createPreVolume();
 			const auto& s = createSurface(preVolume);

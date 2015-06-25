@@ -44,6 +44,10 @@ public:
 		charge += c;
 	}
 
+	void reverseCharge() {
+		charge *= -1;
+	}
+
 	void addRadius(const T r) {
 		radius += r;
 	}

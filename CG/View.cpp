@@ -26,12 +26,12 @@ model( model )
 //	const int attributes[] = {WX_GL_SAMPLE_BUFFERS};
 //	bool b = IsDisplaySupported( attributes );
 
-	Connect( wxEVT_PAINT, wxPaintEventHandler( View::OnPaint ) );
-	Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( View::OnKeyDown ) );
-	//Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
-	Connect( wxEVT_SIZE, wxSizeEventHandler( View::OnSize ) );
+Connect(wxEVT_PAINT, wxPaintEventHandler(View::OnPaint));
+Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(View::OnKeyDown));
+//Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
+Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
 
-	model->buildRenderer();
+model->buildRenderer();
 }
 
 View::~View()
@@ -40,17 +40,17 @@ View::~View()
 
 
 
-void View::OnPaint( wxPaintEvent& )
+void View::OnPaint(wxPaintEvent&)
 {
-	wxPaintDC dc( this );
+	wxPaintDC dc(this);
 
 	const wxSize size = GetClientSize();
 
 	glContext.SetCurrent(*this);
 
-	glViewport(0, 0, size.x, size.y );
+	glViewport(0, 0, size.x, size.y);
 
-	draw( size );
+	draw(size);
 
 	glFlush();
 
@@ -62,33 +62,33 @@ void View::OnKeyDown(wxKeyEvent& event)
 	CameraSPtr<float> camera = model->getCamera();
 	Vector3d<float> pos = camera->getPos();
 
-	switch ( event.GetKeyCode() ) {
+	switch (event.GetKeyCode()) {
 	case WXK_RIGHT:
-		pos += Vector3d<float>( 0.1f, 0.0f, 0.0f );
+		pos += Vector3d<float>(0.1f, 0.0f, 0.0f);
 		break;
 	case WXK_LEFT:
-		pos -= Vector3d<float>( 0.1f, 0.0f, 0.0f );
+		pos -= Vector3d<float>(0.1f, 0.0f, 0.0f);
 		break;
 	case WXK_DOWN:
-		pos += Vector3d<float>( 0.0f, 0.1f, 0.0f );
+		pos += Vector3d<float>(0.0f, 0.1f, 0.0f);
 		break;
 	case WXK_UP:
-		pos -= Vector3d<float>( 0.0f, 0.1f, 0.0f );
+		pos -= Vector3d<float>(0.0f, 0.1f, 0.0f);
 		break;
 	default:
 		event.Skip();
 		return;
 	};
 
-	camera->setPos( pos );
+	camera->setPos(pos);
 
-	draw( GetSize() );
+	draw(GetSize());
 
 	SwapBuffers();
 
 }
 
-void View::OnMouse( wxMouseEvent& event )
+void View::OnMouse(wxMouseEvent& event)
 {
 	if (event.LeftDClick()) {
 		/*
@@ -102,10 +102,10 @@ void View::OnMouse( wxMouseEvent& event )
 		int index = 0;
 
 		for (int y = height - 1; y >= 0; --y) {
-			for (int x = 0; x < width; ++x) {
-				image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
-				index += 4;
-			}
+		for (int x = 0; x < width; ++x) {
+		image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
+		index += 4;
+		}
 		}
 
 		const wxPoint& position = event.GetPosition();
@@ -120,6 +120,12 @@ void View::OnMouse( wxMouseEvent& event )
 		//model->setRendering();
 		Refresh();
 
+		return;
+	}
+
+	if (event.RightDClick() ) {
+		model->reverseParticleCharge();
+		Refresh();
 		return;
 	}
 
