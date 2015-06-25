@@ -65,6 +65,18 @@ public:
 		}
 	}
 
+	std::vector<T> getValues() const {
+		std::vector<T> values;
+		for (size_t x = 0; x < grid.getSizeX(); ++x) {
+			for (size_t y = 0; y < grid.getSizeY(); ++y) {
+				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
+					values.push_back( grid.get(x, y, z) );
+				}
+			}
+		}
+		return values;
+	}
+
 	Grid3d<T> getGrid() const { return grid; }
 
 

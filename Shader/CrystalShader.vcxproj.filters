@@ -6,6 +6,7 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
+    <ClCompile Include="VolumeRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SmoothRenderer.h" />
@@ -13,5 +14,6 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="VolumeRenderer.h" />
   </ItemGroup>
 </Project>

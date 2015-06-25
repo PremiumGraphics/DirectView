@@ -4,6 +4,8 @@
 #include "../Graphics/Surface.h"
 #include "../Math/Volume.h"
 #include "../Math/Line.h"
+#include "../Math/Range.h"
+
 
 #include <vector>
 
@@ -154,6 +156,44 @@ public:
 	}
 
 };
+
+
+template<typename T>
+class VolumeBuffer final
+{
+public:
+	VolumeBuffer() :
+	range( 0.0, 1.0)
+	{
+	}
+
+	void add(const Math::Volume3d<T>& volume) {
+		const auto& ps = volume.toCenterPositions();
+		const auto& vs = volume.getValues();
+		assert(ps.size() == vs.size());
+		for (size_t i = 0; i < ps.size(); ++i) {
+			const auto& pss = ps[i].toArray();
+			positions.insert(positions.end(), pss.begin(), pss.end());
+			values.push_back( range.getNormalized( vs[i] ));
+		}
+		//positions.add( surface.)
+	}
+
+	std::vector<T> getPositions() const { return positions; }
+
+	std::vector<T> getValues() const { return values; }
+
+	void clear() {
+		positions.clear();
+		values.clear();
+	}
+
+private:
+	std::vector<T> positions;
+	std::vector<T> values;
+	Math::Range<T> range;
+};
+
 	}
 }
 

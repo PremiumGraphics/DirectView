@@ -180,7 +180,7 @@ public:
 	void setRendering() {
 		rendering.clear();
 		rendering.add(particle);
-		rendering.add(bakedVolume);
+		rendering.add(preVolume);
 		for (const auto& s : preSurfaces) {
 			rendering.add(*s);
 		}

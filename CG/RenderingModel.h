@@ -5,6 +5,7 @@
 #include "../Shader/IDRenderer.h"
 #include "../Shader/NormalRenderer.h"
 #include "../Shader/SmoothRenderer.h"
+#include "../Shader/VolumeRenderer.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -54,6 +55,7 @@ public:
 		selectedPointBuffer.clear();
 		lineBuffer.clear();
 		triangleBuffer.clear();
+		vBuffer.clear();
 	}
 
 	/*
@@ -84,6 +86,7 @@ public:
 		lineBuffer.add(volume, -1, -1, 0);
 		if (config.drawCells) {
 			addCells(volume);
+			vBuffer.add(volume);
 		}
 	}
 
@@ -127,12 +130,23 @@ public:
 		glClear(GL_DEPTH_BUFFER_BIT);
 		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+
+		volumeRenderer.render(width, height, camera, vBuffer);
+
+		glDisable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void buildRenderer() {
 		normalRenderer.build();
 		wireframeRenderer.build();
 		smoothRenderer.build();
+		volumeRenderer.build();
 	}
 
 private:
@@ -141,11 +155,12 @@ private:
 	Graphics::NormalRenderer normalRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
 	Graphics::SmoothRenderer smoothRenderer;
-	
+	Shader::VolumeRenderer volumeRenderer;
 
 	Graphics::PointBuffer<T> pointBuffer;
 	Graphics::LineBuffer<T> lineBuffer;
 	Graphics::TriangleBuffer<T> triangleBuffer;
+	Graphics::VolumeBuffer<T> vBuffer;
 
 	Graphics::PointBuffer<T> selectedPointBuffer;
 

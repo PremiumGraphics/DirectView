@@ -44,13 +44,6 @@ private:
 
 	void down();
 
-
-	/*
-	std::vector<float> positions;
-	std::vector<int> types;
-	std::vector<int> ids;
-	std::vector<int> isSelecteds;
-	*/
 	Graphics::ShaderObject shader;
 };
 
