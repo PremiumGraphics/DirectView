@@ -86,6 +86,8 @@ public:
 		lineBuffer.add(volume, -1, -1, 0);
 		if (config.drawCells) {
 			addCells(volume);
+		}
+		if (config.drawVolume) {
 			vBuffer.add(volume);
 		}
 	}
