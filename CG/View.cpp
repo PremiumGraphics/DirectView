@@ -114,8 +114,8 @@ void View::OnMouse( wxMouseEvent& event )
 		//wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 
 		const unsigned int id = g;
-		model->changeSelected(id);
-		model->setRendering();
+		model->bakeParticleToVolume();
+		//model->setRendering();
 		Refresh();
 
 		return;

@@ -96,16 +96,9 @@ public:
 		}
 	}
 
-	void add(const ParticleModel<T>& metaball) {
-		for (const auto& b : metaball.getParticles()) {
-			const auto& center = b->getParticle()->getCenter();
-			if (b->isSelected()) {
-				selectedPointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), 1);
-			}
-			else {
-				pointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), b->getId(), 0);
-			}
-		}
+	void add(const Math::Particle3d<T>& particle) {
+		const auto& center = particle.getCenter();
+		selectedPointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), 0, 1);
 
 	}
 

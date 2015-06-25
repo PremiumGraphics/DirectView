@@ -6,7 +6,6 @@
 #include "../Util/UnCopyable.h"
 #include "../IO/STLFile.h"
 
-#include "ParticleModel.h"
 #include "RenderingModel.h"
 
 #include <memory>
@@ -18,7 +17,7 @@ namespace Crystal {
 enum UIMode
 {
 	CAMERA_TRANSLATE,
-	SELECTED_TRANSLATE,
+	PARTICLE_TRANSLATE,
 };
 
 template<typename T>
@@ -43,6 +42,38 @@ public:
 	Math::Space3d<T> space;
 };
 
+template<typename T>
+class ParticleConfig {
+public:
+	ParticleConfig()
+	{
+		setDefault();
+	}
+
+	ParticleConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
+		center(center),
+		radius(radius),
+		charge(charge)
+	{}
+
+	void setDefault() {
+		center = Math::Vector3d<T>(0, 0, 0);
+		radius = 1;
+		charge = 1;
+	}
+
+	Math::Vector3d<T> getCenter() const { return center; }
+
+	T getRadius() const { return radius; }
+
+	T getCharge() const { return charge; }
+
+private:
+	Math::Vector3d<T> center;
+	T radius;
+	T charge;
+};
+
 
 template<typename T>
 class MainModel final : private UnCopyable
@@ -50,22 +81,21 @@ class MainModel final : private UnCopyable
 public:
 	MainModel() :
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		volume(std::make_shared< Math::Volume3d<T> >()),
 		uiMode( CAMERA_TRANSLATE )
 	{
 		mc.buildTable();
-		createVolume(vConfig);
+		setupVolumes();
+		createPreVolume();
+		createSurface(preVolume);
+		setRendering();
 	}
 
 	void clear()
 	{
-		surfaces.clear();
-		particle.clear();
-	}
-
-	void createMetaball() {
-		particle.create();
-		createSurface();
+		preVolume.setValue(0);
+		bakedVolume.setValue(0);
+		preSurfaces.clear();
+		//bakedSurfaces.clear();
 	}
 
 	void fitCamera() {
@@ -78,35 +108,46 @@ public:
 	}
 	*/
 
-	void createSurface() {
-		surfaces.clear();
-		volume->setValue(0);
-		for (const auto& p : particle.getParticles()) {
-			const auto& m = p->getParticle();
-			volume->add(*(m));
-		}
-		const auto& ss = create(*volume);
+	void setupVolumes() {
+		Math::Grid3d<T> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+		Math::Volume3d<T> v(vConfig.space, grid);
+		preVolume = v;
+		bakedVolume = v;
+	}
+
+	void createPreVolume() {
+		preSurfaces.clear();
+		preVolume = bakedVolume;
+		preVolume.add(particle);
+		const auto& s = createSurface(preVolume);
+		preSurfaces.push_back(s);
 		setRendering();
 	}
 
 
-	Graphics::SurfaceSPtr<T> create(const Math::Volume3d<float>& ss)
+	void bakeParticleToVolume() {
+		bakedVolume = preVolume;
+		const auto& surface = createSurface(bakedVolume);
+		preSurfaces.push_back(surface);
+		setRendering();
+	}
+
+	Graphics::SurfaceSPtr<T> createSurface(const Math::Volume3d<float>& ss)
 	{
 		const auto& triangles = mc.march(ss, vConfig.threshold);
 
-		Graphics::SurfaceSPtr<T> polygon = std::make_shared<Graphics::Surface<float> >();
+		Graphics::SurfaceSPtr<T> surface = std::make_shared<Graphics::Surface<float> >();
 		for (const auto t : triangles) {
-			polygon->add(t, Graphics::ColorRGBA<float>::Blue());
+			surface->add(t, Graphics::ColorRGBA<float>::Blue());
 		}
-		surfaces.push_back(polygon);
-		return surfaces.back();
+		return surface;
 	}
 
 	void doExport(const std::string& filename) const {
 		IO::STLFile file;
 
 		IO::STLCellVector cells;
-		for (const auto& s : surfaces) {
+		for (const auto& s : preSurfaces) {
 			for (const auto& f : s->getFaces()) {
 				Math::Vector3dVector<T> positions;
 				for (const auto& e : f->getEdges()) {
@@ -123,12 +164,6 @@ public:
 		file.writeASCII(filename);
 	}
 
-	void createVolume(const VolumeConfig<T>& config) {
-		Math::Grid3d<T> grid(config.resx, config.resy, config.resz);
-		Math::Volume3dSPtr<T> ss(new Math::Volume3d<T>(config.space, grid));
-		volume = ss;
-		createSurface();
-	}
 
 	void buildRenderer() {
 		rendering.buildRenderer();
@@ -142,60 +177,30 @@ public:
 
 	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
-	void changeSelected(const unsigned int id) {
-		const auto selected = particle.find(id);
-		if (selected != nullptr) {
-			selected->changeSelected();
-		}
-	}
-
-
-	void move(const Math::Vector3d<T>& vector) {
-		particle.move(vector);
-	}
-
-	void deleteSelected() {
-		surfaces.clear();
-		particle.deleteSelected();
-	}
-
-	void clearSelected() {
-		surfaces.clear();
-		particle.clearSelected();
-	}
-
-	void selectAll() {
-		particle.selectAll();
-	}
-
-	ParticleConfig<T> getMetaballConfig() const {
-		return particle.getConfig();
-	}
-
-	void setMetaballConfig(const ParticleConfig<T>& config) {
-		particle.setConfig(config);
-	}
 
 	void setRendering() {
 		rendering.clear();
 		rendering.add(particle);
-		rendering.add(*volume);
-		for (const auto& s : surfaces) {
+		rendering.add(bakedVolume);
+		for (const auto& s : preSurfaces) {
 			rendering.add(*s);
 		}
-
+		/*
+		for (const auto& s : bakedSurfaces) {
+			rendering.add(*s);
+		}
+		*/
 	}
-
-	//Graphics::PointBuffer getPointBuffer() { }
 
 	void move(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& angle) {
 		if (getUIMode() == CAMERA_TRANSLATE) {
 			getCamera()->move(pos);
 			getCamera()->addAngle(angle);
 		}
-		else if (getUIMode() == SELECTED_TRANSLATE) {
-			move(pos);
-			createSurface();
+		else if (getUIMode() == PARTICLE_TRANSLATE) {
+			particle.move(pos);
+			createPreVolume();
+			const auto& s = createSurface(preVolume);
 			setRendering();
 			//ssTransformCmd->move(pos);
 		}
@@ -217,15 +222,26 @@ public:
 
 	void setVolumeConfig(const VolumeConfig<T>& config) { vConfig = config; }
 
+	ParticleConfig<T> getMetaballConfig() const { return pConfig; }
+
+	void setMetaballConfig(const ParticleConfig<T>& config) { pConfig = config; }
+
+
 private:
 	Graphics::CameraSPtr<T> camera;
-	Math::Volume3dSPtr<T> volume;
-	ParticleModel<T> particle;
+
+	Math::Volume3d<T> preVolume;
+	Math::Volume3d<T> bakedVolume;
+	//Math::Volume3d<T> volume;
+
+	Math::Particle3d<T> particle;
 	RenderingCommand<T> rendering;
 	Math::MarchingCube<T> mc;
-	Graphics::SurfaceSPtrList<T> surfaces;
+	Graphics::SurfaceSPtrList<T> preSurfaces;
+	//Graphics::SurfaceSPtrList<T> bakedSurfaces;
 	UIMode uiMode;
 	VolumeConfig<T> vConfig;
+	ParticleConfig<T> pConfig;
 
 };
 

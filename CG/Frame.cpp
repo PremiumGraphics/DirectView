@@ -33,12 +33,15 @@ enum {
 	ID_SELECTED_CLEAR,
 	ID_SELECTED_DELETE,
 
-	ID_CREATE_PARTICLE,
+	ID_PARTICLE,
 	ID_CREATE_VOLUME,
 
 	ID_RENDERING_WIREFRAME,
 
 	ID_CAMERA_FIT,
+
+	//ID_BAKE_PARTICLE_TO_VOLUME,
+	//ID_BAKE_VOLUME_TO_SURFACE,
 
 	ID_CAPTURE,
 };
@@ -120,11 +123,18 @@ Frame::Frame()
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
+	operation->AddButton( ID_PARTICLE, "Particle", wxImage("../Resource/point.png"));
+	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
+
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
+	Connect( ID_PARTICLE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
+	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
+
+	/*
 
 	wxRibbonPanel* selectionPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Selection"));
 	wxRibbonButtonBar* selection = new wxRibbonButtonBar(selectionPanel);
@@ -139,6 +149,7 @@ Frame::Frame()
 	Connect(ID_SELECT_ALL, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectAll));
 	Connect(ID_SELECTED_CLEAR,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedClear));
 	Connect(ID_SELECTED_DELETE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnSelectedDelete));
+	*/
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
@@ -147,15 +158,8 @@ Frame::Frame()
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRendering ) );
 	//Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 
-	wxRibbonPanel* modelingPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Modeling"));
-	wxRibbonButtonBar* modelingBar = new wxRibbonButtonBar(modelingPanel);
-	//modelingBar->AddHybridButton(ID_CREATE_SPHERE, "Sphere", wxImage(32, 32));
-	modelingBar->AddButton(ID_CREATE_PARTICLE, "Particle", wxImage("../Resource/point.png"));
-	modelingBar->AddButton(ID_CREATE_VOLUME,	"Grid", wxImage("../Resource/grid.png"));
-
-	Connect(ID_CREATE_PARTICLE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateParticle));
+	//Connect(ID_CREATE_PARTICLE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateParticle));
 	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
-	Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 
 
@@ -440,16 +444,9 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnCreateParticle(wxRibbonButtonBarEvent& e)
+void Frame::OnParticleTranslate(wxRibbonButtonBarEvent& e)
 {
-	ParticleDialog dialog(this);
-	dialog.set(model->getMetaballConfig());
-	const auto result = dialog.ShowModal();
-	if (result == wxID_OK) {
-		model->setMetaballConfig(dialog.get());
-	}
-	model->createMetaball();
-	setRendering();
+	model->setUIMode(Model::UIMode::PARTICLE_TRANSLATE);
 }
 
 void Frame::setRendering()
@@ -459,38 +456,6 @@ void Frame::setRendering()
 
 }
 
-void Frame::OnSelectedEdit(wxRibbonButtonBarEvent& e)
-{
-	//model->editSelected();
-	ParticleDialog dialog(this);
-	dialog.ShowModal();
-}
-
-
-void Frame::OnSelectedMove(wxRibbonButtonBarEvent& e)
-{
-	model->setUIMode(Model::UIMode::SELECTED_TRANSLATE);
-}
-
-void Frame::OnSelectAll(wxRibbonButtonBarEvent& e)
-{
-	model->selectAll();
-	setRendering();
-}
-
-
-void Frame::OnSelectedClear(wxRibbonButtonBarEvent& e)
-{
-	model->clearSelected();
-	setRendering();
-}
-
-void Frame::OnSelectedDelete(wxRibbonButtonBarEvent& e)
-{
-	model->deleteSelected();
-	setRendering();
-}
-
 void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
@@ -498,7 +463,7 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
 		model->setVolumeConfig(dialog.get());
-		model->createVolume(dialog.get());
+		model->setupVolumes();
 		setRendering();
 	}
 }

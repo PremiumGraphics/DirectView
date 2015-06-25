@@ -133,6 +133,18 @@ public:
 		return ss;
 	}
 
+	Volume3d& operator+=(const Volume3d<T>& rhs) {
+		for (size_t x = 0; x < getSizeX(); ++x) {
+			for (size_t y = 0; y < getSizeY(); ++y) {
+				for (size_t z = 0; z < getSizeZ(); ++z) {
+					const auto v = rhs.grid.get(x, y, z);
+					grid.add( x,y,z,v);
+				}
+			}
+		}
+		return (*this);
+	}
+
 	/*
 	Volume3d createAdd(const Volume3d<T>& rhs) const {
 		const auto space = getSpace().createBoundingSpace(rhs.getSpace());

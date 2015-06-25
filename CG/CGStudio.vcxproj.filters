@@ -26,9 +26,6 @@
     <ClInclude Include="MainModel.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleModel.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="RenderingModel.h">
       <Filter>Model</Filter>
     </ClInclude>

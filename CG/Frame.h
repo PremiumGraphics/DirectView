@@ -43,21 +43,9 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnCreateParticle(wxRibbonButtonBarEvent& e);
-
+	void OnParticleTranslate(wxRibbonButtonBarEvent& e);
 
 	void OnCreateVolume(wxRibbonButtonBarEvent& e);
-
-	void OnSelectedMove(wxRibbonButtonBarEvent& e);
-
-	void OnSelectedEdit(wxRibbonButtonBarEvent& e);
-
-	void OnSelectAll(wxRibbonButtonBarEvent& e);
-
-	void OnSelectedClear(wxRibbonButtonBarEvent& e);
-
-	void OnSelectedDelete(wxRibbonButtonBarEvent& e);
-
 
 	void OnVolumeConfig(wxRibbonButtonBarEvent& e);
 

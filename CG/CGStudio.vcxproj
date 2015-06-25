@@ -158,7 +158,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MainModel.h" />
     <ClInclude Include="ParticleDialog.h" />
-    <ClInclude Include="ParticleModel.h" />
     <ClInclude Include="RenderingDialog.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />
