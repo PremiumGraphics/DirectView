@@ -154,6 +154,12 @@ public:
 	}
 	*/
 
+	/*
+	static T getMax() { return Grid3; }
+
+	static T getMin() { return -1; }
+	*/
+
 private:
 	Grid3d<T> grid;
 

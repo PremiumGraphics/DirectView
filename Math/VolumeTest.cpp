@@ -1,12 +1,13 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Volume.h"
+#include "Density.h"
 
 using namespace Crystal::Math;
 
 TEST(GridSpace3dTest, TestGetStart)
 {
-	using T = float;
+	using T =float;
 	Volume3d<T> gs;
 	EXPECT_EQ(Vector3d<T>(0, 0, 0), gs.getStart());
 }

@@ -91,6 +91,7 @@ void View::OnKeyDown(wxKeyEvent& event)
 void View::OnMouse( wxMouseEvent& event )
 {
 	if (event.LeftDClick()) {
+		/*
 		const int width = GetClientSize().GetWidth();
 		const int height = GetClientSize().GetHeight();
 		std::vector< GLubyte > pixels(width * height * 4);
@@ -114,6 +115,7 @@ void View::OnMouse( wxMouseEvent& event )
 		//wxMessageBox(wxString::Format("%d %d %d", r, g, b));
 
 		const unsigned int id = g;
+		*/
 		model->bakeParticleToVolume();
 		//model->setRendering();
 		Refresh();
@@ -122,26 +124,27 @@ void View::OnMouse( wxMouseEvent& event )
 	}
 
 	if( event.Dragging() ) {
-		Vector3d<float> pos;
-		Vector3d<float> angle;
+		Vector3d<float> right;
+		Vector3d<float> middle;
+		Vector3d<float> left;
 
 		if( event.MiddleIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			pos += Vector3d<float>( 0.0f, 0.0f, diff.y * 1.0f );
+			middle += Vector3d<float>( diff.x * 0.01, 0.0f, 0.0f );
 		}
 		else if( event.RightIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			angle += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
+			right += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
 		}
 		else if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			pos += Vector3d<float>( diff.x * 0.1f, -(diff.y * 0.1f), 0.0f );	
+			left += Vector3d<float>( diff.x * 0.01f, -(diff.y * 0.01f), 0.0f );	
 		}
 		
-		model->move(pos, angle);
+		model->move(left, middle, right);
 
 		draw( GetSize() );
 
@@ -149,6 +152,8 @@ void View::OnMouse( wxMouseEvent& event )
     }
 
 	mouseStart = event.GetPosition();
+
+
 }
 
 void View::OnSize(wxSizeEvent& e)

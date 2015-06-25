@@ -59,9 +59,19 @@ public:
 		return !equals(rhs);
 	}
 
+	/*
+	static T getMax() { return 1; }
 
+	static T getMin() { return -1; }
+	*/
 private:
 	std::vector< T > values;
+
+	/*
+	T clamp(const T v) {
+		return std::min<T>(getMax(), std::max<T>(getMin(), v));
+	}
+	*/
 };
 
 template<typename T>

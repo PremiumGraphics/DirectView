@@ -115,23 +115,23 @@ Frame::Frame()
 	toolbar->AddButton( ID_CAPTURE, "Capture",	wxImage("../Resource/screenshot.png"));
 
 
-	Connect( ID_IMPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
-	Connect( ID_EXPORT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
+	Connect( ID_IMPORT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
+	Connect( ID_EXPORT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
 	Connect( ID_CAPTURE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
 
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
-	operation->AddButton( ID_CAMERA_FIT,		"Fit",		wxImage("../Resource/zoom.png") );
-	operation->AddButton( ID_PARTICLE, "Particle", wxImage("../Resource/point.png"));
+	operation->AddButton( ID_PARTICLE,  "Particle", wxImage("../Resource/point.png"));
+	operation->AddButton( ID_CAMERA_FIT,	"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
 
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
-	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_PARTICLE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
+	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 
 	/*

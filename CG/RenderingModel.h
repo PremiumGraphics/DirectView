@@ -24,7 +24,7 @@ public:
 		normalScale = 1;
 		lineWidth = 1;
 		pointSize = 20;
-		enableLight = false;
+		enableLight = true;
 		drawCells = false;
 		drawNormal = false;
 	}

@@ -191,15 +191,17 @@ public:
 		*/
 	}
 
-	void move(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& angle) {
+	void move(const Math::Vector3d<T>& left, const Math::Vector3d<T>& middle, const Math::Vector3d<T>& right) {
 		if (getUIMode() == CAMERA_TRANSLATE) {
-			getCamera()->move(pos);
-			getCamera()->addAngle(angle);
+			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
+			camera->move(v);
+			camera->addAngle(right);
 		}
 		else if (getUIMode() == PARTICLE_TRANSLATE) {
-			particle.move(pos);
-			particle.addCharge(angle.getX());
-			particle.addRadius(angle.getY());
+			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
+			particle.move(v);
+			particle.addCharge(right.getX());
+			particle.addRadius(right.getY());
 			createPreVolume();
 			const auto& s = createSurface(preVolume);
 			setRendering();

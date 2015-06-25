@@ -33,6 +33,8 @@ private:
 
 	void OnMouse( wxMouseEvent& e );
 
+	//void OnMouse
+
 	void OnSize( wxSizeEvent& e );
 
 	void draw(const wxSize& size);

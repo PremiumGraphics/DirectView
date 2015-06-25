@@ -27,7 +27,7 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="RenderingModel.h">
-      <Filter>Model</Filter>
+      <Filter>resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
