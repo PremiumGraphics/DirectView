@@ -40,6 +40,14 @@ public:
 
 	Vector3d<T> getMaxPosition() const { return Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
 
+	void addCharge(const T c) {
+		charge += c;
+	}
+
+	void addRadius(const T r) {
+		radius += r;
+	}
+
 	//Space3d<T> getSpace() const { return Space3d<T>( ) }
 
 	T getValue(const Math::Vector3d<T>& pos) const

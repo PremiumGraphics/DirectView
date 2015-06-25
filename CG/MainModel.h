@@ -124,7 +124,6 @@ public:
 		setRendering();
 	}
 
-
 	void bakeParticleToVolume() {
 		bakedVolume = preVolume;
 		const auto& surface = createSurface(bakedVolume);
@@ -199,6 +198,8 @@ public:
 		}
 		else if (getUIMode() == PARTICLE_TRANSLATE) {
 			particle.move(pos);
+			particle.addCharge(angle.getX());
+			particle.addRadius(angle.getY());
 			createPreVolume();
 			const auto& s = createSurface(preVolume);
 			setRendering();
@@ -209,6 +210,17 @@ public:
 		}
 	}
 
+	/*
+	void addParticleCharge(const T delta) {
+		particle.addCharge(delta);
+	}
+	*/
+
+
+/*	void addParticleRadius(const T delta) {
+		particle
+	}
+	*/
 
 	UIMode getUIMode() const { return uiMode; }
 
@@ -221,11 +233,6 @@ public:
 	VolumeConfig<T> getVolumeConfig() const { return vConfig; }
 
 	void setVolumeConfig(const VolumeConfig<T>& config) { vConfig = config; }
-
-	ParticleConfig<T> getMetaballConfig() const { return pConfig; }
-
-	void setMetaballConfig(const ParticleConfig<T>& config) { pConfig = config; }
-
 
 private:
 	Graphics::CameraSPtr<T> camera;
