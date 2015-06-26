@@ -39,6 +39,7 @@ enum {
 
 	ID_RENDERING_POINT,
 	ID_RENDERING_WIREFRAME,
+	ID_RENDERING_NORMAL,
 	ID_RENDERING_VOLUME,
 	ID_RENDERING_SMOOTH,
 
@@ -123,13 +124,16 @@ Frame::Frame()
 	Connect( ID_EXPORT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
 	Connect( ID_CAPTURE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
 
-	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Operation") );
+	wxRibbonPanel *cameraPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Camera"));
+	wxRibbonButtonBar* camera = new wxRibbonButtonBar(cameraPanel);
+	camera->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
+	camera->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
+
+	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Brush") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_PARTICLE_MOVE,  "Move", wxImage("../Resource/point.png"));
 	operation->AddButton( ID_PARTICLE_STROKE, "STROKE", wxImage("../Resource/point.png"));
 
-	operation->AddButton( ID_CAMERA_FIT,	"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
 
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
@@ -162,8 +166,10 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/wireframe.png"));
-	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
+	rendering->AddHybridButton( ID_RENDERING_POINT,			"Point", wxImage("../Resource/wireframe.png"));
+	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,		"Wireframe", wxImage("../Resource/wireframe.png") );
+	rendering->AddHybridButton( ID_RENDERING_NORMAL, "Normal", wxImage("../Resource/wireframe.png"));
+
 	rendering->AddHybridButton( ID_RENDERING_VOLUME,		"Volume", wxImage("../Resource/wireframe.png"));
 	rendering->AddHybridButton( ID_RENDERING_SMOOTH,		"Smooth", wxImage("../Resource/wireframe.png"));
 
@@ -423,6 +429,7 @@ void Frame::OnRenderingPointConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 {
+	/*
 	WireframeConfigDialog dialog(this);
 	RenderingConfig<float> rConfig = model->getRenderingConfig();
 	dialog.set(rConfig);
@@ -431,6 +438,10 @@ void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 		model->setRenderingConfig(rConfig);
 		setRendering();
 	}
+	view->Refresh();
+	*/
+	model->changeWireframe();
+	setRendering();
 	view->Refresh();
 }
 

@@ -163,6 +163,10 @@ public:
 	}
 	*/
 
+	void changeWireframe() {
+		rendering.changeWire();
+	}
+
 	void changeRenderingVolume() {
 		rendering.changeVolume();
 	}
@@ -170,6 +174,7 @@ public:
 	void changeRenderingSmooth() {
 		rendering.changeSmooth();
 	}
+
 
 	void setRendering() {
 		rendering.clear();

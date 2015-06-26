@@ -26,7 +26,8 @@ public:
 		normalScale = 1;
 		lineWidth = 1;
 		pointSize = 5;
-		enableLight = true;
+		drawWire = true;
+		drawSmooth = true;
 		drawCells = false;
 		drawNormal = false;
 	}
@@ -35,7 +36,8 @@ public:
 	T lineWidth;
 	T normalScale;
 
-	bool enableLight;
+	bool drawWire;
+	bool drawSmooth;
 	bool drawVolume;
 	bool drawCells;
 	bool drawNormal;
@@ -117,7 +119,11 @@ public:
 	}
 
 	void changeSmooth() {
-		config.enableLight = !config.enableLight;
+		config.drawSmooth = !config.drawSmooth;
+	}
+
+	void changeWire() {
+		config.drawWire = !config.drawWire;
 	}
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
@@ -129,12 +135,14 @@ public:
 		glPointSize(20.0);
 		glLineWidth(getConfig().lineWidth);
 
-		wireframeRenderer.render(width, height, camera, lineBuffer, false);
+		if (config.drawWire) {
+			wireframeRenderer.render(width, height, camera, lineBuffer, false);
+		}
 		pointRenderer.render(width, height, camera, pointBuffer, false);
 
 		normalRenderer.render(width, height, camera, pointBuffer);
 
-		if (config.enableLight) {
+		if (config.drawSmooth) {
 			smoothRenderer.render(width, height, camera, triangleBuffer);
 		}
 
