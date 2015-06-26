@@ -14,7 +14,7 @@ class Frame : public wxFrame//wxMDIParentFrame
 public:
 	Frame();
 
-	~Frame();
+	~Frame() = default;
 
 private:
 	void OnNew( wxRibbonButtonBarEvent& );
@@ -76,6 +76,12 @@ private:
 	void setRendering();
 
 	void OnKeyDown(wxKeyEvent& event);
+
+	void createFileMenu(wxRibbonPage* parent);
+
+	void createCameraMenu(wxRibbonPage* parent);
+
+	void createBrushMenu(wxRibbonPage* parent);
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

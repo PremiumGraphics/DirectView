@@ -79,7 +79,6 @@ public:
 
 };
 
-
 Frame::Frame()
 	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
 	model(std::make_shared< MainModel<float> >())
@@ -101,52 +100,10 @@ Frame::Frame()
 	wxRibbonPage* page = new wxRibbonPage( bar, wxNewId(), wxT("Polygon") );
 	//wxRibbonPanel* panel = new wxRibbonPanel( page, wxID_ANY, wxT("Polygon") );
 
-	wxRibbonPanel *filePanel = new wxRibbonPanel( page, wxID_ANY, wxT("File") );
-	wxRibbonButtonBar *toolbar = new wxRibbonButtonBar( filePanel );
+	createFileMenu(page);
+	createCameraMenu(page);
+	createBrushMenu(page);
 
-	toolbar->AddButton( wxID_NEW,	"New",		wxArtProvider::GetBitmap( wxART_NEW, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( wxID_OPEN,	"Open",		wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ));
-	toolbar->AddButton( wxID_SAVE,	"Save",		wxImage("../Resource/save.png") );
-	toolbar->AddButton( wxID_SAVEAS,"Save As",	wxArtProvider::GetBitmap( wxART_FILE_SAVE_AS, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( wxID_CLOSE, "Close",	wxImage("../Resource/cancel.png"));
-
-
-	Connect( wxID_NEW,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnNew ) );
-	Connect( wxID_OPEN,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileOpen ) );
-	Connect( wxID_SAVE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileSave ) );
-	Connect( wxID_SAVEAS,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnFileSaveAs ) );
-	Connect( wxID_CLOSE,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnClose ) );
-	Connect( wxID_ABOUT,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnAbout ) );
-
-	toolbar->AddButton( ID_IMPORT,	"Import",	wxArtProvider::GetBitmap( wxART_FILE_OPEN, wxART_OTHER, wxSize( 32, 32 ) ) );
-	toolbar->AddButton( ID_EXPORT,	"Export",	wxImage( "../Resource/export.png"), "Export" );
-	toolbar->AddButton( ID_CAPTURE, "Capture",	wxImage("../Resource/screenshot.png"));
-
-
-	Connect( ID_IMPORT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnImport ) );
-	Connect( ID_EXPORT,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnExport ) );
-	Connect( ID_CAPTURE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
-
-	wxRibbonPanel *cameraPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Camera"));
-	wxRibbonButtonBar* camera = new wxRibbonButtonBar(cameraPanel);
-	camera->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
-	camera->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
-
-	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraTranslate));
-	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
-
-	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Brush") );
-	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
-	operation->AddButton( ID_PARTICLE_MOVE,  "Move", wxImage("../Resource/point.png"));
-	operation->AddButton( ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
-	operation->AddButton( ID_PARTICLE_ERASE, "Erase", wxImage("../Resource/point.png"));
-
-	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
-	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-
-	Connect( ID_PARTICLE_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
-	Connect( ID_PARTICLE_STROKE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
-	Connect(ID_PARTICLE_ERASE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 
 
 	wxRibbonPanel *canvasPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Canvas"));
@@ -219,7 +176,7 @@ Frame::Frame()
 
 	CreateStatusBar( 2 );
 
-	wxSizer *vSizer = new wxBoxSizer( wxVERTICAL );
+	wxSizer* vSizer = new wxBoxSizer( wxVERTICAL );
 	wxSizer* hSizer = new wxBoxSizer( wxHORIZONTAL );
 
 	hSizer->Add( view, 0, wxEXPAND);
@@ -237,9 +194,61 @@ Frame::Frame()
 
 }
 
-Frame::~Frame()
+
+void Frame::createFileMenu(wxRibbonPage* parent)
 {
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("File"));
+	wxRibbonButtonBar *bar = new wxRibbonButtonBar(panel);
+
+	bar->AddButton(wxID_NEW, "New", wxArtProvider::GetBitmap(wxART_NEW, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_OPEN, "Open", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_SAVE, "Save", wxImage("../Resource/save.png"));
+	bar->AddButton(wxID_SAVEAS, "Save As", wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_CLOSE, "Close", wxImage("../Resource/cancel.png"));
+	bar->AddButton(ID_IMPORT, "Import", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(ID_EXPORT, "Export", wxImage("../Resource/export.png"), "Export");
+	bar->AddButton(ID_CAPTURE, "Capture", wxImage("../Resource/screenshot.png"));
+
+	Connect(wxID_NEW, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnNew));
+	Connect(wxID_OPEN, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnFileOpen));
+	Connect(wxID_SAVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnFileSave));
+	Connect(wxID_SAVEAS, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnFileSaveAs));
+	Connect(wxID_CLOSE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnClose));
+	Connect(wxID_ABOUT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnAbout));
+
+	Connect(ID_IMPORT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnImport));
+	Connect(ID_EXPORT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnExport));
+	Connect(ID_CAPTURE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
+
 }
+
+void Frame::createCameraMenu(wxRibbonPage* parent)
+{
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Camera"));
+	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
+	bar->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
+	bar->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
+
+	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraTranslate));
+	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
+}
+
+void Frame::createBrushMenu(wxRibbonPage* parent)
+{
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
+	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
+	bar->AddButton(ID_PARTICLE_MOVE, "Move", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_ERASE, "Erase", wxImage("../Resource/point.png"));
+
+	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
+	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
+
+	Connect(ID_PARTICLE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
+	Connect(ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
+	Connect(ID_PARTICLE_ERASE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
+}
+
 
 void Frame::OnNew( wxRibbonButtonBarEvent& e )
 {
