@@ -113,12 +113,10 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer, const bool isSelected)
 {
-	if (buffer.isEmpty()) {
+	const auto& positions = buffer.getPositions();
+	if (positions.empty()) {
 		return;
 	}
-	const auto& positions = buffer.getPositions();
-	const auto& ids = buffer.getIds();
-	const auto& isSelecteds = buffer.getIsSelecteds();
 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
@@ -142,7 +140,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
 	up();
 
@@ -155,14 +153,11 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer, const bool isSelected)
 {
-	if (buffer.isEmpty()) {
+	const auto& positions = buffer.getPositions();
+	if (positions.empty()) {
 		return;
 	}
-
-	const auto& positions = buffer.getPositions();
-	const auto& ids = buffer.getIds();
-	const auto& isSelecteds = buffer.getIsSelecteds();
-
+	
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
@@ -185,7 +180,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
 	up();
 

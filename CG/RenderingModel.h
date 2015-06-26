@@ -75,15 +75,15 @@ public:
 	*/
 
 	void add(const Graphics::Surface<T>& surface) {
-		lineBuffer.add(surface, -1, -1, false);
+		lineBuffer.add(surface);
 		if (config.drawNormal) {
 			pointBuffer.add(surface, -1, false);
 		}
-		triangleBuffer.add(surface, -1, -1, false);
+		triangleBuffer.add(surface);
 	}
 
 	void add(const Math::Volume3d<T>& volume) {
-		lineBuffer.add(volume, -1, -1, 0);
+		lineBuffer.add(volume);
 		if (config.drawCells) {
 			addCells(volume);
 		}
@@ -97,7 +97,7 @@ public:
 		for (const auto c : cells) {
 			const auto& space = c.getSpace();
 			const Math::Box<T> box(space.getStart(), space.getEnd());
-			lineBuffer.add(box, -1, -1, false);
+			lineBuffer.add(box);
 		}
 	}
 
