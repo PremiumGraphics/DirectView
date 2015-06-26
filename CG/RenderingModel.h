@@ -2,11 +2,11 @@
 #define __CRYSTAL_MODEL_RENDERING_MODEL_H_
 
 #include "../Graphics/Buffer.h"
-#include "../Shader/IDRenderer.h"
+#include "../Shader/PointRenderer.h"
+#include "../Shader/WireframeRenderer.h"
 #include "../Shader/NormalRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 #include "../Shader/VolumeRenderer.h"
-#include "../Shader/PointRenderer.h"
 
 #include "../Util/UnCopyable.h"
 

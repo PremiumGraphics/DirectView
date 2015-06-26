@@ -5,10 +5,6 @@
 
 #include "Frame.h"
 
-#include "../Shader/NormalRenderer.h"
-#include "../Shader/IDRenderer.h"
-#include "../Shader/SmoothRenderer.h"
-
 #include "MainModel.h"
 
 namespace Crystal {

@@ -1,4 +1,4 @@
-#include "IDRenderer.h"
+#include "WireframeRenderer.h"
 
 #include <cassert>
 
@@ -98,24 +98,14 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
-	up();
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	//const auto positions = buffer.getPositions();
 
 	glDrawArrays(GL_LINES, 0, positions.size() / 3);
 
-	down();
-}
-
-void WireframeRenderer::up()
-{
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-}
-
-void WireframeRenderer::down()
-{
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -123,6 +113,5 @@ void WireframeRenderer::down()
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	glUseProgram(0);
-
 
 }

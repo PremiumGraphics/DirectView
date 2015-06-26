@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_ID_RENDERER_H__
-#define __CRYSTAL_SHADER_ID_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_WIREFRAME__RENDERER_H__
+#define __CRYSTAL_SHADER_WIREFRAME_RENDERER_H__
 
 #include <map>
 #include <vector>
@@ -35,10 +35,6 @@ private:
 	};
 
 	Location getLocations();
-
-	void up();
-
-	void down();
 
 	Graphics::ShaderObject shader;
 };

@@ -3,19 +3,19 @@
   <ItemGroup>
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
-    <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="VolumeRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
+    <ClCompile Include="WireframeRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
-    <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="VolumeRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
+    <ClInclude Include="WireframeRenderer.h" />
   </ItemGroup>
 </Project>
