@@ -162,16 +162,16 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/wireframe.png"));
-	rendering->AddButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_VOLUME,		"Volume", wxImage("../Resource/wireframe.png"));
-	rendering->AddButton( ID_RENDERING_SMOOTH,		"Smooth", wxImage("../Resource/wireframe.png"));
+	rendering->AddHybridButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/wireframe.png"));
+	rendering->AddHybridButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
+	rendering->AddHybridButton( ID_RENDERING_VOLUME,		"Volume", wxImage("../Resource/wireframe.png"));
+	rendering->AddHybridButton( ID_RENDERING_SMOOTH,		"Smooth", wxImage("../Resource/wireframe.png"));
 
-	Connect( ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderingWireframe ) );
-	Connect( ID_RENDERING_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
-	Connect(ID_RENDERING_SMOOTH, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
-	//Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
+	Connect( ID_RENDERING_POINT,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPointConfig));
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingWireframe));
+	Connect( ID_RENDERING_VOLUME,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
+	Connect( ID_RENDERING_SMOOTH,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
 
 	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
@@ -407,6 +407,20 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 #include "wx/numdlg.h"
 
+void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
+{
+	//model->changeRenderingPoint();
+}
+
+void Frame::OnRenderingPointConfig(wxRibbonButtonBarEvent& e)
+{
+	const int pointSize = wxGetNumberFromUser("PointSize", "", "");
+	if (pointSize <= 0) {
+		return;
+	}
+}
+
+
 void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
@@ -420,19 +434,34 @@ void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 	view->Refresh();
 }
 
-void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
+void Frame::OnRenderingWireframeConfig(wxRibbonButtonBarEvent& e)
 {
-	;
+	const int lineWidth = wxGetNumberFromUser("LineWidth", "", "");
+	if (lineWidth <= 0) {
+		return;
+	}
+
 }
+
 
 void Frame::OnRenderingVolume(wxRibbonButtonBarEvent& e)
 {
+	model->changeRenderingVolume();
+	setRendering();
+	view->Refresh();
+}
+
+void Frame::OnRenderingVolumeConfig(wxRibbonButtonBarEvent& e)
+{
 	;
 }
 
+
 void Frame::OnRenderingSmooth(wxRibbonButtonBarEvent& e)
 {
-	;
+	model->changeRenderingSmooth();
+	setRendering();
+	view->Refresh();
 }
 
 

@@ -142,27 +142,7 @@ public:
 		return surface;
 	}
 
-	void doExport(const std::string& filename) const {
-		IO::STLFile file;
-
-		IO::STLCellVector cells;
-		for (const auto& s : preSurfaces) {
-			for (const auto& f : s->getFaces()) {
-				Math::Vector3dVector<T> positions;
-				for (const auto& e : f->getEdges()) {
-					positions.push_back(e->getStartPosition());
-				}
-				const auto normal = f->getNormal();
-				STLCell cell(positions, normal);
-				cells.push_back(cell);
-			}
-		}
-
-		file.setTitle("TestTitle");
-		file.setCells(cells);
-		file.writeASCII(filename);
-	}
-
+	void doExport(const std::string& filename) const;
 
 	void buildRenderer() {
 		rendering.buildRenderer();
@@ -177,6 +157,19 @@ public:
 		rendering.render(width, height, camera);
 	}
 
+	/*
+	void changeRenderingPoint() {
+		rendering.getConfig().drawPoints();
+	}
+	*/
+
+	void changeRenderingVolume() {
+		rendering.changeVolume();
+	}
+
+	void changeRenderingSmooth() {
+		rendering.changeSmooth();
+	}
 
 	void setRendering() {
 		rendering.clear();

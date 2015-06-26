@@ -112,6 +112,14 @@ public:
 
 	RenderingConfig<float> getConfig() const { return config; }
 
+	void changeVolume() {
+		config.drawVolume = !config.drawVolume;
+	}
+
+	void changeSmooth() {
+		config.enableLight = !config.enableLight;
+	}
+
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
