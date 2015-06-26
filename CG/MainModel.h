@@ -163,6 +163,10 @@ public:
 	}
 	*/
 
+	void changePoint() {
+		rendering.changePoint();
+	}
+
 	void changeWireframe() {
 		rendering.changeWire();
 	}

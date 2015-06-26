@@ -59,7 +59,11 @@ private:
 
 	void OnParticleStroke(wxRibbonButtonBarEvent& e);
 
-	void OnCreateVolume(wxRibbonButtonBarEvent& e);
+	void OnParticleErase(wxRibbonButtonBarEvent& e){};
+
+	void OnCanvasConfig(wxRibbonButtonBarEvent& e);
+
+	void OnCanvasClear(wxRibbonButtonBarEvent& e){};
 
 	void OnVolumeConfig(wxRibbonButtonBarEvent& e);
 

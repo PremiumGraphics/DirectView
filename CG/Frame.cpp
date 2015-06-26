@@ -35,7 +35,10 @@ enum {
 
 	ID_PARTICLE_MOVE,
 	ID_PARTICLE_STROKE,
-	ID_CREATE_VOLUME,
+	ID_PARTICLE_ERASE,
+
+	ID_CANVAS_CONFIG,
+	ID_CANVAS_CLEAR,
 
 	ID_RENDERING_POINT,
 	ID_RENDERING_WIREFRAME,
@@ -129,22 +132,29 @@ Frame::Frame()
 	camera->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
 	camera->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
 
+	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraTranslate));
+	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
+
 	wxRibbonPanel *operationPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Brush") );
 	wxRibbonButtonBar* operation = new wxRibbonButtonBar( operationPanel );
 	operation->AddButton( ID_PARTICLE_MOVE,  "Move", wxImage("../Resource/point.png"));
-	operation->AddButton( ID_PARTICLE_STROKE, "STROKE", wxImage("../Resource/point.png"));
-
-	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
+	operation->AddButton( ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
+	operation->AddButton( ID_PARTICLE_ERASE, "Erase", wxImage("../Resource/point.png"));
 
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
-	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 	Connect( ID_PARTICLE_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
 	Connect( ID_PARTICLE_STROKE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
+	Connect(ID_PARTICLE_ERASE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 
-	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
-	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
+
+	wxRibbonPanel *canvasPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Canvas"));
+	wxRibbonButtonBar* canvas = new wxRibbonButtonBar(canvasPanel);
+	canvas->AddButton(ID_CANVAS_CONFIG, "Grid", wxImage("../Resource/grid.png"));
+	canvas->AddButton(ID_CANVAS_CLEAR,	"Clear", wxImage(32, 32));
+	Connect( ID_CANVAS_CONFIG,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCanvasConfig));
+	//Connect( ID_CREATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 
 
 	/*
@@ -415,7 +425,10 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
 {
-	//model->changeRenderingPoint();
+	model->changePoint();
+	setRendering();
+	view->Refresh();
+
 }
 
 void Frame::OnRenderingPointConfig(wxRibbonButtonBarEvent& e)
@@ -536,7 +549,7 @@ void Frame::setRendering()
 
 }
 
-void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
+void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
 	dialog.set(model->getVolumeConfig());

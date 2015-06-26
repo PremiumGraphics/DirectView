@@ -26,6 +26,7 @@ public:
 		normalScale = 1;
 		lineWidth = 1;
 		pointSize = 5;
+		drawPoint = true;
 		drawWire = true;
 		drawSmooth = true;
 		drawCells = false;
@@ -36,6 +37,7 @@ public:
 	T lineWidth;
 	T normalScale;
 
+	bool drawPoint;
 	bool drawWire;
 	bool drawSmooth;
 	bool drawVolume;
@@ -78,7 +80,9 @@ public:
 	*/
 
 	void add(const Graphics::Surface<T>& surface) {
-		lineBuffer.add(surface);
+		if (config.drawWire) {
+			lineBuffer.add(surface);
+		}
 		if (config.drawNormal) {
 			pointBuffer.add(surface, -1, false);
 		}
@@ -86,7 +90,9 @@ public:
 	}
 
 	void add(const Math::Volume3d<T>& volume) {
-		lineBuffer.add(volume);
+		if (config.drawWire) {
+			lineBuffer.add(volume);
+		}
 		if (config.drawCells) {
 			addCells(volume);
 		}
@@ -113,6 +119,10 @@ public:
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
 	RenderingConfig<float> getConfig() const { return config; }
+
+	void changePoint() {
+		config.drawPoint = !config.drawPoint;
+	}
 
 	void changeVolume() {
 		config.drawVolume = !config.drawVolume;
