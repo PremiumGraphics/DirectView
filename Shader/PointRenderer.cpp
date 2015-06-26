@@ -5,7 +5,7 @@ using namespace Crystal::Shader;
 
 void PointRenderer::build()
 {
-	Graphics::ShaderUnit vShader;
+	ShaderUnit vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -24,9 +24,9 @@ void PointRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile(vStr, Graphics::ShaderUnit::Stage::VERTEX);
+	vShader.compile(vStr, ShaderUnit::Stage::VERTEX);
 
-	Graphics::ShaderUnit fShader;
+	ShaderUnit fShader;
 
 	const std::string fStr =
 		"#version 150			\n"
@@ -39,7 +39,7 @@ void PointRenderer::build()
 		"}						\n"
 		;
 
-	fShader.compile(fStr, Graphics::ShaderUnit::Stage::FRAGMENT);
+	fShader.compile(fStr, ShaderUnit::Stage::FRAGMENT);
 
 	shader.link(vShader, fShader);
 

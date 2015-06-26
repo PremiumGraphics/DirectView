@@ -12,7 +12,7 @@
 #include "../Graphics/Buffer.h"
 
 namespace Crystal {
-	namespace Graphics {
+	namespace Shader {
 
 class SmoothRenderer final {
 public:
@@ -41,7 +41,7 @@ public:
 	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::TriangleBuffer<float>& buffer);
 
 private:
-	Graphics::ShaderObject shader;
+	ShaderObject shader;
 
 	struct Location {
 		GLuint projectionMatrix;

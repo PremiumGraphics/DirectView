@@ -14,7 +14,7 @@
 #include <memory>
 
 namespace Crystal {
-	namespace Graphics {
+	namespace Shader {
 
 class NormalRenderer {
 public:
@@ -35,7 +35,7 @@ private:
 
 
 private:
-	Graphics::ShaderObject shader;
+	ShaderObject shader;
 
 };
 

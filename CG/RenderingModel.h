@@ -158,10 +158,10 @@ public:
 private:
 	RenderingConfig<T> config;
 
-	Graphics::NormalRenderer normalRenderer;
+	Shader::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
-	Graphics::SmoothRenderer smoothRenderer;
+	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
 
 	Graphics::PointBuffer<T> pointBuffer;

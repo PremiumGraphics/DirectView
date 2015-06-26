@@ -31,11 +31,7 @@ private:
 
 	Location getLocations();
 
-	void up();
-
-	void down();
-
-	Graphics::ShaderObject shader;
+	ShaderObject shader;
 };
 
 	}

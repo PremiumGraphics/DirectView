@@ -14,7 +14,7 @@
 #include <string>
 
 namespace Crystal {
-	namespace Graphics {
+	namespace Shader {
 
 class ShaderUnit
 {

@@ -12,7 +12,7 @@
 #include <fstream>
 
 using namespace Crystal::Math;
-using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 
 ShaderUnit::ShaderUnit(void) :
 	id( -1 )
