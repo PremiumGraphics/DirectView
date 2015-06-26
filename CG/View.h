@@ -29,7 +29,7 @@ private:
 
 	void OnPaint( wxPaintEvent& );
 
-	void OnKeyDown( wxKeyEvent& e );
+	//void OnChar( wxKeyEvent& e );
 
 	void OnMouse( wxMouseEvent& e );
 

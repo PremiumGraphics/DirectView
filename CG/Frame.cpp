@@ -170,6 +170,10 @@ Frame::Frame()
 	Connect(wxID_ABOUT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnAbout));
 
 
+	//Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Frame::OnKeyDown));
+	this->Bind(wxEVT_CHAR_HOOK, &Frame::OnKeyDown, this);
+
+
 	bar->Realize();
 	
 	const int width = 1600;//720;
@@ -466,4 +470,19 @@ void Frame::OnCreateVolume(wxRibbonButtonBarEvent& e)
 		model->setupVolumes();
 		setRendering();
 	}
+}
+
+void Frame::OnKeyDown(wxKeyEvent& event)
+{
+	switch (event.GetKeyCode()) {
+	case 'C':
+		model->setUIMode(UIMode::CAMERA_TRANSLATE);
+		break;
+	case 'P':
+		model->setUIMode(UIMode::PARTICLE_TRANSLATE);
+		break;
+	default:
+		event.Skip();
+		return;
+	};
 }

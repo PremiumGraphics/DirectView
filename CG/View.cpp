@@ -12,12 +12,13 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
+	//EVT_CHAR( View::OnChar )
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
 
 
 View::View( Frame* parent, const int width, const int height, const MainModelSPtr<float>& model )
-:wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE ),
+:wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE | wxWANTS_CHARS ),
 glContext( this ),// width, height ),
 model( model )
 {
@@ -26,12 +27,12 @@ model( model )
 //	const int attributes[] = {WX_GL_SAMPLE_BUFFERS};
 //	bool b = IsDisplaySupported( attributes );
 
-Connect(wxEVT_PAINT, wxPaintEventHandler(View::OnPaint));
-Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(View::OnKeyDown));
+	Connect(wxEVT_PAINT, wxPaintEventHandler(View::OnPaint));
+//	Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(View::OnKeyDown));
 //Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
-Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
+	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
 
-model->buildRenderer();
+	model->buildRenderer();
 }
 
 View::~View()
@@ -57,12 +58,19 @@ void View::OnPaint(wxPaintEvent&)
 	SwapBuffers();
 }
 
-void View::OnKeyDown(wxKeyEvent& event)
+/**
+void View::OnChar(wxCharEEvent& event)
 {
 	CameraSPtr<float> camera = model->getCamera();
 	Vector3d<float> pos = camera->getPos();
 
 	switch (event.GetKeyCode()) {
+	case 'c':
+		model->setUIMode(UIMode::CAMERA_TRANSLATE);
+		break;
+	case 'p':
+		model->setUIMode(UIMode::PARTICLE_TRANSLATE);
+		break;
 	case WXK_RIGHT:
 		pos += Vector3d<float>(0.1f, 0.0f, 0.0f);
 		break;
@@ -87,6 +95,7 @@ void View::OnKeyDown(wxKeyEvent& event)
 	SwapBuffers();
 
 }
+*/
 
 void View::OnMouse(wxMouseEvent& event)
 {

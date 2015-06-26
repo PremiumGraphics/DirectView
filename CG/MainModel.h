@@ -196,12 +196,12 @@ public:
 	}
 
 	void move(const Math::Vector3d<T>& left, const Math::Vector3d<T>& middle, const Math::Vector3d<T>& right) {
-		if (getUIMode() == CAMERA_TRANSLATE) {
+		if (uiMode == CAMERA_TRANSLATE) {
 			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
 			camera->move(v);
 			camera->addAngle(right);
 		}
-		else if (getUIMode() == PARTICLE_TRANSLATE) {
+		else if (uiMode == PARTICLE_TRANSLATE) {
 			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
 			particle.move(v);
 			particle.addRadius(right.getY());
@@ -226,8 +226,6 @@ public:
 		particle
 	}
 	*/
-
-	UIMode getUIMode() const { return uiMode; }
 
 	void setUIMode(const UIMode m) { this->uiMode = m; }
 

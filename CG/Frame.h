@@ -56,6 +56,8 @@ private:
 	Model::MainModelSPtr<float> model;
 
 	void setRendering();
+
+	void OnKeyDown(wxKeyEvent& event);
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
