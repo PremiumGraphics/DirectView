@@ -14,33 +14,33 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-Shader::Shader(void) :
+ShaderUnit::ShaderUnit(void) :
 	id( -1 )
 {
 }
 
-Shader::~Shader(void)
+ShaderUnit::~ShaderUnit(void)
 {
 	clear();
 }
 
-void Shader::clear()
+void ShaderUnit::clear()
 {
 	if( id != -1 ) {
 		glDeleteShader( id );
 	}
 }
 
-bool Shader::compile( const std::string& source, const Shader::Stage stage )
+bool ShaderUnit::compile( const std::string& source, const ShaderUnit::Stage stage )
 {
 	clear();
-	if( stage == Shader::Stage::VERTEX ) {
+	if( stage == ShaderUnit::Stage::VERTEX ) {
 		id = glCreateShader( GL_VERTEX_SHADER );
 	}
-	else if( stage == Shader::Stage::FRAGMENT ) {
+	else if( stage == ShaderUnit::Stage::FRAGMENT ) {
 		id = glCreateShader( GL_FRAGMENT_SHADER );
 	}
-	else if( stage == Shader::Stage::GEOMETRY ) {
+	else if( stage == ShaderUnit::Stage::GEOMETRY ) {
 		id = glCreateShader( GL_GEOMETRY_SHADER_ARB );
 	}
 	else {
@@ -91,7 +91,7 @@ void ShaderObject::clear()
 	}
 }
 
-void ShaderObject::link( const Shader& vertexShader, const Shader& fragmentShader )
+void ShaderObject::link( const ShaderUnit& vertexShader, const ShaderUnit& fragmentShader )
 {
 	clear();
 
@@ -114,7 +114,7 @@ void ShaderObject::link( const Shader& vertexShader, const Shader& fragmentShade
 	assert( glGetError() == GL_NO_ERROR );
 }
 
-void ShaderObject::link( const Shader& vertexShader, const Shader& fragmentShader, const Shader& geometryShader )
+void ShaderObject::link( const ShaderUnit& vertexShader, const ShaderUnit& fragmentShader, const ShaderUnit& geometryShader )
 {
 	clear();
 

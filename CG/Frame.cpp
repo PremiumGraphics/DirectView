@@ -35,10 +35,12 @@ enum {
 
 	ID_PARTICLE_MOVE,
 	ID_PARTICLE_STROKE,
-	ID_PARTICLE_SIZE,
 	ID_CREATE_VOLUME,
 
+	ID_RENDERING_POINT,
 	ID_RENDERING_WIREFRAME,
+	ID_RENDERING_VOLUME,
+	ID_RENDERING_SMOOTH,
 
 	ID_CAMERA_FIT,
 
@@ -126,7 +128,6 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_PARTICLE_MOVE,  "Move", wxImage("../Resource/point.png"));
 	operation->AddButton( ID_PARTICLE_STROKE, "STROKE", wxImage("../Resource/point.png"));
-	operation->AddButton( ID_PARTICLE_SIZE, "Size", wxImage("../Resource/point.png"));
 
 	operation->AddButton( ID_CAMERA_FIT,	"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
@@ -137,7 +138,6 @@ Frame::Frame()
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 	Connect( ID_PARTICLE_MOVE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
 	Connect( ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
-	Connect( ID_PARTICLE_SIZE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
@@ -162,7 +162,9 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
+	rendering->AddButton( ID_RENDERING_POINT, "Point", wxImage("../Resource/wireframe.png"));
 	rendering->AddButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
+	rendering->AddButton( ID_RENDERING_SMOOTH, "Smooth", wxImage("../Resource/wireframe.png"));
 
 	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRendering ) );
 	//Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
@@ -465,11 +467,6 @@ void Frame::OnParticleTranslate(wxRibbonButtonBarEvent& e)
 void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
 {
 	model->setUIMode(Model::UIMode::PARTICLE_STROKE);
-}
-
-void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
-{
-	model->setUIMode(Model::UIMode::PARTICLE_SIZE);
 }
 
 

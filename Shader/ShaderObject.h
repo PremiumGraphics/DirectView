@@ -16,12 +16,12 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Shader
+class ShaderUnit
 {
 public:
-	Shader(void);
+	ShaderUnit(void);
 	
-	~Shader(void);
+	~ShaderUnit(void);
 
 	enum class Stage {
 		VERTEX,
@@ -29,7 +29,7 @@ public:
 		GEOMETRY,
 	};
 
-	bool compile( const std::string& source, const Shader::Stage stage );
+	bool compile( const std::string& source, const ShaderUnit::Stage stage );
 
 	void clear();
 
@@ -54,9 +54,9 @@ public:
 
 	void clear();
 
-	void link( const Shader& vertexShader, const Shader& fragmentShader );
+	void link( const ShaderUnit& vertexShader, const ShaderUnit& fragmentShader );
 
-	void link( const Shader& vertexShader, const Shader& fragmentShader, const Shader& geometryShader );
+	void link( const ShaderUnit& vertexShader, const ShaderUnit& fragmentShader, const ShaderUnit& geometryShader );
 
 	std::string getLog() const { return log; }
 

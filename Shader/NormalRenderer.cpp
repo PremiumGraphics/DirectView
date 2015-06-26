@@ -94,12 +94,12 @@ void NormalRenderer::build()
 	const std::string& vStr = ::getVVertexSource().str();
 	const std::string& gStr = ::getVGeometrySource().str();
 	const std::string& fStr = ::getVFragmentSource().str();
-	Shader vShader;
-	Shader gShader;
-	Shader fShader;
-	vShader.compile(vStr, Shader::Stage::VERTEX);
-	gShader.compile(gStr, Shader::Stage::GEOMETRY);
-	fShader.compile(fStr, Shader::Stage::FRAGMENT);
+	ShaderUnit vShader;
+	ShaderUnit gShader;
+	ShaderUnit fShader;
+	vShader.compile(vStr, ShaderUnit::Stage::VERTEX);
+	gShader.compile(gStr, ShaderUnit::Stage::GEOMETRY);
+	fShader.compile(fStr, ShaderUnit::Stage::FRAGMENT);
 	std::string log;
 	log += vShader.getLog();
 	log += gShader.getLog();

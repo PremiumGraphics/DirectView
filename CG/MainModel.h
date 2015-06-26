@@ -19,7 +19,6 @@ enum UIMode
 	CAMERA_TRANSLATE,
 	PARTICLE_TRANSLATE,
 	PARTICLE_STROKE,
-	PARTICLE_SIZE,
 };
 
 enum PlaneMode {
@@ -246,12 +245,6 @@ public:
 			const auto& s = createSurface(preVolume);
 			setRendering();
 			bakeParticleToVolume();
-		}
-		else if (uiMode == PARTICLE_SIZE) {
-			particle.addRadius(src.getY());
-			createPreVolume(1.0);
-			const auto& s = createSurface(preVolume);
-			setRendering();
 		}
 	}
 

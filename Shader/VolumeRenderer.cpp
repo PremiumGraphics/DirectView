@@ -8,7 +8,7 @@ using namespace Crystal::Shader;
 
 void VolumeRenderer::build()
 {
-	Graphics::Shader vShader;
+	Graphics::ShaderUnit vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -27,9 +27,9 @@ void VolumeRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile(vStr, Graphics::Shader::Stage::VERTEX);
+	vShader.compile(vStr, Graphics::ShaderUnit::Stage::VERTEX);
 
-	Graphics::Shader fShader;
+	Graphics::ShaderUnit fShader;
 
 	const std::string fStr =
 		"#version 150			\n"
@@ -41,7 +41,7 @@ void VolumeRenderer::build()
 		"}						\n"
 		;
 
-	fShader.compile(fStr, Graphics::Shader::Stage::FRAGMENT);
+	fShader.compile(fStr, Graphics::ShaderUnit::Stage::FRAGMENT);
 
 	shader.link(vShader, fShader);
 

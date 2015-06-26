@@ -12,7 +12,7 @@ using namespace Crystal::Graphics;
 
 void SmoothRenderer::build()
 {
-	Shader vShader;
+	ShaderUnit vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
@@ -33,7 +33,7 @@ void SmoothRenderer::build()
 		"}\n"
 		;
 
-	vShader.compile( vStr, Shader::Stage::VERTEX );
+	vShader.compile( vStr, ShaderUnit::Stage::VERTEX );
 
 	const std::string fStr =
 		"#version 150						\n"
@@ -45,8 +45,8 @@ void SmoothRenderer::build()
 		"}															\n"
 		;
 
-	Shader fShader;
-	fShader.compile( fStr, Shader::Stage::FRAGMENT );
+	ShaderUnit fShader;
+	fShader.compile( fStr, ShaderUnit::Stage::FRAGMENT );
 
 	shader.link( vShader, fShader );
 }
