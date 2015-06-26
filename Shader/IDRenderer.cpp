@@ -12,7 +12,7 @@ void WireframeRenderer::build()
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
-		"in int id;							\n"
+//		"in int id;							\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
@@ -21,7 +21,8 @@ void WireframeRenderer::build()
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
 		"	color.r = isSelected;			\n"
-		"	color.g = id / 255.0;			\n"
+		//"	color.g = id / 255.0;			\n"
+		"	color.g = 0;					\n"
 		"	color.b = 0;					\n"
 		"}\n"
 		;
@@ -69,13 +70,12 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 
 void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer, const bool isSelected)
 {
-	if (buffer.isEmpty()) {
-		return;
-	}
 
 	const auto& positions = buffer.getPositions();
-	const auto& ids = buffer.getIds();
-	const auto& isSelecteds = buffer.getIsSelecteds();
+
+	if (positions.empty()) {
+		return;
+	}
 
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
@@ -99,7 +99,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
 
 	//const auto positions = buffer.getPositions();

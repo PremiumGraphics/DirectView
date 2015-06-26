@@ -277,6 +277,13 @@ public:
 			const Vector3d<T> v(0, 0, diff.getX());
 			camera->move(v);
 		}
+		else {
+			particle.addRadius(diff.getX());
+			createPreVolume(1.0);
+			const auto& s = createSurface(preVolume);
+			createSurface(preVolume);
+			setRendering();
+		}
 		/*
 		else if (uiMode == PARTICLE_TRANSLATE) {
 			const Vector3d<T> v(0, 0, diff.getX());

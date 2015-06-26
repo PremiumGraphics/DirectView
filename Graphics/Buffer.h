@@ -67,7 +67,7 @@ private:
 };
 
 template<typename T>
-class PointBuffer : public BufferBase<T>
+class PointBuffer final
 {
 public:
 	void add(const Surface<T>& surface, const int id, const int isSelected) {
@@ -77,6 +77,28 @@ public:
 		}
 		//positions.add( surface.)
 	}
+
+	void addPosition(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const int id, const int isSelected) {
+		const auto& poss = position.toArray();
+		positions.insert(positions.end(), poss.begin(), poss.end());
+		const auto& norms = normal.toArray();
+		normals.insert(normals.end(), norms.begin(), norms.end());
+	}
+
+	void clear() {
+		positions.clear();
+		normals.clear();
+	}
+
+	std::vector<T> getPositions() const { return positions; }
+
+	std::vector<T> getNormals() const { return normals; }
+
+private:
+	std::vector<T> positions;
+	std::vector<T> normals;
+
+
 };
 
 template<typename T>
@@ -174,7 +196,7 @@ public:
 		for (size_t i = 0; i < ps.size(); ++i) {
 			const auto& pss = ps[i].toArray();
 			positions.insert(positions.end(), pss.begin(), pss.end());
-			values.push_back( vs[i] );
+			values.emplace_back( vs[i] );
 		}
 		//positions.add( surface.)
 	}
