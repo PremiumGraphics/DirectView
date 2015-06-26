@@ -274,7 +274,7 @@ public:
 	void onDraggindMiddle(const Math::Vector3d<T>& diff)
 	{
 		if (uiMode == CAMERA_TRANSLATE) {
-			const Vector3d<T> v(0, 0, diff.getX());
+			const Vector3d<T> v(0, 0, diff.getY());
 			camera->move(v);
 		}
 		else {

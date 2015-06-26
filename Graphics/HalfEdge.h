@@ -53,9 +53,9 @@ public:
 		}
 		std::list< std::shared_ptr<HalfEdge> > edges;
 		for (size_t i = 0; i < vertices.size() - 1; ++i) {
-			edges.push_back(std::make_shared< HalfEdge >(vertices[i], vertices[i + 1]));
+			edges.emplace_back(std::make_shared< HalfEdge >(vertices[i], vertices[i + 1]));
 		}
-		return edges;
+		return std::move(edges);
 	}
 
 	static std::list< std::shared_ptr<HalfEdge> > createClosed(const VertexSPtrVector<T>& vertices) {
@@ -65,8 +65,8 @@ public:
 		std::list< std::shared_ptr<HalfEdge> > edges = createOpen(vertices);
 		const VertexSPtr<T>& v1 = vertices.front();
 		const VertexSPtr<T>& v2 = vertices.back();
-		edges.push_back(std::make_shared< HalfEdge>(v2, v1));
-		return edges;
+		edges.emplace_back(std::make_shared< HalfEdge>(v2, v1));
+		return std::move(edges);
 	}
 
 

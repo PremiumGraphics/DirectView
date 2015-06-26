@@ -117,10 +117,10 @@ public:
 	}
 
 	void addPosition(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal) {
-		const auto& poss = position.toArray();
-		positions.insert(positions.end(), poss.begin(), poss.end());
-		const auto& norms = normal.toArray();
-		normals.insert(normals.end(), norms.begin(), norms.end());
+		const auto& poss = position.toArray3();
+		positions.insert(positions.end(), std::begin( poss), std::end(poss));
+		const auto& norms = normal.toArray3();
+		normals.insert(normals.end(), std::begin(poss), std::end( poss));
 	}
 
 
@@ -153,10 +153,10 @@ public:
 	}
 
 	void addPosition(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal) {
-		const auto& poss = position.toArray();
-		positions.insert(positions.end(), poss.begin(), poss.end());
-		const auto& norms = normal.toArray();
-		normals.insert(normals.end(), norms.begin(), norms.end());
+		const auto& poss = position.toArray3();
+		positions.insert(positions.end(), std::begin(poss), std::end(poss));
+		const auto& norms = normal.toArray3();
+		normals.insert(normals.end(), std::begin(poss), std::end(poss));
 	}
 
 

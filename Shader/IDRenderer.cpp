@@ -151,46 +151,6 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	down();
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer, const bool isSelected)
-{
-	const auto& positions = buffer.getPositions();
-	if (positions.empty()) {
-		return;
-	}
-	
-	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
-	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
-
-	//assert(GL_NO_ERROR == glGetError());
-	const auto error = glGetError();
-	if (error != GL_NO_ERROR) {
-		assert(false);
-		//G glGetString(error);
-
-	}
-
-	glViewport(0, 0, width, height);
-
-	glUseProgram(shader.getId());
-
-	const Location& location = getLocations();
-
-	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
-	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
-	glUniform1i(location.isSelected, isSelected);
-
-	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
-
-	up();
-
-	//positions = buffer.getPositions();
-
-	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
-
-	down();
-}
-
 void WireframeRenderer::up()
 {
 	glEnableVertexAttribArray(0);

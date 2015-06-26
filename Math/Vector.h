@@ -195,6 +195,8 @@ public:
 
 	std::vector< T > toArray() const { return std::vector < T > { x, y, z }; }
 
+	std::array< T, 3 > toArray3() const { return std::array < T, 3 > { x, y, z }; }
+
 	static std::vector< T > toArray(const std::vector<Vector3d>& vectors) {
 		std::vector< T > values;
 		for (const Math::Vector3d<T>& v : vectors) {

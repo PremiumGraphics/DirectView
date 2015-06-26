@@ -25,8 +25,6 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::LineBuffer<float>& buffer, const bool isSelected);
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::TriangleBuffer<float>& buffer, const bool isSelected);
-
 	void build();
 
 private:
