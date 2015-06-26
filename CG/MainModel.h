@@ -14,18 +14,25 @@
 namespace Crystal {
 	namespace Model {
 
-enum UIMode
+enum class UIMode
 {
 	CAMERA_TRANSLATE,
 	PARTICLE_TRANSLATE,
 	PARTICLE_STROKE,
 };
 
-enum PlaneMode {
+enum class PlaneMode {
 	XY,
 	X,
 	Y,
 	Z,
+};
+
+enum class RenderingMode {
+	POINT = 1,
+	WIREFRAME = 2,
+	VOLUME = 4,
+	SMOOTH = 8,
 };
 
 template<typename T>
@@ -87,28 +94,12 @@ template<typename T>
 class MainModel final : private UnCopyable
 {
 public:
-	MainModel() :
-		camera(std::make_shared< Graphics::Camera<T> >()),
-		uiMode( CAMERA_TRANSLATE ),
-		planeMode( PlaneMode::XY )
-	{
-		mc.buildTable();
-		setupVolumes();
-		createPreVolume(1.0);
-		createSurface(preVolume);
-		setRendering();
-	}
+	MainModel();
 
-	void clear()
-	{
-		preVolume.setValue(0);
-		bakedVolume.setValue(0);
-		preSurfaces.clear();
-		//bakedSurfaces.clear();
-	}
+	void clear();
 
 	void fitCamera() {
-		camera->init();
+		camera.init();
 	}
 
 	/*
@@ -183,11 +174,8 @@ public:
 
 
 	void render(const int width, const int height) {
-		rendering.render(width, height, *camera);
+		rendering.render(width, height, camera);
 	}
-
-
-	Graphics::CameraSPtr<T> getCamera() const { return camera; }
 
 
 	void setRendering() {
@@ -230,16 +218,16 @@ public:
 	void onDraggingLeft(const Math::Vector3d<T>& src)
 	{
 		const Math::Vector3d<T>& v = getDiff(src);
-		if (uiMode == CAMERA_TRANSLATE) {
-			camera->move(v);
+		if (uiMode == UIMode::CAMERA_TRANSLATE) {
+			camera.move(v);
 		}
-		else if (uiMode == PARTICLE_TRANSLATE) {
+		else if (uiMode == UIMode::PARTICLE_TRANSLATE) {
 			particle.move(v);
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
 		}
-		else if (uiMode == PARTICLE_STROKE) {
+		else if (uiMode == UIMode::PARTICLE_STROKE) {
 			particle.move(v);
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
@@ -251,10 +239,10 @@ public:
 	void onDraggingRight(const Math::Vector3d<T>& src)
 	{
 		const Math::Vector3d<T>& v = getDiff(src);
-		if (uiMode == CAMERA_TRANSLATE) {
-			camera->addAngle(src);
+		if (uiMode == UIMode::CAMERA_TRANSLATE) {
+			camera.addAngle(src);
 		}
-		else if (uiMode == PARTICLE_STROKE) {
+		else if (uiMode == UIMode::PARTICLE_STROKE) {
 			particle.move(v);
 			createPreVolume(-1.0);
 			const auto& s = createSurface(preVolume);
@@ -266,9 +254,9 @@ public:
 
 	void onDraggindMiddle(const Math::Vector3d<T>& diff)
 	{
-		if (uiMode == CAMERA_TRANSLATE) {
+		if (uiMode == UIMode::CAMERA_TRANSLATE) {
 			const Vector3d<T> v(0, 0, diff.getY());
-			camera->move(v);
+			camera.move(v);
 		}
 		else {
 			particle.addRadius(diff.getX());
@@ -313,7 +301,7 @@ public:
 	void setVolumeConfig(const VolumeConfig<T>& config) { vConfig = config; }
 
 private:
-	Graphics::CameraSPtr<T> camera;
+	Graphics::Camera<T> camera;
 
 	Math::Volume3d<T> preVolume;
 	Math::Volume3d<T> bakedVolume;

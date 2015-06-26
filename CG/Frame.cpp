@@ -136,8 +136,8 @@ Frame::Frame()
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
-	Connect( ID_PARTICLE_MOVE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
-	Connect( ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
+	Connect( ID_PARTICLE_MOVE,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
+	Connect( ID_PARTICLE_STROKE,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
@@ -162,21 +162,24 @@ Frame::Frame()
 
 	wxRibbonPanel *renderingPanel = new wxRibbonPanel( page, wxID_ANY, wxT("Rendering") );
 	wxRibbonButtonBar* rendering = new wxRibbonButtonBar( renderingPanel );
-	rendering->AddButton( ID_RENDERING_POINT, "Point", wxImage("../Resource/wireframe.png"));
+	rendering->AddButton( ID_RENDERING_POINT,		"Point", wxImage("../Resource/wireframe.png"));
 	rendering->AddButton( ID_RENDERING_WIREFRAME,	"Rendering", wxImage("../Resource/wireframe.png") );
-	rendering->AddButton( ID_RENDERING_SMOOTH, "Smooth", wxImage("../Resource/wireframe.png"));
+	rendering->AddButton( ID_RENDERING_VOLUME,		"Volume", wxImage("../Resource/wireframe.png"));
+	rendering->AddButton( ID_RENDERING_SMOOTH,		"Smooth", wxImage("../Resource/wireframe.png"));
 
-	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRendering ) );
+	Connect( ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
+	Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnRenderingWireframe ) );
+	Connect( ID_RENDERING_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
+	Connect(ID_RENDERING_SMOOTH, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
 	//Connect( ID_RENDERING_WIREFRAME,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnWireFrameConfig));
 
-	//Connect(ID_CREATE_PARTICLE,			wxEVT_RIBBONBUTTONBAR_CLICKED,			wxRibbonButtonBarEventHandler(Frame::OnCreateParticle));
 	//Connect(ID_CREATE_METABALL,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnMetaballConfig));
 	//Connect(ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnVolumeConfig));
 
 
-	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("ヘルプ"));
+	wxRibbonPanel *helpPanel = new wxRibbonPanel(page, wxID_ANY, wxT("Help"));
 	wxRibbonButtonBar* helpToolBar = new wxRibbonButtonBar(helpPanel);
-	helpToolBar->AddButton(wxID_ABOUT, "About", wxArtProvider::GetBitmap(wxART_INFORMATION, wxART_OTHER, wxSize(32, 32)), "このソフトについて");
+	helpToolBar->AddButton(wxID_ABOUT, "About", wxArtProvider::GetBitmap(wxART_INFORMATION, wxART_OTHER, wxSize(32, 32)) );
 
 	Connect(wxID_ABOUT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnAbout));
 
@@ -404,7 +407,7 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 #include "wx/numdlg.h"
 
-void Frame::OnRendering( wxRibbonButtonBarEvent& e)
+void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 {
 	WireframeConfigDialog dialog(this);
 	RenderingConfig<float> rConfig = model->getRenderingConfig();
@@ -416,6 +419,22 @@ void Frame::OnRendering( wxRibbonButtonBarEvent& e)
 	}
 	view->Refresh();
 }
+
+void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
+{
+	;
+}
+
+void Frame::OnRenderingVolume(wxRibbonButtonBarEvent& e)
+{
+	;
+}
+
+void Frame::OnRenderingSmooth(wxRibbonButtonBarEvent& e)
+{
+	;
+}
+
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {

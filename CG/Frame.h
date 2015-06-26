@@ -37,7 +37,13 @@ private:
 
 	void OnGLConfig( wxRibbonButtonBarEvent& e );
 
-	void OnRendering( wxRibbonButtonBarEvent& e);
+	void OnRenderingWireframe( wxRibbonButtonBarEvent& e);
+
+	void OnRenderingPoint(wxRibbonButtonBarEvent& e);
+
+	void OnRenderingVolume(wxRibbonButtonBarEvent& e);
+
+	void OnRenderingSmooth(wxRibbonButtonBarEvent& e);
 
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
