@@ -86,7 +86,7 @@ public:
 	{
 		mc.buildTable();
 		setupVolumes();
-		createPreVolume();
+		createPreVolume(1.0);
 		createSurface(preVolume);
 		setRendering();
 	}
@@ -116,10 +116,10 @@ public:
 		bakedVolume = v;
 	}
 
-	void createPreVolume() {
+	void createPreVolume(const T& factor) {
 		preSurfaces.clear();
 		preVolume = bakedVolume;
-		preVolume.add(particle);
+		preVolume.add(particle, factor);
 		const auto& s = createSurface(preVolume);
 		preSurfaces.push_back(s);
 		setRendering();
@@ -196,34 +196,59 @@ public:
 		*/
 	}
 
-	void move(const Math::Vector3d<T>& left, const Math::Vector3d<T>& middle, const Math::Vector3d<T>& right) {
+
+	void onDraggingLeft(const Math::Vector3d<T>& left)
+	{
 		if (uiMode == CAMERA_TRANSLATE) {
-			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
+			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
 			camera->move(v);
+		}
+		else if (uiMode == PARTICLE_TRANSLATE) {
+			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
+			particle.move(v);
+			createPreVolume(1.0);
+			const auto& s = createSurface(preVolume);
+			setRendering();
+		}
+		else if (uiMode == PARTICLE_STROKE) {
+			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
+			particle.move(v);
+			createPreVolume(1.0);
+			const auto& s = createSurface(preVolume);
+			setRendering();
+			bakeParticleToVolume();
+		}
+	}
+
+	void onDraggingRight(const Math::Vector3d<T>& right)
+	{
+		if (uiMode == CAMERA_TRANSLATE) {
 			camera->addAngle(right);
 		}
 		else if (uiMode == PARTICLE_TRANSLATE) {
-			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
-			particle.move(v);
 			particle.addRadius(right.getY());
-			createPreVolume();
-			const auto& s = createSurface(preVolume);
-			setRendering();
-			//ssTransformCmd->move(pos);
+		}
+	}
+
+	void onDraggindMiddle(const Math::Vector3d<T>& middle)
+	{
+		if (uiMode == CAMERA_TRANSLATE) {
+			const Vector3d<T> v(0, 0, middle.getX());
+			camera->move(v);
+		}
+		else if (uiMode == PARTICLE_TRANSLATE) {
+			const Vector3d<T> v(0, 0, middle.getX());
+			particle.move(v);
 		}
 		else if (uiMode == PARTICLE_STROKE) {
-			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
+			const Vector3d<T> v(0, 0, middle.getX());
 			particle.move(v);
-			createPreVolume();
+			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
-
 			bakeParticleToVolume();
+		}
 
-		}
-		else {
-			assert(false);
-		}
 	}
 
 	/*

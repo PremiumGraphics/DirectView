@@ -45,6 +45,8 @@ private:
 
 	void OnParticleTranslate(wxRibbonButtonBarEvent& e);
 
+	void OnParticleStroke(wxRibbonButtonBarEvent& e);
+
 	void OnCreateVolume(wxRibbonButtonBarEvent& e);
 
 	void OnVolumeConfig(wxRibbonButtonBarEvent& e);

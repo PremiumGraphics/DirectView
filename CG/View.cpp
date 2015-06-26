@@ -12,7 +12,6 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
-	//EVT_CHAR( View::OnChar )
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
 
@@ -57,45 +56,6 @@ void View::OnPaint(wxPaintEvent&)
 
 	SwapBuffers();
 }
-
-/**
-void View::OnChar(wxCharEEvent& event)
-{
-	CameraSPtr<float> camera = model->getCamera();
-	Vector3d<float> pos = camera->getPos();
-
-	switch (event.GetKeyCode()) {
-	case 'c':
-		model->setUIMode(UIMode::CAMERA_TRANSLATE);
-		break;
-	case 'p':
-		model->setUIMode(UIMode::PARTICLE_TRANSLATE);
-		break;
-	case WXK_RIGHT:
-		pos += Vector3d<float>(0.1f, 0.0f, 0.0f);
-		break;
-	case WXK_LEFT:
-		pos -= Vector3d<float>(0.1f, 0.0f, 0.0f);
-		break;
-	case WXK_DOWN:
-		pos += Vector3d<float>(0.0f, 0.1f, 0.0f);
-		break;
-	case WXK_UP:
-		pos -= Vector3d<float>(0.0f, 0.1f, 0.0f);
-		break;
-	default:
-		event.Skip();
-		return;
-	};
-
-	camera->setPos(pos);
-
-	draw(GetSize());
-
-	SwapBuffers();
-
-}
-*/
 
 void View::OnMouse(wxMouseEvent& event)
 {
@@ -147,20 +107,21 @@ void View::OnMouse(wxMouseEvent& event)
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			middle += Vector3d<float>( diff.x * 0.01, 0.0f, 0.0f );
+			model->onDraggindMiddle(middle);
 		}
 		else if( event.RightIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			right += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
+			model->onDraggingRight(right);
 		}
 		else if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			left += Vector3d<float>( diff.x * 0.01f, -(diff.y * 0.01f), 0.0f );	
+			model->onDraggingLeft(left);
 		}
 		
-		model->move(left, middle, right);
-
 		draw( GetSize() );
 
 		SwapBuffers();
