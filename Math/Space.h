@@ -113,7 +113,8 @@ public:
 		const auto y2 = getEnd().getY();
 		const auto z2 = getEnd().getZ();
 
-		return{
+		return std::move(
+			std::array< Vector3d<T>, 8 > {
 			Vector3d<T>(x1, y1, z1),
 			Vector3d<T>(x2, y1, z1),
 			Vector3d<T>(x2, y2, z1),
@@ -122,7 +123,7 @@ public:
 			Vector3d<T>(x2, y1, z2),
 			Vector3d<T>(x2, y2, z2),
 			Vector3d<T>(x1, y2, z2),
-		};
+		});
 	}
 
 	//Vector<T,DIM> getVector() const { return vector; }

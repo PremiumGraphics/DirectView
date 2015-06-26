@@ -99,6 +99,7 @@ public:
 
 		assert(spaces.size() == values.size());
 
+		cells.reserve(values.size());
 		for (size_t i = 0; i < spaces.size(); ++i) {
 			VolumeCell3d<T, T> c( spaces[i], values[i]);
 			cells.emplace_back(c);
