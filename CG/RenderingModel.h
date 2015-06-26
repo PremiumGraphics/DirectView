@@ -6,6 +6,7 @@
 #include "../Shader/NormalRenderer.h"
 #include "../Shader/SmoothRenderer.h"
 #include "../Shader/VolumeRenderer.h"
+#include "../Shader/PointRenderer.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -121,7 +122,7 @@ public:
 		glLineWidth(getConfig().lineWidth);
 
 		wireframeRenderer.render(width, height, camera, lineBuffer, false);
-		wireframeRenderer.render(width, height, camera, pointBuffer, false);
+		pointRenderer.render(width, height, camera, pointBuffer, false);
 
 		normalRenderer.render(width, height, camera, pointBuffer);
 
@@ -130,7 +131,7 @@ public:
 		}
 
 		glClear(GL_DEPTH_BUFFER_BIT);
-		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
+		pointRenderer.render(width, height, camera, selectedPointBuffer, true);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 
 		glPointSize(getConfig().pointSize);
@@ -151,12 +152,14 @@ public:
 		wireframeRenderer.build();
 		smoothRenderer.build();
 		volumeRenderer.build();
+		pointRenderer.build();
 	}
 
 private:
 	RenderingConfig<T> config;
 
 	Graphics::NormalRenderer normalRenderer;
+	Shader::PointRenderer pointRenderer;
 	Shader::WireframeRenderer wireframeRenderer;
 	Graphics::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;

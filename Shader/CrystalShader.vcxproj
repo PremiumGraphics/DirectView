@@ -77,6 +77,7 @@
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="VolumeRenderer.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="GLee.h" />
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="VolumeRenderer.h" />

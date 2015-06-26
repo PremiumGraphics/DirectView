@@ -7,6 +7,7 @@
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="VolumeRenderer.cpp" />
+    <ClCompile Include="PointRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SmoothRenderer.h" />
@@ -15,5 +16,6 @@
     <ClInclude Include="GLee.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="VolumeRenderer.h" />
+    <ClInclude Include="PointRenderer.h" />
   </ItemGroup>
 </Project>

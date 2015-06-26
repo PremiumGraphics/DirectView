@@ -1,18 +1,15 @@
-#include "IDRenderer.h"
+#include "PointRenderer.h"
 
-#include <cassert>
-
-using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void WireframeRenderer::build()
+void PointRenderer::build()
 {
 	Graphics::Shader vShader;
 	const std::string vStr =
 		"#version 150						\n"
 		"in vec3 position;					\n"
-//		"in int id;							\n"
+		//		"in int id;							\n"
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
@@ -53,23 +50,25 @@ void WireframeRenderer::build()
 
 }
 
-WireframeRenderer::Location WireframeRenderer::getLocations()
+PointRenderer::Location PointRenderer::getLocations()
 {
-	WireframeRenderer::Location location;
+	Location location;
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
 	location.isSelected = glGetUniformLocation(shader.getId(), "isSelected");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
-	location.id = glGetAttribLocation(shader.getId(), "id");
 
 	return location;
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer, const bool isSelected)
+
+void PointRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer, const bool isSelected)
 {
+
 	const auto& positions = buffer.getPositions();
+
 	if (positions.empty()) {
 		return;
 	}
@@ -98,31 +97,16 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
-	up();
 
 	//const auto positions = buffer.getPositions();
-
-	glDrawArrays(GL_LINES, 0, positions.size() / 3);
-
-	down();
-}
-
-void WireframeRenderer::up()
-{
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-}
 
-void WireframeRenderer::down()
-{
+	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	glUseProgram(0);
-
 
 }
