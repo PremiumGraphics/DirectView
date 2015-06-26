@@ -34,6 +34,7 @@ public:
 		right = (0.5f);
 		bottom = (0.0f);
 		top = (1.0f);
+		angle = Math::Vector3d<T>::Zero();
 		pos = Math::Vector3d<T>::Zero();
 	}
 

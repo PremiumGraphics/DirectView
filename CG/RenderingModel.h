@@ -29,6 +29,7 @@ public:
 		drawPoint = true;
 		drawWire = true;
 		drawSmooth = true;
+		drawVolume = true;
 		drawCells = false;
 		drawNormal = false;
 	}

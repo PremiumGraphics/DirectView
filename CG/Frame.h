@@ -51,6 +51,8 @@ private:
 
 	void OnRenderingSmooth(wxRibbonButtonBarEvent& e);
 
+	void OnRenderingSmoothConfig(wxRibbonButtonBarEvent& e);
+
 	void OnCameraFit( wxRibbonButtonBarEvent& e );
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
@@ -77,11 +79,19 @@ private:
 
 	void OnKeyDown(wxKeyEvent& event);
 
-	void createFileMenu(wxRibbonPage* parent);
+	void createPanels(wxRibbonPage* parent);
 
-	void createCameraMenu(wxRibbonPage* parent);
+	void createFilePanel(wxRibbonPage* parent);
 
-	void createBrushMenu(wxRibbonPage* parent);
+	void createCameraPanel(wxRibbonPage* parent);
+
+	void createBrushPanel(wxRibbonPage* parent);
+
+	void createCanvasPanel(wxRibbonPage* parent);
+
+	void createRenderingPanel(wxRibbonPage* parent);
+
+	void createHelpPanel(wxRibbonPage* parent);
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
