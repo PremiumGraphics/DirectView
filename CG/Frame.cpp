@@ -35,6 +35,7 @@ enum {
 
 	ID_PARTICLE_MOVE,
 	ID_PARTICLE_STROKE,
+	ID_PARTICLE_SIZE,
 	ID_CREATE_VOLUME,
 
 	ID_RENDERING_WIREFRAME,
@@ -125,6 +126,7 @@ Frame::Frame()
 	operation->AddButton( ID_CAMERA,	"Camera",	wxImage("../Resource/view.png") );
 	operation->AddButton( ID_PARTICLE_MOVE,  "Move", wxImage("../Resource/point.png"));
 	operation->AddButton( ID_PARTICLE_STROKE, "STROKE", wxImage("../Resource/point.png"));
+	operation->AddButton( ID_PARTICLE_SIZE, "Size", wxImage("../Resource/point.png"));
 
 	operation->AddButton( ID_CAMERA_FIT,	"Fit",		wxImage("../Resource/zoom.png") );
 	operation->AddButton(ID_CREATE_VOLUME, "Grid", wxImage("../Resource/grid.png"));
@@ -135,6 +137,7 @@ Frame::Frame()
 	Connect( ID_CAMERA,					wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraTranslate ) );
 	Connect( ID_PARTICLE_MOVE,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
 	Connect( ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
+	Connect( ID_PARTICLE_SIZE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 
 	Connect( ID_CAMERA_FIT,				wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler( Frame::OnCameraFit ) );
 	Connect( ID_CREATE_VOLUME,			wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
@@ -464,6 +467,11 @@ void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
 	model->setUIMode(Model::UIMode::PARTICLE_STROKE);
 }
 
+void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
+{
+	model->setUIMode(Model::UIMode::PARTICLE_SIZE);
+}
+
 
 void Frame::setRendering()
 {
@@ -496,8 +504,20 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 	case 'S':
 		model->setUIMode(UIMode::PARTICLE_STROKE);
 		break;
-	case 'R':
-		model->reverseParticleCharge();
+	case 'D':
+		model->setPlaneMode(PlaneMode::XY);
+		break;
+	case 'X':
+		model->setPlaneMode(PlaneMode::X);
+		break;
+	case 'Y':
+		model->setPlaneMode(PlaneMode::Y);
+		break;
+	case 'Z':
+		model->setPlaneMode(PlaneMode::Z);
+		break;
+//	case 'R':
+//		model->reverseParticleCharge();
 	default:
 		event.Skip();
 		return;

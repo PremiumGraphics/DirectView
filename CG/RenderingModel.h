@@ -24,7 +24,7 @@ public:
 	void setDefault() {
 		normalScale = 1;
 		lineWidth = 1;
-		pointSize = 20;
+		pointSize = 5;
 		enableLight = true;
 		drawCells = false;
 		drawNormal = false;
@@ -117,7 +117,7 @@ public:
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 
-		glPointSize(getConfig().pointSize);
+		glPointSize(20.0);
 		glLineWidth(getConfig().lineWidth);
 
 		wireframeRenderer.render(width, height, camera, lineBuffer, false);
@@ -132,6 +132,8 @@ public:
 		glClear(GL_DEPTH_BUFFER_BIT);
 		wireframeRenderer.render(width, height, camera, selectedPointBuffer, true);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
+
+		glPointSize(getConfig().pointSize);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

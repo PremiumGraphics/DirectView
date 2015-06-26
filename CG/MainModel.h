@@ -19,6 +19,14 @@ enum UIMode
 	CAMERA_TRANSLATE,
 	PARTICLE_TRANSLATE,
 	PARTICLE_STROKE,
+	PARTICLE_SIZE,
+};
+
+enum PlaneMode {
+	XY,
+	X,
+	Y,
+	Z,
 };
 
 template<typename T>
@@ -82,7 +90,8 @@ class MainModel final : private UnCopyable
 public:
 	MainModel() :
 		camera(std::make_shared< Graphics::Camera<T> >()),
-		uiMode( CAMERA_TRANSLATE )
+		uiMode( CAMERA_TRANSLATE ),
+		planeMode( PlaneMode::XY )
 	{
 		mc.buildTable();
 		setupVolumes();
@@ -197,57 +206,83 @@ public:
 	}
 
 
-	void onDraggingLeft(const Math::Vector3d<T>& left)
+	Math::Vector3d<T> getDiff(const Math::Vector3d<T>& src) {
+		const T x =  src.getX();
+		const T y = -src.getY();
+		const T z =  src.getZ();
+		if (planeMode == PlaneMode::XY) {
+			return Vector3d<T>(x, y, 0);
+		}
+		else if (planeMode == PlaneMode::X) {
+			return Vector3d<T>(x, 0, 0);
+		}
+		else if (planeMode == PlaneMode::Y) {
+			return Vector3d<T>(0, x, 0);
+		}
+		else if (planeMode == PlaneMode::Z) {
+			return Vector3d<T>(0, 0, x);
+		}
+		else {
+			assert(false);
+			return Vector3d<T>::Zero();
+		}
+	}
+
+	void onDraggingLeft(const Math::Vector3d<T>& src)
 	{
+		const Math::Vector3d<T>& v = getDiff(src);
 		if (uiMode == CAMERA_TRANSLATE) {
-			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
 			camera->move(v);
 		}
 		else if (uiMode == PARTICLE_TRANSLATE) {
-			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
 			particle.move(v);
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
 		}
 		else if (uiMode == PARTICLE_STROKE) {
-			const Vector3d<T> v(left.getX(), left.getY(), 0.0);
 			particle.move(v);
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
 			bakeParticleToVolume();
 		}
-	}
-
-	void onDraggingRight(const Math::Vector3d<T>& right)
-	{
-		if (uiMode == CAMERA_TRANSLATE) {
-			camera->addAngle(right);
-		}
-		else if (uiMode == PARTICLE_TRANSLATE) {
-			particle.addRadius(right.getY());
+		else if (uiMode == PARTICLE_SIZE) {
+			particle.addRadius(src.getY());
+			createPreVolume(1.0);
+			const auto& s = createSurface(preVolume);
+			setRendering();
 		}
 	}
 
-	void onDraggindMiddle(const Math::Vector3d<T>& middle)
+	void onDraggingRight(const Math::Vector3d<T>& src)
 	{
+		const Math::Vector3d<T>& v = getDiff(src);
 		if (uiMode == CAMERA_TRANSLATE) {
-			const Vector3d<T> v(0, 0, middle.getX());
-			camera->move(v);
-		}
-		else if (uiMode == PARTICLE_TRANSLATE) {
-			const Vector3d<T> v(0, 0, middle.getX());
-			particle.move(v);
+			camera->addAngle(src);
 		}
 		else if (uiMode == PARTICLE_STROKE) {
-			const Vector3d<T> v(0, 0, middle.getX());
 			particle.move(v);
-			createPreVolume(1.0);
+			createPreVolume(-1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
 			bakeParticleToVolume();
 		}
+
+	}
+
+	void onDraggindMiddle(const Math::Vector3d<T>& diff)
+	{
+		if (uiMode == CAMERA_TRANSLATE) {
+			const Vector3d<T> v(0, 0, diff.getX());
+			camera->move(v);
+		}
+		/*
+		else if (uiMode == PARTICLE_TRANSLATE) {
+			const Vector3d<T> v(0, 0, diff.getX());
+			particle.move(v);
+		}
+		*/
 
 	}
 
@@ -264,6 +299,10 @@ public:
 	*/
 
 	void setUIMode(const UIMode m) { this->uiMode = m; }
+
+	void setPlaneMode(const PlaneMode m) { this->planeMode = m; }
+
+	PlaneMode getPlaneMode() const { return planeMode; }
 
 	RenderingConfig<T> getRenderingConfig() const { return rendering.getConfig(); }
 
@@ -288,7 +327,7 @@ private:
 	UIMode uiMode;
 	VolumeConfig<T> vConfig;
 	ParticleConfig<T> pConfig;
-
+	PlaneMode planeMode;
 };
 
 template<typename T>

@@ -85,16 +85,10 @@ void View::OnMouse(wxMouseEvent& event)
 
 		const unsigned int id = g;
 		*/
-		model->bakeParticleToVolume();
 		//model->setRendering();
-		Refresh();
+		//Refresh();
+		model->bakeParticleToVolume();
 
-		return;
-	}
-
-	if (event.RightDClick() ) {
-		model->reverseParticleCharge();
-		Refresh();
 		return;
 	}
 
@@ -118,7 +112,7 @@ void View::OnMouse(wxMouseEvent& event)
 		else if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			left += Vector3d<float>( diff.x * 0.01f, -(diff.y * 0.01f), 0.0f );	
+			left += Vector3d<float>( diff.x * 0.01f, diff.y * 0.01, 0.0f );	
 			model->onDraggingLeft(left);
 		}
 		

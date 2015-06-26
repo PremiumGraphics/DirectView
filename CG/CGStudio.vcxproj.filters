@@ -4,8 +4,8 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="View.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
