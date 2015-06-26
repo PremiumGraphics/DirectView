@@ -92,7 +92,7 @@ public:
 		for (size_t x = 0; x < grid.getSizeX() - 1; ++x) {
 			for (size_t y = 0; y < grid.getSizeY() - 1; ++y) {
 				for (size_t z = 0; z < grid.getSizeZ() - 1; ++z) {
-					values.push_back(grid.toArray8(x, y, z));
+					values.emplace_back(grid.toArray8(x, y, z));
 				}
 			}
 		}
@@ -101,9 +101,9 @@ public:
 
 		for (size_t i = 0; i < spaces.size(); ++i) {
 			VolumeCell3d<T, T> c( spaces[i], values[i]);
-			cells.push_back(c);
+			cells.emplace_back(c);
 		}
-		return cells;
+		return std::move(cells);
 	}
 
 

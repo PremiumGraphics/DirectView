@@ -52,21 +52,21 @@ public:
 	{
 		TriangleVector<T> triangles;
 		const std::vector< VolumeCell3d<T,T> >& cells = ss.toCells();
-		for (const auto c : cells) {
-			const auto ts = build(c.getSpace(), c.getValues(), isolevel);
+		for (const auto& c : cells) {
+			const auto& ts = build(c.getSpace(), c.getValues(), isolevel);
 			triangles.insert(triangles.end(), ts.begin(), ts.end());
 		}
-		return triangles;
+		return std::move(triangles);
 	}
 
 
 	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
 	{
 		TriangleVector<T> triangles;
-		const std::array< Vector3d<T>, 8 > vs = s.toArray();
+		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
 		const int cubeindex = getCubeIndex( val, isolevel );
-		const auto vertices = getPositions(cubeindex, vs, val, isolevel);
-		return build(cubeindex, vertices);
+		const auto& vertices = getPositions(cubeindex, vs, val, isolevel);
+		return std::move( build(cubeindex, vertices) );
 	}
 
 	TriangleVector<T> march(const BitSpace3d<T>& bs)
@@ -82,10 +82,10 @@ public:
 
 	TriangleVector<T> build(const Space3d<T>& s, const std::bitset< 8 >& bit )
 	{
-		const std::array< Vector3d<T>, 8 > vs = s.toArray();
-		const int cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
-		const auto vertices = getPositions( cubeindex, vs );
-		return build(cubeindex, vertices);
+		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
+		const int& cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
+		const auto& vertices = getPositions( cubeindex, vs );
+		return std::move( build(cubeindex, vertices) );
 	}
 
 private:
@@ -99,10 +99,10 @@ private:
 			const auto& v1 = vertices[triTable[cubeindex][i]];
 			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
 			const auto& v3 = vertices[triTable[cubeindex][i + 2]];
-			Triangle<T> t(v1, v2, v3);
-			triangles.push_back(t);
+			const Triangle<T> t(v1, v2, v3);
+			triangles.emplace_back(t);
 		}
-		return triangles;
+		return std::move(triangles);
 	}
 
 	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {
