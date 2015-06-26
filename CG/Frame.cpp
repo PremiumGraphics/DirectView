@@ -481,6 +481,11 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 	case 'P':
 		model->setUIMode(UIMode::PARTICLE_TRANSLATE);
 		break;
+	case 'S':
+		model->setUIMode(UIMode::PARTICLE_STROKE);
+		break;
+	case 'R':
+		model->reverseParticleCharge();
 	default:
 		event.Skip();
 		return;

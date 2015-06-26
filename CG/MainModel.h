@@ -18,6 +18,7 @@ enum UIMode
 {
 	CAMERA_TRANSLATE,
 	PARTICLE_TRANSLATE,
+	PARTICLE_STROKE,
 };
 
 template<typename T>
@@ -209,6 +210,16 @@ public:
 			const auto& s = createSurface(preVolume);
 			setRendering();
 			//ssTransformCmd->move(pos);
+		}
+		else if (uiMode == PARTICLE_STROKE) {
+			const Vector3d<T> v(left.getX(), left.getY(), middle.getX());
+			particle.move(v);
+			createPreVolume();
+			const auto& s = createSurface(preVolume);
+			setRendering();
+
+			bakeParticleToVolume();
+
 		}
 		else {
 			assert(false);
