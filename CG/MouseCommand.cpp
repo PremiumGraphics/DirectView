@@ -13,8 +13,8 @@ void CameraCommand::onDraggingLeft(const Vector3d<float>& src)
 }
 void CameraCommand::onDraggingRight(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = getDiff(src);
-	camera.addAngle(v);
+	//const Math::Vector3d<float>& v = getDiff(src);
+	camera.addAngle(src);
 }
 
 void CameraCommand::onDraggingMiddle(const Vector3d<float>& src)
@@ -31,8 +31,8 @@ void ParticleCommand::onDraggingLeft(const Vector3d<float>& src)
 
 void ParticleCommand::onDraggingRight(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = getDiff(src);
-	particle.move(getScrennSpaceDiff(v * 1));
+	//const Math::Vector3d<float>& v = getDiff(src);
+	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
 void ParticleCommand::onDraggingMiddle(const Vector3d<float>& diff)

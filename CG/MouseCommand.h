@@ -24,6 +24,14 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) = 0;
 
+	enum class Type{
+		Camera,
+		Particle,
+		ParticleScale,
+	};
+
+	virtual Type getType() const = 0;
+
 protected:
 	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
 		const float x = src.getX();
@@ -55,6 +63,11 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual Type getType() const override {
+		return Type::Camera;
+	}
+
 };
 
 class ParticleCommand : public MouseCommand
@@ -71,6 +84,11 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual Type getType() const override {
+		return Type::Particle;
+	}
+
 
 private:
 	Math::Particle3d<float>& particle;
@@ -90,6 +108,11 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual Type getType() const override {
+		return Type::ParticleScale;
+	}
+
 
 private:
 	Math::Particle3d<float>& particle;

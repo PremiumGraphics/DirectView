@@ -8,8 +8,7 @@ using namespace Crystal::Model;
 
 MainModel::MainModel() :
 mouse(std::make_shared<UI::CameraCommand>(camera)),
-realtimePreviewMode(false),
-doRealTimeBaking(false)
+realtimePreviewMode(false)
 {
 	mc.buildTable();
 	setupVolumes();

@@ -29,9 +29,10 @@ enum {
 
 	ID_PARTICLE_MOVE,
 	ID_PARTICLE_STROKE,
-	ID_PARTICLE_ERASE,
+	ID_PARTICLE_SIZE,
 	ID_PARTICLE_POSITIVE,
 	ID_PARTICLE_NEGATIVE,
+	ID_PARTICLE_ZERO,
 
 	ID_CANVAS_CONFIG,
 	ID_CANVAS_CLEAR,
@@ -191,20 +192,22 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-	bar->AddButton(ID_PARTICLE_MOVE, "Move", wxImage("../Resource/point.png"));
-	bar->AddButton(ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
-	bar->AddButton(ID_PARTICLE_ERASE, "Size", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_MOVE, "Particle", wxImage("../Resource/point.png"));
+	//bar->AddButton(ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_SIZE, "Size", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_PARTICLE_POSITIVE, "+", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_PARTICLE_NEGATIVE, "-", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_ZERO, "0", wxImage("../Resource/point.png"));
+
 
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect(ID_PARTICLE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleControl));
-	Connect(ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
-	Connect(ID_PARTICLE_ERASE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
+	Connect(ID_PARTICLE_SIZE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 	Connect(ID_PARTICLE_POSITIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
 	Connect(ID_PARTICLE_NEGATIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
+	Connect(ID_PARTICLE_ZERO, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleZero));
 
 }
 
@@ -547,18 +550,16 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
 	model->setUIControl(Model::UIControl::Particle);
-	model->changeRealTimeBaking(false);
 }
 
-void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
-{
-	model->setUIControl(Model::UIControl::Particle);
-	model->changeRealTimeBaking(true);
-}
-
-void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
+void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
 	model->setUIControl(Model::UIControl::ParticleScale);
+}
+
+void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
+{
+	model->setParticleCharge(0.0f);
 }
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
@@ -593,17 +594,22 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
-	/*
 	switch (event.GetKeyCode()) {
-	case 'C':
-		model->setUIMode(UIMode::CAMERA_TRANSLATE);
+	case 'X':
+		model->setParticleCharge(-1.0f);
+		model->setUIControl(Model::UIControl::Particle);
 		break;
-	case 'P':
-		model->setUIMode(UIMode::PARTICLE_TRANSLATE);
+	case 'C':
+		model->setUIControl(Model::UIControl::Camera);
+		break;
+	case 'V':
+		model->setParticleCharge(1.0f);
+		model->setUIControl(Model::UIControl::Particle);
 		break;
 	case 'S':
-		model->setUIMode(UIMode::PARTICLE_STROKE);
+		model->setUIControl(Model::UIControl::ParticleScale);
 		break;
+		/*
 	case 'D':
 		model->setPlaneMode(PlaneMode::XY);
 		break;
@@ -618,9 +624,9 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		break;
 //	case 'R':
 //		model->reverseParticleCharge();
+*/
 	default:
 		event.Skip();
 		return;
 	};
-	*/
 }

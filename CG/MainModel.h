@@ -203,9 +203,6 @@ public:
 		createPreVolume(1.0);
 		const auto& s = createSurface(preVolume);
 		setRendering();
-		if (doRealTimeBaking) {
-			bakeParticleToVolume();
-		}
 	}
 
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
@@ -216,6 +213,9 @@ public:
 	void onDraggingRight(const Math::Vector3d<float>& src) {
 		mouse->onDraggingRight(src);
 		preview();
+		if (mouse->getType() == UI::MouseCommand::Type::Particle) {
+			bakeParticleToVolume();
+		}
 	}
 
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
@@ -237,10 +237,6 @@ public:
 			mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 			realtimePreviewMode = true;
 		}
-	}
-
-	void changeRealTimeBaking(const bool b) {
-		doRealTimeBaking = b;
 	}
 
 	/*
@@ -279,7 +275,6 @@ private:
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseCommand> mouse;
 	bool realtimePreviewMode;
-	bool doRealTimeBaking;
 };
 
 using MainModelSPtr = std::shared_ptr < MainModel > ;

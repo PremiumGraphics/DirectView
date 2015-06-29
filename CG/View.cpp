@@ -104,13 +104,13 @@ void View::OnMouse(wxMouseEvent& event)
 			middle += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
 			model->onDraggindMiddle(middle);
 		}
-		else if( event.RightIsDown() ) {
+		if( event.RightIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			right += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
 			model->onDraggingRight(right);
 		}
-		else if( event.LeftIsDown() ) {
+		if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			left += Vector3d<float>( diff.x * 0.01f, diff.y * 0.01, 0.0f );	
