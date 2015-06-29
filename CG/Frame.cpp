@@ -540,11 +540,13 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
 	model->setUIControl(false);
+	model->changeRealTimeBaking(false);
 }
 
 void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
 {
-	model->changeRealTimeBaking();
+	model->setUIControl(false);
+	model->changeRealTimeBaking(true);
 }
 
 

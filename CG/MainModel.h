@@ -233,8 +233,8 @@ public:
 		}
 	}
 
-	void changeRealTimeBaking() {
-		doRealTimeBaking = !doRealTimeBaking;
+	void changeRealTimeBaking(const bool b) {
+		doRealTimeBaking = b;
 	}
 
 	/*
