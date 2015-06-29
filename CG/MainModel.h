@@ -80,6 +80,7 @@ enum class UIControl {
 	Camera,
 	Particle,
 	ParticleScale,
+	ParticleErase,
 };
 
 class MainModel final : private UnCopyable
@@ -99,21 +100,20 @@ public:
 	}
 	*/
 
-	void setupVolumes() {
-		Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-		Math::Volume3d<float> v(vConfig.space, grid);
-		preVolume = v;
-		bakedVolume = v;
-	}
+	void setupVolumes();
 
-	void createPreVolume(const float& factor) {
+	/*
+	void zeroPreVolume() {
 		preSurfaces.clear();
 		preVolume = bakedVolume;
-		preVolume.add(particle, factor);
+		preVolume.setZero(particle);
 		const auto& s = createSurface(preVolume);
 		preSurfaces.push_back(s);
 		setRendering();
 	}
+	*/
+
+	void createPreVolume(const float factor);
 
 	void bakeParticleToVolume() {
 		bakedVolume = preVolume;
@@ -137,10 +137,6 @@ public:
 
 	void buildRenderer() {
 		rendering.buildRenderer();
-	}
-
-	void reverseParticleCharge() {
-		particle.reverseCharge();
 	}
 
 	void setParticleCharge(const float c) {
@@ -197,7 +193,7 @@ public:
 	}
 
 	void preview() {
-		if (!realtimePreviewMode) {
+		if (mouse->getType() == UI::MouseCommand::Type::Camera ) {
 			return;
 		}
 		createPreVolume(1.0);
@@ -223,21 +219,7 @@ public:
 		preview();
 	}
 
-	void setUIControl(const UIControl ctrl)
-	{
-		if (ctrl == UIControl::Camera) {
-			mouse = std::make_shared<UI::CameraCommand>(camera);
-			realtimePreviewMode = false;
-		}
-		else if( ctrl == UIControl::Particle ) {
-			mouse = std::make_shared<UI::ParticleCommand>(camera, particle);
-			realtimePreviewMode = true;
-		}
-		else if (ctrl == UIControl::ParticleScale) {
-			mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
-			realtimePreviewMode = true;
-		}
-	}
+	void setUIControl(const UIControl ctrl);
 
 	/*
 	void addParticleCharge(const float delta) {
@@ -264,17 +246,15 @@ private:
 
 	Math::Volume3d<float> preVolume;
 	Math::Volume3d<float> bakedVolume;
-	//Math::Volume3d<float> volume;
 
 	Math::Particle3d<float> particle;
 	RenderingCommand<float> rendering;
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtrList<float> preSurfaces;
-	//Graphics::SurfaceSPtrList<float> bakedSurfaces;
 	VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseCommand> mouse;
-	bool realtimePreviewMode;
+	bool isSphere;
 };
 
 using MainModelSPtr = std::shared_ptr < MainModel > ;

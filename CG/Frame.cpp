@@ -559,7 +559,7 @@ void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
 {
-	model->setParticleCharge(0.0f);
+	//model->setUIControl);
 }
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)

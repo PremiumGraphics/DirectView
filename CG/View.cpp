@@ -88,8 +88,13 @@ void View::OnMouse(wxMouseEvent& event)
 		*/
 		//model->setRendering();
 		//Refresh();
-		model->bakeParticleToVolume();
+		//model->bakeParticleToVolume();
 
+		return;
+	}
+
+	if (event.RightDClick()) {
+		model->bakeParticleToVolume();
 		return;
 	}
 

@@ -8,7 +8,7 @@ using namespace Crystal::Model;
 
 MainModel::MainModel() :
 mouse(std::make_shared<UI::CameraCommand>(camera)),
-realtimePreviewMode(false)
+isSphere(false)
 {
 	mc.buildTable();
 	setupVolumes();
@@ -47,63 +47,34 @@ void MainModel::doExport(const std::string& filename) const
 	file.writeASCII(filename);
 }
 
-/*
-
-void MainModel::onDraggingLeft(const Vector3d<float>& src)
+void MainModel::setupVolumes()
 {
-	const Math::Vector3d<float>& v = getDiff(src);
-	if (uiMode == UIMode::CAMERA_TRANSLATE) {
-		camera.move(v);
-	}
-	else if (uiMode == UIMode::PARTICLE_TRANSLATE) {
-		particle.move(getScrennSpaceDiff(v * 1));
-		createPreVolume(1.0);
-		const auto& s = createSurface(preVolume);
-		setRendering();
-	}
-	else if (uiMode == UIMode::PARTICLE_STROKE) {
-		particle.move(getScrennSpaceDiff(v * 1));
-		createPreVolume(1.0);
-		const auto& s = createSurface(preVolume);
-		setRendering();
-		bakeParticleToVolume();
-	}
+	Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+	Math::Volume3d<float> v(vConfig.space, grid);
+	preVolume = v;
+	bakedVolume = v;
 }
 
-void MainModel::onDraggingRight(const Vector3d<float>& src)
-{
-	const Math::Vector3d<float>& v = getDiff(src);
-	if (uiMode == UIMode::CAMERA_TRANSLATE) {
-		camera.addAngle(src);
-	}
-	else if (uiMode == UIMode::PARTICLE_STROKE) {
-		particle.move(getScrennSpaceDiff(v * 1));
-		createPreVolume(-1.0);
-		const auto& s = createSurface(preVolume);
-		setRendering();
-		bakeParticleToVolume();
-	}
 
+void MainModel::createPreVolume(const float factor)
+{
+	preSurfaces.clear();
+	preVolume = bakedVolume;
+	preVolume.add(particle, factor);
+	const auto& s = createSurface(preVolume);
+	preSurfaces.push_back(s);
+	setRendering();
 }
 
-void MainModel::onDraggindMiddle(const Vector3d<float>& diff)
+void MainModel::setUIControl(const UIControl ctrl)
 {
-	if (uiMode == UIMode::CAMERA_TRANSLATE) {
-		const Math::Vector3d<float> v(0, 0, diff.getY());
-		camera.move(v);
+	if (ctrl == UIControl::Camera) {
+		mouse = std::make_shared<UI::CameraCommand>(camera);
 	}
-	else {
-		const Math::Vector3d<float> v(0, 0, diff.getY());
-		particle.move(getScrennSpaceDiff(v * 1));
-		createPreVolume(1.0);
-		const auto& s = createSurface(preVolume);
-		setRendering();
+	else if (ctrl == UIControl::Particle) {
+		mouse = std::make_shared<UI::ParticleCommand>(camera, particle);
 	}
-	/*
-	else if (uiMode == PARTICLE_TRANSLATE) {
-	const Vector3d<float> v(0, 0, diff.getX());
-	particle.move(v);
+	else if (ctrl == UIControl::ParticleScale) {
+		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 	}
-	*/
-
-//}
+}
