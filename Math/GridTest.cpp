@@ -87,21 +87,61 @@ TEST(Grid3dTest, TestGetSub)
 TEST(Grid3dTest, TestAdd)
 {
 	using T = float;
-	auto lhs = Grid3d<T>(2, 2, 2).set( 0, 0, 0, 20 );
-	const auto rhs = Grid3d<T>(2, 2, 2).set(1,1,1,10);
+	auto lhs = Grid3d<T>(2, 2, 2);
+	lhs.set(0, 0, 0, 20);
+	auto rhs = Grid3d<T>(2, 2, 2);
+	rhs.set(1, 1, 1, 10);
 	lhs.add(rhs);
 
-	const auto expected = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20).set(1, 1, 1, 10);
+	auto expected = Grid3d<T>(2, 2, 2);
+	expected.set(0, 0, 0, 20);
+	expected.set(1, 1, 1, 10);
 	EXPECT_EQ(expected, lhs);
 }
 
 TEST(Grid3dTest, TestSub)
 {
 	using T = float;
-	auto lhs = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20);
-	const auto rhs = Grid3d<T>(2, 2, 2).set(1, 1, 1, -10);
+	auto lhs = Grid3d<T>(2, 2, 2);
+	lhs.set(0, 0, 0, 20);
+	auto rhs = Grid3d<T>(2, 2, 2);
+	rhs.set(1, 1, 1, -10);
 	lhs.add(rhs);
 
-	const auto expected = Grid3d<T>(2, 2, 2).set(0, 0, 0, 20).set(1, 1, 1, -10);
+	auto expected = Grid3d<T>(2, 2, 2);
+	expected.set(0, 0, 0, 20);
+	expected.set(1, 1, 1, -10);
 	EXPECT_EQ(expected, lhs);
 }
+
+TEST(Grid3dTest, TestIsLower)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2);
+	grid.set(0, 0, 0, 10);
+	const T threshold = 5;
+	EXPECT_FALSE(grid.isLower(0, 0, 0, threshold));
+	EXPECT_TRUE( grid.isLower(1, 0, 0, threshold));
+}
+
+TEST(Grid3dTest, TestIsAllLower)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2);
+	const T threshold = 5;
+
+	EXPECT_TRUE(grid.isAllLower(0, 0, 0, threshold));
+	grid.set(0, 0, 0, 10);
+	EXPECT_FALSE( grid.isAllLower(0, 0, 0, threshold) );
+}
+
+/*
+TEST(Grid3dTest, TestIsBoundary)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2);
+	grid.set(0, 0, 0, 10);
+	const T threshold = 5;
+	grid.
+}
+*/

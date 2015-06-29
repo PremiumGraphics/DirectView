@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <array>
+#include <bitset>
 
 namespace Crystal {
 	namespace Math{
@@ -146,6 +147,8 @@ class Grid3d final
 public:
 	Grid3d() = default;
 
+	~Grid3d() = default;
+
 	Grid3d(const size_t sizex, const size_t sizey, const size_t sizez) :
 		grids( sizez, Grid2d<T>(sizex, sizey) )
 	{}
@@ -156,9 +159,8 @@ public:
 
 	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(x,y); }
 
-	Grid3d& set(const size_t x, const size_t y, const size_t z, const T v) {
+	void set(const size_t x, const size_t y, const size_t z, const T v) {
 		grids[z].set(x, y, v);
-		return (*this);
 	}
 
 	size_t getSizeX() const { return grids.front().getSizeX(); }
@@ -237,6 +239,28 @@ public:
 				get(i+ 1, j+1, k+1),
 				get(i, j+1, k+1)
 		};
+	}
+
+	bool isAllLower(const size_t i, const size_t j, const size_t k, const T t) const {
+		assert(i < getSizeX() && j < getSizeY() && k < getSizeZ());
+		std::bitset<8> bs;
+		bs.set(0, isLower(i, j, k, t));
+		bs.set(1, isLower(i + 1, j, k, t));
+		bs.set(2, isLower(i + 1, j + 1, k, t));
+		bs.set(3, isLower(i, j + 1, k, t));
+		bs.set(4, isLower(i, j, k + 1, t));
+		bs.set(5, isLower(i + 1, j, k + 1, t));
+		bs.set(6, isLower(i + 1, j + 1, k + 1, t));
+		bs.set(7, isLower(i, j + 1, k + 1, t));
+		return (bs.all());
+	}
+
+	bool isLower(const size_t i , const size_t j, const size_t k ,const T threshold) const {
+		return (get(i, j, k) < threshold);
+	}
+
+	bool isHigher(const size_t i, const size_t j, const size_t k, const T threshold) const {
+		return !isLower(i, j, k, threshold);
 	}
 
 	bool equals(const Grid3d& rhs) const {

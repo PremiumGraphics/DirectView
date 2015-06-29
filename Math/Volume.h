@@ -107,6 +107,36 @@ public:
 		return std::move(cells);
 	}
 
+	/*
+	std::vector< VolumeCell3d<T, T> > toBoundaryCells(const T threshold) const {
+		std::vector< VolumeCell3d<T, T> > cells;
+
+		const auto& lengths = getUnitLengths();
+		const Space3d<T>& innerSpace = getSpace().offset(lengths);
+		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
+
+		std::vector< std::array<T, 8 > > values;
+		for (size_t x = 0; x < grid.getSizeX() - 1; ++x) {
+			for (size_t y = 0; y < grid.getSizeY() - 1; ++y) {
+				for (size_t z = 0; z < grid.getSizeZ() - 1; ++z) {
+					if (grid.get(x, y, z) < threshold) {
+						values.emplace_back(grid.toArray8(x, y, z));
+					}
+				}
+			}
+		}
+
+		assert(spaces.size() == values.size());
+
+		cells.reserve(values.size());
+		for (size_t i = 0; i < values.size(); ++i) {
+			VolumeCell3d<T, T> c(spaces[i], values[i]);
+			cells.emplace_back(c);
+		}
+		return std::move(cells);
+	}
+	*/
+
 
 	void add(const Particle3d<T>& metaball, const T factor) {
 		const auto center = metaball.getCenter();
