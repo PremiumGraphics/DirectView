@@ -23,9 +23,25 @@ TEST( CameraTest, TestMove )
 	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPos() );
 }
 
+TEST(CameraTest, TestGetRotationMatrix)
+{
+	{
+		Camera<float> c;
+		const auto& expected = Matrix3d<float>::Identity();
+		const auto& actual = c.getRotationMatrix();
+		EXPECT_EQ(expected, actual);
+	}
+	{
+		Camera<float> c;
+		c.setAngle(Vector3d<float>(Tolerance<float>::getHalfPI(), 0.0, 0.0));
+		const auto& actual = c.getRotationMatrix();
+	}
+}
+
+
 TEST( CameraTest, TestGetPerspectiveMatrix )
 {
-	Camera<float> c;
+	const Camera<float> c;
 	const Matrix4d<float>& m = c.getPerspectiveMatrix();
 	{
 		const T expected = T(2) / ( c.getRight() - c.getLeft() );

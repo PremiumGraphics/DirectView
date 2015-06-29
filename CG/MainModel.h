@@ -214,6 +214,12 @@ public:
 			return Math::Vector3d<float>::Zero();
 		}
 	}
+	
+	Math::Vector3d<float> getScrennSpaceDiff(const Math::Vector3d<float>& src) const {
+		Math::Matrix3d<float> m = camera.getRotationMatrix();
+		return src * m;
+		//const auto& pos = particle.getCenter() * m;
+	}
 
 	void onDraggingLeft(const Math::Vector3d<float>& src)
 	{
@@ -222,7 +228,7 @@ public:
 			camera.move(v);
 		}
 		else if (uiMode == UIMode::PARTICLE_TRANSLATE) {
-			particle.move(v);
+			particle.move( getScrennSpaceDiff( v * 10 ));
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
 			setRendering();
@@ -259,10 +265,10 @@ public:
 			camera.move(v);
 		}
 		else {
-			particle.addRadius(diff.getX());
+			const Math::Vector3d<float> v(0, 0, diff.getY());
+			particle.move(getScrennSpaceDiff(v * 10));
 			createPreVolume(1.0);
 			const auto& s = createSurface(preVolume);
-			createSurface(preVolume);
 			setRendering();
 		}
 		/*

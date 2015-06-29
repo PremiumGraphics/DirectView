@@ -38,6 +38,15 @@ public:
 		pos = Math::Vector3d<T>::Zero();
 	}
 
+	Math::Matrix3d<T> getRotationMatrix() const {
+		Math::Matrix3d<T> matrix = Math::Matrix3d<T>::Identity();
+		matrix *= Math::Matrix3d<T>::RotateX(angle.getX());
+		matrix *= Math::Matrix3d<T>::RotateY(angle.getY());
+		matrix *= Math::Matrix3d<T>::RotateZ(angle.getZ());
+		return matrix;
+	}
+
+
 	Math::Matrix4d<T> getModelviewMatrix() const {
 		Math::Matrix4d<T> matrix;
 		matrix.translate( pos.getX(), pos.getY(), pos.getZ() );
@@ -79,6 +88,7 @@ public:
 	void setPos( const Math::Vector3d<float>& p ) { this->pos = p; }
 
 	Math::Vector3d<T> getPos() const { return pos; }
+
 
 	Math::Matrix4d<T> getOrthogonalMatrix() const {
 		const T left = -0.5f;
