@@ -89,8 +89,6 @@ private:
 	T charge;
 };
 
-
-template<typename T>
 class MainModel final : private UnCopyable
 {
 public:
@@ -109,13 +107,13 @@ public:
 	*/
 
 	void setupVolumes() {
-		Math::Grid3d<T> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-		Math::Volume3d<T> v(vConfig.space, grid);
+		Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+		Math::Volume3d<float> v(vConfig.space, grid);
 		preVolume = v;
 		bakedVolume = v;
 	}
 
-	void createPreVolume(const T& factor) {
+	void createPreVolume(const float& factor) {
 		preSurfaces.clear();
 		preVolume = bakedVolume;
 		preVolume.add(particle, factor);
@@ -131,11 +129,11 @@ public:
 		setRendering();
 	}
 
-	Graphics::SurfaceSPtr<T> createSurface(const Math::Volume3d<float>& ss)
+	Graphics::SurfaceSPtr<float> createSurface(const Math::Volume3d<float>& ss)
 	{
 		const auto& triangles = mc.march(ss, vConfig.threshold);
 
-		Graphics::SurfaceSPtr<T> surface = std::make_shared<Graphics::Surface<float> >();
+		Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
 		for (const auto t : triangles) {
 			surface->add(t, Graphics::ColorRGBA<float>::Blue());
 		}
@@ -195,31 +193,31 @@ public:
 	}
 
 
-	Math::Vector3d<T> getDiff(const Math::Vector3d<T>& src) {
-		const T x =  src.getX();
-		const T y = -src.getY();
-		const T z =  src.getZ();
+	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
+		const float x =  src.getX();
+		const float y = -src.getY();
+		const float z =  src.getZ();
 		if (planeMode == PlaneMode::XY) {
-			return Vector3d<T>(x, y, 0);
+			return Math::Vector3d<float>(x, y, 0);
 		}
 		else if (planeMode == PlaneMode::X) {
-			return Vector3d<T>(x, 0, 0);
+			return Math::Vector3d<float>(x, 0, 0);
 		}
 		else if (planeMode == PlaneMode::Y) {
-			return Vector3d<T>(0, x, 0);
+			return Math::Vector3d<float>(0, x, 0);
 		}
 		else if (planeMode == PlaneMode::Z) {
-			return Vector3d<T>(0, 0, x);
+			return Math::Vector3d<float>(0, 0, x);
 		}
 		else {
 			assert(false);
-			return Vector3d<T>::Zero();
+			return Math::Vector3d<float>::Zero();
 		}
 	}
 
-	void onDraggingLeft(const Math::Vector3d<T>& src)
+	void onDraggingLeft(const Math::Vector3d<float>& src)
 	{
-		const Math::Vector3d<T>& v = getDiff(src);
+		const Math::Vector3d<float>& v = getDiff(src);
 		if (uiMode == UIMode::CAMERA_TRANSLATE) {
 			camera.move(v);
 		}
@@ -238,9 +236,9 @@ public:
 		}
 	}
 
-	void onDraggingRight(const Math::Vector3d<T>& src)
+	void onDraggingRight(const Math::Vector3d<float>& src)
 	{
-		const Math::Vector3d<T>& v = getDiff(src);
+		const Math::Vector3d<float>& v = getDiff(src);
 		if (uiMode == UIMode::CAMERA_TRANSLATE) {
 			camera.addAngle(src);
 		}
@@ -254,10 +252,10 @@ public:
 
 	}
 
-	void onDraggindMiddle(const Math::Vector3d<T>& diff)
+	void onDraggindMiddle(const Math::Vector3d<float>& diff)
 	{
 		if (uiMode == UIMode::CAMERA_TRANSLATE) {
-			const Vector3d<T> v(0, 0, diff.getY());
+			const Math::Vector3d<float> v(0, 0, diff.getY());
 			camera.move(v);
 		}
 		else {
@@ -269,7 +267,7 @@ public:
 		}
 		/*
 		else if (uiMode == PARTICLE_TRANSLATE) {
-			const Vector3d<T> v(0, 0, diff.getX());
+			const Vector3d<float> v(0, 0, diff.getX());
 			particle.move(v);
 		}
 		*/
@@ -277,13 +275,13 @@ public:
 	}
 
 	/*
-	void addParticleCharge(const T delta) {
+	void addParticleCharge(const float delta) {
 		particle.addCharge(delta);
 	}
 	*/
 
 
-/*	void addParticleRadius(const T delta) {
+/*	void addParticleRadius(const float delta) {
 		particle
 	}
 	*/
@@ -294,34 +292,33 @@ public:
 
 	PlaneMode getPlaneMode() const { return planeMode; }
 
-	RenderingConfig<T> getRenderingConfig() const { return rendering.getConfig(); }
+	RenderingConfig<float> getRenderingConfig() const { return rendering.getConfig(); }
 
-	void setRenderingConfig(const RenderingConfig<T>& config) { rendering.setConfig(config); }
+	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	VolumeConfig<T> getVolumeConfig() const { return vConfig; }
+	VolumeConfig<float> getVolumeConfig() const { return vConfig; }
 
-	void setVolumeConfig(const VolumeConfig<T>& config) { vConfig = config; }
+	void setVolumeConfig(const VolumeConfig<float>& config) { vConfig = config; }
 
 private:
-	Graphics::Camera<T> camera;
+	Graphics::Camera<float> camera;
 
-	Math::Volume3d<T> preVolume;
-	Math::Volume3d<T> bakedVolume;
-	//Math::Volume3d<T> volume;
+	Math::Volume3d<float> preVolume;
+	Math::Volume3d<float> bakedVolume;
+	//Math::Volume3d<float> volume;
 
-	Math::Particle3d<T> particle;
-	RenderingCommand<T> rendering;
-	Math::MarchingCube<T> mc;
-	Graphics::SurfaceSPtrList<T> preSurfaces;
-	//Graphics::SurfaceSPtrList<T> bakedSurfaces;
+	Math::Particle3d<float> particle;
+	RenderingCommand<float> rendering;
+	Math::MarchingCube<float> mc;
+	Graphics::SurfaceSPtrList<float> preSurfaces;
+	//Graphics::SurfaceSPtrList<float> bakedSurfaces;
 	UIMode uiMode;
-	VolumeConfig<T> vConfig;
-	ParticleConfig<T> pConfig;
+	VolumeConfig<float> vConfig;
+	ParticleConfig<float> pConfig;
 	PlaneMode planeMode;
 };
 
-template<typename T>
-using MainModelSPtr = std::shared_ptr < MainModel<T> > ;
+using MainModelSPtr = std::shared_ptr < MainModel > ;
 	}
 }
 

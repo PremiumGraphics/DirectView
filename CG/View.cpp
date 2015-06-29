@@ -16,7 +16,7 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const MainModelSPtr<float>& model )
+View::View( Frame* parent, const int width, const int height, const MainModelSPtr& model )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE | wxWANTS_CHARS ),
 glContext( this ),// width, height ),
 model( model )

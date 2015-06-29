@@ -73,7 +73,7 @@ private:
 
 private:
 	View* view;
-	Model::MainModelSPtr<float> model;
+	Model::MainModelSPtr model;
 
 	void setRendering();
 

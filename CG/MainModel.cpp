@@ -4,7 +4,7 @@
 
 using namespace Crystal::Model;
 
-MainModel<float>::MainModel() :
+MainModel::MainModel() :
 uiMode(UIMode::CAMERA_TRANSLATE),
 planeMode(PlaneMode::XY)
 {
@@ -15,7 +15,7 @@ planeMode(PlaneMode::XY)
 	setRendering();
 }
 
-void MainModel<float>::clear()
+void MainModel::clear()
 {
 	preVolume.setValue(0);
 	bakedVolume.setValue(0);
@@ -23,7 +23,7 @@ void MainModel<float>::clear()
 	//bakedSurfaces.clear();
 }
 
-void MainModel<float>::doExport(const std::string& filename) const
+void MainModel::doExport(const std::string& filename) const
 {
 	IO::STLFile file;
 
