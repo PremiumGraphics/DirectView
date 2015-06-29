@@ -181,7 +181,7 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 	bar->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
 	bar->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
 
-	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraTranslate));
+	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraControl));
 	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
 }
 
@@ -196,7 +196,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
-	Connect(ID_PARTICLE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleTranslate));
+	Connect(ID_PARTICLE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleControl));
 	Connect(ID_PARTICLE_STROKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
 	Connect(ID_PARTICLE_ERASE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 }
@@ -321,9 +321,9 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 	*/
 }
 
-void Frame::OnCameraTranslate( wxRibbonButtonBarEvent& )
+void Frame::OnCameraControl( wxRibbonButtonBarEvent& )
 {
-	model->setUIMode(Model::UIMode::CAMERA_TRANSLATE);
+	model->setUIControl( true );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -537,14 +537,14 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnParticleTranslate(wxRibbonButtonBarEvent& e)
+void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
-	model->setUIMode(Model::UIMode::PARTICLE_TRANSLATE);
+	model->setUIControl(false);
 }
 
 void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
 {
-	model->setUIMode(Model::UIMode::PARTICLE_STROKE);
+	model->changeRealTimeBaking();
 }
 
 
@@ -569,6 +569,7 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
+	/*
 	switch (event.GetKeyCode()) {
 	case 'C':
 		model->setUIMode(UIMode::CAMERA_TRANSLATE);
@@ -597,4 +598,5 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		event.Skip();
 		return;
 	};
+	*/
 }

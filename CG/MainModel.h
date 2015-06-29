@@ -6,7 +6,8 @@
 #include "../Util/UnCopyable.h"
 #include "../IO/STLFile.h"
 
-#include "RenderingModel.h"
+#include "RenderingCommand.h"
+#include "MouseCommand.h"
 
 #include <memory>
 #include <map>
@@ -14,19 +15,12 @@
 namespace Crystal {
 	namespace Model {
 
-enum class UIMode
+enum class MouseMode
 {
 	CAMERA_TRANSLATE,
 	PARTICLE_TRANSLATE,
-	PARTICLE_STROKE,
 };
 
-enum class PlaneMode {
-	XY,
-	X,
-	Y,
-	Z,
-};
 
 enum class RenderingMode {
 	POINT = 1,
@@ -193,27 +187,6 @@ public:
 	}
 
 
-	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
-		const float x =  src.getX();
-		const float y = -src.getY();
-		const float z =  src.getZ();
-		if (planeMode == PlaneMode::XY) {
-			return Math::Vector3d<float>(x, y, 0);
-		}
-		else if (planeMode == PlaneMode::X) {
-			return Math::Vector3d<float>(x, 0, 0);
-		}
-		else if (planeMode == PlaneMode::Y) {
-			return Math::Vector3d<float>(0, x, 0);
-		}
-		else if (planeMode == PlaneMode::Z) {
-			return Math::Vector3d<float>(0, 0, x);
-		}
-		else {
-			assert(false);
-			return Math::Vector3d<float>::Zero();
-		}
-	}
 	
 	Math::Vector3d<float> getScrennSpaceDiff(const Math::Vector3d<float>& src) const {
 		Math::Matrix3d<float> m = camera.getRotationMatrix();
@@ -221,63 +194,47 @@ public:
 		//const auto& pos = particle.getCenter() * m;
 	}
 
-	void onDraggingLeft(const Math::Vector3d<float>& src)
-	{
-		const Math::Vector3d<float>& v = getDiff(src);
-		if (uiMode == UIMode::CAMERA_TRANSLATE) {
-			camera.move(v);
+	void preview() {
+		if (!realtimePreviewMode) {
+			return;
 		}
-		else if (uiMode == UIMode::PARTICLE_TRANSLATE) {
-			particle.move( getScrennSpaceDiff( v * 10 ));
-			createPreVolume(1.0);
-			const auto& s = createSurface(preVolume);
-			setRendering();
-		}
-		else if (uiMode == UIMode::PARTICLE_STROKE) {
-			particle.move(v);
-			createPreVolume(1.0);
-			const auto& s = createSurface(preVolume);
-			setRendering();
+		createPreVolume(1.0);
+		const auto& s = createSurface(preVolume);
+		setRendering();
+		if (doRealTimeBaking) {
 			bakeParticleToVolume();
 		}
 	}
 
-	void onDraggingRight(const Math::Vector3d<float>& src)
-	{
-		const Math::Vector3d<float>& v = getDiff(src);
-		if (uiMode == UIMode::CAMERA_TRANSLATE) {
-			camera.addAngle(src);
-		}
-		else if (uiMode == UIMode::PARTICLE_STROKE) {
-			particle.move(v);
-			createPreVolume(-1.0);
-			const auto& s = createSurface(preVolume);
-			setRendering();
-			bakeParticleToVolume();
-		}
-
+	void onDraggingLeft(const Math::Vector3d<float>& src) {
+		mouse->onDraggingLeft(src);
+		preview();
 	}
 
-	void onDraggindMiddle(const Math::Vector3d<float>& diff)
+	void onDraggingRight(const Math::Vector3d<float>& src) {
+		mouse->onDragginRight(src);
+		preview();
+	}
+
+	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
+		mouse->onDragginMiddle(diff);
+		preview();
+	}
+
+	void setUIControl(const bool isCamera)
 	{
-		if (uiMode == UIMode::CAMERA_TRANSLATE) {
-			const Math::Vector3d<float> v(0, 0, diff.getY());
-			camera.move(v);
+		if (isCamera) {
+			mouse = std::make_shared<UI::CameraCommand>(camera);
+			realtimePreviewMode = false;
 		}
 		else {
-			const Math::Vector3d<float> v(0, 0, diff.getY());
-			particle.move(getScrennSpaceDiff(v * 10));
-			createPreVolume(1.0);
-			const auto& s = createSurface(preVolume);
-			setRendering();
+			mouse = std::make_shared<UI::ParticleCommand>(camera, particle);
+			realtimePreviewMode = true;
 		}
-		/*
-		else if (uiMode == PARTICLE_TRANSLATE) {
-			const Vector3d<float> v(0, 0, diff.getX());
-			particle.move(v);
-		}
-		*/
+	}
 
+	void changeRealTimeBaking() {
+		doRealTimeBaking = !doRealTimeBaking;
 	}
 
 	/*
@@ -291,12 +248,6 @@ public:
 		particle
 	}
 	*/
-
-	void setUIMode(const UIMode m) { this->uiMode = m; }
-
-	void setPlaneMode(const PlaneMode m) { this->planeMode = m; }
-
-	PlaneMode getPlaneMode() const { return planeMode; }
 
 	RenderingConfig<float> getRenderingConfig() const { return rendering.getConfig(); }
 
@@ -318,10 +269,11 @@ private:
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtrList<float> preSurfaces;
 	//Graphics::SurfaceSPtrList<float> bakedSurfaces;
-	UIMode uiMode;
 	VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
-	PlaneMode planeMode;
+	std::shared_ptr<UI::MouseCommand> mouse;
+	bool realtimePreviewMode;
+	bool doRealTimeBaking;
 };
 
 using MainModelSPtr = std::shared_ptr < MainModel > ;

@@ -31,7 +31,7 @@ private:
 
 	void OnExport( wxRibbonButtonBarEvent& e);
 
-	void OnCameraTranslate( wxRibbonButtonBarEvent& );
+	void OnCameraControl( wxRibbonButtonBarEvent& );
 
 	void OnAbout( wxRibbonButtonBarEvent& );
 
@@ -57,7 +57,7 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnParticleTranslate(wxRibbonButtonBarEvent& e);
+	void OnParticleControl(wxRibbonButtonBarEvent& e);
 
 	void OnParticleStroke(wxRibbonButtonBarEvent& e);
 
