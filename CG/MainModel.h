@@ -115,23 +115,9 @@ public:
 
 	void createPreVolume(const float factor);
 
-	void bakeParticleToVolume() {
-		bakedVolume = preVolume;
-		const auto& surface = createSurface(bakedVolume);
-		preSurfaces.push_back(surface);
-		setRendering();
-	}
+	void bakeParticleToVolume();
 
-	Graphics::SurfaceSPtr<float> createSurface(const Math::Volume3d<float>& ss)
-	{
-		const auto& triangles = mc.march(ss, vConfig.threshold);
-
-		Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
-		for (const auto t : triangles) {
-			surface->add(t, Graphics::ColorRGBA<float>::Blue());
-		}
-		return surface;
-	}
+	Graphics::SurfaceSPtr<float> createSurface(const Math::Volume3d<float>& ss);
 
 	void doExport(const std::string& filename) const;
 

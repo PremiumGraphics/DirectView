@@ -4,6 +4,7 @@
 
 using namespace Crystal::UI;
 using namespace Crystal::Math;
+using namespace Crystal::Graphics;
 using namespace Crystal::Model;
 
 MainModel::MainModel() :
@@ -65,6 +66,26 @@ void MainModel::createPreVolume(const float factor)
 	preSurfaces.push_back(s);
 	setRendering();
 }
+
+void MainModel::bakeParticleToVolume()
+{
+	bakedVolume = preVolume;
+	const auto& surface = createSurface(bakedVolume);
+	preSurfaces.push_back(surface);
+	setRendering();
+}
+
+SurfaceSPtr<float> MainModel::createSurface(const Volume3d<float>& ss)
+{
+	const auto& triangles = mc.march(ss, vConfig.threshold);
+
+	Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
+	for (const auto& t : triangles) {
+		surface->add(t, Graphics::ColorRGBA<float>::Blue());
+	}
+	return surface;
+}
+
 
 void MainModel::setUIControl(const UIControl ctrl)
 {
