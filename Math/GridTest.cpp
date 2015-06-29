@@ -135,6 +135,29 @@ TEST(Grid3dTest, TestIsAllLower)
 	EXPECT_FALSE( grid.isAllLower(0, 0, 0, threshold) );
 }
 
+TEST(Grid3dTest, TestIsAllHigher)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2);
+	const T threshold = 5;
+
+	EXPECT_FALSE(grid.isAllHigher(0, 0, 0, threshold));
+	grid.set(0, 0, 0, 10);
+	EXPECT_FALSE(grid.isAllHigher(0, 0, 0, threshold));
+}
+
+TEST(Grid3dTest, TestIsBoundary)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2);
+	const T threshold = 5;
+
+	EXPECT_FALSE(grid.isBoundary(0, 0, 0, threshold));
+	grid.set(0, 0, 0, 10);
+	EXPECT_TRUE(grid.isBoundary(0, 0, 0, threshold));
+}
+
+
 /*
 TEST(Grid3dTest, TestIsBoundary)
 {

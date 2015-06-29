@@ -255,6 +255,28 @@ public:
 		return (bs.all());
 	}
 
+	bool isAllHigher(const size_t i, const size_t j, const size_t k, const T t) const {
+		assert(i < getSizeX() && j < getSizeY() && k < getSizeZ());
+		std::bitset<8> bs;
+		bs.set(0, isHigher(i, j, k, t));
+		bs.set(1, isHigher(i + 1, j, k, t));
+		bs.set(2, isHigher(i + 1, j + 1, k, t));
+		bs.set(3, isHigher(i, j + 1, k, t));
+		bs.set(4, isHigher(i, j, k + 1, t));
+		bs.set(5, isHigher(i + 1, j, k + 1, t));
+		bs.set(6, isHigher(i + 1, j + 1, k + 1, t));
+		bs.set(7, isHigher(i, j + 1, k + 1, t));
+		return (bs.all());
+	}
+
+	bool isNotBoundary(const size_t i, const size_t j, const size_t k, const T threshold) const {
+		return isAllLower(i, j, k, threshold) || isAllHigher(i, j, k, threshold);
+	}
+
+	bool isBoundary(const size_t i, const size_t j, const size_t k, const T threshold) const {
+		return !isNotBoundary(i, j, k, threshold);
+	}
+
 	bool isLower(const size_t i , const size_t j, const size_t k ,const T threshold) const {
 		return (get(i, j, k) < threshold);
 	}

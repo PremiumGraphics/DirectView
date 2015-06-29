@@ -87,7 +87,9 @@ public:
 		if (config.drawNormal) {
 			pointBuffer.add(surface, -1, false);
 		}
-		triangleBuffer.add(surface);
+		if (config.drawSmooth) {
+			triangleBuffer.add(surface);
+		}
 	}
 
 	void add(const Math::Volume3d<T>& volume) {
@@ -157,7 +159,7 @@ public:
 			smoothRenderer.render(width, height, camera, triangleBuffer);
 		}
 
-		glClear(GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		pointRenderer.render(width, height, camera, selectedPointBuffer, true);
 		//wireframeRenderer.render(width, height, camera, triangleBuffer);
 

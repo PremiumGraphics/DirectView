@@ -51,7 +51,7 @@ public:
 	TriangleVector<T> march(const Volume3d<T>& ss, const T isolevel)
 	{
 		TriangleVector<T> triangles;
-		const std::vector< VolumeCell3d<T,T> >& cells = ss.toCells();
+		const auto& cells = ss.toBoundaryCells(isolevel);
 		for (const auto& c : cells) {
 			const auto& ts = build(c.getSpace(), c.getValues(), isolevel);
 			triangles.insert(triangles.end(), ts.begin(), ts.end());
