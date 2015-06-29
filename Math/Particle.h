@@ -44,6 +44,10 @@ public:
 		charge += c;
 	}
 
+	void setCharge(const T c) {
+		charge = c;
+	}
+
 	void reverseCharge() {
 		charge *= -1;
 	}

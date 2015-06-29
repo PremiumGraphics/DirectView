@@ -15,13 +15,6 @@
 namespace Crystal {
 	namespace Model {
 
-enum class MouseMode
-{
-	CAMERA_TRANSLATE,
-	PARTICLE_TRANSLATE,
-};
-
-
 enum class RenderingMode {
 	POINT = 1,
 	WIREFRAME = 2,
@@ -81,6 +74,12 @@ private:
 	Math::Vector3d<T> center;
 	T radius;
 	T charge;
+};
+
+enum class UIControl {
+	Camera,
+	Particle,
+	ParticleScale,
 };
 
 class MainModel final : private UnCopyable
@@ -144,6 +143,9 @@ public:
 		particle.reverseCharge();
 	}
 
+	void setParticleCharge(const float c) {
+		particle.setCharge(c);
+	}
 
 	void render(const int width, const int height) {
 		rendering.render(width, height, camera);
@@ -212,23 +214,27 @@ public:
 	}
 
 	void onDraggingRight(const Math::Vector3d<float>& src) {
-		mouse->onDragginRight(src);
+		mouse->onDraggingRight(src);
 		preview();
 	}
 
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
-		mouse->onDragginMiddle(diff);
+		mouse->onDraggingMiddle(diff);
 		preview();
 	}
 
-	void setUIControl(const bool isCamera)
+	void setUIControl(const UIControl ctrl)
 	{
-		if (isCamera) {
+		if (ctrl == UIControl::Camera) {
 			mouse = std::make_shared<UI::CameraCommand>(camera);
 			realtimePreviewMode = false;
 		}
-		else {
+		else if( ctrl == UIControl::Particle ) {
 			mouse = std::make_shared<UI::ParticleCommand>(camera, particle);
+			realtimePreviewMode = true;
+		}
+		else if (ctrl == UIControl::ParticleScale) {
+			mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 			realtimePreviewMode = true;
 		}
 	}

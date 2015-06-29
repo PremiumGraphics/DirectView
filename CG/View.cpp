@@ -12,6 +12,7 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
+	EVT_MOUSEWHEEL(View::OnMouseWheel)
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
 
@@ -121,10 +122,20 @@ void View::OnMouse(wxMouseEvent& event)
 		SwapBuffers();
     }
 
+
 	mouseStart = event.GetPosition();
 
 
 }
+
+void View::OnMouseWheel(wxMouseEvent& e)
+{
+	int x = 10;
+	/*if (e.MiddleIsDown()) {
+
+	}*/
+}
+
 
 void View::OnSize(wxSizeEvent& e)
 {

@@ -27,6 +27,8 @@ private:
 
 	void OnMouse( wxMouseEvent& e );
 
+	void OnMouseWheel(wxMouseEvent& e);
+
 	//void OnMouse
 
 	void OnSize( wxSizeEvent& e );

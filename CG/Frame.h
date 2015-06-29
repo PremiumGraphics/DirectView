@@ -61,7 +61,11 @@ private:
 
 	void OnParticleStroke(wxRibbonButtonBarEvent& e);
 
-	void OnParticleErase(wxRibbonButtonBarEvent& e){};
+	void OnParticleErase(wxRibbonButtonBarEvent& e);
+
+	void OnParticlePositive(wxRibbonButtonBarEvent& e);
+
+	void OnParticleNegative(wxRibbonButtonBarEvent& e);
 
 	void OnCanvasConfig(wxRibbonButtonBarEvent& e);
 

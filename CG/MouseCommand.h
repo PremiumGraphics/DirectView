@@ -20,9 +20,9 @@ public:
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) = 0;
 
-	virtual void onDragginRight(const Math::Vector3d<float>& src) = 0;
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) = 0;
 
-	virtual void onDragginMiddle(const Math::Vector3d<float>& src) = 0;
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) = 0;
 
 protected:
 	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
@@ -52,9 +52,9 @@ public:
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 
-	virtual void onDragginRight(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
-	virtual void onDragginMiddle(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 };
 
 class ParticleCommand : public MouseCommand
@@ -68,9 +68,28 @@ public:
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 
-	virtual void onDragginRight(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
-	virtual void onDragginMiddle(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+private:
+	Math::Particle3d<float>& particle;
+};
+
+class ParticleScaleCommand : public MouseCommand
+{
+public:
+
+	ParticleScaleCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
+		MouseCommand(camera),
+		particle(particle)
+	{}
+
+	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
+
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
+
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 private:
 	Math::Particle3d<float>& particle;
