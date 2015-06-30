@@ -11,10 +11,9 @@ MainModel::MainModel() :
 mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
 isSphere(false)
 {
-	mc.buildTable();
 	setupVolumes();
 	createPreVolume(1.0);
-	createSurface(preVolume);
+	surfaceCommand.createSurface(preVolume);
 	setRendering();
 }
 
@@ -22,7 +21,7 @@ void MainModel::clear()
 {
 	preVolume.setValue(0);
 	bakedVolume.setValue(0);
-	preSurfaces.clear();
+	surfaceCommand.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -31,7 +30,7 @@ void MainModel::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
-	for (const auto& s : preSurfaces) {
+	for (const auto& s : surfaceCommand.getSurfaces()) {
 		for (const auto& f : s->getFaces()) {
 			Math::Vector3dVector<float> positions;
 			for (const auto& e : f->getEdges()) {
@@ -59,31 +58,18 @@ void MainModel::setupVolumes()
 
 void MainModel::createPreVolume(const float factor)
 {
-	preSurfaces.clear();
+	surfaceCommand.clear();
 	preVolume = bakedVolume;
 	preVolume.add(particle, factor);
-	const auto& s = createSurface(preVolume);
-	preSurfaces.push_back(s);
+	surfaceCommand.createSurface(preVolume);
 	setRendering();
 }
 
 void MainModel::bakeParticleToVolume()
 {
 	bakedVolume = preVolume;
-	const auto& surface = createSurface(bakedVolume);
-	preSurfaces.push_back(surface);
+	surfaceCommand.createSurface(bakedVolume);
 	setRendering();
-}
-
-SurfaceSPtr<float> MainModel::createSurface(const Volume3d<float>& ss)
-{
-	const auto& triangles = mc.march(ss, vConfig.threshold);
-
-	Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
-	for (const auto& t : triangles) {
-		surface->add(t, Graphics::ColorRGBA<float>::Blue());
-	}
-	return surface;
 }
 
 

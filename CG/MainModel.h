@@ -10,6 +10,7 @@
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
 #include "BoneCommand.h"
+#include "SurfaceCommand.h"
 
 #include <memory>
 #include <map>
@@ -120,8 +121,6 @@ public:
 
 	void bakeParticleToVolume();
 
-	Graphics::SurfaceSPtr<float> createSurface(const Math::Volume3d<float>& ss);
-
 	void doExport(const std::string& filename) const;
 
 	void buildRenderer() {
@@ -171,7 +170,7 @@ public:
 		rendering.clear();
 		//rendering.add(particle);
 		rendering.add(preVolume);
-		for (const auto& s : preSurfaces) {
+		for (const auto& s : surfaceCommand.getSurfaces() ) {
 			rendering.add(*s);
 		}
 		for (const auto& b : boneCommand.getBones()) {
@@ -189,7 +188,7 @@ public:
 			return;
 		}
 		createPreVolume(1.0);
-		const auto& s = createSurface(preVolume);
+		surfaceCommand.createSurface(preVolume);
 		setRendering();
 	}
 
@@ -245,12 +244,11 @@ private:
 
 	Math::Particle3d<float> particle;
 	RenderingCommand rendering;
-	Math::MarchingCube<float> mc;
-	Graphics::SurfaceSPtrList<float> preSurfaces;
 	VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	UI::BoneCommand boneCommand;
+	UI::SurfaceCommand surfaceCommand;
 	bool isSphere;
 };
 
