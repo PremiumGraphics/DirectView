@@ -147,6 +147,9 @@ public:
 	}
 
 	void postMouseEvent() {
+		if (!mouse->doRefresh()){
+			return;
+		}
 		if (realTimeBake) {
 			preview();
 			bakeParticleToVolume();

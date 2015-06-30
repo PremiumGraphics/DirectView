@@ -32,6 +32,8 @@ public:
 
 	virtual bool doRealTimeBake() { return false; }
 
+	virtual bool doRefresh() { return true; }
+
 protected:
 	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
 		const float x = src.getX();
@@ -63,6 +65,8 @@ public:
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 	virtual bool doRealTimePreview() override { return false; }
+
+	virtual bool doRefresh() { return false; }
 
 
 };
