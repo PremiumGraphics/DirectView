@@ -1,7 +1,25 @@
 #include "PointRenderer.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
+
+void PointRenderer::add(const Surface<float>& surface) {
+	for (const auto& e : surface.getEdges()) {
+		add(e->getStartPosition());
+	}
+	//positions.add( surface.)
+}
+
+void PointRenderer::add(const Vector3d<float>& position) {
+	const auto& poss = position.toArray();
+	positions.insert(positions.end(), poss.begin(), poss.end());
+}
+
+void PointRenderer::clear()
+{
+	positions.clear();
+}
 
 void PointRenderer::build()
 {

@@ -21,9 +21,28 @@ public:
 
 	~VolumeRenderer() = default;
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::VolumeBuffer<float>& buffer);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera);
 
 	void build();
+
+	void add(const Math::Volume3d<float>& volume) {
+		const auto& ps = volume.toCenterPositions();
+		const auto& vs = volume.getValues();
+		assert(ps.size() == vs.size());
+		for (size_t i = 0; i < ps.size(); ++i) {
+			const auto& pss = ps[i].toArray();
+			positions.insert(positions.end(), pss.begin(), pss.end());
+			values.emplace_back(vs[i]);
+		}
+		//positions.add( surface.)
+	}
+
+
+	void clear() {
+		positions.clear();
+		values.clear();
+	}
+
 
 private:
 	struct Location {
@@ -36,6 +55,12 @@ private:
 	Location getLocations();
 
 	ShaderObject shader;
+
+
+private:
+	std::vector<float> positions;
+	std::vector<float> values;
+
 };
 
 	}

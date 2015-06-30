@@ -116,8 +116,6 @@ private:
 
 	Graphics::LineBuffer<float> lineBuffer;
 	Graphics::TriangleBuffer<float> triangleBuffer;
-	Graphics::VolumeBuffer<float> vBuffer;
-
 
 };
 

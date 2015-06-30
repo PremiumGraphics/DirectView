@@ -66,10 +66,9 @@ VolumeRenderer::Location VolumeRenderer::getLocations()
 }
 
 
-void VolumeRenderer::render(const int width, const int height, const Camera<float>& camera, const VolumeBuffer<float>& buffer)
+void VolumeRenderer::render(const int width, const int height, const Camera<float>& camera)
 {
-	const auto& positions = buffer.getPositions();
-	const auto& densities = buffer.getValues();
+	const auto& densities = values;
 
 	if (positions.empty()){
 		return;

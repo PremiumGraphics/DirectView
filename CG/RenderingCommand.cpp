@@ -21,7 +21,7 @@ void RenderingCommand::clear()
 	//selectedPointBuffer.clear();
 	lineBuffer.clear();
 	triangleBuffer.clear();
-	vBuffer.clear();
+	volumeRenderer.clear();
 }
 
 void RenderingCommand::add(const Surface<float>& surface)
@@ -46,7 +46,7 @@ void RenderingCommand::add(const Volume3d<float>& volume)
 		addCells(volume);
 	}
 	if (config.drawVolume) {
-		vBuffer.add(volume);
+		volumeRenderer.add(volume);
 	}
 }
 
@@ -66,7 +66,9 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	}
 	pointRenderer.render(width, height, camera, false);
 
-	normalRenderer.render(width, height, camera );
+	if (config.drawNormal) {
+		normalRenderer.render(width, height, camera);
+	}
 
 	if (config.drawSmooth) {
 		smoothRenderer.render(width, height, camera, triangleBuffer);
@@ -83,7 +85,9 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 
-	volumeRenderer.render(width, height, camera, vBuffer);
+	if (config.drawVolume) {
+		volumeRenderer.render(width, height, camera);
+	}
 
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
