@@ -69,6 +69,10 @@ private:
 
 	void OnParticleZero(wxRibbonButtonBarEvent& e);
 
+	void OnBoneCreate(wxRibbonButtonBarEvent& e);
+
+	void OnBoneMove(wxRibbonButtonBarEvent& e);
+
 	void OnCanvasConfig(wxRibbonButtonBarEvent& e);
 
 	void OnCanvasClear(wxRibbonButtonBarEvent& e){};
@@ -92,6 +96,8 @@ private:
 	void createCameraPanel(wxRibbonPage* parent);
 
 	void createBrushPanel(wxRibbonPage* parent);
+
+	void createBonePanel(wxRibbonPage* parent);
 
 	void createCanvasPanel(wxRibbonPage* parent);
 

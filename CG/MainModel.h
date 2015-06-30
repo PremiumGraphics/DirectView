@@ -3,6 +3,7 @@
 
 #include "../Math/MarchingCube.h"
 #include "../Graphics/Camera.h"
+#include "../Graphics/Bone.h"
 #include "../Util/UnCopyable.h"
 #include "../IO/STLFile.h"
 
@@ -77,10 +78,11 @@ private:
 };
 
 enum class UIControl {
-	Camera,
-	Particle,
-	ParticleScale,
-	ParticleErase,
+	CAMERA,
+	PARTICLE,
+	PARTICLE_SCALE,
+	PARTICLE_ERASE,
+	BONE_MOVE,
 };
 
 class MainModel final : private UnCopyable
@@ -129,6 +131,10 @@ public:
 		particle.setCharge(c);
 	}
 
+	void createBone() {
+		bones.push_back(std::make_shared<Graphics::Bone<float>>());
+	}
+
 	void render(const int width, const int height) {
 		rendering.render(width, height, camera);
 	}
@@ -167,6 +173,9 @@ public:
 		for (const auto& s : preSurfaces) {
 			rendering.add(*s);
 		}
+		for (const auto& b : bones) {
+			rendering.add(*b);
+		}
 		/*
 		for (const auto& s : bakedSurfaces) {
 			rendering.add(*s);
@@ -174,16 +183,8 @@ public:
 		*/
 	}
 
-
-	
-	Math::Vector3d<float> getScrennSpaceDiff(const Math::Vector3d<float>& src) const {
-		Math::Matrix3d<float> m = camera.getRotationMatrix();
-		return src * m;
-		//const auto& pos = particle.getCenter() * m;
-	}
-
 	void preview() {
-		if (mouse->getType() == UI::MouseCommand::Type::Camera ) {
+		if (mouse->getType() == UI::MouseOperationCommand::Type::Camera ) {
 			return;
 		}
 		createPreVolume(1.0);
@@ -199,7 +200,7 @@ public:
 	void onDraggingRight(const Math::Vector3d<float>& src) {
 		mouse->onDraggingRight(src);
 		preview();
-		if (mouse->getType() == UI::MouseCommand::Type::Particle) {
+		if (mouse->getType() == UI::MouseOperationCommand::Type::Particle) {
 			bakeParticleToVolume();
 		}
 	}
@@ -247,8 +248,10 @@ private:
 	Graphics::SurfaceSPtrList<float> preSurfaces;
 	VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
-	std::shared_ptr<UI::MouseCommand> mouse;
+	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	bool isSphere;
+
+	Graphics::BoneSPtrList<float> bones;
 };
 
 using MainModelSPtr = std::shared_ptr < MainModel > ;

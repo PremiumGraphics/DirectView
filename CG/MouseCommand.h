@@ -1,22 +1,25 @@
-#ifndef __CRYSTAL_UI_MOUSE_COMMAND_H__
-#define __CRYSTAL_UI_MOUSE_COMMAND_H__
+#ifndef __CRYSTAL_UI_MOUSE_OPERATION_COMMAND_H__
+#define __CRYSTAL_UI_MOUSE_OPERATION_COMMAND_H__
 
 #include "../Math/Vector.h"
 #include "../Graphics/Camera.h"
+#include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
 
 namespace Crystal {
 	namespace UI {
 
 
-class MouseCommand
+class MouseOperationCommand
 {
 public:
-	MouseCommand(Graphics::Camera<float>& camera) :
+	MouseOperationCommand(Graphics::Camera<float>& camera) :
 		camera(camera)
 	{}
 
-	MouseCommand() = default;
+	MouseOperationCommand() = default;
+
+	virtual void onRightDoubleClicked(){};
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) = 0;
 
@@ -52,11 +55,11 @@ protected:
 
 };
 
-class CameraCommand : public MouseCommand
+class CameraOperationCommand : public MouseOperationCommand
 {
 public:
-	CameraCommand(Graphics::Camera<float>& camera) :
-		MouseCommand(camera)
+	CameraOperationCommand(Graphics::Camera<float>& camera) :
+		MouseOperationCommand(camera)
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -71,12 +74,12 @@ public:
 
 };
 
-class ParticleCommand : public MouseCommand
+class ParticleOperationCommand : public MouseOperationCommand
 {
 public:
 
-	ParticleCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
-		MouseCommand(camera),
+	ParticleOperationCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
+		MouseOperationCommand(camera),
 		particle(particle)
 	{}
 
@@ -95,12 +98,12 @@ private:
 	Math::Particle3d<float>& particle;
 };
 
-class ParticleScaleCommand : public MouseCommand
+class ParticleScaleCommand : public MouseOperationCommand
 {
 public:
 
 	ParticleScaleCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
-		MouseCommand(camera),
+		MouseOperationCommand(camera),
 		particle(particle)
 	{}
 
@@ -119,11 +122,12 @@ private:
 	Math::Particle3d<float>& particle;
 };
 
-class BoneCommand : public MouseCommand
+class BoneOperationCommand : public MouseOperationCommand
 {
 public:
-	BoneCommand(Graphics::Camera<float>& camera) :
-		MouseCommand(camera)
+	BoneOperationCommand(Graphics::Camera<float>& camera, Graphics::Bone<float>& bone) :
+		MouseOperationCommand(camera),
+		bone( bone )
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -132,10 +136,15 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
+	virtual void onRightDoubleClicked() override;
+
+
 	virtual Type getType() const override {
 		return Type::Bone;
 	}
 
+private:
+	Graphics::Bone<float>& bone;
 };
 	}
 }

@@ -27,11 +27,13 @@ enum {
 	ID_GL_CONFIG,
 
 	ID_PARTICLE_MOVE,
-	ID_PARTICLE_STROKE,
 	ID_PARTICLE_SIZE,
 	ID_PARTICLE_POSITIVE,
 	ID_PARTICLE_NEGATIVE,
 	ID_PARTICLE_ZERO,
+
+	ID_BONE_CREATE,
+	ID_BONE_MOVE,
 
 	ID_CANVAS_CONFIG,
 	ID_CANVAS_CLEAR,
@@ -143,6 +145,7 @@ void Frame::createPanels(wxRibbonPage* parent)
 	createFilePanel(parent);
 	createCameraPanel(parent);
 	createBrushPanel(parent);
+	createBonePanel(parent);
 	createCanvasPanel(parent);
 	createRenderingPanel(parent);
 	createHelpPanel(parent);
@@ -207,8 +210,21 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	Connect(ID_PARTICLE_POSITIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
 	Connect(ID_PARTICLE_NEGATIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
 	Connect(ID_PARTICLE_ZERO, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleZero));
+}
+
+void Frame::createBonePanel(wxRibbonPage* parent)
+{
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Bone"));
+	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
+
+	bar->AddButton(ID_BONE_CREATE, "Create", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
+
+	Connect(ID_BONE_CREATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneCreate));
+	Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
 
 }
+
 
 void Frame::createCanvasPanel(wxRibbonPage* parent)
 {
@@ -333,7 +349,7 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraControl( wxRibbonButtonBarEvent& )
 {
-	model->setUIControl( Command::UIControl::Camera );
+	model->setUIControl( Command::UIControl::CAMERA );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -556,12 +572,12 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Command::UIControl::Particle);
+	model->setUIControl(Command::UIControl::PARTICLE);
 }
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Command::UIControl::ParticleScale);
+	model->setUIControl(Command::UIControl::PARTICLE_SCALE);
 }
 
 void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
@@ -579,6 +595,15 @@ void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 	model->setParticleCharge(-1.0f);
 }
 
+void Frame::OnBoneCreate(wxRibbonButtonBarEvent& e)
+{
+	model->createBone();
+}
+
+void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
+{
+	model->setUIControl(Command::UIControl::BONE_MOVE);
+}
 
 void Frame::setRendering()
 {
@@ -604,17 +629,17 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 	switch (event.GetKeyCode()) {
 	case 'X':
 		model->setParticleCharge(-1.0f);
-		model->setUIControl(Command::UIControl::Particle);
+		model->setUIControl(Command::UIControl::PARTICLE);
 		break;
 	case 'C':
-		model->setUIControl(Command::UIControl::Camera);
+		model->setUIControl(Command::UIControl::CAMERA);
 		break;
 	case 'V':
 		model->setParticleCharge(1.0f);
-		model->setUIControl(Command::UIControl::Particle);
+		model->setUIControl(Command::UIControl::PARTICLE);
 		break;
 	case 'S':
-		model->setUIControl(Command::UIControl::ParticleScale);
+		model->setUIControl(Command::UIControl::PARTICLE_SCALE);
 		break;
 		/*
 	case 'D':

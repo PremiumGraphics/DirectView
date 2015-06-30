@@ -8,7 +8,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
 MainModel::MainModel() :
-mouse(std::make_shared<UI::CameraCommand>(camera)),
+mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
 isSphere(false)
 {
 	mc.buildTable();
@@ -89,13 +89,19 @@ SurfaceSPtr<float> MainModel::createSurface(const Volume3d<float>& ss)
 
 void MainModel::setUIControl(const UIControl ctrl)
 {
-	if (ctrl == UIControl::Camera) {
-		mouse = std::make_shared<UI::CameraCommand>(camera);
+	if (ctrl == UIControl::CAMERA) {
+		mouse = std::make_shared<UI::CameraOperationCommand>(camera);
 	}
-	else if (ctrl == UIControl::Particle) {
-		mouse = std::make_shared<UI::ParticleCommand>(camera, particle);
+	else if (ctrl == UIControl::PARTICLE) {
+		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle);
 	}
-	else if (ctrl == UIControl::ParticleScale) {
+	else if (ctrl == UIControl::PARTICLE_SCALE) {
 		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
+	}
+	else if (ctrl == UIControl::BONE_MOVE) {
+		mouse = std::make_shared<UI::BoneOperationCommand>(camera, *bones.back());
+	}
+	else {
+		assert(false);
 	}
 }
