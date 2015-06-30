@@ -13,14 +13,14 @@ isSphere(false)
 {
 	setupVolumes();
 	createPreVolume(1.0);
-	surfaceCommand.createSurface(preVolume);
+	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
 void MainModel::clear()
 {
-	preVolume.setValue(0);
-	bakedVolume.setValue(0);
+	volumeCommand.preVolume.setValue(0);
+	volumeCommand.bakedVolume.setValue(0);
 	surfaceCommand.clear();
 	//bakedSurfaces.clear();
 }
@@ -51,24 +51,24 @@ void MainModel::setupVolumes()
 {
 	Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
 	Math::Volume3d<float> v(vConfig.space, grid);
-	preVolume = v;
-	bakedVolume = v;
+	volumeCommand.preVolume = v;
+	volumeCommand.bakedVolume = v;
 }
 
 
 void MainModel::createPreVolume(const float factor)
 {
 	surfaceCommand.clear();
-	preVolume = bakedVolume;
-	preVolume.add(particle, factor);
-	surfaceCommand.createSurface(preVolume);
+	volumeCommand.preVolume = volumeCommand.bakedVolume;
+	volumeCommand.preVolume.add(particle, factor);
+	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
 void MainModel::bakeParticleToVolume()
 {
-	bakedVolume = preVolume;
-	surfaceCommand.createSurface(bakedVolume);
+	volumeCommand.bakedVolume = volumeCommand.preVolume;
+	surfaceCommand.create(volumeCommand.bakedVolume, vConfig.threshold);
 	setRendering();
 }
 

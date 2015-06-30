@@ -11,6 +11,7 @@
 #include "MouseCommand.h"
 #include "BoneCommand.h"
 #include "SurfaceCommand.h"
+#include "VolumeCommand.h"
 
 #include <memory>
 #include <map>
@@ -169,7 +170,7 @@ public:
 	void setRendering() {
 		rendering.clear();
 		//rendering.add(particle);
-		rendering.add(preVolume);
+		rendering.add(volumeCommand.preVolume);
 		for (const auto& s : surfaceCommand.getSurfaces() ) {
 			rendering.add(*s);
 		}
@@ -188,7 +189,7 @@ public:
 			return;
 		}
 		createPreVolume(1.0);
-		surfaceCommand.createSurface(preVolume);
+		surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 		setRendering();
 	}
 
@@ -238,9 +239,7 @@ public:
 
 private:
 	Graphics::Camera<float> camera;
-
-	Math::Volume3d<float> preVolume;
-	Math::Volume3d<float> bakedVolume;
+	UI::VolumeCommand volumeCommand;
 
 	Math::Particle3d<float> particle;
 	RenderingCommand rendering;

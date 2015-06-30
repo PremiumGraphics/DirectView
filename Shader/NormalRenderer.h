@@ -30,7 +30,7 @@ public:
 
 	void add(const Graphics::Surface<float>& surface) {
 		for (const auto& e : surface.getEdges()) {
-			addPosition(e->getStartPosition(), e->getStartVertex()->getNormal() );
+			add(e->getStartPosition(), e->getStartVertex()->getNormal() );
 		}
 		//positions.add( surface.)
 	}
@@ -44,7 +44,7 @@ private:
 	std::vector< float > positions;
 	std::vector< float > normals;
 
-	void addPosition(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal) {
+	void add(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal) {
 		const auto& poss = position.toArray();
 		positions.insert(positions.end(), poss.begin(), poss.end());
 		const auto& norms = normal.toArray();
