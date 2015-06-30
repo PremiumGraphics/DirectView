@@ -65,6 +65,9 @@ void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 
 void BoneOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
+	const Math::Vector3d<float>& v = getDiff(src);
+	bone.move(getScrennSpaceDiff(v * 1));
+
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 

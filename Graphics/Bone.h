@@ -30,6 +30,11 @@ public:
 		return getLine().getPosition(param);
 	}
 
+	void move(const Math::Vector3d<T>& v) {
+		start += v;
+		end += v;
+	}
+
 	void moveEnd(const Math::Vector3d<T>& v) {
 		end += v;
 	}

@@ -9,6 +9,7 @@
 
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
+#include "BoneCommand.h"
 
 #include <memory>
 #include <map>
@@ -132,7 +133,7 @@ public:
 	}
 
 	void createBone() {
-		bones.push_back(std::make_shared<Graphics::Bone<float>>());
+		boneCommand.create();
 	}
 
 	void render(const int width, const int height) {
@@ -173,7 +174,7 @@ public:
 		for (const auto& s : preSurfaces) {
 			rendering.add(*s);
 		}
-		for (const auto& b : bones) {
+		for (const auto& b : boneCommand.getBones()) {
 			rendering.add(*b);
 		}
 		/*
@@ -249,9 +250,8 @@ private:
 	VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
+	UI::BoneCommand boneCommand;
 	bool isSphere;
-
-	Graphics::BoneSPtrList<float> bones;
 };
 
 using MainModelSPtr = std::shared_ptr < MainModel > ;

@@ -41,6 +41,9 @@
     <ClInclude Include="MouseCommand.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="BoneCommand.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

@@ -99,7 +99,7 @@ void MainModel::setUIControl(const UIControl ctrl)
 		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 	}
 	else if (ctrl == UIControl::BONE_MOVE) {
-		mouse = std::make_shared<UI::BoneOperationCommand>(camera, *bones.back());
+		mouse = std::make_shared<UI::BoneOperationCommand>(camera, *boneCommand.getSelectedBone());
 	}
 	else {
 		assert(false);
