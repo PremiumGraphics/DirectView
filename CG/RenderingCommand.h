@@ -11,7 +11,7 @@
 #include "../Util/UnCopyable.h"
 
 namespace Crystal{
-	namespace Model {
+	namespace Command {
 
 
 template<typename T>

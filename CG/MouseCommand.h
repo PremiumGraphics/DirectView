@@ -28,6 +28,7 @@ public:
 		Camera,
 		Particle,
 		ParticleScale,
+		Bone,
 	};
 
 	virtual Type getType() const = 0;
@@ -118,7 +119,24 @@ private:
 	Math::Particle3d<float>& particle;
 };
 
+class BoneCommand : public MouseCommand
+{
+public:
+	BoneCommand(Graphics::Camera<float>& camera) :
+		MouseCommand(camera)
+	{}
 
+	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
+
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
+
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual Type getType() const override {
+		return Type::Bone;
+	}
+
+};
 	}
 }
 

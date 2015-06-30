@@ -77,7 +77,7 @@ private:
 
 private:
 	View* view;
-	Model::MainModelSPtr model;
+	Command::MainModelSPtr model;
 
 	void setRendering();
 

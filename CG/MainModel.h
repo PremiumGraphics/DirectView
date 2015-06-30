@@ -13,7 +13,7 @@
 #include <map>
 
 namespace Crystal {
-	namespace Model {
+	namespace Command {
 
 enum class RenderingMode {
 	POINT = 1,
@@ -198,6 +198,10 @@ public:
 		if (mouse->getType() == UI::MouseCommand::Type::Particle) {
 			bakeParticleToVolume();
 		}
+	}
+
+	void onRightDoubleClick() {
+		bakeParticleToVolume();
 	}
 
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {

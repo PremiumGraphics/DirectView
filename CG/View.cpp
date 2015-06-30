@@ -7,7 +7,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::Model;
+using namespace Crystal::Command;
 using namespace Crystal::UI;
 
 
@@ -94,7 +94,8 @@ void View::OnMouse(wxMouseEvent& event)
 	}
 
 	if (event.RightDClick()) {
-		model->bakeParticleToVolume();
+		model->onRightDoubleClick();
+		//model->bakeParticleToVolume();
 		return;
 	}
 

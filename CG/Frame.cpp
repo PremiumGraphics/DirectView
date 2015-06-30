@@ -14,7 +14,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
-using namespace Crystal::Model;
+using namespace Crystal::Command;
 using namespace Crystal::UI;
 
 enum {
@@ -333,7 +333,7 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraControl( wxRibbonButtonBarEvent& )
 {
-	model->setUIControl( Model::UIControl::Camera );
+	model->setUIControl( Command::UIControl::Camera );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -549,12 +549,12 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Model::UIControl::Particle);
+	model->setUIControl(Command::UIControl::Particle);
 }
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Model::UIControl::ParticleScale);
+	model->setUIControl(Command::UIControl::ParticleScale);
 }
 
 void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
@@ -597,17 +597,17 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 	switch (event.GetKeyCode()) {
 	case 'X':
 		model->setParticleCharge(-1.0f);
-		model->setUIControl(Model::UIControl::Particle);
+		model->setUIControl(Command::UIControl::Particle);
 		break;
 	case 'C':
-		model->setUIControl(Model::UIControl::Camera);
+		model->setUIControl(Command::UIControl::Camera);
 		break;
 	case 'V':
 		model->setParticleCharge(1.0f);
-		model->setUIControl(Model::UIControl::Particle);
+		model->setUIControl(Command::UIControl::Particle);
 		break;
 	case 'S':
-		model->setUIControl(Model::UIControl::ParticleScale);
+		model->setUIControl(Command::UIControl::ParticleScale);
 		break;
 		/*
 	case 'D':

@@ -34,7 +34,7 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(400, 500));
 	}
 
-	void set(const Model::RenderingConfig<float>& config) {
+	void set(const Command::RenderingConfig<float>& config) {
 		pointSize->SetValue(config.pointSize );
 		lineWidth->SetValue( config.lineWidth );
 		drawVolume->SetValue(config.drawVolume);
@@ -42,8 +42,8 @@ public:
 		drawNormal->SetValue(config.drawNormal);
 	}
 
-	Model::RenderingConfig<float> get() {
-		Model::RenderingConfig<float> config;
+	Command::RenderingConfig<float> get() {
+		Command::RenderingConfig<float> config;
 		config.pointSize = pointSize->GetValue();
 		config.lineWidth = lineWidth->GetValue();
 		config.drawVolume = drawVolume->GetValue();

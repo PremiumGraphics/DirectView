@@ -5,7 +5,7 @@
 using namespace Crystal::UI;
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::Model;
+using namespace Crystal::Command;
 
 MainModel::MainModel() :
 mouse(std::make_shared<UI::CameraCommand>(camera)),
