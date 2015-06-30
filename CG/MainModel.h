@@ -27,28 +27,6 @@ enum class RenderingMode {
 };
 
 template<typename T>
-class VolumeConfig {
-public:
-	VolumeConfig() {
-		setDefault();
-	}
-
-	void setDefault() {
-		resx = 20;
-		resy = 20;
-		resz = 20;
-		threshold = 0.5;
-		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
-	}
-
-	unsigned int resx;
-	unsigned int resy;
-	unsigned int resz;
-	double threshold;
-	Math::Space3d<T> space;
-};
-
-template<typename T>
 class ParticleConfig {
 public:
 	ParticleConfig()
@@ -140,33 +118,6 @@ public:
 		rendering.render(width, height, camera);
 	}
 
-	/*
-	void changeRenderingPoint() {
-		rendering.getConfig().drawPoints();
-	}
-	*/
-
-	void changePoint() {
-		rendering.changePoint();
-	}
-
-	void changeWireframe() {
-		rendering.changeWire();
-	}
-
-	void changeRenderingVolume() {
-		rendering.changeVolume();
-	}
-
-	void changeRenderingSmooth() {
-		rendering.changeSmooth();
-	}
-
-	void changeNormal() {
-		rendering.changeNormal();
-	}
-
-
 	void setRendering() {
 		rendering.clear();
 		//rendering.add(particle);
@@ -184,14 +135,13 @@ public:
 		*/
 	}
 
-	void preview() {
-		if (mouse->getType() == UI::MouseOperationCommand::Type::Camera ) {
-			return;
-		}
-		createPreVolume(1.0);
-		surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
-		setRendering();
+	void preview();
+
+	/*
+	bool doRealtimePreview() {
+		mouse->getType() == UI::MouseOperationCommand::Ty
 	}
+	*/
 
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
 		mouse->onDraggingLeft(src);
@@ -201,9 +151,7 @@ public:
 	void onDraggingRight(const Math::Vector3d<float>& src) {
 		mouse->onDraggingRight(src);
 		preview();
-		if (mouse->getType() == UI::MouseOperationCommand::Type::Particle) {
-			bakeParticleToVolume();
-		}
+		bakeParticleToVolume();
 	}
 
 	void onRightDoubleClick() {
@@ -233,9 +181,9 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	VolumeConfig<float> getVolumeConfig() const { return vConfig; }
+	UI::VolumeConfig<float> getVolumeConfig() const { return vConfig; }
 
-	void setVolumeConfig(const VolumeConfig<float>& config) { vConfig = config; }
+	void setVolumeConfig(const UI::VolumeConfig<float>& config) { vConfig = config; }
 
 private:
 	Graphics::Camera<float> camera;
@@ -243,7 +191,7 @@ private:
 
 	Math::Particle3d<float> particle;
 	RenderingCommand rendering;
-	VolumeConfig<float> vConfig;
+	UI::VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	UI::BoneCommand boneCommand;

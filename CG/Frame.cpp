@@ -449,7 +449,9 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
 {
-	model->changePoint();
+	RenderingConfig<float> config = model->getRenderingConfig();
+	config.drawPoint = !config.drawPoint;
+	model->setRenderingConfig( config );
 	setRendering();
 	view->Refresh();
 
@@ -477,7 +479,9 @@ void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 	}
 	view->Refresh();
 	*/
-	model->changeWireframe();
+	RenderingConfig<float> config = model->getRenderingConfig();
+	config.drawWire = !config.drawWire;
+	model->setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -493,7 +497,9 @@ void Frame::OnRenderingWireframeConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingNormal(wxRibbonButtonBarEvent& e)
 {
-	model->changeNormal();
+	RenderingConfig<float> config = model->getRenderingConfig();
+	config.drawNormal = !config.drawNormal;
+	model->setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -501,7 +507,9 @@ void Frame::OnRenderingNormal(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingVolume(wxRibbonButtonBarEvent& e)
 {
-	model->changeRenderingVolume();
+	RenderingConfig<float> config = model->getRenderingConfig();
+	config.drawVolume = !config.drawVolume;
+	model->setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -518,7 +526,9 @@ void Frame::OnRenderingVolumeConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingSmooth(wxRibbonButtonBarEvent& e)
 {
-	model->changeRenderingSmooth();
+	RenderingConfig<float> config = model->getRenderingConfig();
+	config.drawSmooth = !config.drawSmooth;
+	model->setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }

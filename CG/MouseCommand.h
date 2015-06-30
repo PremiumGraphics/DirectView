@@ -17,6 +17,7 @@ public:
 		camera(camera)
 	{}
 
+
 	MouseOperationCommand() = default;
 
 	virtual void onRightDoubleClicked(){};
@@ -27,14 +28,9 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) = 0;
 
-	enum class Type{
-		Camera,
-		Particle,
-		ParticleScale,
-		Bone,
-	};
+	virtual bool doRealTimePreview() { return true; }
 
-	virtual Type getType() const = 0;
+	virtual bool doRealTimeBake() { return false; }
 
 protected:
 	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
@@ -51,8 +47,6 @@ protected:
 	}
 
 	Graphics::Camera<float>& camera;
-
-
 };
 
 class CameraOperationCommand : public MouseOperationCommand
@@ -68,9 +62,8 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual Type getType() const override {
-		return Type::Camera;
-	}
+	virtual bool doRealTimePreview() override { return false; }
+
 
 };
 
@@ -89,9 +82,7 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual Type getType() const override {
-		return Type::Particle;
-	}
+	virtual bool doRealTimeBake() override { return true; }
 
 
 private:
@@ -113,10 +104,6 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual Type getType() const override {
-		return Type::ParticleScale;
-	}
-
 
 private:
 	Math::Particle3d<float>& particle;
@@ -137,11 +124,6 @@ public:
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 	virtual void onRightDoubleClicked() override;
-
-
-	virtual Type getType() const override {
-		return Type::Bone;
-	}
 
 private:
 	Graphics::Bone<float>& bone;

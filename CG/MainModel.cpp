@@ -19,8 +19,7 @@ isSphere(false)
 
 void MainModel::clear()
 {
-	volumeCommand.preVolume.setValue(0);
-	volumeCommand.bakedVolume.setValue(0);
+	volumeCommand.clear();
 	surfaceCommand.clear();
 	//bakedSurfaces.clear();
 }
@@ -59,16 +58,28 @@ void MainModel::setupVolumes()
 void MainModel::createPreVolume(const float factor)
 {
 	surfaceCommand.clear();
-	volumeCommand.preVolume = volumeCommand.bakedVolume;
-	volumeCommand.preVolume.add(particle, factor);
+	volumeCommand.add(particle, factor);
 	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
 void MainModel::bakeParticleToVolume()
 {
-	volumeCommand.bakedVolume = volumeCommand.preVolume;
+	if (!mouse->doRealTimeBake()) {
+		return;
+	}
+	volumeCommand.bake();
 	surfaceCommand.create(volumeCommand.bakedVolume, vConfig.threshold);
+	setRendering();
+}
+
+void MainModel::preview()
+{
+	if (!mouse->doRealTimePreview()) {
+		return;
+	}
+	createPreVolume(1.0);
+	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
