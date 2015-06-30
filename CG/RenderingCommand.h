@@ -77,12 +77,10 @@ public:
 	}
 	*/
 
-	/*
 	void add(const Math::Particle3d<float>& particle) {
 		const auto& center = particle.getCenter();
-		selectedPointBuffer.addPosition(center, Math::Vector3d<float>::Zero(), 0, 1);
+		pointRenderer.add(center);
 	}
-	*/
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 

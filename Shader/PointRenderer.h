@@ -19,6 +19,9 @@ public:
 
 	void add(const Graphics::Surface<float>& surface);
 
+	void add(const Math::Vector3d<float>& position);
+
+
 	void clear();
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera, const bool isSelected);
@@ -35,7 +38,6 @@ private:
 
 	Location getLocations();
 
-	void add(const Math::Vector3d<float>& position);
 
 	std::vector<float> positions;
 

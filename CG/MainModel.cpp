@@ -7,24 +7,25 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
-MainModel::MainModel() :
+MainCommand::MainCommand() :
 mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
-isSphere(false)
+isSphere(false),
+realTimeBake(false)
 {
 	setupVolumes();
-	createPreVolume(1.0);
+	//createPreVolume(1.0);
 	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
-void MainModel::clear()
+void MainCommand::clear()
 {
 	volumeCommand.clear();
 	surfaceCommand.clear();
 	//bakedSurfaces.clear();
 }
 
-void MainModel::doExport(const std::string& filename) const
+void MainCommand::doExport(const std::string& filename) const
 {
 	IO::STLFile file;
 
@@ -46,7 +47,7 @@ void MainModel::doExport(const std::string& filename) const
 	file.writeASCII(filename);
 }
 
-void MainModel::setupVolumes()
+void MainCommand::setupVolumes()
 {
 	Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
 	Math::Volume3d<float> v(vConfig.space, grid);
@@ -55,36 +56,43 @@ void MainModel::setupVolumes()
 }
 
 
-void MainModel::createPreVolume(const float factor)
+void MainCommand::bakeParticleToVolume()
 {
-	surfaceCommand.clear();
-	volumeCommand.add(particle, factor);
-	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
-	setRendering();
-}
-
-void MainModel::bakeParticleToVolume()
-{
-	if (!mouse->doRealTimeBake()) {
-		return;
-	}
 	volumeCommand.bake();
 	surfaceCommand.create(volumeCommand.bakedVolume, vConfig.threshold);
 	setRendering();
 }
 
-void MainModel::preview()
+void MainCommand::setRendering()
 {
-	if (!mouse->doRealTimePreview()) {
-		return;
+	rendering.clear();
+	rendering.add(particle);
+	rendering.add(volumeCommand.preVolume);
+	for (const auto& s : surfaceCommand.getSurfaces()) {
+		rendering.add(*s);
 	}
-	createPreVolume(1.0);
+	for (const auto& b : boneCommand.getBones()) {
+		rendering.add(*b);
+	}
+	/*
+	for (const auto& s : bakedSurfaces) {
+	rendering.add(*s);
+	}
+	*/
+}
+
+
+void MainCommand::preview()
+{
+	//createPreVolume(1.0);
+	surfaceCommand.clear();
+	volumeCommand.add(particle, 0.1);
 	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
 	setRendering();
 }
 
 
-void MainModel::setUIControl(const UIControl ctrl)
+void MainCommand::setUIControl(const UIControl ctrl)
 {
 	if (ctrl == UIControl::CAMERA) {
 		mouse = std::make_shared<UI::CameraOperationCommand>(camera);

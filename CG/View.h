@@ -16,7 +16,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, const Command::MainModelSPtr& model);
+	View(Frame *frame, const int width, const int height, Command::MainCommand& model);
 
 	~View();
 
@@ -38,7 +38,7 @@ private:
 	DECLARE_EVENT_TABLE()
 
 private:
-	const Command::MainModelSPtr& model;
+	Command::MainCommand& model;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;

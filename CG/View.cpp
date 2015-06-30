@@ -17,7 +17,7 @@ BEGIN_EVENT_TABLE( View, wxGLCanvas )
 END_EVENT_TABLE()
 
 
-View::View( Frame* parent, const int width, const int height, const MainModelSPtr& model )
+View::View( Frame* parent, const int width, const int height, MainCommand& model )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE | wxWANTS_CHARS ),
 glContext( this ),// width, height ),
 model( model )
@@ -32,7 +32,7 @@ model( model )
 //Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
 	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
 
-	model->buildRenderer();
+	model.buildRenderer();
 }
 
 View::~View()
@@ -94,32 +94,29 @@ void View::OnMouse(wxMouseEvent& event)
 	}
 
 	if (event.RightDClick()) {
-		model->onRightDoubleClick();
+		model.onRightDoubleClick();
 		//model->bakeParticleToVolume();
 		return;
 	}
 
 	if( event.Dragging() ) {
-		Vector3d<float> right;
-		Vector3d<float> left;
-
 		if( event.MiddleIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			Vector3d<float> middle(diff.x * 0.01, diff.y * 0.01, 0.0f);
-			model->onDraggindMiddle(middle);
+			model.onDraggindMiddle(middle);
 		}
 		if( event.RightIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			right += Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
-			model->onDraggingRight(right);
+			Vector3d<float> right = Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
+			model.onDraggingRight(right);
 		}
 		if( event.LeftIsDown() ) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			left += Vector3d<float>( diff.x * 0.01f, diff.y * 0.01, 0.0f );	
-			model->onDraggingLeft(left);
+			Vector3d<float> left = Vector3d<float>( diff.x * 0.01f, diff.y * 0.01, 0.0f );	
+			model.onDraggingLeft(left);
 		}
 		
 		draw( GetSize() );
@@ -154,5 +151,5 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	model->render(width, height);
+	model.render(width, height);
 }

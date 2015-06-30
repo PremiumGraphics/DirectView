@@ -66,10 +66,10 @@ enum class UIControl {
 	BONE_MOVE,
 };
 
-class MainModel final : private UnCopyable
+class MainCommand final : private UnCopyable
 {
 public:
-	MainModel();
+	MainCommand();
 
 	void clear();
 
@@ -96,8 +96,6 @@ public:
 	}
 	*/
 
-	void createPreVolume(const float factor);
-
 	void bakeParticleToVolume();
 
 	void doExport(const std::string& filename) const;
@@ -118,22 +116,7 @@ public:
 		rendering.render(width, height, camera);
 	}
 
-	void setRendering() {
-		rendering.clear();
-		//rendering.add(particle);
-		rendering.add(volumeCommand.preVolume);
-		for (const auto& s : surfaceCommand.getSurfaces() ) {
-			rendering.add(*s);
-		}
-		for (const auto& b : boneCommand.getBones()) {
-			rendering.add(*b);
-		}
-		/*
-		for (const auto& s : bakedSurfaces) {
-			rendering.add(*s);
-		}
-		*/
-	}
+	void setRendering();
 
 	void preview();
 
@@ -145,25 +128,37 @@ public:
 
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
 		mouse->onDraggingLeft(src);
-		preview();
+		postMouseEvent();
 	}
 
 	void onDraggingRight(const Math::Vector3d<float>& src) {
 		mouse->onDraggingRight(src);
-		preview();
-		bakeParticleToVolume();
+		postMouseEvent();
 	}
 
 	void onRightDoubleClick() {
-		bakeParticleToVolume();
+		mouse->onRightDoubleClicked();
+		postMouseEvent();
 	}
 
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
 		mouse->onDraggingMiddle(diff);
-		preview();
+		postMouseEvent();
+	}
+
+	void postMouseEvent() {
+		if (realTimeBake) {
+			preview();
+			bakeParticleToVolume();
+		}
+		else if (mouse->doRealTimePreview()) {
+			preview();
+		}
 	}
 
 	void setUIControl(const UIControl ctrl);
+
+	void setRealTimeBake(const bool b) { this->realTimeBake = b; }
 
 	/*
 	void addParticleCharge(const float delta) {
@@ -197,9 +192,8 @@ private:
 	UI::BoneCommand boneCommand;
 	UI::SurfaceCommand surfaceCommand;
 	bool isSphere;
+	bool realTimeBake;
 };
-
-using MainModelSPtr = std::shared_ptr < MainModel > ;
 	}
 }
 

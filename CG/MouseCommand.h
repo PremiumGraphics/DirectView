@@ -73,7 +73,8 @@ public:
 
 	ParticleOperationCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
 		MouseOperationCommand(camera),
-		particle(particle)
+		particle(particle)//,
+	//	_doRealTimeBake(false)
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -82,11 +83,12 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual bool doRealTimeBake() override { return true; }
+	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
 
 private:
 	Math::Particle3d<float>& particle;
+	//bool _doRealTimeBake;
 };
 
 class ParticleScaleCommand : public MouseOperationCommand

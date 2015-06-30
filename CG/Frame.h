@@ -61,6 +61,8 @@ private:
 
 	void OnParticleControl(wxRibbonButtonBarEvent& e);
 
+	void OnParticleRealTimeBake(wxRibbonButtonBarEvent& e);
+
 	void OnParticleSize(wxRibbonButtonBarEvent& e);
 
 	void OnParticlePositive(wxRibbonButtonBarEvent& e);
@@ -83,7 +85,7 @@ private:
 
 private:
 	View* view;
-	Command::MainModelSPtr model;
+	Command::MainCommand model;
 
 	void setRendering();
 

@@ -27,6 +27,7 @@ enum {
 	ID_GL_CONFIG,
 
 	ID_PARTICLE_MOVE,
+	ID_PARTICLE_REAL_TIME_BAKE,
 	ID_PARTICLE_SIZE,
 	ID_PARTICLE_POSITIVE,
 	ID_PARTICLE_NEGATIVE,
@@ -78,8 +79,7 @@ public:
 };
 
 Frame::Frame()
-	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString ),
-	model(std::make_shared< MainModel >())
+	: /*wxMDIParentFrame*/wxFrame(NULL, wxID_ANY, wxEmptyString )
 {
 	SetTitle(AppInfo::getProductName() + " " + AppInfo::getVersionStr());
 
@@ -195,7 +195,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 	bar->AddButton(ID_PARTICLE_MOVE, "Particle", wxImage("../Resource/point.png"));
-	//bar->AddButton(ID_PARTICLE_STROKE, "Stroke", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_PARTICLE_REAL_TIME_BAKE, "Stroke", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_PARTICLE_SIZE, "Size", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_PARTICLE_POSITIVE, "+", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_PARTICLE_NEGATIVE, "-", wxImage("../Resource/point.png"));
@@ -206,6 +206,8 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect(ID_PARTICLE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleControl));
+	Connect(ID_PARTICLE_REAL_TIME_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleRealTimeBake));
+
 	Connect(ID_PARTICLE_SIZE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 	Connect(ID_PARTICLE_POSITIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
 	Connect(ID_PARTICLE_NEGATIVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
@@ -274,7 +276,7 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 		return;
 	}
 
-	model->clear();
+	model.clear();
 	view->Refresh();
 }
 
@@ -340,7 +342,7 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 	}
 
 	/*
-	const bool isOk = model->read( filename.ToStdString() );
+	const bool isOk = model.read( filename.ToStdString() );
 	if( !isOk ) {
 		wxMessageBox( wxT("“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½B") );
 	}
@@ -349,7 +351,7 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCameraControl( wxRibbonButtonBarEvent& )
 {
-	model->setUIControl( Command::UIControl::CAMERA );
+	model.setUIControl( Command::UIControl::CAMERA );
 }
 
 void Frame::OnImport( wxRibbonButtonBarEvent& e )
@@ -404,11 +406,11 @@ void Frame::OnExport( wxRibbonButtonBarEvent& e )
 		const char s = filename.GetChar(i);
 		str += s;
 	}
-	model->doExport(str);
+	model.doExport(str);
 	/*
 	if( ext == "stl" || ext == "STL" ) {
 		const auto str = filename.ToStdString();
-		//model->doExport(str);
+		//model.doExport(str);
 	}
 	*/
 }
@@ -449,9 +451,9 @@ void Frame::OnGLConfig( wxRibbonButtonBarEvent& e )
 
 void Frame::OnRenderingPoint(wxRibbonButtonBarEvent& e)
 {
-	RenderingConfig<float> config = model->getRenderingConfig();
+	RenderingConfig<float> config = model.getRenderingConfig();
 	config.drawPoint = !config.drawPoint;
-	model->setRenderingConfig( config );
+	model.setRenderingConfig( config );
 	setRendering();
 	view->Refresh();
 
@@ -470,18 +472,18 @@ void Frame::OnRenderingWireframe( wxRibbonButtonBarEvent& e)
 {
 	/*
 	WireframeConfigDialog dialog(this);
-	RenderingConfig<float> rConfig = model->getRenderingConfig();
+	RenderingConfig<float> rConfig = model.getRenderingConfig();
 	dialog.set(rConfig);
 	if (dialog.ShowModal() == wxID_OK) {
 		rConfig = dialog.get();
-		model->setRenderingConfig(rConfig);
+		model.setRenderingConfig(rConfig);
 		setRendering();
 	}
 	view->Refresh();
 	*/
-	RenderingConfig<float> config = model->getRenderingConfig();
+	RenderingConfig<float> config = model.getRenderingConfig();
 	config.drawWire = !config.drawWire;
-	model->setRenderingConfig(config);
+	model.setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -497,9 +499,9 @@ void Frame::OnRenderingWireframeConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingNormal(wxRibbonButtonBarEvent& e)
 {
-	RenderingConfig<float> config = model->getRenderingConfig();
+	RenderingConfig<float> config = model.getRenderingConfig();
 	config.drawNormal = !config.drawNormal;
-	model->setRenderingConfig(config);
+	model.setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -507,9 +509,9 @@ void Frame::OnRenderingNormal(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingVolume(wxRibbonButtonBarEvent& e)
 {
-	RenderingConfig<float> config = model->getRenderingConfig();
+	RenderingConfig<float> config = model.getRenderingConfig();
 	config.drawVolume = !config.drawVolume;
-	model->setRenderingConfig(config);
+	model.setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -526,9 +528,9 @@ void Frame::OnRenderingVolumeConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnRenderingSmooth(wxRibbonButtonBarEvent& e)
 {
-	RenderingConfig<float> config = model->getRenderingConfig();
+	RenderingConfig<float> config = model.getRenderingConfig();
 	config.drawSmooth = !config.drawSmooth;
-	model->setRenderingConfig(config);
+	model.setRenderingConfig(config);
 	setRendering();
 	view->Refresh();
 }
@@ -540,7 +542,7 @@ void Frame::OnRenderingSmoothConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnCameraFit( wxRibbonButtonBarEvent& e )
 {
-	model->fitCamera();
+	model.fitCamera();
 	view->Refresh();
 }
 
@@ -582,42 +584,51 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Command::UIControl::PARTICLE);
+	model.setUIControl(Command::UIControl::PARTICLE);
+	model.setRealTimeBake(false);
 }
+
+void Frame::OnParticleRealTimeBake(wxRibbonButtonBarEvent& e)
+{
+	model.setUIControl(Command::UIControl::PARTICLE);
+	model.setRealTimeBake(true);
+}
+
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Command::UIControl::PARTICLE_SCALE);
+	model.setUIControl(Command::UIControl::PARTICLE_SCALE);
+	model.setRealTimeBake(false);
 }
 
 void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
 {
-	//model->setUIControl);
+	//model.setUIControl);
 }
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
-	model->setParticleCharge(1.0f);
+	model.setParticleCharge(1.0f);
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
-	model->setParticleCharge(-1.0f);
+	model.setParticleCharge(-1.0f);
 }
 
 void Frame::OnBoneCreate(wxRibbonButtonBarEvent& e)
 {
-	model->createBone();
+	model.createBone();
 }
 
 void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
 {
-	model->setUIControl(Command::UIControl::BONE_MOVE);
+	model.setUIControl(Command::UIControl::BONE_MOVE);
 }
 
 void Frame::setRendering()
 {
-	model->setRendering();
+	model.setRendering();
 	view->Refresh();
 
 }
@@ -625,11 +636,11 @@ void Frame::setRendering()
 void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
-	dialog.set(model->getVolumeConfig());
+	dialog.set(model.getVolumeConfig());
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model->setVolumeConfig(dialog.get());
-		model->setupVolumes();
+		model.setVolumeConfig(dialog.get());
+		model.setupVolumes();
 		setRendering();
 	}
 }
@@ -638,34 +649,34 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
 	case 'X':
-		model->setParticleCharge(-1.0f);
-		model->setUIControl(Command::UIControl::PARTICLE);
+		model.setParticleCharge(-1.0f);
+		model.setUIControl(Command::UIControl::PARTICLE);
 		break;
 	case 'C':
-		model->setUIControl(Command::UIControl::CAMERA);
+		model.setUIControl(Command::UIControl::CAMERA);
 		break;
 	case 'V':
-		model->setParticleCharge(1.0f);
-		model->setUIControl(Command::UIControl::PARTICLE);
+		model.setParticleCharge(1.0f);
+		model.setUIControl(Command::UIControl::PARTICLE);
 		break;
 	case 'S':
-		model->setUIControl(Command::UIControl::PARTICLE_SCALE);
+		model.setUIControl(Command::UIControl::PARTICLE_SCALE);
 		break;
 		/*
 	case 'D':
-		model->setPlaneMode(PlaneMode::XY);
+		model.setPlaneMode(PlaneMode::XY);
 		break;
 	case 'X':
-		model->setPlaneMode(PlaneMode::X);
+		model.setPlaneMode(PlaneMode::X);
 		break;
 	case 'Y':
-		model->setPlaneMode(PlaneMode::Y);
+		model.setPlaneMode(PlaneMode::Y);
 		break;
 	case 'Z':
-		model->setPlaneMode(PlaneMode::Z);
+		model.setPlaneMode(PlaneMode::Z);
 		break;
 //	case 'R':
-//		model->reverseParticleCharge();
+//		model.reverseParticleCharge();
 */
 	default:
 		event.Skip();
