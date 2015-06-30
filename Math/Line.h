@@ -24,6 +24,10 @@ public:
 
 	Vector3d<T> getEnd() const { return start + vector; }
 
+	Vector3d<T> getPosition(const T param) const { return start + vector * param; }
+
+	T getLength() const { vector.getLength(); }
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> vector;
