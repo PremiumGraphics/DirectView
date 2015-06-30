@@ -9,7 +9,6 @@
 
 #include "VolumeDialog.h"
 #include "ParticleDialog.h"
-#include "RenderingDialog.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;

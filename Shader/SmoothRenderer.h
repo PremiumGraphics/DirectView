@@ -9,7 +9,7 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Material.h"
-#include "../Graphics/Buffer.h"
+#include "../Graphics/Surface.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -23,22 +23,22 @@ public:
 
 	void build();
 
-	/*
-	struct Param {
-		std::vector<float> positions;
-		std::vector<float> normals;
-		std::vector<float> projectionMatrix;
-		std::vector<float> modelviewMatrix;
-		std::vector<float> eyePos;
-		std::list<Graphics::Light*> lights;
-		std::vector<float> matAmbient;
-		std::vector<float> matSpecular;
-		std::vector<float> matDiffuse;
-		float shininess;
-	};
-	*/
+	void add(const Graphics::Surface<float>& surface) {
+		for (const auto& v : surface.getVertices()) {
+			const auto& pos = v->getPosition();
+			const auto& norms = v->getNormal();
+			add(pos, norms);
+		}
+		//positions.add( surface.)
+	}
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::TriangleBuffer<float>& buffer);
+	void clear() {
+		positions.clear();
+		normals.clear();
+	}
+
+
+	void render(const int width, const int height, const Graphics::Camera<float>& camera );
 
 private:
 	ShaderObject shader;
@@ -54,6 +54,17 @@ private:
 		GLuint matDiffuse;
 		GLuint shininess;
 	};
+
+	std::vector<float> positions;
+	std::vector<float> normals;
+
+	void add(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal) {
+		const auto& poss = position.toArray3();
+		positions.insert(positions.end(), std::begin(poss), std::end(poss));
+		const auto& norms = normal.toArray3();
+		normals.insert(normals.end(), std::begin(poss), std::end(poss));
+	}
+
 
 	Location getLocations();
 };

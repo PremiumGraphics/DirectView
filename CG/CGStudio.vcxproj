@@ -163,7 +163,6 @@
     <ClInclude Include="MouseCommand.h" />
     <ClInclude Include="ParticleDialog.h" />
     <ClInclude Include="RenderingCommand.h" />
-    <ClInclude Include="RenderingDialog.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

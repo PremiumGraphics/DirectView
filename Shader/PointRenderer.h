@@ -1,10 +1,10 @@
 #ifndef __CRYSTAL_SHADER_POINT_RENDERER_H__
 #define __CRYSTAL_SHADER_POINT_RENDERER_H__
 
-#include "../Graphics/Buffer.h"
+#include "../Util/UnCopyable.h"
+#include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
 #include "ShaderObject.h"
-#include "../Util/UnCopyable.h"
 
 namespace Crystal {
 	namespace Shader {

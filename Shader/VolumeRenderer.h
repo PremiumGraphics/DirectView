@@ -5,9 +5,9 @@
 #include <vector>
 
 #include "ShaderObject.h"
+#include "../Math/Volume.h"
 #include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/Buffer.h"
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {

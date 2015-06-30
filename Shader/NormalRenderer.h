@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "ShaderObject.h"
-#include "../Graphics/Buffer.h"
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/ColorRGBA.h"

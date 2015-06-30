@@ -27,7 +27,6 @@
     <ClCompile Include="WireframeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="ColorHSV.h" />

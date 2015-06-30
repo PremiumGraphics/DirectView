@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_MODEL_RENDERING_MODEL_H_
 #define __CRYSTAL_MODEL_RENDERING_MODEL_H_
 
-#include "../Graphics/Buffer.h"
 #include "../Shader/PointRenderer.h"
 #include "../Shader/WireframeRenderer.h"
 #include "../Shader/NormalRenderer.h"
@@ -63,6 +62,7 @@ public:
 
 	void add(const Math::Volume3d<float>& volume);
 
+	/*
 	void addCells(const Math::Volume3d<float>& v) {
 		const auto& cells = v.toCells();
 		for (const auto c : cells) {
@@ -71,6 +71,7 @@ public:
 			lineBuffer.add(box);
 		}
 	}
+	*/
 
 	/*
 	void add(const Math::Particle3d<float>& particle) {
@@ -113,9 +114,6 @@ private:
 	Shader::WireframeRenderer wireframeRenderer;
 	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
-
-	Graphics::LineBuffer<float> lineBuffer;
-	Graphics::TriangleBuffer<float> triangleBuffer;
 
 };
 

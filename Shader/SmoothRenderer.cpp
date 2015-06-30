@@ -65,10 +65,8 @@ SmoothRenderer::Location SmoothRenderer::getLocations()
 	return location;
 }
 
-void SmoothRenderer::render(const int width, const int height, const Camera<float>& camera, const TriangleBuffer<float>& buffer)
+void SmoothRenderer::render(const int width, const int height, const Camera<float>& camera)
 {
-	const std::vector<float>& positions = buffer.getPositions();
-	const std::vector<float>& normals = buffer.getNormals();
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 	const std::vector<float>& eyePos = camera.getPos().toArray();

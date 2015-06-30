@@ -23,9 +23,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RenderingDialog.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="VolumeDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>

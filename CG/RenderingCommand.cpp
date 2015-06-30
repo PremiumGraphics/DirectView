@@ -19,32 +19,34 @@ void RenderingCommand::clear()
 {
 	pointRenderer.clear();
 	//selectedPointBuffer.clear();
-	lineBuffer.clear();
-	triangleBuffer.clear();
+	wireframeRenderer.clear();
+	smoothRenderer.clear();
 	volumeRenderer.clear();
 }
 
 void RenderingCommand::add(const Surface<float>& surface)
 {
 	if (config.drawWire) {
-		lineBuffer.add(surface);
+		wireframeRenderer.add(surface);
 	}
 	if (config.drawNormal) {
 		normalRenderer.add(surface);
 	}
 	if (config.drawSmooth) {
-		triangleBuffer.add(surface);
+		smoothRenderer.add(surface);
 	}
 }
 
 void RenderingCommand::add(const Volume3d<float>& volume)
 {
 	if (config.drawWire) {
-		lineBuffer.add(volume);
+		wireframeRenderer.add(volume);
 	}
+	/*
 	if (config.drawCells) {
 		addCells(volume);
 	}
+	*/
 	if (config.drawVolume) {
 		volumeRenderer.add(volume);
 	}
@@ -61,17 +63,20 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	glPointSize(20.0);
 	glLineWidth(getConfig().lineWidth);
 
-	if (config.drawWire) {
-		wireframeRenderer.render(width, height, camera, lineBuffer, false);
+	if (config.drawPoint) {
+		pointRenderer.render(width, height, camera, false);
 	}
-	pointRenderer.render(width, height, camera, false);
+
+	if (config.drawWire) {
+		wireframeRenderer.render(width, height, camera, false);
+	}
 
 	if (config.drawNormal) {
 		normalRenderer.render(width, height, camera);
 	}
 
 	if (config.drawSmooth) {
-		smoothRenderer.render(width, height, camera, triangleBuffer);
+		smoothRenderer.render(width, height, camera);
 	}
 
 	//glClear(GL_DEPTH_BUFFER_BIT);

@@ -67,9 +67,8 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 	return location;
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const LineBuffer<float>& buffer, const bool isSelected)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const bool isSelected)
 {
-	const auto& positions = buffer.getPositions();
 	if (positions.empty()) {
 		return;
 	}
