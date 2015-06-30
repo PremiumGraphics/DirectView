@@ -25,13 +25,32 @@ public:
 
 	void build();
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const Graphics::PointBuffer<float>& buffer);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera);
 
 	float scale;
+
+	void add(const Graphics::Surface<float>& surface) {
+		for (const auto& e : surface.getEdges()) {
+			addPosition(e->getStartPosition(), e->getStartVertex()->getNormal() );
+		}
+		//positions.add( surface.)
+	}
+	void clear() {
+		positions.clear();
+		normals.clear();
+	}
+
 
 private:
 	std::vector< float > positions;
 	std::vector< float > normals;
+
+	void addPosition(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal) {
+		const auto& poss = position.toArray();
+		positions.insert(positions.end(), poss.begin(), poss.end());
+		const auto& norms = normal.toArray();
+		normals.insert(normals.end(), norms.begin(), norms.end());
+	}
 
 
 private:

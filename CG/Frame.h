@@ -45,6 +45,8 @@ private:
 
 	void OnRenderingWireframeConfig(wxRibbonButtonBarEvent& e);
 
+	void OnRenderingNormal(wxRibbonButtonBarEvent& e);
+
 	void OnRenderingVolume(wxRibbonButtonBarEvent& e);
 
 	void OnRenderingVolumeConfig(wxRibbonButtonBarEvent& e);

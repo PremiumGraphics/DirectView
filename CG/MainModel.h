@@ -122,7 +122,7 @@ public:
 	void doExport(const std::string& filename) const;
 
 	void buildRenderer() {
-		rendering.buildRenderer();
+		rendering.build();
 	}
 
 	void setParticleCharge(const float c) {
@@ -155,10 +155,14 @@ public:
 		rendering.changeSmooth();
 	}
 
+	void changeNormal() {
+		rendering.changeNormal();
+	}
+
 
 	void setRendering() {
 		rendering.clear();
-		rendering.add(particle);
+		//rendering.add(particle);
 		rendering.add(preVolume);
 		for (const auto& s : preSurfaces) {
 			rendering.add(*s);
@@ -238,7 +242,7 @@ private:
 	Math::Volume3d<float> bakedVolume;
 
 	Math::Particle3d<float> particle;
-	RenderingCommand<float> rendering;
+	RenderingCommand rendering;
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtrList<float> preSurfaces;
 	VolumeConfig<float> vConfig;

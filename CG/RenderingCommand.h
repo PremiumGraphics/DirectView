@@ -47,7 +47,6 @@ public:
 };
 
 
-template<typename T>
 class RenderingCommand final : UnCopyable
 {
 
@@ -56,68 +55,29 @@ public:
 
 	~RenderingCommand() = default;
 
-	void clear(){
-		pointBuffer.clear();
-		selectedPointBuffer.clear();
-		lineBuffer.clear();
-		triangleBuffer.clear();
-		vBuffer.clear();
-	}
+	void build();
 
-	/*
-	void add(const SurfaceModel<T>& surface)
-	{
-		for (const auto& p : surface.getSurfaces()) {
-			if (p->isVisible()) {
-				//normalRenderer.add(*(p->getPolygon()));
-				const auto& surface = p->getSurface();
-				const int type = static_cast<int>(p->getType());
-				const int isSelected = p->isSelected();
-				//pointBuffer.add(*surface, type, p->getId(), isSelected);
-				triangleBuffer.add(*surface, type, p->getId(), isSelected);
-			}
-		}
-	}
-	*/
+	void clear();
 
-	void add(const Graphics::Surface<T>& surface) {
-		if (config.drawWire) {
-			lineBuffer.add(surface);
-		}
-		if (config.drawNormal) {
-			pointBuffer.add(surface, -1, false);
-		}
-		if (config.drawSmooth) {
-			triangleBuffer.add(surface);
-		}
-	}
+	void add(const Graphics::Surface<float>& surface);
 
-	void add(const Math::Volume3d<T>& volume) {
-		if (config.drawWire) {
-			lineBuffer.add(volume);
-		}
-		if (config.drawCells) {
-			addCells(volume);
-		}
-		if (config.drawVolume) {
-			vBuffer.add(volume);
-		}
-	}
+	void add(const Math::Volume3d<float>& volume);
 
-	void addCells(const Math::Volume3d<T>& v) {
+	void addCells(const Math::Volume3d<float>& v) {
 		const auto& cells = v.toCells();
 		for (const auto c : cells) {
 			const auto& space = c.getSpace();
-			const Math::Box<T> box(space.getStart(), space.getEnd());
+			const Math::Box<float> box(space.getStart(), space.getEnd());
 			lineBuffer.add(box);
 		}
 	}
 
-	void add(const Math::Particle3d<T>& particle) {
+	/*
+	void add(const Math::Particle3d<float>& particle) {
 		const auto& center = particle.getCenter();
-		selectedPointBuffer.addPosition(center, Math::Vector3d<T>::Zero(), 0, 1);
-
+		selectedPointBuffer.addPosition(center, Math::Vector3d<float>::Zero(), 0, 1);
 	}
+	*/
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
@@ -135,57 +95,18 @@ public:
 		config.drawSmooth = !config.drawSmooth;
 	}
 
+	void changeNormal() {
+		config.drawNormal = !config.drawNormal;
+	}
+
 	void changeWire() {
 		config.drawWire = !config.drawWire;
 	}
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
-
-		glPointSize(20.0);
-		glLineWidth(getConfig().lineWidth);
-
-		if (config.drawWire) {
-			wireframeRenderer.render(width, height, camera, lineBuffer, false);
-		}
-		pointRenderer.render(width, height, camera, pointBuffer, false);
-
-		normalRenderer.render(width, height, camera, pointBuffer);
-
-		if (config.drawSmooth) {
-			smoothRenderer.render(width, height, camera, triangleBuffer);
-		}
-
-		//glClear(GL_DEPTH_BUFFER_BIT);
-		pointRenderer.render(width, height, camera, selectedPointBuffer, true);
-		//wireframeRenderer.render(width, height, camera, triangleBuffer);
-
-		glPointSize(getConfig().pointSize);
-
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-
-		volumeRenderer.render(width, height, camera, vBuffer);
-
-		glDisable(GL_BLEND);
-		glEnable(GL_DEPTH_TEST);
-	}
-
-	void buildRenderer() {
-		normalRenderer.build();
-		wireframeRenderer.build();
-		smoothRenderer.build();
-		volumeRenderer.build();
-		pointRenderer.build();
-	}
+	void render(const int width, const int height, const Graphics::Camera<float>& camera);
 
 private:
-	RenderingConfig<T> config;
+	RenderingConfig<float> config;
 
 	Shader::NormalRenderer normalRenderer;
 	Shader::PointRenderer pointRenderer;
@@ -193,12 +114,9 @@ private:
 	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
 
-	Graphics::PointBuffer<T> pointBuffer;
-	Graphics::LineBuffer<T> lineBuffer;
-	Graphics::TriangleBuffer<T> triangleBuffer;
-	Graphics::VolumeBuffer<T> vBuffer;
-
-	Graphics::PointBuffer<T> selectedPointBuffer;
+	Graphics::LineBuffer<float> lineBuffer;
+	Graphics::TriangleBuffer<float> triangleBuffer;
+	Graphics::VolumeBuffer<float> vBuffer;
 
 
 };

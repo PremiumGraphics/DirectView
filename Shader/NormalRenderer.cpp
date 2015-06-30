@@ -110,10 +110,8 @@ void NormalRenderer::build()
 	//positionLocation = glGetUniformLocation( shader.getId(), "position" );
 }
 
-void NormalRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer )
+void NormalRenderer::render(const int width, const int height, const Camera<float>& camera )
 {
-	const auto& positions = buffer.getPositions();
-	const auto& normals = buffer.getNormals();
 	if (positions.empty() || normals.empty()) {
 		return;
 	}

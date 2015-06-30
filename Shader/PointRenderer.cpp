@@ -64,11 +64,8 @@ PointRenderer::Location PointRenderer::getLocations()
 }
 
 
-void PointRenderer::render(const int width, const int height, const Camera<float>& camera, const PointBuffer<float>& buffer, const bool isSelected)
+void PointRenderer::render(const int width, const int height, const Camera<float>& camera, const bool isSelected)
 {
-
-	const auto& positions = buffer.getPositions();
-
 	if (positions.empty()) {
 		return;
 	}

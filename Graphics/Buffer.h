@@ -13,40 +13,6 @@ namespace Crystal {
 	namespace Graphics {
 
 
-template<typename T>
-class PointBuffer final
-{
-public:
-	void add(const Surface<T>& surface, const int id, const int isSelected) {
-		for (const auto& e : surface.getEdges()) {
-			addPosition(e->getStartPosition(), e->getStartVertex()->getNormal(), id, isSelected);
-			//addPosition(e->getEndPosition(), e->getEndVertex()->getNormal(), id, isSelected);
-		}
-		//positions.add( surface.)
-	}
-
-	void addPosition(const Math::Vector3d<T>& position, const Math::Vector3d<T>& normal, const int id, const int isSelected) {
-		const auto& poss = position.toArray();
-		positions.insert(positions.end(), poss.begin(), poss.end());
-		const auto& norms = normal.toArray();
-		normals.insert(normals.end(), norms.begin(), norms.end());
-	}
-
-	void clear() {
-		positions.clear();
-		normals.clear();
-	}
-
-	std::vector<T> getPositions() const { return positions; }
-
-	std::vector<T> getNormals() const { return normals; }
-
-private:
-	std::vector<T> positions;
-	std::vector<T> normals;
-
-
-};
 
 template<typename T>
 class LineBuffer final

@@ -235,6 +235,7 @@ void Frame::createRenderingPanel(wxRibbonPage* parent)
 	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
 	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPointConfig));
 	Connect(ID_RENDERING_WIREFRAME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingWireframe));
+	Connect(ID_RENDERING_NORMAL, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingNormal));
 	Connect(ID_RENDERING_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
 	Connect(ID_RENDERING_SMOOTH, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
 }
@@ -473,6 +474,13 @@ void Frame::OnRenderingWireframeConfig(wxRibbonButtonBarEvent& e)
 		return;
 	}
 
+}
+
+void Frame::OnRenderingNormal(wxRibbonButtonBarEvent& e)
+{
+	model->changeNormal();
+	setRendering();
+	view->Refresh();
 }
 
 
