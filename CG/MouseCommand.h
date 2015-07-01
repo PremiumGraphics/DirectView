@@ -118,9 +118,9 @@ private:
 class BoneOperationCommand : public MouseOperationCommand
 {
 public:
-	BoneOperationCommand(Graphics::Camera<float>& camera, Graphics::Bone<float>& bone) :
+	BoneOperationCommand(Graphics::Camera<float>& camera, const Graphics::BoneSPtrList<float>& bones) :
 		MouseOperationCommand(camera),
-		bone( bone )
+		bones( bones )
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -132,7 +132,7 @@ public:
 	virtual void onRightDoubleClicked() override;
 
 private:
-	Graphics::Bone<float>& bone;
+	Graphics::BoneSPtrList<float> bones;
 };
 	}
 }

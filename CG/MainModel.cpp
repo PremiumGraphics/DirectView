@@ -50,14 +50,16 @@ void MainCommand::doExport(const std::string& filename) const
 void MainCommand::bakeBoneToVolume()
 {
 	surfaceCommand.clear();
-	const auto& positions = boneCommand.getSelectedBone()->getLine().toPositions(10);
-	std::list<Particle3d<float>> boneParticles;
-	for (const auto& p : positions) {
-		Particle3d<float> particle(p, 0.5f, 1.0f);
-		boneParticles.emplace_back(particle);
+	for (const auto& b : boneCommand.getBones()) {
+		const auto& positions = b->getLine().toPositions(10);
+		std::list<Particle3d<float>> boneParticles;
+		for (const auto& p : positions) {
+			Particle3d<float> particle(p, 0.5f, 1.0f);
+			boneParticles.emplace_back(particle);
+		}
+		volumeCommand.add(boneParticles, 1.0f);
+		surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	}
-	volumeCommand.add(boneParticles, 1.0f);
-	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();
 }
 
@@ -109,7 +111,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 	}
 	else if (ctrl == UIControl::BONE_MOVE) {
-		mouse = std::make_shared<UI::BoneOperationCommand>(camera, *boneCommand.getSelectedBone());
+		mouse = std::make_shared<UI::BoneOperationCommand>(camera, boneCommand.getBones());
 	}
 	else {
 		assert(false);
