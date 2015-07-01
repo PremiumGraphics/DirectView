@@ -12,9 +12,9 @@ mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
 isSphere(false),
 realTimeBake(false)
 {
-	setupVolumes();
+	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);
-	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
+	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();
 }
 
@@ -47,19 +47,24 @@ void MainCommand::doExport(const std::string& filename) const
 	file.writeASCII(filename);
 }
 
-void MainCommand::setupVolumes()
+void MainCommand::bakeBoneToVolume()
 {
-	Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-	Math::Volume3d<float> v(vConfig.space, grid);
-	volumeCommand.preVolume = v;
-	volumeCommand.bakedVolume = v;
+	surfaceCommand.clear();
+	const auto& positions = boneCommand.getSelectedBone()->getLine().toPositions(10);
+	std::list<Particle3d<float>> boneParticles;
+	for (const auto& p : positions) {
+		Particle3d<float> particle(p, 0.5f, 1.0f);
+		boneParticles.emplace_back(particle);
+	}
+	volumeCommand.add(boneParticles, 1.0f);
+	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
+	setRendering();
 }
-
 
 void MainCommand::bakeParticleToVolume()
 {
 	volumeCommand.bake();
-	surfaceCommand.create(volumeCommand.bakedVolume, vConfig.threshold);
+	surfaceCommand.create(volumeCommand.getBakedVolume(), vConfig.threshold);
 	setRendering();
 }
 
@@ -67,7 +72,7 @@ void MainCommand::setRendering()
 {
 	rendering.clear();
 	rendering.add(particle);
-	rendering.add(volumeCommand.preVolume);
+	rendering.add(volumeCommand.getPreVolume());
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
 	}
@@ -86,8 +91,8 @@ void MainCommand::preview()
 {
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
-	volumeCommand.add(particle, 0.1);
-	surfaceCommand.create(volumeCommand.preVolume, vConfig.threshold);
+	volumeCommand.add(particle, 0.1f);
+	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();
 }
 

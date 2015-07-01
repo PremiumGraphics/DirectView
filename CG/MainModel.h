@@ -77,14 +77,15 @@ public:
 		camera.init();
 	}
 
+	void setupVolumes() {
+		volumeCommand.setupVolumes(vConfig);
+	}
+
 	/*
 	Math::Box<T> getBoundingBox() const {
 		return Math::Box<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(1, 1, 1));
 	}
 	*/
-
-	void setupVolumes();
-
 	/*
 	void zeroPreVolume() {
 		preSurfaces.clear();
@@ -95,6 +96,8 @@ public:
 		setRendering();
 	}
 	*/
+
+	void bakeBoneToVolume();
 
 	void bakeParticleToVolume();
 

@@ -75,6 +75,8 @@ private:
 
 	void OnBoneMove(wxRibbonButtonBarEvent& e);
 
+	void OnBoneBake(wxRibbonButtonBarEvent& e);
+
 	void OnCanvasConfig(wxRibbonButtonBarEvent& e);
 
 	void OnCanvasClear(wxRibbonButtonBarEvent& e){};

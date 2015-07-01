@@ -32,3 +32,11 @@ TYPED_TEST(LineTest, TestGetPosition)
 
 }
 //T getLength() const { vector.getLength(); }
+
+TYPED_TEST(LineTest, TestToPositions)
+{
+	using T = TypeParam;
+	const Line3d<T> line(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 5, 10));
+	const auto& actual = line.toPositions(2);
+	EXPECT_EQ(2, actual.size());
+}

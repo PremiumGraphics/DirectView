@@ -18,6 +18,10 @@ public:
 
 	Graphics::BoneSPtrList<float> getBones() const { return bones; }
 
+	Math::Vector3dVector<float> toPositions() {
+		return bones.back()->getLine().toPositions(10);
+	}
+
 private:
 
 	Graphics::BoneSPtrList<float> bones;

@@ -35,6 +35,7 @@ enum {
 
 	ID_BONE_CREATE,
 	ID_BONE_MOVE,
+	ID_BONE_BAKE,
 
 	ID_CANVAS_CONFIG,
 	ID_CANVAS_CLEAR,
@@ -221,10 +222,12 @@ void Frame::createBonePanel(wxRibbonPage* parent)
 
 	bar->AddButton(ID_BONE_CREATE, "Create", wxImage("../Resource/point.png"));
 	bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
+	bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
+
 
 	Connect(ID_BONE_CREATE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneCreate));
 	Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
-
+	Connect(ID_BONE_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneBake));
 }
 
 
@@ -625,6 +628,13 @@ void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::BONE_MOVE);
 }
+
+void Frame::OnBoneBake(wxRibbonButtonBarEvent& e)
+{
+	model.bakeBoneToVolume();
+	setRendering();
+}
+
 
 void Frame::setRendering()
 {

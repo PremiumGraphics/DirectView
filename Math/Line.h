@@ -28,6 +28,26 @@ public:
 
 	T getLength() const { vector.getLength(); }
 
+	/*
+	Vector3dVector<T> toPositions(const T divideLength) const{
+		Vector3dVector<T> positions;
+		const auto dt = divideLength / getLength();
+		for (auto x = 0; i < divideLength; ) {
+			const auto p = divParam * i;
+		}
+	}
+	*/
+
+	Vector3dVector<T> toPositions(const unsigned int howMany) const {
+		Vector3dVector<T> positions;
+		const auto dt = T(1) / static_cast<T>(howMany);
+		for (size_t i = 0; i < howMany; ++i) {
+			const auto param = dt * i;
+			positions.emplace_back(getPosition(param));
+		}
+		return std::move(positions);
+	}
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> vector;
