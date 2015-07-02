@@ -99,6 +99,8 @@ private:
 
 	void createCameraPanel(wxRibbonPage* parent);
 
+	void createCursorPanel(wxRibbonPage* parent);
+
 	void createBrushPanel(wxRibbonPage* parent);
 
 	void createBonePanel(wxRibbonPage* parent);

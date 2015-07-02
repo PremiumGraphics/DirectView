@@ -41,9 +41,6 @@ enum {
 
 	ID_CAMERA_FIT,
 
-	//ID_BAKE_PARTICLE_TO_VOLUME,
-	//ID_BAKE_VOLUME_TO_SURFACE,
-
 	ID_CAPTURE,
 };
 
@@ -138,6 +135,7 @@ void Frame::createPanels(wxRibbonPage* parent)
 {
 	createFilePanel(parent);
 	createCameraPanel(parent);
+	createCursorPanel(parent);
 	createBrushPanel(parent);
 	createBonePanel(parent);
 	createCanvasPanel(parent);
@@ -184,19 +182,28 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
 }
 
+void Frame::createCursorPanel(wxRibbonPage* parent)
+{
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Cursor"));
+	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
+
+	const int cursorId = wxNewId();
+	bar->AddButton(cursorId, "Corsor", wxImage("../Resource/point.png"));
+
+	Connect(cursorId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCoursor3d));
+}
+
 void Frame::createBrushPanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 
-	const int cursorId = wxNewId();
 	const int strokeId = wxNewId();
 	const int sizeId = wxNewId();
 	const int positiveId = wxNewId();
 	const int negativeId = wxNewId();
 	const int eraseId = wxNewId();
 
-	bar->AddButton(cursorId,	"Corsor", wxImage("../Resource/point.png"));
 	bar->AddButton(strokeId,	"Stroke", wxImage("../Resource/point.png"));
 	bar->AddButton(sizeId,		"Size", wxImage("../Resource/point.png"));
 	bar->AddButton(positiveId,	"+", wxImage("../Resource/point.png"));
@@ -207,7 +214,6 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
-	Connect(cursorId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCoursor3d));
 	Connect(strokeId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
 	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
@@ -587,7 +593,7 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 void Frame::OnCoursor3d(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::PARTICLE);
+	model.setUIControl(Command::UIControl::CURSOR);
 }
 
 void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
@@ -608,12 +614,12 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
-	model.setParticleCharge(1.0f);
+	//model.setParticleCharge(1.0f);
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
-	model.setParticleCharge(-1.0f);
+	//model.setParticleCharge(-1.0f);
 }
 
 void Frame::OnBoneCreate(wxRibbonButtonBarEvent& e)
@@ -655,16 +661,17 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
+		/*
 	case 'X':
 		model.setParticleCharge(-1.0f);
-		model.setUIControl(Command::UIControl::PARTICLE);
+		model.setUIControl(Command::UIControl::CURSOR);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
 		break;
 	case 'V':
 		model.setParticleCharge(1.0f);
-		model.setUIControl(Command::UIControl::PARTICLE);
+		model.setUIControl(Command::UIControl::CURSOR);
 		break;
 	case 'S':
 		model.setUIControl(Command::UIControl::PARTICLE_SCALE);

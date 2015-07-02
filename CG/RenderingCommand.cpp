@@ -24,6 +24,14 @@ void RenderingCommand::clear()
 	volumeRenderer.clear();
 }
 
+void RenderingCommand::add(const Vector3d<float>& cursor)
+{
+	if (config.drawPoint) {
+		pointRenderer.add(cursor);
+	}
+}
+
+
 void RenderingCommand::add(const Surface<float>& surface)
 {
 	if (config.drawWire) {

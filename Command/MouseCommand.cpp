@@ -26,11 +26,16 @@ void Cursor3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 	cursor += toCoord3d( toScreenCoord2d(v) );
 }
 
-void ParticleOperationCommand::onDraggingLeft(const Vector3d<float>& src)
+void Cursor3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
-	//_doRealTimeBake = false;
-	const Math::Vector3d<float>& v = toScreenCoord2d(src);
-	particle.move(toCoord3d(v * 1));
+	const Math::Vector3d<float> v(0, 0, diff.getY());
+	cursor += (toCoord3d(v * 1));
+}
+
+
+void ParticleOperationCommand::onDraggingLeft(const Vector3d<float>& v)
+{
+	cursor += toCoord3d(toScreenCoord2d(v));
 }
 
 void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
@@ -43,7 +48,7 @@ void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
 void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
-	particle.move(toCoord3d(v * 1));
+	cursor += (toCoord3d(v * 1));
 }
 
 void ParticleScaleCommand::onDraggingLeft(const Vector3d<float>& src)

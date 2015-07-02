@@ -60,7 +60,7 @@ private:
 
 enum class UIControl {
 	CAMERA,
-	PARTICLE,
+	CURSOR,
 	PARTICLE_BAKE,
 	PARTICLE_SCALE,
 	PARTICLE_ERASE,
@@ -106,10 +106,6 @@ public:
 
 	void buildRenderer() {
 		rendering.build();
-	}
-
-	void setParticleCharge(const float c) {
-		particle.setCharge(c);
 	}
 
 	/*
@@ -207,13 +203,14 @@ private:
 	Graphics::Camera<float> camera;
 	UI::VolumeCommand volumeCommand;
 
-	Math::Particle3d<float> particle;
 	RenderingCommand rendering;
 	UI::VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	UI::BoneCommand boneCommand;
 	UI::SurfaceCommand surfaceCommand;
+
+	Math::Vector3d<float> cursor;
 	bool isSphere;
 };
 	}

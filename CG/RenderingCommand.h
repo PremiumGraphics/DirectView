@@ -60,6 +60,8 @@ public:
 
 	void clear();
 
+	void add(const Math::Vector3d<float>& cursor);
+
 	void add(const Graphics::Surface<float>& surface);
 
 	void add(const Math::Volume3d<float>& volume);
@@ -77,10 +79,12 @@ public:
 	}
 	*/
 
+	/*
 	void add(const Math::Particle3d<float>& particle) {
 		const auto& center = particle.getCenter();
 		pointRenderer.add(center);
 	}
+	*/
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 

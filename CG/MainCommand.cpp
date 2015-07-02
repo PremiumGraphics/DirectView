@@ -73,7 +73,7 @@ void MainCommand::bakeParticleToVolume()
 void MainCommand::setRendering()
 {
 	rendering.clear();
-	rendering.add(particle);
+	rendering.add(cursor);
 	rendering.add(volumeCommand.getPreVolume());
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
@@ -94,6 +94,7 @@ void MainCommand::preview()
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
 	volumeCommand.copyBakedToPre();
+	Particle3d<float> particle(cursor, 1.0f, 1.0f);
 	volumeCommand.add(particle, 0.1f);
 	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();
@@ -105,15 +106,17 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	if (ctrl == UIControl::CAMERA) {
 		mouse = std::make_shared<UI::CameraOperationCommand>(camera);
 	}
-	else if (ctrl == UIControl::PARTICLE) {
-		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle, false);
+	else if (ctrl == UIControl::CURSOR) {
+		mouse = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	}
 	else if (ctrl == UIControl::PARTICLE_BAKE) {
-		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle, true);
+		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, cursor);
 	}
+	/*
 	else if (ctrl == UIControl::PARTICLE_SCALE) {
 		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
 	}
+	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
 		mouse = std::make_shared<UI::BoneOperationCommand>(camera, boneCommand);
 	}
