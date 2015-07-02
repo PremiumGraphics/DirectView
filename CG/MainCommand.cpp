@@ -11,6 +11,8 @@ MainCommand::MainCommand() :
 isSphere(false)
 {
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
+	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
+	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand);
 	mouse = cameraOperation;
 	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);
@@ -108,7 +110,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = cameraOperation;
 	}
 	else if (ctrl == UIControl::CURSOR) {
-		mouse = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
+		mouse = cursorOperation;
 	}
 	else if (ctrl == UIControl::PARTICLE_BAKE) {
 		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, cursor);
@@ -119,7 +121,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	}
 	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
-		mouse = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand);
+		mouse = lineOperation;
 	}
 	else {
 		assert(false);

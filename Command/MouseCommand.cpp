@@ -76,19 +76,19 @@ void Line3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
-void Line3dOperationCommand::onRightButtonClicked(const Vector3d<float>& v)
+void Line3dOperationCommand::onRightButtonDown()
 {
 
 }
 
-void Line3dOperationCommand::onLeftButtonClicked(const Vector3d<float>& v)
+void Line3dOperationCommand::onLeftButtonDown()
 {
 	if (isPointedStartPosition) {
 		command.getSelectedBone()->moveEnd(Vector3d<float>(1, 0, 0));
 		_doRealTimePreview = true;
 	}
 	else {
-		command.create(v);
+		command.create(Vector3d<float>(0,0,0));
 		_doRealTimePreview = false;
 
 	}

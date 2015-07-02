@@ -156,8 +156,8 @@ public:
 		postMouseEvent();
 	}
 
-	void onLeftButtonClicked(const Math::Vector3d<float>& pos) {
-		mouse->onLeftButtonClicked(pos);
+	void onLeftButtonDown() {
+		mouse->onLeftButtonDown();
 		bakeBoneToVolume();
 		postMouseEvent();
 	}
@@ -211,6 +211,8 @@ private:
 	UI::SurfaceCommand surfaceCommand;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
+	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
+	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
 
 	Math::Vector3d<float> cursor;
 	bool isSphere;

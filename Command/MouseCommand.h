@@ -27,9 +27,9 @@ public:
 
 	virtual void onLeftDoubleClicked(){};
 
-	virtual void onLeftButtonClicked(const Math::Vector3d<float>& src){};
+	virtual void onLeftButtonDown(){};
 
-	virtual void onRightButtonClicked(const Math::Vector3d<float>& src){};
+	virtual void onRightButtonDown(){};
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src){};
 
@@ -153,9 +153,9 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual void onRightButtonClicked(const Math::Vector3d<float>& src) override;
+	virtual void onRightButtonDown() override;
 
-	virtual void onLeftButtonClicked(const Math::Vector3d<float>& src) override;
+	virtual void onLeftButtonDown() override;
 
 private:
 	BoneCommand& command;

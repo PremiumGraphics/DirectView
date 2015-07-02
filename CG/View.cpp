@@ -100,7 +100,7 @@ void View::OnMouse(wxMouseEvent& event)
 	}
 
 	if (event.LeftDown()) {
-		model.onLeftButtonClicked(Vector3d<float>(0,0,0));
+		model.onLeftButtonDown();
 		return;
 	}
 
