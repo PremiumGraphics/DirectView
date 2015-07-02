@@ -129,6 +129,14 @@ public:
 	}
 	*/
 
+	void setMousePosition(const int x, const int y) {
+		mouse->setMousePosition(x, y);
+	}
+
+	UI::ScreenCoord getMousePosition() const {
+		return mouse->getMousePosition();
+	}
+
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
 		mouse->onDraggingLeft(src);
 		postMouseEvent();

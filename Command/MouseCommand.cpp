@@ -84,3 +84,8 @@ void BoneOperationCommand::onRightDoubleClicked()
 {
 
 }
+
+void BoneOperationCommand::onLeftDoubleClicked()
+{
+
+}

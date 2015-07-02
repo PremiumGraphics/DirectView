@@ -11,6 +11,11 @@
 namespace Crystal {
 	namespace UI {
 
+struct ScreenCoord
+{
+	int x;
+	int y;
+};
 
 class MouseOperationCommand
 {
@@ -24,21 +29,33 @@ public:
 
 	virtual void onRightDoubleClicked(){};
 
+	virtual void onLeftDoubleClicked(){};
+
 	virtual void onLeftButtonClicked(const Math::Vector3d<float>& src){};
 
 	virtual void onRightButtonClicked(const Math::Vector3d<float>& src){};
 
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) = 0;
+	virtual void onDraggingLeft(const Math::Vector3d<float>& src){};
 
-	virtual void onDraggingRight(const Math::Vector3d<float>& src) = 0;
+	virtual void onDraggingRight(const Math::Vector3d<float>& src){};
 
-	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) = 0;
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
 	virtual bool doRealTimePreview() { return true; }
 
 	virtual bool doRealTimeBake() { return false; }
 
 	virtual bool doRefresh() { return true; }
+
+	void setMousePosition(const int x, const int y) {
+		mouseCoord.x = x;
+		mouseCoord.y = y;
+	}
+
+	ScreenCoord getMousePosition() const {
+		return mouseCoord;
+	}
+
 
 protected:
 	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
@@ -55,6 +72,9 @@ protected:
 	}
 
 	Graphics::Camera<float>& camera;
+
+private:
+	ScreenCoord mouseCoord;
 };
 
 class CameraOperationCommand : public MouseOperationCommand
@@ -136,6 +156,8 @@ public:
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 	virtual void onRightDoubleClicked() override;
+
+	virtual void onLeftDoubleClicked() override;
 
 private:
 	BoneCommand command;

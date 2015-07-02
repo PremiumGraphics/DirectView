@@ -99,6 +99,9 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
+	wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
+
+
 	if( event.Dragging() ) {
 		if( event.MiddleIsDown() ) {
 			wxPoint position = event.GetPosition();
@@ -124,9 +127,8 @@ void View::OnMouse(wxMouseEvent& event)
 		SwapBuffers();
     }
 
-
-	mouseStart = event.GetPosition();
-
+	wxPoint mouseEnd = event.GetPosition();
+	model.setMousePosition(mouseEnd.x, mouseEnd.y);
 
 }
 

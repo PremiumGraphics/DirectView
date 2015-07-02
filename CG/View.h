@@ -16,7 +16,7 @@ namespace Crystal {
 class View : public wxGLCanvas
 {
 public:
-	View(Frame *frame, const int width, const int height, Command::MainCommand& model);
+	View(Frame *frame, const int width, const int height, Command::MainCommand& command);
 
 	~View();
 
@@ -41,7 +41,7 @@ private:
 	Command::MainCommand& model;
 	wxGLContext glContext;
 
-	wxPoint mouseStart;
+	//wxPoint mouseStart;
 	
 	//Graphics::SmoothRenderer smoothRenderer;
 
