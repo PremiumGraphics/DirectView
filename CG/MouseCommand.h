@@ -5,6 +5,8 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
+#include "BoneCommand.h"
+
 
 namespace Crystal {
 	namespace UI {
@@ -21,6 +23,10 @@ public:
 	MouseOperationCommand() = default;
 
 	virtual void onRightDoubleClicked(){};
+
+	virtual void onLeftButtonClicked(const Math::Vector3d<float>& src){};
+
+	virtual void onRightButtonClicked(const Math::Vector3d<float>& src){};
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) = 0;
 
@@ -118,9 +124,9 @@ private:
 class BoneOperationCommand : public MouseOperationCommand
 {
 public:
-	BoneOperationCommand(Graphics::Camera<float>& camera, const Graphics::BoneSPtrList<float>& bones) :
+	BoneOperationCommand(Graphics::Camera<float>& camera, const BoneCommand& command) :
 		MouseOperationCommand(camera),
-		bones( bones )
+		command( command )
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -132,7 +138,7 @@ public:
 	virtual void onRightDoubleClicked() override;
 
 private:
-	Graphics::BoneSPtrList<float> bones;
+	BoneCommand command;
 };
 	}
 }

@@ -1,9 +1,10 @@
-#ifndef __CRYSTAL_UI_VOLUME_COMMAND_H__
-#define __CRYSTAL_UI_VOLUME_COMMAND_H__
+#ifndef __CRYSTAL_COMMAND_VOLUME_COMMAND_H__
+#define __CRYSTAL_COMMAND_VOLUME_COMMAND_H__
+
+#include "../Math/Volume.h"
 
 namespace Crystal {
 	namespace UI{
-
 
 template<typename T>
 class VolumeConfig {

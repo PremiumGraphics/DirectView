@@ -61,7 +61,7 @@ void ParticleScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
 void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 {
 	const Math::Vector3d<float>& v = getDiff(src);
-	for (const auto& b : bones) {
+	for (const auto& b : command.getBones()) {
 		b->moveEnd(getScrennSpaceDiff(v * 1));
 	}
 	//particle.addRadius(src.getX());
@@ -70,7 +70,7 @@ void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 void BoneOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
 	const Math::Vector3d<float>& v = getDiff(src);
-	for (const auto& b : bones) {
+	for (const auto& b : command.getBones()) {
 		b->move(getScrennSpaceDiff(v * 1));
 	}
 

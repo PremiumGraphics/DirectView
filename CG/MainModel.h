@@ -11,7 +11,7 @@
 #include "MouseCommand.h"
 #include "BoneCommand.h"
 #include "SurfaceCommand.h"
-#include "VolumeCommand.h"
+#include "../Command/VolumeCommand.h"
 
 #include <memory>
 #include <map>
