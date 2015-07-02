@@ -147,7 +147,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="MainCommand.cpp" />
-    <ClCompile Include="MouseCommand.cpp" />
     <ClCompile Include="RenderingCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -157,11 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BoneCommand.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MainCommand.h" />
-    <ClInclude Include="MouseCommand.h" />
     <ClInclude Include="ParticleDialog.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="RenderingModel.h" />

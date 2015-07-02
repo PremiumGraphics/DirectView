@@ -3,9 +3,12 @@
   <ItemGroup>
     <ClInclude Include="VolumeCommand.h" />
     <ClInclude Include="SurfaceCommand.h" />
+    <ClInclude Include="MouseCommand.h" />
+    <ClInclude Include="BoneCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SurfaceCommand.cpp" />
     <ClCompile Include="VolumeCommand.cpp" />
+    <ClCompile Include="MouseCommand.cpp" />
   </ItemGroup>
 </Project>

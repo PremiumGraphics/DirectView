@@ -8,8 +8,8 @@
 #include "../IO/STLFile.h"
 
 #include "RenderingCommand.h"
-#include "MouseCommand.h"
-#include "BoneCommand.h"
+#include "../Command/MouseCommand.h"
+#include "../Command/BoneCommand.h"
 #include "../Command/SurfaceCommand.h"
 #include "../Command/VolumeCommand.h"
 

@@ -45,5 +45,6 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
+    <ClInclude Include="Parameter.h" />
   </ItemGroup>
 </Project>

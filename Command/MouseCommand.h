@@ -5,7 +5,7 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
-#include "BoneCommand.h"
+#include "../Command/BoneCommand.h"
 
 
 namespace Crystal {
