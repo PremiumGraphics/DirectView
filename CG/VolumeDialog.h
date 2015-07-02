@@ -4,7 +4,7 @@
 #include "wx/dialog.h"
 #include "wx/spinctrl.h"
 
-#include "MainModel.h"
+#include "MainCommand.h"
 
 namespace Crystal {
 	namespace UI {

@@ -1,6 +1,6 @@
 #include <stdafx.h>
 
-#include "MainModel.h"
+#include "MainCommand.h"
 
 using namespace Crystal::UI;
 using namespace Crystal::Math;

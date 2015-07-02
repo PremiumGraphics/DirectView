@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_UI_FRAME_H__
 #define __CRYSTAL_UI_FRAME_H__
 
-#include "MainModel.h"
+#include "MainCommand.h"
 
 #include <memory>
 

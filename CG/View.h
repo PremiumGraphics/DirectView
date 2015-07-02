@@ -5,7 +5,7 @@
 
 #include "Frame.h"
 
-#include "MainModel.h"
+#include "MainCommand.h"
 
 namespace Crystal {
 	namespace Graphics {

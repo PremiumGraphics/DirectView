@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_COMMAND_MAIN_MODEL_H__
-#define __CRYSTAL_COMMAND_MAIN_MODEL_H__
+#ifndef __CRYSTAL_COMMAND_MAIN_COMMAND_H__
+#define __CRYSTAL_COMMAND_MAIN_COMMAND_H__
 
 #include "../Math/MarchingCube.h"
 #include "../Graphics/Camera.h"
