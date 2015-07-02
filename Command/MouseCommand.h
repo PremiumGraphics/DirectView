@@ -6,16 +6,10 @@
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
 #include "../Command/BoneCommand.h"
-
+#include "../Graphics/ScreenCoord.h"
 
 namespace Crystal {
 	namespace UI {
-
-struct ScreenCoord
-{
-	int x;
-	int y;
-};
 
 class MouseOperationCommand
 {
@@ -52,7 +46,7 @@ public:
 		mouseCoord.y = y;
 	}
 
-	ScreenCoord getMousePosition() const {
+	Graphics::ScreenCoord getMousePosition() const {
 		return mouseCoord;
 	}
 
@@ -74,7 +68,7 @@ protected:
 	Graphics::Camera<float>& camera;
 
 private:
-	ScreenCoord mouseCoord;
+	Graphics::ScreenCoord mouseCoord;
 };
 
 class CameraOperationCommand : public MouseOperationCommand

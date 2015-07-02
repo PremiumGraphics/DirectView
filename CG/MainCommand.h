@@ -133,7 +133,7 @@ public:
 		mouse->setMousePosition(x, y);
 	}
 
-	UI::ScreenCoord getMousePosition() const {
+	Graphics::ScreenCoord getMousePosition() const {
 		return mouse->getMousePosition();
 	}
 

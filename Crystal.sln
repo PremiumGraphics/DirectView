@@ -25,7 +25,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shader", "Shader\CrystalSha
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommandTest", "Command\CGStudioTest.vcxproj", "{81B09E8D-C1A8-4477-907A-ABB07883C9F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommandTest", "CommandTest\CGStudioTest.vcxproj", "{81B09E8D-C1A8-4477-907A-ABB07883C9F8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Command", "Command\Command.vcxproj", "{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}"
 EndProject
