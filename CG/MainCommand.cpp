@@ -12,7 +12,7 @@ isSphere(false)
 {
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
-	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand);
+	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand, cursor);
 	mouse = cameraOperation;
 	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);

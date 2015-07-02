@@ -17,7 +17,8 @@ public:
 	MouseOperationCommand(Graphics::Camera<float>& camera) :
 		camera(camera),
 		_doRealTimePreview(true),
-		_doRealTimeBake(false)
+		_doRealTimeBakeParticle(false),
+		_doRealTimeBakeBone(false)
 	{}
 
 
@@ -29,6 +30,8 @@ public:
 
 	virtual void onLeftButtonDown(){};
 
+	virtual void onLeftButtonUp(){};
+
 	virtual void onRightButtonDown(){};
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src){};
@@ -39,7 +42,9 @@ public:
 
 	bool doRealTimePreview() { return _doRealTimePreview; }
 
-	bool doRealTimeBake() { return _doRealTimeBake; }
+	bool doRealTimeBakeParticle() const { return _doRealTimeBakeParticle; }
+
+	bool doRealTimeBakeBone() const { return _doRealTimeBakeBone; }
 
 	virtual bool doRefresh() { return true; }
 
@@ -68,7 +73,8 @@ protected:
 
 	Graphics::Camera<float>& camera;
 	bool _doRealTimePreview;
-	bool _doRealTimeBake;
+	bool _doRealTimeBakeParticle;
+	bool _doRealTimeBakeBone;
 
 private:
 	Graphics::ScreenCoord mouseCoord;
@@ -121,7 +127,7 @@ public:
 		cursor(cursor)//,
 	//	_doRealTimeBake(false)
 	{
-		_doRealTimeBake = true;
+		_doRealTimeBakeParticle = true;
 
 	}
 
@@ -141,10 +147,10 @@ private:
 class Line3dOperationCommand : public MouseOperationCommand
 {
 public:
-	Line3dOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command) :
+	Line3dOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command, Math::Vector3d<float>& cursor) :
 		MouseOperationCommand(camera),
 		command( command ),
-		isPointedStartPosition( false )
+		cursor( cursor )
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -157,9 +163,13 @@ public:
 
 	virtual void onLeftButtonDown() override;
 
+	virtual void onLeftButtonUp() override;
+
 private:
 	BoneCommand& command;
-	bool isPointedStartPosition;
+	Math::Vector3d<float> startPosition;
+	Math::Vector3d<float> endPosition;
+	Math::Vector3d<float>& cursor;
 };
 	}
 }

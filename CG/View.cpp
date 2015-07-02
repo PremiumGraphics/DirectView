@@ -101,6 +101,17 @@ void View::OnMouse(wxMouseEvent& event)
 
 	if (event.LeftDown()) {
 		model.onLeftButtonDown();
+		draw(GetSize());
+		SwapBuffers();
+
+		return;
+	}
+
+	if (event.LeftUp()) {
+		model.onLeftButtonUp();
+		draw(GetSize());
+		SwapBuffers();
+
 		return;
 	}
 

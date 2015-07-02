@@ -52,12 +52,10 @@ void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 }
 
 
-void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& src)
+void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 {
-	const Math::Vector3d<float>& v = toScreenCoord2d(src);
-	for (const auto& b : command.getBones()) {
-		b->moveEnd(toCoord3d(v * 1));
-	}
+	cursor += toCoord3d(toScreenCoord2d(v));
+
 	//particle.addRadius(src.getX());
 }
 
@@ -83,14 +81,14 @@ void Line3dOperationCommand::onRightButtonDown()
 
 void Line3dOperationCommand::onLeftButtonDown()
 {
-	if (isPointedStartPosition) {
-		command.getSelectedBone()->moveEnd(Vector3d<float>(1, 0, 0));
-		_doRealTimePreview = true;
-	}
-	else {
-		command.create(Vector3d<float>(0,0,0));
-		_doRealTimePreview = false;
+	startPosition = cursor;
+}
 
-	}
-	isPointedStartPosition = !isPointedStartPosition;
+void Line3dOperationCommand::onLeftButtonUp()
+{
+	endPosition = cursor;
+	command.create(startPosition);
+	command.getSelectedBone()->moveEnd(endPosition);
+	_doRealTimeBakeBone = true;
+	_doRealTimePreview = true;
 }

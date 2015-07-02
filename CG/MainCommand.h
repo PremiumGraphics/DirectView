@@ -158,7 +158,11 @@ public:
 
 	void onLeftButtonDown() {
 		mouse->onLeftButtonDown();
-		bakeBoneToVolume();
+		postMouseEvent();
+	}
+
+	void onLeftButtonUp() {
+		mouse->onLeftButtonUp();
 		postMouseEvent();
 	}
 
@@ -166,9 +170,15 @@ public:
 		if (!mouse->doRefresh()){
 			return;
 		}
-		if (mouse->doRealTimeBake()) {
+		if (mouse->doRealTimeBakeParticle()) {
 			preview();
 			bakeParticleToVolume();
+			return;
+		}
+		if (mouse->doRealTimeBakeBone()) {
+			preview();
+			bakeBoneToVolume();
+			return;
 		}
 		if (mouse->doRealTimePreview()) {
 			preview();
