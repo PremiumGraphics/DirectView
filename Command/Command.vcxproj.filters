@@ -10,5 +10,6 @@
     <ClCompile Include="SurfaceCommand.cpp" />
     <ClCompile Include="VolumeCommand.cpp" />
     <ClCompile Include="MouseCommand.cpp" />
+    <ClCompile Include="BoneCommand.cpp" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ using namespace Crystal::UI;
 
 void CameraOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = getDiff(src);
+	const Math::Vector3d<float>& v = toScreenCoord2d(src);
 	camera.move(v);
 }
 void CameraOperationCommand::onDraggingRight(const Vector3d<float>& src)
@@ -21,11 +21,16 @@ void CameraOperationCommand::onDraggingMiddle(const Vector3d<float>& src)
 	camera.move(v);
 }
 
+void Cursor3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
+{
+	cursor += toCoord3d( toScreenCoord2d(v) );
+}
+
 void ParticleOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 {
 	//_doRealTimeBake = false;
-	const Math::Vector3d<float>& v = getDiff(src);
-	particle.move(getScrennSpaceDiff(v * 1));
+	const Math::Vector3d<float>& v = toScreenCoord2d(src);
+	particle.move(toCoord3d(v * 1));
 }
 
 void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
@@ -38,7 +43,7 @@ void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
 void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
-	particle.move(getScrennSpaceDiff(v * 1));
+	particle.move(toCoord3d(v * 1));
 }
 
 void ParticleScaleCommand::onDraggingLeft(const Vector3d<float>& src)
@@ -58,18 +63,18 @@ void ParticleScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
 
 void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = getDiff(src);
+	const Math::Vector3d<float>& v = toScreenCoord2d(src);
 	for (const auto& b : command.getBones()) {
-		b->moveEnd(getScrennSpaceDiff(v * 1));
+		b->moveEnd(toCoord3d(v * 1));
 	}
 	//particle.addRadius(src.getX());
 }
 
 void BoneOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = getDiff(src);
+	const Math::Vector3d<float>& v = toScreenCoord2d(src);
 	for (const auto& b : command.getBones()) {
-		b->move(getScrennSpaceDiff(v * 1));
+		b->move(toCoord3d(v * 1));
 	}
 
 	//particle.move(getScrennSpaceDiff(v * 1));

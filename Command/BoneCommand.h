@@ -10,6 +10,9 @@ namespace Crystal {
 class BoneCommand : private UnCopyable
 {
 public:
+	BoneCommand() = default;
+
+	~BoneCommand() = default;
 
 	void create(const Math::Vector3d<float>& pos) {
 		bones.push_back(std::make_shared<Graphics::Bone>());
@@ -24,7 +27,6 @@ public:
 	}
 
 private:
-
 	Graphics::BoneSPtrList bones;
 
 };

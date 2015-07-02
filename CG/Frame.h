@@ -59,9 +59,9 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnParticleControl(wxRibbonButtonBarEvent& e);
+	void OnCoursor3d(wxRibbonButtonBarEvent& e);
 
-	void OnParticleRealTimeBake(wxRibbonButtonBarEvent& e);
+	void OnParticleStroke(wxRibbonButtonBarEvent& e);
 
 	void OnParticleSize(wxRibbonButtonBarEvent& e);
 
@@ -69,7 +69,7 @@ private:
 
 	void OnParticleNegative(wxRibbonButtonBarEvent& e);
 
-	void OnParticleZero(wxRibbonButtonBarEvent& e);
+	void OnParticleErase(wxRibbonButtonBarEvent& e);
 
 	void OnBoneCreate(wxRibbonButtonBarEvent& e);
 

@@ -17,6 +17,7 @@
     <ClInclude Include="VolumeCommand.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoneCommand.cpp" />
     <ClCompile Include="MouseCommand.cpp" />
     <ClCompile Include="SurfaceCommand.cpp" />
     <ClCompile Include="VolumeCommand.cpp" />

@@ -53,14 +53,14 @@ public:
 
 
 protected:
-	Math::Vector3d<float> getDiff(const Math::Vector3d<float>& src) {
+	Math::Vector3d<float> toScreenCoord2d(const Math::Vector3d<float>& src) {
 		const float x = src.getX();
 		const float y = -src.getY();
 		const float z = src.getZ();
 		return Math::Vector3d<float>(x, y, 0);
 	}
 
-	Math::Vector3d<float> getScrennSpaceDiff(const Math::Vector3d<float>& src) const {
+	Math::Vector3d<float> toCoord3d(const Math::Vector3d<float>& src) const {
 		Math::Matrix3d<float> m = camera.getRotationMatrix();
 		return src * m;
 		//const auto& pos = particle.getCenter() * m;
@@ -90,9 +90,27 @@ public:
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 	virtual bool doRefresh() { return false; }
-
-
 };
+
+class Cursor3dOperationCommand : public MouseOperationCommand
+{
+public:
+	Cursor3dOperationCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
+		MouseOperationCommand(camera),
+		cursor(cursor)//,
+		//	_doRealTimeBake(false)
+	{
+	}
+
+	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
+
+	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
+
+private:
+	Math::Vector3d<float>& cursor;
+	//bool _doRealTimeBake;
+};
+
 
 class ParticleOperationCommand : public MouseOperationCommand
 {
@@ -113,7 +131,6 @@ public:
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
-
 
 private:
 	Math::Particle3d<float>& particle;
