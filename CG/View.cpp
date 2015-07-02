@@ -128,7 +128,7 @@ void View::OnMouse(wxMouseEvent& event)
     }
 
 	wxPoint mouseEnd = event.GetPosition();
-	model.setMousePosition(mouseEnd.x, mouseEnd.y);
+	model.setMousePosition(ScreenCoord(mouseEnd.x, mouseEnd.y));
 
 }
 

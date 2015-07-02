@@ -41,9 +41,8 @@ public:
 
 	virtual bool doRefresh() { return true; }
 
-	void setMousePosition(const int x, const int y) {
-		mouseCoord.x = x;
-		mouseCoord.y = y;
+	void setMousePosition(const Graphics::ScreenCoord& c) {
+		this->mouseCoord = c;
 	}
 
 	Graphics::ScreenCoord getMousePosition() const {

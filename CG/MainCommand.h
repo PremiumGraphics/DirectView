@@ -129,8 +129,8 @@ public:
 	}
 	*/
 
-	void setMousePosition(const int x, const int y) {
-		mouse->setMousePosition(x, y);
+	void setMousePosition(const Graphics::ScreenCoord& c) {
+		mouse->setMousePosition(c);
 	}
 
 	Graphics::ScreenCoord getMousePosition() const {
