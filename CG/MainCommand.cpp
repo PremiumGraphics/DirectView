@@ -24,6 +24,7 @@ void MainCommand::clear()
 {
 	volumeCommand.clear();
 	surfaceCommand.clear();
+	boneCommand.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -121,6 +122,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	}
 	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
+		lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand, cursor);
 		mouse = lineOperation;
 	}
 	else {

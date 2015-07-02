@@ -170,17 +170,19 @@ public:
 		if (!mouse->doRefresh()){
 			return;
 		}
-		if (mouse->doRealTimeBakeParticle()) {
+		const UI::PostEvent& e = mouse->getPostEvent();
+		if (e.doBakeParticle) {
 			preview();
 			bakeParticleToVolume();
 			return;
 		}
-		if (mouse->doRealTimeBakeBone()) {
+		if (e.doBakeBone) {
+			boneCommand.create(lineOperation->getLine().getStart(), lineOperation->getLine().getEnd());
 			preview();
 			bakeBoneToVolume();
 			return;
 		}
-		if (mouse->doRealTimePreview()) {
+		if (e.doPreview) {
 			preview();
 		}
 	}

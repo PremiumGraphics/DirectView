@@ -14,8 +14,12 @@ public:
 
 	~BoneCommand() = default;
 
-	void create(const Math::Vector3d<float>& pos) {
-		bones.push_back(std::make_shared<Graphics::Bone>());
+	void clear() {
+		bones.clear();
+	}
+
+	void create(const Math::Vector3d<float>& start, const Math::Vector3d<float>& end) {
+		bones.push_back(std::make_shared<Graphics::Bone>(start, end));
 	}
 
 	Graphics::BoneSPtr getSelectedBone() const { return bones.back(); }

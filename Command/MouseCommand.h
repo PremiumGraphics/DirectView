@@ -2,6 +2,7 @@
 #define __CRYSTAL_UI_MOUSE_OPERATION_COMMAND_H__
 
 #include "../Math/Vector.h"
+#include "../Math/Line.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
@@ -10,6 +11,13 @@
 
 namespace Crystal {
 	namespace UI {
+
+class PostEvent {
+public:
+	bool doPreview;
+	bool doBakeParticle;
+	bool doBakeBone;
+};
 
 class MouseOperationCommand
 {
@@ -40,11 +48,21 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
+	/*
 	bool doRealTimePreview() { return _doRealTimePreview; }
 
 	bool doRealTimeBakeParticle() const { return _doRealTimeBakeParticle; }
 
 	bool doRealTimeBakeBone() const { return _doRealTimeBakeBone; }
+	*/
+
+	PostEvent getPostEvent() {
+		PostEvent e;
+		e.doBakeBone = _doRealTimeBakeBone;
+		e.doBakeParticle = _doRealTimeBakeParticle;
+		e.doPreview = _doRealTimePreview;
+		return e;
+	}
 
 	virtual bool doRefresh() { return true; }
 
@@ -164,6 +182,8 @@ public:
 	virtual void onLeftButtonDown() override;
 
 	virtual void onLeftButtonUp() override;
+
+	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
 private:
 	BoneCommand& command;

@@ -660,8 +660,8 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
+	/*
 	switch (event.GetKeyCode()) {
-		/*
 	case 'X':
 		model.setParticleCharge(-1.0f);
 		model.setUIControl(Command::UIControl::CURSOR);
@@ -691,9 +691,10 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		break;
 //	case 'R':
 //		model.reverseParticleCharge();
-*/
 	default:
 		event.Skip();
 		return;
 	};
+	*/
+
 }

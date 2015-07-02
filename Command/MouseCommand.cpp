@@ -87,8 +87,6 @@ void Line3dOperationCommand::onLeftButtonDown()
 void Line3dOperationCommand::onLeftButtonUp()
 {
 	endPosition = cursor;
-	command.create(startPosition);
-	command.getSelectedBone()->moveEnd(endPosition);
 	_doRealTimeBakeBone = true;
 	_doRealTimePreview = true;
 }
