@@ -10,7 +10,7 @@
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
 #include "BoneCommand.h"
-#include "SurfaceCommand.h"
+#include "../Command/SurfaceCommand.h"
 #include "../Command/VolumeCommand.h"
 
 #include <memory>

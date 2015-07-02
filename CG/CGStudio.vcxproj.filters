@@ -15,9 +15,6 @@
     <ClCompile Include="RenderingCommand.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="SurfaceCommand.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -45,9 +42,6 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="BoneCommand.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceCommand.h">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="VolumeCommand.h">

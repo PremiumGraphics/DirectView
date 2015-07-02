@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_UI_SURFACE_COMMAND_H__
-#define __CRYSTAL_UI_SURFACE_COOMAND_H__
+#ifndef __CRYSTAL_COMMAND_SURFACE_COMMAND_H__
+#define __CRYSTAL_COMMAND_SURFACE_COOMAND_H__
 
 #include "../Math/MarchingCube.h"
 #include "../Graphics/Surface.h"
