@@ -6,5 +6,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SurfaceCommand.cpp" />
+    <ClCompile Include="VolumeCommand.cpp" />
   </ItemGroup>
 </Project>

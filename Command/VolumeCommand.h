@@ -36,33 +36,21 @@ public:
 
 	~VolumeCommand() = default;
 
-	void setupVolumes(const VolumeConfig<float>& vConfig)
-	{
-		Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-		Math::Volume3d<float> v(vConfig.space, grid);
-		preVolume = v;
-		bakedVolume = v;
-	}
+	void setupVolumes(const VolumeConfig<float>& vConfig);
 
+	void clear();
 
-	void clear() {
-		preVolume.setValue(0);
-		bakedVolume.setValue(0);
-	}
+	void bake() { bakedVolume = preVolume; }
 
-	void bake() {
-		bakedVolume = preVolume;
-	}
+	void copyBakedToPre() { preVolume = bakedVolume; }
 
 	void add(const std::list<Math::Particle3d<float>>& particles, const float factor) {
-		preVolume = bakedVolume;
 		for (const auto& p : particles) {
 			preVolume.add(p, factor);
 		}
 	}
 
 	void add(const Math::Particle3d<float>& particle, const float factor) {
-		preVolume = bakedVolume;
 		preVolume.add(particle, factor);
 	}
 

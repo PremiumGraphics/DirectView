@@ -41,9 +41,6 @@
     <ClInclude Include="BoneCommand.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="VolumeCommand.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="MainCommand.h">
       <Filter>Model</Filter>
     </ClInclude>

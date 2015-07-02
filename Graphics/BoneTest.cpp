@@ -7,5 +7,5 @@ using namespace Crystal::Graphics;
 
 TEST(BoneTest, Test)
 {
-	Bone<float> bone(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+	Bone bone(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 }

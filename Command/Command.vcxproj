@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SurfaceCommand.cpp" />
+    <ClCompile Include="VolumeCommand.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}</ProjectGuid>

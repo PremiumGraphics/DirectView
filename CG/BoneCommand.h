@@ -11,12 +11,12 @@ class BoneCommand
 public:
 
 	void create() {
-		bones.push_back(std::make_shared<Graphics::Bone<float>>());
+		bones.push_back(std::make_shared<Graphics::Bone>());
 	}
 
-	Graphics::BoneSPtr<float> getSelectedBone() const { return bones.back(); }
+	Graphics::BoneSPtr getSelectedBone() const { return bones.back(); }
 
-	Graphics::BoneSPtrList<float> getBones() const { return bones; }
+	Graphics::BoneSPtrList getBones() const { return bones; }
 
 	Math::Vector3dVector<float> toPositions() {
 		return bones.back()->getLine().toPositions(10);
@@ -24,7 +24,7 @@ public:
 
 private:
 
-	Graphics::BoneSPtrList<float> bones;
+	Graphics::BoneSPtrList bones;
 
 };
 	}

@@ -57,6 +57,7 @@ void MainCommand::bakeBoneToVolume()
 			Particle3d<float> particle(p, 0.5f, 1.0f);
 			boneParticles.emplace_back(particle);
 		}
+		volumeCommand.copyBakedToPre();
 		volumeCommand.add(boneParticles, 1.0f);
 		surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	}
@@ -93,6 +94,7 @@ void MainCommand::preview()
 {
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
+	volumeCommand.copyBakedToPre();
 	volumeCommand.add(particle, 0.1f);
 	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();

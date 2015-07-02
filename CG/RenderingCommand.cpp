@@ -52,7 +52,7 @@ void RenderingCommand::add(const Volume3d<float>& volume)
 	}
 }
 
-void RenderingCommand::add(const Bone<float>& bone)
+void RenderingCommand::add(const Bone& bone)
 {
 	if (config.drawWire) {
 		wireframeRenderer.add(bone.getLine());
