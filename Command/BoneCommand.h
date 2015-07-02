@@ -2,15 +2,16 @@
 #define __CRYSTAL_UI_BONE_COMMAND_H__
 
 #include "../Graphics/Bone.h"
+#include "../Util/UnCopyable.h"
 
 namespace Crystal {
 	namespace UI {
 
-class BoneCommand
+class BoneCommand : private UnCopyable
 {
 public:
 
-	void create() {
+	void create(const Math::Vector3d<float>& pos) {
 		bones.push_back(std::make_shared<Graphics::Bone>());
 	}
 

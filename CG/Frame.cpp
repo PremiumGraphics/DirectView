@@ -588,20 +588,17 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnParticleControl(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::PARTICLE);
-	model.setRealTimeBake(false);
 }
 
 void Frame::OnParticleRealTimeBake(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::PARTICLE);
-	model.setRealTimeBake(true);
+	model.setUIControl(Command::UIControl::PARTICLE_BAKE);
 }
 
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::PARTICLE_SCALE);
-	model.setRealTimeBake(false);
 }
 
 void Frame::OnParticleZero(wxRibbonButtonBarEvent& e)
@@ -621,7 +618,7 @@ void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 
 void Frame::OnBoneCreate(wxRibbonButtonBarEvent& e)
 {
-	model.createBone();
+	model.setUIControl(Command::UIControl::BONE_MOVE);
 }
 
 void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)

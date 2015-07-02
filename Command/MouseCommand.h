@@ -15,7 +15,9 @@ class MouseOperationCommand
 {
 public:
 	MouseOperationCommand(Graphics::Camera<float>& camera) :
-		camera(camera)
+		camera(camera),
+		_doRealTimePreview(true),
+		_doRealTimeBake(false)
 	{}
 
 
@@ -35,9 +37,9 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
-	virtual bool doRealTimePreview() { return true; }
+	bool doRealTimePreview() { return _doRealTimePreview; }
 
-	virtual bool doRealTimeBake() { return false; }
+	bool doRealTimeBake() { return _doRealTimeBake; }
 
 	virtual bool doRefresh() { return true; }
 
@@ -65,6 +67,8 @@ protected:
 	}
 
 	Graphics::Camera<float>& camera;
+	bool _doRealTimePreview;
+	bool _doRealTimeBake;
 
 private:
 	Graphics::ScreenCoord mouseCoord;
@@ -75,15 +79,15 @@ class CameraOperationCommand : public MouseOperationCommand
 public:
 	CameraOperationCommand(Graphics::Camera<float>& camera) :
 		MouseOperationCommand(camera)
-	{}
+	{
+		_doRealTimePreview = false;
+	}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
-
-	virtual bool doRealTimePreview() override { return false; }
 
 	virtual bool doRefresh() { return false; }
 
@@ -94,11 +98,13 @@ class ParticleOperationCommand : public MouseOperationCommand
 {
 public:
 
-	ParticleOperationCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
+	ParticleOperationCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle, bool _realTimeBake) :
 		MouseOperationCommand(camera),
 		particle(particle)//,
 	//	_doRealTimeBake(false)
-	{}
+	{
+		this->_doRealTimeBake = _realTimeBake;
+	}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 
@@ -137,9 +143,10 @@ private:
 class BoneOperationCommand : public MouseOperationCommand
 {
 public:
-	BoneOperationCommand(Graphics::Camera<float>& camera, const BoneCommand& command) :
+	BoneOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command) :
 		MouseOperationCommand(camera),
-		command( command )
+		command( command ),
+		isPointedStartPosition( false )
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -148,12 +155,13 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual void onRightDoubleClicked() override;
+	virtual void onRightButtonClicked(const Math::Vector3d<float>& src) override;
 
-	virtual void onLeftDoubleClicked() override;
+	virtual void onLeftButtonClicked(const Math::Vector3d<float>& src) override;
 
 private:
-	BoneCommand command;
+	BoneCommand& command;
+	bool isPointedStartPosition;
 };
 	}
 }

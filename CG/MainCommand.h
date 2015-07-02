@@ -61,6 +61,7 @@ private:
 enum class UIControl {
 	CAMERA,
 	PARTICLE,
+	PARTICLE_BAKE,
 	PARTICLE_SCALE,
 	PARTICLE_ERASE,
 	BONE_MOVE,
@@ -111,9 +112,11 @@ public:
 		particle.setCharge(c);
 	}
 
+	/*
 	void createBone() {
 		boneCommand.create();
 	}
+	*/
 
 	void render(const int width, const int height) {
 		rendering.render(width, height, camera);
@@ -157,22 +160,28 @@ public:
 		postMouseEvent();
 	}
 
+	void onLeftButtonClicked(const Math::Vector3d<float>& pos) {
+		mouse->onLeftButtonClicked(pos);
+		bakeBoneToVolume();
+		postMouseEvent();
+	}
+
 	void postMouseEvent() {
 		if (!mouse->doRefresh()){
 			return;
 		}
-		if (realTimeBake) {
+		if (mouse->doRealTimeBake()) {
 			preview();
 			bakeParticleToVolume();
 		}
-		else if (mouse->doRealTimePreview()) {
+		if (mouse->doRealTimePreview()) {
 			preview();
 		}
 	}
 
 	void setUIControl(const UIControl ctrl);
 
-	void setRealTimeBake(const bool b) { this->realTimeBake = b; }
+	//void setRealTimeBake(const bool b) { this->realTimeBake = b; }
 
 	/*
 	void addParticleCharge(const float delta) {
@@ -206,7 +215,6 @@ private:
 	UI::BoneCommand boneCommand;
 	UI::SurfaceCommand surfaceCommand;
 	bool isSphere;
-	bool realTimeBake;
 };
 	}
 }

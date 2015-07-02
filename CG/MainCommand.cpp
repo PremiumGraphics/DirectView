@@ -9,8 +9,7 @@ using namespace Crystal::Command;
 
 MainCommand::MainCommand() :
 mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
-isSphere(false),
-realTimeBake(false)
+isSphere(false)
 {
 	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);
@@ -107,7 +106,10 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = std::make_shared<UI::CameraOperationCommand>(camera);
 	}
 	else if (ctrl == UIControl::PARTICLE) {
-		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle);
+		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle, false);
+	}
+	else if (ctrl == UIControl::PARTICLE_BAKE) {
+		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, particle, true);
 	}
 	else if (ctrl == UIControl::PARTICLE_SCALE) {
 		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);

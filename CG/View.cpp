@@ -99,6 +99,11 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
+	if (event.LeftDown()) {
+		model.onLeftButtonClicked(Vector3d<float>(0,0,0));
+		return;
+	}
+
 	wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
 
 
@@ -126,6 +131,7 @@ void View::OnMouse(wxMouseEvent& event)
 
 		SwapBuffers();
     }
+
 
 	wxPoint mouseEnd = event.GetPosition();
 	model.setMousePosition(ScreenCoord(mouseEnd.x, mouseEnd.y));
