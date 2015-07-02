@@ -51,22 +51,8 @@ void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	cursor += (toCoord3d(v * 1));
 }
 
-void ParticleScaleCommand::onDraggingLeft(const Vector3d<float>& src)
-{
-	particle.addRadius( src.getX() );
-}
 
-void ParticleScaleCommand::onDraggingRight(const Vector3d<float>& src)
-{
-	//particle.move(getScrennSpaceDiff(v * 1));
-}
-
-void ParticleScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
-{
-	//particle.move(getScrennSpaceDiff(v * 1));
-}
-
-void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
+void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 {
 	const Math::Vector3d<float>& v = toScreenCoord2d(src);
 	for (const auto& b : command.getBones()) {
@@ -75,7 +61,7 @@ void BoneOperationCommand::onDraggingLeft(const Vector3d<float>& src)
 	//particle.addRadius(src.getX());
 }
 
-void BoneOperationCommand::onDraggingRight(const Vector3d<float>& src)
+void Line3dOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
 	const Math::Vector3d<float>& v = toScreenCoord2d(src);
 	for (const auto& b : command.getBones()) {
@@ -85,17 +71,17 @@ void BoneOperationCommand::onDraggingRight(const Vector3d<float>& src)
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
-void BoneOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
+void Line3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
-void BoneOperationCommand::onRightButtonClicked(const Vector3d<float>& v)
+void Line3dOperationCommand::onRightButtonClicked(const Vector3d<float>& v)
 {
 
 }
 
-void BoneOperationCommand::onLeftButtonClicked(const Vector3d<float>& v)
+void Line3dOperationCommand::onLeftButtonClicked(const Vector3d<float>& v)
 {
 	if (isPointedStartPosition) {
 		command.getSelectedBone()->moveEnd(Vector3d<float>(1, 0, 0));

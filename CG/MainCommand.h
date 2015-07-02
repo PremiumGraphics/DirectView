@@ -210,6 +210,8 @@ private:
 	UI::BoneCommand boneCommand;
 	UI::SurfaceCommand surfaceCommand;
 
+	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
+
 	Math::Vector3d<float> cursor;
 	bool isSphere;
 };

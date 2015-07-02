@@ -138,30 +138,10 @@ private:
 	//bool _doRealTimeBake;
 };
 
-class ParticleScaleCommand : public MouseOperationCommand
+class Line3dOperationCommand : public MouseOperationCommand
 {
 public:
-
-	ParticleScaleCommand(Graphics::Camera<float>& camera, Math::Particle3d<float>& particle) :
-		MouseOperationCommand(camera),
-		particle(particle)
-	{}
-
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
-
-	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
-
-	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
-
-
-private:
-	Math::Particle3d<float>& particle;
-};
-
-class BoneOperationCommand : public MouseOperationCommand
-{
-public:
-	BoneOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command) :
+	Line3dOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command) :
 		MouseOperationCommand(camera),
 		command( command ),
 		isPointedStartPosition( false )

@@ -8,9 +8,10 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
 MainCommand::MainCommand() :
-mouse(std::make_shared<UI::CameraOperationCommand>(camera)),
 isSphere(false)
 {
+	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
+	mouse = cameraOperation;
 	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);
 	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
@@ -104,7 +105,7 @@ void MainCommand::preview()
 void MainCommand::setUIControl(const UIControl ctrl)
 {
 	if (ctrl == UIControl::CAMERA) {
-		mouse = std::make_shared<UI::CameraOperationCommand>(camera);
+		mouse = cameraOperation;
 	}
 	else if (ctrl == UIControl::CURSOR) {
 		mouse = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
@@ -118,7 +119,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	}
 	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
-		mouse = std::make_shared<UI::BoneOperationCommand>(camera, boneCommand);
+		mouse = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand);
 	}
 	else {
 		assert(false);
