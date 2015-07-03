@@ -66,7 +66,7 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(500, 400));
 	}
 
-	void set(const UI::VolumeConfig<float>& config) {
+	void set(const Command::VolumeConfig<float>& config) {
 		resx->SetValue( config.resx );
 		resy->SetValue( config.resy );
 		resz->SetValue( config.resz );
@@ -83,8 +83,8 @@ public:
 		lengthz->SetValue(length.getZ());
 	}
 
-	UI::VolumeConfig<float> get() const {
-		UI::VolumeConfig<float> config;
+	Command::VolumeConfig<float> get() const {
+		Command::VolumeConfig<float> config;
 		config.resx = resx->GetValue();
 		config.resy = resy->GetValue();
 		config.resz = resz->GetValue();

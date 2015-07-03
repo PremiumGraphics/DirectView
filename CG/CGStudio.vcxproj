@@ -155,7 +155,6 @@
     </ClCompile>
     <ClCompile Include="SurfaceCommand.cpp" />
     <ClCompile Include="View.cpp" />
-    <ClCompile Include="VolumeCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -163,14 +162,12 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="MouseCommand.h" />
-    <ClInclude Include="ParticleDialog.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SurfaceCommand.h" />
     <ClInclude Include="View.h" />
-    <ClInclude Include="VolumeCommand.h" />
     <ClInclude Include="VolumeDialog.h" />
   </ItemGroup>
   <ItemGroup>

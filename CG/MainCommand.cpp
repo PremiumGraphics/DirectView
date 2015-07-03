@@ -65,12 +65,6 @@ void MainCommand::bake(const Line3d<float>& line)
 	surfaceCommand.create(volume, vConfig.threshold);
 }
 
-void MainCommand::bake(const Particle3d<float>& p)
-{
-	volume.add(p, 0.1f);
-	surfaceCommand.create(volume, vConfig.threshold);
-}
-
 void MainCommand::setRendering()
 {
 	rendering.clear();
@@ -125,8 +119,9 @@ void MainCommand::postMouseEvent()
 	const UI::PostEvent& e = mouse->getPostEvent();
 	if (e.doBakeParticle) {
 		preview();
-		Particle3d<float> particle(cursor, 1.0f, 1.0f);
-		bake(particle);
+		Particle3d<float> particle(cursor, particleAttribute);
+		volume.add(particle, 0.1f);
+		surfaceCommand.create(volume, vConfig.threshold);
 		setRendering();
 		return;
 	}

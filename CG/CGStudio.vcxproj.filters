@@ -18,9 +18,6 @@
     <ClCompile Include="SurfaceCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="VolumeCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -30,9 +27,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="VolumeDialog.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
     <ClInclude Include="RenderingModel.h">
@@ -48,9 +42,6 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
-    <ClInclude Include="VolumeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>

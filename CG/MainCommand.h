@@ -2,6 +2,7 @@
 #define __CRYSTAL_COMMAND_MAIN_COMMAND_H__
 
 #include "../Math/MarchingCube.h"
+#include "../Math/Volume.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
 #include "../Util/UnCopyable.h"
@@ -10,7 +11,6 @@
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
 #include "SurfaceCommand.h"
-#include "VolumeCommand.h"
 
 #include <memory>
 #include <map>
@@ -26,36 +26,27 @@ enum class RenderingMode {
 };
 
 template<typename T>
-class ParticleConfig {
+class VolumeConfig {
 public:
-	ParticleConfig()
-	{
+	VolumeConfig() {
 		setDefault();
 	}
 
-	ParticleConfig(const Math::Vector3d<T>& center, const T radius, const T charge) :
-		center(center),
-		radius(radius),
-		charge(charge)
-	{}
-
 	void setDefault() {
-		center = Math::Vector3d<T>(0, 0, 0);
-		radius = 1;
-		charge = 1;
+		resx = 20;
+		resy = 20;
+		resz = 20;
+		threshold = 0.5;
+		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
 	}
 
-	Math::Vector3d<T> getCenter() const { return center; }
-
-	T getRadius() const { return radius; }
-
-	T getCharge() const { return charge; }
-
-private:
-	Math::Vector3d<T> center;
-	T radius;
-	T charge;
+	unsigned int resx;
+	unsigned int resy;
+	unsigned int resz;
+	double threshold;
+	Math::Space3d<T> space;
 };
+
 
 enum class UIControl {
 	CAMERA,
@@ -87,20 +78,8 @@ public:
 		return Math::Box<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(1, 1, 1));
 	}
 	*/
-	/*
-	void zeroPreVolume() {
-		preSurfaces.clear();
-		preVolume = bakedVolume;
-		preVolume.setZero(particle);
-		const auto& s = createSurface(preVolume);
-		preSurfaces.push_back(s);
-		setRendering();
-	}
-	*/
 
 	void bake(const Math::Line3d<float>& line);
-
-	void bake(const Math::Particle3d<float>& p);
 
 	void doExport(const std::string& filename) const;
 
@@ -188,9 +167,9 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	UI::VolumeConfig<float> getVolumeConfig() const { return vConfig; }
+	VolumeConfig<float> getVolumeConfig() const { return vConfig; }
 
-	void setVolumeConfig(const UI::VolumeConfig<float>& config) { vConfig = config; }
+	void setVolumeConfig(const VolumeConfig<float>& config) { vConfig = config; }
 
 private:
 	Graphics::Camera<float> camera;
@@ -198,8 +177,8 @@ private:
 
 
 	RenderingCommand rendering;
-	UI::VolumeConfig<float> vConfig;
-	ParticleConfig<float> pConfig;
+	VolumeConfig<float> vConfig;
+	Math::Particle3d<float>::Attribute particleAttribute;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	Graphics::Bone<float> bone;
 	UI::SurfaceCommand surfaceCommand;
@@ -207,6 +186,10 @@ private:
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
+
+	float particleRadius;
+	float particleCharge;
+
 
 	Math::Vector3d<float> cursor;
 	bool isSphere;
