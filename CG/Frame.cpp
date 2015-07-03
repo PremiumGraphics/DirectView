@@ -630,11 +630,13 @@ void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
 	model.setUIControl(Command::UIControl::BONE_MOVE);
 }
 
+/*
 void Frame::OnBoneBake(wxRibbonButtonBarEvent& e)
 {
 	model.bakeBoneToVolume();
 	setRendering();
 }
+*/
 
 
 void Frame::setRendering()

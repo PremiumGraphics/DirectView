@@ -97,9 +97,9 @@ public:
 	}
 	*/
 
-	void bakeBoneToVolume();
+	void bake(const Math::Line3d<float>& line);
 
-	void bakeParticleToVolume(const Math::Particle3d<float>& p);
+	void bake(const Math::Particle3d<float>& p);
 
 	void doExport(const std::string& filename) const;
 
@@ -199,14 +199,12 @@ private:
 	UI::VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
-	Graphics::BoneSPtrList<float> bones;
+	Graphics::Bone<float> bone;
 	UI::SurfaceCommand surfaceCommand;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
-
-	Math::Line3dVector<float> boneLines;
 
 	Math::Vector3d<float> cursor;
 	bool isSphere;

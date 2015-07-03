@@ -24,7 +24,6 @@ void MainCommand::clear()
 {
 	volumeCommand.clear();
 	surfaceCommand.clear();
-	bones.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -50,51 +49,36 @@ void MainCommand::doExport(const std::string& filename) const
 	file.writeASCII(filename);
 }
 
-void MainCommand::bakeBoneToVolume()
+void MainCommand::bake(const Line3d<float>& line)
 {
 	surfaceCommand.clear();
-	for (const auto& b : bones) {
-		const auto& positions = b->getLine().toPositions(10);
-		std::list<Particle3d<float>> boneParticles;
-		for (const auto& p : positions) {
-			Particle3d<float> particle(p, 0.5f, 1.0f);
-			boneParticles.emplace_back(particle);
-		}
-		volumeCommand.copyBakedToPre();
-		volumeCommand.add(boneParticles, 1.0f);
-		volumeCommand.bake();
-		surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
+	const auto& positions = line.toPositions(10);
+	std::list<Particle3d<float>> boneParticles;
+	for (const auto& p : positions) {
+		Particle3d<float> particle(p, 0.5f, 1.0f);
+		boneParticles.emplace_back(particle);
 	}
-	setRendering();
+	volumeCommand.copyBakedToPre();
+	volumeCommand.add(boneParticles, 1.0f);
+	volumeCommand.bake();
+	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 }
 
-void MainCommand::bakeParticleToVolume(const Particle3d<float>& p)
+void MainCommand::bake(const Particle3d<float>& p)
 {
 	volumeCommand.add(p, 0.1f);
 	volumeCommand.bake();
 	surfaceCommand.create(volumeCommand.getBakedVolume(), vConfig.threshold);
-	setRendering();
 }
 
 void MainCommand::setRendering()
 {
 	rendering.clear();
 	rendering.add(cursor);
-	for (const auto& l : boneLines) {
-		rendering.add(l);
-	}
 	rendering.add(volumeCommand.getPreVolume());
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
 	}
-	for (const auto& b : bones) {
-		rendering.add(*b);
-	}
-	/*
-	for (const auto& s : bakedSurfaces) {
-	rendering.add(*s);
-	}
-	*/
 }
 
 
@@ -142,18 +126,19 @@ void MainCommand::postMouseEvent()
 	if (e.doBakeParticle) {
 		preview();
 		Particle3d<float> particle(cursor, 1.0f, 1.0f);
-		bakeParticleToVolume(particle);
+		bake(particle);
+		setRendering();
 		return;
 	}
 	if (e.doBakeBone) {
-		bones.push_back( std::make_shared<Bone<float> >( lineOperation->getLine().getStart(), lineOperation->getLine().getEnd()) );
 		preview();
-		bakeBoneToVolume();
+		const auto& line = lineOperation->getLine();
+		bake(line);
+		rendering.clear();
+		rendering.add(line);
 		return;
 	}
 	if (e.doPreview) {
-		boneLines.clear();
-		boneLines.push_back(lineOperation->getLine());
 		preview();
 	}
 }
