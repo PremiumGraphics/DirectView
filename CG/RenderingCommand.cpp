@@ -24,17 +24,14 @@ void RenderingCommand::clear()
 	volumeRenderer.clear();
 }
 
-void RenderingCommand::add(const Vector3d<float>& cursor)
+void RenderingCommand::add(const Particle3d<float>& particle)
 {
 	if (config.drawPoint) {
-		pointRenderer.add(cursor);
+		pointRenderer.add(particle.getCenter());
 	}
-}
-
-void RenderingCommand::add(const Box<float>& box)
-{
 	if (config.drawWire) {
-		wireframeRenderer.add(box);
+		const auto& bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());
+		wireframeRenderer.add(bb);
 	}
 }
 

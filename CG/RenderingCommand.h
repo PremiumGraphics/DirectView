@@ -60,9 +60,9 @@ public:
 
 	void clear();
 
-	void add(const Math::Vector3d<float>& cursor);
+	//void add(const Math::Vector3d<float>& cursor);
 
-	void add(const Math::Box<float>& box);
+	void add(const Math::Particle3d<float>& particle);
 
 	void add(const Graphics::Surface<float>& surface);
 

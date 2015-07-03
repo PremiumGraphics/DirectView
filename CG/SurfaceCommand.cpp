@@ -13,6 +13,6 @@ SurfaceSPtr<float> SurfaceCommand::create(const Volume3d<float>& ss, const float
 	for (const auto& t : triangles) {
 		surface->add(t, Graphics::ColorRGBA<float>::Blue());
 	}
-	preSurfaces.push_back(surface);
+	surfaces.push_back(surface);
 	return surface;
 }

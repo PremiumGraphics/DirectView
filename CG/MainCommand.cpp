@@ -56,11 +56,9 @@ void MainCommand::bake(const Line3d<float>& line)
 {
 	surfaceCommand.clear();
 	const auto& positions = line.toPositions(10);
-	std::list<Particle3d<float>> boneParticles;
 	for (const auto& p : positions) {
-		Particle3d<float> particle(p, 0.5f, 1.0f);
-		boneParticles.emplace_back(particle);
-		volume.add(particle, 1.0f);
+		//Particle3d<float> particle(p, 0.5f, 1.0f);
+		volume.add( toParticle(p), 1.0f);
 	}
 	surfaceCommand.create(volume, 0.5);
 }
@@ -68,10 +66,7 @@ void MainCommand::bake(const Line3d<float>& line)
 void MainCommand::setRendering()
 {
 	rendering.clear();
-	rendering.add(cursor);
-	Particle3d<float> particle(cursor, particleAttribute);
-	const auto bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());
-	rendering.add(bb);
+	rendering.add( toParticle(cursor) );
 	rendering.add(volume);
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);

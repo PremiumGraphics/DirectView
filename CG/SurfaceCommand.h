@@ -14,16 +14,16 @@ public:
 	}
 
 	void clear() {
-		preSurfaces.clear();
+		surfaces.clear();
 	}
 
 
 	Graphics::SurfaceSPtr<float> create(const Math::Volume3d<float>& ss, const float threshold);
 
-	Graphics::SurfaceSPtrList<float> getSurfaces() const { return preSurfaces; }
+	Graphics::SurfaceSPtrList<float> getSurfaces() const { return surfaces; }
 
 private:
-	Graphics::SurfaceSPtrList<float> preSurfaces;
+	Graphics::SurfaceSPtrList<float> surfaces;
 
 	Math::MarchingCube<float> mc;
 

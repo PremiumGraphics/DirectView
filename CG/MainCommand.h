@@ -164,6 +164,10 @@ private:
 	Math::Vector3d<float> cursor;
 	bool isSphere;
 
+	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
+		return Math::Particle3d<float>(pos, particleAttribute);
+	}
+
 	void setUpVolume();
 };
 	}
