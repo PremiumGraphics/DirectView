@@ -93,6 +93,7 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
+
 	if (event.RightDClick()) {
 		model.onRightDoubleClick();
 		//model->bakeParticleToVolume();
@@ -103,7 +104,6 @@ void View::OnMouse(wxMouseEvent& event)
 		model.onLeftButtonDown();
 		draw(GetSize());
 		SwapBuffers();
-
 		return;
 	}
 

@@ -62,11 +62,8 @@ void MainCommand::setRendering( const Surface<float>& s)
 
 void MainCommand::setRendering()
 {
-	rendering.clear();
-	rendering.add(toParticle(cursor));
-	rendering.add(volume);
 	const auto& s = toSurface(volume, 0.5);
-	rendering.add(*s);
+	setRendering(*s);
 }
 
 
@@ -120,6 +117,8 @@ void MainCommand::postMouseEvent()
 	if (e.doPreview) {
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);
+		const auto& line = lineOperation->getLine();
+		rendering.add(line);
 	}
 }
 

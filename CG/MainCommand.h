@@ -49,23 +49,11 @@ public:
 
 	void setVolume(const Math::Volume3d<float> v) { volume = v; }
 
-	/*
-	Math::Box<T> getBoundingBox() const {
-		return Math::Box<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(1, 1, 1));
-	}
-	*/
-
 	void doExport(const std::string& filename) const;
 
 	void buildRenderer() {
 		rendering.build();
 	}
-
-	/*
-	void createBone() {
-		boneCommand.create();
-	}
-	*/
 
 	void render(const int width, const int height) {
 		rendering.render(width, height, camera);
@@ -74,12 +62,6 @@ public:
 	void setRendering(const Graphics::Surface<float>& s);
 
 	void setRendering();
-
-	/*
-	bool doRealtimePreview() {
-		mouse->getType() == UI::MouseOperationCommand::Ty
-	}
-	*/
 
 	void setMousePosition(const Graphics::ScreenCoord& c) {
 		mouse->setMousePosition(c);
@@ -119,23 +101,7 @@ public:
 		postMouseEvent();
 	}
 
-	void postMouseEvent();
-
 	void setUIControl(const UIControl ctrl);
-
-	//void setRealTimeBake(const bool b) { this->realTimeBake = b; }
-
-	/*
-	void addParticleCharge(const float delta) {
-		particle.addCharge(delta);
-	}
-	*/
-
-
-/*	void addParticleRadius(const float delta) {
-		particle
-	}
-	*/
 
 	RenderingConfig<float> getRenderingConfig() const { return rendering.getConfig(); }
 
@@ -144,6 +110,7 @@ public:
 	void setParticleCharge(const float c) { this->particleAttribute.charge = c; }
 
 private:
+
 	Graphics::Camera<float> camera;
 	Math::Volume3d<float> volume;
 
@@ -161,6 +128,8 @@ private:
 	Math::Vector3d<float> cursor;
 
 	Math::MarchingCube<float> mc;
+
+	void postMouseEvent();
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, particleAttribute);

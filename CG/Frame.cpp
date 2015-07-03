@@ -17,23 +17,6 @@ using namespace Crystal::IO;
 using namespace Crystal::Command;
 using namespace Crystal::UI;
 
-enum {
-	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
-
-	ID_IMPORT,
-	ID_EXPORT,
-
-	ID_GL_CONFIG,
-
-	ID_RENDERING_POINT,
-	ID_RENDERING_WIREFRAME,
-	ID_RENDERING_NORMAL,
-	ID_RENDERING_VOLUME,
-	ID_RENDERING_SMOOTH,
-
-	ID_CAPTURE,
-};
-
 
 class AppInfo {
 public:
@@ -135,14 +118,18 @@ void Frame::createFilePanel(wxRibbonPage* parent)
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("File"));
 	wxRibbonButtonBar *bar = new wxRibbonButtonBar(panel);
 
+	const auto importId = wxNewId();
+	const auto exportId = wxNewId();
+	const auto captureId = wxNewId();
+
 	bar->AddButton(wxID_NEW,	"New",		wxArtProvider::GetBitmap(wxART_NEW, wxART_OTHER, wxSize(32, 32)));
 	bar->AddButton(wxID_OPEN,	"Open",		wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
 	bar->AddButton(wxID_SAVE,	"Save",		wxImage("../Resource/save.png"));
 	bar->AddButton(wxID_SAVEAS, "Save As",	wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, wxSize(32, 32)));
 	bar->AddButton(wxID_CLOSE,	"Close",	wxImage("../Resource/cancel.png"));
-	bar->AddButton(ID_IMPORT,	"Import",	wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
-	bar->AddButton(ID_EXPORT,	"Export",	wxImage("../Resource/export.png"), "Export");
-	bar->AddButton(ID_CAPTURE,	"Capture",	wxImage("../Resource/screenshot.png"));
+	bar->AddButton(importId,	"Import",	wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(exportId,	"Export",	wxImage("../Resource/export.png"), "Export");
+	bar->AddButton(captureId,	"Capture",	wxImage("../Resource/screenshot.png"));
 
 	Connect(wxID_NEW, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnNew));
 	Connect(wxID_OPEN, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnFileOpen));
@@ -151,9 +138,9 @@ void Frame::createFilePanel(wxRibbonPage* parent)
 	Connect(wxID_CLOSE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnClose));
 	Connect(wxID_ABOUT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnAbout));
 
-	Connect(ID_IMPORT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnImport));
-	Connect(ID_EXPORT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnExport));
-	Connect(ID_CAPTURE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
+	Connect(importId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnImport));
+	Connect(exportId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnExport));
+	Connect(captureId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCapture));
 
 }
 
@@ -248,18 +235,25 @@ void Frame::createRenderingPanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Rendering"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-	bar->AddHybridButton(ID_RENDERING_POINT, "Point", wxImage("../Resource/wireframe.png"));
-	bar->AddHybridButton(ID_RENDERING_WIREFRAME, "Wireframe", wxImage("../Resource/wireframe.png"));
-	bar->AddHybridButton(ID_RENDERING_NORMAL, "Normal", wxImage("../Resource/wireframe.png"));
-	bar->AddHybridButton(ID_RENDERING_VOLUME, "Volume", wxImage("../Resource/wireframe.png"));
-	bar->AddHybridButton(ID_RENDERING_SMOOTH, "Smooth", wxImage("../Resource/wireframe.png"));
 
-	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
-	Connect(ID_RENDERING_POINT, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPointConfig));
-	Connect(ID_RENDERING_WIREFRAME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingWireframe));
-	Connect(ID_RENDERING_NORMAL, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingNormal));
-	Connect(ID_RENDERING_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
-	Connect(ID_RENDERING_SMOOTH, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
+	const auto pointId = wxNewId();
+	const auto wireId = wxNewId();
+	const auto normalId = wxNewId();
+	const auto volumeId = wxNewId();
+	const auto smoothId = wxNewId();
+
+	bar->AddHybridButton(pointId, "Point", wxImage("../Resource/wireframe.png"));
+	bar->AddHybridButton(wireId, "Wireframe", wxImage("../Resource/wireframe.png"));
+	bar->AddHybridButton(normalId, "Normal", wxImage("../Resource/wireframe.png"));
+	bar->AddHybridButton(volumeId, "Volume", wxImage("../Resource/wireframe.png"));
+	bar->AddHybridButton(smoothId, "Smooth", wxImage("../Resource/wireframe.png"));
+
+	Connect(pointId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPoint));
+	Connect(pointId,	wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingPointConfig));
+	Connect(wireId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingWireframe));
+	Connect(normalId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingNormal));
+	Connect(volumeId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingVolume));
+	Connect(smoothId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnRenderingSmooth));
 }
 
 void Frame::createHelpPanel(wxRibbonPage* parent)
@@ -282,7 +276,7 @@ void Frame::OnNew( wxRibbonButtonBarEvent& e )
 	}
 
 	model.clear();
-	view->Refresh();
+	setRendering();
 }
 
 void Frame::OnClose( wxRibbonButtonBarEvent& )

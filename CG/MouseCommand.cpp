@@ -41,9 +41,7 @@ void ParticleOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 
 void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
-	//_doRealTimeBake = true;
-	//const Math::Vector3d<float>& v = getDiff(src);
-	//particle.move(getScrennSpaceDiff(v * 1));
+	;
 }
 
 void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
