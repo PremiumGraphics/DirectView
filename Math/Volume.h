@@ -38,6 +38,23 @@ private:
 template< typename T >
 class Volume3d : public GridSpaceBase<T> {
 public:
+	struct Attribute {
+		Attribute(){
+			resx = 20;
+			resy = 20;
+			resz = 20;
+			//threshold = 0.5;
+			space = Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
+		}
+
+		unsigned int resx;
+		unsigned int resy;
+		unsigned int resz;
+		//double threshold; // 0.5
+		Space3d<T> space;
+	};
+
+
 	Volume3d() :
 		Volume3d(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2) )
 	{}
@@ -47,6 +64,10 @@ public:
 		grid( grid )
 	{
 	}
+
+	Volume3d(const Attribute& attr) :
+		Volume3d(attr.space, Grid3d<T>(attr.resx, attr.resy, attr.resz))
+	{}
 
 	Volume3d(const Particle3d<T>& particle, const Grid3d<T>& grid) :
 		GridSpaceBase(particle.getBoundingSpace(), grid.getSizes()),

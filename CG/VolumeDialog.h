@@ -40,10 +40,6 @@ public:
 		resz = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxPoint(100, 300));
 		resz->SetRange( LIMIT::MINZ, LIMIT::MAXZ);
 
-		new wxStaticText(this, wxID_ANY, "Threshold", wxPoint(0, 400));
-		threshold = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(100, 400));
-		threshold->SetRange(0.0, 1.0);
-
 		new wxStaticText(this, wxID_ANY, "Origin", wxPoint(300, 0));
 		originx = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 100));
 		originy = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(300, 200));
@@ -66,7 +62,7 @@ public:
 		new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(500, 400));
 	}
 
-	void set(const Command::VolumeConfig<float>& config) {
+	void set(const Math::Volume3d<float>::Attribute& config) {
 		resx->SetValue( config.resx );
 		resy->SetValue( config.resy );
 		resz->SetValue( config.resz );
@@ -75,7 +71,7 @@ public:
 		originx->SetValue( space.getStart().getX() );
 		originy->SetValue( space.getStart().getY() );
 		originz->SetValue( space.getStart().getZ());
-		threshold->SetValue(config.threshold);
+		//threshold->SetValue(config.threshold);
 
 		const auto& length = space.getLengths();
 		lengthx->SetValue(length.getX());
@@ -83,13 +79,12 @@ public:
 		lengthz->SetValue(length.getZ());
 	}
 
-	Command::VolumeConfig<float> get() const {
-		Command::VolumeConfig<float> config;
+	Math::Volume3d<float>::Attribute get() const {
+		Math::Volume3d<float>::Attribute config;
 		config.resx = resx->GetValue();
 		config.resy = resy->GetValue();
 		config.resz = resz->GetValue();
 		config.space = getSpace();
-		config.threshold = threshold->GetValue();
 		return config;
 	}
 
@@ -107,8 +102,6 @@ private:
 	wxSpinCtrlDouble* lengthx;
 	wxSpinCtrlDouble* lengthy;
 	wxSpinCtrlDouble* lengthz;
-
-	wxSpinCtrlDouble* threshold;
 
 	Math::Space3d<float> getSpace() const {
 		Math::Vector3d<float> origin(

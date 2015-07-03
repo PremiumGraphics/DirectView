@@ -18,7 +18,7 @@ isSphere(false)
 	Volume3d<float> v(vConfig.space, grid);
 	volume = v;
 	//createPreVolume(1.0);
-	surfaceCommand.create(v, vConfig.threshold);
+	surfaceCommand.create(v, 0.5);
 	setRendering();
 }
 
@@ -62,7 +62,7 @@ void MainCommand::bake(const Line3d<float>& line)
 		boneParticles.emplace_back(particle);
 		volume.add(particle, 1.0f);
 	}
-	surfaceCommand.create(volume, vConfig.threshold);
+	surfaceCommand.create(volume, 0.5);
 }
 
 void MainCommand::setRendering()
@@ -81,7 +81,7 @@ void MainCommand::preview()
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
 	//volumeCommand.copyBakedToPre();
-	surfaceCommand.create(volume, vConfig.threshold);
+	surfaceCommand.create(volume, 0.5);
 	setRendering();
 }
 
@@ -121,7 +121,7 @@ void MainCommand::postMouseEvent()
 		preview();
 		Particle3d<float> particle(cursor, particleAttribute);
 		volume.add(particle, 0.1f);
-		surfaceCommand.create(volume, vConfig.threshold);
+		surfaceCommand.create(volume, 0.5);
 		setRendering();
 		return;
 	}

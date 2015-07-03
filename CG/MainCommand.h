@@ -25,27 +25,6 @@ enum class RenderingMode {
 	SMOOTH = 8,
 };
 
-template<typename T>
-class VolumeConfig {
-public:
-	VolumeConfig() {
-		setDefault();
-	}
-
-	void setDefault() {
-		resx = 20;
-		resy = 20;
-		resz = 20;
-		threshold = 0.5;
-		space = Math::Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
-	}
-
-	unsigned int resx;
-	unsigned int resy;
-	unsigned int resz;
-	double threshold;
-	Math::Space3d<T> space;
-};
 
 
 enum class UIControl {
@@ -68,10 +47,7 @@ public:
 		camera.init();
 	}
 
-	void setupVolumes() {
-		Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-		Math::Volume3d<float> v(vConfig.space, grid);
-	}
+	void setVolume(const Math::Volume3d<float> v) { volume = v; }
 
 	/*
 	Math::Box<T> getBoundingBox() const {
@@ -167,17 +143,13 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	VolumeConfig<float> getVolumeConfig() const { return vConfig; }
-
-	void setVolumeConfig(const VolumeConfig<float>& config) { vConfig = config; }
-
 private:
 	Graphics::Camera<float> camera;
 	Math::Volume3d<float> volume;
 
 
 	RenderingCommand rendering;
-	VolumeConfig<float> vConfig;
+	Math::Volume3d<float>::Attribute vConfig;
 	Math::Particle3d<float>::Attribute particleAttribute;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	Graphics::Bone<float> bone;
@@ -186,10 +158,6 @@ private:
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
-
-	float particleRadius;
-	float particleCharge;
-
 
 	Math::Vector3d<float> cursor;
 	bool isSphere;

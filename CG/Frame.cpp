@@ -9,6 +9,8 @@
 
 #include "VolumeDialog.h"
 
+#include "wx/numdlg.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
@@ -648,11 +650,12 @@ void Frame::setRendering()
 void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 {
 	VolumeDialog dialog(this);
-	dialog.set(model.getVolumeConfig());
+	Math::Volume3d<float>::Attribute attr;
+	dialog.set(attr);
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		model.setVolumeConfig(dialog.get());
-		model.setupVolumes();
+		Math::Volume3d<float> v(attr);
+		model.setVolume(v);
 		setRendering();
 	}
 }
