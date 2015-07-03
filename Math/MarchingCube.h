@@ -48,7 +48,7 @@ public:
 	}
 	*/
 
-	TriangleVector<T> march(const Volume3d<T>& ss, const T isolevel)
+	TriangleVector<T> march(const Volume3d<T>& ss, const T isolevel) const
 	{
 		TriangleVector<T> triangles;
 		const auto& cells = ss.toBoundaryCells(isolevel);
@@ -60,7 +60,7 @@ public:
 	}
 
 
-	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel)
+	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel) const
 	{
 		TriangleVector<T> triangles;
 		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
@@ -80,7 +80,7 @@ public:
 		return triangles;
 	}
 
-	TriangleVector<T> build(const Space3d<T>& s, const std::bitset< 8 >& bit )
+	TriangleVector<T> build(const Space3d<T>& s, const std::bitset< 8 >& bit ) const
 	{
 		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
 		const int& cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
@@ -93,7 +93,7 @@ private:
 	std::array< std::bitset<12>, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
-	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) {
+	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) const {
 		TriangleVector<T> triangles;
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertices[triTable[cubeindex][i]];

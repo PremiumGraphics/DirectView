@@ -7,8 +7,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
-MainCommand::MainCommand() :
-surface( std::make_shared<Graphics::Surface<float> >() )
+MainCommand::MainCommand()
 {
 	mc.buildTable();
 
@@ -28,7 +27,6 @@ void MainCommand::clear()
 {
 	//volumeCommand.clear();
 	volume.setValue(0.0f);
-	surface = std::make_shared< Surface<float> >();
 	//bakedSurfaces.clear();
 }
 
@@ -37,6 +35,7 @@ void MainCommand::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
+	const auto& surface = toSurface(volume, 0.5f);
 	for (const auto& f : surface->getFaces()) {
 		Math::Vector3dVector<float> positions;
 		for (const auto& e : f->getEdges()) {
@@ -58,7 +57,6 @@ void MainCommand::setRendering()
 	rendering.clear();
 	rendering.add( toParticle(cursor) );
 	rendering.add(volume);
-	rendering.add(*surface);
 }
 
 
@@ -95,8 +93,9 @@ void MainCommand::postMouseEvent()
 	if (e.doBakeParticle) {
 		const Particle3d<float>& particle = toParticle(cursor);
 		volume.add(particle, 0.1f);
-		toSurface(volume, 0.5);
+		const auto& s = toSurface(volume, 0.5);
 		setRendering();
+		rendering.add(*s);
 		return;
 	}
 	if (e.doBakeBone) {
@@ -105,21 +104,23 @@ void MainCommand::postMouseEvent()
 		for (const auto& p : positions) {
 			volume.add(toParticle(p), 1.0f);
 		}
-		surface = toSurface(volume, 0.5);
+		const auto& s = toSurface(volume, 0.5);
 		rendering.clear();
 		rendering.add(line);
+		rendering.add(*s);
 		return;
 	}
 	if (e.doPreview) {
-		surface = toSurface(volume, 0.5);
+		const auto& surface = toSurface(volume, 0.5);
 		setRendering();
+		rendering.add(*surface);
 	}
 }
 
 
-SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold)
+SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold) const
 {
-	surface = std::make_shared< Surface<float> >();
+	auto surface = std::make_shared< Surface<float> >();
 	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
 
 	for (const auto& t : triangles) {

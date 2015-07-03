@@ -159,13 +159,12 @@ private:
 	Math::Vector3d<float> cursor;
 
 	Math::MarchingCube<float> mc;
-	Graphics::SurfaceSPtr<float> surface;
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, particleAttribute);
 	}
 
-	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold);
+	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold) const;
 
 };
 	}
