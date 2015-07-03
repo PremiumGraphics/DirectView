@@ -143,6 +143,8 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
+	void setParticleCharge(const float c) { this->particleAttribute.charge = c; }
+
 private:
 	Graphics::Camera<float> camera;
 	Math::Volume3d<float> volume;

@@ -20,23 +20,16 @@ using namespace Crystal::UI;
 enum {
 	ID_POLYGON_CONFIG = wxID_HIGHEST+1,
 
-	ID_CAMERA,
-
 	ID_IMPORT,
 	ID_EXPORT,
 
 	ID_GL_CONFIG,
-
-	ID_CANVAS_CONFIG,
-	ID_CANVAS_CLEAR,
 
 	ID_RENDERING_POINT,
 	ID_RENDERING_WIREFRAME,
 	ID_RENDERING_NORMAL,
 	ID_RENDERING_VOLUME,
 	ID_RENDERING_SMOOTH,
-
-	ID_CAMERA_FIT,
 
 	ID_CAPTURE,
 };
@@ -88,12 +81,8 @@ Frame::Frame()
 
 	createPanels(page);
 
-
-
-
 	//Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Frame::OnKeyDown));
 	this->Bind(wxEVT_CHAR_HOOK, &Frame::OnKeyDown, this);
-
 
 	bar->Realize();
 	
@@ -146,14 +135,14 @@ void Frame::createFilePanel(wxRibbonPage* parent)
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("File"));
 	wxRibbonButtonBar *bar = new wxRibbonButtonBar(panel);
 
-	bar->AddButton(wxID_NEW, "New", wxArtProvider::GetBitmap(wxART_NEW, wxART_OTHER, wxSize(32, 32)));
-	bar->AddButton(wxID_OPEN, "Open", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
-	bar->AddButton(wxID_SAVE, "Save", wxImage("../Resource/save.png"));
-	bar->AddButton(wxID_SAVEAS, "Save As", wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, wxSize(32, 32)));
-	bar->AddButton(wxID_CLOSE, "Close", wxImage("../Resource/cancel.png"));
-	bar->AddButton(ID_IMPORT, "Import", wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
-	bar->AddButton(ID_EXPORT, "Export", wxImage("../Resource/export.png"), "Export");
-	bar->AddButton(ID_CAPTURE, "Capture", wxImage("../Resource/screenshot.png"));
+	bar->AddButton(wxID_NEW,	"New",		wxArtProvider::GetBitmap(wxART_NEW, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_OPEN,	"Open",		wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_SAVE,	"Save",		wxImage("../Resource/save.png"));
+	bar->AddButton(wxID_SAVEAS, "Save As",	wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(wxID_CLOSE,	"Close",	wxImage("../Resource/cancel.png"));
+	bar->AddButton(ID_IMPORT,	"Import",	wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, wxSize(32, 32)));
+	bar->AddButton(ID_EXPORT,	"Export",	wxImage("../Resource/export.png"), "Export");
+	bar->AddButton(ID_CAPTURE,	"Capture",	wxImage("../Resource/screenshot.png"));
 
 	Connect(wxID_NEW, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnNew));
 	Connect(wxID_OPEN, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnFileOpen));
@@ -172,11 +161,15 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Camera"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-	bar->AddButton(ID_CAMERA, "Camera", wxImage("../Resource/view.png"));
-	bar->AddButton(ID_CAMERA_FIT, "Fit", wxImage("../Resource/zoom.png"));
 
-	Connect(ID_CAMERA, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraControl));
-	Connect(ID_CAMERA_FIT, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
+	const int cameraId = wxNewId();
+	const int centerId = wxNewId();
+
+	bar->AddButton(cameraId, "Camera", wxImage("../Resource/view.png"));
+	bar->AddButton(centerId, "Center", wxImage("../Resource/zoom.png"));
+
+	Connect(cameraId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraControl));
+	Connect(centerId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
 }
 
 void Frame::createCursorPanel(wxRibbonPage* parent)
@@ -240,9 +233,12 @@ void Frame::createCanvasPanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Canvas"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-	bar->AddButton(ID_CANVAS_CONFIG, "Grid", wxImage("../Resource/grid.png"));
-	bar->AddButton(ID_CANVAS_CLEAR, "Clear", wxImage(32, 32));
-	Connect(ID_CANVAS_CONFIG, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCanvasConfig));
+
+	const int configId = wxNewId();
+
+	bar->AddButton(configId, "Grid", wxImage("../Resource/grid.png"));
+	//bar->AddButton(ID_CANVAS_CLEAR, "Clear", wxImage(32, 32));
+	Connect(configId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCanvasConfig));
 	//Connect( ID_CREATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 
 }
@@ -614,10 +610,12 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
 	//model.setParticleCharge(1.0f);
+	model.setParticleCharge(1.0f);
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
+	model.setParticleCharge(-1.0f);
 	//model.setParticleCharge(-1.0f);
 }
 
@@ -654,7 +652,7 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 	dialog.set(attr);
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		Math::Volume3d<float> v(attr);
+		Math::Volume3d<float> v(dialog.get());
 		model.setVolume(v);
 		setRendering();
 	}
