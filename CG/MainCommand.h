@@ -55,8 +55,6 @@ public:
 	}
 	*/
 
-	void bake(const Math::Line3d<float>& line);
-
 	void doExport(const std::string& filename) const;
 
 	void buildRenderer() {
@@ -74,8 +72,6 @@ public:
 	}
 
 	void setRendering();
-
-	void preview();
 
 	/*
 	bool doRealtimePreview() {
@@ -161,7 +157,6 @@ private:
 	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
 
 	Math::Vector3d<float> cursor;
-	bool isSphere;
 
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtr<float> surface;
@@ -172,8 +167,6 @@ private:
 
 	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold);
 
-
-	void setUpVolume();
 };
 	}
 }

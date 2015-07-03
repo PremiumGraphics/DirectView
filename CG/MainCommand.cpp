@@ -8,7 +8,6 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
 MainCommand::MainCommand() :
-isSphere(false),
 surface( std::make_shared<Graphics::Surface<float> >() )
 {
 	mc.buildTable();
@@ -53,15 +52,6 @@ void MainCommand::doExport(const std::string& filename) const
 	file.writeASCII(filename);
 }
 
-void MainCommand::bake(const Line3d<float>& line)
-{
-	const auto& positions = line.toPositions(10);
-	for (const auto& p : positions) {
-		//Particle3d<float> particle(p, 0.5f, 1.0f);
-		volume.add( toParticle(p), 1.0f);
-	}
-	surface = toSurface(volume, 0.5);
-}
 
 void MainCommand::setRendering()
 {
@@ -71,23 +61,6 @@ void MainCommand::setRendering()
 	rendering.add(*surface);
 }
 
-
-void MainCommand::preview()
-{
-	surface = toSurface(volume, 0.5);
-	setRendering();
-}
-
-SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold)
-{
-	surface = std::make_shared< Surface<float> >();
-	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
-
-	for (const auto& t : triangles) {
-		surface->add(t, Graphics::ColorRGBA<float>::Blue());
-	}
-	return surface;
-}
 
 
 void MainCommand::setUIControl(const UIControl ctrl)
@@ -120,22 +93,37 @@ void MainCommand::postMouseEvent()
 	}
 	const UI::PostEvent& e = mouse->getPostEvent();
 	if (e.doBakeParticle) {
-		preview();
-		Particle3d<float> particle(cursor, particleAttribute);
+		const Particle3d<float>& particle = toParticle(cursor);
 		volume.add(particle, 0.1f);
 		toSurface(volume, 0.5);
 		setRendering();
 		return;
 	}
 	if (e.doBakeBone) {
-		preview();
 		const auto& line = lineOperation->getLine();
-		bake(line);
+		const auto& positions = line.toPositions(10);
+		for (const auto& p : positions) {
+			volume.add(toParticle(p), 1.0f);
+		}
+		surface = toSurface(volume, 0.5);
 		rendering.clear();
 		rendering.add(line);
 		return;
 	}
 	if (e.doPreview) {
-		preview();
+		surface = toSurface(volume, 0.5);
+		setRendering();
 	}
+}
+
+
+SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold)
+{
+	surface = std::make_shared< Surface<float> >();
+	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
+
+	for (const auto& t : triangles) {
+		surface->add(t, Graphics::ColorRGBA<float>::Blue());
+	}
+	return surface;
 }
