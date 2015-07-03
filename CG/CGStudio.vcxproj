@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="BoneCommand.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="MainCommand.cpp" />
@@ -160,7 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BoneCommand.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MainCommand.h" />

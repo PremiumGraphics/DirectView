@@ -7,7 +7,6 @@
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
 #include "../Graphics/ScreenCoord.h"
-#include "BoneCommand.h"
 
 namespace Crystal {
 	namespace UI {
@@ -165,9 +164,8 @@ private:
 class Line3dOperationCommand : public MouseOperationCommand
 {
 public:
-	Line3dOperationCommand(Graphics::Camera<float>& camera, BoneCommand& command, Math::Vector3d<float>& cursor) :
+	Line3dOperationCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
 		MouseOperationCommand(camera),
-		command( command ),
 		cursor( cursor )
 	{}
 
@@ -186,7 +184,6 @@ public:
 	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
 private:
-	BoneCommand& command;
 	Math::Vector3d<float> startPosition;
 	Math::Vector3d<float> endPosition;
 	Math::Vector3d<float>& cursor;

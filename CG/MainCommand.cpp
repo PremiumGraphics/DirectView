@@ -12,7 +12,7 @@ isSphere(false)
 {
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
-	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand, cursor);
+	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
 	mouse = cameraOperation;
 	volumeCommand.setupVolumes(vConfig);
 	//createPreVolume(1.0);
@@ -24,7 +24,7 @@ void MainCommand::clear()
 {
 	volumeCommand.clear();
 	surfaceCommand.clear();
-	boneCommand.clear();
+	bones.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -53,7 +53,7 @@ void MainCommand::doExport(const std::string& filename) const
 void MainCommand::bakeBoneToVolume()
 {
 	surfaceCommand.clear();
-	for (const auto& b : boneCommand.getBones()) {
+	for (const auto& b : bones) {
 		const auto& positions = b->getLine().toPositions(10);
 		std::list<Particle3d<float>> boneParticles;
 		for (const auto& p : positions) {
@@ -82,7 +82,7 @@ void MainCommand::setRendering()
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
 	}
-	for (const auto& b : boneCommand.getBones()) {
+	for (const auto& b : bones) {
 		rendering.add(*b);
 	}
 	/*
@@ -122,7 +122,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	}
 	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
-		lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, boneCommand, cursor);
+		lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
 		mouse = lineOperation;
 	}
 	else {
@@ -142,7 +142,7 @@ void MainCommand::postMouseEvent()
 		return;
 	}
 	if (e.doBakeBone) {
-		boneCommand.create(lineOperation->getLine().getStart(), lineOperation->getLine().getEnd());
+		bones.push_back( std::make_shared<Bone>( lineOperation->getLine().getStart(), lineOperation->getLine().getEnd()) );
 		preview();
 		bakeBoneToVolume();
 		return;

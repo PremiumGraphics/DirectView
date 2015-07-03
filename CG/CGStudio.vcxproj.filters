@@ -12,9 +12,6 @@
     <ClCompile Include="MainCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="BoneCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="MouseCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="MainCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
-    <ClInclude Include="BoneCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="MouseCommand.h">

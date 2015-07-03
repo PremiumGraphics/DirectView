@@ -62,17 +62,13 @@ void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 
 void Line3dOperationCommand::onDraggingRight(const Vector3d<float>& src)
 {
-	const Math::Vector3d<float>& v = toScreenCoord2d(src);
-	for (const auto& b : command.getBones()) {
-		b->move(toCoord3d(v * 1));
-	}
-
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
 void Line3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
-	//particle.move(getScrennSpaceDiff(v * 1));
+	const Math::Vector3d<float> v(0, 0, diff.getY());
+	cursor += (toCoord3d(v * 1));
 }
 
 void Line3dOperationCommand::onRightButtonDown()

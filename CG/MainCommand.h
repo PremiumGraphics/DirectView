@@ -9,7 +9,6 @@
 
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
-#include "BoneCommand.h"
 #include "SurfaceCommand.h"
 #include "VolumeCommand.h"
 
@@ -200,7 +199,7 @@ private:
 	UI::VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
-	UI::BoneCommand boneCommand;
+	Graphics::BoneSPtrList bones;
 	UI::SurfaceCommand surfaceCommand;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
