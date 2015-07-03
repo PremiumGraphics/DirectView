@@ -10,7 +10,6 @@
 
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
-#include "SurfaceCommand.h"
 
 #include <memory>
 #include <map>
@@ -155,7 +154,6 @@ private:
 	Math::Particle3d<float>::Attribute particleAttribute;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 	Graphics::Bone<float> bone;
-	UI::SurfaceCommand surfaceCommand;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
@@ -164,9 +162,15 @@ private:
 	Math::Vector3d<float> cursor;
 	bool isSphere;
 
+	Math::MarchingCube<float> mc;
+	Graphics::SurfaceSPtrList<float> surfaces;
+
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, particleAttribute);
 	}
+
+	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold);
+
 
 	void setUpVolume();
 };

@@ -10,6 +10,8 @@ using namespace Crystal::Command;
 MainCommand::MainCommand() :
 isSphere(false)
 {
+	mc.buildTable();
+
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
@@ -18,7 +20,7 @@ isSphere(false)
 	Volume3d<float> v(vConfig.space, grid);
 	volume = v;
 	//createPreVolume(1.0);
-	surfaceCommand.create(v, 0.5);
+	//surfaceCommand.create(v, 0.5);
 	setRendering();
 }
 
@@ -26,7 +28,7 @@ void MainCommand::clear()
 {
 	//volumeCommand.clear();
 	volume.setValue(0.0f);
-	surfaceCommand.clear();
+	surfaces.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -35,7 +37,7 @@ void MainCommand::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
-	for (const auto& s : surfaceCommand.getSurfaces()) {
+	for (const auto& s : surfaces) {
 		for (const auto& f : s->getFaces()) {
 			Math::Vector3dVector<float> positions;
 			for (const auto& e : f->getEdges()) {
@@ -54,13 +56,13 @@ void MainCommand::doExport(const std::string& filename) const
 
 void MainCommand::bake(const Line3d<float>& line)
 {
-	surfaceCommand.clear();
+	surfaces.clear();
 	const auto& positions = line.toPositions(10);
 	for (const auto& p : positions) {
 		//Particle3d<float> particle(p, 0.5f, 1.0f);
 		volume.add( toParticle(p), 1.0f);
 	}
-	surfaceCommand.create(volume, 0.5);
+	toSurface(volume, 0.5);
 }
 
 void MainCommand::setRendering()
@@ -68,7 +70,7 @@ void MainCommand::setRendering()
 	rendering.clear();
 	rendering.add( toParticle(cursor) );
 	rendering.add(volume);
-	for (const auto& s : surfaceCommand.getSurfaces()) {
+	for (const auto& s : surfaces) {
 		rendering.add(*s);
 	}
 }
@@ -76,11 +78,21 @@ void MainCommand::setRendering()
 
 void MainCommand::preview()
 {
-	//createPreVolume(1.0);
-	surfaceCommand.clear();
-	//volumeCommand.copyBakedToPre();
-	surfaceCommand.create(volume, 0.5);
+	surfaces.clear();
+	toSurface(volume, 0.5);
 	setRendering();
+}
+
+SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold)
+{
+	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
+
+	Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
+	for (const auto& t : triangles) {
+		surface->add(t, Graphics::ColorRGBA<float>::Blue());
+	}
+	surfaces.push_back(surface);
+	return surface;
 }
 
 
@@ -117,7 +129,7 @@ void MainCommand::postMouseEvent()
 		preview();
 		Particle3d<float> particle(cursor, particleAttribute);
 		volume.add(particle, 0.1f);
-		surfaceCommand.create(volume, 0.5);
+		toSurface(volume, 0.5);
 		setRendering();
 		return;
 	}

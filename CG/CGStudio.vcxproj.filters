@@ -15,9 +15,6 @@
     <ClCompile Include="MouseCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="SurfaceCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,9 +36,6 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="MouseCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
