@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MouseCommand.h"
 
 using namespace Crystal::Math;

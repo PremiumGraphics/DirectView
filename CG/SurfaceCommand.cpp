@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SurfaceCommand.h"
 
 using namespace Crystal::Math;

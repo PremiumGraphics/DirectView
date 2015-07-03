@@ -7,10 +7,22 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="RenderingCommand.cpp">
-      <Filter>Model</Filter>
+      <Filter>Command</Filter>
     </ClCompile>
     <ClCompile Include="MainCommand.cpp">
-      <Filter>Model</Filter>
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeCommand.cpp">
+      <Filter>Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,10 +42,22 @@
       <Filter>resource</Filter>
     </ClInclude>
     <ClInclude Include="RenderingCommand.h">
-      <Filter>Model</Filter>
+      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="MainCommand.h">
-      <Filter>Model</Filter>
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="VolumeCommand.h">
+      <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -43,7 +67,7 @@
     <Filter Include="Dialog">
       <UniqueIdentifier>{b2d04a9a-14b6-4af7-ac57-8a7dd2c84052}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
+    <Filter Include="Command">
       <UniqueIdentifier>{dff8f1f3-c3f8-4815-93e8-0a22b169d32e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

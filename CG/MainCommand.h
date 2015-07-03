@@ -8,10 +8,10 @@
 #include "../IO/STLFile.h"
 
 #include "RenderingCommand.h"
-#include "../Command/MouseCommand.h"
-#include "../Command/BoneCommand.h"
-#include "../Command/SurfaceCommand.h"
-#include "../Command/VolumeCommand.h"
+#include "MouseCommand.h"
+#include "BoneCommand.h"
+#include "SurfaceCommand.h"
+#include "VolumeCommand.h"
 
 #include <memory>
 #include <map>
@@ -166,26 +166,7 @@ public:
 		postMouseEvent();
 	}
 
-	void postMouseEvent() {
-		if (!mouse->doRefresh()){
-			return;
-		}
-		const UI::PostEvent& e = mouse->getPostEvent();
-		if (e.doBakeParticle) {
-			preview();
-			bakeParticleToVolume();
-			return;
-		}
-		if (e.doBakeBone) {
-			boneCommand.create(lineOperation->getLine().getStart(), lineOperation->getLine().getEnd());
-			preview();
-			bakeBoneToVolume();
-			return;
-		}
-		if (e.doPreview) {
-			preview();
-		}
-	}
+	void postMouseEvent();
 
 	void setUIControl(const UIControl ctrl);
 

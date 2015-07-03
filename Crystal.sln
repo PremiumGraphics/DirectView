@@ -7,7 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CGStudio", "CG\CGStudio.vcx
 	ProjectSection(ProjectDependencies) = postProject
 		{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2} = {9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}
 		{028C3897-F00D-4265-B059-BC79B022A0A0} = {028C3897-F00D-4265-B059-BC79B022A0A0}
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6} = {6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IO", "IO\IO.vcxproj", "{028C3897-F00D-4265-B059-BC79B022A0A0}"
@@ -24,10 +23,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shader", "Shader\CrystalShader.vcxproj", "{9EBE4E78-21E5-4010-8AE5-55DB84AFC8E2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommandTest", "CommandTest\CGStudioTest.vcxproj", "{81B09E8D-C1A8-4477-907A-ABB07883C9F8}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Command", "Command\Command.vcxproj", "{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,30 +122,6 @@ Global
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|Win32.ActiveCfg = Release|Win32
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|Win32.Build.0 = Release|Win32
 		{51436043-10F6-42F3-85BE-F2FEAF480AFA}.Release|x64.ActiveCfg = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|Win32.ActiveCfg = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|Win32.Build.0 = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Debug|x64.ActiveCfg = Debug|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|Any CPU.ActiveCfg = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|Win32.ActiveCfg = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|Win32.Build.0 = Release|Win32
-		{81B09E8D-C1A8-4477-907A-ABB07883C9F8}.Release|x64.ActiveCfg = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|Win32.Build.0 = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Debug|x64.ActiveCfg = Debug|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|Any CPU.ActiveCfg = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|Win32.ActiveCfg = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|Win32.Build.0 = Release|Win32
-		{6159BDE8-9381-4FE8-AB1E-6F5DF61496A6}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

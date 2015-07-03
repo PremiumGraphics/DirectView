@@ -129,3 +129,25 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		assert(false);
 	}
 }
+
+void MainCommand::postMouseEvent()
+{
+	if (!mouse->doRefresh()){
+		return;
+	}
+	const UI::PostEvent& e = mouse->getPostEvent();
+	if (e.doBakeParticle) {
+		preview();
+		bakeParticleToVolume();
+		return;
+	}
+	if (e.doBakeBone) {
+		boneCommand.create(lineOperation->getLine().getStart(), lineOperation->getLine().getEnd());
+		preview();
+		bakeBoneToVolume();
+		return;
+	}
+	if (e.doPreview) {
+		preview();
+	}
+}

@@ -6,8 +6,8 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
-#include "../Command/BoneCommand.h"
 #include "../Graphics/ScreenCoord.h"
+#include "BoneCommand.h"
 
 namespace Crystal {
 	namespace UI {
