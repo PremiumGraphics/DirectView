@@ -66,6 +66,8 @@ public:
 
 	void add(const Math::Volume3d<float>& volume);
 
+	void add(const Math::Line3d<float>& line);
+
 	void add(const Graphics::Bone& bone);
 
 	/*

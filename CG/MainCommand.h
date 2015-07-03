@@ -206,6 +206,8 @@ private:
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
 
+	Math::Line3dVector<float> boneLines;
+
 	Math::Vector3d<float> cursor;
 	bool isSphere;
 };

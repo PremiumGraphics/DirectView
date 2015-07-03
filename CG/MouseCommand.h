@@ -123,6 +123,7 @@ public:
 		cursor(cursor)//,
 		//	_doRealTimeBake(false)
 	{
+		//_doRealTimePreview = false;
 	}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;

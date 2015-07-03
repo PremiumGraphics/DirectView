@@ -56,7 +56,8 @@ void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
-
+	endPosition = cursor;
+	_doRealTimePreview = true;
 	//particle.addRadius(src.getX());
 }
 
@@ -68,6 +69,7 @@ void Line3dOperationCommand::onDraggingRight(const Vector3d<float>& src)
 void Line3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
+	endPosition = cursor;
 	cursor += (toCoord3d(v * 1));
 }
 

@@ -78,6 +78,9 @@ void MainCommand::setRendering()
 {
 	rendering.clear();
 	rendering.add(cursor);
+	for (const auto& l : boneLines) {
+		rendering.add(l);
+	}
 	rendering.add(volumeCommand.getPreVolume());
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
@@ -148,6 +151,8 @@ void MainCommand::postMouseEvent()
 		return;
 	}
 	if (e.doPreview) {
+		boneLines.clear();
+		boneLines.push_back(lineOperation->getLine());
 		preview();
 	}
 }

@@ -67,6 +67,13 @@ void RenderingCommand::add(const Bone& bone)
 	}
 }
 
+void RenderingCommand::add(const Line3d<float>& line)
+{
+	if (config.drawWire) {
+		wireframeRenderer.add(line);
+	}
+}
+
 void RenderingCommand::render(const int width, const int height, const Camera<float>& camera)
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
