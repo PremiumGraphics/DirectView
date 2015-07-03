@@ -8,7 +8,8 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Command;
 
 MainCommand::MainCommand() :
-isSphere(false)
+isSphere(false),
+surface( std::make_shared<Graphics::Surface<float> >() )
 {
 	mc.buildTable();
 
@@ -28,7 +29,7 @@ void MainCommand::clear()
 {
 	//volumeCommand.clear();
 	volume.setValue(0.0f);
-	surfaces.clear();
+	surface = std::make_shared< Surface<float> >();
 	//bakedSurfaces.clear();
 }
 
@@ -37,16 +38,14 @@ void MainCommand::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
-	for (const auto& s : surfaces) {
-		for (const auto& f : s->getFaces()) {
-			Math::Vector3dVector<float> positions;
-			for (const auto& e : f->getEdges()) {
-				positions.push_back(e->getStartPosition());
-			}
-			const auto normal = f->getNormal();
-			IO::STLCell cell(positions, normal);
-			cells.push_back(cell);
+	for (const auto& f : surface->getFaces()) {
+		Math::Vector3dVector<float> positions;
+		for (const auto& e : f->getEdges()) {
+			positions.push_back(e->getStartPosition());
 		}
+		const auto normal = f->getNormal();
+		IO::STLCell cell(positions, normal);
+		cells.push_back(cell);
 	}
 
 	file.setTitle("TestTitle");
@@ -56,13 +55,12 @@ void MainCommand::doExport(const std::string& filename) const
 
 void MainCommand::bake(const Line3d<float>& line)
 {
-	surfaces.clear();
 	const auto& positions = line.toPositions(10);
 	for (const auto& p : positions) {
 		//Particle3d<float> particle(p, 0.5f, 1.0f);
 		volume.add( toParticle(p), 1.0f);
 	}
-	toSurface(volume, 0.5);
+	surface = toSurface(volume, 0.5);
 }
 
 void MainCommand::setRendering()
@@ -70,28 +68,24 @@ void MainCommand::setRendering()
 	rendering.clear();
 	rendering.add( toParticle(cursor) );
 	rendering.add(volume);
-	for (const auto& s : surfaces) {
-		rendering.add(*s);
-	}
+	rendering.add(*surface);
 }
 
 
 void MainCommand::preview()
 {
-	surfaces.clear();
-	toSurface(volume, 0.5);
+	surface = toSurface(volume, 0.5);
 	setRendering();
 }
 
 SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold)
 {
+	surface = std::make_shared< Surface<float> >();
 	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
 
-	Graphics::SurfaceSPtr<float> surface = std::make_shared<Graphics::Surface<float> >();
 	for (const auto& t : triangles) {
 		surface->add(t, Graphics::ColorRGBA<float>::Blue());
 	}
-	surfaces.push_back(surface);
 	return surface;
 }
 

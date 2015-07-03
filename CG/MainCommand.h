@@ -5,6 +5,7 @@
 #include "../Math/Volume.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Bone.h"
+#include "../Graphics/Surface.h"
 #include "../Util/UnCopyable.h"
 #include "../IO/STLFile.h"
 
@@ -163,7 +164,7 @@ private:
 	bool isSphere;
 
 	Math::MarchingCube<float> mc;
-	Graphics::SurfaceSPtrList<float> surfaces;
+	Graphics::SurfaceSPtr<float> surface;
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, particleAttribute);
