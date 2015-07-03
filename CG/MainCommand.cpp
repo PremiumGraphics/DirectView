@@ -69,6 +69,9 @@ void MainCommand::setRendering()
 {
 	rendering.clear();
 	rendering.add(cursor);
+	Particle3d<float> particle(cursor, particleAttribute);
+	const auto bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());
+	rendering.add(bb);
 	rendering.add(volume);
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);

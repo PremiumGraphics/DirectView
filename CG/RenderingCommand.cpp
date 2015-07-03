@@ -31,6 +31,12 @@ void RenderingCommand::add(const Vector3d<float>& cursor)
 	}
 }
 
+void RenderingCommand::add(const Box<float>& box)
+{
+	if (config.drawWire) {
+		wireframeRenderer.add(box);
+	}
+}
 
 void RenderingCommand::add(const Surface<float>& surface)
 {

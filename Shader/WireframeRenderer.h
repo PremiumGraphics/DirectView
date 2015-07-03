@@ -71,6 +71,7 @@ public:
 private:
 	std::vector<float> positions;
 
+public:
 	void add(const Math::Box<float>& box) {
 		const auto minx = box.getMinX();
 		const auto miny = box.getMinY();

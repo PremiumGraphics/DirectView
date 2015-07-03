@@ -18,7 +18,7 @@ public:
 		T radius;
 		T charge;
 		Attribute() :
-			radius(1),
+			radius(0.5),
 			charge(1)
 		{}
 	};

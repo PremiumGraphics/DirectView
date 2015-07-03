@@ -62,6 +62,8 @@ public:
 
 	void add(const Math::Vector3d<float>& cursor);
 
+	void add(const Math::Box<float>& box);
+
 	void add(const Graphics::Surface<float>& surface);
 
 	void add(const Math::Volume3d<float>& volume);
