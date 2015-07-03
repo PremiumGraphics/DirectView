@@ -136,11 +136,11 @@ private:
 };
 
 
-class ParticleOperationCommand : public MouseOperationCommand
+class SpriteStrokeCommand : public MouseOperationCommand
 {
 public:
 
-	ParticleOperationCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
+	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
 		MouseOperationCommand(camera),
 		cursor(cursor)//,
 	//	_doRealTimeBake(false)
@@ -162,11 +162,11 @@ private:
 	//bool _doRealTimeBake;
 };
 
-class ParticleScaleCommand : public MouseOperationCommand
+class BrushScaleCommand : public MouseOperationCommand
 {
 public:
 
-	ParticleScaleCommand(Graphics::Camera<float>& camera, float& size) :
+	BrushScaleCommand(Graphics::Camera<float>& camera, float& size) :
 		MouseOperationCommand(camera),
 		size(size)//,
 		//	_doRealTimeBake(false)
@@ -189,10 +189,10 @@ private:
 };
 
 
-class Line3dOperationCommand : public MouseOperationCommand
+class LineStrokeCommand : public MouseOperationCommand
 {
 public:
-	Line3dOperationCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
+	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
 		MouseOperationCommand(camera),
 		cursor( cursor )
 	{}

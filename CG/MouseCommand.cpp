@@ -34,37 +34,37 @@ void Cursor3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 }
 
 
-void ParticleOperationCommand::onDraggingLeft(const Vector3d<float>& v)
+void SpriteStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
 }
 
-void ParticleOperationCommand::onDraggingRight(const Vector3d<float>& src)
+void SpriteStrokeCommand::onDraggingRight(const Vector3d<float>& src)
 {
 	;
 }
 
-void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
+void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
 	cursor += (toCoord3d(v * 1));
 }
 
-void ParticleScaleCommand::onDraggingLeft(const Vector3d<float>& v)
+void BrushScaleCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	size += toCoord3d(toScreenCoord2d(v)).getX();
 }
 
-void ParticleScaleCommand::onDraggingRight(const Vector3d<float>& src)
+void BrushScaleCommand::onDraggingRight(const Vector3d<float>& src)
 {
 }
 
-void ParticleScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
+void BrushScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 }
 
 
-void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
+void LineStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
 	endPosition = cursor;
@@ -72,29 +72,29 @@ void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 	//particle.addRadius(src.getX());
 }
 
-void Line3dOperationCommand::onDraggingRight(const Vector3d<float>& src)
+void LineStrokeCommand::onDraggingRight(const Vector3d<float>& src)
 {
 	//particle.move(getScrennSpaceDiff(v * 1));
 }
 
-void Line3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
+void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
 	endPosition = cursor;
 	cursor += (toCoord3d(v * 1));
 }
 
-void Line3dOperationCommand::onRightButtonDown()
+void LineStrokeCommand::onRightButtonDown()
 {
 
 }
 
-void Line3dOperationCommand::onLeftButtonDown()
+void LineStrokeCommand::onLeftButtonDown()
 {
 	startPosition = cursor;
 }
 
-void Line3dOperationCommand::onLeftButtonUp()
+void LineStrokeCommand::onLeftButtonUp()
 {
 	endPosition = cursor;
 	_doRealTimeBakeBone = true;

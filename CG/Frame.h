@@ -59,9 +59,9 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnCoursor3d(wxRibbonButtonBarEvent& e);
+	void OnCursor(wxRibbonButtonBarEvent& e);
 
-	void OnParticleStroke(wxRibbonButtonBarEvent& e);
+	void OnStrokeSprite(wxRibbonButtonBarEvent& e);
 
 	void OnParticleSize(wxRibbonButtonBarEvent& e);
 
@@ -69,11 +69,15 @@ private:
 
 	void OnParticlePositive(wxRibbonButtonBarEvent& e);
 
+	void OnParticlePositiveConfig(wxRibbonButtonBarEvent& e);
+
 	void OnParticleNegative(wxRibbonButtonBarEvent& e);
+
+	void OnParticleNegativeConfig(wxRibbonButtonBarEvent& e);
 
 	void OnParticleErase(wxRibbonButtonBarEvent& e);
 
-	void OnBoneCreate(wxRibbonButtonBarEvent& e);
+	void OnStrokeLine(wxRibbonButtonBarEvent& e);
 
 	void OnBoneMove(wxRibbonButtonBarEvent& e);
 

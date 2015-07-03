@@ -167,7 +167,7 @@ void Frame::createCursorPanel(wxRibbonPage* parent)
 	const int cursorId = wxNewId();
 	bar->AddButton(cursorId, "Corsor", wxImage("../Resource/point.png"));
 
-	Connect(cursorId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCoursor3d));
+	Connect(cursorId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCursor));
 }
 
 void Frame::createBrushPanel(wxRibbonPage* parent)
@@ -175,28 +175,40 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 
-	const int strokeId = wxNewId();
+	const int spriteId = wxNewId();
+	const int lineId = wxNewId();
 	const int sizeId = wxNewId();
 	const int positiveId = wxNewId();
 	const int negativeId = wxNewId();
 	const int eraseId = wxNewId();
 
-	bar->AddButton(strokeId,	"Stroke", wxImage("../Resource/point.png"));
+	bar->AddButton(spriteId,	"Sprite", wxImage("../Resource/point.png"));
+	bar->AddButton(lineId,		"Line", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(sizeId,		"Size", wxImage("../Resource/point.png"));
-	bar->AddButton(positiveId,	"+", wxImage("../Resource/point.png"));
-	bar->AddButton(negativeId,	"-", wxImage("../Resource/point.png"));
-	bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(positiveId,	"+", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(negativeId,	"-", wxImage("../Resource/point.png"));
+	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
 
 
 	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
-	Connect(strokeId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
+	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
+	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
 	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
 	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSizeConfig));
 	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
+	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositiveConfig));
 	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
-	Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
+	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegativeConfig));
+
+
+	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
+	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
+
+
+
+	//Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 }
 
 void Frame::createBonePanel(wxRibbonPage* parent)
@@ -204,14 +216,7 @@ void Frame::createBonePanel(wxRibbonPage* parent)
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Bone"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 
-	const int strokeId = wxNewId();
 
-	bar->AddButton(strokeId, "Stroke", wxImage("../Resource/point.png"));
-	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
-	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
-
-
-	Connect(strokeId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneCreate));
 	//Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
 	//Connect(ID_BONE_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneBake));
 }
@@ -581,25 +586,24 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnCoursor3d(wxRibbonButtonBarEvent& e)
+void Frame::OnCursor(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::CURSOR);
 }
 
-void Frame::OnParticleStroke(wxRibbonButtonBarEvent& e)
+void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::PARTICLE_BAKE);
+	model.setUIControl(Command::UIControl::PARTICLE_STROKE);
 }
-
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::PARTICLE_SCALE);
+	model.setUIControl(Command::UIControl::BRUSH_SCALE);
 }
 
 void Frame::OnParticleSizeConfig(wxRibbonButtonBarEvent& e)
 {
-	//wxGetNumberFromUser()
+	const int size = wxGetNumberFromUser("Size",wxEmptyString, wxEmptyString);
 }
 
 
@@ -614,20 +618,30 @@ void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 	model.setParticleCharge(1.0f);
 }
 
+void Frame::OnParticlePositiveConfig(wxRibbonButtonBarEvent& e)
+{
+	const int size = wxGetNumberFromUser("Charge", wxEmptyString, wxEmptyString);
+}
+
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
 	model.setParticleCharge(-1.0f);
 	//model.setParticleCharge(-1.0f);
 }
 
-void Frame::OnBoneCreate(wxRibbonButtonBarEvent& e)
+void Frame::OnParticleNegativeConfig(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::BONE_MOVE);
+	const int size = wxGetNumberFromUser("Charge", wxEmptyString, wxEmptyString);
+}
+
+void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)
+{
+	model.setUIControl(Command::UIControl::LINE_STROKE);
 }
 
 void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::BONE_MOVE);
+	model.setUIControl(Command::UIControl::LINE_STROKE);
 }
 
 /*
@@ -665,7 +679,7 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
 	case 'X':
-		model.setUIControl(Command::UIControl::PARTICLE_BAKE);
+		model.setUIControl(Command::UIControl::PARTICLE_STROKE);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
@@ -674,10 +688,10 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		model.setUIControl(Command::UIControl::CURSOR);
 		break;
 	case 'S':
-		model.setUIControl(Command::UIControl::PARTICLE_SCALE);
+		model.setUIControl(Command::UIControl::BRUSH_SCALE);
 		break;
 	case 'B':
-		model.setUIControl(Command::UIControl::BONE_MOVE);
+		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;
 	case 'N':
 		model.setParticleCharge(-1.0f);

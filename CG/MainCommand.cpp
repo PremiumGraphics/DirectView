@@ -13,7 +13,7 @@ MainCommand::MainCommand()
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
-	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
+	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 	mouse = cameraOperation;
 	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
 	Volume3d<float> v(vConfig.space, grid);
@@ -76,14 +76,15 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	else if (ctrl == UIControl::CURSOR) {
 		mouse = cursorOperation;
 	}
-	else if (ctrl == UIControl::PARTICLE_BAKE) {
-		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, cursor);
+	else if (ctrl == UIControl::PARTICLE_STROKE) {
+		cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
+		mouse = cursorOperation;
 	}
-	else if (ctrl == UIControl::PARTICLE_SCALE) {
-		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particleAttribute.radius);
+	else if (ctrl == UIControl::BRUSH_SCALE) {
+		mouse = std::make_shared<UI::BrushScaleCommand>(camera, particleAttribute.radius);
 	}
-	else if (ctrl == UIControl::BONE_MOVE) {
-		lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
+	else if (ctrl == UIControl::LINE_STROKE) {
+		lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 		mouse = lineOperation;
 	}
 	else {

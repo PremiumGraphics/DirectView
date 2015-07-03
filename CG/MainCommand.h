@@ -18,22 +18,13 @@
 namespace Crystal {
 	namespace Command {
 
-enum class RenderingMode {
-	POINT = 1,
-	WIREFRAME = 2,
-	VOLUME = 4,
-	SMOOTH = 8,
-};
-
-
-
 enum class UIControl {
 	CAMERA,
 	CURSOR,
-	PARTICLE_BAKE,
-	PARTICLE_SCALE,
+	PARTICLE_STROKE,
+	LINE_STROKE,
+	BRUSH_SCALE,
 	PARTICLE_ERASE,
-	BONE_MOVE,
 };
 
 class MainCommand final : private UnCopyable
@@ -123,7 +114,7 @@ private:
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
-	std::shared_ptr<UI::Line3dOperationCommand> lineOperation;
+	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
 
 	Math::Vector3d<float> cursor;
 
