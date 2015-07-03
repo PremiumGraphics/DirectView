@@ -68,7 +68,7 @@ public:
 
 	void add(const Math::Line3d<float>& line);
 
-	void add(const Graphics::Bone& bone);
+	void add(const Graphics::Bone<float>& bone);
 
 	/*
 	void addCells(const Math::Volume3d<float>& v) {

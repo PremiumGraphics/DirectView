@@ -99,7 +99,7 @@ public:
 
 	void bakeBoneToVolume();
 
-	void bakeParticleToVolume();
+	void bakeParticleToVolume(const Math::Particle3d<float>& p);
 
 	void doExport(const std::string& filename) const;
 
@@ -199,7 +199,7 @@ private:
 	UI::VolumeConfig<float> vConfig;
 	ParticleConfig<float> pConfig;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
-	Graphics::BoneSPtrList bones;
+	Graphics::BoneSPtrList<float> bones;
 	UI::SurfaceCommand surfaceCommand;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;

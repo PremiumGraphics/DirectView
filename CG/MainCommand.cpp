@@ -62,13 +62,15 @@ void MainCommand::bakeBoneToVolume()
 		}
 		volumeCommand.copyBakedToPre();
 		volumeCommand.add(boneParticles, 1.0f);
+		volumeCommand.bake();
 		surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	}
 	setRendering();
 }
 
-void MainCommand::bakeParticleToVolume()
+void MainCommand::bakeParticleToVolume(const Particle3d<float>& p)
 {
+	volumeCommand.add(p, 0.1f);
 	volumeCommand.bake();
 	surfaceCommand.create(volumeCommand.getBakedVolume(), vConfig.threshold);
 	setRendering();
@@ -101,8 +103,6 @@ void MainCommand::preview()
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
 	volumeCommand.copyBakedToPre();
-	Particle3d<float> particle(cursor, 1.0f, 1.0f);
-	volumeCommand.add(particle, 0.1f);
 	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
 	setRendering();
 }
@@ -141,11 +141,12 @@ void MainCommand::postMouseEvent()
 	const UI::PostEvent& e = mouse->getPostEvent();
 	if (e.doBakeParticle) {
 		preview();
-		bakeParticleToVolume();
+		Particle3d<float> particle(cursor, 1.0f, 1.0f);
+		bakeParticleToVolume(particle);
 		return;
 	}
 	if (e.doBakeBone) {
-		bones.push_back( std::make_shared<Bone>( lineOperation->getLine().getStart(), lineOperation->getLine().getEnd()) );
+		bones.push_back( std::make_shared<Bone<float> >( lineOperation->getLine().getStart(), lineOperation->getLine().getEnd()) );
 		preview();
 		bakeBoneToVolume();
 		return;

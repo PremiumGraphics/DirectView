@@ -10,19 +10,20 @@
 namespace Crystal {
 	namespace Graphics {
 
+template<typename T>
 class Bone
 {
 public:
 	Bone() = default;
 
-	Bone(const Math::Vector3d<float>& start, const Math::Vector3d<float>& end) :
+	Bone(const Math::Vector3d<T>& start, const Math::Vector3d<T>& end) :
 		start( start ),
 		end( end )
 	{
 	}
 
-	Math::Line3d<float> getLine() const {
-		return Math::Line3d<float>(start, end);
+	Math::Line3d<T> getLine() const {
+		return Math::Line3d<T>(start, end);
 	}
 
 	/*
@@ -41,13 +42,15 @@ public:
 	}
 
 private:
-	Math::Vector3d<float> start;
-	Math::Vector3d<float> end;
+	Math::Vector3d<T> start;
+	Math::Vector3d<T> end;
 };
 
-using BoneSPtr = std::shared_ptr < Bone > ;
+template<typename T>
+using BoneSPtr = std::shared_ptr < Bone<T> > ;
 
-using BoneSPtrList = std::list < BoneSPtr > ;
+template<typename T>
+using BoneSPtrList = std::list < BoneSPtr<T> > ;
 	}
 }
 
