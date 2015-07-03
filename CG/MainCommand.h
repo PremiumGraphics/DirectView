@@ -78,7 +78,8 @@ public:
 	}
 
 	void setupVolumes() {
-		volumeCommand.setupVolumes(vConfig);
+		Math::Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+		Math::Volume3d<float> v(vConfig.space, grid);
 	}
 
 	/*
@@ -193,7 +194,8 @@ public:
 
 private:
 	Graphics::Camera<float> camera;
-	UI::VolumeCommand volumeCommand;
+	Math::Volume3d<float> volume;
+
 
 	RenderingCommand rendering;
 	UI::VolumeConfig<float> vConfig;
@@ -208,6 +210,8 @@ private:
 
 	Math::Vector3d<float> cursor;
 	bool isSphere;
+
+	void setUpVolume();
 };
 	}
 }

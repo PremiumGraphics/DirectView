@@ -14,15 +14,18 @@ isSphere(false)
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
 	mouse = cameraOperation;
-	volumeCommand.setupVolumes(vConfig);
+	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+	Volume3d<float> v(vConfig.space, grid);
+	volume = v;
 	//createPreVolume(1.0);
-	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
+	surfaceCommand.create(v, vConfig.threshold);
 	setRendering();
 }
 
 void MainCommand::clear()
 {
-	volumeCommand.clear();
+	//volumeCommand.clear();
+	volume.setValue(0.0f);
 	surfaceCommand.clear();
 	//bakedSurfaces.clear();
 }
@@ -57,25 +60,22 @@ void MainCommand::bake(const Line3d<float>& line)
 	for (const auto& p : positions) {
 		Particle3d<float> particle(p, 0.5f, 1.0f);
 		boneParticles.emplace_back(particle);
+		volume.add(particle, 1.0f);
 	}
-	volumeCommand.copyBakedToPre();
-	volumeCommand.add(boneParticles, 1.0f);
-	volumeCommand.bake();
-	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
+	surfaceCommand.create(volume, vConfig.threshold);
 }
 
 void MainCommand::bake(const Particle3d<float>& p)
 {
-	volumeCommand.add(p, 0.1f);
-	volumeCommand.bake();
-	surfaceCommand.create(volumeCommand.getBakedVolume(), vConfig.threshold);
+	volume.add(p, 0.1f);
+	surfaceCommand.create(volume, vConfig.threshold);
 }
 
 void MainCommand::setRendering()
 {
 	rendering.clear();
 	rendering.add(cursor);
-	rendering.add(volumeCommand.getPreVolume());
+	rendering.add(volume);
 	for (const auto& s : surfaceCommand.getSurfaces()) {
 		rendering.add(*s);
 	}
@@ -86,8 +86,8 @@ void MainCommand::preview()
 {
 	//createPreVolume(1.0);
 	surfaceCommand.clear();
-	volumeCommand.copyBakedToPre();
-	surfaceCommand.create(volumeCommand.getPreVolume(), vConfig.threshold);
+	//volumeCommand.copyBakedToPre();
+	surfaceCommand.create(volume, vConfig.threshold);
 	setRendering();
 }
 

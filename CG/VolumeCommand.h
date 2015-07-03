@@ -29,41 +29,6 @@ public:
 };
 
 
-class VolumeCommand final
-{
-public:
-	VolumeCommand() = default;
-
-	~VolumeCommand() = default;
-
-	void setupVolumes(const VolumeConfig<float>& vConfig);
-
-	void clear();
-
-	void bake() { bakedVolume = preVolume; }
-
-	void copyBakedToPre() { preVolume = bakedVolume; }
-
-	void add(const std::list<Math::Particle3d<float>>& particles, const float factor) {
-		for (const auto& p : particles) {
-			preVolume.add(p, factor);
-		}
-	}
-
-	void add(const Math::Particle3d<float>& particle, const float factor) {
-		preVolume.add(particle, factor);
-	}
-
-	Math::Volume3d<float> getPreVolume() const { return preVolume; }
-
-	Math::Volume3d<float> getBakedVolume() const { return bakedVolume; }
-
-private:
-	Math::Volume3d<float> preVolume;
-	Math::Volume3d<float> bakedVolume;
-
-};
-
 	}
 }
 
