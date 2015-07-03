@@ -71,6 +71,8 @@ public:
 		rendering.render(width, height, camera);
 	}
 
+	void setRendering(const Graphics::Surface<float>& s);
+
 	void setRendering();
 
 	/*

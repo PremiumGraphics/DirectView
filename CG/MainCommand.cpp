@@ -52,11 +52,21 @@ void MainCommand::doExport(const std::string& filename) const
 }
 
 
-void MainCommand::setRendering()
+void MainCommand::setRendering( const Surface<float>& s)
 {
 	rendering.clear();
 	rendering.add( toParticle(cursor) );
 	rendering.add(volume);
+	rendering.add(s);
+}
+
+void MainCommand::setRendering()
+{
+	rendering.clear();
+	rendering.add(toParticle(cursor));
+	rendering.add(volume);
+	const auto& s = toSurface(volume, 0.5);
+	rendering.add(*s);
 }
 
 
@@ -94,8 +104,7 @@ void MainCommand::postMouseEvent()
 		const Particle3d<float>& particle = toParticle(cursor);
 		volume.add(particle, 0.1f);
 		const auto& s = toSurface(volume, 0.5);
-		setRendering();
-		rendering.add(*s);
+		setRendering(*s);
 		return;
 	}
 	if (e.doBakeBone) {
@@ -105,15 +114,12 @@ void MainCommand::postMouseEvent()
 			volume.add(toParticle(p), 1.0f);
 		}
 		const auto& s = toSurface(volume, 0.5);
-		rendering.clear();
-		rendering.add(line);
-		rendering.add(*s);
+		setRendering(*s);
 		return;
 	}
 	if (e.doPreview) {
-		const auto& surface = toSurface(volume, 0.5);
-		setRendering();
-		rendering.add(*surface);
+		const auto& s = toSurface(volume, 0.5);
+		setRendering(*s);
 	}
 }
 
