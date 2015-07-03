@@ -95,6 +95,8 @@ private:
 
 	void OnKeyDown(wxKeyEvent& event);
 
+	void OnKeyUp(wxKeyEvent& event);
+
 	void createPanels(wxRibbonPage* parent);
 
 	void createFilePanel(wxRibbonPage* parent);

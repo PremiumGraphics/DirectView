@@ -659,43 +659,40 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 	}
 }
 
+//bool xIsDown = false;
+
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
-	/*
 	switch (event.GetKeyCode()) {
 	case 'X':
-		model.setParticleCharge(-1.0f);
-		model.setUIControl(Command::UIControl::CURSOR);
+		model.setUIControl(Command::UIControl::PARTICLE_BAKE);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
 		break;
-	case 'V':
-		model.setParticleCharge(1.0f);
+	case 'Z':
 		model.setUIControl(Command::UIControl::CURSOR);
 		break;
 	case 'S':
 		model.setUIControl(Command::UIControl::PARTICLE_SCALE);
 		break;
-		/*
-	case 'D':
-		model.setPlaneMode(PlaneMode::XY);
+	case 'B':
+		model.setUIControl(Command::UIControl::BONE_MOVE);
 		break;
-	case 'X':
-		model.setPlaneMode(PlaneMode::X);
+	case 'N':
+		model.setParticleCharge(-1.0f);
 		break;
-	case 'Y':
-		model.setPlaneMode(PlaneMode::Y);
+	case 'M':
+		model.setParticleCharge(1.0f);
 		break;
-	case 'Z':
-		model.setPlaneMode(PlaneMode::Z);
-		break;
-//	case 'R':
-//		model.reverseParticleCharge();
 	default:
 		event.Skip();
 		return;
 	};
-	*/
+
+}
+
+void Frame::OnKeyUp(wxKeyEvent& event)
+{
 
 }
