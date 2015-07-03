@@ -65,6 +65,8 @@ private:
 
 	void OnParticleSize(wxRibbonButtonBarEvent& e);
 
+	void OnParticleSizeConfig(wxRibbonButtonBarEvent& e);
+
 	void OnParticlePositive(wxRibbonButtonBarEvent& e);
 
 	void OnParticleNegative(wxRibbonButtonBarEvent& e);

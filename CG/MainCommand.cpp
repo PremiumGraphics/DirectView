@@ -97,11 +97,9 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	else if (ctrl == UIControl::PARTICLE_BAKE) {
 		mouse = std::make_shared<UI::ParticleOperationCommand>(camera, cursor);
 	}
-	/*
 	else if (ctrl == UIControl::PARTICLE_SCALE) {
-		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particle);
+		mouse = std::make_shared<UI::ParticleScaleCommand>(camera, particleAttribute.radius);
 	}
-	*/
 	else if (ctrl == UIControl::BONE_MOVE) {
 		lineOperation = std::make_shared<UI::Line3dOperationCommand>(camera, cursor);
 		mouse = lineOperation;

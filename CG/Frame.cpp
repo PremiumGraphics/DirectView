@@ -195,7 +195,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	const int eraseId = wxNewId();
 
 	bar->AddButton(strokeId,	"Stroke", wxImage("../Resource/point.png"));
-	bar->AddButton(sizeId,		"Size", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(sizeId,		"Size", wxImage("../Resource/point.png"));
 	bar->AddButton(positiveId,	"+", wxImage("../Resource/point.png"));
 	bar->AddButton(negativeId,	"-", wxImage("../Resource/point.png"));
 	bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
@@ -206,6 +206,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	Connect(strokeId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleStroke));
 	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
+	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSizeConfig));
 	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
 	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
 	Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
@@ -601,6 +602,12 @@ void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::PARTICLE_SCALE);
 }
+
+void Frame::OnParticleSizeConfig(wxRibbonButtonBarEvent& e)
+{
+	//wxGetNumberFromUser()
+}
+
 
 void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 {

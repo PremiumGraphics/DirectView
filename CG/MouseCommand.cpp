@@ -52,6 +52,19 @@ void ParticleOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	cursor += (toCoord3d(v * 1));
 }
 
+void ParticleScaleCommand::onDraggingLeft(const Vector3d<float>& v)
+{
+	size += toCoord3d(toScreenCoord2d(v)).getX();
+}
+
+void ParticleScaleCommand::onDraggingRight(const Vector3d<float>& src)
+{
+}
+
+void ParticleScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
+{
+}
+
 
 void Line3dOperationCommand::onDraggingLeft(const Vector3d<float>& v)
 {
