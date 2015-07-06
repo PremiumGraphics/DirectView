@@ -3,12 +3,15 @@
 
 #include "Bone.h"
 
+#include <list>
 
 namespace Crystal {
 	namespace Actor {
 
-		class Actor {
-		};
+template<typename T>
+class Actor {
+	std::list< Joint<T> > joints;
+};
 
 
 	}

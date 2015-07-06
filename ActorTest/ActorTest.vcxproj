@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="Joint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActorTest.cpp" />
