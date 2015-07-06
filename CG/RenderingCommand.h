@@ -9,8 +9,6 @@
 
 #include "../Util/UnCopyable.h"
 
-#include "../Graphics/Bone.h"
-
 namespace Crystal{
 	namespace Command {
 
@@ -69,8 +67,6 @@ public:
 	void add(const Math::Volume3d<float>& volume);
 
 	void add(const Math::Line3d<float>& line);
-
-	void add(const Graphics::Bone<float>& bone);
 
 	/*
 	void addCells(const Math::Volume3d<float>& v) {

@@ -4,7 +4,6 @@
 #include "../Math/Vector.h"
 #include "../Math/Line.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/Bone.h"
 #include "../Math/Particle.h"
 #include "../Graphics/ScreenCoord.h"
 

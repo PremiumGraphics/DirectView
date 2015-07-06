@@ -4,7 +4,6 @@
 #include "../Math/MarchingCube.h"
 #include "../Math/Volume.h"
 #include "../Graphics/Camera.h"
-#include "../Graphics/Bone.h"
 #include "../Graphics/Surface.h"
 #include "../Util/UnCopyable.h"
 #include "../IO/STLFile.h"
@@ -106,7 +105,6 @@ private:
 	Math::Volume3d<float>::Attribute vConfig;
 	Math::Particle3d<float>::Attribute particleAttribute;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
-	Graphics::Bone<float> bone;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;

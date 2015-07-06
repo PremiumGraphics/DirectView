@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="CameraTest.cpp" />
     <ClCompile Include="ColorConverterTest.cpp" />
     <ClCompile Include="ColorHSVTest.cpp" />
@@ -28,7 +27,6 @@
     <ClCompile Include="WireframeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="ColorHSV.h" />

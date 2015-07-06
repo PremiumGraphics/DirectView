@@ -63,13 +63,6 @@ void RenderingCommand::add(const Volume3d<float>& volume)
 	}
 }
 
-void RenderingCommand::add(const Bone<float>& bone)
-{
-	if (config.drawWire) {
-		wireframeRenderer.add(bone.getLine());
-	}
-}
-
 void RenderingCommand::add(const Line3d<float>& line)
 {
 	if (config.drawWire) {
