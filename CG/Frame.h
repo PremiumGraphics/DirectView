@@ -79,6 +79,10 @@ private:
 
 	void OnStrokeLine(wxRibbonButtonBarEvent& e);
 
+	void OnBoneSprite(wxRibbonButtonBarEvent& e){};
+
+	void OnBoneLine(wxRibbonButtonBarEvent& e){};
+
 	void OnBoneMove(wxRibbonButtonBarEvent& e);
 
 	void OnBoneBake(wxRibbonButtonBarEvent& e);

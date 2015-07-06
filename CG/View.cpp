@@ -115,7 +115,7 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
-	wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
+	//wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
 
 
 	if( event.Dragging() ) {
@@ -144,9 +144,8 @@ void View::OnMouse(wxMouseEvent& event)
     }
 
 
-	wxPoint mouseEnd = event.GetPosition();
-	model.setMousePosition(ScreenCoord(mouseEnd.x, mouseEnd.y));
-
+	//wxPoint mouseEnd = event.GetPosition();
+	mouseStart = event.GetPosition();
 }
 
 void View::OnMouseWheel(wxMouseEvent& e)

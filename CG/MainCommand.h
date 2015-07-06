@@ -21,7 +21,7 @@ namespace Crystal {
 enum class UIControl {
 	CAMERA,
 	CURSOR,
-	PARTICLE_STROKE,
+	SPRITE_STROKE,
 	LINE_STROKE,
 	BRUSH_SCALE,
 	PARTICLE_ERASE,
@@ -53,10 +53,6 @@ public:
 	void setRendering(const Graphics::Surface<float>& s);
 
 	void setRendering();
-
-	void setMousePosition(const Graphics::ScreenCoord& c) {
-		mouse->setMousePosition(c);
-	}
 
 	Graphics::ScreenCoord getMousePosition() const {
 		return mouse->getMousePosition();

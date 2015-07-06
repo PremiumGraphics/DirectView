@@ -41,7 +41,7 @@ private:
 	Command::MainCommand& model;
 	wxGLContext glContext;
 
-	//wxPoint mouseStart;
+	wxPoint mouseStart;
 	
 	//Graphics::SmoothRenderer smoothRenderer;
 

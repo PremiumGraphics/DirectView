@@ -76,7 +76,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	else if (ctrl == UIControl::CURSOR) {
 		mouse = cursorOperation;
 	}
-	else if (ctrl == UIControl::PARTICLE_STROKE) {
+	else if (ctrl == UIControl::SPRITE_STROKE) {
 		mouse = std::make_shared<UI::SpriteStrokeCommand>(camera, cursor);
 	}
 	else if (ctrl == UIControl::BRUSH_SCALE) {

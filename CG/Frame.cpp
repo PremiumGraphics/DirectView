@@ -182,8 +182,8 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	const int negativeId = wxNewId();
 	const int eraseId = wxNewId();
 
-	bar->AddButton(spriteId,	"Sprite", wxImage("../Resource/point.png"));
-	bar->AddButton(lineId,		"Line", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(lineId,		"Line", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(sizeId,		"Size", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(positiveId,	"+", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(negativeId,	"-", wxImage("../Resource/point.png"));
@@ -215,7 +215,14 @@ void Frame::createBonePanel(wxRibbonPage* parent)
 {
 	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Bone"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
+	
+	const int spriteId = wxNewId();
+	const int lineId = wxNewId();
 
+	bar->AddHybridButton(spriteId, "Sprite", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(lineId,	"Line", wxImage("../Resource/point.png"));
+	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneSprite));
+	Connect(lineId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneLine));
 
 	//Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
 	//Connect(ID_BONE_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneBake));
@@ -593,7 +600,7 @@ void Frame::OnCursor(wxRibbonButtonBarEvent& e)
 
 void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 {
-	model.setUIControl(Command::UIControl::PARTICLE_STROKE);
+	model.setUIControl(Command::UIControl::SPRITE_STROKE);
 }
 
 void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
@@ -679,7 +686,7 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
 	case 'X':
-		model.setUIControl(Command::UIControl::PARTICLE_STROKE);
+		model.setUIControl(Command::UIControl::SPRITE_STROKE);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
