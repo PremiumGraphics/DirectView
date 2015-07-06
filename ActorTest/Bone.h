@@ -42,9 +42,22 @@ public:
 		end->move(v);
 	}
 
+	Math::Vector3d<T> getEndPosition() const {
+		return end->getPosition();
+	}
+
 private:
 	JointSPtr<T> start;
 	JointSPtr<T> end;
 };
+
+template<typename T>
+using BoneList = std::list < Bone<T> > ;
+
+template<typename T>
+using BoneSPtr = std::shared_ptr < Bone<T> > ;
+
+template<typename T>
+using BoneSPtrList = std::list < BoneSPtr<T> > ;
 	}
 }

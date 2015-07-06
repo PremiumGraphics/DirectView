@@ -8,6 +8,7 @@
 namespace Crystal{
 	namespace Actor{
 
+
 template<typename T>
 class Joint {
 public:
@@ -25,6 +26,8 @@ public:
 		position += v;
 	}
 
+
+
 private:
 	Math::Vector3d<T> position;
 };
@@ -32,9 +35,15 @@ private:
 template<typename T>
 using JointSPtr = std::shared_ptr < Joint<T> > ;
 
+template<typename T>
+using JointSPtrVector = std::vector < JointSPtr<T> >;
+
+template<typename T>
+using JointSPtrList = std::list < JointSPtr<T> >;
 
 template<typename T>
 using JointList = std::list < Joint<T> > ;
+
 	}
 }
 
