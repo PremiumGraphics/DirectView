@@ -123,6 +123,7 @@ private:
 	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
 
+	//Shader::RendererBaseSPtrList activeRenderers;
 };
 
 	}

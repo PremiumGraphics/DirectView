@@ -104,21 +104,8 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 		smoothRenderer.render(width, height, camera);
 	}
 
-	//glClear(GL_DEPTH_BUFFER_BIT);
-	//pointRenderer.render(width, height, camera, selectedPointBuffer, true);
-	//wireframeRenderer.render(width, height, camera, triangleBuffer);
-
-	glPointSize(getConfig().pointSize);
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-
 	if (config.drawVolume) {
+		glPointSize(getConfig().pointSize);
 		volumeRenderer.render(width, height, camera);
 	}
-
-	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
 }

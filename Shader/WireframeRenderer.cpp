@@ -12,6 +12,22 @@ void WireframeRenderer::add(const Particle3d<float>& particle)
 	add(bb);
 }
 
+void WireframeRenderer::add(const Volume3d<float>& volume)
+{
+	const Math::Box<float> v(volume.getStart(), volume.getEnd());
+	add(v);
+}
+
+void WireframeRenderer::add(const Surface<float>& surface)
+{
+	for (const auto& e : surface.getEdges()) {
+		add(e->getStartPosition());
+		add(e->getEndPosition());
+	}
+	//positions.add( surface.)
+}
+
+
 void WireframeRenderer::build()
 {
 	ShaderUnit vShader;
@@ -58,17 +74,26 @@ void WireframeRenderer::build()
 
 }
 
-WireframeRenderer::Location WireframeRenderer::getLocations()
-{
-	WireframeRenderer::Location location;
+namespace {
+	struct Location {
+		GLuint projectionMatrix;
+		GLuint modelviewMatrix;
+		GLuint position;
+		GLuint id;
+	};
 
-	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
-	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
+	Location getLocations(const ShaderObject& shader)
+	{
+		Location location;
 
-	location.position = glGetAttribLocation(shader.getId(), "position");
-	location.id = glGetAttribLocation(shader.getId(), "id");
+		location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
+		location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
 
-	return location;
+		location.position = glGetAttribLocation(shader.getId(), "position");
+		location.id = glGetAttribLocation(shader.getId(), "id");
+
+		return location;
+	}
 }
 
 void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera)
@@ -92,7 +117,7 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 	glUseProgram(shader.getId());
 
-	const Location& location = getLocations();
+	const Location& location = ::getLocations(shader);
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));

@@ -20,10 +20,11 @@ public:
 
 	void add(const Math::Particle3d<float>& particle) override;
 
-	void add(const Graphics::Surface<float>& surface);
+	void add(const Graphics::Surface<float>& surface) override;
 
 	void add(const Math::Vector3d<float>& position);
 
+	void add(const Math::Volume3d<float>& volume) override{};
 
 	void clear();
 

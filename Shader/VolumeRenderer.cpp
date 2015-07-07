@@ -74,6 +74,12 @@ void VolumeRenderer::render(const int width, const int height, const Camera<floa
 		return;
 	}
 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+
+
 	const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
 	const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
 
@@ -116,6 +122,10 @@ void VolumeRenderer::render(const int width, const int height, const Camera<floa
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	glUseProgram(0);
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+
 
 	assert(GL_NO_ERROR == glGetError());
 
