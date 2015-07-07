@@ -93,6 +93,11 @@ Frame::Frame()
 	vSizer->Add( hSizer, 0, wxEXPAND );
 
 
+	positiveChargeDialog = new FloatEntryDialog(this, "Charge(+)", 1.0f);
+	positiveChargeDialog->setRange(0.0f, 1.0f);
+	negativeChargeDialog = new FloatEntryDialog(this, "Charge(-)", -1.0f);
+	negativeChargeDialog->setRange(-1.0f, 0.0f);
+
 	SetSizer( vSizer );
 	
 	Show();
@@ -622,30 +627,28 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
-	model.setParticleCharge(1.0f);
+	model.setParticleCharge(positiveChargeDialog->getValue());
 }
 
 void Frame::OnParticlePositiveConfig(wxRibbonButtonBarEvent& e)
 {
-	FloatEntryDialog dialog(this, "Charge(+)");
-	const auto result = dialog.ShowModal();
+	const auto result = positiveChargeDialog->ShowModal();
 	if (result == wxID_OK) {
-		model.setParticleCharge(dialog.getValue());
+		model.setParticleCharge(positiveChargeDialog->getValue());
 	}
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
-	model.setParticleCharge(-1.0f);
+	model.setParticleCharge(negativeChargeDialog->getValue());
 	//model.setParticleCharge(-1.0f);
 }
 
 void Frame::OnParticleNegativeConfig(wxRibbonButtonBarEvent& e)
 {
-	FloatEntryDialog dialog(this, "Charge(-)");
-	const auto result = dialog.ShowModal();
+	const auto result = negativeChargeDialog->ShowModal();
 	if (result == wxID_OK) {
-		model.setParticleCharge(-dialog.getValue());
+		model.setParticleCharge(negativeChargeDialog->getValue());
 	}
 }
 

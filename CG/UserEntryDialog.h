@@ -9,7 +9,9 @@ namespace Crystal {
 		class FloatEntryDialog : public wxDialog
 		{
 		public:
-			FloatEntryDialog(wxWindow* parent, const wxString&  title);
+			FloatEntryDialog(wxWindow* parent, const wxString&  title, const float value);
+
+			void setRange(const float min_, const float max_);
 
 			float getValue() const { return ctrl->GetValue(); }
 

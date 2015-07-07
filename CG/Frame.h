@@ -3,6 +3,8 @@
 
 #include "MainCommand.h"
 
+#include "UserEntryDialog.h"
+
 #include <memory>
 
 namespace Crystal {
@@ -125,6 +127,8 @@ private:
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
+	FloatEntryDialog* positiveChargeDialog;
+	FloatEntryDialog* negativeChargeDialog;
 };
 
 
