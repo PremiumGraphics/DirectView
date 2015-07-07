@@ -48,10 +48,18 @@ public:
 		return std::move(positions);
 	}
 
-	bool operator==(const Line3d<T>& rhs) const {
+	bool equals(const Line3d<T>& rhs) const {
 		return
 			this->start == rhs.start &&
 			this->vector == rhs.vector;
+	}
+
+	bool operator==(const Line3d<T>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Line3d<T>& rhs) const {
+		return !equals(rhs);
 	}
 
 private:

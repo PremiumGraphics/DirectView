@@ -49,3 +49,19 @@ TEST(SkeletonTest, TestBuildHand)
 	EXPECT_EQ(5, skeleton.getBones().size());
 	//skeleton.buildJoints()
 }
+
+TEST(SkeletonTest, TestBuildBody)
+{
+	using T = float;
+	Skeleton<T> skeleton;
+
+	const auto& rightSholder = skeleton.buildJoint(Vector3d<T>(5, 10, 0));
+	const auto& leftSholder = skeleton.buildJoint(Vector3d<T>(-5, 10, 0));
+
+	const auto& neck = skeleton.buildJoint(Vector3d<T>(0,10,0));
+	const auto& waist = skeleton.buildJoint(Vector3d<T>(0, 0, 0));
+
+	const auto& backbone = skeleton.buildBone(waist, neck);
+
+	//const auto rightArm = skeleton.
+}
