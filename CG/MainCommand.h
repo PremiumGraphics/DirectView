@@ -95,6 +95,8 @@ public:
 
 	void setParticleCharge(const float c) { this->particleAttribute.charge = c; }
 
+	void setParticleRadius(const float radius) { this->particleAttribute.radius = radius; }
+
 private:
 
 	Graphics::Camera<float> camera;

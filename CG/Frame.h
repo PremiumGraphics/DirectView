@@ -129,6 +129,7 @@ private:
 
 	FloatEntryDialog* positiveChargeDialog;
 	FloatEntryDialog* negativeChargeDialog;
+	FloatEntryDialog* brushSizeDialog;
 };
 
 

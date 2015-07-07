@@ -98,6 +98,9 @@ Frame::Frame()
 	negativeChargeDialog = new FloatEntryDialog(this, "Charge(-)", -1.0f);
 	negativeChargeDialog->setRange(-1.0f, 0.0f);
 
+	brushSizeDialog = new FloatEntryDialog(this, "Size", 0.5f);
+	brushSizeDialog->setRange(0.1f, 10.0f);
+
 	SetSizer( vSizer );
 	
 	Show();
@@ -616,7 +619,11 @@ void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticleSizeConfig(wxRibbonButtonBarEvent& e)
 {
-	const int size = wxGetNumberFromUser("Size",wxEmptyString, wxEmptyString);
+	const auto ret = brushSizeDialog->ShowModal();
+	if (ret == wxID_OK) {
+		model.setParticleRadius(brushSizeDialog->getValue());
+	}
+	model.setRendering();
 }
 
 
