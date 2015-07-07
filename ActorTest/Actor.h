@@ -9,7 +9,7 @@ namespace Crystal {
 	namespace Actor {
 
 template<typename T>
-class Actor {
+class Skelton {
 public:
 
 	void move(const Math::Vector3d<T>& v) {

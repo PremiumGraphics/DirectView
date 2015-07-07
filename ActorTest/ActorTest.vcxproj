@@ -87,10 +87,11 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Joint.h" />
+    <ClInclude Include="Skeleton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
+    <ClCompile Include="SkeletonTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

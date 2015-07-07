@@ -124,6 +124,8 @@ private:
 	void createRenderingPanel(wxRibbonPage* parent);
 
 	void createHelpPanel(wxRibbonPage* parent);
+
+	void createDialogs();
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 

@@ -92,14 +92,8 @@ Frame::Frame()
 	vSizer->Add( bar, 0, wxEXPAND );
 	vSizer->Add( hSizer, 0, wxEXPAND );
 
+	createDialogs();
 
-	positiveChargeDialog = new FloatEntryDialog(this, "Charge(+)", 1.0f);
-	positiveChargeDialog->setRange(0.0f, 1.0f);
-	negativeChargeDialog = new FloatEntryDialog(this, "Charge(-)", -1.0f);
-	negativeChargeDialog->setRange(-1.0f, 0.0f);
-
-	brushSizeDialog = new FloatEntryDialog(this, "Size", 0.5f);
-	brushSizeDialog->setRange(0.1f, 10.0f);
 
 	SetSizer( vSizer );
 	
@@ -107,6 +101,17 @@ Frame::Frame()
 
 	setRendering();
 
+}
+
+void Frame::createDialogs()
+{
+	positiveChargeDialog = new FloatEntryDialog(this, "Charge(+)", 1.0f);
+	positiveChargeDialog->setRange(0.0f, 1.0f);
+	negativeChargeDialog = new FloatEntryDialog(this, "Charge(-)", -1.0f);
+	negativeChargeDialog->setRange(-1.0f, 0.0f);
+
+	brushSizeDialog = new FloatEntryDialog(this, "Size", 0.5f);
+	brushSizeDialog->setRange(0.1f, 10.0f);
 }
 
 void Frame::createPanels(wxRibbonPage* parent)
