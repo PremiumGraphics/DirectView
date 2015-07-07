@@ -19,7 +19,12 @@ public:
 	{
 	}
 
-	Math::Line3d<T> getLine() const {
+
+	bool isValid() const {
+		return start != nullptr && end != nullptr;
+	}
+
+	Math::Line3d<T> toLine() const {
 		return Math::Line3d<T>(start->getPosition(), end->getPosition());
 	}
 
