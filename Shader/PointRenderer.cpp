@@ -4,6 +4,10 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+void PointRenderer::add(const Particle3d<float>& particle) {
+	add(particle.getCenter());
+}
+
 void PointRenderer::add(const Surface<float>& surface) {
 	for (const auto& e : surface.getEdges()) {
 		add(e->getStartPosition());

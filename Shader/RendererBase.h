@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Graphics/Camera.h"
+#include "../Math/Particle.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -16,6 +17,8 @@ public:
 	virtual ~RendererBase(){};
 
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera) = 0;
+
+	virtual void add(const Math::Particle3d<float>& particle) = 0;
 };
 
 class NullRenderer : public RendererBase
@@ -27,6 +30,7 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {};
 
+	virtual void add(const Math::Particle3d<float>& particle) override{};
 };
 	}
 }

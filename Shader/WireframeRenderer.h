@@ -24,6 +24,8 @@ public:
 
 	~WireframeRenderer() = default;
 
+	void add(const Math::Particle3d<float>& particle) override;
+
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override;
 
 	void build();

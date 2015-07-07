@@ -4,22 +4,31 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
 using namespace Crystal::Command;
+
+RenderingCommand::RenderingCommand() :
+wireframeRenderer(std::make_shared<WireframeRenderer>()),
+pointRenderer(std::make_shared<PointRenderer>())
+{
+
+}
+
 
 void RenderingCommand::build()
 {
 	normalRenderer.build();
-	wireframeRenderer.build();
+	wireframeRenderer->build();
 	smoothRenderer.build();
 	volumeRenderer.build();
-	pointRenderer.build();
+	pointRenderer->build();
 }
 
 void RenderingCommand::clear()
 {
-	pointRenderer.clear();
-	//selectedPointBuffer.clear();
-	wireframeRenderer.clear();
+	normalRenderer.clear();
+	pointRenderer->clear();
+	wireframeRenderer->clear();
 	smoothRenderer.clear();
 	volumeRenderer.clear();
 }
@@ -27,18 +36,17 @@ void RenderingCommand::clear()
 void RenderingCommand::add(const Particle3d<float>& particle)
 {
 	if (config.drawPoint) {
-		pointRenderer.add(particle.getCenter());
+		pointRenderer->add(particle);
 	}
 	if (config.drawWire) {
-		const auto& bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());
-		wireframeRenderer.add(bb);
+		wireframeRenderer->add(particle);
 	}
 }
 
 void RenderingCommand::add(const Surface<float>& surface)
 {
 	if (config.drawWire) {
-		wireframeRenderer.add(surface);
+		wireframeRenderer->add(surface);
 	}
 	if (config.drawNormal) {
 		normalRenderer.add(surface);
@@ -51,7 +59,7 @@ void RenderingCommand::add(const Surface<float>& surface)
 void RenderingCommand::add(const Volume3d<float>& volume)
 {
 	if (config.drawWire) {
-		wireframeRenderer.add(volume);
+		wireframeRenderer->add(volume);
 	}
 	/*
 	if (config.drawCells) {
@@ -66,7 +74,7 @@ void RenderingCommand::add(const Volume3d<float>& volume)
 void RenderingCommand::add(const Line3d<float>& line)
 {
 	if (config.drawWire) {
-		wireframeRenderer.add(line);
+		wireframeRenderer->add(line);
 	}
 }
 
@@ -81,11 +89,11 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	glLineWidth(getConfig().lineWidth);
 
 	if (config.drawPoint) {
-		pointRenderer.render(width, height, camera);
+		pointRenderer->render(width, height, camera);
 	}
 
 	if (config.drawWire) {
-		wireframeRenderer.render(width, height, camera);
+		wireframeRenderer->render(width, height, camera);
 	}
 
 	if (config.drawNormal) {

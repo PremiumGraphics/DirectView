@@ -6,6 +6,12 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+void WireframeRenderer::add(const Particle3d<float>& particle)
+{
+	const auto& bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());
+	add(bb);
+}
+
 void WireframeRenderer::build()
 {
 	ShaderUnit vShader;

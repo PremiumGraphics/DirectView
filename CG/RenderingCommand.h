@@ -50,7 +50,7 @@ class RenderingCommand final : UnCopyable
 {
 
 public:
-	RenderingCommand() = default;
+	RenderingCommand();
 
 	~RenderingCommand() = default;
 
@@ -115,9 +115,11 @@ public:
 private:
 	RenderingConfig<float> config;
 
+	std::shared_ptr< Shader::NullRenderer > nullRenderer;
+	std::shared_ptr< Shader::WireframeRenderer > wireframeRenderer;
 	Shader::NormalRenderer normalRenderer;
-	Shader::PointRenderer pointRenderer;
-	Shader::WireframeRenderer wireframeRenderer;
+	std::shared_ptr< Shader::PointRenderer > pointRenderer;
+	//Shader::WireframeRenderer wireframeRenderer;
 	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
 
