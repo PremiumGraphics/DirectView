@@ -16,11 +16,10 @@ void WireframeRenderer::build()
 		"out vec3 color;					\n"
 		"uniform mat4 projectionMatrix;		\n"
 		"uniform mat4 modelviewMatrix;		\n"
-		"uniform int isSelected;			\n"
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
-		"	color.r = isSelected;			\n"
+		"	color.r = 0;			\n"
 		//"	color.g = id / 255.0;			\n"
 		"	color.g = 0;					\n"
 		"	color.b = 0;					\n"
@@ -59,7 +58,6 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
-	location.isSelected = glGetUniformLocation(shader.getId(), "isSelected");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
 	location.id = glGetAttribLocation(shader.getId(), "id");
@@ -67,7 +65,7 @@ WireframeRenderer::Location WireframeRenderer::getLocations()
 	return location;
 }
 
-void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera, const bool isSelected)
+void WireframeRenderer::render(const int width, const int height, const Camera<float>& camera)
 {
 	if (positions.empty()) {
 		return;
@@ -92,22 +90,17 @@ void WireframeRenderer::render(const int width, const int height, const Camera<f
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
-	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
 
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
 
 	//const auto positions = buffer.getPositions();
 
 	glDrawArrays(GL_LINES, 0, positions.size() / 3);
 
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 

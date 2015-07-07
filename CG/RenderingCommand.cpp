@@ -85,7 +85,7 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	}
 
 	if (config.drawWire) {
-		wireframeRenderer.render(width, height, camera, false);
+		wireframeRenderer.render(width, height, camera);
 	}
 
 	if (config.drawNormal) {

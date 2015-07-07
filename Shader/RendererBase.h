@@ -11,11 +11,22 @@ namespace Crystal {
 class RendererBase : private UnCopyable
 {
 public:
-	RendererBase(){}
+	RendererBase() = default;
 
 	virtual ~RendererBase(){};
 
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera) = 0;
+};
+
+class NullRenderer : public RendererBase
+{
+public:
+	NullRenderer() = default;
+
+	~NullRenderer() = default;
+
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {};
+
 };
 	}
 }

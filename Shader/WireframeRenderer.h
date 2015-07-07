@@ -11,10 +11,12 @@
 #include "../Math/Line.h"
 #include "../Util/UnCopyable.h"
 
+#include "RendererBase.h"
+
 namespace Crystal {
 	namespace Shader {
 
-class WireframeRenderer final : private UnCopyable
+class WireframeRenderer final : public RendererBase
 {
 public:
 
@@ -22,7 +24,7 @@ public:
 
 	~WireframeRenderer() = default;
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const bool isSelected);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) override;
 
 	void build();
 
@@ -32,7 +34,6 @@ private:
 		GLuint modelviewMatrix;
 		GLuint position;
 		GLuint id;
-		GLuint isSelected;
 	};
 
 	Location getLocations();
