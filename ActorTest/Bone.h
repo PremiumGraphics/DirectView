@@ -13,12 +13,13 @@ class Bone
 public:
 	Bone() = default;
 
+	~Bone() = default;
+
 	Bone(const JointSPtr<T>& start, const JointSPtr<T>& end) :
 		start(start),
 		end(end)
 	{
 	}
-
 
 	bool isValid() const {
 		return start != nullptr && end != nullptr;

@@ -11,4 +11,5 @@ TEST(BoneTest, Test)
 	const auto j2 = std::make_shared< Joint<float> >(Vector3d<float>(1, 1, 1));
 
 	const Bone<float> bone(j1, j2);
+	EXPECT_TRUE(bone.isValid());
 }

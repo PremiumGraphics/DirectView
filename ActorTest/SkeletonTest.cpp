@@ -14,6 +14,19 @@ TEST(SkeletonTest, TestBuild)
 	EXPECT_EQ(2, actor.getJoints().size());
 }
 
+TEST(SkeletonTest, TestToLines)
+{
+	using T = float;
+	Skeleton<T> actor;
+	actor.buildBone(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const auto& actual = actor.toLines();
+
+	Line3dVector<T> expected{
+		Line3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1))
+	};
+	EXPECT_EQ(expected, actual);
+}
+
 TEST(SkeletonTest, TestBuildHand)
 {
 	using T = float;
@@ -26,11 +39,11 @@ TEST(SkeletonTest, TestBuildHand)
 	const auto& third = skeleton.buildJoint(Vector3d<T>(1, 2, 0));
 	const auto& forth = skeleton.buildJoint(Vector3d<T>(2, 2, 0));
 
-	skeleton.createBone(root, first);
-	skeleton.createBone(root, second);
-	skeleton.createBone(root, middle);
-	skeleton.createBone(root, third);
-	skeleton.createBone(root, forth);
+	skeleton.buildBone(root, first);
+	skeleton.buildBone(root, second);
+	skeleton.buildBone(root, middle);
+	skeleton.buildBone(root, third);
+	skeleton.buildBone(root, forth);
 
 	EXPECT_EQ(6, skeleton.getJoints().size());
 	EXPECT_EQ(5, skeleton.getBones().size());

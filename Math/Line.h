@@ -48,6 +48,12 @@ public:
 		return std::move(positions);
 	}
 
+	bool operator==(const Line3d<T>& rhs) const {
+		return
+			this->start == rhs.start &&
+			this->vector == rhs.vector;
+	}
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> vector;

@@ -12,15 +12,36 @@ template<typename T>
 class Skeleton {
 public:
 
+	Skeleton() = default;
+
+	~Skeleton() = default;
+
 	void move(const Math::Vector3d<T>& v) {
 		for (auto& j : joints) {
 			j->move(v);
 		}
 	}
 
+	bool isValid() const {
+		for (const auto& b : bones) {
+			if (!b->isValid()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	Math::Line3dVector<T> toLines() const {
+		Math::Line3dVector<T> lines;
+		for (const auto& b : bones) {
+			lines.emplace_back(b->toLine());
+		}
+		return lines;
+	}
+	
 	BoneSPtr<T> buildBone(const Math::Vector3d<T>& start, const Math::Vector3d<T>& end) {
 		const auto& js = buildJoints({ start, end });
-		const auto& b = createBone(js[0], js[1]);
+		const auto& b = buildBone(js[0], js[1]);
 		return b;
 	}
 
@@ -50,7 +71,7 @@ public:
 		return j;
 	}
 
-	BoneSPtr<T> createBone(const JointSPtr<T>& j1, const JointSPtr<T>& j2) {
+	BoneSPtr<T> buildBone(const JointSPtr<T>& j1, const JointSPtr<T>& j2) {
 		const auto b = std::make_shared< Bone<T> >(j1, j2);
 		bones.push_back(b);
 		return b;
