@@ -86,6 +86,7 @@
     <ClInclude Include="GLee.h" />
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
+    <ClInclude Include="RendererBase.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="VolumeRenderer.h" />

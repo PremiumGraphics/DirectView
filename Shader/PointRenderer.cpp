@@ -35,7 +35,7 @@ void PointRenderer::build()
 		"void main(void)					\n"
 		"{\n"
 		"	gl_Position = projectionMatrix * modelviewMatrix * vec4( position, 1.0 );\n"
-		"	color.r = isSelected;			\n"
+		"	color.r = 0;			\n"
 		//"	color.g = id / 255.0;			\n"
 		"	color.g = 0;					\n"
 		"	color.b = 0;					\n"
@@ -74,7 +74,6 @@ PointRenderer::Location PointRenderer::getLocations()
 
 	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
 	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
-	location.isSelected = glGetUniformLocation(shader.getId(), "isSelected");
 
 	location.position = glGetAttribLocation(shader.getId(), "position");
 
@@ -82,7 +81,7 @@ PointRenderer::Location PointRenderer::getLocations()
 }
 
 
-void PointRenderer::render(const int width, const int height, const Camera<float>& camera, const bool isSelected)
+void PointRenderer::render(const int width, const int height, const Camera<float>& camera)
 {
 	if (positions.empty()) {
 		return;
@@ -107,7 +106,6 @@ void PointRenderer::render(const int width, const int height, const Camera<float
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.front()));
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
-	glUniform1i(location.isSelected, isSelected);
 
 	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
 	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));

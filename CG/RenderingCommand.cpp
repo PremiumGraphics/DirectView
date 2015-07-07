@@ -81,7 +81,7 @@ void RenderingCommand::render(const int width, const int height, const Camera<fl
 	glLineWidth(getConfig().lineWidth);
 
 	if (config.drawPoint) {
-		pointRenderer.render(width, height, camera, false);
+		pointRenderer.render(width, height, camera);
 	}
 
 	if (config.drawWire) {

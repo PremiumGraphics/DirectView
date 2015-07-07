@@ -17,5 +17,6 @@
     <ClInclude Include="VolumeRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="WireframeRenderer.h" />
+    <ClInclude Include="RendererBase.h" />
   </ItemGroup>
 </Project>

@@ -5,11 +5,12 @@
 #include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
 #include "ShaderObject.h"
+#include "RendererBase.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class PointRenderer final : private UnCopyable
+class PointRenderer final : public RendererBase
 {
 public:
 
@@ -24,7 +25,7 @@ public:
 
 	void clear();
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera, const bool isSelected);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) override;
 
 	void build();
 
@@ -33,7 +34,6 @@ private:
 		GLuint projectionMatrix;
 		GLuint modelviewMatrix;
 		GLuint position;
-		GLuint isSelected;
 	};
 
 	Location getLocations();
