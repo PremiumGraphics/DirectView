@@ -10,6 +10,17 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+void SmoothRenderer::add(const Surface<float>& surface)
+{
+	for (const auto& v : surface.getVertices()) {
+		const auto& pos = v->getPosition();
+		const auto& norms = v->getNormal();
+		add(pos, norms);
+	}
+	//positions.add( surface.)
+}
+
+
 void SmoothRenderer::build()
 {
 	ShaderUnit vShader;

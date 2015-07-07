@@ -161,7 +161,7 @@ public:
 	}
 
 
-	void add(const Particle3d<T>& metaball, const T factor) {
+	void add(const Particle3d<T>& metaball) {
 		const auto& center = metaball.getCenter();
 		const auto& radius = metaball.getRadius();
 		for (size_t x = 0; x < getSizeX(); ++x ) {
@@ -169,7 +169,7 @@ public:
 				for (size_t z = 0; z < getSizeZ(); ++z) {
 					const auto& pos = toCenterPosition(x, y, z);
 					if (center.getDistanceSquared(pos) < radius * radius) {
-						const auto v = metaball.getValue(pos) * factor;
+						const auto v = metaball.getValue(pos);
 						grid.add(x, y, z, v);
 					}
 					/*

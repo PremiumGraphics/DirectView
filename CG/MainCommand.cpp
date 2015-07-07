@@ -99,7 +99,7 @@ void MainCommand::postMouseEvent()
 	const UI::PostEvent& e = mouse->getPostEvent();
 	if (e.doBakeParticle) {
 		const Particle3d<float>& particle = toParticle(cursor);
-		volume.add(particle, 0.1f);
+		volume.add(particle);
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);
 		return;
@@ -108,7 +108,7 @@ void MainCommand::postMouseEvent()
 		const auto& line = lineOperation->getLine();
 		const auto& positions = line.toPositions(10);
 		for (const auto& p : positions) {
-			volume.add(toParticle(p), 1.0f);
+			volume.add( toParticle(p) );
 		}
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);

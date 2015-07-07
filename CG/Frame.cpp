@@ -8,6 +8,7 @@
 #include "wx/filename.h"
 
 #include "VolumeDialog.h"
+#include "UserEntryDialog.h"
 
 #include "wx/numdlg.h"
 
@@ -621,13 +622,16 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
-	//model.setParticleCharge(1.0f);
 	model.setParticleCharge(1.0f);
 }
 
 void Frame::OnParticlePositiveConfig(wxRibbonButtonBarEvent& e)
 {
-	const int size = wxGetNumberFromUser("Charge", wxEmptyString, wxEmptyString);
+	FloatEntryDialog dialog(this, "Charge(+)");
+	const auto result = dialog.ShowModal();
+	if (result == wxID_OK) {
+		model.setParticleCharge(dialog.getValue());
+	}
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
@@ -638,7 +642,11 @@ void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticleNegativeConfig(wxRibbonButtonBarEvent& e)
 {
-	const int size = wxGetNumberFromUser("Charge", wxEmptyString, wxEmptyString);
+	FloatEntryDialog dialog(this, "Charge(-)");
+	const auto result = dialog.ShowModal();
+	if (result == wxID_OK) {
+		model.setParticleCharge(-dialog.getValue());
+	}
 }
 
 void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)

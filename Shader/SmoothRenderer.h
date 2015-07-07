@@ -29,15 +29,7 @@ public:
 
 	void add(const Math::Volume3d<float>& volume) override {};
 
-	void add(const Graphics::Surface<float>& surface) override
-	{
-		for (const auto& v : surface.getVertices()) {
-			const auto& pos = v->getPosition();
-			const auto& norms = v->getNormal();
-			add(pos, norms);
-		}
-		//positions.add( surface.)
-	}
+	void add(const Graphics::Surface<float>& surface) override;
 
 	void clear() {
 		positions.clear();

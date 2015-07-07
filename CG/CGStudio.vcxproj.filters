@@ -15,6 +15,9 @@
     <ClCompile Include="MouseCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="UserEntryDialog.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="MouseCommand.h">
       <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="UserEntryDialog.h">
+      <Filter>Dialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
