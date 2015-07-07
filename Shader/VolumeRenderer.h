@@ -9,11 +9,12 @@
 #include "../Graphics/Surface.h"
 #include "../Graphics/Camera.h"
 #include "../Util/UnCopyable.h"
+#include "RendererBase.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class VolumeRenderer final : private UnCopyable
+class VolumeRenderer final : public RendererBase
 {
 public:
 
@@ -21,21 +22,17 @@ public:
 
 	~VolumeRenderer() = default;
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera);
+
+	void add(const Math::Particle3d<float>& particle) override{};
+
+	void add(const Graphics::Surface<float>& surface) override{};
+
+	void add(const Math::Volume3d<float>& volume) override;
+
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) override;
 
 	void build();
 
-	void add(const Math::Volume3d<float>& volume) {
-		const auto& ps = volume.toCenterPositions();
-		const auto& vs = volume.getValues();
-		assert(ps.size() == vs.size());
-		for (size_t i = 0; i < ps.size(); ++i) {
-			const auto& pss = ps[i].toArray();
-			positions.insert(positions.end(), pss.begin(), pss.end());
-			values.emplace_back(vs[i]);
-		}
-		//positions.add( surface.)
-	}
 
 
 	void clear() {

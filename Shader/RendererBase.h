@@ -28,6 +28,9 @@ public:
 	virtual void add(const Math::Volume3d<float>& volume) = 0;
 
 	virtual void add(const Graphics::Surface<float>& surface) = 0;
+
+	virtual void build() = 0;
+
 };
 
 using RendererBaseSPtr = std::shared_ptr < RendererBase > ;
@@ -48,6 +51,8 @@ public:
 	void add(const Math::Volume3d<float>& volume) override{};
 
 	void add(const Graphics::Surface<float>& surface) override{};
+
+	void build() override{};
 
 };
 	}

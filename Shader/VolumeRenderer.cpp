@@ -6,6 +6,20 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+void VolumeRenderer::add(const Volume3d<float>& volume)
+{
+	const auto& ps = volume.toCenterPositions();
+	const auto& vs = volume.getValues();
+	assert(ps.size() == vs.size());
+	for (size_t i = 0; i < ps.size(); ++i) {
+		const auto& pss = ps[i].toArray();
+		positions.insert(positions.end(), pss.begin(), pss.end());
+		values.emplace_back(vs[i]);
+	}
+	//positions.add( surface.)
+}
+
+
 void VolumeRenderer::build()
 {
 	ShaderUnit vShader;

@@ -11,19 +11,26 @@
 #include "../Graphics/Material.h"
 #include "../Graphics/Surface.h"
 
+#include "RendererBase.h"
+
 namespace Crystal {
 	namespace Shader {
 
-class SmoothRenderer final {
+class SmoothRenderer final : public RendererBase {
 public:
 
 	SmoothRenderer() = default;
 
 	~SmoothRenderer() = default;
 
-	void build();
+	void build() override;
 
-	void add(const Graphics::Surface<float>& surface) {
+	void add(const Math::Particle3d<float>& particle) override {};
+
+	void add(const Math::Volume3d<float>& volume) override {};
+
+	void add(const Graphics::Surface<float>& surface) override
+	{
 		for (const auto& v : surface.getVertices()) {
 			const auto& pos = v->getPosition();
 			const auto& norms = v->getNormal();
@@ -38,7 +45,7 @@ public:
 	}
 
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera );
+	void render(const int width, const int height, const Graphics::Camera<float>& camera ) override;
 
 private:
 	ShaderObject shader;
