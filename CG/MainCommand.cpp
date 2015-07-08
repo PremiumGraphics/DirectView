@@ -15,8 +15,8 @@ MainCommand::MainCommand()
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
-	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
-	boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
+	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor, volume);
+	//boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 
 	mouse = cameraOperation;
 	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
@@ -88,7 +88,6 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = std::make_shared<UI::BrushScaleCommand>(camera, spriteStrokeCommand->particleAttribute.radius);
 	}
 	else if (ctrl == UIControl::LINE_STROKE) {
-		lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 		mouse = lineOperation;
 	}
 	else if (ctrl == UIControl::BONE_STROKE) {
@@ -106,16 +105,6 @@ void MainCommand::postMouseEvent()
 	}
 	mouse->doPost();
 	const UI::PostEvent& e = mouse->getPostEvent();
-	if (e.doBakeBone) {
-		const auto& line = lineOperation->getLine();
-		const auto& positions = line.toPositions(10);
-		for (const auto& p : positions) {
-			volume.add( spriteStrokeCommand->toParticle(p) );
-		}
-		const auto& s = toSurface(volume, 0.5);
-		setRendering(*s);
-		return;
-	}
 	if (e.doPreview) {
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);

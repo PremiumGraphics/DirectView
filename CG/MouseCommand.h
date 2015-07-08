@@ -10,19 +10,17 @@
 namespace Crystal {
 	namespace UI {
 
-class PostEvent {
-public:
-	bool doPreview;
-	bool doBakeBone;
-};
+		class PostEvent {
+		public:
+			bool doPreview;
+		};
 
 class MouseOperationCommand
 {
 public:
 	MouseOperationCommand(Graphics::Camera<float>& camera) :
 		camera(camera),
-		_doRealTimePreview(true),
-		_doRealTimeBakeBone(false)
+		_doRealTimePreview(true)
 	{}
 
 
@@ -56,7 +54,6 @@ public:
 
 	PostEvent getPostEvent() {
 		PostEvent e;
-		e.doBakeBone = _doRealTimeBakeBone;
 		e.doPreview = _doRealTimePreview;
 		return e;
 	}
@@ -88,7 +85,6 @@ protected:
 
 	Graphics::Camera<float>& camera;
 	bool _doRealTimePreview;
-	bool _doRealTimeBakeBone;
 
 private:
 	Graphics::ScreenCoord mouseCoord;

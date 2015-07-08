@@ -37,6 +37,19 @@ void LineStrokeCommand::onLeftButtonDown()
 void LineStrokeCommand::onLeftButtonUp()
 {
 	endPosition = cursor;
-	_doRealTimeBakeBone = true;
+	doRealTimeBake = true;
 	_doRealTimePreview = true;
+}
+
+void LineStrokeCommand::doPost()
+{
+	if (!doRealTimeBake) {
+		return;
+	}
+	const auto& line = getLine();
+	const auto& positions = line.toPositions(10);
+	for (const auto& p : positions) {
+		volume.add(toParticle(p));
+	}
+
 }

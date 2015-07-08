@@ -2,6 +2,7 @@
 #define __CRYSTAL_UI_LINE_STROKE_COMMAND_H__
 
 #include "MouseCommand.h"
+#include "../Math/Volume.h"
 
 namespace Crystal {
 	namespace UI {
@@ -9,9 +10,11 @@ namespace Crystal {
 class LineStrokeCommand : public MouseOperationCommand
 {
 public:
-	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
+	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3d<float>& volume) :
 		MouseOperationCommand(camera),
-		cursor(cursor)
+		cursor(cursor),
+		volume(volume),
+		doRealTimeBake(false)
 	{}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -28,10 +31,21 @@ public:
 
 	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
+	virtual void doPost() override;
+
 private:
 	Math::Vector3d<float> startPosition;
 	Math::Vector3d<float> endPosition;
 	Math::Vector3d<float>& cursor;
+	Math::Volume3d<float>& volume;
+
+	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
+		return Math::Particle3d<float>(pos, particleAttribute);
+	}
+
+	Math::Particle3d<float>::Attribute particleAttribute;
+
+	bool doRealTimeBake;
 };
 
 	}
