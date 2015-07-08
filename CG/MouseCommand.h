@@ -44,9 +44,11 @@ public:
 
 	virtual bool doSurfaceConstruction() const { return _doSurfaceConstruction; }
 
+	virtual bool doBakeParticlesToVolume() const { return false; }
+
 	virtual DisplayList getDisplayList() const { return DisplayList(); }
 
-
+	virtual std::vector<Math::Particle3d<float> > getParticles() const { return std::vector < Math::Particle3d<float> >(); }
 
 protected:
 	Math::Vector3d<float> toScreenCoord2d(const Math::Vector3d<float>& src) {

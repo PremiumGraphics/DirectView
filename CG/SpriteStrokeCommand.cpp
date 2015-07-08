@@ -22,9 +22,3 @@ void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 	radius += toCoord3d(toScreenCoord2d(v)).getY();
 	_doRealTimeBake = false;
 }
-
-void SpriteStrokeCommand::bake()
-{
-	const Particle3d<float>& particle = toParticle(cursor);
-	volume->add(particle);
-}

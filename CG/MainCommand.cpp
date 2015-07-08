@@ -19,8 +19,8 @@ MainCommand::MainCommand()
 	surface = std::make_shared< Surface<float> >();
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
-	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
-	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor, volume);
+	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor);
+	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 	//boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 
 	mouse = cameraOperation;
@@ -31,6 +31,7 @@ MainCommand::MainCommand()
 
 void MainCommand::clear()
 {
+	surface = std::make_shared< Surface<float> >();
 	//volumeCommand.clear();
 	volume->setValue(0.0f);
 	skeleton.clear();
@@ -91,6 +92,12 @@ void MainCommand::setUIControl(const UIControl ctrl)
 void MainCommand::postMouseEvent()
 {
 	mouse->doPost();
+	if (mouse->doBakeParticlesToVolume()) {
+		const auto& particles = mouse->getParticles();
+		for (const auto& p : particles) {
+			volume->add(p);
+		}
+	}
 	if (mouse->doSurfaceConstruction()) {
 		this->surface = std::make_shared< Surface<float> >();
 		const auto& triangles = mc.march(*volume, 0.5);//vConfig.threshold);

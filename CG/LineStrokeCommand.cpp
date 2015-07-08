@@ -5,10 +5,9 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::UI;
 
-LineStrokeCommand::LineStrokeCommand(Camera<float>& camera, Vector3d<float>& cursor, Volume3dSPtr<float>& volume) :
+LineStrokeCommand::LineStrokeCommand(Camera<float>& camera, Vector3d<float>& cursor) :
 MouseOperationCommand(camera),
 cursor(cursor),
-volume(volume),
 radius(0.5f),
 density(1.0f),
 doRealTimeBake(false)
@@ -51,16 +50,12 @@ void LineStrokeCommand::onRightButtonUp()
 	_doSurfaceConstruction = true;
 }
 
-void LineStrokeCommand::doPost()
+std::vector<Particle3d<float> > LineStrokeCommand::getParticles() const
 {
-	if (!doRealTimeBake) {
-		return;
-	}
-	const auto& line = getLine();
-
-	const auto& positions = line.toPositionsByLength(radius);
+	std::vector<Particle3d<float> > particles;
+	const auto& positions = getLine().toPositionsByLength(radius);
 	for (const auto& p : positions) {
-		volume->add(toParticle(p));
+		particles.push_back(toParticle(p));
 	}
-
+	return particles;
 }

@@ -12,10 +12,9 @@ class SpriteStrokeCommand : public MouseOperationCommand
 {
 public:
 
-	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3dSPtr<float>& volume) :
+	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
 		MouseOperationCommand(camera),
 		cursor(cursor),
-		volume(volume),
 		radius( 0.5f),
 		density( 0.1f)
 		//	_doRealTimeBake(false)
@@ -35,26 +34,25 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
+	virtual bool doBakeParticlesToVolume() const override { return true; }
+
 	DisplayList getDisplayList() const override {
 		DisplayList list;
 		list.add(toParticle(cursor));
 		return list;
 	}
 
-	virtual void doPost(){
-		if (_doRealTimeBake) {
-			bake();
-		}
-	};
-
 	void setCharge(const float c) { this->density = c; }
 
 	float getCharge() const { return density; }
 
+	std::vector< Math::Particle3d<float> > getParticles() const override{
+		return{ toParticle(cursor) };
+	}
+
 private:
 	Math::Vector3d<float>& cursor;
 	bool _doRealTimeBake;
-	Math::Volume3dSPtr<float>& volume;
 	float radius;
 	float density;
 	//Math::Particle3d<float>::Attribute attribute;

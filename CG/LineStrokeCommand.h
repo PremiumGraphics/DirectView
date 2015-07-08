@@ -11,7 +11,7 @@ namespace Crystal {
 class LineStrokeCommand : public MouseOperationCommand
 {
 public:
-	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3dSPtr<float>& volume);
+	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor);
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& v) override;
 
@@ -23,8 +23,6 @@ public:
 
 	virtual void onRightButtonUp() override;
 
-	virtual void doPost() override;
-
 	DisplayList getDisplayList() const override {
 		DisplayList list;
 		list.add(toParticle(cursor));
@@ -32,12 +30,16 @@ public:
 		return list;
 	}
 
+	virtual bool doBakeParticlesToVolume() const override { return doRealTimeBake; }
+
+
+	virtual std::vector<Math::Particle3d<float> > getParticles() const override;
+
 
 private:
 	Math::Vector3d<float> startPosition;
 	Math::Vector3d<float> endPosition;
 	Math::Vector3d<float>& cursor;
-	Math::Volume3dSPtr<float> volume;
 
 	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
