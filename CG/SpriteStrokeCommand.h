@@ -34,6 +34,8 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
+	virtual bool doSurfaceConstruction() const override { return _doSurfaceConstruct; }
+
 	virtual bool doBakeParticlesToVolume() const override { return _doRealTimeBake; }
 
 	//virtual bool doRealTimeBake() const override { return}
@@ -59,6 +61,7 @@ private:
 	//Math::Particle3d<float>::Attribute attribute;
 
 	bool _doRealTimeBake;
+	bool _doSurfaceConstruct;
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, radius, density);

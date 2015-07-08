@@ -26,8 +26,8 @@ void LineStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
 	endPosition = cursor;
-	doRealTimeBake = true;
-	_doSurfaceConstruction = true;
+	doRealTimeBake = false;
+	_doSurfaceConstruction = false;
 	//particle.addRadius(src.getX());
 }
 
@@ -42,7 +42,7 @@ void LineStrokeCommand::onRightButtonDown()
 {
 	startPosition = cursor;
 	doRealTimeBake = false;
-
+	_doSurfaceConstruction = false;
 }
 
 void LineStrokeCommand::onRightButtonUp()

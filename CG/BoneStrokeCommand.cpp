@@ -19,7 +19,7 @@ void BoneStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
 	endPosition = cursor;
-	_doSurfaceConstruction = true;
+	//_doSurfaceConstruction = true;
 	//particle.addRadius(src.getX());
 }
 
@@ -39,5 +39,5 @@ void BoneStrokeCommand::onLeftButtonUp()
 {
 	endPosition = cursor;
 	doRealTimeBake = true;
-	_doSurfaceConstruction = true;
+	//_doSurfaceConstruction = true;
 }

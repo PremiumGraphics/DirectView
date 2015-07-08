@@ -35,6 +35,8 @@ public:
 
 	virtual std::vector<Math::Particle3d<float> > getParticles() const override;
 
+	virtual bool doSurfaceConstruction() const override { return _doSurfaceConstruction; }
+
 
 private:
 	Math::Vector3d<float> startPosition;
@@ -51,6 +53,8 @@ private:
 	float density;
 
 	bool doRealTimeBake;
+	bool _doSurfaceConstruction;
+
 };
 
 	}
