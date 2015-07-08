@@ -7,20 +7,20 @@ using namespace Crystal::UI;
 void SpriteStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
-	_doRealTimeBakeParticle = false;
+	_doRealTimeBake = false;
 }
 
 void SpriteStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
-	_doRealTimeBakeParticle = true;
+	_doRealTimeBake = true;
 
 }
 
 void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 {
-	attribute.radius += toCoord3d(toScreenCoord2d(v)).getY();
-	_doRealTimeBakeParticle = false;
+	radius += toCoord3d(toScreenCoord2d(v)).getY();
+	_doRealTimeBake = false;
 }
 
 void SpriteStrokeCommand::bake()

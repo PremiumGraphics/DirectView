@@ -9,6 +9,8 @@ LineStrokeCommand::LineStrokeCommand(Camera<float>& camera, Vector3d<float>& cur
 MouseOperationCommand(camera),
 cursor(cursor),
 volume(volume),
+radius(0.5f),
+density(1.0f),
 doRealTimeBake(false)
 {}
 
@@ -30,7 +32,7 @@ void LineStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 
 void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 {
-	attr.radius += toCoord3d(toScreenCoord2d(v)).getY();
+	radius += toCoord3d(toScreenCoord2d(v)).getY();
 	_doSurfaceConstruction = true;
 	doRealTimeBake = false;
 }
@@ -56,7 +58,7 @@ void LineStrokeCommand::doPost()
 	}
 	const auto& line = getLine();
 
-	const auto& positions = line.toPositionsByLength(attr.radius);
+	const auto& positions = line.toPositionsByLength(radius);
 	for (const auto& p : positions) {
 		volume->add(toParticle(p));
 	}

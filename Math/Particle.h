@@ -14,27 +14,10 @@ template<typename T>
 class Particle3d
 {
 public:
-	struct Attribute {
-		T radius;
-		T charge;
-		Attribute() :
-			radius(0.5),
-			charge(1)
-		{}
-	};
-
 	Particle3d() :
 		radius(1),
 		charge(1)
 	{}
-
-	Particle3d(const Vector3d<T>& center, const Attribute& attr) :
-		center( center ),
-		radius( attr.radius ),
-		charge( attr.charge )
-	{
-
-	}
 
 	Particle3d(const Vector3d<T>& center, const T radius, const T charge) :
 		center(center),

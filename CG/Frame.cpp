@@ -636,14 +636,14 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
-	case 'X':
+	case 'Z':
 		model.setUIControl(Command::UIControl::SPRITE_STROKE);
+		break;
+	case 'X':
+		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
-		break;
-	case 'B':
-		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;
 	case 'N':
 		//model.setParticleCharge(-1.0f);

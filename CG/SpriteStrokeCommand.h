@@ -15,10 +15,12 @@ public:
 	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3dSPtr<float>& volume) :
 		MouseOperationCommand(camera),
 		cursor(cursor),
-		volume(volume)
+		volume(volume),
+		radius( 0.5f),
+		density( 0.1f)
 		//	_doRealTimeBake(false)
 	{
-		_doRealTimeBakeParticle = false;
+		_doRealTimeBake = false;
 		//_doRealTimePreview = false;
 
 	}
@@ -29,7 +31,7 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual void onLeftDoubleClicked() override { attribute.charge *= -1.0f; }
+	virtual void onLeftDoubleClicked() override { density *= -1.0f; }
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
@@ -43,21 +45,23 @@ public:
 
 
 	virtual void doPost(){
-		if (_doRealTimeBakeParticle) {
+		if (_doRealTimeBake) {
 			bake();
 		}
 	};
 
 private:
 	Math::Vector3d<float>& cursor;
-	bool _doRealTimeBakeParticle;
+	bool _doRealTimeBake;
 	Math::Volume3dSPtr<float>& volume;
-	Math::Particle3d<float>::Attribute attribute;
+	float radius;
+	float density;
+	//Math::Particle3d<float>::Attribute attribute;
 
 	//bool _doRealTimeBake;
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, attribute);
+		return Math::Particle3d<float>(pos, radius, density);
 	}
 
 

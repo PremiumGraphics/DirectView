@@ -9,6 +9,8 @@ BoneStrokeCommand::BoneStrokeCommand(Camera<float>& camera, Vector3d<float>& cur
 MouseOperationCommand(camera),
 cursor(cursor),
 volume(volume),
+radius(0.5f),
+density(0.1f),
 doRealTimeBake(false)
 {}
 
@@ -46,7 +48,7 @@ void BoneStrokeCommand::doPost()
 		return;
 	}
 	const auto& line = getLine();
-	const auto& positions = line.toPositionsByLength(attr.radius);
+	const auto& positions = line.toPositionsByLength(radius*2.0);
 	for (const auto& p : positions) {
 		volume.add(toParticle(p));
 	}
