@@ -13,13 +13,16 @@ class LineStrokeCommand : public MouseOperationCommand
 public:
 	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3d<float>& volume);
 
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingLeft(const Math::Vector3d<float>& v) override;
+
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual void onLeftButtonDown() override;
 
-	virtual void onLeftButtonUp() override;
+	virtual void onRightButtonDown() override;
+
+	virtual void onRightButtonUp() override;
 
 	virtual void doPost() override;
 

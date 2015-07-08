@@ -116,6 +116,23 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
+	if (event.RightDown()) {
+		model.onRightButtonDown();
+		draw(GetSize());
+		SwapBuffers();
+
+		return;
+	}
+
+	if (event.RightUp()) {
+		model.onRightButtonUp();
+		draw(GetSize());
+		SwapBuffers();
+
+		return;
+	}
+
+
 	//wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
 
 

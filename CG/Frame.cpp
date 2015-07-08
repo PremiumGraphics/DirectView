@@ -118,7 +118,7 @@ void Frame::createPanels(wxRibbonPage* parent)
 	createFilePanel(parent);
 	createCameraPanel(parent);
 	createBrushPanel(parent);
-	createBonePanel(parent);
+	createSkeletonPanel(parent);
 	createCanvasPanel(parent);
 	createRenderingPanel(parent);
 	createHelpPanel(parent);
@@ -200,18 +200,18 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	//Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 }
 
-void Frame::createBonePanel(wxRibbonPage* parent)
+void Frame::createSkeletonPanel(wxRibbonPage* parent)
 {
-	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Bone"));
+	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Skeleton"));
 	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 	
 	const int spriteId = wxNewId();
 	const int lineId = wxNewId();
 
-	bar->AddHybridButton(spriteId, "Sprite", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(lineId,	"Line", wxImage("../Resource/point.png"));
-	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneSprite));
-	Connect(lineId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneLine));
+	bar->AddHybridButton(spriteId, "Joint", wxImage("../Resource/point.png"));
+	bar->AddHybridButton(lineId,	"Bone", wxImage("../Resource/point.png"));
+	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnJoint));
+	Connect(lineId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBone));
 
 	//Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
 	//Connect(ID_BONE_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneBake));

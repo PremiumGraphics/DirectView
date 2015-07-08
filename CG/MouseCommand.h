@@ -31,6 +31,8 @@ public:
 
 	virtual void onRightButtonDown(){};
 
+	virtual void onRightButtonUp(){};
+
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src){};
 
 	virtual void onDraggingRight(const Math::Vector3d<float>& src){};

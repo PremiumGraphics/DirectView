@@ -67,9 +67,9 @@ private:
 
 	void OnStrokeLine(wxRibbonButtonBarEvent& e);
 
-	void OnBoneSprite(wxRibbonButtonBarEvent& e){};
+	void OnJoint(wxRibbonButtonBarEvent& e){};
 
-	void OnBoneLine(wxRibbonButtonBarEvent& e){};
+	void OnBone(wxRibbonButtonBarEvent& e){};
 
 	void OnBoneMove(wxRibbonButtonBarEvent& e);
 
@@ -101,7 +101,7 @@ private:
 
 	void createBrushPanel(wxRibbonPage* parent);
 
-	void createBonePanel(wxRibbonPage* parent);
+	void createSkeletonPanel(wxRibbonPage* parent);
 
 	void createCanvasPanel(wxRibbonPage* parent);
 

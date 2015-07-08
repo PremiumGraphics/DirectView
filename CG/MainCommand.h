@@ -92,6 +92,17 @@ public:
 		postMouseEvent();
 	}
 
+	void onRightButtonDown() {
+		mouse->onRightButtonDown();
+		postMouseEvent();
+	}
+
+	void onRightButtonUp() {
+		mouse->onRightButtonUp();
+		postMouseEvent();
+	}
+
+
 	void setUIControl(const UIControl ctrl);
 
 	RenderingConfig<float> getRenderingConfig() const { return rendering.getConfig(); }
