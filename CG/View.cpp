@@ -61,6 +61,7 @@ void View::OnPaint(wxPaintEvent&)
 void View::OnMouse(wxMouseEvent& event)
 {
 	if (event.LeftDClick()) {
+		model.onLeftDoubleClick();
 		/*
 		const int width = GetClientSize().GetWidth();
 		const int height = GetClientSize().GetHeight();
@@ -96,9 +97,9 @@ void View::OnMouse(wxMouseEvent& event)
 
 	if (event.RightDClick()) {
 		model.onRightDoubleClick();
-		//model->bakeParticleToVolume();
 		return;
 	}
+
 
 	if (event.LeftDown()) {
 		model.onLeftButtonDown();

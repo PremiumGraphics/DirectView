@@ -61,8 +61,6 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnCursor(wxRibbonButtonBarEvent& e);
-
 	void OnStrokeSprite(wxRibbonButtonBarEvent& e);
 
 	void OnParticlePositive(wxRibbonButtonBarEvent& e);
@@ -108,8 +106,6 @@ private:
 	void createFilePanel(wxRibbonPage* parent);
 
 	void createCameraPanel(wxRibbonPage* parent);
-
-	void createCursorPanel(wxRibbonPage* parent);
 
 	void createBrushPanel(wxRibbonPage* parent);
 

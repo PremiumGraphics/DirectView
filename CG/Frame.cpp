@@ -117,7 +117,6 @@ void Frame::createPanels(wxRibbonPage* parent)
 {
 	createFilePanel(parent);
 	createCameraPanel(parent);
-	createCursorPanel(parent);
 	createBrushPanel(parent);
 	createBonePanel(parent);
 	createCanvasPanel(parent);
@@ -170,17 +169,6 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 
 	Connect(cameraId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraControl));
 	Connect(centerId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
-}
-
-void Frame::createCursorPanel(wxRibbonPage* parent)
-{
-	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Cursor"));
-	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-
-	const int cursorId = wxNewId();
-	bar->AddButton(cursorId, "Corsor", wxImage("../Resource/point.png"));
-
-	Connect(cursorId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCursor));
 }
 
 void Frame::createBrushPanel(wxRibbonPage* parent)
@@ -603,11 +591,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnCursor(wxRibbonButtonBarEvent& e)
-{
-	model.setUIControl(Command::UIControl::CURSOR);
-}
-
 void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::SPRITE_STROKE);
@@ -700,9 +683,6 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
-		break;
-	case 'Z':
-		model.setUIControl(Command::UIControl::CURSOR);
 		break;
 	case 'B':
 		model.setUIControl(Command::UIControl::LINE_STROKE);

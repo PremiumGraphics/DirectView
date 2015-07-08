@@ -23,7 +23,6 @@ namespace Crystal {
 
 enum class UIControl {
 	CAMERA,
-	CURSOR,
 	SPRITE_STROKE,
 	LINE_STROKE,
 	PARTICLE_ERASE,
@@ -72,6 +71,12 @@ public:
 		postMouseEvent();
 	}
 
+	void onLeftDoubleClick() {
+		mouse->onLeftDoubleClicked();
+		postMouseEvent();
+	}
+
+
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
 		mouse->onDraggingMiddle(diff);
 		postMouseEvent();
@@ -108,7 +113,6 @@ private:
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
-	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
 	std::shared_ptr<UI::LineStrokeCommand> boneOperation;
 

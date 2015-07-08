@@ -14,7 +14,6 @@ MainCommand::MainCommand()
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
-	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor, volume);
 	//boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 
@@ -77,9 +76,6 @@ void MainCommand::setUIControl(const UIControl ctrl)
 {
 	if (ctrl == UIControl::CAMERA) {
 		mouse = cameraOperation;
-	}
-	else if (ctrl == UIControl::CURSOR) {
-		mouse = cursorOperation;
 	}
 	else if (ctrl == UIControl::SPRITE_STROKE) {
 		mouse = spriteStrokeCommand;

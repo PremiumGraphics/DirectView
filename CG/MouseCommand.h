@@ -81,43 +81,6 @@ public:
 	virtual bool doRealTimePreview() const override  { return false; }
 
 };
-
-class Cursor3dOperationCommand : public MouseOperationCommand
-{
-public:
-	Cursor3dOperationCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
-		MouseOperationCommand(camera),
-		cursor(cursor)//,
-		//	_doRealTimeBake(false)
-	{
-		//_doRealTimePreview = false;
-	}
-
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
-
-	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
-
-private:
-	Math::Vector3d<float>& cursor;
-	//bool _doRealTimeBake;
-};
-
-
-
-
-/*
-class JointCreateCommand : public MouseOperationCommand
-{
-public:
-	JointCreateCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
-		MouseOperationCommand(camera),
-		cursor(cursor)
-	{}
-
-private:
-	Math::Vector3d<float>& cursor;
-};
-*/
 	}
 }
 

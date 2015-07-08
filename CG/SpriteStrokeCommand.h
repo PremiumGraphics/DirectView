@@ -17,7 +17,8 @@ public:
 		volume(volume)
 		//	_doRealTimeBake(false)
 	{
-		_doRealTimeBakeParticle = true;
+		_doRealTimeBakeParticle = false;
+		//_doRealTimePreview = false;
 
 	}
 
@@ -26,6 +27,8 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual void onLeftDoubleClicked() override { attribute.charge *= -1.0f; }
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
