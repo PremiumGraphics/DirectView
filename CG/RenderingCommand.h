@@ -8,6 +8,7 @@
 #include "../Shader/VolumeRenderer.h"
 
 #include "../Util/UnCopyable.h"
+#include "DisplayList.h"
 
 namespace Crystal{
 	namespace Command {
@@ -58,33 +59,8 @@ public:
 
 	void clear();
 
-	//void add(const Math::Vector3d<float>& cursor);
 
-	void add(const Math::Particle3d<float>& particle);
-
-	void add(const Graphics::Surface<float>& surface);
-
-	void add(const Math::Volume3d<float>& volume);
-
-	void add(const Math::Line3d<float>& line);
-
-	/*
-	void addCells(const Math::Volume3d<float>& v) {
-		const auto& cells = v.toCells();
-		for (const auto c : cells) {
-			const auto& space = c.getSpace();
-			const Math::Box<float> box(space.getStart(), space.getEnd());
-			lineBuffer.add(box);
-		}
-	}
-	*/
-
-	/*
-	void add(const Math::Particle3d<float>& particle) {
-		const auto& center = particle.getCenter();
-		pointRenderer.add(center);
-	}
-	*/
+	void set(const UI::DisplayList& list);
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
@@ -122,6 +98,16 @@ private:
 	//Shader::WireframeRenderer wireframeRenderer;
 	Shader::SmoothRenderer smoothRenderer;
 	Shader::VolumeRenderer volumeRenderer;
+
+
+	void add(const Math::Particle3d<float>& particle);
+
+	void add(const Graphics::Surface<float>& surface);
+
+	void add(const Math::Volume3d<float>& volume);
+
+	void add(const Math::Line3d<float>& line);
+
 
 	//Shader::RendererBaseSPtrList activeRenderers;
 };

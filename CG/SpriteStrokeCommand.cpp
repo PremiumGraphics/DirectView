@@ -26,5 +26,5 @@ void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 void SpriteStrokeCommand::bake()
 {
 	const Particle3d<float>& particle = toParticle(cursor);
-	volume.add(particle);
+	volume->add(particle);
 }

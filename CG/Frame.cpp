@@ -625,7 +625,7 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 	dialog.set(attr);
 	const auto result = dialog.ShowModal();
 	if (result == wxID_OK) {
-		Math::Volume3d<float> v(dialog.get());
+		Math::Volume3dSPtr<float> v = std::make_shared<Math::Volume3d<float> >(dialog.get());
 		model.setVolume(v);
 		setRendering();
 	}

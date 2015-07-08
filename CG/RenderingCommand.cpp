@@ -33,6 +33,22 @@ void RenderingCommand::clear()
 	volumeRenderer.clear();
 }
 
+void RenderingCommand::set(const Crystal::UI::DisplayList& list)
+{
+	for (const auto& l : list.getLines()) {
+		add(l);
+	}
+	for (const auto& p : list.getParticles()) {
+		add(p);
+	}
+	for (const auto& v : list.getVolumes()) {
+		add(*v);
+	}
+	for (const auto& s : list.getSurfaces()) {
+		add(*s);
+	}
+}
+
 void RenderingCommand::add(const Particle3d<float>& particle)
 {
 	if (config.drawPoint) {

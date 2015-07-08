@@ -40,7 +40,7 @@ public:
 		camera.init();
 	}
 
-	void setVolume(const Math::Volume3d<float> v) { volume = v; }
+	void setVolume(const Math::Volume3dSPtr<float>& v) { volume = v; }
 
 	void doExport(const std::string& filename) const;
 
@@ -52,7 +52,7 @@ public:
 		rendering.render(width, height, camera);
 	}
 
-	void setRendering(const Graphics::Surface<float>& s);
+	void setRendering(const Graphics::SurfaceSPtr<float>& s);
 
 	void setRendering();
 
@@ -116,7 +116,7 @@ public:
 private:
 
 	Graphics::Camera<float> camera;
-	Math::Volume3d<float> volume;
+	Math::Volume3dSPtr<float> volume;
 
 	RenderingCommand rendering;
 	Math::Volume3d<float>::Attribute vConfig;

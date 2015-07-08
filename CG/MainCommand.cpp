@@ -19,8 +19,8 @@ MainCommand::MainCommand()
 
 	mouse = cameraOperation;
 	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-	Volume3d<float> v(vConfig.space, grid);
-	volume = v;
+	//Volume3d<float> v(vConfig.space, grid);
+	volume = std::make_shared< Volume3d<float> >( vConfig.space, grid );
 	//createPreVolume(1.0);
 	//surfaceCommand.create(v, 0.5);
 	setRendering();
@@ -29,7 +29,7 @@ MainCommand::MainCommand()
 void MainCommand::clear()
 {
 	//volumeCommand.clear();
-	volume.setValue(0.0f);
+	volume->setValue(0.0f);
 	skeleton.clear();
 	//bakedSurfaces.clear();
 }
@@ -39,7 +39,7 @@ void MainCommand::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
-	const auto& surface = toSurface(volume, 0.5f);
+	const auto& surface = toSurface(*volume, 0.5f);
 	for (const auto& f : surface->getFaces()) {
 		Math::Vector3dVector<float> positions;
 		for (const auto& e : f->getEdges()) {
@@ -56,27 +56,24 @@ void MainCommand::doExport(const std::string& filename) const
 }
 
 
-void MainCommand::setRendering( const Surface<float>& s)
+void MainCommand::setRendering( const SurfaceSPtr<float>& s)
 {
 	rendering.clear();
 	//rendering.add( spriteStrokeCommand->toParticle(cursor) );
-	const auto& ps = spriteStrokeCommand->getDisplayList().getParticles();
-	for (const auto& p : ps) {
-		rendering.add(p);
-	}
-	const auto& ls = lineOperation->getDispayList().getLines();
-	for (const auto& l : ls) {
-		rendering.add(l);
-	}
+	DisplayList list;
+	list.add(spriteStrokeCommand->getDisplayList());
+	list.add(lineOperation->getDispayList());
 
-	rendering.add(volume);
-	rendering.add(s);
+
+	list.add(volume);
+	list.add(s);
+	rendering.set(list);
 }
 
 void MainCommand::setRendering()
 {
-	const auto& s = toSurface(volume, 0.5);
-	setRendering(*s);
+	const auto& s = toSurface(*volume, 0.5);
+	setRendering(s);
 }
 
 
@@ -103,9 +100,9 @@ void MainCommand::setUIControl(const UIControl ctrl)
 void MainCommand::postMouseEvent()
 {
 	mouse->doPost();
-	if (mouse->doRealTimePreview()) {
-		const auto& s = toSurface(volume, 0.5);
-		setRendering(*s);
+	if (mouse->doSurfaceConstruction()) {
+		const auto& s = toSurface(*volume, 0.5);
+		setRendering(s);
 	}
 }
 

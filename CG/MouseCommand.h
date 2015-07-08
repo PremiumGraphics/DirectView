@@ -15,7 +15,7 @@ class MouseOperationCommand
 public:
 	MouseOperationCommand(Graphics::Camera<float>& camera) :
 		camera(camera),
-		_doRealTimePreview(true)
+		_doSurfaceConstruction(true)
 	{}
 
 
@@ -41,7 +41,7 @@ public:
 
 	virtual void doPost(){};
 
-	virtual bool doRealTimePreview() const { return _doRealTimePreview; }
+	virtual bool doSurfaceConstruction() const { return _doSurfaceConstruction; }
 
 
 protected:
@@ -59,7 +59,7 @@ protected:
 	}
 
 	Graphics::Camera<float>& camera;
-	bool _doRealTimePreview;
+	bool _doSurfaceConstruction;
 
 private:
 	Graphics::ScreenCoord mouseCoord;
@@ -71,7 +71,7 @@ public:
 	CameraOperationCommand(Graphics::Camera<float>& camera) :
 		MouseOperationCommand(camera)
 	{
-		_doRealTimePreview = false;
+		_doSurfaceConstruction = false;
 	}
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
@@ -80,7 +80,7 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual bool doRealTimePreview() const override  { return false; }
+	virtual bool doSurfaceConstruction() const override  { return false; }
 
 };
 	}

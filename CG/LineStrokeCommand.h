@@ -11,7 +11,7 @@ namespace Crystal {
 class LineStrokeCommand : public MouseOperationCommand
 {
 public:
-	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3d<float>& volume);
+	LineStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3dSPtr<float>& volume);
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& v) override;
 
@@ -36,7 +36,7 @@ private:
 	Math::Vector3d<float> startPosition;
 	Math::Vector3d<float> endPosition;
 	Math::Vector3d<float>& cursor;
-	Math::Volume3d<float>& volume;
+	Math::Volume3dSPtr<float> volume;
 
 	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 

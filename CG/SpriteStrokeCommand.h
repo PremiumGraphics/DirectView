@@ -12,7 +12,7 @@ class SpriteStrokeCommand : public MouseOperationCommand
 {
 public:
 
-	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3d<float>& volume) :
+	SpriteStrokeCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor, Math::Volume3dSPtr<float>& volume) :
 		MouseOperationCommand(camera),
 		cursor(cursor),
 		volume(volume)
@@ -51,7 +51,7 @@ public:
 private:
 	Math::Vector3d<float>& cursor;
 	bool _doRealTimeBakeParticle;
-	Math::Volume3d<float>& volume;
+	Math::Volume3dSPtr<float>& volume;
 	Math::Particle3d<float>::Attribute attribute;
 
 	//bool _doRealTimeBake;
