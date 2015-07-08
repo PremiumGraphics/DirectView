@@ -28,13 +28,10 @@ void LineStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 	//particle.addRadius(src.getX());
 }
 
-void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
+void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 {
-	const Math::Vector3d<float> v(0, 0, diff.getY());
-	endPosition = cursor;
-	cursor += (toCoord3d(v * 1));
+	attr.radius += toCoord3d(toScreenCoord2d(v)).getY();
 	doRealTimeBake = false;
-
 }
 
 void LineStrokeCommand::onRightButtonDown()
@@ -57,7 +54,7 @@ void LineStrokeCommand::doPost()
 		return;
 	}
 	const auto& line = getLine();
-	const auto& positions = line.toPositions(10);
+	const auto& positions = line.toPositionsByLength(attr.radius);
 	for (const auto& p : positions) {
 		volume.add(toParticle(p));
 	}

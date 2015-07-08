@@ -26,19 +26,15 @@ public:
 
 	Vector3d<T> getPosition(const T param) const { return start + vector * param; }
 
-	T getLength() const { vector.getLength(); }
+	T getLength() const { return vector.getLength(); }
 
-	/*
-	Vector3dVector<T> toPositions(const T divideLength) const{
+	Vector3dVector<T> toPositionsByLength(const T divideLength) const{
 		Vector3dVector<T> positions;
-		const auto dt = divideLength / getLength();
-		for (auto x = 0; i < divideLength; ) {
-			const auto p = divParam * i;
-		}
+		const unsigned int howMany = getLength() / divideLength;
+		return toPositionsByNumber(howMany);
 	}
-	*/
 
-	Vector3dVector<T> toPositions(const unsigned int howMany) const {
+	Vector3dVector<T> toPositionsByNumber(const unsigned int howMany) const {
 		Vector3dVector<T> positions;
 		const auto dt = T(1) / static_cast<T>(howMany);
 		for (size_t i = 0; i < howMany; ++i) {

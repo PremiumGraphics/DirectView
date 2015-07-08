@@ -35,10 +35,10 @@ private:
 
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, particleAttribute);
+		return Math::Particle3d<float>(pos, attr);
 	}
 
-	Math::Particle3d<float>::Attribute particleAttribute;
+	Math::Particle3d<float>::Attribute attr;
 
 	bool doRealTimeBake;
 };

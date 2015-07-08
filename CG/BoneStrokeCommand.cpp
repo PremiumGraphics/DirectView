@@ -46,7 +46,7 @@ void BoneStrokeCommand::doPost()
 		return;
 	}
 	const auto& line = getLine();
-	const auto& positions = line.toPositions(10);
+	const auto& positions = line.toPositionsByLength(attr.radius);
 	for (const auto& p : positions) {
 		volume.add(toParticle(p));
 	}
