@@ -24,6 +24,9 @@
     <ClCompile Include="LineStrokeCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="BoneStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -57,6 +60,9 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="DisplayList.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
