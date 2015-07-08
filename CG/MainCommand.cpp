@@ -63,8 +63,7 @@ void MainCommand::setRendering( const SurfaceSPtr<float>& s)
 	rendering.clear();
 	//rendering.add( spriteStrokeCommand->toParticle(cursor) );
 	DisplayList list;
-	list.add(spriteStrokeCommand->getDisplayList());
-	list.add(lineOperation->getDispayList());
+	list.add(mouse->getDisplayList());
 
 
 	list.add(volume);

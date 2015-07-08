@@ -25,8 +25,9 @@ public:
 
 	virtual void doPost() override;
 
-	DisplayList getDispayList() const {
+	DisplayList getDisplayList() const override {
 		DisplayList list;
+		list.add(toParticle(cursor));
 		list.add(getLine());
 		return list;
 	}
