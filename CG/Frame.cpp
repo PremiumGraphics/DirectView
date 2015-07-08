@@ -178,15 +178,10 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	const int spriteId = wxNewId();
 	const int lineId = wxNewId();
-	const int sizeId = wxNewId();
-	const int positiveId = wxNewId();
-	const int negativeId = wxNewId();
 	const int eraseId = wxNewId();
 
 	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(lineId,		"Line", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(positiveId,	"+", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(negativeId,	"-", wxImage("../Resource/point.png"));
 	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
 
 
@@ -195,10 +190,6 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
 	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
-	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
-	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositiveConfig));
-	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
-	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegativeConfig));
 
 
 	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
@@ -599,39 +590,6 @@ void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 {
 	//model.setUIControl);
-}
-
-void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
-{
-	//model.setParticleCharge(positiveChargeDialog->getValue());
-}
-
-void Frame::OnParticlePositiveConfig(wxRibbonButtonBarEvent& e)
-{
-	/*
-	const auto result = positiveChargeDialog->ShowModal();
-	if (result == wxID_OK) {
-		model.setParticleCharge(positiveChargeDialog->getValue());
-	}
-	*/
-}
-
-void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
-{
-	/*
-	model.setParticleCharge(negativeChargeDialog->getValue());
-	//model.setParticleCharge(-1.0f);
-	*/
-}
-
-void Frame::OnParticleNegativeConfig(wxRibbonButtonBarEvent& e)
-{
-	/*
-	const auto result = negativeChargeDialog->ShowModal();
-	if (result == wxID_OK) {
-		model.setParticleCharge(negativeChargeDialog->getValue());
-	}
-	*/
 }
 
 void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)
