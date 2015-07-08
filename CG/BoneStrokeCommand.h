@@ -23,8 +23,6 @@ public:
 
 	virtual void onLeftButtonUp() override;
 
-	virtual void doPost() override;
-
 	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
 private:

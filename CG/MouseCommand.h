@@ -40,11 +40,11 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
-	virtual void doPost(){};
-
 	virtual bool doSurfaceConstruction() const { return _doSurfaceConstruction; }
 
 	virtual bool doBakeParticlesToVolume() const { return false; }
+
+	virtual bool doRefresh() const { return true; }
 
 	virtual DisplayList getDisplayList() const { return DisplayList(); }
 
@@ -85,6 +85,8 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual bool doRefresh() const override { return false; }
 
 	virtual bool doSurfaceConstruction() const override  { return false; }
 

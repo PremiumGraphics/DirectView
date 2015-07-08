@@ -34,7 +34,9 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
-	virtual bool doBakeParticlesToVolume() const override { return true; }
+	virtual bool doBakeParticlesToVolume() const override { return _doRealTimeBake; }
+
+	//virtual bool doRealTimeBake() const override { return}
 
 	DisplayList getDisplayList() const override {
 		DisplayList list;
@@ -52,12 +54,11 @@ public:
 
 private:
 	Math::Vector3d<float>& cursor;
-	bool _doRealTimeBake;
 	float radius;
 	float density;
 	//Math::Particle3d<float>::Attribute attribute;
 
-	//bool _doRealTimeBake;
+	bool _doRealTimeBake;
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, radius, density);

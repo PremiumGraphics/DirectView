@@ -91,7 +91,6 @@ void MainCommand::setUIControl(const UIControl ctrl)
 
 void MainCommand::postMouseEvent()
 {
-	mouse->doPost();
 	if (mouse->doBakeParticlesToVolume()) {
 		const auto& particles = mouse->getParticles();
 		for (const auto& p : particles) {
@@ -104,6 +103,8 @@ void MainCommand::postMouseEvent()
 		for (const auto& t : triangles) {
 			surface->add(t, Graphics::ColorRGBA<float>::Blue());
 		}
+	}
+	if (mouse->doRefresh()) {
 		setRendering();
 	}
 }

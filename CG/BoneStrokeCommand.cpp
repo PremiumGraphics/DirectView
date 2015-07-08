@@ -41,16 +41,3 @@ void BoneStrokeCommand::onLeftButtonUp()
 	doRealTimeBake = true;
 	_doSurfaceConstruction = true;
 }
-
-void BoneStrokeCommand::doPost()
-{
-	if (!doRealTimeBake) {
-		return;
-	}
-	const auto& line = getLine();
-	const auto& positions = line.toPositionsByLength(radius*2.0);
-	for (const auto& p : positions) {
-		volume.add(toParticle(p));
-	}
-
-}
