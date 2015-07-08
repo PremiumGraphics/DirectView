@@ -31,6 +31,7 @@ void LineStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 {
 	attr.radius += toCoord3d(toScreenCoord2d(v)).getY();
+	_doRealTimePreview = true;
 	doRealTimeBake = false;
 }
 

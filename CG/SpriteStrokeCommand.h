@@ -2,6 +2,7 @@
 #define __CRYSTAL_UI_SPRITE_STROKE_COMMAND_H__
 
 #include "MouseCommand.h"
+#include "DisplayList.h"
 #include "../Math/Volume.h"
 
 namespace Crystal {
@@ -32,10 +33,14 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
-
-	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, attribute);
+	DisplayList getDisplayList() {
+		DisplayList list;
+		list.add(toParticle(cursor));
+		return list;
 	}
+
+
+
 
 	virtual void doPost(){
 		if (_doRealTimeBakeParticle) {
@@ -51,6 +56,9 @@ private:
 
 	//bool _doRealTimeBake;
 
+	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
+		return Math::Particle3d<float>(pos, attribute);
+	}
 
 
 	void bake();

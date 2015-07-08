@@ -25,7 +25,12 @@ public:
 
 	virtual void doPost() override;
 
-	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
+	DisplayList getDispayList() const {
+		DisplayList list;
+		list.add(getLine());
+		return list;
+	}
+
 
 private:
 	Math::Vector3d<float> startPosition;
@@ -33,6 +38,7 @@ private:
 	Math::Vector3d<float>& cursor;
 	Math::Volume3d<float>& volume;
 
+	Math::Line3d<float> getLine() const { return Math::Line3d<float>(startPosition, endPosition); }
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
 		return Math::Particle3d<float>(pos, attr);

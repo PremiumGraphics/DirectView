@@ -59,7 +59,16 @@ void MainCommand::doExport(const std::string& filename) const
 void MainCommand::setRendering( const Surface<float>& s)
 {
 	rendering.clear();
-	rendering.add( spriteStrokeCommand->toParticle(cursor) );
+	//rendering.add( spriteStrokeCommand->toParticle(cursor) );
+	const auto& ps = spriteStrokeCommand->getDisplayList().getParticles();
+	for (const auto& p : ps) {
+		rendering.add(p);
+	}
+	const auto& ls = lineOperation->getDispayList().getLines();
+	for (const auto& l : ls) {
+		rendering.add(l);
+	}
+
 	rendering.add(volume);
 	rendering.add(s);
 }
@@ -97,8 +106,6 @@ void MainCommand::postMouseEvent()
 	if (mouse->doRealTimePreview()) {
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);
-		const auto& line = lineOperation->getLine();
-		rendering.add(line);
 	}
 }
 

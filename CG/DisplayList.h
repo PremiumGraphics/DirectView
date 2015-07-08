@@ -10,12 +10,16 @@ namespace Crystal {
 class DisplayList {
 public:
 
+	DisplayList() = default;
+
+	~DisplayList() = default;
+
 	void add(const DisplayList& rhs) {
 		particles.insert(particles.end(), rhs.particles.begin(), rhs.particles.end());
 		lines.insert(lines.end(), rhs.lines.begin(), rhs.lines.end());
 	}
 
-	void add(const Math::ParticleSPtr<float>& p) {
+	void add(const Math::Particle3d<float>& p) {
 		particles.push_back(p);
 	}
 
@@ -28,8 +32,12 @@ public:
 		lines.clear();
 	}
 
+	std::list< Math::Particle3d<float> > getParticles() const { return particles; }
+
+	Math::Line3dVector<float> getLines() const { return lines; }
+
 private:
-	Math::ParticleSPtrList<float> particles;
+	std::list< Math::Particle3d<float> > particles;
 	Math::Line3dVector<float> lines;
 };
 	}
