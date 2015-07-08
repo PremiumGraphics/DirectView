@@ -27,6 +27,13 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
+
+	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
+		return Math::Particle3d<float>(pos, particleAttribute);
+	}
+
+	Math::Particle3d<float>::Attribute particleAttribute;
+
 private:
 	Math::Vector3d<float>& cursor;
 	//bool _doRealTimeBake;

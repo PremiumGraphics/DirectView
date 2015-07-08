@@ -13,6 +13,7 @@ MainCommand::MainCommand()
 	mc.buildTable();
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
+	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 	boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
@@ -59,7 +60,7 @@ void MainCommand::doExport(const std::string& filename) const
 void MainCommand::setRendering( const Surface<float>& s)
 {
 	rendering.clear();
-	rendering.add( toParticle(cursor) );
+	rendering.add( spriteStrokeCommand->toParticle(cursor) );
 	rendering.add(volume);
 	rendering.add(s);
 }
@@ -81,10 +82,10 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = cursorOperation;
 	}
 	else if (ctrl == UIControl::SPRITE_STROKE) {
-		mouse = std::make_shared<UI::SpriteStrokeCommand>(camera, cursor);
+		mouse = spriteStrokeCommand;
 	}
 	else if (ctrl == UIControl::BRUSH_SCALE) {
-		mouse = std::make_shared<UI::BrushScaleCommand>(camera, particleAttribute.radius);
+		mouse = std::make_shared<UI::BrushScaleCommand>(camera, spriteStrokeCommand->particleAttribute.radius);
 	}
 	else if (ctrl == UIControl::LINE_STROKE) {
 		lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
@@ -105,7 +106,7 @@ void MainCommand::postMouseEvent()
 	}
 	const UI::PostEvent& e = mouse->getPostEvent();
 	if (e.doBakeParticle) {
-		const Particle3d<float>& particle = toParticle(cursor);
+		const Particle3d<float>& particle = spriteStrokeCommand->toParticle(cursor);
 		volume.add(particle);
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);
@@ -115,7 +116,7 @@ void MainCommand::postMouseEvent()
 		const auto& line = lineOperation->getLine();
 		const auto& positions = line.toPositions(10);
 		for (const auto& p : positions) {
-			volume.add( toParticle(p) );
+			volume.add( spriteStrokeCommand->toParticle(p) );
 		}
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);

@@ -95,9 +95,9 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	void setParticleCharge(const float c) { this->particleAttribute.charge = c; }
+	void setParticleCharge(const float c) { this->spriteStrokeCommand->particleAttribute.charge = c; }
 
-	void setParticleRadius(const float radius) { this->particleAttribute.radius = radius; }
+	void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
 
 private:
 
@@ -106,10 +106,10 @@ private:
 
 	RenderingCommand rendering;
 	Math::Volume3d<float>::Attribute vConfig;
-	Math::Particle3d<float>::Attribute particleAttribute;
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
+	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
 	std::shared_ptr<UI::LineStrokeCommand> boneOperation;
@@ -121,10 +121,6 @@ private:
 	Math::MarchingCube<float> mc;
 
 	void postMouseEvent();
-
-	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, particleAttribute);
-	}
 
 	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold) const;
 
