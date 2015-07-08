@@ -19,3 +19,9 @@ void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	const Math::Vector3d<float> v(0, 0, diff.getY());
 	cursor += (toCoord3d(v * 1));
 }
+
+void SpriteStrokeCommand::bake()
+{
+	const Particle3d<float>& particle = toParticle(cursor);
+	volume.add(particle);
+}

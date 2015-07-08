@@ -13,7 +13,7 @@ MainCommand::MainCommand()
 	mc.buildTable();
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
-	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor);
+	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 	boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
@@ -104,14 +104,8 @@ void MainCommand::postMouseEvent()
 	if (!mouse->doRefresh()){
 		return;
 	}
+	mouse->doPost();
 	const UI::PostEvent& e = mouse->getPostEvent();
-	if (e.doBakeParticle) {
-		const Particle3d<float>& particle = spriteStrokeCommand->toParticle(cursor);
-		volume.add(particle);
-		const auto& s = toSurface(volume, 0.5);
-		setRendering(*s);
-		return;
-	}
 	if (e.doBakeBone) {
 		const auto& line = lineOperation->getLine();
 		const auto& positions = line.toPositions(10);

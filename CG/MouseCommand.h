@@ -13,7 +13,6 @@ namespace Crystal {
 class PostEvent {
 public:
 	bool doPreview;
-	bool doBakeParticle;
 	bool doBakeBone;
 };
 
@@ -23,7 +22,6 @@ public:
 	MouseOperationCommand(Graphics::Camera<float>& camera) :
 		camera(camera),
 		_doRealTimePreview(true),
-		_doRealTimeBakeParticle(false),
 		_doRealTimeBakeBone(false)
 	{}
 
@@ -46,6 +44,8 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
+	virtual void doPost(){};
+
 	/*
 	bool doRealTimePreview() { return _doRealTimePreview; }
 
@@ -57,7 +57,6 @@ public:
 	PostEvent getPostEvent() {
 		PostEvent e;
 		e.doBakeBone = _doRealTimeBakeBone;
-		e.doBakeParticle = _doRealTimeBakeParticle;
 		e.doPreview = _doRealTimePreview;
 		return e;
 	}
@@ -89,7 +88,6 @@ protected:
 
 	Graphics::Camera<float>& camera;
 	bool _doRealTimePreview;
-	bool _doRealTimeBakeParticle;
 	bool _doRealTimeBakeBone;
 
 private:
