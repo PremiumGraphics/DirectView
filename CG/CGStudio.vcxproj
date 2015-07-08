@@ -146,6 +146,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="LineStrokeCommand.cpp" />
     <ClCompile Include="MainCommand.cpp" />
     <ClCompile Include="MouseCommand.cpp" />
     <ClCompile Include="RenderingCommand.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="LineStrokeCommand.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="MouseCommand.h" />
     <ClInclude Include="RenderingCommand.h" />

@@ -21,6 +21,9 @@
     <ClCompile Include="SpriteStrokeCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="LineStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -48,6 +51,9 @@
       <Filter>Dialog</Filter>
     </ClInclude>
     <ClInclude Include="SpriteStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="LineStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>

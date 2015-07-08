@@ -11,6 +11,7 @@
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
 #include "SpriteStrokeCommand.h"
+#include "LineStrokeCommand.h"
 
 #include <memory>
 #include <map>
