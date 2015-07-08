@@ -18,6 +18,9 @@
     <ClCompile Include="UserEntryDialog.cpp">
       <Filter>Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="UserEntryDialog.h">
       <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteStrokeCommand.h">
+      <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

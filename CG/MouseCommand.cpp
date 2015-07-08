@@ -33,23 +33,6 @@ void Cursor3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	cursor += (toCoord3d(v * 1));
 }
 
-
-void SpriteStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
-{
-	cursor += toCoord3d(toScreenCoord2d(v));
-}
-
-void SpriteStrokeCommand::onDraggingRight(const Vector3d<float>& src)
-{
-	;
-}
-
-void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
-{
-	const Math::Vector3d<float> v(0, 0, diff.getY());
-	cursor += (toCoord3d(v * 1));
-}
-
 void BrushScaleCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	size += toCoord3d(toScreenCoord2d(v)).getX();
