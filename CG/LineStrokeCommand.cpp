@@ -2,7 +2,16 @@
 #include "LineStrokeCommand.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Graphics;
 using namespace Crystal::UI;
+
+LineStrokeCommand::LineStrokeCommand(Camera<float>& camera, Vector3d<float>& cursor, Volume3d<float>& volume) :
+MouseOperationCommand(camera),
+cursor(cursor),
+volume(volume),
+doRealTimeBake(false)
+{}
+
 
 void LineStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
@@ -12,21 +21,11 @@ void LineStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 	//particle.addRadius(src.getX());
 }
 
-void LineStrokeCommand::onDraggingRight(const Vector3d<float>& src)
-{
-	//particle.move(getScrennSpaceDiff(v * 1));
-}
-
 void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& diff)
 {
 	const Math::Vector3d<float> v(0, 0, diff.getY());
 	endPosition = cursor;
 	cursor += (toCoord3d(v * 1));
-}
-
-void LineStrokeCommand::onRightButtonDown()
-{
-
 }
 
 void LineStrokeCommand::onLeftButtonDown()

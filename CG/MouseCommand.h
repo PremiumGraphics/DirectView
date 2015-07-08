@@ -41,14 +41,6 @@ public:
 
 	bool doRealTimePreview() const { return _doRealTimePreview; }
 
-	void setMousePosition(const Graphics::ScreenCoord& c) {
-		this->mouseCoord = c;
-	}
-
-	Graphics::ScreenCoord getMousePosition() const {
-		return mouseCoord;
-	}
-
 
 protected:
 	Math::Vector3d<float> toScreenCoord2d(const Math::Vector3d<float>& src) {

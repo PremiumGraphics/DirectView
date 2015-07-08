@@ -13,6 +13,8 @@
 #include "SpriteStrokeCommand.h"
 #include "LineStrokeCommand.h"
 
+#include "DisplayList.h"
+
 #include <memory>
 #include <map>
 
@@ -55,10 +57,6 @@ public:
 	void setRendering(const Graphics::Surface<float>& s);
 
 	void setRendering();
-
-	Graphics::ScreenCoord getMousePosition() const {
-		return mouse->getMousePosition();
-	}
 
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
 		mouse->onDraggingLeft(src);
@@ -120,6 +118,8 @@ private:
 	Math::Vector3d<float> cursor;
 
 	Math::MarchingCube<float> mc;
+
+	UI::DisplayList dispList;
 
 	void postMouseEvent();
 

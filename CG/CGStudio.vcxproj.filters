@@ -56,6 +56,9 @@
     <ClInclude Include="LineStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
+    <ClInclude Include="DisplayList.h">
+      <Filter>Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
