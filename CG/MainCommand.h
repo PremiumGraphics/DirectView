@@ -52,8 +52,6 @@ public:
 		rendering.render(width, height, camera);
 	}
 
-	void setRendering(const Graphics::SurfaceSPtr<float>& s);
-
 	void setRendering();
 
 	void onDraggingLeft(const Math::Vector3d<float>& src) {
@@ -134,12 +132,13 @@ private:
 	Math::Vector3d<float> cursor;
 
 	Math::MarchingCube<float> mc;
+	Graphics::SurfaceSPtr<float> surface;
 
 	UI::DisplayList dispList;
 
 	void postMouseEvent();
 
-	Graphics::SurfaceSPtr<float> toSurface(const Math::Volume3d<float>& ss, const float threshold) const;
+	void buildSurface(const Math::Volume3d<float>& ss, const float threshold);
 
 };
 	}

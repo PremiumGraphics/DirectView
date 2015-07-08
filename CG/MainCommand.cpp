@@ -16,6 +16,7 @@ MainCommand::MainCommand()
 	//Volume3d<float> v(vConfig.space, grid);
 	volume = std::make_shared< Volume3d<float> >(vConfig.space, grid);
 
+	surface = std::make_shared< Surface<float> >();
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
@@ -41,7 +42,6 @@ void MainCommand::doExport(const std::string& filename) const
 	IO::STLFile file;
 
 	IO::STLCellVector cells;
-	const auto& surface = toSurface(*volume, 0.5f);
 	for (const auto& f : surface->getFaces()) {
 		Math::Vector3dVector<float> positions;
 		for (const auto& e : f->getEdges()) {
@@ -58,22 +58,15 @@ void MainCommand::doExport(const std::string& filename) const
 }
 
 
-void MainCommand::setRendering( const SurfaceSPtr<float>& s)
+void MainCommand::setRendering()
 {
 	//rendering.add( spriteStrokeCommand->toParticle(cursor) );
 	DisplayList list;
 	list.add(mouse->getDisplayList());
 	list.add(volume);
-	list.add(s);
+	list.add(surface);
 	rendering.set(list);
 }
-
-void MainCommand::setRendering()
-{
-	const auto& s = toSurface(*volume, 0.5);
-	setRendering(s);
-}
-
 
 
 void MainCommand::setUIControl(const UIControl ctrl)
@@ -99,19 +92,11 @@ void MainCommand::postMouseEvent()
 {
 	mouse->doPost();
 	if (mouse->doSurfaceConstruction()) {
-		const auto& s = toSurface(*volume, 0.5);
-		setRendering(s);
+		this->surface = std::make_shared< Surface<float> >();
+		const auto& triangles = mc.march(*volume, 0.5);//vConfig.threshold);
+		for (const auto& t : triangles) {
+			surface->add(t, Graphics::ColorRGBA<float>::Blue());
+		}
+		setRendering();
 	}
-}
-
-
-SurfaceSPtr<float> MainCommand::toSurface(const Volume3d<float>& ss, const float threshold) const
-{
-	auto surface = std::make_shared< Surface<float> >();
-	const auto& triangles = mc.march(ss, threshold);//vConfig.threshold);
-
-	for (const auto& t : triangles) {
-		surface->add(t, Graphics::ColorRGBA<float>::Blue());
-	}
-	return surface;
 }
