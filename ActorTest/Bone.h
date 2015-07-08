@@ -1,3 +1,6 @@
+#ifndef __CRYSTAL_ACTOR_BONE_H__
+#define __CRYSTAL_ACTOR_BONE_H__
+
 #include "../Math/Line.h"
 
 #include "Joint.h"
@@ -67,3 +70,5 @@ template<typename T>
 using BoneSPtrList = std::list < BoneSPtr<T> > ;
 	}
 }
+
+#endif

@@ -1,6 +1,7 @@
 #include <stdafx.h>
 
 #include "MainCommand.h"
+#include "../IO/STLFile.h"
 
 using namespace Crystal::UI;
 using namespace Crystal::Math;
@@ -14,6 +15,8 @@ MainCommand::MainCommand()
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	cursorOperation = std::make_shared<UI::Cursor3dOperationCommand>(camera, cursor);
 	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
+	boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
+
 	mouse = cameraOperation;
 	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
 	Volume3d<float> v(vConfig.space, grid);
@@ -27,6 +30,7 @@ void MainCommand::clear()
 {
 	//volumeCommand.clear();
 	volume.setValue(0.0f);
+	skeleton.clear();
 	//bakedSurfaces.clear();
 }
 
@@ -85,6 +89,9 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	else if (ctrl == UIControl::LINE_STROKE) {
 		lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 		mouse = lineOperation;
+	}
+	else if (ctrl == UIControl::BONE_STROKE) {
+		mouse = boneOperation;
 	}
 	else {
 		assert(false);

@@ -6,7 +6,7 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Surface.h"
 #include "../Util/UnCopyable.h"
-#include "../IO/STLFile.h"
+#include "../ActorTest/Actor.h"
 
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
@@ -24,6 +24,7 @@ enum class UIControl {
 	LINE_STROKE,
 	BRUSH_SCALE,
 	PARTICLE_ERASE,
+	BONE_STROKE,
 };
 
 class MainCommand final : private UnCopyable
@@ -102,7 +103,6 @@ private:
 	Graphics::Camera<float> camera;
 	Math::Volume3d<float> volume;
 
-
 	RenderingCommand rendering;
 	Math::Volume3d<float>::Attribute vConfig;
 	Math::Particle3d<float>::Attribute particleAttribute;
@@ -111,6 +111,9 @@ private:
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::Cursor3dOperationCommand> cursorOperation;
 	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
+	std::shared_ptr<UI::LineStrokeCommand> boneOperation;
+
+	Actor::Skeleton<float> skeleton;
 
 	Math::Vector3d<float> cursor;
 

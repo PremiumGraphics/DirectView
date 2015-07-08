@@ -215,6 +215,20 @@ private:
 	Math::Vector3d<float> endPosition;
 	Math::Vector3d<float>& cursor;
 };
+
+/*
+class JointCreateCommand : public MouseOperationCommand
+{
+public:
+	JointCreateCommand(Graphics::Camera<float>& camera, Math::Vector3d<float>& cursor) :
+		MouseOperationCommand(camera),
+		cursor(cursor)
+	{}
+
+private:
+	Math::Vector3d<float>& cursor;
+};
+*/
 	}
 }
 

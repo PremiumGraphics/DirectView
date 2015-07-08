@@ -16,6 +16,11 @@ public:
 
 	~Skeleton() = default;
 
+	void clear() {
+		bones.clear();
+		joints.clear();
+	}
+
 	void move(const Math::Vector3d<T>& v) {
 		for (auto& j : joints) {
 			j->move(v);
