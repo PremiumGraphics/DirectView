@@ -6,6 +6,7 @@
 #include "../Graphics/Camera.h"
 #include "../Math/Particle.h"
 #include "../Graphics/ScreenCoord.h"
+#include "DisplayList.h"
 
 namespace Crystal {
 	namespace UI {
@@ -42,6 +43,9 @@ public:
 	virtual void doPost(){};
 
 	virtual bool doSurfaceConstruction() const { return _doSurfaceConstruction; }
+
+	virtual DisplayList getDisplayList() const { return DisplayList(); }
+
 
 
 protected:

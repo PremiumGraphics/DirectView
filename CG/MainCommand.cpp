@@ -12,15 +12,17 @@ MainCommand::MainCommand()
 {
 	mc.buildTable();
 
+	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
+	//Volume3d<float> v(vConfig.space, grid);
+	volume = std::make_shared< Volume3d<float> >(vConfig.space, grid);
+
+
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
 	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera, cursor, volume);
 	lineOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor, volume);
 	//boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 
 	mouse = cameraOperation;
-	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
-	//Volume3d<float> v(vConfig.space, grid);
-	volume = std::make_shared< Volume3d<float> >( vConfig.space, grid );
 	//createPreVolume(1.0);
 	//surfaceCommand.create(v, 0.5);
 	setRendering();

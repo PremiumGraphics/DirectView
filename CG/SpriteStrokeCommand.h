@@ -33,7 +33,7 @@ public:
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
 
-	DisplayList getDisplayList() {
+	DisplayList getDisplayList() const override {
 		DisplayList list;
 		list.add(toParticle(cursor));
 		return list;
