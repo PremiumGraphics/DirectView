@@ -85,6 +85,12 @@ private:
 
 	void OnWireFrameConfig(wxRibbonButtonBarEvent& e);
 
+	void OnCameraXY(wxRibbonButtonBarEvent& e);
+
+	void OnCameraYZ(wxRibbonButtonBarEvent& e);
+
+	void OnCameraZX(wxRibbonButtonBarEvent& e);
+
 private:
 	View* view;
 	Command::MainCommand model;

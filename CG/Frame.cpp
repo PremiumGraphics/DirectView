@@ -159,12 +159,21 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 
 	const int cameraId = wxNewId();
 	const int centerId = wxNewId();
+	const int xyId = wxNewId();
+	const int yzId = wxNewId();
+	const int zxId = wxNewId();
 
 	bar->AddButton(cameraId, "Camera", wxImage("../Resource/view.png"));
 	bar->AddButton(centerId, "Center", wxImage("../Resource/zoom.png"));
+	bar->AddButton(xyId, "XY", wxImage("../Resource/zoom.png"));
+	bar->AddButton(yzId, "YZ", wxImage("../Resource/zoom.png"));
+	bar->AddButton(zxId, "ZX", wxImage("../Resource/zoom.png"));
 
 	Connect(cameraId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraControl));
 	Connect(centerId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraFit));
+	Connect(xyId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraXY));
+	Connect(yzId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraYZ));
+	Connect(zxId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraZX));
 }
 
 void Frame::createBrushPanel(wxRibbonPage* parent)
@@ -674,4 +683,22 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 void Frame::OnKeyUp(wxKeyEvent& event)
 {
 
+}
+
+void Frame::OnCameraXY(wxRibbonButtonBarEvent& e)
+{
+	model.getCamera()->setAngle(Vector3d<float>(0.0, 0.0, 0.0));
+	view->Refresh();
+}
+
+void Frame::OnCameraYZ(wxRibbonButtonBarEvent& e)
+{
+	model.getCamera()->setAngle(Vector3d<float>(Tolerance<float>::getHalfPI(), 0.0, 0.0));
+	view->Refresh();
+}
+
+void Frame::OnCameraZX(wxRibbonButtonBarEvent& e)
+{
+	model.getCamera()->setAngle(Vector3d<float>(0.0, Tolerance<float>::getHalfPI(), 0.0));
+	view->Refresh();
 }

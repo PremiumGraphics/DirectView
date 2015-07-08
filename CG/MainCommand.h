@@ -40,6 +40,8 @@ public:
 		camera.init();
 	}
 
+	Graphics::Camera<float>* getCamera() { return &camera; }
+
 	void setVolume(const Math::Volume3dSPtr<float>& v) { volume = v; }
 
 	void doExport(const std::string& filename) const;
