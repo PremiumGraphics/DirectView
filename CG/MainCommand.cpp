@@ -60,12 +60,9 @@ void MainCommand::doExport(const std::string& filename) const
 
 void MainCommand::setRendering( const SurfaceSPtr<float>& s)
 {
-	rendering.clear();
 	//rendering.add( spriteStrokeCommand->toParticle(cursor) );
 	DisplayList list;
 	list.add(mouse->getDisplayList());
-
-
 	list.add(volume);
 	list.add(s);
 	rendering.set(list);

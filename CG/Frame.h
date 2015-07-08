@@ -63,6 +63,8 @@ private:
 
 	void OnStrokeSprite(wxRibbonButtonBarEvent& e);
 
+	void OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e);
+
 	void OnParticleErase(wxRibbonButtonBarEvent& e);
 
 	void OnStrokeLine(wxRibbonButtonBarEvent& e);
@@ -113,8 +115,6 @@ private:
 	
 	wxDECLARE_NO_COPY_CLASS( Frame );
 
-	FloatEntryDialog* positiveChargeDialog;
-	FloatEntryDialog* negativeChargeDialog;
 	FloatEntryDialog* brushSizeDialog;
 };
 

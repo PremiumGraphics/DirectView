@@ -104,10 +104,6 @@ Frame::Frame()
 
 void Frame::createDialogs()
 {
-	positiveChargeDialog = new FloatEntryDialog(this, "Charge(+)", 1.0f);
-	positiveChargeDialog->setRange(0.0f, 1.0f);
-	negativeChargeDialog = new FloatEntryDialog(this, "Charge(-)", -1.0f);
-	negativeChargeDialog->setRange(-1.0f, 0.0f);
 
 	brushSizeDialog = new FloatEntryDialog(this, "Size", 0.5f);
 	brushSizeDialog->setRange(0.1f, 10.0f);
@@ -189,6 +185,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
 
 	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
+	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSpriteConfig));
 	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
 
 
@@ -585,6 +582,22 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::SPRITE_STROKE);
+}
+
+void Frame::OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e)
+{
+	const auto& command = model.getSpriteStrokeCommand();
+	FloatEntryDialog dialog(this, "Charge", command->getCharge());
+	dialog.setRange(-1.0f, 1.0f);
+
+	if (dialog.ShowModal() == wxID_OK) {
+		command->setCharge( dialog.getValue() );
+	}
+	else {
+		return;
+	}
+
+
 }
 
 void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)

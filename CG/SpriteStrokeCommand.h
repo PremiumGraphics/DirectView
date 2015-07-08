@@ -41,14 +41,15 @@ public:
 		return list;
 	}
 
-
-
-
 	virtual void doPost(){
 		if (_doRealTimeBake) {
 			bake();
 		}
 	};
+
+	void setCharge(const float c) { this->density = c; }
+
+	float getCharge() const { return density; }
 
 private:
 	Math::Vector3d<float>& cursor;

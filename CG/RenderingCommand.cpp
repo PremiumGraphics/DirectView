@@ -35,6 +35,7 @@ void RenderingCommand::clear()
 
 void RenderingCommand::set(const Crystal::UI::DisplayList& list)
 {
+	clear();
 	for (const auto& l : list.getLines()) {
 		add(l);
 	}

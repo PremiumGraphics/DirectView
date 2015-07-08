@@ -113,6 +113,8 @@ public:
 
 	//void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
 
+	std::shared_ptr<UI::SpriteStrokeCommand> getSpriteStrokeCommand() const { return spriteStrokeCommand; }
+
 private:
 
 	Graphics::Camera<float> camera;
