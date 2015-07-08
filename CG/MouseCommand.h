@@ -39,7 +39,7 @@ public:
 
 	virtual void doPost(){};
 
-	bool doRealTimePreview() const { return _doRealTimePreview; }
+	virtual bool doRealTimePreview() const { return _doRealTimePreview; }
 
 
 protected:
@@ -77,6 +77,9 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+
+	virtual bool doRealTimePreview() const override  { return false; }
+
 };
 
 class Cursor3dOperationCommand : public MouseOperationCommand

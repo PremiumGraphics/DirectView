@@ -65,10 +65,6 @@ private:
 
 	void OnStrokeSprite(wxRibbonButtonBarEvent& e);
 
-	void OnParticleSize(wxRibbonButtonBarEvent& e);
-
-	void OnParticleSizeConfig(wxRibbonButtonBarEvent& e);
-
 	void OnParticlePositive(wxRibbonButtonBarEvent& e);
 
 	void OnParticlePositiveConfig(wxRibbonButtonBarEvent& e);

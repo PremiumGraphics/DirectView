@@ -197,7 +197,6 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(lineId,		"Line", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(sizeId,		"Size", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(positiveId,	"+", wxImage("../Resource/point.png"));
 	bar->AddHybridButton(negativeId,	"-", wxImage("../Resource/point.png"));
 	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
@@ -208,8 +207,6 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
 	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
-	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSize));
-	Connect(sizeId,		wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleSizeConfig));
 	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositive));
 	Connect(positiveId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticlePositiveConfig));
 	Connect(negativeId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleNegative));
@@ -616,23 +613,6 @@ void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 	model.setUIControl(Command::UIControl::SPRITE_STROKE);
 }
 
-void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
-{
-	model.setUIControl(Command::UIControl::BRUSH_SCALE);
-}
-
-void Frame::OnParticleSizeConfig(wxRibbonButtonBarEvent& e)
-{
-	/*
-	const auto ret = brushSizeDialog->ShowModal();
-	if (ret == wxID_OK) {
-		model.setParticleRadius(brushSizeDialog->getValue());
-	}
-	model.setRendering();
-	*/
-}
-
-
 void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 {
 	//model.setUIControl);
@@ -723,9 +703,6 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		break;
 	case 'Z':
 		model.setUIControl(Command::UIControl::CURSOR);
-		break;
-	case 'S':
-		model.setUIControl(Command::UIControl::BRUSH_SCALE);
 		break;
 	case 'B':
 		model.setUIControl(Command::UIControl::LINE_STROKE);

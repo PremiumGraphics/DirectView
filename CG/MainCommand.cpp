@@ -84,9 +84,6 @@ void MainCommand::setUIControl(const UIControl ctrl)
 	else if (ctrl == UIControl::SPRITE_STROKE) {
 		mouse = spriteStrokeCommand;
 	}
-	else if (ctrl == UIControl::BRUSH_SCALE) {
-		;
-	}
 	else if (ctrl == UIControl::LINE_STROKE) {
 		mouse = lineOperation;
 	}
