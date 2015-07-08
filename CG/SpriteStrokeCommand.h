@@ -31,10 +31,8 @@ public:
 
 
 	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, particleAttribute);
+		return Math::Particle3d<float>(pos, attribute);
 	}
-
-	Math::Particle3d<float>::Attribute particleAttribute;
 
 	virtual void doPost(){
 		if (_doRealTimeBakeParticle) {
@@ -46,6 +44,8 @@ private:
 	Math::Vector3d<float>& cursor;
 	bool _doRealTimeBakeParticle;
 	Math::Volume3d<float>& volume;
+	Math::Particle3d<float>::Attribute attribute;
+
 	//bool _doRealTimeBake;
 
 

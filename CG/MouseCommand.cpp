@@ -32,16 +32,3 @@ void Cursor3dOperationCommand::onDraggingMiddle(const Vector3d<float>& diff)
 	const Math::Vector3d<float> v(0, 0, diff.getY());
 	cursor += (toCoord3d(v * 1));
 }
-
-void BrushScaleCommand::onDraggingLeft(const Vector3d<float>& v)
-{
-	size += toCoord3d(toScreenCoord2d(v)).getX();
-}
-
-void BrushScaleCommand::onDraggingRight(const Vector3d<float>& src)
-{
-}
-
-void BrushScaleCommand::onDraggingMiddle(const Vector3d<float>& diff)
-{
-}

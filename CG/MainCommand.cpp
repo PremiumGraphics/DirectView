@@ -85,7 +85,7 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = spriteStrokeCommand;
 	}
 	else if (ctrl == UIControl::BRUSH_SCALE) {
-		mouse = std::make_shared<UI::BrushScaleCommand>(camera, spriteStrokeCommand->particleAttribute.radius);
+		;
 	}
 	else if (ctrl == UIControl::LINE_STROKE) {
 		mouse = lineOperation;

@@ -623,11 +623,13 @@ void Frame::OnParticleSize(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticleSizeConfig(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const auto ret = brushSizeDialog->ShowModal();
 	if (ret == wxID_OK) {
 		model.setParticleRadius(brushSizeDialog->getValue());
 	}
 	model.setRendering();
+	*/
 }
 
 
@@ -638,29 +640,35 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticlePositive(wxRibbonButtonBarEvent& e)
 {
-	model.setParticleCharge(positiveChargeDialog->getValue());
+	//model.setParticleCharge(positiveChargeDialog->getValue());
 }
 
 void Frame::OnParticlePositiveConfig(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const auto result = positiveChargeDialog->ShowModal();
 	if (result == wxID_OK) {
 		model.setParticleCharge(positiveChargeDialog->getValue());
 	}
+	*/
 }
 
 void Frame::OnParticleNegative(wxRibbonButtonBarEvent& e)
 {
+	/*
 	model.setParticleCharge(negativeChargeDialog->getValue());
 	//model.setParticleCharge(-1.0f);
+	*/
 }
 
 void Frame::OnParticleNegativeConfig(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const auto result = negativeChargeDialog->ShowModal();
 	if (result == wxID_OK) {
 		model.setParticleCharge(negativeChargeDialog->getValue());
 	}
+	*/
 }
 
 void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)
@@ -723,10 +731,10 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;
 	case 'N':
-		model.setParticleCharge(-1.0f);
+		//model.setParticleCharge(-1.0f);
 		break;
 	case 'M':
-		model.setParticleCharge(1.0f);
+		//model.setParticleCharge(1.0f);
 		break;
 	default:
 		event.Skip();

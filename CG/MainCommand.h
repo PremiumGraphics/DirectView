@@ -94,9 +94,9 @@ public:
 
 	void setRenderingConfig(const RenderingConfig<float>& config) { rendering.setConfig(config); }
 
-	void setParticleCharge(const float c) { this->spriteStrokeCommand->particleAttribute.charge = c; }
+	//void setParticleCharge(const float c) { this->spriteStrokeCommand->particleAttribute.charge = c; }
 
-	void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
+	//void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
 
 private:
 

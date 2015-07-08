@@ -101,33 +101,6 @@ private:
 
 
 
-class BrushScaleCommand : public MouseOperationCommand
-{
-public:
-
-	BrushScaleCommand(Graphics::Camera<float>& camera, float& size) :
-		MouseOperationCommand(camera),
-		size(size)//,
-		//	_doRealTimeBake(false)
-	{
-		//_doRealTimeBakeParticle = true;
-
-	}
-
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
-
-	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
-
-	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
-
-	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
-
-private:
-	float& size;
-	//bool _doRealTimeBake;
-};
-
-
 
 /*
 class JointCreateCommand : public MouseOperationCommand
