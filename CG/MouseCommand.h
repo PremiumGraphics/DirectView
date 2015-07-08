@@ -10,11 +10,6 @@
 namespace Crystal {
 	namespace UI {
 
-		class PostEvent {
-		public:
-			bool doPreview;
-		};
-
 class MouseOperationCommand
 {
 public:
@@ -44,21 +39,7 @@ public:
 
 	virtual void doPost(){};
 
-	/*
-	bool doRealTimePreview() { return _doRealTimePreview; }
-
-	bool doRealTimeBakeParticle() const { return _doRealTimeBakeParticle; }
-
-	bool doRealTimeBakeBone() const { return _doRealTimeBakeBone; }
-	*/
-
-	PostEvent getPostEvent() {
-		PostEvent e;
-		e.doPreview = _doRealTimePreview;
-		return e;
-	}
-
-	virtual bool doRefresh() { return true; }
+	bool doRealTimePreview() const { return _doRealTimePreview; }
 
 	void setMousePosition(const Graphics::ScreenCoord& c) {
 		this->mouseCoord = c;
@@ -104,8 +85,6 @@ public:
 	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
-
-	virtual bool doRefresh() { return false; }
 };
 
 class Cursor3dOperationCommand : public MouseOperationCommand

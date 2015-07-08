@@ -100,12 +100,8 @@ void MainCommand::setUIControl(const UIControl ctrl)
 
 void MainCommand::postMouseEvent()
 {
-	if (!mouse->doRefresh()){
-		return;
-	}
 	mouse->doPost();
-	const UI::PostEvent& e = mouse->getPostEvent();
-	if (e.doPreview) {
+	if (mouse->doRealTimePreview()) {
 		const auto& s = toSurface(volume, 0.5);
 		setRendering(*s);
 		const auto& line = lineOperation->getLine();
