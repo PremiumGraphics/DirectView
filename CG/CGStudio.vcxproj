@@ -158,6 +158,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="RenderingModel.h" />
