@@ -9,9 +9,8 @@
 #include "../ActorTest/Actor.h"
 
 #include "RenderingCommand.h"
-#include "MouseCommand.h"
+#include "../UI/MouseCommand.h"
 #include "SpriteStrokeCommand.h"
-#include "LineStrokeCommand.h"
 
 #include "DisplayList.h"
 
@@ -24,9 +23,7 @@ namespace Crystal {
 enum class UIControl {
 	CAMERA,
 	SPRITE_STROKE,
-	LINE_STROKE,
 	PARTICLE_ERASE,
-	BONE_STROKE,
 };
 
 class MainCommand final : private UnCopyable
@@ -130,8 +127,6 @@ private:
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
-	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
-	std::shared_ptr<UI::LineStrokeCommand> boneOperation;
 
 	Actor::Skeleton<float> skeleton;
 

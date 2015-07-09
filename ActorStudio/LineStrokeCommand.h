@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_UI_LINE_STROKE_COMMAND_H__
 #define __CRYSTAL_UI_LINE_STROKE_COMMAND_H__
 
-#include "MouseCommand.h"
+#include "../UI/MouseCommand.h"
 #include "../Math/Volume.h"
 #include "DisplayList.h"
 

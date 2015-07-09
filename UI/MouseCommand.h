@@ -79,13 +79,23 @@ public:
 	{
 	}
 
-	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override {
+		const Math::Vector3d<float>& v = toScreenCoord2d(src);
+		camera.move(v);
+	}
 
-	virtual void onDraggingRight(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingRight(const Math::Vector3d<float>& src) override {
+		//const Math::Vector3d<float>& v = getDiff(src);
+		camera.addAngle(src);
+	}
 
-	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
+	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override {
+		const Math::Vector3d<float> v(0, 0, src.getY());
+		camera.move(v);
+	}
 
 	virtual bool doRefresh() const override { return false; }
+	
 
 };
 	}

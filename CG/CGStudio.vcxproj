@@ -144,12 +144,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="BoneStrokeCommand.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="LineStrokeCommand.cpp" />
     <ClCompile Include="MainCommand.cpp" />
-    <ClCompile Include="MouseCommand.cpp" />
     <ClCompile Include="RenderingCommand.cpp" />
     <ClCompile Include="SpriteStrokeCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -161,13 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BoneStrokeCommand.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="LineStrokeCommand.h" />
     <ClInclude Include="MainCommand.h" />
-    <ClInclude Include="MouseCommand.h" />
     <ClInclude Include="RenderingCommand.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />

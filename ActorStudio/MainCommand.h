@@ -9,7 +9,7 @@
 #include "../ActorTest/Actor.h"
 
 #include "RenderingCommand.h"
-#include "MouseCommand.h"
+#include "../UI/MouseCommand.h"
 #include "LineStrokeCommand.h"
 
 #include "DisplayList.h"

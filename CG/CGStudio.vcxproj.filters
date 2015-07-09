@@ -12,19 +12,10 @@
     <ClCompile Include="MainCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="MouseCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="UserEntryDialog.cpp">
       <Filter>Dialog</Filter>
     </ClCompile>
     <ClCompile Include="SpriteStrokeCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
-    <ClCompile Include="LineStrokeCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
-    <ClCompile Include="BoneStrokeCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,22 +38,13 @@
     <ClInclude Include="MainCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
-    <ClInclude Include="MouseCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
     <ClInclude Include="UserEntryDialog.h">
       <Filter>Dialog</Filter>
     </ClInclude>
     <ClInclude Include="SpriteStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
-    <ClInclude Include="LineStrokeCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
     <ClInclude Include="DisplayList.h">
-      <Filter>Command</Filter>
-    </ClInclude>
-    <ClInclude Include="BoneStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>

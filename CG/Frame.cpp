@@ -114,8 +114,6 @@ void Frame::createPanels(wxRibbonPage* parent)
 	createFilePanel(parent);
 	createCameraPanel(parent);
 	createBrushPanel(parent);
-	createSkeletonPanel(parent);
-	createCanvasPanel(parent);
 	createRenderingPanel(parent);
 	createHelpPanel(parent);
 }
@@ -186,7 +184,6 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	const int eraseId = wxNewId();
 
 	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(lineId,		"Line", wxImage("../Resource/point.png"));
 	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
 
 
@@ -195,39 +192,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
 	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSpriteConfig));
-	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
 
-
-	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
-	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
-
-
-
-	//Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
-}
-
-void Frame::createSkeletonPanel(wxRibbonPage* parent)
-{
-	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Skeleton"));
-	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-	
-	const int spriteId = wxNewId();
-	const int lineId = wxNewId();
-
-	bar->AddHybridButton(spriteId, "Joint", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(lineId,	"Bone", wxImage("../Resource/point.png"));
-	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnJoint));
-	Connect(lineId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBone));
-
-	//Connect(ID_BONE_MOVE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneMove));
-	//Connect(ID_BONE_BAKE, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnBoneBake));
-}
-
-
-void Frame::createCanvasPanel(wxRibbonPage* parent)
-{
-	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Canvas"));
-	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
 
 	const int configId = wxNewId();
 
@@ -236,6 +201,13 @@ void Frame::createCanvasPanel(wxRibbonPage* parent)
 	Connect(configId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCanvasConfig));
 	//Connect( ID_CREATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 
+
+	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
+	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
+
+
+
+	//Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 }
 
 void Frame::createRenderingPanel(wxRibbonPage* parent)
@@ -614,17 +586,6 @@ void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 {
 	//model.setUIControl);
 }
-
-void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)
-{
-	model.setUIControl(Command::UIControl::LINE_STROKE);
-}
-
-void Frame::OnBoneMove(wxRibbonButtonBarEvent& e)
-{
-	model.setUIControl(Command::UIControl::LINE_STROKE);
-}
-
 /*
 void Frame::OnBoneBake(wxRibbonButtonBarEvent& e)
 {
@@ -661,9 +622,6 @@ void Frame::OnKeyDown(wxKeyEvent& event)
 	switch (event.GetKeyCode()) {
 	case 'Z':
 		model.setUIControl(Command::UIControl::SPRITE_STROKE);
-		break;
-	case 'X':
-		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;
 	case 'C':
 		model.setUIControl(Command::UIControl::CAMERA);
