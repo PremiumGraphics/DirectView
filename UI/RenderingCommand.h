@@ -75,7 +75,7 @@ public:
 	}
 
 
-	void set(const UI::DisplayList& list) {
+	void set(const Graphics::DisplayList& list) {
 		clear();
 		for (const auto& l : list.getLines()) {
 			add(l);

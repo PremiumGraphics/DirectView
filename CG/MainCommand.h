@@ -8,7 +8,7 @@
 #include "../Util/UnCopyable.h"
 #include "../ActorTest/Actor.h"
 
-#include "RenderingCommand.h"
+#include "../UI/RenderingCommand.h"
 #include "../UI/MouseCommand.h"
 #include "SpriteStrokeCommand.h"
 
@@ -135,7 +135,7 @@ private:
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtr<float> surface;
 
-	UI::DisplayList dispList;
+	Graphics::DisplayList dispList;
 
 	void postMouseEvent();
 

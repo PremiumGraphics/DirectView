@@ -38,8 +38,8 @@ public:
 
 	//virtual bool doRealTimeBake() const override { return}
 
-	DisplayList getDisplayList() const override {
-		DisplayList list;
+	Graphics::DisplayList getDisplayList() const override {
+		Graphics::DisplayList list;
 		list.add(toParticle(brush.getPosition()));
 		return list;
 	}

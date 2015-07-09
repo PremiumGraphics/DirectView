@@ -47,7 +47,7 @@ public:
 
 	virtual bool doRefresh() const { return true; }
 
-	virtual DisplayList getDisplayList() const { return DisplayList(); }
+	virtual Graphics::DisplayList getDisplayList() const { return Graphics::DisplayList(); }
 
 	virtual std::vector<Math::Particle3d<float> > getParticles() const { return std::vector < Math::Particle3d<float> >(); }
 

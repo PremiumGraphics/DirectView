@@ -23,8 +23,8 @@ public:
 
 	virtual void onLeftButtonUp() override;
 
-	DisplayList getDisplayList() const override {
-		DisplayList list;
+	Graphics::DisplayList getDisplayList() const override {
+		Graphics::DisplayList list;
 		list.add(toParticle(cursor));
 		list.add(getLine());
 		return list;

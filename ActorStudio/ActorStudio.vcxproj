@@ -149,7 +149,6 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="LineStrokeCommand.cpp" />
     <ClCompile Include="MainCommand.cpp" />
-    <ClCompile Include="RenderingCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -163,8 +162,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="LineStrokeCommand.h" />
     <ClInclude Include="MainCommand.h" />
-    <ClInclude Include="RenderingCommand.h" />
-    <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />

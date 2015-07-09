@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_UI_DISPLAY_LIST_H__
-#define __CRYSTAL_UI_DISPLAY_LIST_H__
+#ifndef __CRYSTAL_GRAPHICS_DISPLAY_LIST_H__
+#define __CRYSTAL_GRAPHICS_DISPLAY_LIST_H__
 
 #include "../Math/Particle.h"
 #include "../Math/Volume.h"
@@ -7,7 +7,7 @@
 #include "../Graphics/Surface.h"
 
 namespace Crystal {
-	namespace UI {
+	namespace Graphics {
 
 class DisplayList final
 {
