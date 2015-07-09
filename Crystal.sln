@@ -26,6 +26,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\Phys
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActorTest", "ActorTest\ActorTest.vcxproj", "{C77522FD-0991-4572-B4A5-B68219613BE9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActorStudio", "ActorStudio\ActorStudio.vcxproj", "{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,18 @@ Global
 		{C77522FD-0991-4572-B4A5-B68219613BE9}.Release|Win32.ActiveCfg = Release|Win32
 		{C77522FD-0991-4572-B4A5-B68219613BE9}.Release|Win32.Build.0 = Release|Win32
 		{C77522FD-0991-4572-B4A5-B68219613BE9}.Release|x64.ActiveCfg = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|Win32.Build.0 = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Debug|x64.ActiveCfg = Debug|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|Any CPU.ActiveCfg = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|Win32.ActiveCfg = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|Win32.Build.0 = Release|Win32
+		{AC2F25FA-02FA-491B-ACD3-B4E5EB6C0266}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

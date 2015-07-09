@@ -113,7 +113,6 @@ void Frame::createPanels(wxRibbonPage* parent)
 {
 	createFilePanel(parent);
 	createCameraPanel(parent);
-	createBrushPanel(parent);
 	createSkeletonPanel(parent);
 	createCanvasPanel(parent);
 	createRenderingPanel(parent);
@@ -174,36 +173,6 @@ void Frame::createCameraPanel(wxRibbonPage* parent)
 	Connect(xyId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraXY));
 	Connect(yzId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraYZ));
 	Connect(zxId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCameraZX));
-}
-
-void Frame::createBrushPanel(wxRibbonPage* parent)
-{
-	wxRibbonPanel *panel = new wxRibbonPanel(parent, wxID_ANY, wxT("Brush"));
-	wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel);
-
-	const int spriteId = wxNewId();
-	const int lineId = wxNewId();
-	const int eraseId = wxNewId();
-
-	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
-	bar->AddHybridButton(lineId,		"Line", wxImage("../Resource/point.png"));
-	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
-
-
-	//operation->AddDropdownButton( ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
-	//operation->AddButton(ID_PICK_VERTEX, "Pick", wxImage("../Resource/8-direction.png"));
-
-	Connect(spriteId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSprite));
-	Connect(spriteId, wxEVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeSpriteConfig));
-	Connect(lineId,		wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnStrokeLine));
-
-
-	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
-	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
-
-
-
-	//Connect(eraseId,	wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 }
 
 void Frame::createSkeletonPanel(wxRibbonPage* parent)
@@ -588,33 +557,6 @@ void Frame::OnCapture( wxRibbonButtonBarEvent& e )
 
 }
 
-void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
-{
-	model.setUIControl(Command::UIControl::SPRITE_STROKE);
-}
-
-void Frame::OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e)
-{
-	/*
-	const auto& command = model.getSpriteStrokeCommand();
-	FloatEntryDialog dialog(this, "Charge", command->getCharge());
-	dialog.setRange(-1.0f, 1.0f);
-
-	if (dialog.ShowModal() == wxID_OK) {
-		command->setCharge( dialog.getValue() );
-	}
-	else {
-		return;
-	}
-	*/
-
-}
-
-void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
-{
-	//model.setUIControl);
-}
-
 void Frame::OnStrokeLine(wxRibbonButtonBarEvent& e)
 {
 	model.setUIControl(Command::UIControl::LINE_STROKE);
@@ -659,9 +601,6 @@ void Frame::OnCanvasConfig(wxRibbonButtonBarEvent& e)
 void Frame::OnKeyDown(wxKeyEvent& event)
 {
 	switch (event.GetKeyCode()) {
-	case 'Z':
-		model.setUIControl(Command::UIControl::SPRITE_STROKE);
-		break;
 	case 'X':
 		model.setUIControl(Command::UIControl::LINE_STROKE);
 		break;

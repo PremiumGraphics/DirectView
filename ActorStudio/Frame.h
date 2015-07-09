@@ -61,12 +61,6 @@ private:
 
 	void OnCapture( wxRibbonButtonBarEvent& e );
 
-	void OnStrokeSprite(wxRibbonButtonBarEvent& e);
-
-	void OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e);
-
-	void OnParticleErase(wxRibbonButtonBarEvent& e);
-
 	void OnStrokeLine(wxRibbonButtonBarEvent& e);
 
 	void OnJoint(wxRibbonButtonBarEvent& e){};
@@ -106,8 +100,6 @@ private:
 	void createFilePanel(wxRibbonPage* parent);
 
 	void createCameraPanel(wxRibbonPage* parent);
-
-	void createBrushPanel(wxRibbonPage* parent);
 
 	void createSkeletonPanel(wxRibbonPage* parent);
 

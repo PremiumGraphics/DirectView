@@ -10,7 +10,6 @@
 
 #include "RenderingCommand.h"
 #include "MouseCommand.h"
-#include "SpriteStrokeCommand.h"
 #include "LineStrokeCommand.h"
 
 #include "DisplayList.h"
@@ -23,7 +22,6 @@ namespace Crystal {
 
 enum class UIControl {
 	CAMERA,
-	SPRITE_STROKE,
 	LINE_STROKE,
 	PARTICLE_ERASE,
 	BONE_STROKE,
@@ -117,7 +115,6 @@ public:
 
 	//void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
 
-	std::shared_ptr<UI::SpriteStrokeCommand> getSpriteStrokeCommand() const { return spriteStrokeCommand; }
 
 private:
 
@@ -129,7 +126,6 @@ private:
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
-	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
 	std::shared_ptr<UI::LineStrokeCommand> lineOperation;
 	std::shared_ptr<UI::LineStrokeCommand> boneOperation;
 
