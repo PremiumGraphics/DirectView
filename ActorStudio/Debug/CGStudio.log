@@ -1,0 +1,27 @@
+﻿2015/07/09 17:44:42 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\CG\CGStudio.vcxproj" (Build ターゲット)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CGStudioTest.vcxproj, CommandTest.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I".\..\ThirdParty\wxWidgets-3.0.2\lib\vc_dll\mswud" /I".\..\ThirdParty\wxWidgets-3.0.2\include" /I. /I".\..\ThirdParty\wxWidgets-3.0.2\samples" /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D __WXMSW__ /D WXUSINGDLL /D _WINDOWS /D NOPCH /D _VC80_UPGRADE=0x0600 /D _UNICODE /D UNICODE /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /GR /Yu"stdafx.h" /Fp".\vc_mswuddll\cube\cube.pch" /Fo".\vc_mswuddll\cube\\" /Fd"vc_mswuddll\cube.pdb" /Gd /TP /analyze- /errorReport:prompt  /EHsc Frame.cpp
+         Frame.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Debug\CGStudio.exe" /INCREMENTAL /NOLOGO /LIBPATH:../Debug/ /LIBPATH:".\..\ThirdParty\wxWidgets-3.0.2\lib\vc_dll" /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" wxmsw30ud_propgrid.lib wxmsw30ud_ribbon.lib wxmsw30ud_core.lib Shader.lib IO.lib wxmsw30ud_richtext.lib wxmsw30ud_gl.lib opengl32.lib glu32.lib wxbase30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib wininet.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Debug\CGStudio.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Debug\CGStudio.lib" /MACHINE:X86 /SAFESEH Debug\CGStudio.res
+         .\vc_mswuddll\cube\App.obj
+         .\vc_mswuddll\cube\BoneStrokeCommand.obj
+         .\vc_mswuddll\cube\Converter.obj
+         .\vc_mswuddll\cube\Frame.obj
+         .\vc_mswuddll\cube\LineStrokeCommand.obj
+         .\vc_mswuddll\cube\MainCommand.obj
+         .\vc_mswuddll\cube\MouseCommand.obj
+         .\vc_mswuddll\cube\RenderingCommand.obj
+         .\vc_mswuddll\cube\SpriteStrokeCommand.obj
+         .\vc_mswuddll\cube\stdafx.obj
+         .\vc_mswuddll\cube\UserEntryDialog.obj
+         .\vc_mswuddll\cube\View.obj
+     1>Shader.lib(ShaderObject.obj) : warning LNK4075: /EDITANDCONTINUE は /SAFESEH の指定によって無視されます。
+         CGStudio.vcxproj -> C:\Users\PremiumGraphics\Documents\GitHub\DirectView\CG\..\Debug\CGStudio.exe
+     1>プロジェクト "C:\Users\PremiumGraphics\Documents\GitHub\DirectView\CG\CGStudio.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:01.36

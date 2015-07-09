@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="RenderingCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="UserEntryDialog.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="LineStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="VolumeDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingModel.h">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="UserEntryDialog.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="LineStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayList.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="resource">
+      <UniqueIdentifier>{3a66a511-0479-4b75-8f20-340c7e675bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{b2d04a9a-14b6-4af7-ac57-8a7dd2c84052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{dff8f1f3-c3f8-4815-93e8-0a22b169d32e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\unchecked.xpm">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="Resource\checked.xpm">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CGStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resource\triangle.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\quad.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-Y-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-Z-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-X-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\cylinder.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\circle.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\box.png">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
