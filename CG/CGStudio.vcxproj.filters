@@ -12,9 +12,6 @@
     <ClCompile Include="MainCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="UserEntryDialog.cpp">
-      <Filter>Dialog</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteStrokeCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
@@ -26,9 +23,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="VolumeDialog.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="RenderingModel.h">
       <Filter>resource</Filter>
     </ClInclude>

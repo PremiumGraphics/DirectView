@@ -9,9 +9,21 @@ namespace Crystal {
 		class FloatEntryDialog : public wxDialog
 		{
 		public:
-			FloatEntryDialog(wxWindow* parent, const wxString&  title, const float value);
+			FloatEntryDialog(wxWindow* parent, const wxString&  title, const float value) :
+				wxDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize(250, 200))
+			{
+				new wxStaticText(this, wxID_ANY, "Input", wxPoint(0, 50));
+				ctrl = new wxSpinCtrlDouble(this, wxID_ANY, wxEmptyString, wxPoint(50, 50));
+				ctrl->SetValue(value);
 
-			void setRange(const float min_, const float max_);
+				new wxButton(this, wxID_OK, "OK", wxPoint(0, 100));
+				new wxButton(this, wxID_CANCEL, "Cancel", wxPoint(100, 100));
+			}
+
+			void setRange(const float min_, const float max_) {
+				ctrl->SetRange(min_, max_);
+
+			}
 
 			float getValue() const { return ctrl->GetValue(); }
 

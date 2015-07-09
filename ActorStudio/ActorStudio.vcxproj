@@ -171,7 +171,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="UserEntryDialog.h" />
     <ClInclude Include="View.h" />
-    <ClInclude Include="VolumeDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\checked.xpm" />
