@@ -1,6 +1,7 @@
 #ifndef __CRYSTAL_UI_HISTORY_H__
 #define __CRYSTAL_UI_HISTORY_H__
 
+#include "../Math/Volume.h"
 #include "../Graphics/Brush.h"
 
 #include <queue>
@@ -12,11 +13,13 @@ template<typename T>
 class HistoryCommand
 {
 public:
-	HistoryCommand() = default;
+	HistoryCommand(const Math::Volume3dSPtr<float>& volume) :
+		volume(volume)
+	{}
 
 	~HistoryCommand() = default;
 
-	void add(Graphics::Brush3d<float>& b) { brushes.push_back(b); }
+	void add(const Graphics::Brush3d<float>& b) { brushes.push_back(b); }
 
 	void undo();
 
@@ -24,6 +27,7 @@ public:
 
 private:
 	std::deque < Graphics::Brush3d<float> > brushes;
+	Math::Volume3dSPtr volume;
 };
 
 	}

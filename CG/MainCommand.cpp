@@ -33,7 +33,6 @@ void MainCommand::clear()
 	surface = std::make_shared< Surface<float> >();
 	//volumeCommand.clear();
 	volume->setValue(0.0f);
-	skeleton.clear();
 	//bakedSurfaces.clear();
 }
 

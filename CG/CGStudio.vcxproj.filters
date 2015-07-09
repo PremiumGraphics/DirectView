@@ -20,9 +20,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RenderingModel.h">
-      <Filter>resource</Filter>
-    </ClInclude>
     <ClInclude Include="RenderingCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
@@ -37,48 +34,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="resource">
-      <UniqueIdentifier>{3a66a511-0479-4b75-8f20-340c7e675bbd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Command">
       <UniqueIdentifier>{dff8f1f3-c3f8-4815-93e8-0a22b169d32e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resource\unchecked.xpm">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="Resource\checked.xpm">
-      <Filter>resource</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="CGStudio.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Resource\triangle.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\quad.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\3D-Y-Axis-Rotation.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\3D-Z-Axis-Rotation.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\3D-X-Axis-Rotation.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\cylinder.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\circle.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resource\box.png">
-      <Filter>resource</Filter>
-    </Image>
   </ItemGroup>
 </Project>

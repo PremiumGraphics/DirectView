@@ -6,7 +6,6 @@
 #include "../Graphics/Camera.h"
 #include "../Graphics/Surface.h"
 #include "../Util/UnCopyable.h"
-#include "../ActorTest/Actor.h"
 
 #include "../UI/RenderingCommand.h"
 #include "../UI/MouseCommand.h"
@@ -127,8 +126,6 @@ private:
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
-
-	Actor::Skeleton<float> skeleton;
 
 	Math::Vector3d<float> cursor;
 

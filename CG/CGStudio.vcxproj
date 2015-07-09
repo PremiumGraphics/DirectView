@@ -161,28 +161,13 @@
     <ClInclude Include="History.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="RenderingCommand.h" />
-    <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SpriteStrokeCommand.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resource\checked.xpm" />
-    <None Include="Resource\unchecked.xpm" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="CGStudio.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Resource\3D-X-Axis-Rotation.png" />
-    <Image Include="..\Resource\3D-Y-Axis-Rotation.png" />
-    <Image Include="..\Resource\3D-Z-Axis-Rotation.png" />
-    <Image Include="..\Resource\box.png" />
-    <Image Include="..\Resource\circle.png" />
-    <Image Include="..\Resource\cylinder.png" />
-    <Image Include="..\Resource\quad.png" />
-    <Image Include="..\Resource\triangle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
