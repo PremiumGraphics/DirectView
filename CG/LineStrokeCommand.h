@@ -19,9 +19,9 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
-	virtual void onRightButtonDown() override;
+	virtual void onLeftButtonDown() override;
 
-	virtual void onRightButtonUp() override;
+	virtual void onLeftButtonUp() override;
 
 	DisplayList getDisplayList() const override {
 		DisplayList list;

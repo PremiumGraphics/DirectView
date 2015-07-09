@@ -29,6 +29,12 @@ private:
 
 	void OnMouseWheel(wxMouseEvent& e);
 
+	void OnLeftDoubleClick(wxMouseEvent& e);
+
+	void OnRightDoubleClick(wxMouseEvent& e);
+
+	void OnLeftDown(wxMouseEvent& e);
+
 	//void OnMouse
 
 	void OnSize( wxSizeEvent& e );

@@ -12,6 +12,9 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
+	EVT_LEFT_DCLICK( View::OnLeftDoubleClick )
+	EVT_RIGHT_DCLICK( View::OnRightDoubleClick )
+	EVT_LEFT_DOWN( View::OnLeftDown )
 	EVT_MOUSEWHEEL(View::OnMouseWheel)
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
@@ -31,6 +34,7 @@ model( model )
 //	Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(View::OnKeyDown));
 //Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
 	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
+
 
 	model.buildRenderer();
 }
@@ -58,60 +62,60 @@ void View::OnPaint(wxPaintEvent&)
 	SwapBuffers();
 }
 
+void View::OnLeftDoubleClick(wxMouseEvent& e)
+{
+	model.onRightDoubleClick();
+	draw(GetSize());
+	SwapBuffers();
+	/*
+	const int width = GetClientSize().GetWidth();
+	const int height = GetClientSize().GetHeight();
+	std::vector< GLubyte > pixels(width * height * 4);
+	glReadBuffer(GL_FRONT);
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
+	wxImage image(width, height);
+
+	int index = 0;
+
+	for (int y = height - 1; y >= 0; --y) {
+	for (int x = 0; x < width; ++x) {
+	image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
+	index += 4;
+	}
+	}
+
+	const wxPoint& position = event.GetPosition();
+	const unsigned char r = image.GetRed(position.x, position.y);
+	const unsigned char g = image.GetGreen(position.x, position.y);
+	const unsigned char b = image.GetBlue(position.x, position.y);
+	//wxMessageBox(wxString::Format("%d %d %d", r, g, b));
+
+	const unsigned int id = g;
+	*/
+	//model->setRendering();
+	//Refresh();
+	//model->bakeParticleToVolume();
+}
+
+void View::OnRightDoubleClick(wxMouseEvent& e)
+{
+	model.onRightDoubleClick();
+	draw(GetSize());
+	SwapBuffers();
+}
+
+void View::OnLeftDown(wxMouseEvent& e)
+{
+	model.onLeftButtonDown();
+	draw(GetSize());
+	SwapBuffers();
+}
+
+
 void View::OnMouse(wxMouseEvent& event)
 {
-	if (event.LeftDClick()) {
-		model.onLeftDoubleClick();
-		/*
-		const int width = GetClientSize().GetWidth();
-		const int height = GetClientSize().GetHeight();
-		std::vector< GLubyte > pixels(width * height * 4);
-		glReadBuffer(GL_FRONT);
-		glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, &(pixels.front()));
-		wxImage image(width, height);
-
-		int index = 0;
-
-		for (int y = height - 1; y >= 0; --y) {
-		for (int x = 0; x < width; ++x) {
-		image.SetRGB(x, y, pixels[index], pixels[index + 1], pixels[index + 2]);
-		index += 4;
-		}
-		}
-
-		const wxPoint& position = event.GetPosition();
-		const unsigned char r = image.GetRed(position.x, position.y);
-		const unsigned char g = image.GetGreen(position.x, position.y);
-		const unsigned char b = image.GetBlue(position.x, position.y);
-		//wxMessageBox(wxString::Format("%d %d %d", r, g, b));
-
-		const unsigned int id = g;
-		*/
-		//model->setRendering();
-		//Refresh();
-		//model->bakeParticleToVolume();
-
-		return;
-	}
-
-
-	if (event.RightDClick()) {
-		model.onRightDoubleClick();
-		return;
-	}
-
-
-	if (event.LeftDown()) {
-		model.onLeftButtonDown();
-		draw(GetSize());
-		SwapBuffers();
-		return;
-	}
-
 	if (event.LeftUp()) {
 		model.onLeftButtonUp();
-		draw(GetSize());
-		SwapBuffers();
 
 		return;
 	}
@@ -132,6 +136,18 @@ void View::OnMouse(wxMouseEvent& event)
 		return;
 	}
 
+	if (event.Moving()) {
+		wxPoint position = event.GetPosition();
+		const wxPoint diff = position - mouseStart;
+		Vector3d<float> middle(diff.x * 0.01, diff.y * 0.01, 0.0f);
+
+		model.onMoving(middle);
+		draw(GetSize());
+		SwapBuffers();
+
+		mouseStart = event.GetPosition();
+
+	}
 
 	//wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
 

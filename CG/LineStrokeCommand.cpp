@@ -17,17 +17,18 @@ doRealTimeBake(false)
 void LineStrokeCommand::onDraggingLeft(const Vector3d<float>& v)
 {
 	cursor += toCoord3d(toScreenCoord2d(v));
+	endPosition = cursor;
 	doRealTimeBake = false;
 	_doSurfaceConstruction = false;
 }
 
-
 void LineStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 {
+
 	cursor += toCoord3d(toScreenCoord2d(v));
-	endPosition = cursor;
 	doRealTimeBake = false;
 	_doSurfaceConstruction = false;
+
 	//particle.addRadius(src.getX());
 }
 
@@ -36,16 +37,17 @@ void LineStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 	radius += toCoord3d(toScreenCoord2d(v)).getY();
 	_doSurfaceConstruction = false;
 	doRealTimeBake = false;
+
 }
 
-void LineStrokeCommand::onRightButtonDown()
+void LineStrokeCommand::onLeftButtonDown()
 {
 	startPosition = cursor;
 	doRealTimeBake = false;
 	_doSurfaceConstruction = false;
 }
 
-void LineStrokeCommand::onRightButtonUp()
+void LineStrokeCommand::onLeftButtonUp()
 {
 	endPosition = cursor;
 	doRealTimeBake = true;

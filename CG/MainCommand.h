@@ -76,6 +76,10 @@ public:
 		postMouseEvent();
 	}
 
+	void onMoving(const Math::Vector3d<float>& v) {
+		//mouse->onMoving(v);
+		//postMouseEvent();
+	}
 
 	void onDraggindMiddle(const Math::Vector3d<float>& diff) {
 		mouse->onDraggingMiddle(diff);
