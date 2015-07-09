@@ -12,7 +12,7 @@
 #include "../UI/MouseCommand.h"
 #include "LineStrokeCommand.h"
 
-#include "DisplayList.h"
+#include "../Graphics/DisplayList.h"
 
 #include <memory>
 #include <map>

@@ -3,7 +3,7 @@
 
 #include "../UI/MouseCommand.h"
 #include "../Math/Volume.h"
-#include "DisplayList.h"
+#include "../Graphics/DisplayList.h"
 
 namespace Crystal {
 	namespace UI {

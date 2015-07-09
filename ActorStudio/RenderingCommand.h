@@ -8,7 +8,7 @@
 #include "../Shader/VolumeRenderer.h"
 
 #include "../Util/UnCopyable.h"
-#include "DisplayList.h"
+#include "../Graphics/DisplayList.h"
 
 namespace Crystal{
 	namespace Command {

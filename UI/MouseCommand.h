@@ -6,7 +6,7 @@
 #include "../Graphics/Camera.h"
 #include "../Math/Particle.h"
 #include "../Graphics/ScreenCoord.h"
-#include "DisplayList.h"
+#include "../Graphics/DisplayList.h"
 
 namespace Crystal {
 	namespace UI {

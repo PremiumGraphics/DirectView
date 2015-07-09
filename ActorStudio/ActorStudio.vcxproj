@@ -160,7 +160,6 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="BoneStrokeCommand.h" />
     <ClInclude Include="Converter.h" />
-    <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="LineStrokeCommand.h" />
     <ClInclude Include="MainCommand.h" />

@@ -158,7 +158,6 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
-    <ClInclude Include="DisplayList.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MainCommand.h" />
     <ClInclude Include="RenderingCommand.h" />
