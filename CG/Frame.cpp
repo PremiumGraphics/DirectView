@@ -595,6 +595,7 @@ void Frame::OnStrokeSprite(wxRibbonButtonBarEvent& e)
 
 void Frame::OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e)
 {
+	/*
 	const auto& command = model.getSpriteStrokeCommand();
 	FloatEntryDialog dialog(this, "Charge", command->getCharge());
 	dialog.setRange(-1.0f, 1.0f);
@@ -605,7 +606,7 @@ void Frame::OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e)
 	else {
 		return;
 	}
-
+	*/
 
 }
 
