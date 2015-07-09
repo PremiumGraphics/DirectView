@@ -12,9 +12,6 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
-	EVT_LEFT_DCLICK( View::OnLeftDoubleClick )
-	EVT_RIGHT_DCLICK( View::OnRightDoubleClick )
-	EVT_LEFT_DOWN( View::OnLeftDown )
 	EVT_MOUSEWHEEL(View::OnMouseWheel)
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
@@ -35,6 +32,15 @@ model( model )
 //Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
 	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
 
+
+	Connect(wxEVT_LEFT_DCLICK,	wxMouseEventHandler(View::OnLeftDoubleClick));
+	Connect(wxEVT_RIGHT_DCLICK, wxMouseEventHandler(View::OnRightDoubleClick));
+
+	Connect(wxEVT_LEFT_DOWN,	wxMouseEventHandler(View::OnLeftDown));
+	Connect(wxEVT_LEFT_UP,		wxMouseEventHandler(View::OnLeftUp));
+
+	Connect(wxEVT_RIGHT_DOWN,	wxMouseEventHandler(View::OnRightDown));
+	Connect(wxEVT_RIGHT_UP,		wxMouseEventHandler(View::OnRightUp));
 
 	model.buildRenderer();
 }
@@ -64,7 +70,7 @@ void View::OnPaint(wxPaintEvent&)
 
 void View::OnLeftDoubleClick(wxMouseEvent& e)
 {
-	model.onRightDoubleClick();
+	model.onLeftDoubleClick();
 	draw(GetSize());
 	SwapBuffers();
 	/*
@@ -111,31 +117,29 @@ void View::OnLeftDown(wxMouseEvent& e)
 	SwapBuffers();
 }
 
+void View::OnLeftUp(wxMouseEvent& e)
+{
+	model.onLeftButtonUp();
+	draw(GetSize());
+	SwapBuffers();
+}
+
+void View::OnRightDown(wxMouseEvent& e)
+{
+	model.onRightButtonDown();
+	draw(GetSize());
+	SwapBuffers();
+}
+
+void View::OnRightUp(wxMouseEvent& e)
+{
+	model.onRightButtonUp();
+	draw(GetSize());
+	SwapBuffers();
+}
 
 void View::OnMouse(wxMouseEvent& event)
 {
-	if (event.LeftUp()) {
-		model.onLeftButtonUp();
-
-		return;
-	}
-
-	if (event.RightDown()) {
-		model.onRightButtonDown();
-		draw(GetSize());
-		SwapBuffers();
-
-		return;
-	}
-
-	if (event.RightUp()) {
-		model.onRightButtonUp();
-		draw(GetSize());
-		SwapBuffers();
-
-		return;
-	}
-
 	if (event.Moving()) {
 		wxPoint position = event.GetPosition();
 		const wxPoint diff = position - mouseStart;

@@ -35,6 +35,12 @@ private:
 
 	void OnLeftDown(wxMouseEvent& e);
 
+	void OnLeftUp(wxMouseEvent& e);
+
+	void OnRightDown(wxMouseEvent& e);
+
+	void OnRightUp(wxMouseEvent& e);
+
 	//void OnMouse
 
 	void OnSize( wxSizeEvent& e );
