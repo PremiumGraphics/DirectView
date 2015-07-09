@@ -32,9 +32,6 @@
     <ClInclude Include="MainCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
-    <ClInclude Include="UserEntryDialog.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteStrokeCommand.h">
       <Filter>Command</Filter>
     </ClInclude>
@@ -45,9 +42,6 @@
   <ItemGroup>
     <Filter Include="resource">
       <UniqueIdentifier>{3a66a511-0479-4b75-8f20-340c7e675bbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Dialog">
-      <UniqueIdentifier>{b2d04a9a-14b6-4af7-ac57-8a7dd2c84052}</UniqueIdentifier>
     </Filter>
     <Filter Include="Command">
       <UniqueIdentifier>{dff8f1f3-c3f8-4815-93e8-0a22b169d32e}</UniqueIdentifier>

@@ -3,7 +3,7 @@
 
 #include "MainCommand.h"
 
-#include "UserEntryDialog.h"
+#include "../UI/UserEntryDialog.h"
 
 #include <memory>
 

@@ -8,7 +8,7 @@
 #include "wx/filename.h"
 
 #include "../UI/VolumeDialog.h"
-#include "UserEntryDialog.h"
+#include "../UI/UserEntryDialog.h"
 
 #include "wx/numdlg.h"
 
