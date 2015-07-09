@@ -102,7 +102,10 @@ TEST(Bitmap1dTest, TestGetSub)
 
 TEST(Bitmap1dTest, TestSetBitmap)
 {
-	EXPECT_EQ(Bitmap1d({ 1, 0, 0 }), Bitmap1d({ 1, 1, 1 }).set(1, Bitmap1d({ 0, 0 }) ) );
+	Bitmap1d actual({ 1, 1, 1 });
+	actual.set(1, Bitmap1d({ 0, 0 }) );
+	Bitmap1d expected({ 1, 0, 0 });
+	EXPECT_EQ(expected, actual );
 }
 
 

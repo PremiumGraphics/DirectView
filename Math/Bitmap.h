@@ -34,16 +34,12 @@ public:
 	}
 
 
-	Bitmap1d& set( const size_t i, const bool b = true) {
-		bits[i] = b;
-		return *(this);
-	}
+	void set( const size_t i, const bool b = true) { bits[i] = b; }
 
-	Bitmap1d& setAll(const bool b = true) {
+	void setAll(const bool b = true) {
 		for (size_t i = 0; i < bits.size(); ++i) {
 			bits[i] = b;
 		}
-		return (*this);
 	}
 
 	int getCount() const {
@@ -54,7 +50,7 @@ public:
 
 	bool get(const size_t i) const { return bits[i]; }
 
-	Bitmap1d& and(const Bitmap1d& rhs) {
+	Bitmap1d and(const Bitmap1d& rhs) {
 		for (size_t i = 0; i < bits.size(); ++i) {
 			bits[i] = bits[i] & rhs.bits[i];
 		}
@@ -123,12 +119,11 @@ public:
 		return Bitmap1d( bs );
 	}
 
-	Bitmap1d& set(const unsigned int start, const Bitmap1d& rhs) {
+	void set(const unsigned int start, const Bitmap1d& rhs) {
 		for (size_t x = 0; x < rhs.getSize(); ++x) {
 			const bool b = rhs.get(x);
 			set(x + start, b);
 		}
-		return (*this);
 	}
 
 
@@ -177,11 +172,10 @@ public:
 
 	size_t getSize() const { return getSizeX() * getSizeY(); }
 
-	Bitmap2d& setAll() {
+	void setAll() {
 		for (size_t i = 0; i < bmps.size(); ++i) {
 			bmps[i].setAll();
 		}
-		return (*this);
 	}
 
 	bool get(const size_t x, const size_t y) const { return bmps[y][x]; }
