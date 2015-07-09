@@ -51,16 +51,45 @@ class RenderingCommand final : UnCopyable
 {
 
 public:
-	RenderingCommand();
+	RenderingCommand() :
+		wireframeRenderer(std::make_shared<Shader::WireframeRenderer>()),
+		pointRenderer(std::make_shared<Shader::PointRenderer>())
+	{}
 
 	~RenderingCommand() = default;
 
-	void build();
+	void build() {
+		normalRenderer.build();
+		wireframeRenderer->build();
+		smoothRenderer.build();
+		volumeRenderer.build();
+		pointRenderer->build();
+	}
 
-	void clear();
+	void clear() {
+		normalRenderer.clear();
+		pointRenderer->clear();
+		wireframeRenderer->clear();
+		smoothRenderer.clear();
+		volumeRenderer.clear();
+	}
 
 
-	void set(const UI::DisplayList& list);
+	void set(const UI::DisplayList& list) {
+		clear();
+		for (const auto& l : list.getLines()) {
+			add(l);
+		}
+		for (const auto& p : list.getParticles()) {
+			add(p);
+		}
+		for (const auto& v : list.getVolumes()) {
+			add(*v);
+		}
+		for (const auto& s : list.getSurfaces()) {
+			add(*s);
+		}
+	}
 
 	void setConfig(const RenderingConfig<float>& config) { this->config = config; }
 
@@ -86,7 +115,39 @@ public:
 		config.drawWire = !config.drawWire;
 	}
 
-	void render(const int width, const int height, const Graphics::Camera<float>& camera);
+	void render(const int width, const int height, const Graphics::Camera<float>& camera) {
+		{
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_DEPTH_TEST);
+
+			glPointSize(20.0);
+			glLineWidth(getConfig().lineWidth);
+
+			if (config.drawPoint) {
+				pointRenderer->render(width, height, camera);
+			}
+
+			if (config.drawWire) {
+				wireframeRenderer->render(width, height, camera);
+			}
+
+			if (config.drawNormal) {
+				normalRenderer.render(width, height, camera);
+			}
+
+			if (config.drawSmooth) {
+				smoothRenderer.render(width, height, camera);
+			}
+
+			if (config.drawVolume) {
+				glPointSize(getConfig().pointSize);
+				volumeRenderer.render(width, height, camera);
+			}
+		}
+
+	}
 
 private:
 	RenderingConfig<float> config;
@@ -100,13 +161,46 @@ private:
 	Shader::VolumeRenderer volumeRenderer;
 
 
-	void add(const Math::Particle3d<float>& particle);
+	void add(const Math::Particle3d<float>& particle) {
+		if (config.drawPoint) {
+			pointRenderer->add(particle);
+		}
+		if (config.drawWire) {
+			wireframeRenderer->add(particle);
+		}
+	}
 
-	void add(const Graphics::Surface<float>& surface);
+	void add(const Graphics::Surface<float>& surface) {
+		if (config.drawWire) {
+			wireframeRenderer->add(surface);
+		}
+		if (config.drawNormal) {
+			normalRenderer.add(surface);
+		}
+		if (config.drawSmooth) {
+			smoothRenderer.add(surface);
+		}
+	}
 
-	void add(const Math::Volume3d<float>& volume);
+	void add(const Math::Volume3d<float>& volume) {
+		if (config.drawWire) {
+			wireframeRenderer->add(volume);
+		}
+		/*
+		if (config.drawCells) {
+		addCells(volume);
+		}
+		*/
+		if (config.drawVolume) {
+			volumeRenderer.add(volume);
+		}
+	}
 
-	void add(const Math::Line3d<float>& line);
+	void add(const Math::Line3d<float>& line) {
+		if (config.drawWire) {
+			wireframeRenderer->add(line);
+		}
+	}
 
 
 	//Shader::RendererBaseSPtrList activeRenderers;

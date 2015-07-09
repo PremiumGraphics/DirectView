@@ -147,7 +147,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="MainCommand.cpp" />
-    <ClCompile Include="RenderingCommand.cpp" />
     <ClCompile Include="SpriteStrokeCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

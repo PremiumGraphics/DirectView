@@ -6,9 +6,6 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="View.cpp" />
-    <ClCompile Include="RenderingCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="MainCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
