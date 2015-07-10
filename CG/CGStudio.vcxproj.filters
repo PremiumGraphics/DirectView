@@ -20,9 +20,6 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RenderingCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
     <ClInclude Include="MainCommand.h">
       <Filter>Command</Filter>
     </ClInclude>

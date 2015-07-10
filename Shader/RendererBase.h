@@ -5,7 +5,6 @@
 
 #include "../Graphics/Camera.h"
 #include "../Graphics/Brush.h"
-#include "../Math/Particle.h"
 #include "../Math/Volume.h"
 
 #include <memory>

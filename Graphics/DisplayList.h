@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_GRAPHICS_DISPLAY_LIST_H__
 #define __CRYSTAL_GRAPHICS_DISPLAY_LIST_H__
 
-#include "../Math/Particle.h"
 #include "../Math/Volume.h"
 #include "../Math/Line.h"
 #include "../Graphics/Surface.h"

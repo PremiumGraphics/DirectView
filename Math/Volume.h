@@ -4,7 +4,6 @@
 #include "Grid.h"
 #include "Space.h"
 #include "GridSpaceBase.h"
-#include "Particle.h"
 
 #include <memory>
 #include <list>
@@ -68,13 +67,6 @@ public:
 	Volume3d(const Attribute& attr) :
 		Volume3d(attr.space, Grid3d<T>(attr.resx, attr.resy, attr.resz))
 	{}
-
-	Volume3d(const Particle3d<T>& particle, const Grid3d<T>& grid) :
-		GridSpaceBase(particle.getBoundingSpace(), grid.getSizes()),
-		grid( grid )
-	{
-		add(particle);
-	}
 
 	void setValue(const T v) {
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
@@ -158,23 +150,6 @@ public:
 			cells.emplace_back(c);
 		}
 		return std::move(cells);
-	}
-
-
-
-	void setZero(const Particle3d<T>& metaball) {
-		const auto center = metaball.getCenter();
-		const auto radius = metaball.getRadius();
-		for (size_t x = 0; x < getSizeX(); ++x) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				for (size_t z = 0; z < getSizeZ(); ++z) {
-					const auto& pos = toCenterPosition(x, y, z);
-					if (center.getDistanceSquared(pos) < radius * radius) {
-						grid.set(x, y, z, 0);
-					}
-				}
-			}
-		}
 	}
 
 

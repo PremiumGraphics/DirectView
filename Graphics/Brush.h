@@ -75,6 +75,17 @@ public:
 		return v * density;
 	}
 
+	Math::Vector3d<T> getMinPosition() const { return Math::Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
+
+	Math::Vector3d<T> getMaxPosition() const { return Math::Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
+
+	//Space3d<T> getSpace() const { return Space3d<T>( ) }
+
+	Math::Space3d<T> getSpace() const {
+		const auto& start = getMinPosition();
+		const Math::Vector3d<T> length(getDiameter(), getDiameter(), getDiameter());
+		return Math::Space3d<T>(start, length);
+	}
 
 
 private:
