@@ -20,7 +20,6 @@ public:
 
 	~View();
 
-
 private:
 
 	void OnPaint( wxPaintEvent& );
@@ -43,16 +42,16 @@ private:
 
 	void OnEnterWindow(wxMouseEvent& e);
 
+	void OnMotion(wxMouseEvent& e);
+
 	//void OnMouse
 
 	void OnSize( wxSizeEvent& e );
 
 	void draw(const wxSize& size);
 
-	DECLARE_EVENT_TABLE()
-
 private:
-	Command::MainCommand& model;
+	Command::MainCommand& command;
 	wxGLContext glContext;
 
 	wxPoint mouseStart;

@@ -11,15 +11,10 @@ using namespace Crystal::Command;
 using namespace Crystal::UI;
 
 
-BEGIN_EVENT_TABLE( View, wxGLCanvas )
-	EVT_MOUSE_EVENTS( View::OnMouse )
-END_EVENT_TABLE()
-
-
 View::View( Frame* parent, const int width, const int height, MainCommand& model )
 :wxGLCanvas(parent, wxID_ANY, NULL, wxPoint( 0, 0), wxSize( width, height ), wxFULL_REPAINT_ON_RESIZE | wxWANTS_CHARS ),
 glContext( this ),// width, height ),
-model( model )
+command( model )
 {
 	glContext.SetCurrent( *this );
 
@@ -42,14 +37,14 @@ model( model )
 	Connect(wxEVT_ENTER_WINDOW, wxMouseEventHandler(View::OnEnterWindow));
 	Connect(wxEVT_MOUSEWHEEL,	wxMouseEventHandler(View::OnMouseWheel));
 
+	Connect(wxEVT_MOTION,		wxMouseEventHandler(View::OnMotion));
+
 	model.buildRenderer();
 }
 
 View::~View()
 {
 }
-
-
 
 void View::OnPaint(wxPaintEvent&)
 {
@@ -70,7 +65,7 @@ void View::OnPaint(wxPaintEvent&)
 
 void View::OnLeftDoubleClick(wxMouseEvent& e)
 {
-	model.onLeftDoubleClick();
+	command.onLeftDoubleClick();
 	draw(GetSize());
 	SwapBuffers();
 	/*
@@ -105,35 +100,35 @@ void View::OnLeftDoubleClick(wxMouseEvent& e)
 
 void View::OnRightDoubleClick(wxMouseEvent& e)
 {
-	model.onRightDoubleClick();
+	command.onRightDoubleClick();
 	draw(GetSize());
 	SwapBuffers();
 }
 
 void View::OnLeftDown(wxMouseEvent& e)
 {
-	model.onLeftButtonDown();
+	command.onLeftButtonDown();
 	draw(GetSize());
 	SwapBuffers();
 }
 
 void View::OnLeftUp(wxMouseEvent& e)
 {
-	model.onLeftButtonUp();
+	command.onLeftButtonUp();
 	draw(GetSize());
 	SwapBuffers();
 }
 
 void View::OnRightDown(wxMouseEvent& e)
 {
-	model.onRightButtonDown();
+	command.onRightButtonDown();
 	draw(GetSize());
 	SwapBuffers();
 }
 
 void View::OnRightUp(wxMouseEvent& e)
 {
-	model.onRightButtonUp();
+	command.onRightButtonUp();
 	draw(GetSize());
 	SwapBuffers();
 }
@@ -143,14 +138,14 @@ void View::OnEnterWindow(wxMouseEvent& e)
 	SetFocus();
 }
 
-void View::OnMouse(wxMouseEvent& event)
+void View::OnMotion(wxMouseEvent& event)
 {
 	if (event.Moving()) {
 		wxPoint position = event.GetPosition();
 		const wxPoint diff = position - mouseStart;
 		Vector3d<float> middle(diff.x * 0.01, diff.y * 0.01, 0.0f);
 
-		model.onMoving(middle);
+		command.onMoving(middle);
 		draw(GetSize());
 		SwapBuffers();
 
@@ -161,52 +156,48 @@ void View::OnMouse(wxMouseEvent& event)
 	//wxPoint mouseStart(model.getMousePosition().x, model.getMousePosition().y);
 
 
-	if( event.Dragging() ) {
-		if( event.MiddleIsDown() ) {
+	if (event.Dragging()) {
+		if (event.MiddleIsDown()) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
 			Vector3d<float> middle(diff.x * 0.01, diff.y * 0.01, 0.0f);
-			model.onDraggindMiddle(middle);
+			command.onDraggindMiddle(middle);
 		}
-		if( event.RightIsDown() ) {
+		if (event.RightIsDown()) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			Vector3d<float> right = Vector3d<float>( diff.x * 0.01, diff.y * 0.01, 0.0f );
-			model.onDraggingRight(right);
+			Vector3d<float> right = Vector3d<float>(diff.x * 0.01, diff.y * 0.01, 0.0f);
+			command.onDraggingRight(right);
 		}
-		if( event.LeftIsDown() ) {
+		if (event.LeftIsDown()) {
 			wxPoint position = event.GetPosition();
 			const wxPoint diff = position - mouseStart;
-			Vector3d<float> left = Vector3d<float>( diff.x * 0.01f, diff.y * 0.01, 0.0f );	
-			model.onDraggingLeft(left);
+			Vector3d<float> left = Vector3d<float>(diff.x * 0.01f, diff.y * 0.01, 0.0f);
+			command.onDraggingLeft(left);
 		}
-		
-		draw( GetSize() );
+
+		draw(GetSize());
 
 		SwapBuffers();
-    }
+	}
 
 
 	//wxPoint mouseEnd = event.GetPosition();
 	mouseStart = event.GetPosition();
+
 }
 
 void View::OnMouseWheel(wxMouseEvent& e)
 {
 	const auto dt = e.GetWheelDelta() / 1200.0f;
 	if (e.GetWheelRotation() > 0) {
-		model.onMouseWheel(dt);
+		command.onMouseWheel(dt);
 	}
 	else {
-		model.onMouseWheel(-dt);
+		command.onMouseWheel(-dt);
 	}
 	draw(GetSize());
 	SwapBuffers();
-
-	//e.GetWheelDelta() 
-	/*if (e.MiddleIsDown()) {
-
-	}*/
 }
 
 
@@ -222,5 +213,5 @@ void View::draw(const wxSize& size)
 	const int width = size.GetWidth();
 	const int height = size.GetHeight();
 
-	model.render(width, height);
+	command.render(width, height);
 }
