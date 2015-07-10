@@ -4,8 +4,8 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void PointRenderer::add(const Brush3d<float>& particle) {
-	add(particle.getPosition());
+void PointRenderer::add(const BlendBrush<float>& particle) {
+	add(particle.getCenter());
 }
 
 void PointRenderer::add(const Surface<float>& surface) {

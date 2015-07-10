@@ -41,7 +41,7 @@ public:
 	Graphics::Brush3dVector<float> getBrushes() const override{ return{ brush }; }
 
 private:
-	Graphics::Brush3d<float> brush;
+	Graphics::BlendBrush<float> brush;
 
 	bool _doRealTimeBake;
 	bool _doSurfaceConstruct;

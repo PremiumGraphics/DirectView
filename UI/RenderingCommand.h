@@ -161,7 +161,7 @@ private:
 	Shader::VolumeRenderer volumeRenderer;
 
 
-	void add(const Graphics::Brush3d<float>& b) {
+	void add(const Graphics::BlendBrush<float>& b) {
 		if (config.drawPoint) {
 			pointRenderer->add(b);
 		}

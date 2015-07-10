@@ -8,36 +8,51 @@ namespace Crystal {
 	namespace Graphics {
 
 template<typename T>
-class Brush3d final
-{
+class Brush {
 public:
-	Brush3d() :
-		center(Math::Vector3d<T>(0, 0, 0)),
-		size(Math::Vector3d<T>(1, 1, 1)),
-		density(0.1f)
+	Brush() = default;
+
+	Brush(const Math::Vector3d<T>& center) :
+		center(center)
 	{}
 
-	explicit Brush3d(const Math::Vector3d<T>& pos) :
-		center(pos),
-		size(Math::Vector3d<T>(1, 1, 1)),
-		density(0.1f)
-	{}
-
-	Brush3d(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
-		center(pos),
-		size(size),
-		density(0.1f)
-	{}
-
-	~Brush3d() = default;
-
-	Math::Vector3d<T> getPosition() const{ return center; }
-
-	Math::Vector3d<T> getSize() const { return size; }
+	Math::Vector3d<T> getCenter() const { return center; }
 
 	void move(const Math::Vector3d<T>& v) {
 		this->center += v;
 	}
+
+	~Brush() = default;
+
+private:
+	Math::Vector3d<T> center;
+};
+
+template<typename T>
+class BlendBrush final : public Brush<T>
+{
+public:
+	BlendBrush() :
+		Brush( Math::Vector3d<T>(0, 0, 0) ),
+		size(Math::Vector3d<T>(1, 1, 1)),
+		density(0.1f)
+	{}
+
+	explicit BlendBrush(const Math::Vector3d<T>& pos) :
+		Brush(pos),
+		size(Math::Vector3d<T>(1, 1, 1)),
+		density(0.1f)
+	{}
+
+	BlendBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
+		Brush(pos),
+		size(size),
+		density(0.1f)
+	{}
+
+	~BlendBrush() = default;
+
+	Math::Vector3d<T> getSize() const { return size; }
 
 	void scale(const Math::Vector3d<T>& s) {
 		this->size.scale(x);
@@ -55,7 +70,7 @@ public:
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
 					const auto& pos = grid.toCenterPosition(x, y, z);
-					if (center.getDistanceSquared(pos) < radius * radius) {
+					if ( getCenter().getDistanceSquared(pos) < radius * radius) {
 						const auto v = getValue(pos);
 						grid.add(x, y, z, v);
 					}
@@ -70,7 +85,7 @@ public:
 
 	T getValue(const Math::Vector3d<T>& pos) const
 	{
-		const auto dist = pos.getDistance(center);
+		const auto dist = pos.getDistance(getCenter());
 		const auto v = 1.0f - dist / size.getX();//radius;
 		return v * density;
 	}
@@ -89,13 +104,12 @@ public:
 
 
 private:
-	Math::Vector3d<T> center;
 	Math::Vector3d<T> size;
 	T density;
 };
 
 template<typename T>
-using Brush3dVector = std::vector < Brush3d<T> > ;
+using Brush3dVector = std::vector < BlendBrush<T> > ;
 
 	}
 }

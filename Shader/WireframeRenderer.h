@@ -25,7 +25,7 @@ public:
 
 	~WireframeRenderer() = default;
 
-	void add(const Graphics::Brush3d<float>& b) override;
+	void add(const Graphics::BlendBrush<float>& b) override;
 
 	void add(const Math::Volume3d<float>& volume) override;
 

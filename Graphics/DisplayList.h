@@ -23,7 +23,7 @@ public:
 		surfaces.insert(surfaces.end(), rhs.surfaces.begin(), rhs.surfaces.end());
 	}
 
-	void add(const Graphics::Brush3d<float>& b) {
+	void add(const Graphics::BlendBrush<float>& b) {
 		brushes.push_back(b);
 	}
 

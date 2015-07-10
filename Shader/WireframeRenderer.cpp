@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void WireframeRenderer::add(const Brush3d<float>& b)
+void WireframeRenderer::add(const BlendBrush<float>& b)
 {
 	/*
 	const auto& bb = Box<float>(particle.getSpace().getStart(), particle.getSpace().getEnd());

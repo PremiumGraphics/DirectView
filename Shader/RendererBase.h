@@ -23,7 +23,7 @@ public:
 
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera) = 0;
 
-	virtual void add(const Graphics::Brush3d<float>& brush){};
+	virtual void add(const Graphics::BlendBrush<float>& brush){};
 
 	virtual void add(const Math::Volume3d<float>& volume){};
 
@@ -46,7 +46,7 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {};
 
-	void add(const Graphics::Brush3d<float>& particle) override{};
+	void add(const Graphics::BlendBrush<float>& particle) override{};
 
 	void add(const Math::Volume3d<float>& volume) override{};
 
