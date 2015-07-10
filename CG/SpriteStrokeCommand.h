@@ -12,15 +12,15 @@ namespace Crystal {
 class SpriteStrokeCommand : public MouseOperationCommand
 {
 public:
-
 	SpriteStrokeCommand(Graphics::Camera<float>& camera ) :
 		MouseOperationCommand(camera)
-		//	_doRealTimeBake(false)
 	{
 		_doRealTimeBake = false;
 		//_doRealTimePreview = false;
 
 	}
+
+	~SpriteStrokeCommand() = default;
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 
@@ -30,43 +30,21 @@ public:
 
 	virtual void onWheel(const float delta) override;
 
-	//virtual void onLeftDoubleClicked() override { density *= -1.0f; }
-
-	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }
-
 	virtual bool doSurfaceConstruction() const override { return _doSurfaceConstruct; }
 
 	virtual bool doBakeParticlesToVolume() const override { return _doRealTimeBake; }
 
 	//virtual bool doRealTimeBake() const override { return}
 
-	Graphics::DisplayList getDisplayList() const override {
-		Graphics::DisplayList list;
-		list.add(toParticle(brush.getPosition()));
-		return list;
-	}
+	Graphics::DisplayList getDisplayList() const override;
 
-	/*
-	void setCharge(const float c) { this->density = c; }
-
-	float getCharge() const { return density; }
-	*/
-
-	std::vector< Math::Particle3d<float> > getParticles() const override{
-		return{ toParticle(brush.getPosition()) };
-	}
+	Graphics::Brush3dVector<float> getBrushes() const override{ return{ brush }; }
 
 private:
 	Graphics::Brush3d<float> brush;
-	//Math::Particle3d<float>::Attribute attribute;
 
 	bool _doRealTimeBake;
 	bool _doSurfaceConstruct;
-
-	Math::Particle3d<float> toParticle(const Math::Vector3d<float>& pos) const {
-		return Math::Particle3d<float>(pos, brush.getSize().getX(), brush.getDensity() );
-	}
-
 };
 
 	}

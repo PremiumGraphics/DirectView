@@ -5,6 +5,7 @@
 #include "../Math/Volume.h"
 #include "../Math/Line.h"
 #include "../Graphics/Surface.h"
+#include "../Graphics/Brush.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -17,14 +18,14 @@ public:
 	~DisplayList() = default;
 
 	void add(const DisplayList& rhs) {
-		particles.insert(particles.end(), rhs.particles.begin(), rhs.particles.end());
+		brushes.insert(brushes.end(), rhs.brushes.begin(), rhs.brushes.end());
 		lines.insert(lines.end(), rhs.lines.begin(), rhs.lines.end());
 		volumes.insert(volumes.end(), rhs.volumes.begin(), rhs.volumes.end());
 		surfaces.insert(surfaces.end(), rhs.surfaces.begin(), rhs.surfaces.end());
 	}
 
-	void add(const Math::Particle3d<float>& p) {
-		particles.push_back(p);
+	void add(const Graphics::Brush3d<float>& b) {
+		brushes.push_back(b);
 	}
 
 	void add(const Math::Line3d<float>& l) {
@@ -40,13 +41,13 @@ public:
 	}
 
 	void clear(){
-		particles.clear();
+		brushes.clear();
 		lines.clear();
 		volumes.clear();
 		surfaces.clear();
 	}
 
-	std::list< Math::Particle3d<float> > getParticles() const { return particles; }
+	Brush3dVector<float> getBrushes() const { return brushes; }
 
 	Math::Line3dVector<float> getLines() const { return lines; }
 
@@ -55,7 +56,7 @@ public:
 	Graphics::SurfaceSPtrList<float> getSurfaces() const { return surfaces; }
 
 private:
-	std::list< Math::Particle3d<float> > particles;
+	Brush3dVector<float> brushes;
 	Math::Line3dVector<float> lines;
 	Math::Volume3dSPtrList<float> volumes;
 	Graphics::SurfaceSPtrList<float> surfaces;

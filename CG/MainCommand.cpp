@@ -84,9 +84,10 @@ void MainCommand::setUIControl(const UIControl ctrl)
 void MainCommand::postMouseEvent()
 {
 	if (mouse->doBakeParticlesToVolume()) {
-		const auto& particles = mouse->getParticles();
+		const auto& particles = mouse->getBrushes();
 		for (const auto& p : particles) {
-			volume->add(p);
+			p.add(*volume);
+			//volume->add(p.getPosition(), p.getSize().getX());
 		}
 	}
 	if (mouse->doSurfaceConstruction()) {

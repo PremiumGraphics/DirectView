@@ -25,8 +25,6 @@ public:
 
 	void build() override;
 
-	void add(const Math::Particle3d<float>& particle) override {};
-
 	void add(const Math::Volume3d<float>& volume) override {};
 
 	void add(const Graphics::Surface<float>& surface) override;

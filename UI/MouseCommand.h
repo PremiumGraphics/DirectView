@@ -7,6 +7,7 @@
 #include "../Math/Particle.h"
 #include "../Graphics/ScreenCoord.h"
 #include "../Graphics/DisplayList.h"
+#include "../Graphics/Brush.h"
 
 namespace Crystal {
 	namespace UI {
@@ -51,7 +52,7 @@ public:
 
 	virtual Graphics::DisplayList getDisplayList() const { return Graphics::DisplayList(); }
 
-	virtual std::vector<Math::Particle3d<float> > getParticles() const { return std::vector < Math::Particle3d<float> >(); }
+	virtual Graphics::Brush3dVector<float> getBrushes() const { return Graphics::Brush3dVector<float>(); }
 
 protected:
 	Math::Vector3d<float> toScreenCoord2d(const Math::Vector3d<float>& src) {

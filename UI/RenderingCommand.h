@@ -80,8 +80,8 @@ public:
 		for (const auto& l : list.getLines()) {
 			add(l);
 		}
-		for (const auto& p : list.getParticles()) {
-			add(p);
+		for (const auto& b : list.getBrushes()) {
+			add(b);
 		}
 		for (const auto& v : list.getVolumes()) {
 			add(*v);
@@ -161,12 +161,12 @@ private:
 	Shader::VolumeRenderer volumeRenderer;
 
 
-	void add(const Math::Particle3d<float>& particle) {
+	void add(const Graphics::Brush3d<float>& b) {
 		if (config.drawPoint) {
-			pointRenderer->add(particle);
+			pointRenderer->add(b);
 		}
 		if (config.drawWire) {
-			wireframeRenderer->add(particle);
+			wireframeRenderer->add(b);
 		}
 	}
 

@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Graphics/Camera.h"
+#include "../Graphics/Brush.h"
 #include "../Math/Particle.h"
 #include "../Math/Volume.h"
 
@@ -23,11 +24,11 @@ public:
 
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera) = 0;
 
-	virtual void add(const Math::Particle3d<float>& particle) = 0;
+	virtual void add(const Graphics::Brush3d<float>& brush){};
 
-	virtual void add(const Math::Volume3d<float>& volume) = 0;
+	virtual void add(const Math::Volume3d<float>& volume){};
 
-	virtual void add(const Graphics::Surface<float>& surface) = 0;
+	virtual void add(const Graphics::Surface<float>& surface){};
 
 	virtual void build() = 0;
 
@@ -46,7 +47,7 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {};
 
-	void add(const Math::Particle3d<float>& particle) override{};
+	void add(const Graphics::Brush3d<float>& particle) override{};
 
 	void add(const Math::Volume3d<float>& volume) override{};
 

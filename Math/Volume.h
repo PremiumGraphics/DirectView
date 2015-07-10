@@ -161,25 +161,6 @@ public:
 	}
 
 
-	void add(const Particle3d<T>& metaball) {
-		const auto& center = metaball.getCenter();
-		const auto& radius = metaball.getRadius();
-		for (size_t x = 0; x < getSizeX(); ++x ) {
-			for (size_t y = 0; y < getSizeY(); ++y) {
-				for (size_t z = 0; z < getSizeZ(); ++z) {
-					const auto& pos = toCenterPosition(x, y, z);
-					if (center.getDistanceSquared(pos) < radius * radius) {
-						const auto v = metaball.getValue(pos);
-						grid.add(x, y, z, v);
-					}
-					/*
-					metaball.getSpace();
-					const auto& pos = toCenterPosition(x, y, z);
-					*/
-				}
-			}
-		}
-	}
 
 	void setZero(const Particle3d<T>& metaball) {
 		const auto center = metaball.getCenter();
@@ -224,6 +205,13 @@ public:
 		}
 		return (*this);
 	}
+
+	void add(const size_t x, const size_t y, const size_t z, const T v) {
+		const auto vv = grid.get(x, y, z) + v;
+		grid.set(x, y, z, vv);
+//		this->set(x, y, z, vv);
+	}
+
 
 	/*
 	Volume3d createAdd(const Volume3d<T>& rhs) const {

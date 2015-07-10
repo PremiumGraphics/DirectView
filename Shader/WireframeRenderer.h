@@ -10,6 +10,7 @@
 #include "../Math/Volume.h"
 #include "../Math/Line.h"
 #include "../Util/UnCopyable.h"
+#include "../Graphics/Brush.h"
 
 #include "RendererBase.h"
 
@@ -24,7 +25,7 @@ public:
 
 	~WireframeRenderer() = default;
 
-	void add(const Math::Particle3d<float>& particle) override;
+	void add(const Graphics::Brush3d<float>& b) override;
 
 	void add(const Math::Volume3d<float>& volume) override;
 

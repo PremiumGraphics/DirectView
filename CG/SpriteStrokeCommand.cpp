@@ -2,6 +2,7 @@
 #include "SpriteStrokeCommand.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Graphics;
 using namespace Crystal::UI;
 
 
@@ -33,4 +34,11 @@ void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 	brush.addSize(toCoord3d(toScreenCoord2d(v)));
 	_doRealTimeBake = false;
 	_doSurfaceConstruct = false;
+}
+
+DisplayList SpriteStrokeCommand::getDisplayList() const
+{
+	Graphics::DisplayList list;
+	list.add(brush);
+	return list;
 }

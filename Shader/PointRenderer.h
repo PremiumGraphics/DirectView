@@ -18,7 +18,7 @@ public:
 
 	~PointRenderer() = default;
 
-	void add(const Math::Particle3d<float>& particle) override;
+	void add(const Graphics::Brush3d<float>& particle) override;
 
 	void add(const Graphics::Surface<float>& surface) override;
 
