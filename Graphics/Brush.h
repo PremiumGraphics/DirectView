@@ -13,46 +13,24 @@ public:
 	Brush() = default;
 
 	Brush(const Math::Vector3d<T>& center) :
-		center(center)
+		center(center),
+		size(1,1,1)
 	{}
 
+	Brush(const Math::Vector3d<T>& center, const Math::Vector3d<T>& size) :
+		center(center),
+		size(size)
+	{}
+
+	~Brush() = default;
+
 	Math::Vector3d<T> getCenter() const { return center; }
+
+	Math::Vector3d<T> getSize() const { return size; }
 
 	void move(const Math::Vector3d<T>& v) {
 		this->center += v;
 	}
-
-	~Brush() = default;
-
-private:
-	Math::Vector3d<T> center;
-};
-
-template<typename T>
-class BlendBrush final : public Brush<T>
-{
-public:
-	BlendBrush() :
-		Brush( Math::Vector3d<T>(0, 0, 0) ),
-		size(Math::Vector3d<T>(1, 1, 1)),
-		density(0.1f)
-	{}
-
-	explicit BlendBrush(const Math::Vector3d<T>& pos) :
-		Brush(pos),
-		size(Math::Vector3d<T>(1, 1, 1)),
-		density(0.1f)
-	{}
-
-	BlendBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
-		Brush(pos),
-		size(size),
-		density(0.1f)
-	{}
-
-	~BlendBrush() = default;
-
-	Math::Vector3d<T> getSize() const { return size; }
 
 	void scale(const Math::Vector3d<T>& s) {
 		this->size.scale(x);
@@ -62,10 +40,52 @@ public:
 		this->size += s;
 	}
 
+	Math::Vector3d<T> getMinPosition() const { return Math::Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
+
+	Math::Vector3d<T> getMaxPosition() const { return Math::Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
+
+	//Space3d<T> getSpace() const { return Space3d<T>( ) }
+
+	virtual void add(Math::Volume3d<float>& grid) const = 0;
+
+
+	Math::Space3d<T> getSpace() const {
+		const auto& start = getMinPosition();
+		const Math::Vector3d<T> length(getDiameter(), getDiameter(), getDiameter());
+		return Math::Space3d<T>(start, length);
+	}
+
+
+private:
+	Math::Vector3d<T> center;
+	Math::Vector3d<T> size;
+};
+
+template<typename T>
+class BlendBrush final : public Brush<T>
+{
+public:
+	BlendBrush() :
+		Brush( Math::Vector3d<T>(0, 0, 0) ),
+		density(0.1f)
+	{}
+
+	explicit BlendBrush(const Math::Vector3d<T>& pos) :
+		Brush(pos, Math::Vector3d<T>(1, 1, 1)),
+		density(0.1f)
+	{}
+
+	BlendBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
+		Brush(pos,size),
+		density(0.1f)
+	{}
+
+	~BlendBrush() = default;
+
 	T getDensity() const { return density; }
 
-	void add(Math::Volume3d<float>& grid) const {
-		const T radius = size.getX();
+	virtual void add(Math::Volume3d<float>& grid) const override {
+		const T radius = getSize().getX();
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
@@ -86,25 +106,13 @@ public:
 	T getValue(const Math::Vector3d<T>& pos) const
 	{
 		const auto dist = pos.getDistance(getCenter());
-		const auto v = 1.0f - dist / size.getX();//radius;
+		const auto v = 1.0f - dist / getSize().getX();//radius;
 		return v * density;
 	}
 
-	Math::Vector3d<T> getMinPosition() const { return Math::Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
-
-	Math::Vector3d<T> getMaxPosition() const { return Math::Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
-
-	//Space3d<T> getSpace() const { return Space3d<T>( ) }
-
-	Math::Space3d<T> getSpace() const {
-		const auto& start = getMinPosition();
-		const Math::Vector3d<T> length(getDiameter(), getDiameter(), getDiameter());
-		return Math::Space3d<T>(start, length);
-	}
 
 
 private:
-	Math::Vector3d<T> size;
 	T density;
 };
 
