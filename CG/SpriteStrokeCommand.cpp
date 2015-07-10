@@ -19,6 +19,15 @@ void SpriteStrokeCommand::onDraggingRight(const Vector3d<float>& v)
 	_doSurfaceConstruct = false;
 }
 
+void SpriteStrokeCommand::onWheel(const float delta)
+{
+	brush.move(toCoord3d(Vector3d<float>(0,0,delta)));
+	_doRealTimeBake = false;
+	_doSurfaceConstruct = false;
+
+}
+
+
 void SpriteStrokeCommand::onDraggingMiddle(const Vector3d<float>& v)
 {
 	brush.addSize(toCoord3d(toScreenCoord2d(v)));

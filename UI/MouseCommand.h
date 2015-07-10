@@ -39,6 +39,8 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src){};
 
+	virtual void onWheel(const float delta){};
+
 	//virtual void onMoving(const Math::Vector3d<float>& v){};
 
 	virtual bool doSurfaceConstruction() const { return false; }

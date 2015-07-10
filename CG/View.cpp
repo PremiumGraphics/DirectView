@@ -193,7 +193,17 @@ void View::OnMouse(wxMouseEvent& event)
 
 void View::OnMouseWheel(wxMouseEvent& e)
 {
-	int x = 10;
+	const auto dt = e.GetWheelDelta() / 1200.0f;
+	if (e.GetWheelRotation() > 0) {
+		model.onMouseWheel(dt);
+	}
+	else {
+		model.onMouseWheel(-dt);
+	}
+	draw(GetSize());
+	SwapBuffers();
+
+	//e.GetWheelDelta() 
 	/*if (e.MiddleIsDown()) {
 
 	}*/

@@ -28,6 +28,8 @@ public:
 
 	virtual void onDraggingMiddle(const Math::Vector3d<float>& src) override;
 
+	virtual void onWheel(const float delta) override;
+
 	//virtual void onLeftDoubleClicked() override { density *= -1.0f; }
 
 	//virtual bool doRealTimeBake() override { return _doRealTimeBake; }

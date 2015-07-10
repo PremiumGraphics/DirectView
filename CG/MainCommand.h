@@ -82,6 +82,11 @@ public:
 		postMouseEvent();
 	}
 
+	void onMouseWheel(const float delta){
+		mouse->onWheel(delta);
+		postMouseEvent();
+	}
+
 	void onLeftButtonDown() {
 		mouse->onLeftButtonDown();
 		postMouseEvent();
