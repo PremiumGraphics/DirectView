@@ -18,7 +18,7 @@ public:
 
 	~PointRenderer() = default;
 
-	void add(const Graphics::BlendBrush<float>& particle) override;
+	void add(const Graphics::Brush<float>& particle) override;
 
 	void add(const Graphics::Surface<float>& surface) override;
 

@@ -40,9 +40,9 @@ public:
 		this->size += s;
 	}
 
-	Math::Vector3d<T> getMinPosition() const { return Math::Vector3d<T>(center.getX() - radius, center.getY() - radius, center.getZ() - radius); }
+	Math::Vector3d<T> getMinPosition() const { return center - size*0.5; }
 
-	Math::Vector3d<T> getMaxPosition() const { return Math::Vector3d<T>(center.getX() + radius, center.getY() + radius, center.getZ() + radius); }
+	Math::Vector3d<T> getMaxPosition() const { return center + size*0.5; }
 
 	//Space3d<T> getSpace() const { return Space3d<T>( ) }
 
@@ -51,8 +51,7 @@ public:
 
 	Math::Space3d<T> getSpace() const {
 		const auto& start = getMinPosition();
-		const Math::Vector3d<T> length(getDiameter(), getDiameter(), getDiameter());
-		return Math::Space3d<T>(start, length);
+		return Math::Space3d<T>(start, size);
 	}
 
 
@@ -110,14 +109,53 @@ public:
 		return v * density;
 	}
 
-
-
 private:
 	T density;
 };
 
 template<typename T>
-using Brush3dVector = std::vector < BlendBrush<T> > ;
+class EraseBrush final : public Brush < T >
+{
+	EraseBrush() :
+		Brush(Math::Vector3d<T>(0, 0, 0)),
+		density(0.1f)
+	{}
+
+	explicit EraseBrush(const Math::Vector3d<T>& pos) :
+		Brush(pos, Math::Vector3d<T>(1, 1, 1)),
+		density(0.1f)
+	{}
+
+	EraseBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
+		Brush(pos, size),
+		density(0.1f)
+	{}
+
+	virtual void add(Math::Volume3d<float>& grid) const override {
+		const T radius = getSize().getX();
+		for (size_t x = 0; x < grid.getSizeX(); ++x) {
+			for (size_t y = 0; y < grid.getSizeY(); ++y) {
+				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
+					const auto& pos = grid.toCenterPosition(x, y, z);
+					if (getCenter().getDistanceSquared(pos) < radius * radius) {
+						grid.setValue(x, y, z, 0);
+					}
+					/*
+					metaball.getSpace();
+					const auto& pos = toCenterPosition(x, y, z);
+					*/
+				}
+			}
+		}
+	}
+
+};
+
+template<typename T>
+using BrushSPtr = std::shared_ptr < Brush<T> > ;
+
+template<typename T>
+using BrushSPtrVector = std::vector < BrushSPtr<T> > ;
 
 	}
 }

@@ -23,7 +23,7 @@ public:
 		surfaces.insert(surfaces.end(), rhs.surfaces.begin(), rhs.surfaces.end());
 	}
 
-	void add(const Graphics::BlendBrush<float>& b) {
+	void add(const Graphics::BrushSPtr<float>& b) {
 		brushes.push_back(b);
 	}
 
@@ -46,7 +46,7 @@ public:
 		surfaces.clear();
 	}
 
-	Brush3dVector<float> getBrushes() const { return brushes; }
+	BrushSPtrVector<float> getBrushes() const { return brushes; }
 
 	Math::Line3dVector<float> getLines() const { return lines; }
 
@@ -55,7 +55,7 @@ public:
 	Graphics::SurfaceSPtrList<float> getSurfaces() const { return surfaces; }
 
 private:
-	Brush3dVector<float> brushes;
+	BrushSPtrVector<float> brushes;
 	Math::Line3dVector<float> lines;
 	Math::Volume3dSPtrList<float> volumes;
 	Graphics::SurfaceSPtrList<float> surfaces;

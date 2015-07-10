@@ -161,12 +161,12 @@ private:
 	Shader::VolumeRenderer volumeRenderer;
 
 
-	void add(const Graphics::BlendBrush<float>& b) {
+	void add(const Graphics::BrushSPtr<float>& b) {
 		if (config.drawPoint) {
-			pointRenderer->add(b);
+			pointRenderer->add(*b);
 		}
 		if (config.drawWire) {
-			wireframeRenderer->add(b);
+			wireframeRenderer->add(*b);
 		}
 	}
 

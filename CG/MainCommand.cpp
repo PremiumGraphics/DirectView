@@ -86,7 +86,7 @@ void MainCommand::postMouseEvent()
 	if (mouse->doBakeParticlesToVolume()) {
 		const auto& particles = mouse->getBrushes();
 		for (const auto& p : particles) {
-			p.add(*volume);
+			p->add(*volume);
 			//volume->add(p.getPosition(), p.getSize().getX());
 		}
 	}

@@ -4,7 +4,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void PointRenderer::add(const BlendBrush<float>& particle) {
+void PointRenderer::add(const Brush<float>& particle) {
 	add(particle.getCenter());
 }
 

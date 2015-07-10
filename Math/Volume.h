@@ -78,6 +78,14 @@ public:
 		}
 	}
 
+	void setValue(const int x, const int y, const int z, const T v) {
+		grid.set(x, y, z, v);
+	}
+
+	T getValue(const int x, const int y, const int z) {
+		return grid.get(x, y, z);
+	}
+
 	std::vector<T> getValues() const {
 		std::vector<T> values;
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {

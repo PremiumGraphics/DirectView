@@ -51,7 +51,7 @@ public:
 
 	virtual Graphics::DisplayList getDisplayList() const { return Graphics::DisplayList(); }
 
-	virtual Graphics::Brush3dVector<float> getBrushes() const { return Graphics::Brush3dVector<float>(); }
+	virtual Graphics::BrushSPtrVector<float> getBrushes() const { return Graphics::BrushSPtrVector<float>(); }
 
 protected:
 	Math::Vector3d<float> toScreenCoord2d(const Math::Vector3d<float>& src) {

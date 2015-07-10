@@ -15,6 +15,7 @@ public:
 	SpriteStrokeCommand(Graphics::Camera<float>& camera ) :
 		MouseOperationCommand(camera)
 	{
+		brush = std::make_shared< Graphics::BlendBrush<float> >();
 		_doRealTimeBake = false;
 		//_doRealTimePreview = false;
 
@@ -38,10 +39,10 @@ public:
 
 	Graphics::DisplayList getDisplayList() const override;
 
-	Graphics::Brush3dVector<float> getBrushes() const override{ return{ brush }; }
+	Graphics::BrushSPtrVector<float> getBrushes() const override{ return{ brush }; }
 
 private:
-	Graphics::BlendBrush<float> brush;
+	Graphics::BrushSPtr<float> brush;
 
 	bool _doRealTimeBake;
 	bool _doSurfaceConstruct;
