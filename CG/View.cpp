@@ -12,7 +12,6 @@ using namespace Crystal::UI;
 
 
 BEGIN_EVENT_TABLE( View, wxGLCanvas )
-	EVT_MOUSEWHEEL(View::OnMouseWheel)
 	EVT_MOUSE_EVENTS( View::OnMouse )
 END_EVENT_TABLE()
 
@@ -28,8 +27,6 @@ model( model )
 //	bool b = IsDisplaySupported( attributes );
 
 	Connect(wxEVT_PAINT, wxPaintEventHandler(View::OnPaint));
-//	Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(View::OnKeyDown));
-//Connect( wxEVT_MOUSE_EVENTS, wxMouseEventHandler( View::onMouse ) );
 	Connect(wxEVT_SIZE, wxSizeEventHandler(View::OnSize));
 
 
@@ -41,6 +38,9 @@ model( model )
 
 	Connect(wxEVT_RIGHT_DOWN,	wxMouseEventHandler(View::OnRightDown));
 	Connect(wxEVT_RIGHT_UP,		wxMouseEventHandler(View::OnRightUp));
+
+	Connect(wxEVT_ENTER_WINDOW, wxMouseEventHandler(View::OnEnterWindow));
+	Connect(wxEVT_MOUSEWHEEL,	wxMouseEventHandler(View::OnMouseWheel));
 
 	model.buildRenderer();
 }
@@ -136,6 +136,11 @@ void View::OnRightUp(wxMouseEvent& e)
 	model.onRightButtonUp();
 	draw(GetSize());
 	SwapBuffers();
+}
+
+void View::OnEnterWindow(wxMouseEvent& e)
+{
+	SetFocus();
 }
 
 void View::OnMouse(wxMouseEvent& event)

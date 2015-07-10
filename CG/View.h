@@ -41,6 +41,8 @@ private:
 
 	void OnRightUp(wxMouseEvent& e);
 
+	void OnEnterWindow(wxMouseEvent& e);
+
 	//void OnMouse
 
 	void OnSize( wxSizeEvent& e );
