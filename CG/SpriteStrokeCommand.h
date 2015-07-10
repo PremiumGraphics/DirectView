@@ -21,6 +21,8 @@ public:
 
 	}
 
+	void setBrush(const Graphics::BrushSPtr<float>& b) { this->brush = b; }
+
 	~SpriteStrokeCommand() = default;
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;

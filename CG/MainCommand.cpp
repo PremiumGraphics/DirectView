@@ -74,6 +74,11 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		mouse = cameraOperation;
 	}
 	else if (ctrl == UIControl::SPRITE_STROKE) {
+		spriteStrokeCommand->setBrush(std::make_shared<BlendBrush<float>>());
+		mouse = spriteStrokeCommand;
+	}
+	else if (ctrl == UIControl::PARTICLE_ERASE) {
+		spriteStrokeCommand->setBrush(std::make_shared<EraseBrush<float>>());
 		mouse = spriteStrokeCommand;
 	}
 	else {

@@ -132,8 +132,6 @@ private:
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
 
-	Math::Vector3d<float> cursor;
-
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtr<float> surface;
 

@@ -116,19 +116,17 @@ private:
 template<typename T>
 class EraseBrush final : public Brush < T >
 {
+public:
 	EraseBrush() :
-		Brush(Math::Vector3d<T>(0, 0, 0)),
-		density(0.1f)
+		Brush(Math::Vector3d<T>(0, 0, 0))
 	{}
 
 	explicit EraseBrush(const Math::Vector3d<T>& pos) :
-		Brush(pos, Math::Vector3d<T>(1, 1, 1)),
-		density(0.1f)
+		Brush(pos, Math::Vector3d<T>(1, 1, 1))
 	{}
 
 	EraseBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
-		Brush(pos, size),
-		density(0.1f)
+		Brush(pos, size)
 	{}
 
 	virtual void add(Math::Volume3d<float>& grid) const override {

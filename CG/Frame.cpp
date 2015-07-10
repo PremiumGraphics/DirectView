@@ -181,7 +181,7 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 
 	const int spriteId = wxNewId();
 	const int lineId = wxNewId();
-	const int eraseId = wxNewId();
+	//const int eraseId = wxNewId();
 
 	bar->AddHybridButton(spriteId,		"Sprite", wxImage("../Resource/point.png"));
 	//bar->AddButton(eraseId,		"Erase", wxImage("../Resource/point.png"));
@@ -201,6 +201,9 @@ void Frame::createBrushPanel(wxRibbonPage* parent)
 	Connect(configId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCanvasConfig));
 	//Connect( ID_CREATE_VOLUME, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnCreateVolume));
 
+	const int eraseId = wxNewId();
+	bar->AddButton(eraseId, "Erase", wxImage("../Resource/grid.png"));
+	Connect(eraseId, wxEVT_RIBBONBUTTONBAR_CLICKED, wxRibbonButtonBarEventHandler(Frame::OnParticleErase));
 
 	//bar->AddButton(ID_BONE_MOVE, "Move", wxImage("../Resource/point.png"));
 	//bar->AddButton(ID_BONE_BAKE, "Bake", wxImage("../Resource/point.png"));
@@ -584,6 +587,7 @@ void Frame::OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e)
 
 void Frame::OnParticleErase(wxRibbonButtonBarEvent& e)
 {
+	model.setUIControl(Command::UIControl::PARTICLE_ERASE);
 	//model.setUIControl);
 }
 /*
