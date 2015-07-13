@@ -36,19 +36,48 @@ void MainCommand::clear()
 	//bakedSurfaces.clear();
 }
 
+#include "../IO/CGBFile.h"
+
 bool MainCommand::saveProject(const wxString& directory, const wxString& filename)
 {
 	using namespace tinyxml2;
+	std::string dstr;
+	for (size_t i = 0; i < directory.Length(); ++i) {
+		const char s = directory.GetChar(i);
+		dstr += s;
+	}
+	std::string fstr;
+	for (size_t i = 0; i < filename.Length(); ++i) {
+		const char s = filename.GetChar(i);
+		fstr += s;
+	}
 
-	const wxString metaFileName = directory + "\\" + filename + ".cgproj";
+
+	//file.save(dstr, fstr);
+
+	const std::string metaFileName = dstr + "\\" + fstr + ".cgbproj";
+
 
 	XMLDocument xml;
 	XMLDeclaration* decl = xml.NewDeclaration();
 	xml.InsertEndChild(decl);
-	const std::string str_ = metaFileName.ToStdString();
-	const char* str = str_.c_str();
-	xml.SaveFile(str);
+	XMLNode* root = xml.NewElement("root");
 
+	{
+		XMLElement* size = xml.NewElement("size");
+
+		size->SetAttribute("x", volume->getSizeX());
+		size->SetAttribute("y", volume->getSizeY());
+		size->SetAttribute("z", volume->getSizeZ());
+
+		root->InsertEndChild(size);
+	}
+	xml.InsertEndChild(root);
+
+
+	xml.SaveFile(metaFileName.c_str());
+
+	
 	return saveImages(directory, filename);
 }
 

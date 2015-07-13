@@ -6,6 +6,7 @@
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="DXFFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
+    <ClCompile Include="CGBFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h" />
@@ -14,5 +15,6 @@
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="PLYFile.h" />
+    <ClInclude Include="CGBFile.h" />
   </ItemGroup>
 </Project>
