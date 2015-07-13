@@ -12,6 +12,7 @@
     <ClCompile Include="SpriteStrokeCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -29,6 +30,7 @@
     <ClInclude Include="History.h">
       <Filter>Command</Filter>
     </ClInclude>
+    <ClInclude Include="FileIO.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Command">

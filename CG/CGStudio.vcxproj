@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="MainCommand.cpp" />
     <ClCompile Include="SpriteStrokeCommand.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Converter.h" />
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="MainCommand.h" />
