@@ -1,5 +1,7 @@
 #include "../Shader/GLee.h"
 
+#include "../ThirdParty/tinyxml2-master/tinyxml2.h"
+
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

@@ -301,7 +301,7 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 		//const auto& path = fname.GetPath(true);
 		//const auto& name = fname.GetName();
 
-	model.save(folder, "image");
+	model.saveProject(folder, "image");
 	//model.save(path, name);
 }
 

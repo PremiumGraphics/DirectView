@@ -36,12 +36,23 @@ void MainCommand::clear()
 	//bakedSurfaces.clear();
 }
 
-bool MainCommand::save(const wxString& filename)
+bool MainCommand::saveProject(const wxString& directory, const wxString& filename)
 {
-	return false;
+	using namespace tinyxml2;
+
+	const wxString metaFileName = directory + "\\" + filename + ".cgproj";
+
+	XMLDocument xml;
+	XMLDeclaration* decl = xml.NewDeclaration();
+	xml.InsertEndChild(decl);
+	const std::string str_ = metaFileName.ToStdString();
+	const char* str = str_.c_str();
+	xml.SaveFile(str);
+
+	return saveImages(directory, filename);
 }
 
-bool MainCommand::save(const wxString& directory, const wxString& filename)
+bool MainCommand::saveImages(const wxString& directory, const wxString& filename)
 {
 	const auto xSize = volume->getSizeX();
 	const auto ySize = volume->getSizeY();
