@@ -65,6 +65,8 @@ private:
 
 	void OnStrokeSpriteConfig(wxRibbonButtonBarEvent& e);
 
+	void OnBrushFill(wxRibbonButtonBarEvent& e);
+
 	void OnParticleErase(wxRibbonButtonBarEvent& e);
 
 	void OnCanvasConfig(wxRibbonButtonBarEvent& e);

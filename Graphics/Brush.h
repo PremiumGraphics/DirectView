@@ -12,7 +12,7 @@ class Brush {
 public:
 	Brush() = default;
 
-	Brush(const Math::Vector3d<T>& center) :
+	explicit Brush(const Math::Vector3d<T>& center) :
 		center(center),
 		size(1,1,1)
 	{}
@@ -84,7 +84,7 @@ public:
 	T getDensity() const { return density; }
 
 	virtual void add(Math::Volume3d<float>& grid) const override {
-		const T radius = getSize().getX();
+		const T radius = getSize().getX() * 0.5;
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
@@ -114,29 +114,37 @@ private:
 };
 
 template<typename T>
-class EraseBrush final : public Brush < T >
+class FillBrush final : public Brush < T >
 {
 public:
-	EraseBrush() :
-		Brush(Math::Vector3d<T>(0, 0, 0))
+	FillBrush() :
+		Brush(Math::Vector3d<T>(0, 0, 0)),
+		fillValue(0)
 	{}
 
-	explicit EraseBrush(const Math::Vector3d<T>& pos) :
-		Brush(pos, Math::Vector3d<T>(1, 1, 1))
+	explicit FillBrush(const T fillValue) :
+		Brush(Math::Vector3d<T>(0, 0, 0)),
+		fillValue(fillValue)
 	{}
 
-	EraseBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size) :
-		Brush(pos, size)
+	FillBrush(const Math::Vector3d<T>& pos, const T fillValue) :
+		Brush(pos, Math::Vector3d<T>(1, 1, 1), fillValue)
 	{}
+
+	FillBrush(const Math::Vector3d<T>& pos, const Math::Vector3d<T>& size, const T fillValue) :
+		Brush(pos, size, fillValue)
+	{}
+
+	T getFillValue() const { return fillValue; }
 
 	virtual void add(Math::Volume3d<float>& grid) const override {
-		const T radius = getSize().getX();
+		const T radius = getSize().getX() * 0.5;
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
 					const auto& pos = grid.toCenterPosition(x, y, z);
 					if (getCenter().getDistanceSquared(pos) < radius * radius) {
-						grid.setValue(x, y, z, 0);
+						grid.setValue(x, y, z, fillValue);
 					}
 					/*
 					metaball.getSpace();
@@ -147,6 +155,8 @@ public:
 		}
 	}
 
+private:
+	T fillValue;
 };
 
 template<typename T>

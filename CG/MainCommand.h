@@ -22,7 +22,8 @@ namespace Crystal {
 enum class UIControl {
 	CAMERA,
 	SPRITE_STROKE,
-	PARTICLE_ERASE,
+	BRUSH_ERASE,
+	BRUSH_FILL,
 };
 
 class MainCommand final : private UnCopyable

@@ -77,8 +77,12 @@ void MainCommand::setUIControl(const UIControl ctrl)
 		spriteStrokeCommand->setBrush(std::make_shared<BlendBrush<float>>());
 		mouse = spriteStrokeCommand;
 	}
-	else if (ctrl == UIControl::PARTICLE_ERASE) {
-		spriteStrokeCommand->setBrush(std::make_shared<EraseBrush<float>>());
+	else if (ctrl == UIControl::BRUSH_ERASE) {
+		spriteStrokeCommand->setBrush(std::make_shared<FillBrush<float>>(0));
+		mouse = spriteStrokeCommand;
+	}
+	else if (ctrl == UIControl::BRUSH_FILL) {
+		spriteStrokeCommand->setBrush(std::make_shared<FillBrush<float>>(1));
 		mouse = spriteStrokeCommand;
 	}
 	else {
