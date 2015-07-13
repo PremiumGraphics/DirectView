@@ -7,14 +7,21 @@ using namespace tinyxml2;
 
 bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
 {
-	XMLDocument xml;
-	XMLDeclaration* decl = xml.NewDeclaration();
-	xml.InsertEndChild(decl);
-	XMLNode* root = xml.NewElement("root");
-	xml.InsertEndChild(root);
+	auto xml = buildXML(volume);
+	xml->SaveFile(filename.c_str());
+	return true;//saveImages(directory, filename);
+}
+
+std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
+{
+	std::shared_ptr<XMLDocument> xml = std::make_shared< XMLDocument >();
+	XMLDeclaration* decl = xml->NewDeclaration();
+	xml->InsertEndChild(decl);
+	XMLNode* root = xml->NewElement("root");
+	xml->InsertEndChild(root);
 
 	{
-		XMLElement* size = xml.NewElement("res");
+		XMLElement* size = xml->NewElement("res");
 
 		size->SetAttribute("x", volume.getResolutions()[0]);
 		size->SetAttribute("y", volume.getResolutions()[1]);
@@ -24,7 +31,7 @@ bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
 	}
 
 	{
-		XMLElement* origin = xml.NewElement("origin");
+		XMLElement* origin = xml->NewElement("origin");
 
 		const auto& start = volume.getStart();
 		origin->SetAttribute("x", start.getX());
@@ -33,21 +40,7 @@ bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
 
 		root->InsertEndChild(origin);
 	}
+	
+	return xml;
 
-	/*
-	{
-		XMLElement* res = xml.NewElement("resolution");
-
-		const auto& res = volume.getRe
-	}
-	*/
-
-
-	xml.SaveFile(filename.c_str());
-
-	//xml.InsertFirstChild(root);
-
-
-
-	return true;//saveImages(directory, filename);
 }

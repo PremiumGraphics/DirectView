@@ -6,14 +6,20 @@
 #include "../Math/Volume.h"
 
 #include <string>
+#include <memory>
 
 namespace Crystal {
 	namespace IO {
 
-
 class CGBFile{
 public:
 	bool save(const std::string& filename, const Math::Volume3d<float>& volume);
+
+
+	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<float>& volume);
+
+private:
+
 
 };
 	}

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGBFileTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />
