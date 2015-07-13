@@ -10,6 +10,8 @@
 #include "../UI/VolumeDialog.h"
 #include "../UI/UserEntryDialog.h"
 
+#include "Converter.h"
+
 #include "wx/numdlg.h"
 
 using namespace Crystal::Math;
@@ -301,7 +303,7 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 		//const auto& path = fname.GetPath(true);
 		//const auto& name = fname.GetName();
 
-	model.saveProject(folder, "image");
+	model.save( UI::Converter::toStdString( folder ), std::string("image" ));
 	//model.save(path, name);
 }
 
@@ -312,12 +314,9 @@ void Frame::OnFileSaveAs( wxRibbonButtonBarEvent& e )
 
 void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 {
-	wxMessageBox("TODO: ファイルフォーマット作成中");
-
-	/*
 	const wxString& filename = wxFileSelector
 		(
-		wxT("Import"),
+		wxT("Open"),
 		wxEmptyString,
 		wxEmptyString,
 		wxEmptyString,
@@ -329,12 +328,11 @@ void Frame::OnFileOpen( wxRibbonButtonBarEvent& e )
 		return;
 	}
 
-	/*
-	const bool isOk = model.read( filename.ToStdString() );
+	const bool isOk = model.load(wxEmptyString, wxEmptyString);
+
 	if( !isOk ) {
 		wxMessageBox( wxT("読み込みに失敗しました。") );
 	}
-	*/
 }
 
 void Frame::OnCameraControl( wxRibbonButtonBarEvent& )

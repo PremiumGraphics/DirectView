@@ -39,22 +39,13 @@ void MainCommand::clear()
 #include "../IO/CGBFile.h"
 #include "Converter.h"
 
-bool MainCommand::saveProject(const wxString& directory, const wxString& filename)
+bool MainCommand::save(const std::string& directory, const std::string& filename)
 {
-	const std::string& dstr = UI::Converter::toStdString(directory);
-	const std::string& fstr = UI::Converter::toStdString(filename);
-
-	const std::string metaFileName = dstr + "\\" + fstr + ".cgbproj";
+	const std::string metaFileName = directory + "\\" + filename + ".cgbproj";
 
 	IO::CGBFile file;
 	file.save(metaFileName, *volume);
 
-	
-	return saveImages(directory, filename);
-}
-
-bool MainCommand::saveImages(const wxString& directory, const wxString& filename)
-{
 	const auto xSize = volume->getResolutions()[0];
 	const auto ySize = volume->getResolutions()[1];
 	const auto zSize = volume->getResolutions()[2];
@@ -76,9 +67,15 @@ bool MainCommand::saveImages(const wxString& directory, const wxString& filename
 
 bool MainCommand::load(const wxString& directory, const wxString& filename)
 {
+	IO::CGBFile file;
+	//file.load()
 	return false;
 }
 
+bool MainCommand::doImport(const std::string& filename)
+{
+	return false;
+}
 
 void MainCommand::doExport(const std::string& filename) const
 {

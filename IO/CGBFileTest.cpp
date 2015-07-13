@@ -6,7 +6,7 @@ using namespace tinyxml2;
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
-TEST(CGBFileTest, TestWrite)
+TEST(CGBFileTest, TestBuild)
 {
 	CGBFile file;
 	Space3d<float> space;
@@ -15,3 +15,10 @@ TEST(CGBFileTest, TestWrite)
 	std::shared_ptr< XMLDocument > doc = file.buildXML(v);
 	doc->Print();
 }
+
+/*
+TEST(CGBFileTest, TestParse)
+{
+
+}
+*/

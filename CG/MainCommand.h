@@ -33,9 +33,7 @@ public:
 
 	void clear();
 
-	bool saveProject(const wxString& directory, const wxString& filename);
-
-	bool saveImages(const wxString& directory, const wxString& filename);
+	bool save(const std::string& directory, const std::string& filename);
 
 	bool load(const wxString& directory, const wxString& filename);
 
@@ -48,6 +46,8 @@ public:
 	void setVolume(const Math::Volume3dSPtr<float>& v) { volume = v; }
 
 	void doExport(const std::string& filename) const;
+
+	bool doImport(const std::string& filename);
 
 	void buildRenderer() {
 		rendering.build();

@@ -11,15 +11,24 @@
 namespace Crystal {
 	namespace IO {
 
-class CGBFile{
+class XMLHelper {
+	static tinyxml2::XMLElement* create(tinyxml2::XMLDocument& xml,const std::string& str, const Math::Vector3d<float>& v);
+};
+
+class CGBFile final{
 public:
 	bool save(const std::string& filename, const Math::Volume3d<float>& volume);
 
-
 	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<float>& volume);
 
-private:
+	bool load(const std::string& filename, Math::Volume3d<float>& volume);
 
+	bool parse(tinyxml2::XMLDocument& xml, Math::Volume3d<float>& volume);
+
+	std::vector< std::string > getImageFileNames() const { return imageFileNames; }
+
+private:
+	std::vector< std::string > imageFileNames;
 
 };
 	}
