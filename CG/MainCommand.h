@@ -33,6 +33,12 @@ public:
 
 	void clear();
 
+	bool save(const wxString& filename);
+
+	bool save(const wxString& directory, const wxString& filename);
+
+	bool load(const wxString& directory, const wxString& filename);
+
 	void fitCamera() {
 		camera.init();
 	}

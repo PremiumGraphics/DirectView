@@ -281,16 +281,13 @@ void Frame::OnAbout( wxRibbonButtonBarEvent& )
 
 void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 {
-	wxMessageBox("TODO: ファイルフォーマット作成中");
-
-	/*
-	const wxString& filename = wxFileSelector
+	/*const wxString& filename = wxFileSelector
 		(
-		wxT("Import"),
+		wxT("Save"),
 		wxEmptyString,
 		wxEmptyString,
 		wxEmptyString,
-		"XML files (*.xml)|*.xml",
+		"CGVolume files (*.cgv)|*.cgv",
 		wxFD_SAVE
 		);
 
@@ -298,6 +295,14 @@ void Frame::OnFileSave( wxRibbonButtonBarEvent& )
 		return;
 	}
 	*/
+	const auto& folder = wxDirSelector("Save");
+
+		//wxFileName fname(filename);
+		//const auto& path = fname.GetPath(true);
+		//const auto& name = fname.GetName();
+
+	model.save(folder, "image");
+	//model.save(path, name);
 }
 
 void Frame::OnFileSaveAs( wxRibbonButtonBarEvent& e )

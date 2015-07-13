@@ -36,6 +36,38 @@ void MainCommand::clear()
 	//bakedSurfaces.clear();
 }
 
+bool MainCommand::save(const wxString& filename)
+{
+	return false;
+}
+
+bool MainCommand::save(const wxString& directory, const wxString& filename)
+{
+	const auto xSize = volume->getSizeX();
+	const auto ySize = volume->getSizeY();
+	const auto zSize = volume->getSizeZ();
+	for (size_t z = 0; z < zSize; ++z) {
+		wxImage image( xSize, ySize );
+		for (size_t x = 0; x < xSize; ++x) {
+			for (size_t y = 0; y < ySize; ++y) {
+				const auto v = volume->getValue(x, y, z) * 255;
+				image.SetRGB(x, y, v, 0, 0);
+			}
+		}
+		const wxString currentFileName = directory + "\\" + filename + std::to_string(z) +".png";
+		if (!image.SaveFile(currentFileName, wxBitmapType::wxBITMAP_TYPE_PNG)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool MainCommand::load(const wxString& directory, const wxString& filename)
+{
+	return false;
+}
+
+
 void MainCommand::doExport(const std::string& filename) const
 {
 	IO::STLFile file;
