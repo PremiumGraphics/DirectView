@@ -3,6 +3,8 @@
 
 #include "../ThirdParty/tinyxml2-master/tinyxml2.h"
 
+#include "../Math/Volume.h"
+
 #include <string>
 
 namespace Crystal {
@@ -11,7 +13,7 @@ namespace Crystal {
 
 class CGBFile{
 public:
-	bool save(const std::string& directory, const std::string& filename);
+	bool save(const std::string& filename, const Math::Volume3d<float>& volume);
 
 };
 	}

@@ -47,18 +47,12 @@ public:
 
 	Vector3d<T> getEnd() const { return space.getEnd(); }
 
-	unsigned int getSizeX() const { return sizes[0]; }
-
-	unsigned int getSizeY() const { return sizes[1]; }
-
-	unsigned int getSizeZ() const { return sizes[2]; }
-
-	std::array < unsigned int, 3 > getSizes() const { return sizes }
+	std::array < unsigned int, 3 > getResolutions() const { return sizes; }
 
 	Vector3d<T> getUnitLengths() const {
-		const auto x = space.getLengths().getX() / getSizeX();
-		const auto y = space.getLengths().getY() / getSizeY();
-		const auto z = space.getLengths().getZ() / getSizeZ();
+		const auto x = space.getLengths().getX() / getResolutions()[0];
+		const auto y = space.getLengths().getY() / getResolutions()[1];
+		const auto z = space.getLengths().getZ() / getResolutions()[2];
 		return Vector3d<T>(x, y, z);
 	}
 
@@ -68,9 +62,9 @@ public:
 	}
 
 	Vector3d<T> getNormalized(const size_t ix, const size_t iy, const size_t iz) const {
-		const auto x = ix / static_cast<T>(getSizeX()) * space.getLengths().getX();
-		const auto y = iy / static_cast<T>(getSizeY()) * space.getLengths().getY();
-		const auto z = iz / static_cast<T>(getSizeZ()) * space.getLengths().getZ();
+		const auto x = ix / static_cast<T>(getResolutions()[0]) * space.getLengths().getX();
+		const auto y = iy / static_cast<T>(getResolutions()[1]) * space.getLengths().getY();
+		const auto z = iz / static_cast<T>(getResolutions()[2]) * space.getLengths().getZ();
 		return Vector3d<T>(x, y, z) + getUnitLengths() * T(0.5);
 	}
 
@@ -117,9 +111,9 @@ private:
 	Index3d sizes;
 
 	std::array< unsigned int, 3 > clamp(const Index3d& i) const {
-		const auto ix = std::min<unsigned int>(getSizeX(), i[0]);
-		const auto iy = std::min<unsigned int>(getSizeY(), i[1]);
-		const auto iz = std::min<unsigned int>(getSizeZ(), i[2]);
+		const auto ix = std::min<unsigned int>(getResolutions()[0], i[0]);
+		const auto iy = std::min<unsigned int>(getResolutions()[1], i[1]);
+		const auto iz = std::min<unsigned int>(getResolutions()[2], i[2]);
 		return{ ix, iy, iz };
 	}
 };

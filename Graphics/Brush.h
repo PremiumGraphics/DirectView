@@ -84,10 +84,10 @@ public:
 	T getDensity() const { return density; }
 
 	virtual void add(Math::Volume3d<float>& grid) const override {
-		const T radius = getSize().getX() * 0.5;
-		for (size_t x = 0; x < grid.getSizeX(); ++x) {
-			for (size_t y = 0; y < grid.getSizeY(); ++y) {
-				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
+		const T radius = getSize().getX() * T(0.5);
+		for (size_t x = 0; x < grid.getResolutions()[0]; ++x) {
+			for (size_t y = 0; y < grid.getResolutions()[1]; ++y) {
+				for (size_t z = 0; z < grid.getResolutions()[2]; ++z) {
 					const auto& pos = grid.toCenterPosition(x, y, z);
 					if ( getCenter().getDistanceSquared(pos) < radius * radius) {
 						const auto v = getValue(pos);
@@ -139,9 +139,9 @@ public:
 
 	virtual void add(Math::Volume3d<float>& grid) const override {
 		const T radius = getSize().getX() * 0.5;
-		for (size_t x = 0; x < grid.getSizeX(); ++x) {
-			for (size_t y = 0; y < grid.getSizeY(); ++y) {
-				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
+		for (size_t x = 0; x < grid.getResolutions()[0]; ++x) {
+			for (size_t y = 0; y < grid.getResolutions()[1]; ++y) {
+				for (size_t z = 0; z < grid.getResolutions()[2]; ++z) {
 					const auto& pos = grid.toCenterPosition(x, y, z);
 					if (getCenter().getDistanceSquared(pos) < radius * radius) {
 						grid.setValue(x, y, z, fillValue);

@@ -41,31 +41,13 @@ void MainCommand::clear()
 
 bool MainCommand::saveProject(const wxString& directory, const wxString& filename)
 {
-	using namespace tinyxml2;
 	const std::string& dstr = UI::Converter::toStdString(directory);
 	const std::string& fstr = UI::Converter::toStdString(filename);
 
 	const std::string metaFileName = dstr + "\\" + fstr + ".cgbproj";
 
-
-	XMLDocument xml;
-	XMLDeclaration* decl = xml.NewDeclaration();
-	xml.InsertEndChild(decl);
-	XMLNode* root = xml.NewElement("root");
-
-	{
-		XMLElement* size = xml.NewElement("size");
-
-		size->SetAttribute("x", volume->getSizeX());
-		size->SetAttribute("y", volume->getSizeY());
-		size->SetAttribute("z", volume->getSizeZ());
-
-		root->InsertEndChild(size);
-	}
-	xml.InsertEndChild(root);
-
-
-	xml.SaveFile(metaFileName.c_str());
+	IO::CGBFile file;
+	file.save(metaFileName, *volume);
 
 	
 	return saveImages(directory, filename);
@@ -73,9 +55,9 @@ bool MainCommand::saveProject(const wxString& directory, const wxString& filenam
 
 bool MainCommand::saveImages(const wxString& directory, const wxString& filename)
 {
-	const auto xSize = volume->getSizeX();
-	const auto ySize = volume->getSizeY();
-	const auto zSize = volume->getSizeZ();
+	const auto xSize = volume->getResolutions()[0];
+	const auto ySize = volume->getResolutions()[1];
+	const auto zSize = volume->getResolutions()[2];
 	for (size_t z = 0; z < zSize; ++z) {
 		wxImage image( xSize, ySize );
 		for (size_t x = 0; x < xSize; ++x) {

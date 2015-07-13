@@ -366,6 +366,7 @@ void Frame::OnImport( wxRibbonButtonBarEvent& e )
 */
 }
 
+#include "Converter.h"
 
 void Frame::OnExport( wxRibbonButtonBarEvent& e )
 {
@@ -384,17 +385,8 @@ void Frame::OnExport( wxRibbonButtonBarEvent& e )
 		return;
 	}
 
-	//wxFileName fn( filename );
-	//wxString path = fn.GetPath( false );
-	//wxString name = fn.GetName() + "."  + fn.GetExt();
-	//const wxString& ext = fn.GetExt();
 
-	std::string str;
-	for (size_t i = 0; i < filename.Length(); ++i) {
-		const char s = filename.GetChar(i);
-		str += s;
-	}
-	model.doExport(str);
+	model.doExport(Converter::toStdString(filename));
 	/*
 	if( ext == "stl" || ext == "STL" ) {
 		const auto str = filename.ToStdString();

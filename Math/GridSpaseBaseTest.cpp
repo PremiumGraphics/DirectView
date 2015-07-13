@@ -5,14 +5,10 @@
 using namespace Crystal::Math;
 
 
-TEST(GridSpaceBaseTest, TestGetSizeX)
+TEST(GridSpaceBaseTest, TestGetResolutions)
 {
-	EXPECT_EQ( 1, GridSpaceBase<float>(Space3d<float>(), Index3d{ 1, 2, 3 } ).getSizeX() );
-}
-
-TEST(GridSpaceBaseTest, TestGetSizeY)
-{
-	EXPECT_EQ( 2, GridSpaceBase<float>(Space3d<float>(), Index3d{ 1, 2, 3 }).getSizeY());
+	EXPECT_EQ( 1, GridSpaceBase<float>(Space3d<float>(), Index3d{ 1, 2, 3 } ).getResolutions()[0] );
+	EXPECT_EQ( 2, GridSpaceBase<float>(Space3d<float>(), Index3d{ 1, 2, 3 } ).getResolutions()[1] );
 }
 
 TEST(GridSpaceBaseTest, TestGetUnitLengths)
