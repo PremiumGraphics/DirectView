@@ -37,23 +37,13 @@ void MainCommand::clear()
 }
 
 #include "../IO/CGBFile.h"
+#include "Converter.h"
 
 bool MainCommand::saveProject(const wxString& directory, const wxString& filename)
 {
 	using namespace tinyxml2;
-	std::string dstr;
-	for (size_t i = 0; i < directory.Length(); ++i) {
-		const char s = directory.GetChar(i);
-		dstr += s;
-	}
-	std::string fstr;
-	for (size_t i = 0; i < filename.Length(); ++i) {
-		const char s = filename.GetChar(i);
-		fstr += s;
-	}
-
-
-	//file.save(dstr, fstr);
+	const std::string& dstr = UI::Converter::toStdString(directory);
+	const std::string& fstr = UI::Converter::toStdString(filename);
 
 	const std::string metaFileName = dstr + "\\" + fstr + ".cgbproj";
 

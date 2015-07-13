@@ -6,7 +6,7 @@
 #include "../Graphics/ImageRGBA.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::CGS;
+using namespace Crystal::UI;
 
 wxColour Converter::toWxColor( const ColorRGB<float>& c )
 {
@@ -52,4 +52,14 @@ wxImage Converter::toWxImage( const ImageRGBA<unsigned char>& image )
 {
 	std::vector< unsigned char > values;
 	return wxImage( image.getWidth(), image.getHeight(), &( values.front() ) );
+}
+
+std::string Converter::toStdString(const wxString& src)
+{
+	std::string dest;
+	for (size_t i = 0; i < src.Length(); ++i) {
+		const char s = src.GetChar(i);
+		dest += s;
+	}
+	return dest;
 }
