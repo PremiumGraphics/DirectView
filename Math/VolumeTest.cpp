@@ -26,7 +26,7 @@ TYPED_TEST(Volume3dTest, TestGetStart)
 {
 	using GeomType = std::tuple_element<0,TypeParam>::type;
 	using ValueType = std::tuple_element<1, TypeParam>::type;
-	Volume3d<GeomType> gs;
+	Volume3d<GeomType, ValueType> gs;
 	EXPECT_EQ(Vector3d<GeomType>(0.0, 0.0, 0.0), gs.getStart());
 }
 
@@ -34,16 +34,17 @@ TYPED_TEST(Volume3dTest, TestToCells)
 {
 	using GeomType = std::tuple_element<0, TypeParam>::type;
 	using ValueType = std::tuple_element<1, TypeParam>::type;
-	EXPECT_EQ(1, Volume3d<GeomType>(Space3d<GeomType>::Unit(), Grid3d<GeomType>(2, 2, 2)).toCells().size());
+	Volume3d<GeomType, ValueType>  volume(Space3d<GeomType>::Unit(), Grid3d<ValueType>(2, 2, 2));
+	EXPECT_EQ(1, volume.toCells().size());
 }
 
 TYPED_TEST(Volume3dTest, TestGetOverlapped)
 {
 	using GeomType = std::tuple_element<0, TypeParam>::type;
 	using ValueType = std::tuple_element<1, TypeParam>::type;
-	Volume3d<GeomType> ss(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Grid3d<GeomType>(2, 2, 2));
-	const auto actual = ss.getOverlapped(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)));
-	EXPECT_EQ(Grid3d<GeomType>(1, 1, 1), actual.getGrid());
+	Volume3d<GeomType, ValueType>  volume(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Grid3d<ValueType>(2, 2, 2));
+	const auto actual = volume.getOverlapped(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)));
+	EXPECT_EQ(Grid3d<ValueType>(1, 1, 1), actual.getGrid());
 }
 
 TYPED_TEST(Volume3dTest, TestAdd)
@@ -54,3 +55,5 @@ TYPED_TEST(Volume3dTest, TestAdd)
 	Volume3d<GeomType, ValueType> rhs(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)), Grid3d<ValueType>(2, 2, 2));
 	lhs.add(rhs);
 }
+
+//TYPED_TEST(Volume3dTest, )

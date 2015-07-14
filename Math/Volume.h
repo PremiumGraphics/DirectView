@@ -34,7 +34,7 @@ private:
 };
 
 
-template< typename GeomType = float, typename ValueType = float >
+template< typename GeomType, typename ValueType = float>
 class Volume3d : public GridSpaceBase<GeomType> {
 public:
 	struct Attribute {
@@ -222,11 +222,11 @@ private:
 
 };
 
-template<typename T>
-using Volume3dSPtr = std::shared_ptr < Volume3d<T> > ;
+template<typename GeomType, typename ValueType>
+using Volume3dSPtr = std::shared_ptr < Volume3d<GeomType, ValueType> > ;
 
-template<typename T>
-using Volume3dSPtrList = std::list < Volume3dSPtr<T> > ;
+template<typename GeomType, typename ValueType>
+using Volume3dSPtrList = std::list < Volume3dSPtr<GeomType, ValueType> >;
 	}
 }
 

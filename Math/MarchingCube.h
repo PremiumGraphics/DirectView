@@ -15,11 +15,14 @@
 namespace Crystal {
 	namespace Math {
 
-template<typename GeomType = float, typename ValueType = float>
+template<typename GeomType, typename ValueType>
 class MarchingCube final : UnCopyable
 {
 public:
-	MarchingCube() = default;
+	MarchingCube() {
+		table.buildEdgeTable();
+		table.buildTriangleTable();
+	}
 
 	~MarchingCube() = default;
 
@@ -28,7 +31,7 @@ public:
 		return p1 + mu *(p2 - p1);
 	}
 
-	TriangleVector<GeomType> march(const Volume3d<GeomType>& ss, const ValueType isolevel) const
+	TriangleVector<GeomType> march(const Volume3d<GeomType, ValueType>& ss, const ValueType isolevel) const
 	{
 		TriangleVector<GeomType> triangles;
 		const auto& cells = ss.toBoundaryCells(isolevel);
@@ -39,7 +42,6 @@ public:
 		return std::move(triangles);
 	}
 
-
 	TriangleVector<GeomType> build(const Space3d<GeomType>& s, const std::array< ValueType, 8 >& val, const ValueType isolevel) const
 	{
 		TriangleVector<GeomType> triangles;
@@ -48,8 +50,6 @@ public:
 		const auto& vertices = getPositions(cubeindex, vs, val, isolevel);
 		return std::move( build(cubeindex, vertices) );
 	}
-
-
 
 private:
 	MarchingCubeTable table;
@@ -123,14 +123,6 @@ private:
 			vertices[11] = interpolate(isolevel, p[3], p[7], val[3], val[7]);
 		}
 		return vertices;
-	}
-
-
-public:
-	void buildTable() {
-		table.buildEdgeTable();
-		table.buildTriangleTable();
-
 	}
 
 };

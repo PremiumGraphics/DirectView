@@ -31,7 +31,7 @@ public:
 		lines.push_back(l);
 	}
 
-	void add(const Math::Volume3dSPtr<float>& v) {
+	void add(const Math::Volume3dSPtr<float, float>& v) {
 		volumes.push_back(v);
 	}
 
@@ -50,14 +50,14 @@ public:
 
 	Math::Line3dVector<float> getLines() const { return lines; }
 
-	Math::Volume3dSPtrList<float> getVolumes() const { return volumes; }
+	Math::Volume3dSPtrList<float, float> getVolumes() const { return volumes; }
 
 	Graphics::SurfaceSPtrList<float> getSurfaces() const { return surfaces; }
 
 private:
 	BrushSPtrVector<float> brushes;
 	Math::Line3dVector<float> lines;
-	Math::Volume3dSPtrList<float> volumes;
+	Math::Volume3dSPtrList<float, float> volumes;
 	Graphics::SurfaceSPtrList<float> surfaces;
 };
 	}

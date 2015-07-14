@@ -10,8 +10,6 @@ using namespace Crystal::Command;
 
 MainCommand::MainCommand()
 {
-	mc.buildTable();
-
 	Grid3d<float> grid(vConfig.resx, vConfig.resy, vConfig.resz);
 	//Volume3d<float> v(vConfig.space, grid);
 	volume = std::make_shared< Volume3d<float> >(vConfig.space, grid);

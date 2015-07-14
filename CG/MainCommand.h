@@ -43,7 +43,7 @@ public:
 
 	Graphics::Camera<float>* getCamera() { return &camera; }
 
-	void setVolume(const Math::Volume3dSPtr<float>& v) { volume = v; }
+	void setVolume(const Math::Volume3dSPtr<float, float>& v) { volume = v; }
 
 	void doExport(const std::string& filename) const;
 
@@ -130,7 +130,7 @@ public:
 private:
 
 	Graphics::Camera<float> camera;
-	Math::Volume3dSPtr<float> volume;
+	Math::Volume3dSPtr<float, float> volume;
 
 	RenderingCommand rendering;
 	Math::Volume3d<float>::Attribute vConfig;
@@ -139,7 +139,7 @@ private:
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
 	std::shared_ptr<UI::StrokeCommand> spriteStrokeCommand;
 
-	Math::MarchingCube<float> mc;
+	Math::MarchingCube<float, float> mc;
 	Graphics::SurfaceSPtr<float> surface;
 
 	Graphics::DisplayList dispList;
