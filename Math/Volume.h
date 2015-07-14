@@ -34,8 +34,8 @@ private:
 };
 
 
-template< typename T >
-class Volume3d : public GridSpaceBase<T> {
+template< typename GeomType = float, typename ValueType = float >
+class Volume3d : public GridSpaceBase<GeomType> {
 public:
 	struct Attribute {
 		Attribute(){
@@ -43,32 +43,32 @@ public:
 			resy = 20;
 			resz = 20;
 			//threshold = 0.5;
-			space = Space3d<T>(Math::Vector3d<T>(-1, -1, -1), Math::Vector3d<T>(2, 2, 2));
+			space = Space3d<GeomType>(Math::Vector3d<GeomType>(-1, -1, -1), Math::Vector3d<GeomType>(2, 2, 2));
 		}
 
 		unsigned int resx;
 		unsigned int resy;
 		unsigned int resz;
 		//double threshold; // 0.5
-		Space3d<T> space;
+		Space3d<GeomType> space;
 	};
 
 
 	Volume3d() :
-		Volume3d(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2) )
+		Volume3d(Space3d<GeomType>::Unit(), Grid3d<ValueType>(2, 2, 2) )
 	{}
 
-	Volume3d(const Space3d<T>& space_, const Grid3d<T>& grid) :
+	Volume3d(const Space3d<GeomType>& space_, const Grid3d<ValueType>& grid) :
 		GridSpaceBase( space_, grid.getSizes() ),
 		grid( grid )
 	{
 	}
 
 	Volume3d(const Attribute& attr) :
-		Volume3d(attr.space, Grid3d<T>(attr.resx, attr.resy, attr.resz))
+		Volume3d(attr.space, Grid3d<ValueType>(attr.resx, attr.resy, attr.resz))
 	{}
 
-	void setValue(const T v) {
+	void setValue(const ValueType v) {
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
@@ -78,16 +78,16 @@ public:
 		}
 	}
 
-	void setValue(const int x, const int y, const int z, const T v) {
+	void setValue(const int x, const int y, const int z, const ValueType v) {
 		grid.set(x, y, z, v);
 	}
 
-	T getValue(const int x, const int y, const int z) {
+	ValueType getValue(const int x, const int y, const int z) {
 		return grid.get(x, y, z);
 	}
 
-	std::vector<T> getValues() const {
-		std::vector<T> values;
+	std::vector<ValueType> getValues() const {
+		std::vector<ValueType> values;
 		for (size_t x = 0; x < grid.getSizeX(); ++x) {
 			for (size_t y = 0; y < grid.getSizeY(); ++y) {
 				for (size_t z = 0; z < grid.getSizeZ(); ++z) {
@@ -98,18 +98,17 @@ public:
 		return values;
 	}
 
-	Grid3d<T> getGrid() const { return grid; }
+	Grid3d<GeomType> getGrid() const { return grid; }
 
-
-	std::vector< VolumeCell3d<T, T> > toCells() const {
-		std::vector< VolumeCell3d<T, T> > cells;
+	std::vector< VolumeCell3d<GeomType, ValueType> > toCells() const {
+		std::vector< VolumeCell3d<GeomType, ValueType> > cells;
 
 		const auto& lengths = getUnitLengths();
-		const Space3d<T>& innerSpace = getSpace().offset(lengths);
-		const std::vector< Space3d<T> >& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
+		const auto& innerSpace = getSpace().offset(lengths);
+		const auto& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
 
 		//std::vector<std::array<8>> bs;
-		std::vector< std::array<T, 8 > > values;
+		std::vector< std::array<ValueType, 8 > > values;
 		for (size_t x = 0; x < grid.getSizeX() - 1; ++x) {
 			for (size_t y = 0; y < grid.getSizeY() - 1; ++y) {
 				for (size_t z = 0; z < grid.getSizeZ() - 1; ++z) {
@@ -122,22 +121,22 @@ public:
 
 		cells.reserve(values.size());
 		for (size_t i = 0; i < spaces.size(); ++i) {
-			VolumeCell3d<T, T> c( spaces[i], values[i]);
+			VolumeCell3d<GeomType, ValueType> c( spaces[i], values[i]);
 			cells.emplace_back(c);
 		}
 		return std::move(cells);
 	}
 
-	std::vector< VolumeCell3d<T, T> > toBoundaryCells(const T threshold) const {
-		std::vector< VolumeCell3d<T, T> > cells;
+	std::vector< VolumeCell3d<GeomType, ValueType> > toBoundaryCells(const ValueType threshold) const {
+		std::vector< VolumeCell3d<GeomType, ValueType> > cells;
 
 		const auto& lengths = getUnitLengths();
-		const Space3d<T>& innerSpace = getSpace().offset(lengths);
-		const std::vector< Space3d<T> >& ss = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
+		const auto& innerSpace = getSpace().offset(lengths);
+		const auto& ss = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
 
 		int i = 0;
-		std::vector< Space3d<T> > spaces;
-		std::vector< std::array<T, 8 > > values;
+		std::vector< Space3d<GeomType> > spaces;
+		std::vector< std::array<ValueType, 8 > > values;
 		for (size_t x = 0; x < grid.getSizeX() - 1; ++x) {
 			for (size_t y = 0; y < grid.getSizeY() - 1; ++y) {
 				for (size_t z = 0; z < grid.getSizeZ() - 1; ++z) {
@@ -154,30 +153,30 @@ public:
 
 		cells.reserve(values.size());
 		for (size_t i = 0; i < values.size(); ++i) {
-			VolumeCell3d<T, T> c(spaces[i], values[i]);
+			VolumeCell3d<GeomType, ValueType> c(spaces[i], values[i]);
 			cells.emplace_back(c);
 		}
 		return std::move(cells);
 	}
 
 
-	Volume3d getOverlapped(const Space3d<T>& rhs) const {
+	Volume3d getOverlapped(const Space3d<GeomType>& rhs) const {
 		return Volume3d(getOverlappedSpace(rhs), getOverlappedGrid(rhs));
 	}
 
-	Volume3d add(const Volume3d<T>& rhs) const {
+	Volume3d add(const Volume3d& rhs) const {
 		const Volume3d& ss = getOverlapped(rhs.getSpace());
 		ss.getGrid().add(rhs.getGrid());
 		return ss;
 	}
 
-	Volume3d sub(const Volume3d<T>& rhs) const {
+	Volume3d sub(const Volume3d& rhs) const {
 		const Volume3d& ss = getOverlapped(rhs.getSpace());
 		ss.getGrid().sub(rhs.getGrid());
 		return ss;
 	}
 
-	Volume3d& operator+=(const Volume3d<T>& rhs) {
+	Volume3d& operator+=(const Volume3d& rhs) {
 		for (size_t x = 0; x < getSizeX(); ++x) {
 			for (size_t y = 0; y < getSizeY(); ++y) {
 				for (size_t z = 0; z < getSizeZ(); ++z) {
@@ -189,7 +188,7 @@ public:
 		return (*this);
 	}
 
-	void add(const size_t x, const size_t y, const size_t z, const T v) {
+	void add(const size_t x, const size_t y, const size_t z, const ValueType v) {
 		const auto vv = grid.get(x, y, z) + v;
 		grid.set(x, y, z, vv);
 //		this->set(x, y, z, vv);
@@ -212,9 +211,9 @@ public:
 	*/
 
 private:
-	Grid3d<T> grid;
+	Grid3d<ValueType> grid;
 
-	Grid3d<T> getOverlappedGrid(const Space3d<T>& rhs) const {
+	Grid3d<ValueType> getOverlappedGrid(const Space3d<GeomType>& rhs) const {
 		const auto s = getSpace().getOverlapped(rhs);
 		const std::array<unsigned int, 3>& startIndex = toIndex(s.getStart());
 		const std::array<unsigned int, 3>& endIndex = toIndex(s.getEnd());
