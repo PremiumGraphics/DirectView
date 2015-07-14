@@ -19,7 +19,7 @@ MainCommand::MainCommand()
 	surface = std::make_shared< Surface<float> >();
 
 	cameraOperation = std::make_shared<UI::CameraOperationCommand>(camera);
-	spriteStrokeCommand = std::make_shared<SpriteStrokeCommand>(camera);
+	spriteStrokeCommand = std::make_shared<StrokeCommand>(camera);
 	//boneOperation = std::make_shared<UI::LineStrokeCommand>(camera, cursor);
 
 	mouse = cameraOperation;

@@ -9,10 +9,10 @@
 namespace Crystal {
 	namespace UI {
 
-class SpriteStrokeCommand : public MouseOperationCommand
+class StrokeCommand : public MouseOperationCommand
 {
 public:
-	SpriteStrokeCommand(Graphics::Camera<float>& camera ) :
+	StrokeCommand(Graphics::Camera<float>& camera ) :
 		MouseOperationCommand(camera)
 	{
 		brush = std::make_shared< Graphics::BlendBrush<float> >();
@@ -23,7 +23,7 @@ public:
 
 	void setBrush(const Graphics::BrushSPtr<float>& b) { this->brush = b; }
 
-	~SpriteStrokeCommand() = default;
+	~StrokeCommand() = default;
 
 	virtual void onDraggingLeft(const Math::Vector3d<float>& src) override;
 

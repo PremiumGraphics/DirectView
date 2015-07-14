@@ -125,7 +125,7 @@ public:
 
 	//void setParticleRadius(const float radius) { this->spriteStrokeCommand->particleAttribute.radius = radius; }
 
-	std::shared_ptr<UI::SpriteStrokeCommand> getSpriteStrokeCommand() const { return spriteStrokeCommand; }
+	std::shared_ptr<UI::StrokeCommand> getSpriteStrokeCommand() const { return spriteStrokeCommand; }
 
 private:
 
@@ -137,7 +137,7 @@ private:
 	std::shared_ptr<UI::MouseOperationCommand> mouse;
 
 	std::shared_ptr<UI::CameraOperationCommand> cameraOperation;
-	std::shared_ptr<UI::SpriteStrokeCommand> spriteStrokeCommand;
+	std::shared_ptr<UI::StrokeCommand> spriteStrokeCommand;
 
 	Math::MarchingCube<float> mc;
 	Graphics::SurfaceSPtr<float> surface;

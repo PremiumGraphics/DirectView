@@ -10,8 +10,6 @@
 #include <bitset>
 #include <vector>
 #include <array>
-#include "Bitmap.h"
-#include "BitSpace.h"
 #include "Volume.h"
 
 namespace Crystal {
@@ -27,26 +25,8 @@ public:
 
 	Vector3d<GeomType> interpolate(const ValueType isolevel, const Vector3d<GeomType>& p1, const Vector3d<GeomType>& p2, const ValueType valp1, const ValueType valp2) const {
 		const auto mu = (isolevel - valp1) / (valp2 - valp1);
-		/*
-		const auto x = p1.getX() + mu * (p2.getX() - p1.getX());
-		const auto y = p1.getY() + mu * (p2.getY() - p1.getY());
-		const auto z = p1.getZ() + mu * (p2.getZ() - p1.getZ());
-
-		return Vector3d< T > ( x, y, z );
-		*/
 		return p1 + mu *(p2 - p1);
 	}
-
-
-	/*
-	std::vector<Triangle<T> > build(const Bitmap3d<8>& bmp, const Space3d& space) {
-		for (size_t i = 0; i < bmp.size(); ++i) {
-			for (size_t j = 0; j > bmp[i].size(); ++j) {
-				const b bmp[i]
-			}
-		}
-	}
-	*/
 
 	TriangleVector<GeomType> march(const Volume3d<GeomType>& ss, const ValueType isolevel) const
 	{
