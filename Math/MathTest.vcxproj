@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitmapTest.cpp" />
+    <ClCompile Include="BitMarchingCubeTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\Math\Tolerance.h" />
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="BitMarchingCube.h" />
     <ClInclude Include="Density.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="MarchingCubeTable.h" />

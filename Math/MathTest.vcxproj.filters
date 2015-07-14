@@ -10,7 +10,6 @@
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="BitmapTest.cpp" />
-    <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
@@ -21,7 +20,15 @@
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="DensityTest.cpp" />
     <ClCompile Include="RangeTest.cpp" />
-    <ClCompile Include="MarchingCubeTableTest.cpp" />
+    <ClCompile Include="MarchingCubeTableTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingCubeTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="BitMarchingCubeTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -33,7 +40,6 @@
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Space.h" />
     <ClInclude Include="..\Math\Bitmap.h" />
-    <ClInclude Include="..\Math\MarchingCube.h" />
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="..\Math\Matrix.h" />
     <ClInclude Include="..\Math\Grid.h" />
@@ -45,6 +51,19 @@
     <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Parameter.h" />
-    <ClInclude Include="MarchingCubeTable.h" />
+    <ClInclude Include="..\Math\MarchingCube.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCubeTable.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="BitMarchingCube.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="MarchingCube">
+      <UniqueIdentifier>{eb10b78b-717d-41f3-86ae-f05a05201328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

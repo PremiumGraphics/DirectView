@@ -1,105 +1,12 @@
 #include "gtest/gtest.h"
 
-#include "../Math/MarchingCube.h"
+#include "BitMarchingCube.h"
 
 using namespace Crystal::Math;
 
-template<class T>
-class MarchingCubeTest : public testing::Test {
-};
-
-using TestTypes = ::testing::Types <
-	std::tuple< float, float >
-	//std::tuple< float, unsigned char >
->;
-
-
-TYPED_TEST_CASE(MarchingCubeTest, TestTypes);
-
-
-TYPED_TEST(MarchingCubeTest, TestBuild)
+TEST(BitMarchingCubeTest, Test)
 {
-	using GeomType = std::tuple_element<0, TypeParam>::type;
-	using ValueType = std::tuple_element<1, TypeParam>::type;
-
-	MarchingCube<GeomType> mc;
-	mc.buildTable();
-	//mc.Polygonise( )
-	const Vector3d<GeomType> v1(0, 0, 0 );
-	const Vector3d<GeomType> v2(10, 10, 10);
-	const Vector3d<GeomType> actual = mc.interpolate(0.5, v1, v2, 0.0, 1.0);
-	EXPECT_EQ( Vector3d<GeomType>({ 5, 5, 5 }), actual);
-}
-
-//
-//TEST(MarchingCubeTest, TestMarchFloats)
-//{
-//	MarchingCube<float> mc;
-//	mc.buildTable();
-//
-//	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-//
-//	const std::array< float, 8 > vs = { 0, 0, 0, 0, 1, 1, 1, 1 };
-//	const auto actual = mc.build( s, vs,0.5).getTriangles();
-//	EXPECT_EQ(2, actual.size());
-//
-//	{
-//		const auto actual = mc.build(s, { 0, 0, 0, 0, 0, 0, 0, 0 }, 0.5);
-//		EXPECT_EQ(0, actual.size());
-//	}
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 0, 0, 0, 0, 0 },0.5);
-//		EXPECT_EQ(1, actual.size());
-//	}
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 1, 0, 0, 0, 0, 0, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//
-//	/*
-//	{
-//		const auto actual = mc.Polygonise(p, { 1, 0, 1, 0, 0, 1, 0, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//	*/
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 0, 0, 0, 1, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//
-//	/*
-//	{
-//		const auto actual = mc.Polygonise(p, { 0, 1, 0, 1, 0, 0, 1, 0 }, 0.5);
-//		EXPECT_EQ(3, actual.size());
-//	}
-//	*/
-//
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 1, 0, 1, 1, 0 }, 0.5);
-//		EXPECT_EQ(4, actual.size());
-//	}
-//
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 1, 1, 1, 1, 1, 1, 1 }, 0.5);
-//		EXPECT_EQ(0, actual.size());
-//	}
-//
-//}
-
-
-/*
-TYPED_TEST(MarchingCubeTest, TestMarchBits)
-{
-	using GeomType = std::tuple_element<0, TypeParam>::type;
-	using ValueType = std::tuple_element<1, TypeParam>::type;
-
-	MarchingCube<GeomType> mc;
-	mc.buildTable();
+	BitMarchingCube<float> mc;
 
 	const Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
@@ -172,30 +79,26 @@ TYPED_TEST(MarchingCubeTest, TestMarchBits)
 	EXPECT_EQ(5, mc.build(s, std::bitset<8>("11010110")).size());
 
 
-//	EXPECT_EQ(4, mc.build(s, std::bitset<8>("11000111")).size());
+	//	EXPECT_EQ(4, mc.build(s, std::bitset<8>("11000111")).size());
 
 	EXPECT_EQ(2, mc.build(s, std::bitset<8>("11111100")).size());
 	EXPECT_EQ(1, mc.build(s, std::bitset<8>("11111101")).size());
 	EXPECT_EQ(1, mc.build(s, std::bitset<8>("11111110")).size());
 	EXPECT_EQ(0, mc.build(s, std::bitset<8>("11111111")).size());
 
+
 }
-*/
 
-
-
-TYPED_TEST(MarchingCubeTest, TestMarchScalarSpace)
+TEST(MarchingCubeTest, TestMarchBitSpace)
 {
-	using GeomType = std::tuple_element<0, TypeParam>::type;
-	using ValueType = std::tuple_element<1, TypeParam>::type;
+	using GeomType = float;
 
 
-	MarchingCube<GeomType> mc;
-	mc.buildTable();
+	BitMarchingCube<GeomType> mc;
 
 	Space3d<GeomType> s(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(10, 10, 10));
-	const Grid3d<ValueType> grid(2,2,2);
-	Volume3d<GeomType, ValueType> ss(s, grid);
+	const Bitmap3d bmp(2, 2, 2);
+	BitSpace3d<GeomType> bs(s, bmp);
 
-	mc.march(ss, 0.5);
+	EXPECT_EQ(0, mc.march(bs).size());
 }
