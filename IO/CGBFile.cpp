@@ -46,12 +46,31 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 	}
 
 	root->InsertEndChild( create(*xml, originStr, volume.getStart()) );
-	root->InsertEndChild( create(*xml, "length", volume.getSpace().getLengths()) );
+	root->InsertEndChild(create(*xml, "length", volume.getSpace().getLengths()));
 
+	{
+		XMLElement* e = xml->NewElement("image");
+		root->InsertEndChild(e);
+
+	}
 	//for (size_t i = 0; i < )
 	
 	return xml;
 
+}
+
+std::vector< std::string > CGBFile::getImageFileNames(const std::string& folderpath, const std::string& baseFileName, const Volume3d<float>& volume)
+{
+	std::vector< std::string > filenames;
+	for (size_t i = 0; i < volume.getResolutions()[2]; ++i) {
+		filenames.push_back(toImageFileName(folderpath, baseFileName, i));
+	}
+	return filenames;
+}
+
+std::string CGBFile::toImageFileName(const std::string& folderpath, const std::string& baseFileName, const int index)
+{
+	return folderpath + baseFileName + std::to_string(index);
 }
 
 bool CGBFile::load(const std::string& filename, Volume3d<float>& volume)
