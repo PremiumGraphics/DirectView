@@ -17,7 +17,8 @@ class Volume3dTest : public testing::Test {
 using TestTypes = ::testing::Types <
 	std::tuple< float, float >,
 	std::tuple< float, unsigned char >
-> ;
+>;
+
 
 TYPED_TEST_CASE(Volume3dTest, TestTypes);
 
@@ -43,10 +44,6 @@ TYPED_TEST(Volume3dTest, TestGetOverlapped)
 	Volume3d<GeomType> ss(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Grid3d<GeomType>(2, 2, 2));
 	const auto actual = ss.getOverlapped(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)));
 	EXPECT_EQ(Grid3d<GeomType>(1, 1, 1), actual.getGrid());
-
-	//BitSpace3d<GeomType> lhs(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Bitmap3d(2, 2, 2));
-	//BitSpace3d<GeomType> rhs(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)), Bitmap3d(2, 2, 2));
-	//EXPECT_EQ(Bitmap3d(1, 1, 1), lhs.getOverlapped(rhs).getBitmap());
 }
 
 TYPED_TEST(Volume3dTest, TestAdd)

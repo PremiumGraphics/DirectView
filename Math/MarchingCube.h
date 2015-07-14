@@ -17,7 +17,7 @@
 namespace Crystal {
 	namespace Math {
 
-template<typename T>
+template<typename GeomType = float, typename ValueType = float>
 class MarchingCube final : UnCopyable
 {
 public:
@@ -25,8 +25,8 @@ public:
 
 	~MarchingCube() = default;
 
-	Vector3d<T> interpolate(const T isolevel, const Vector3d<T>& p1, const Vector3d<T>& p2, const T valp1, const T valp2) const {
-		const T mu = (isolevel - valp1) / (valp2 - valp1);
+	Vector3d<GeomType> interpolate(const ValueType isolevel, const Vector3d<GeomType>& p1, const Vector3d<GeomType>& p2, const ValueType valp1, const ValueType valp2) const {
+		const auto mu = (isolevel - valp1) / (valp2 - valp1);
 		/*
 		const auto x = p1.getX() + mu * (p2.getX() - p1.getX());
 		const auto y = p1.getY() + mu * (p2.getY() - p1.getY());
@@ -48,9 +48,9 @@ public:
 	}
 	*/
 
-	TriangleVector<T> march(const Volume3d<T>& ss, const T isolevel) const
+	TriangleVector<GeomType> march(const Volume3d<GeomType>& ss, const ValueType isolevel) const
 	{
-		TriangleVector<T> triangles;
+		TriangleVector<GeomType> triangles;
 		const auto& cells = ss.toBoundaryCells(isolevel);
 		for (const auto& c : cells) {
 			const auto& ts = build(c.getSpace(), c.getValues(), isolevel);
@@ -60,19 +60,19 @@ public:
 	}
 
 
-	TriangleVector<T> build(const Space3d<T>& s, const std::array< T, 8 >& val, const T isolevel) const
+	TriangleVector<GeomType> build(const Space3d<GeomType>& s, const std::array< ValueType, 8 >& val, const ValueType isolevel) const
 	{
-		TriangleVector<T> triangles;
-		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
+		TriangleVector<GeomType> triangles;
+		const std::array< Vector3d<GeomType>, 8 >& vs = s.toArray();
 		const int cubeindex = getCubeIndex( val, isolevel );
 		const auto& vertices = getPositions(cubeindex, vs, val, isolevel);
 		return std::move( build(cubeindex, vertices) );
 	}
 
-	TriangleVector<T> march(const BitSpace3d<T>& bs)
+	TriangleVector<GeomType> march(const BitSpace3d<GeomType>& bs)
 	{
-		TriangleVector<T> triangles;
-		const std::vector< BitCell3d<T> >& cells = bs.toCells();
+		TriangleVector<GeomType> triangles;
+		const std::vector< BitCell3d<GeomType> >& cells = bs.toCells();
 		for (const auto c : cells) {
 			const auto ts = build(c.getSpace(), c.getValues());
 			triangles.insert(triangles.end(), ts.begin(), ts.end());
@@ -80,9 +80,9 @@ public:
 		return triangles;
 	}
 
-	TriangleVector<T> build(const Space3d<T>& s, const std::bitset< 8 >& bit ) const
+	TriangleVector<GeomType> build(const Space3d<GeomType>& s, const std::bitset< 8 >& bit ) const
 	{
-		const std::array< Vector3d<T>, 8 >& vs = s.toArray();
+		const std::array< Vector3d<GeomType>, 8 >& vs = s.toArray();
 		const int& cubeindex = bit.to_ulong();//getCubeIndex(val, isolevel);
 		const auto& vertices = getPositions( cubeindex, vs );
 		return std::move( build(cubeindex, vertices) );
@@ -93,24 +93,24 @@ private:
 	std::array< std::bitset<12>, 256 > edgeTable;
 	std::vector< std::array< int, 16 > > triTable;
 
-	TriangleVector<T> build(const int cubeindex, const std::array<Vector3d<T>, 12>& vertices) const {
-		TriangleVector<T> triangles;
+	TriangleVector<GeomType> build(const int cubeindex, const std::array<Vector3d<GeomType>, 12>& vertices) const {
+		TriangleVector<GeomType> triangles;
 		for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 			const auto& v1 = vertices[triTable[cubeindex][i]];
 			const auto& v2 = vertices[triTable[cubeindex][i + 1]];
 			const auto& v3 = vertices[triTable[cubeindex][i + 2]];
-			const Triangle<T> t(v1, v2, v3);
+			const Triangle<GeomType> t(v1, v2, v3);
 			triangles.emplace_back(t);
 		}
 		return std::move(triangles);
 	}
 
-	Vector3d<T> getCenter(const Vector3d<T>& p1, const Vector3d<T>& p2) const {
+	Vector3d<GeomType> getCenter(const Vector3d<GeomType>& p1, const Vector3d<GeomType>& p2) const {
 		return p1 * 0.5 + p2 * 0.5;
 	}
 
 
-	int getCubeIndex(const std::array< T, 8 >& val, const T isolevel) const {
+	int getCubeIndex(const std::array< ValueType, 8 >& val, const ValueType isolevel) const {
 		std::bitset<8> bit;
 		if (val[0] < isolevel) { bit.set(0); }
 		if (val[1] < isolevel) { bit.set(1); }
@@ -123,8 +123,8 @@ private:
 		return static_cast<int>( bit.to_ulong() );
 	}
 
-	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p) const {
-		std::array< Vector3d<T>, 12 > vertices;
+	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<ValueType>, 8 > p) const {
+		std::array< Vector3d<GeomType>, 12 > vertices;
 //		if (edgeTable[cubeindex] & 1) {
 		if (edgeTable[cubeindex][0] ) {
 			vertices[0] = getCenter(p[0], p[1]);
@@ -167,8 +167,8 @@ private:
 	}
 
 
-	std::array< Vector3d<T>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<T>, 8 > p, const std::array< T, 8 >& val, const T isolevel) const {
-		std::array< Vector3d<T>, 12 > vertices;
+	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<GeomType>, 8 > p, const std::array< ValueType, 8 >& val, const ValueType isolevel) const {
+		std::array< Vector3d<GeomType>, 12 > vertices;
 		if (edgeTable[cubeindex][0]) {
 			vertices[0] = interpolate(isolevel, p[0], p[1], val[0], val[1]);
 		}
