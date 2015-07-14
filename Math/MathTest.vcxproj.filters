@@ -44,5 +44,6 @@
     <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="MarchingCubeTable.h" />
   </ItemGroup>
 </Project>

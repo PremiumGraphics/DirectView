@@ -51,6 +51,7 @@
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="Density.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Volume.h" />
