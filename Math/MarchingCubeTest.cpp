@@ -4,15 +4,31 @@
 
 using namespace Crystal::Math;
 
-TEST(MarchingCubeTest, TestBuild)
+template<class T>
+class MarchingCubeTest : public testing::Test {
+};
+
+using TestTypes = ::testing::Types <
+	std::tuple< float, float >
+	//std::tuple< float, unsigned char >
+>;
+
+
+TYPED_TEST_CASE(MarchingCubeTest, TestTypes);
+
+
+TYPED_TEST(MarchingCubeTest, TestBuild)
 {
-	MarchingCube<float> mc;
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+	MarchingCube<GeomType> mc;
 	mc.buildTable();
 	//mc.Polygonise( )
-	const Vector3d<float> v1(0, 0, 0 );
-	const Vector3d<float> v2(10, 10, 10);
-	const Vector3d<float> actual = mc.interpolate(0.5, v1, v2, 0.0, 1.0);
-	EXPECT_EQ( Vector3d<float>({ 5, 5, 5 }), actual);
+	const Vector3d<GeomType> v1(0, 0, 0 );
+	const Vector3d<GeomType> v2(10, 10, 10);
+	const Vector3d<GeomType> actual = mc.interpolate(0.5, v1, v2, 0.0, 1.0);
+	EXPECT_EQ( Vector3d<GeomType>({ 5, 5, 5 }), actual);
 }
 
 //
@@ -76,9 +92,12 @@ TEST(MarchingCubeTest, TestBuild)
 //}
 
 
-TEST(MarchingCubeTest, TestMarchBits)
+TYPED_TEST(MarchingCubeTest, TestMarchBits)
 {
-	MarchingCube<float> mc;
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+	MarchingCube<GeomType> mc;
 	mc.buildTable();
 
 	/*
@@ -174,27 +193,35 @@ TEST(MarchingCubeTest, TestMarchBits)
 
 }
 
-TEST(MarchingCubeTest, TestMarchBitSpace)
+TYPED_TEST(MarchingCubeTest, TestMarchBitSpace)
 {
-	MarchingCube<float> mc;
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+
+	MarchingCube<GeomType> mc;
 	mc.buildTable();
 
-	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(10, 10, 10));
+	Space3d<GeomType> s(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(10, 10, 10));
 	const Bitmap3d bmp(2, 2, 2);
-	BitSpace3d<float> bs(s, bmp);
+	BitSpace3d<GeomType> bs(s, bmp);
 
 	EXPECT_EQ( 0, mc.march(bs).size() );
 }
 
 
-TEST(MarchingCubeTest, TestMarchScalarSpace)
+TYPED_TEST(MarchingCubeTest, TestMarchScalarSpace)
 {
-	MarchingCube<float> mc;
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+
+	MarchingCube<GeomType> mc;
 	mc.buildTable();
 
-	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(10, 10, 10));
-	const Grid3d<float> grid(2,2,2);
-	Volume3d<float> ss(s, grid);
+	Space3d<GeomType> s(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(10, 10, 10));
+	const Grid3d<ValueType> grid(2,2,2);
+	Volume3d<GeomType, ValueType> ss(s, grid);
 
 	mc.march(ss, 0.5);
 }
