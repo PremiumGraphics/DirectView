@@ -3,37 +3,52 @@
 #include "../Math/Volume.h"
 #include "Density.h"
 
+#include <tuple>
+
 using namespace Crystal::Math;
 
-TEST(GridSpace3dTest, TestGetStart)
+template<class T>
+class Volume3dTest : public testing::Test {
+};
+
+//using GeomTypes = ::testing::Types < float > ;
+using ValueTypes = ::testing::Types < unsigned char > ;
+
+TYPED_TEST_CASE(Volume3dTest, ValueTypes);
+
+TYPED_TEST(Volume3dTest, TestGetStart)
 {
-	using T =float;
-	Volume3d<T> gs;
-	EXPECT_EQ(Vector3d<T>(0, 0, 0), gs.getStart());
+	using GeomType = float;
+	using ValueType = TypeParam;
+	Volume3d<GeomType> gs;
+	EXPECT_EQ(Vector3d<GeomType>(0, 0, 0), gs.getStart());
 }
 
-TEST(GridSpace3dTest, TestToCells)
+TYPED_TEST(Volume3dTest, TestToCells)
 {
-	using T = float;
-	EXPECT_EQ( 1, Volume3d<T>(Space3d<T>::Unit(), Grid3d<T>(2, 2, 2)).toCells().size() );
+	using GeomType = float;
+	using ValueType = TypeParam;
+	EXPECT_EQ(1, Volume3d<GeomType>(Space3d<GeomType>::Unit(), Grid3d<GeomType>(2, 2, 2)).toCells().size());
 }
 
-TEST(GridSpace3dTest, TestGetOverlapped)
+TYPED_TEST(Volume3dTest, TestGetOverlapped)
 {
-	using T = float;
-	Volume3d<T> ss(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Grid3d<T>(2, 2, 2));
-	const auto actual = ss.getOverlapped(Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(2, 2, 2)));
-	EXPECT_EQ(Grid3d<T>(1, 1, 1), actual.getGrid());
+	using GeomType = float;
+	using ValueType = TypeParam;
+	Volume3d<GeomType> ss(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Grid3d<GeomType>(2, 2, 2));
+	const auto actual = ss.getOverlapped(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)));
+	EXPECT_EQ(Grid3d<GeomType>(1, 1, 1), actual.getGrid());
 
-	//BitSpace3d<T> lhs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
-	//BitSpace3d<T> rhs(Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	//BitSpace3d<GeomType> lhs(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Bitmap3d(2, 2, 2));
+	//BitSpace3d<GeomType> rhs(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)), Bitmap3d(2, 2, 2));
 	//EXPECT_EQ(Bitmap3d(1, 1, 1), lhs.getOverlapped(rhs).getBitmap());
 }
 
-TEST(GridSpace3dTest, TestAdd)
+TYPED_TEST(Volume3dTest, TestAdd)
 {
-	using T = float;
-	Volume3d<T> lhs(Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2)), Grid3d<T>(2, 2, 2));
-	Volume3d<T> rhs(Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(2, 2, 2)), Grid3d<T>(2, 2, 2));
+	using GeomType = float;
+	using ValueType = TypeParam;
+	Volume3d<GeomType, ValueType> lhs(Space3d<GeomType>(Vector3d<GeomType>(0, 0, 0), Vector3d<GeomType>(2, 2, 2)), Grid3d<ValueType>(2, 2, 2));
+	Volume3d<GeomType, ValueType> rhs(Space3d<GeomType>(Vector3d<GeomType>(1, 1, 1), Vector3d<GeomType>(2, 2, 2)), Grid3d<ValueType>(2, 2, 2));
 	lhs.add(rhs);
 }

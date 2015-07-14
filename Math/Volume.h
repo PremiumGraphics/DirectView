@@ -11,11 +11,11 @@
 namespace Crystal {
 	namespace Math {
 
-template< typename T, typename ValueType >
+template< typename GeomType, typename ValueType >
 class VolumeCell3d
 {
 public:
-	VolumeCell3d(const Space3d<T>& space, const std::array< ValueType, 8>& values) :
+	VolumeCell3d(const Space3d<GeomType>& space, const std::array< ValueType, 8>& values) :
 		space(space),
 		values(values)
 	{}
@@ -24,12 +24,12 @@ public:
 
 	//std::array<Vector3d<T>, 8> getPositions() const { return }
 
-	Space3d<T> getSpace() const { return space; }
+	Space3d<GeomType> getSpace() const { return space; }
 
 	std::array< ValueType, 8 > getValues() const { return values; }
 
 private:
-	Space3d<T> space;
+	Space3d<GeomType> space;
 	std::array< ValueType, 8> values;
 };
 
@@ -98,7 +98,7 @@ public:
 		return values;
 	}
 
-	Grid3d<GeomType> getGrid() const { return grid; }
+	Grid3d<ValueType> getGrid() const { return grid; }
 
 	std::vector< VolumeCell3d<GeomType, ValueType> > toCells() const {
 		std::vector< VolumeCell3d<GeomType, ValueType> > cells;
