@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="MainCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="LineStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneStrokeCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="MainCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="LineStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneStrokeCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CGStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resource\quad.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\circle.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\box.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\triangle.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\cylinder.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-X-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-Y-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resource\3D-Z-Axis-Rotation.png">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\checked.xpm">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="Resource\unchecked.xpm">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="resource">
+      <UniqueIdentifier>{88270611-4627-4aec-93b2-a83369b88da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{89736a60-d1ca-432d-ac77-dc886e4963ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
